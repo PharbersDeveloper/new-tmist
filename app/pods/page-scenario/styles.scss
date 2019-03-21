@@ -1,0 +1,14 @@
+.page-scenario {
+	padding: 3*$spacing;
+	height: calc(100% - 64px);
+	background-color: lightgray;
+	overflow: auto;
+
+	.scenario-header {
+		flex: 0 0 100px;
+	}
+
+	.tabs-container {
+		flex: 1;
+	}
+}

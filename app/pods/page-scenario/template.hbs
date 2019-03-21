@@ -1,0 +1,37 @@
+{{#bp-layout direction="col" local-class="page-scenario"}}
+	{{#bp-page-header class="mb-4" local-class='scenario-header' as |ph|}}
+		{{#ph.body as |body|}}
+			{{#body.left as |left|}}
+				{{#left.item}}
+					项目名称
+				{{/left.item}}
+			{{/body.left}}
+			{{#body.right}}
+				{{#bp-button }}保存{{/bp-button}}
+				{{#bp-button type='primary'}}提交执行{{/bp-button}}
+			{{/body.right}}
+		{{/ph.body}}
+	{{/bp-page-header}}
+	{{#bp-tabs local-class="tabs-container" as |tabs|}}
+		{{#tabs.tablist as |list|}}
+			<li class="nav-item">
+				{{#list.link-to 'page-scenario.business'
+				classNames='nav-link'
+				}}业务决策{{/list.link-to}}
+			</li>
+			<li class="nav-item">
+				{{#list.link-to 'page-scenario.management'
+				classNames='nav-link'
+				}}管理决策
+				{{/list.link-to}}
+			</li>
+			<li class="nav-item">
+				{{#list.link-to 'page-scenario.reference'
+				classNames='nav-link'
+				}}参考信息
+				{{/list.link-to}}
+			</li>
+		{{/tabs.tablist}}
+		{{outlet}}
+	{{/bp-tabs}}
+{{/bp-layout}}

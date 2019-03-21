@@ -1,0 +1,20 @@
+.management-container {
+	height: calc(100% - 25px);
+
+	.management-tabs {
+		flex: 0 0 80px;
+	}
+
+	.management-content {
+		flex: 1;
+
+		.infos {
+			flex: 1;
+		}
+
+		.actions {
+			flex: 2;
+		}
+
+	}
+}

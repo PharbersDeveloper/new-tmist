@@ -1,0 +1,26 @@
+{{#bp-layout direction="col" local-class="management-container"}}
+	{{#bp-layout main="center" classNames="py-4" local-class="management-tabs"}}
+		{{#bp-button-group
+			value=groupValue 
+			type="radio" 
+			onChange=(action (mut groupValue)) as |bg|}}
+			{{#bg.button type="default" value=0}}经理时间管理{{/bg.button}}
+			{{#bg.button type="default" value=1}}行动点数分配{{/bg.button}}
+		{{/bp-button-group}}
+	{{/bp-layout}}
+	{{#bp-layout main="between" local-class="management-content"}}
+		<div local-class="infos" class="mr-4 bg-white">
+			<h3>经理剩余时间</h3>
+			<h3>团队及代表能力情况</h3>
+		</div>
+		{{#if (bp-eq groupValue 0)}}
+			<div local-class="actions manage" class="bg-white">
+				<h3>management Time </h3>
+			</div>
+		{{else}}
+			<div local-class="actions allot-point" class=" bg-white">
+				<h3>action Point</h3>
+			</div>
+		{{/if}}
+	{{/bp-layout}}
+{{/bp-layout}}
