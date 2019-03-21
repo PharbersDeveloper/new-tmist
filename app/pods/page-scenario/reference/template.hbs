@@ -1,1 +1,95 @@
-<h2>reference</h2>
+{{#bp-layout direction="col" local-class="reference-container"}}
+	{{#bp-layout main="center" classNames="py-4" local-class="reference-tabs"}}
+		{{#bp-button-group
+			value=groupValue 
+			type="radio" 
+			onChange=(action (mut groupValue)) as |bg|}}
+			{{#bg.button type="default" value=0 }}产品竞品信息{{/bg.button}}
+			{{#bg.button type="default" value=1}}医院基本信息{{/bg.button}}
+			{{#bg.button type="default" value=2}}团队成员信息{{/bg.button}}
+			{{#bg.button type="default" value=3}}历史部署情况{{/bg.button}}
+		{{/bp-button-group}}
+	{{/bp-layout}}
+	{{#bp-layout main="between" local-class="reference-content"}}
+		{{#if (bp-eq groupValue 0)}}
+			<div local-class="products-container">
+				<div local-class="trend">
+					<h3 local-class="title">产品份额竞争趋势</h3>
+					<div local-class="trend-line"></div>
+				</div>
+				{{#each model.goodsConfig as |item|}}
+					<div local-class="product">
+						<h3 local-class="title">{{bp-icon icon='down'}}
+							{{item.productConfig.productType}}
+							{{item.productConfig.product.name}} -
+							{{item.productConfig.product.generalName}}
+						</h3>
+						{{#bp-layout local-class="product-content" main="between"}}
+							{{#bp-layout main="between"}}
+								{{#each item.productConfig.product.images as |item|}}
+									<img width="133" height="133" src={{item.img}} alt="">
+								{{/each}}
+								<div local-class="prod-info">
+								</div>
+								{{#bp-layout direction="col"}}
+									<p>
+										<span>上市时间</span>
+										<span>{{item.productConfig.launchTime}}</span>
+									</p>
+									<p>
+										<span>药品特点</span>
+										<span>{{item.productConfig.productFeature}}</span>
+									</p>
+									<p>
+										<span>治疗领域</span>
+										<span>{{item.productConfig.treatmentArea}}</span>
+									</p>
+									<p><span>目标科室</span><span>time</span></p>
+								{{/bp-layout}}
+							{{/bp-layout}}
+							{{#bp-layout direction="col" main="between"}}
+								{{#bp-layout local-class="property prod-property"}}
+									{{#bp-layout direction="col"}}
+										<span>中</span><span>性价比</span>
+									{{/bp-layout}}
+									{{#bp-layout direction="col"}}
+										<span>中</span><span>安全性</span>
+									{{/bp-layout}}
+									{{#bp-layout direction="col"}}
+										<span>中</span><span>有效性</span>
+									{{/bp-layout}}
+									{{#bp-layout direction="col"}}
+										<span>中</span><span>方便性</span>
+									{{/bp-layout}}
+								{{/bp-layout}}
+								{{#bp-layout local-class="price prod-property"}}
+									{{#bp-layout direction="col"}}
+										<span>{{item.productConfig.priceType}}
+											{{item.productConfig.price}}</span>
+										<span>公司考核价</span>
+									{{/bp-layout}}
+									{{#bp-layout direction="col"}}
+										<span>中</span><span>单位成本价</span>
+									{{/bp-layout}}
+								{{/bp-layout}}
+								{{#bp-layout local-class="manufacturer prod-property"}}
+								{{/bp-layout}}
+							{{/bp-layout}}
+						{{/bp-layout}}
+					</div>
+				{{/each}}
+				{{!-- {{#each model.productConfig as |item|}}
+					<div local-class="product">
+						<h3 local-class="title">{{bp-icon icon='down'}}{{item.productType}}</h3>
+					</div>
+				{{/each}} --}}
+			</div>
+		{{else if (bp-eq groupValue 1)}}
+			<h3>医院基本信息</h3>
+		{{else if (bp-eq groupValue 2)}}
+			<h3>团队成员信息</h3>
+		{{else}}
+			<h3>历史部署情况</h3>
+		{{/if}}
+	{{/bp-layout}}
+{{/bp-layout}}

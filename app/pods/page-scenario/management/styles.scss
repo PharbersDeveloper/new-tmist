@@ -10,10 +10,58 @@
 
 		.infos {
 			flex: 1;
+
+			.title,
+			&~.actions .title {
+				margin: 0;
+				height: 52px;
+				line-height: 52px;
+				@extend %p-primary;
+			}
+
+			.manager-infos {
+				.pie {
+					height: 192px;
+				}
+			}
+
+			.team-infos {
+				.content {
+					height: 425px;
+
+				}
+			}
 		}
 
-		.actions {
+		.actions,
+			{
 			flex: 2;
+
+			.actions-content {
+				&.business-time {
+					.content {
+						height: 152px;
+					}
+				}
+			}
+
+			.allot-point-content {
+				table {
+					th {
+						@extend %p-small;
+					}
+
+					th:first-child {
+						min-width: 80px;
+
+					}
+
+					td {
+						@extend %p-primary;
+						vertical-align: middle;
+					}
+				}
+			}
 		}
 
 	}

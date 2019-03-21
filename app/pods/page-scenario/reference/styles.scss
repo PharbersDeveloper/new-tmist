@@ -1,0 +1,11 @@
+.reference-container {
+	height: calc(100% - 25px);
+
+	.reference-tabs {
+		flex: 0 0 80px;
+	}
+
+	.reference-content {
+		flex: 1;
+	}
+}
