@@ -1,0 +1,14 @@
+<table class="table">
+	<thead class="table-light">
+		<th>id</th>
+		<th>accoundId</th>
+	</thead>
+	<tbody>
+		{{#each model as |item|}}
+			<tr>
+				<td>{{item.id}}</td>
+				<td>{{item.accountId}}</td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table>

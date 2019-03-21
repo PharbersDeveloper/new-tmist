@@ -1,0 +1,82 @@
+{{#bp-layout direction="col" local-class="management-container"}}
+	{{#bp-layout main="center" classNames="py-4" local-class="management-tabs"}}
+		{{#bp-button-group
+			value=groupValue 
+			type="radio" 
+			onChange=(action (mut groupValue)) as |bg|}}
+			{{#bg.button type="default" value=0 }}经理时间管理{{/bg.button}}
+			{{#bg.button type="default" value=1}}行动点数分配{{/bg.button}}
+		{{/bp-button-group}}
+	{{/bp-layout}}
+	{{#bp-layout main="between" local-class="management-content"}}
+		<div local-class="infos" class="mr-4 ">
+			<div local-class="manager-infos" class="mb-2 bg-white">
+				{{#if (bp-eq groupValue 0)}}
+					<h3 local-class="title" class="px-4">经理剩余时间</h3>
+					<div local-class="pie" class="px-4"></div>
+				{{else}}
+					<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
+					<div local-class="pie" class="px-4"></div>
+				{{/if}}
+			</div>
+			<div local-class="team-infos" class="bg-white">
+				<h3 local-class="title" class="px-4">团队及代表能力情况</h3>
+				<div local-class="content">
+				</div>
+			</div>
+		</div>
+		{{#if (bp-eq groupValue 0)}}
+			<div local-class="actions manage">
+				<div local-class="business-time actions-content" class="bg-white mb-2">
+					<h4 local-class="title" class="px-4">业务时间投入</h4>
+					{{#bp-layout local-class="content" class="px-4" 
+						cross="between" main="between" wrap=true}}
+						{{bp-input/simple title='业务数据策略分析' value=23 vertical=false color='#00875A'}}
+						{{bp-input/simple title='行政工作' value=23 vertical=false color='#57D9A3 '}}
+						{{bp-input/simple title='重点目标客户管理' value=23 vertical=false color='#36B37E '}}
+						{{bp-input/simple title='代表及KPI分析' value=23 vertical=false color='#79F2C0'}}
+					{{/bp-layout}}
+				</div>
+				<div local-class="team-time actions-content" class="bg-white  mb-2">
+					<h4 local-class="title" class="px-4">团队管理时间投入</h4>
+					{{#bp-layout local-class="content" class="px-4"}}
+						{{bp-input/simple title='团队例会' value=59 vertical=false color='#FFAB00 '}}
+					{{/bp-layout}}
+				</div>
+				<div local-class="represent-time actions-content" class="bg-white  mb-2">
+					<h4 local-class="title" class="px-4">团队管理时间投入</h4>
+					{{#bp-layout local-class="content" class="px-4"}}
+					{{/bp-layout}}
+				</div>
+			</div>
+		{{else}}
+			<div local-class="actions allot-point" class="bg-white">
+				<div local-class="allot-point-content" class="bg-white mb-2 px-4">
+					<h4 local-class="title">行动点数分配</h4>
+					<table class="table text-center">
+						<thead>
+							<th class="border-0">代表姓名</th>
+							<th class="border-0">产品知识培训</th>
+							<th class="border-0">销售能力培训</th>
+							<th class="border-0">区域管理培训</th>
+							<th class="border-0">绩效约谈</th>
+							<th class="border-0">职业发展指导</th>
+							<th class="border-0">总点数</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td>John</td>
+								<td>{{bp-input widthSize="small"}}</td>
+								<td>{{bp-input widthSize="small"}}</td>
+								<td>{{bp-input widthSize="small"}}</td>
+								<td>{{bp-input widthSize="small"}}</td>
+								<td>{{bp-input widthSize="small"}}</td>
+								<td>{{bp-input widthSize="small"}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{{/if}}
+	{{/bp-layout}}
+{{/bp-layout}}

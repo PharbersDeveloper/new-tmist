@@ -2,10 +2,17 @@ import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 
 const Router = EmberRouter.extend({
-  location: config.locationType,
-  rootURL: config.rootURL
+	location: config.locationType,
+	rootURL: config.rootURL
 });
 
-Router.map(function() {});
+Router.map(function () {
+	this.route('page-scenario', function () {
+		this.route('business');
+		this.route('management');
+		this.route('reference');
+	});
+	this.route('page-proposal');
+});
 
 export default Router;
