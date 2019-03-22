@@ -9,7 +9,7 @@
 		flex: 1;
 
 		.infos {
-			flex: 1;
+			flex: 0 0 368px;
 
 			.title,
 			&~.actions .title {
@@ -20,6 +20,7 @@
 			}
 
 			.manager-infos {
+
 				.pie {
 					height: 192px;
 				}
@@ -35,7 +36,7 @@
 
 		.actions,
 			{
-			flex: 2;
+			flex: 1;
 
 			.actions-content {
 				&.business-time {

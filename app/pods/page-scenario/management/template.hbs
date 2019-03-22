@@ -13,15 +13,47 @@
 			<div local-class="manager-infos" class="mb-2 bg-white">
 				{{#if (bp-eq groupValue 0)}}
 					<h3 local-class="title" class="px-4">经理剩余时间</h3>
-					<div local-class="pie" class="px-4"></div>
+					<div local-class="pie" class="px-4">
+						{{model.managerConfig.managerTime}}
+					</div>
 				{{else}}
 					<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
-					<div local-class="pie" class="px-4"></div>
+					<div local-class="pie" class="px-4">
+						{{model.managerConfig.managerKpi}}
+					</div>
 				{{/if}}
 			</div>
 			<div local-class="team-infos" class="bg-white">
-				<h3 local-class="title" class="px-4">团队及代表能力情况</h3>
+				<h3 local-class="title" class="px-4 mb-4">团队及代表能力情况</h3>
 				<div local-class="content">
+					{{#bp-layout main="between"}}
+						<span>请选择</span>
+						{{#bp-dropdown as |dd|}}
+							{{#dd.button }}
+								{{#if dropdownValue.representative.name}}
+									<p>{{dropdownValue.representative.name}}</p>
+								{{else}}
+									请选择
+								{{/if}}
+								{{bp-icon icon='down'}}
+							{{/dd.button}}
+							{{#dd.menu as |menu|}}
+								{{#each model.representativeConfigs as |rcs|}}
+									{{#menu.option value=rcs onClick=(action (mut dropdownValue))}}
+										{{rcs.representative.name}}
+									{{/menu.option}}
+								{{/each}}
+							{{/dd.menu}}
+						{{/bp-dropdown}}
+					{{/bp-layout}}
+					{{#each model.representativeConfigs as |rcs|}}
+						{{rcs.id}}
+						<p>{{rcs.id}}</p>
+						{{rcs.age}}
+						{{#each rcs.representatives as |rep|}}
+							{{rep.name}}
+						{{/each}}
+					{{/each}}
 				</div>
 			</div>
 		</div>
@@ -31,10 +63,10 @@
 					<h4 local-class="title" class="px-4">业务时间投入</h4>
 					{{#bp-layout local-class="content" class="px-4" 
 						cross="between" main="between" wrap=true}}
-						{{bp-input/simple title='业务数据策略分析' value=23 vertical=false color='#00875A'}}
-						{{bp-input/simple title='行政工作' value=23 vertical=false color='#57D9A3 '}}
-						{{bp-input/simple title='重点目标客户管理' value=23 vertical=false color='#36B37E '}}
-						{{bp-input/simple title='代表及KPI分析' value=23 vertical=false color='#79F2C0'}}
+						{{bp-input/simple title='业务数据策略分析'  vertical=false color='#00875A'}}
+						{{bp-input/simple title='行政工作' vertical=false color='#57D9A3 '}}
+						{{bp-input/simple title='重点目标客户管理'  vertical=false color='#36B37E '}}
+						{{bp-input/simple title='代表及KPI分析'  vertical=false color='#79F2C0'}}
 					{{/bp-layout}}
 				</div>
 				<div local-class="team-time actions-content" class="bg-white  mb-2">
