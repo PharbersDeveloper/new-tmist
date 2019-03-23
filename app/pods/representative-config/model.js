@@ -10,6 +10,6 @@ export default DS.Model.extend({
 	regionalManagementAbility: DS.attr('number'),
 	jobEnthusiasm: DS.attr('number'),
 	behaviorValidity: DS.attr('number'),
-	representatives: DS.hasMany('representative'),
+	representative: DS.belongsTo('representative'),
 	resourceConfig: DS.belongsTo()
 });

@@ -1,59 +1,65 @@
-{{#bp-layout direction="col" local-class="management-container"}}
-	{{#bp-layout main="center" classNames="py-4" local-class="management-tabs"}}
-		{{#bp-button-group
-			value=groupValue 
-			type="radio" 
-			onChange=(action (mut groupValue)) as |bg|}}
+{{#bp-layout direction="col" local-class="management-container" }}
+	{{#bp-layout main="center" classNames="py-4" local-class="management-tabs" }}
+		{{#bp-button-group value=groupValue type="radio" onChange=(action (mut groupValue)) as |bg|}}
 			{{#bg.button type="default" value=0 }}经理时间管理{{/bg.button}}
 			{{#bg.button type="default" value=1}}行动点数分配{{/bg.button}}
 		{{/bp-button-group}}
 	{{/bp-layout}}
-	{{#bp-layout main="between" local-class="management-content"}}
+	{{#bp-layout main="between" local-class="management-content" }}
 		<div local-class="infos" class="mr-4 ">
 			<div local-class="manager-infos" class="mb-2 bg-white">
 				{{#if (bp-eq groupValue 0)}}
 					<h3 local-class="title" class="px-4">经理剩余时间</h3>
 					<div local-class="pie" class="px-4">
-						{{model.managerConfig.managerTime}}
+						{{#each model as |rcs|}}
+							{{#if (bp-eq rcs.resourceType 0)}}
+								{{rcs.managerConfig.managerTime}}
+							{{/if}}
+						{{/each}}
 					</div>
 				{{else}}
 					<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
 					<div local-class="pie" class="px-4">
-						{{model.managerConfig.managerKpi}}
+						{{#each model as |rcs|}}
+							{{#if (bp-eq rcs.resourceType 0)}}
+								{{rcs.managerConfig.managerKpi}}
+							{{/if}}
+						{{/each}}
 					</div>
 				{{/if}}
 			</div>
 			<div local-class="team-infos" class="bg-white">
 				<h3 local-class="title" class="px-4 mb-4">团队及代表能力情况</h3>
-				<div local-class="content">
-					{{#bp-layout main="between"}}
-						<span>请选择</span>
-						{{#bp-dropdown as |dd|}}
+				<div local-class="content" class="p-4">
+					{{#bp-layout main="between" cross=center local-class="drop-area" }}
+						<span class="mr-3">代表</span>
+						{{#bp-dropdown widthSize="auto" as |dd|}}
 							{{#dd.button }}
-								{{#if dropdownValue.representative.name}}
-									<p>{{dropdownValue.representative.name}}</p>
+								{{#if repConf.representative.name}}
+									<p>{{repConf.representative.name}}</p>
 								{{else}}
 									请选择
 								{{/if}}
 								{{bp-icon icon='down'}}
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
-								{{#each model.representativeConfigs as |rcs|}}
-									{{#menu.option value=rcs onClick=(action (mut dropdownValue))}}
-										{{rcs.representative.name}}
-									{{/menu.option}}
+								{{#each model as |rcs|}}
+									{{#if (bp-eq rcs.resourceType 1)}}
+										{{#menu.option value=rcs.representativeConfig onClick=(action (mut repConf))}}
+											{{rcs.representativeConfig.representative.name}}
+										{{/menu.option}}
+									{{/if}}
 								{{/each}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 					{{/bp-layout}}
-					{{#each model.representativeConfigs as |rcs|}}
-						{{rcs.id}}
-						<p>{{rcs.id}}</p>
-						{{rcs.age}}
-						{{#each rcs.representatives as |rep|}}
-							{{rep.name}}
-						{{/each}}
-					{{/each}}
+					<div>
+						<p>产品知识{{repConf.productKnowledge}}</p>
+						<p>销售知识{{repConf.salesAbility}}</p>
+						<p>区域管理能力{{repConf.regionalManagementAbility}}</p>
+						<p>行为有效性{{repConf.behaviorValidity}}</p>
+						<p>工作积极性{{repConf.jobEnthusiasm}}</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -61,23 +67,68 @@
 			<div local-class="actions manage">
 				<div local-class="business-time actions-content" class="bg-white mb-2">
 					<h4 local-class="title" class="px-4">业务时间投入</h4>
-					{{#bp-layout local-class="content" class="px-4" 
-						cross="between" main="between" wrap=true}}
-						{{bp-input/simple title='业务数据策略分析'  vertical=false color='#00875A'}}
-						{{bp-input/simple title='行政工作' vertical=false color='#57D9A3 '}}
-						{{bp-input/simple title='重点目标客户管理'  vertical=false color='#36B37E '}}
-						{{bp-input/simple title='代表及KPI分析'  vertical=false color='#79F2C0'}}
+					{{#bp-layout local-class="content" main="between" class="p-4" }}
+						{{#bp-layout}}
+							{{#bp-layout direction=col local-class="keys" }}
+								{{#bp-layout tagName="p" cross=center class="mb-4" }}
+									<span local-class="square square-1"></span> <span>业务数据策略分析</span>
+								{{/bp-layout}}
+								{{#bp-layout tagName="p" cross=center}}
+									<span local-class="square square-2"></span> <span>重点目标客户管理</span>
+								{{/bp-layout}}
+							{{/bp-layout}}
+							{{#bp-layout direction=col local-class="inputs" }}
+								{{bp-input value="*" palceholder="%" size="medium" widthSize="medium" classNames="mb-4"}} {{bp-input value="**" palceholder="%" size="medium" widthSize="medium"}}
+							{{/bp-layout}}
+						{{/bp-layout}}
+						{{#bp-layout}}
+							{{#bp-layout direction=col local-class="keys" }}
+								{{#bp-layout tagName="p" cross=center class="mb-4" }}
+									<span local-class="square  square-3"></span> <span>行政工作</span>
+								{{/bp-layout}}
+								{{#bp-layout tagName="p" cross=center}}
+									<span local-class="square  square-4"></span> <span>代表及KPI分析</span>
+								{{/bp-layout}}
+							{{/bp-layout}}
+							{{#bp-layout direction=col local-class="inputs" }}
+								{{bp-input value="***"  palceholder="%" classNames="mb-4" size="medium" widthSize="medium"}} {{bp-input value="****"  palceholder="%" size="medium" widthSize="medium"}}
+							{{/bp-layout}}
+						{{/bp-layout}}
 					{{/bp-layout}}
 				</div>
 				<div local-class="team-time actions-content" class="bg-white  mb-2">
 					<h4 local-class="title" class="px-4">团队管理时间投入</h4>
-					{{#bp-layout local-class="content" class="px-4"}}
-						{{bp-input/simple title='团队例会' value=59 vertical=false color='#FFAB00 '}}
+					{{#bp-layout local-class="content" class="p-4" }}
+						{{#bp-layout direction=col local-class="keys" }}
+							{{#bp-layout tagName="p" cross=center }}
+								<span local-class="square  square-m"></span> <span>团队例会</span>
+							{{/bp-layout}}
+						{{/bp-layout}}
+						{{#bp-layout direction=col local-class="inputs" }}
+							{{bp-input value="*****"  palceholder="%" size="medium"}}
+						{{/bp-layout}}
 					{{/bp-layout}}
 				</div>
 				<div local-class="represent-time actions-content" class="bg-white  mb-2">
-					<h4 local-class="title" class="px-4">团队管理时间投入</h4>
-					{{#bp-layout local-class="content" class="px-4"}}
+					<h4 local-class="title" class="px-4">管理代表时间投入</h4>
+					{{#bp-layout local-class="content" main="between" class="p-4" }}
+						{{#bp-layout direction=col local-class="keys" }}
+							<p></p>
+							{{#bp-layout tagName="p" cross=center class="mb-4" }}
+								<span local-class="square square-a"></span> <span>1v1能力辅导</span>
+							{{/bp-layout}}
+							{{#bp-layout tagName="p" cross=center}}
+								<span local-class="square square-t"></span> <span>协访时间</span>
+							{{/bp-layout}}
+						{{/bp-layout}}
+						{{#each model as |rcs|}}
+							{{#if (bp-eq rcs.resourceType 1)}}
+								{{#bp-layout direction=col local-class="inputs" }}
+									<p class="text-center">{{rcs.representativeConfig.representative.name}}</p>
+									{{bp-input value="*" palceholder="%" size="medium" widthSize="small" classNames="mb-4"}} {{bp-input value="**" palceholder="%" size="medium" widthSize="small"}}
+								{{/bp-layout}}
+							{{/if}}
+						{{/each}}
 					{{/bp-layout}}
 				</div>
 			</div>
@@ -96,15 +147,19 @@
 							<th class="border-0">总点数</th>
 						</thead>
 						<tbody>
-							<tr>
-								<td>John</td>
-								<td>{{bp-input widthSize="small"}}</td>
-								<td>{{bp-input widthSize="small"}}</td>
-								<td>{{bp-input widthSize="small"}}</td>
-								<td>{{bp-input widthSize="small"}}</td>
-								<td>{{bp-input widthSize="small"}}</td>
-								<td>{{bp-input widthSize="small"}}</td>
-							</tr>
+							{{#each model as |rcs|}}
+								{{#if (bp-eq rcs.resourceType 1)}}
+									<tr>
+										<td>{{rcs.representativeConfig.representative.name}}</td>
+										<td>{{bp-input widthSize="small" value="*"}}</td>
+										<td>{{bp-input widthSize="small" value="*"}}</td>
+										<td>{{bp-input widthSize="small" value="*"}}</td>
+										<td>{{bp-input widthSize="small" value="*"}}</td>
+										<td>{{bp-input widthSize="small" value="*"}}</td>
+										<td>{{bp-input widthSize="small" value="*"}}</td>
+									</tr>
+								{{/if}}
+							{{/each}}
 						</tbody>
 					</table>
 				</div>

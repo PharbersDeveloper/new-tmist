@@ -30,18 +30,80 @@
 				.content {
 					height: 425px;
 
+					.drop-area {
+						span {
+							flex: 0 0 28px;
+							@extend %p-primary;
+						}
+
+						&>div {
+							flex: 1;
+						}
+					}
 				}
 			}
 		}
 
-		.actions,
-			{
+		.actions {
 			flex: 1;
 
 			.actions-content {
-				&.business-time {
+
+				&.business-time,
+				&.team-time,
+				&.represent-time {
 					.content {
-						height: 152px;
+
+						p {
+							margin: 0;
+							margin-right: $spacing;
+							height: 5*$spacing;
+						}
+
+						.square {
+							margin-right: $spacing;
+							width: 2*$spacing;
+							height: 2*$spacing;
+							@extend %defaultRadius;
+
+							&.square-1 {
+								background-color: #00875A;
+							}
+
+							&.square-2 {
+								background-color: #36B37E;
+								;
+							}
+
+							&.square-3 {
+								background-color: #57D9A3;
+								;
+							}
+
+							&.square-4 {
+								background-color: #79F2C0;
+								;
+							}
+
+						}
+					}
+				}
+
+				&.team-time {
+					.square-m {
+						background-color: $y300;
+
+					}
+				}
+
+				&.represent-time {
+					.square-a {
+						background-color: #5243AA;
+					}
+
+					.square-t {
+						background-color: #998DD9;
+						;
 					}
 				}
 			}
@@ -58,6 +120,7 @@
 					}
 
 					td {
+						border: 0;
 						@extend %p-primary;
 						vertical-align: middle;
 					}
