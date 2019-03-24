@@ -8,7 +8,7 @@ export default Component.extend({
 	icon: computed('showContent', function () {
 		let showContent = this.get('showContent');
 
-		return showContent ? 'down' : 'up';
+		return showContent ? 'down' : 'right';
 	}),
 	actions: {
 		showContent() {

@@ -8,16 +8,18 @@
 	.management-content {
 		flex: 1;
 
+		.title {
+			margin: 0;
+			line-height: 52px;
+			@extend %header-small;
+		}
+
+		.p-primary {
+			@extend %p-primary;
+		}
+
 		.infos {
 			flex: 0 0 368px;
-
-			.title,
-			&~.actions .title {
-				margin: 0;
-				height: 52px;
-				line-height: 52px;
-				@extend %p-primary;
-			}
 
 			.manager-infos {
 
@@ -97,6 +99,13 @@
 				}
 
 				&.represent-time {
+
+					.inputs p:first-child,
+					.keys p:first-child {
+						height: 20px;
+						@extend %header-small;
+					}
+
 					.square-a {
 						background-color: #5243AA;
 					}

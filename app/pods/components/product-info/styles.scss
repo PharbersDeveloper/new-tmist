@@ -1,8 +1,8 @@
 .product {
 
 	.title {
-		height: 52px;
-		@extend %p-primary;
+		line-height: 52px;
+		@extend %header-small;
 
 		button {
 			height: auto;
@@ -16,12 +16,25 @@
 			margin: 0 12px 0 8px;
 			padding: $spacing-compact 3*$spacing-compact;
 			@extend %defaultRadius;
-			background-color: #B3D4FF;
+
+			&.self {
+				@extend %p-secondary;
+				color: #0049B0;
+				background-color: #B3D4FF;
+			}
+
+			&.compete {
+				@extend %p-secondary;
+				background-color: $n030;
+			}
+		}
+
+		span.cycle {
+			@extend %p-secondary;
 		}
 	}
 
 	.product-content {
-		// height: auto;
 
 		.left {
 			flex: 0 0 500px;
@@ -45,8 +58,7 @@
 
 				p span:last-child {
 					flex: 1;
-					@extend %p-primary;
-					color: $n100;
+					@extend %p-secondary;
 				}
 			}
 		}
@@ -61,10 +73,11 @@
 			}
 
 			.square {
+				margin-right: 2*$spacing;
 				padding: $spacing 1.5*$spacing;
 				height: 60px;
 				min-width: 60px;
-				background-color: #FAFBFC;
+				background-color: $n010;
 
 				span:first-child {
 					@extend %p-primary;

@@ -1,7 +1,7 @@
 {{#bp-layout direction="col" local-class="management-container" }}
 	{{#bp-layout main="center" classNames="py-4" local-class="management-tabs" }}
 		{{#bp-button-group value=groupValue type="radio" onChange=(action (mut groupValue)) as |bg|}}
-			{{#bg.button type="default" value=0 }}经理时间管理{{/bg.button}}
+			{{#bg.button type="default" value=0}}经理时间管理{{/bg.button}}
 			{{#bg.button type="default" value=1}}行动点数分配{{/bg.button}}
 		{{/bp-button-group}}
 	{{/bp-layout}}
@@ -29,7 +29,7 @@
 				{{/if}}
 			</div>
 			<div local-class="team-infos" class="bg-white">
-				<h3 local-class="title" class="px-4 mb-4">团队及代表能力情况</h3>
+				<h3 local-class="title" class="px-4">团队及代表能力情况</h3>
 				<div local-class="content" class="p-4">
 					{{#bp-layout main="between" cross=center local-class="drop-area" }}
 						<span class="mr-3">代表</span>
@@ -71,10 +71,12 @@
 						{{#bp-layout}}
 							{{#bp-layout direction=col local-class="keys" }}
 								{{#bp-layout tagName="p" cross=center class="mb-4" }}
-									<span local-class="square square-1"></span> <span>业务数据策略分析</span>
+									<span local-class="square square-1"></span>
+									<span local-class="p-primary">业务数据策略分析</span>
 								{{/bp-layout}}
 								{{#bp-layout tagName="p" cross=center}}
-									<span local-class="square square-2"></span> <span>重点目标客户管理</span>
+									<span local-class="square square-2"></span>
+									<span local-class="p-primary">重点目标客户管理</span>
 								{{/bp-layout}}
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
@@ -84,10 +86,12 @@
 						{{#bp-layout}}
 							{{#bp-layout direction=col local-class="keys" }}
 								{{#bp-layout tagName="p" cross=center class="mb-4" }}
-									<span local-class="square  square-3"></span> <span>行政工作</span>
+									<span local-class="square  square-3"></span>
+									<span local-class="p-primary">行政工作</span>
 								{{/bp-layout}}
 								{{#bp-layout tagName="p" cross=center}}
-									<span local-class="square  square-4"></span> <span>代表及KPI分析</span>
+									<span local-class="square  square-4"></span>
+									<span local-class="p-primary">代表及KPI分析</span>
 								{{/bp-layout}}
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
@@ -101,7 +105,8 @@
 					{{#bp-layout local-class="content" class="p-4" }}
 						{{#bp-layout direction=col local-class="keys" }}
 							{{#bp-layout tagName="p" cross=center }}
-								<span local-class="square  square-m"></span> <span>团队例会</span>
+								<span local-class="square  square-m"></span>
+								<span local-class="p-primary">团队例会</span>
 							{{/bp-layout}}
 						{{/bp-layout}}
 						{{#bp-layout direction=col local-class="inputs" }}
@@ -113,18 +118,20 @@
 					<h4 local-class="title" class="px-4">管理代表时间投入</h4>
 					{{#bp-layout local-class="content" main="between" class="p-4" }}
 						{{#bp-layout direction=col local-class="keys" }}
-							<p></p>
+							<p class="text-center mb-2 mr-0"></p>
 							{{#bp-layout tagName="p" cross=center class="mb-4" }}
-								<span local-class="square square-a"></span> <span>1v1能力辅导</span>
+								<span local-class="square square-a"></span>
+								<span local-class="p-primary">1v1能力辅导</span>
 							{{/bp-layout}}
 							{{#bp-layout tagName="p" cross=center}}
-								<span local-class="square square-t"></span> <span>协访时间</span>
+								<span local-class="square square-t"></span>
+								<span local-class="p-primary">协访时间</span>
 							{{/bp-layout}}
 						{{/bp-layout}}
 						{{#each model as |rcs|}}
 							{{#if (bp-eq rcs.resourceType 1)}}
 								{{#bp-layout direction=col local-class="inputs" }}
-									<p class="text-center">{{rcs.representativeConfig.representative.name}}</p>
+									<p class="text-center mb-2 mr-0">{{rcs.representativeConfig.representative.name}}</p>
 									{{bp-input value="*" palceholder="%" size="medium" widthSize="small" classNames="mb-4"}} {{bp-input value="**" palceholder="%" size="medium" widthSize="small"}}
 								{{/bp-layout}}
 							{{/if}}

@@ -18,7 +18,6 @@
 			{{/each}}
 		</div>
 		{{else if (bp-eq groupValue 1)}}
-		<h3>hospital</h3>
 		<div local-class="hospitals-container reference-content">
 			{{#each model.destConfigs as |dc|}}
 				{{hospital-info dests=dc}}
