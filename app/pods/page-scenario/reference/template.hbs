@@ -1,9 +1,6 @@
-{{#bp-layout direction="col" local-class="reference-container"}}
-	{{#bp-layout main="center" classNames="py-4" local-class="reference-tabs"}}
-		{{#bp-button-group
-			value=groupValue 
-			type="radio" 
-			onChange=(action (mut groupValue)) as |bg|}}
+{{#bp-layout direction="col" local-class="reference-container" }}
+	{{#bp-layout main="center" classNames="py-4" local-class="reference-tabs" }}
+		{{#bp-button-group value=groupValue type="radio" onChange=(action (mut groupValue)) as |bg|}}
 			{{#bg.button type="default" value=0 }}产品竞品信息{{/bg.button}}
 			{{#bg.button type="default" value=1}}医院基本信息{{/bg.button}}
 			{{#bg.button type="default" value=2}}团队成员信息{{/bg.button}}
@@ -20,14 +17,13 @@
 				{{product-info goods=item}}
 			{{/each}}
 		</div>
-	{{else if (bp-eq groupValue 1)}}
-		<h3>hospital</h3>
+		{{else if (bp-eq groupValue 1)}}
 		<div local-class="hospitals-container reference-content">
 			{{#each model.destConfigs as |dc|}}
 				{{hospital-info dests=dc}}
 			{{/each}}
 		</div>
-	{{else if (bp-eq groupValue 2)}}
+		{{else if (bp-eq groupValue 2)}}
 		<h3>团队成员信息</h3>
 	{{else}}
 		<h3>历史部署情况</h3>

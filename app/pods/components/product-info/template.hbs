@@ -1,79 +1,70 @@
-{{#bp-layout tagName="h3" main="between"  cross="center" 
-							local-class="title" class="px-4"}}
+{{#bp-layout tagName="h3" main="between" cross="center" local-class="title" class="px-4" }}
 	<span>
 		<span local-class="icon" {{action 'showContent'}}>{{bp-icon icon=icon }}</span>
-		<span local-class="type">{{goods.productConfig.productType}}</span>
-		{{goods.productConfig.product.name}} -
-		{{goods.productConfig.product.generalName}}
+		{{#if (bp-eq goods.productConfig.productType "0")}}
+			<span local-class="type self">产品</span>
+		{{else}}
+			<span local-class="type compete">竞品</span>
+		{{/if}}
+		{{goods.productConfig.product.name}} - {{goods.productConfig.product.generalName}}
 	</span>
-	<span>导入期</span>
+	<span local-class="cycle">{{goods.productConfig.lifeCycle}}</span>
 {{/bp-layout}}
 {{#if showContent}}
-	{{#bp-layout local-class="product-content" 
-							classNames="p-4"}}
-		{{#bp-layout main="between" local-class="left"}}
+	{{#bp-layout local-class="product-content" classNames="p-4" }}
+		{{#bp-layout main="between" local-class="left" }}
 			{{#each goods.productConfig.product.images as |item|}}
-				<img src={{item.img}} alt={{goods.productConfig.product.name}} class="mr-4">
+				<img src= {{item.img}} alt= {{goods.productConfig.product.name}} class="mr-4">
 			{{/each}}
-			{{#bp-layout direction="col" 
-				local-class="product-infos"}}
-				{{#bp-layout tagName="p"}}
+			{{#bp-layout direction="col" local-class="product-infos" }}
+				{{#bp-layout tagName="p" }}
 					<span>上市时间</span>
 					<span>{{goods.productConfig.launchTime}}</span>
 				{{/bp-layout}}
-				{{#bp-layout tagName="p"}}
+				{{#bp-layout tagName="p" }}
 					<span>药品特点</span>
 					<span>{{goods.productConfig.productFeature}}</span>
 				{{/bp-layout}}
-				{{#bp-layout tagName="p"}}
+				{{#bp-layout tagName="p" }}
 					<span>治疗领域</span>
 					<span>{{goods.productConfig.treatmentArea}}</span>
 				{{/bp-layout}}
-				{{#bp-layout tagName="p"}}
+				{{#bp-layout tagName="p" }}
 					<span>目标科室</span>
 					<span>临床适应症广，不良反应与副作用相对较小。临床适应症广，不良反应与副作用相对较小。</span>
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout direction="col" main="between" 
-							local-class="right"}}
-			{{#bp-layout local-class="property prod-property"}}
-				{{#bp-layout direction="col" main="between"
-									local-class="square"}}
+		{{#bp-layout direction="col" main="between" local-class="right" }}
+			{{#bp-layout local-class="property prod-property" }}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
 					<span>中</span><span>性价比</span>
 				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between"
-									local-class="square"}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
 					<span>中</span><span>安全性</span>
 				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between"
-									local-class="square"}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
 					<span>中</span><span>有效性</span>
 				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between"
-									local-class="square"}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
 					<span>中</span><span>方便性</span>
 				{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout local-class="price prod-property"}}
-				{{#bp-layout direction="col" main="between"
-									local-class="square"}}
-					<span>{{goods.productConfig.priceType}}
-						{{goods.productConfig.price}}</span>
+			{{#bp-layout local-class="price prod-property" }}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
+					<span>{{goods.productConfig.priceType}} {{goods.productConfig.price}}
+					</span>
 					<span>公司考核价</span>
 				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between"
-									local-class="square"}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
 					<span>中</span><span>单位成本价</span>
 				{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout local-class="manufacturer prod-property"}}
-				{{#bp-layout direction="col" main="between"
-									local-class="square"}}
+			{{#bp-layout local-class="manufacturer prod-property" }}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
 					<span>乙类</span><span>医保类型</span>
 				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between"
-									local-class="square"}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
 					<span>辉瑞</span><span>生产厂商</span>
 				{{/bp-layout}}
 			{{/bp-layout}}

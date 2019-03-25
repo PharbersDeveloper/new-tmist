@@ -2,12 +2,13 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default Component.extend({
-	localClassNames: 'product',
+	classNames: ['mb-4', 'bg-white'],
+	localClassNames: 'hospital',
 	showContent: true,
 	icon: computed('showContent', function () {
 		let showContent = this.get('showContent');
 
-		return showContent ? 'down' : 'up';
+		return showContent ? 'down' : 'right';
 	}),
 	actions: {
 		showContent() {
