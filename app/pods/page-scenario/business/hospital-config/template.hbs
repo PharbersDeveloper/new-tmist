@@ -1,0 +1,93 @@
+{{!-- <h4 local-class="title">{{model.hospConfig.hospital.name}}</h4> --}}
+{{#bp-layout tagName="h4" cross="center"
+	local-class="title" classNames="px-4  bg-white"}}
+	{{model.hospConfig.hospital.name}}
+{{/bp-layout}}
+<table local-class="prod" class="table mb-2">
+	<thead>
+		<tr>
+			<th class="border-0 pb-2 pl-2">产品名称</th>
+			<th class="border-0 pb-2 pl-2">药品潜力</th>
+			<th class="border-0 pb-2 pl-2">上期销售额</th>
+			<th class="border-0 pb-2 pl-2">指标分配</th>
+			<th class="border-0 pb-2 pl-2">预算分配</th>
+		</tr>
+	</thead>
+	<tbody class="bg-white">
+		{{#each model.prodConfig as |pc|}}
+			{{#if (bp-eq pc.productType "0")}}
+				<tr class="mx-0">
+					<td class="pl-2">{{pc.product.name}}</td>
+					<td class="pl-2">13456*</td>
+					<td class="pl-2">123456*</td>
+					<td class="pl-2">
+						{{bp-input block=true widthSize="auto" classNames="mb-2"}}
+						<p class="m-0 ">show</p>
+					</td>
+					<td class="pl-2">
+						<p class="mb-2">show</p>
+						{{bp-input block=true widthSize="small"}}
+					</td>
+				</tr>
+			{{/if}}
+		{{/each}}
+	</tbody>
+</table>
+{{#bp-layout main="between" local-class="reps-meeting"}}
+	{{#bp-layout direction="col" 
+		local-class="reps" classNames="bg-white mr-2"}}
+		{{#bp-layout tagName="h4" cross="center" 
+			local-class="title" classNames="px-4 m-0"}}
+			代表和时间分配
+		{{/bp-layout}}
+		{{#bp-layout classNames="p-4"}}
+			{{#bp-layout direction="col" cross="center" local-class="keys" classNames="mr-3"}}
+				<span class="mb-4">指定代表</span>
+				<span class="mb-4">代表时间</span>
+				<span>分配时间</span>
+			{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="operating"}}
+				{{!-- <span class="mb-4">dropdown</span> --}}
+				{{#bp-dropdown widthSize="auto" 
+					local-class="dd-hosp" classNames="mb-4" as |dd|}}
+					{{#dd.button type="link-subtle" }}
+						{{#if hospState.name}}
+							<p>{{hospState.name}}</p>
+						{{else}}
+							请选择
+						{{/if}}
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{#each hospitalState as |hs|}}
+							{{#menu.option value=hs 
+								onClick=(action (mut hospState))}}
+								{{hs.name}}
+							{{/menu.option}}
+						{{/each}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+				{{!-- <span class="mb-4">progress</span> --}}
+				{{#bs-progress classNames="mb-4" as |p|}}
+					{{p.bar value=50}}
+				{{/bs-progress}}
+				{{bp-input}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout direction="col" 
+		local-class="meeting"  classNames="bg-white"}}
+		{{#bp-layout tagName="h4" cross="center" 
+			local-class="title" classNames="px-4 m-0"}}
+			会议名额分配
+		{{/bp-layout}}
+		{{#bp-layout classNames="p-4"}}
+			{{#bp-layout direction="col" local-class="keys" classNames="mr-3"}}
+				<span>分配会议名额</span>
+			{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="operating"}}
+				{{bp-input widthSize="auto"}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}

@@ -1,6 +1,7 @@
 {{#bp-layout direction="col" local-class="management-container" }}
 	{{#bp-layout main="center" classNames="py-4" local-class="management-tabs" }}
-		{{#bp-button-group value=groupValue type="radio" onChange=(action (mut groupValue)) as |bg|}}
+		{{#bp-button-group value=groupValue type="radio" 
+			onChange=(action (mut groupValue)) as |bg|}}
 			{{#bg.button type="default" value=0}}经理时间管理{{/bg.button}}
 			{{#bg.button type="default" value=1}}行动点数分配{{/bg.button}}
 		{{/bp-button-group}}
@@ -45,7 +46,8 @@
 							{{#dd.menu as |menu|}}
 								{{#each model as |rcs|}}
 									{{#if (bp-eq rcs.resourceType 1)}}
-										{{#menu.option value=rcs.representativeConfig onClick=(action (mut repConf))}}
+										{{#menu.option value=rcs.representativeConfig 
+											onClick=(action (mut repConf))}}
 											{{rcs.representativeConfig.representative.name}}
 										{{/menu.option}}
 									{{/if}}
@@ -53,13 +55,7 @@
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 					{{/bp-layout}}
-					<div>
-						<p>产品知识{{repConf.productKnowledge}}</p>
-						<p>销售知识{{repConf.salesAbility}}</p>
-						<p>区域管理能力{{repConf.regionalManagementAbility}}</p>
-						<p>行为有效性{{repConf.behaviorValidity}}</p>
-						<p>工作积极性{{repConf.jobEnthusiasm}}</p>
-					</div>
+					{{bp-radar radarData=radarData}}
 				</div>
 			</div>
 		</div>
@@ -80,7 +76,13 @@
 								{{/bp-layout}}
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
-								{{bp-input value="*" palceholder="%" size="medium" widthSize="medium" classNames="mb-4"}} {{bp-input value="**" palceholder="%" size="medium" widthSize="medium"}}
+								{{bp-input value="*" 
+									palceholder="%" 
+									size="medium" widthSize="medium" 
+									classNames="mb-4"}}
+								{{bp-input value="**" 
+									palceholder="%" 
+									size="medium" widthSize="medium"}}
 							{{/bp-layout}}
 						{{/bp-layout}}
 						{{#bp-layout}}
@@ -95,7 +97,13 @@
 								{{/bp-layout}}
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
-								{{bp-input value="***"  palceholder="%" classNames="mb-4" size="medium" widthSize="medium"}} {{bp-input value="****"  palceholder="%" size="medium" widthSize="medium"}}
+								{{bp-input value="***"  
+									palceholder="%" 
+									size="medium" widthSize="medium"
+									classNames="mb-4"}}
+								{{bp-input value="****" 
+									palceholder="%" 
+									size="medium" widthSize="medium"}}
 							{{/bp-layout}}
 						{{/bp-layout}}
 					{{/bp-layout}}
@@ -114,7 +122,7 @@
 						{{/bp-layout}}
 					{{/bp-layout}}
 				</div>
-				<div local-class="represent-time actions-content" class="bg-white  mb-2">
+				<div local-class="represent-time actions-content" class="bg-white mb-2">
 					<h4 local-class="title" class="px-4">管理代表时间投入</h4>
 					{{#bp-layout local-class="content" main="between" class="p-4" }}
 						{{#bp-layout direction=col local-class="keys" }}
@@ -131,8 +139,16 @@
 						{{#each model as |rcs|}}
 							{{#if (bp-eq rcs.resourceType 1)}}
 								{{#bp-layout direction=col local-class="inputs" }}
-									<p class="text-center mb-2 mr-0">{{rcs.representativeConfig.representative.name}}</p>
-									{{bp-input value="*" palceholder="%" size="medium" widthSize="small" classNames="mb-4"}} {{bp-input value="**" palceholder="%" size="medium" widthSize="small"}}
+									<p class="text-center mb-2 mr-0">
+										{{rcs.representativeConfig.representative.name}}
+									</p>
+									{{bp-input value="*" 
+										palceholder="%" 
+										size="medium" widthSize="small" 
+										classNames="mb-4"}}
+									{{bp-input value="**" 
+										palceholder="%" 
+										size="medium" widthSize="small"}}
 								{{/bp-layout}}
 							{{/if}}
 						{{/each}}

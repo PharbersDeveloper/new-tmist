@@ -1,0 +1,46 @@
+h4.title {
+	height: 52px;
+	@extend %header-small;
+}
+
+.prod {
+	thead {
+		th {
+			@extend %p-small;
+		}
+	}
+
+	tbody {
+		tr {
+
+			td {
+				align-self: center;
+				padding: 2*$spacing 0;
+				vertical-align: middle;
+				@extend %p-primary;
+			}
+		}
+	}
+}
+
+.reps-meeting {
+
+	.reps,
+	.meeting {
+		flex: 1;
+
+		.keys {
+
+			@extend %p-primary;
+
+			span:first-child {
+				height: 40px;
+				line-height: 40px;
+			}
+		}
+
+		.operating {
+			@extend %p-secondary;
+		}
+	}
+}

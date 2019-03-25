@@ -2,6 +2,9 @@
 /blueprints/*/files/
 /vendor/
 
+# route.js
+/app/route.js
+
 # compiled output
 /dist/
 /tmp/

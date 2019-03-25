@@ -1,1 +1,96 @@
-<h2>business</h2>
+{{#bp-layout main="between" local-class="business-container" classNames="pt-4"}}
+	{{#bp-layout direction="col" local-class="infos" classNames='mr-4'}}
+		{{#bp-layout direction="col" classNames="mb-4 bg-white"}}
+			{{#bp-layout tagName="h3"  cross="center" 
+				local-class="title" classNames="px-4 m-0"}}
+				指标和资源
+			{{/bp-layout}}
+			{{#bp-layout classNames="p-4"}}
+				{{#bp-layout direction="col" local-class="keys" classNames="mr-3"}}
+					<p class="mb-3">总业务指标</p>
+					<p class="mb-3">总预算</p>
+					<p>总名额</p>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" local-class="values"}}
+					<p class="mb-3">n/100000*</p>
+					<p class="mb-3">n/100000*</p>
+					<p>n/100000*</p>
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout direction="col" classNames="bg-white"}}
+			{{#bp-layout tagName="h3" cross="center" main="between"
+				local-class="title" classNames="px-4 m-0"}}
+				<span>Overall</span>
+				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
+					{{#dd.button type="link-subtle" }}
+						{{#if hospState.name}}
+							<p>{{hospState.name}}</p>
+						{{else}}
+							请选择
+						{{/if}}
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{#each hospitalState as |hs|}}
+							{{#menu.option value=hs 
+								onClick=(action (mut hospState))}}
+								{{hs.name}}
+							{{/menu.option}}
+						{{/each}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
+			{{#bp-layout direction="col" 
+				local-class="hospitals-configs" 
+				classNames="px-4"}}
+				{{#each model.destConfigs as |dc|}}
+					<div local-class="hospital-config" class="pt-4">
+						<h4 local-class="title" class="mb-3">
+							{{dc.hospitalConfig.hospital.name}}
+						</h4>
+						{{#bp-layout classNames="pb-4"}}
+							{{#bp-layout classNames="mr-4"}}
+								{{#bp-layout direction="col" 
+									local-class="keys" classNames="mr-2"}}
+									<span class="mb-1">潜力</span>
+									<span>预算</span>
+								{{/bp-layout}}
+								{{#bp-layout direction="col" local-class="values"}}
+									<span class="mb-1">￥8888888*</span>
+									<span>￥8888888*</span>
+								{{/bp-layout}}
+							{{/bp-layout}}
+							{{#bp-layout}}
+								{{#bp-layout direction="col" 
+									local-class="keys" classNames="mr-2"}}
+									<span class="mb-1">指标</span>
+									<span>会议名额(次)</span>
+								{{/bp-layout}}
+								{{#bp-layout direction="col" local-class="values"}}
+									<span class="mb-1">￥8888888*</span>
+									<span>20*</span>
+								{{/bp-layout}}
+							{{/bp-layout}}
+						{{/bp-layout}}
+						<div class="dropdown-divider"></div>
+					</div>
+				{{/each}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout direction="col" local-class="hospitals"}}
+		{{#bp-layout tagName="ul"  wrap=true local-class="nav-hosp" 
+			class="pt-4 mb-2 bg-white"}}
+			{{#each model.destConfigs as |dc|}}
+				{{#link-to "page-scenario.business.hospital-config" dc.hospitalConfig.id 
+					tagName="li" classNames="ml-4 mb-4"}}
+					{{dc.hospitalConfig.hospital.name}}
+				{{/link-to}}
+			{{/each}}
+		{{/bp-layout}}
+		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
+			{{outlet}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}
