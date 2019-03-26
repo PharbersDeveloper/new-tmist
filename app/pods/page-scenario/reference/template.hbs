@@ -20,7 +20,7 @@
 	{{else if (bp-eq groupValue 1)}}
 		<div local-class="hospitals-container reference-content">
 			{{#each model.destConfigs as |dc|}}
-				{{hospital-info dests=dc}}
+				{{hospital-info dests=dc prods=model.goodsConfigs}}
 			{{/each}}
 		</div>
 	{{else if (bp-eq groupValue 2)}}

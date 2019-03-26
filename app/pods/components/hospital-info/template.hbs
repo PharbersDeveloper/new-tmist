@@ -68,7 +68,14 @@
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" direction="col" local-class="value" class="mb-0" }}
 						<span class="mb-3">
-							效尤-口服抗生素*</span>
+							{{#each prods as |prod|}}
+								{{#if (bp-eq prod.productConfig.productType "0")}}
+									{{prod.productConfig.product.name}}
+									-
+									{{prod.productConfig.product.generalName}}
+								{{/if}}
+							{{/each}}
+						</span>
 						<span class="mb-3">
 							{{dests.hospitalConfig.accessStatus}}
 						</span>
