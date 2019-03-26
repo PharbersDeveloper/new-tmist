@@ -1,4 +1,3 @@
-{{!-- <h4 local-class="title">{{model.hospConfig.hospital.name}}</h4> --}}
 {{#bp-layout tagName="h4" cross="center"
 	local-class="title" classNames="px-4  bg-white"}}
 	{{model.hospConfig.hospital.name}}
@@ -18,10 +17,11 @@
 			{{#if (bp-eq pc.productType "0")}}
 				<tr class="mx-0">
 					<td class="pl-2">{{pc.product.name}}</td>
-					<td class="pl-2">13456*</td>
-					<td class="pl-2">123456*</td>
+					<td class="pl-2">{{model.hospConfig.potential}}</td>
+					<td class="pl-2">{{model.hospConfig.lastYearSales}}</td>
 					<td class="pl-2">
-						{{bp-input block=true widthSize="auto" classNames="mb-2"}}
+						{{bp-input block=true widthSize="auto" classNames="mb-2"
+							value=parentController.indicatorValue}}
 						<p class="m-0 ">show</p>
 					</td>
 					<td class="pl-2">
@@ -47,30 +47,34 @@
 				<span>分配时间</span>
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="operating"}}
-				{{!-- <span class="mb-4">dropdown</span> --}}
 				{{#bp-dropdown widthSize="auto" 
 					local-class="dd-hosp" classNames="mb-4" as |dd|}}
-					{{#dd.button type="link-subtle" }}
-						{{#if hospState.name}}
-							<p>{{hospState.name}}</p>
+					{{#dd.button }}
+						{{#if rep.representative.name}}
+							<p>{{rep.representative.name}}</p>
 						{{else}}
 							请选择
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
-						{{#each hospitalState as |hs|}}
-							{{#menu.option value=hs 
-								onClick=(action (mut hospState))}}
-								{{hs.name}}
-							{{/menu.option}}
+						{{#each model.repConf as |rc|}}
+							{{#if (bp-eq rc.resourceType 1)}}
+								{{#menu.option value=rc.representativeConfig 
+								onClick=(action (mut rep))}}
+									{{rc.representativeConfig.representative.name}}
+								{{/menu.option}}
+							{{/if}}
 						{{/each}}
 					{{/dd.menu}}
 				{{/bp-dropdown}}
-				{{!-- <span class="mb-4">progress</span> --}}
-				{{#bs-progress classNames="mb-4" as |p|}}
-					{{p.bar value=50}}
-				{{/bs-progress}}
+				{{#bp-layout cross="center" classNames="mb-4"  local-class="progress-container"}}
+					{{#bs-progress local-class="progress"
+						as |p|}}
+						{{p.bar local-class="bar" value=50}}
+					{{/bs-progress}}
+					<span local-class="desc" class="ml-2">50%</span>
+				{{/bp-layout}}
 				{{bp-input}}
 			{{/bp-layout}}
 		{{/bp-layout}}

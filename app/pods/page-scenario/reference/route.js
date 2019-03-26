@@ -3,11 +3,12 @@ import { hash } from 'rsvp';
 
 export default Route.extend({
 	model() {
-		let resourceConfig = this.modelFor('page-scenario');
+		let totalConfig = this.modelFor('page-scenario');
+
 
 		return hash({
-			goodsConfigs: resourceConfig.goodsConfigs,
-			destConfigs: resourceConfig.destConfigs
+			goodsConfigs: totalConfig.goodsConfigs,
+			destConfigs: totalConfig.destConfigs
 		});
 	}
 });

@@ -10,13 +10,15 @@
 			{{#bp-layout local-class="basic" main="between" }}
 				{{#each dests.hospitalConfig.hospital.images as |img index|}}
 					{{#if (bp-eq index 0)}}
-						<img src= {{img.img}} alt= {{dests.hospitalConfig.hospital.name}} class="mr-4">
+						<img src={{img.img}} alt={{dests.hospitalConfig.hospital.name}} class="mr-4">
 					{{/if}}
 				{{/each}}
 				<div local-class="properties">
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">成立时间</span>
-						<span>1998*</span>
+						<span>
+							{{dests.hospitalConfig.hospital.regtime}}
+						</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">医院等级</span>
@@ -32,7 +34,7 @@
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">空间所属</span>
-						<span>*{{dests.hospitalConfig.hospital.position}}</span>
+						<span>{{dests.hospitalConfig.spaceBelongs}}</span>
 					{{/bp-layout}}
 				</div>
 				<div local-class="properties">
@@ -50,7 +52,9 @@
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">患者支付力</span>
-						<span>中*</span>
+						<span>
+							{{dests.hospitalConfig.abilityToPay}}
+						</span>
 					{{/bp-layout}}
 				</div>
 			{{/bp-layout}}
@@ -63,34 +67,15 @@
 						<span>潜力值</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" direction="col" local-class="value" class="mb-0" }}
-						<span class="mb-3">效尤-口服抗生素*</span>
-						<span class="mb-3">准入*</span>
-						<span>900000*</span>
+						<span class="mb-3">
+							效尤-口服抗生素*</span>
+						<span class="mb-3">
+							{{dests.hospitalConfig.accessStatus}}
+						</span>
+						<span>
+							{{dests.hospitalConfig.potential}}
+						</span>
 					{{/bp-layout}}
-					{{!-- {{#bp-layout}}
-						{{#bp-layout tagName="p" direction="col"
-							local-class="key" class="mr-3 mb-0"}}
-							<span class="mb-3">药品通用名</span>
-							<span>药品名</span>
-						{{/bp-layout}}
-						{{#bp-layout tagName="p" direction="col"
-							local-class="value"  class="mb-0"}}
-							<span class="mb-3">口服抗生素</span>
-							<span>口服生素</span>
-						{{/bp-layout}}
-					{{/bp-layout}}
-					{{#bp-layout}}
-						{{#bp-layout tagName="p" direction="col"
-							local-class="key" class="mr-3  mb-0"}}
-							<span class="mb-3">状态</span>
-							<span>准入</span>
-						{{/bp-layout}}
-						{{#bp-layout tagName="p" direction="col"
-							local-class="value" class="mb-0"}}
-							<span class="mb-3">口服抗生素</span>
-							<span>口服生素</span>
-						{{/bp-layout}}
-					{{/bp-layout}} --}}
 				{{/bp-layout}}
 			</div>
 			<div local-class="dynamic others">

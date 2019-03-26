@@ -2,6 +2,7 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 import { camelize } from '@ember/string';
 import { pluralize } from 'ember-inflector';
+
 export default DS.JSONAPIAdapter.extend({
 	namespace: 'v0',
 	pathForType(type) {

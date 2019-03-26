@@ -5,6 +5,7 @@
 				local-class="title" classNames="px-4 m-0"}}
 				指标和资源
 			{{/bp-layout}}
+			<p>{{model.managerConfig.id}}</p>
 			{{#bp-layout classNames="p-4"}}
 				{{#bp-layout direction="col" local-class="keys" classNames="mr-3"}}
 					<p class="mb-3">总业务指标</p>
@@ -12,9 +13,18 @@
 					<p>总名额</p>
 				{{/bp-layout}}
 				{{#bp-layout direction="col" local-class="values"}}
-					<p class="mb-3">n/100000*</p>
-					<p class="mb-3">n/100000*</p>
-					<p>n/100000*</p>
+					<p class="mb-3">
+						{{indicatorValue}} /
+						{{model.mConf.managerConfig.totalBusinessIndicators}}
+					</p>
+					<p class="mb-3">
+						{{budgetValue}} /
+						{{model.mConf.managerConfig.totalBudgets}}
+					</p>
+					<p>
+						{{meetingValue}} /
+						{{model.mConf.managerConfig.totalMeetingPlaces}}
+					</p>
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
@@ -57,7 +67,7 @@
 									<span>预算</span>
 								{{/bp-layout}}
 								{{#bp-layout direction="col" local-class="values"}}
-									<span class="mb-1">￥8888888*</span>
+									<span class="mb-1">￥{{dc.hospitalConfig.potential}}</span>
 									<span>￥8888888*</span>
 								{{/bp-layout}}
 							{{/bp-layout}}

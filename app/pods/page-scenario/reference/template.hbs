@@ -17,13 +17,13 @@
 				{{product-info goods=item}}
 			{{/each}}
 		</div>
-		{{else if (bp-eq groupValue 1)}}
+	{{else if (bp-eq groupValue 1)}}
 		<div local-class="hospitals-container reference-content">
 			{{#each model.destConfigs as |dc|}}
 				{{hospital-info dests=dc}}
 			{{/each}}
 		</div>
-		{{else if (bp-eq groupValue 2)}}
+	{{else if (bp-eq groupValue 2)}}
 		<h3>团队成员信息</h3>
 	{{else}}
 		<h3>历史部署情况</h3>

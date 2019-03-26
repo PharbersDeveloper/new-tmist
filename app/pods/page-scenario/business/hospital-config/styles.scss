@@ -30,17 +30,61 @@ h4.title {
 		flex: 1;
 
 		.keys {
-
 			@extend %p-primary;
+		}
+
+		.operating {
+			flex: 1;
+			@extend %p-secondary;
+		}
+	}
+
+	.reps {
+		.keys {
+			flex: 0 0 56px;
 
 			span:first-child {
 				height: 40px;
 				line-height: 40px;
 			}
+
+			span:last-child {
+				height: 32px;
+				line-height: 32px;
+			}
 		}
 
 		.operating {
-			@extend %p-secondary;
+			.progress-container {
+				.progress {
+					flex: 1;
+					height: $spacing;
+					line-height: 20px;
+
+					.bar {
+						background-color: $n300;
+					}
+				}
+
+				span.desc {
+					flex: 0 0 40px;
+					text-align: right;
+
+				}
+			}
+
+		}
+	}
+
+	.meeting {
+
+		.keys {
+			flex: 0 0 84px;
+
+			span:last-child {
+				height: 32px;
+				line-height: 32px;
+			}
 		}
 	}
 }
