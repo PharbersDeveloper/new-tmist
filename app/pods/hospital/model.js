@@ -8,6 +8,6 @@ export default DS.Model.extend({
 	hospitalLevel: DS.attr('string'),
 	position: DS.attr('string'),
 	regtime: DS.attr('string'),
-	images: DS.hasMany('image'),
-	hospitalConfig: DS.belongsTo()
+	hospitalConfig: DS.belongsTo('hospitalConfig'),
+	images: DS.hasMany('image')
 });

@@ -1,8 +1,6 @@
 <table class="table">
 	<thead class="table-light">
-		<th>id</th>
 		<th>name</th>
-		<th>accoundId</th>
 		<th>proposalId</th>
 		<th>Go</th>
 	</thead>
@@ -10,9 +8,7 @@
 		{{#each model as |item|}}
 			{{#if item.proposal}}
 				<tr>
-					<td>{{item.id}}</td>
 					<td>{{item.proposal.name}}</td>
-					<td>{{item.accountId}}</td>
 					<td>{{item.proposal.id}}</td>
 					<td>
 						{{#link-to 'page-scenario' item.proposal.id}}

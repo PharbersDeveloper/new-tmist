@@ -10,6 +10,7 @@ export default DS.Model.extend({
 	regionalManagementAbility: DS.attr('number'),
 	jobEnthusiasm: DS.attr('number'),
 	behaviorValidity: DS.attr('number'),
-	representative: DS.belongsTo('representative'),
-	resourceConfig: DS.belongsTo()
+	totalTime: DS.attr('number'),
+	resourceConfig: DS.belongsTo('resourceConfig'),
+	representative: DS.belongsTo('representative')
 });

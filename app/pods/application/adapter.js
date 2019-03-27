@@ -15,7 +15,7 @@ export default DS.JSONAPIAdapter.extend({
 			'dataType': 'json',
 			'contentType': 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': `bearer 46fa418a3ec8ec32cd8662a589f3b403`
+			'Authorization': `Bearer BONBBC4BPHE6LWW9ULVIBA`
 		};
 	})
 });

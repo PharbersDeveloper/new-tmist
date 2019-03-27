@@ -5,7 +5,6 @@ export default Route.extend({
 	model() {
 		let totalConfig = this.modelFor('page-scenario');
 
-
 		return hash({
 			goodsConfigs: totalConfig.goodsConfigs,
 			destConfigs: totalConfig.destConfigs

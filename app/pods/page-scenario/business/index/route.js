@@ -7,10 +7,12 @@ export default Route.extend({
 			firstDestConfig = destConfigs.get('firstObject'),
 			proposalId = transition.params['page-scenario']['proposal_id'];
 
-		firstDestConfig.get('hospitalConfig').then(data => {
-			this.transitionTo('/scenario/' + proposalId + '/business/hospital/' +
-				data.id);
-		});
+		this.transitionTo('/scenario/' + proposalId + '/business/hospital/' +
+			firstDestConfig.id);
+		// firstDestConfig.get('hospitalConfig').then(data => {
+		// 	this.transitionTo('/scenario/' + proposalId + '/business/hospital/' +
+		// 		data.id);
+		// });
 
 	}
 });

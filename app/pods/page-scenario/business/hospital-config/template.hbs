@@ -1,6 +1,6 @@
 {{#bp-layout tagName="h4" cross="center"
 	local-class="title" classNames="px-4  bg-white"}}
-	{{model.hospConfig.hospital.name}}
+	{{model.destConfig.hospitalConfig.hospital.name}}
 {{/bp-layout}}
 <table local-class="prod" class="table mb-2">
 	<thead>
@@ -17,16 +17,20 @@
 			{{#if (bp-eq pc.productType "0")}}
 				<tr class="mx-0">
 					<td class="pl-2">{{pc.product.name}}</td>
-					<td class="pl-2">{{model.hospConfig.potential}}</td>
-					<td class="pl-2">{{model.hospConfig.lastYearSales}}</td>
+					<td class="pl-2">{{model.destConfig.hospitalConfig.potential}}</td>
+					<td class="pl-2">{{model.destConfig.hospitalConfig.lastYearSales}}</td>
 					<td class="pl-2">
-						{{bp-input block=true widthSize="auto" classNames="mb-2"
-							value=parentController.indicatorValue}}
-						<p class="m-0 ">show</p>
+						{{bp-input block=true widthSize="auto" 
+							classNames="mb-2"
+							value=model.businessinput.salesTarget}}
+						<p class="m-0 ">
+							{{IndicatorAllocationPercent}}%
+						</p>
 					</td>
 					<td class="pl-2">
-						<p class="mb-2">show</p>
-						{{bp-input block=true widthSize="small"}}
+						<p class="mb-2">￥{{budgetNumber}}</p>
+						{{bp-input block=true widthSize="small"
+							value=model.businessinput.budget}}
 					</td>
 				</tr>
 			{{/if}}
@@ -49,9 +53,9 @@
 			{{#bp-layout direction="col" local-class="operating"}}
 				{{#bp-dropdown widthSize="auto" 
 					local-class="dd-hosp" classNames="mb-4" as |dd|}}
-					{{#dd.button }}
-						{{#if rep.representative.name}}
-							<p>{{rep.representative.name}}</p>
+					{{#dd.button}}
+						{{#if tmpRc.id}}
+							<p>{{tmpRc.representativeConfig.representative.name}}</p>
 						{{else}}
 							请选择
 						{{/if}}
@@ -60,8 +64,8 @@
 					{{#dd.menu as |menu|}}
 						{{#each model.repConf as |rc|}}
 							{{#if (bp-eq rc.resourceType 1)}}
-								{{#menu.option value=rc.representativeConfig 
-								onClick=(action (mut rep))}}
+								{{#menu.option value=rc 
+								onClick=(action 'changedRep')}}
 									{{rc.representativeConfig.representative.name}}
 								{{/menu.option}}
 							{{/if}}
@@ -71,11 +75,19 @@
 				{{#bp-layout cross="center" classNames="mb-4"  local-class="progress-container"}}
 					{{#bs-progress local-class="progress"
 						as |p|}}
-						{{p.bar local-class="bar" value=50}}
+						{{p.bar maxValue=tmpRc.representativeConfig.totalTime 
+							local-class="bar" value=model.businessinput.visitTime}}
 					{{/bs-progress}}
-					<span local-class="desc" class="ml-2">50%</span>
+					<span local-class="desc" class="ml-2">
+						{{model.businessinput.visitTime}}/
+						{{#if tmpRc.representativeConfig.totalTime}}
+							{{tmpRc.representativeConfig.totalTime}}
+						{{else}}
+							0
+						{{/if}}</span>
 				{{/bp-layout}}
-				{{bp-input}}
+				{{bp-input
+					value=model.businessinput.visitTime}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -90,7 +102,8 @@
 				<span>分配会议名额</span>
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="operating"}}
-				{{bp-input widthSize="auto"}}
+				{{bp-input widthSize="auto"
+					value=model.businessinput.meetingPlaces}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}

@@ -4,6 +4,6 @@ export default DS.Model.extend({
 	scenarioId: DS.attr('string'),
 	resourceType: DS.attr('number'),
 	resourceId: DS.attr('string'),
-	managerConfig: DS.belongsTo(),
-	representativeConfig: DS.belongsTo()
+	managerConfig: DS.belongsTo('managerConfig'),
+	representativeConfig: DS.belongsTo('representativeConfig')
 });

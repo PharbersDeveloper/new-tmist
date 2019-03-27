@@ -12,12 +12,18 @@
 				{{#if (bp-eq groupValue 0)}}
 					<h3 local-class="title" class="px-4">经理剩余时间</h3>
 					<div local-class="pie" class="px-4">
-						{{ model.mConf.managerConfig.managerTime}}
+						{{!-- {{ model.mConf.managerConfig.managerTime}} --}}
+						{{bp-circle
+							seriesName="经理剩余时间" 
+							circleData=circleTime}}
 					</div>
 				{{else}}
 					<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
 					<div local-class="pie" class="px-4">
-						{{ model.mConf.managerConfig.managerKpi}}
+						{{!-- {{ model.mConf.managerConfig.managerKpi}} --}}
+						{{bp-circle
+							seriesName="经理剩余行动点数"
+							circleData=circlePoint}}
 					</div>
 				{{/if}}
 			</div>
@@ -66,11 +72,12 @@
 								{{/bp-layout}}
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
-								{{bp-input value="*" 
+								{{bp-input value=managerInput.strategyAnalysisTime
 									palceholder="%" 
 									size="medium" widthSize="medium" 
+									onChange=(action (mut managerInput.strategyAnalysisTime))
 									classNames="mb-4"}}
-								{{bp-input value="**" 
+								{{bp-input value=managerInput.clientManagementTime
 									palceholder="%" 
 									size="medium" widthSize="medium"}}
 							{{/bp-layout}}
@@ -87,11 +94,11 @@
 								{{/bp-layout}}
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
-								{{bp-input value="***"  
+								{{bp-input value=managerInput.adminWorkTime
 									palceholder="%" 
 									size="medium" widthSize="medium"
 									classNames="mb-4"}}
-								{{bp-input value="****" 
+								{{bp-input value=managerInput.kpiAnalysisTime
 									palceholder="%" 
 									size="medium" widthSize="medium"}}
 							{{/bp-layout}}
@@ -108,7 +115,7 @@
 							{{/bp-layout}}
 						{{/bp-layout}}
 						{{#bp-layout direction=col local-class="inputs" }}
-							{{bp-input value="*****"  palceholder="%" size="medium"}}
+							{{bp-input value=managerInput.teamMeetingTime  palceholder="%" size="medium"}}
 						{{/bp-layout}}
 					{{/bp-layout}}
 				</div>
@@ -131,13 +138,17 @@
 								<p class="text-center mb-2 mr-0">
 									{{rcs.representativeConfig.representative.name}}
 								</p>
-								{{bp-input value="*" 
+								{{#each representativeInputs as |resConf|}}
+									{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
+										{{bp-input value=resConf.assistAccessTime
 										palceholder="%" 
 										size="medium" widthSize="small" 
 										classNames="mb-4"}}
-								{{bp-input value="**" 
+										{{bp-input value=resConf.abilityCoach 
 										palceholder="%" 
 										size="medium" widthSize="small"}}
+									{{/if}}
+								{{/each}}
 							{{/bp-layout}}
 						{{/each}}
 					{{/bp-layout}}
@@ -159,15 +170,40 @@
 						</thead>
 						<tbody>
 							{{#each model.rConfs as |rcs|}}
-								<tr>
-									<td>{{rcs.representativeConfig.representative.name}}</td>
-									<td>{{bp-input widthSize="small" value="*"}}</td>
-									<td>{{bp-input widthSize="small" value="*"}}</td>
-									<td>{{bp-input widthSize="small" value="*"}}</td>
-									<td>{{bp-input widthSize="small" value="*"}}</td>
-									<td>{{bp-input widthSize="small" value="*"}}</td>
-									<td>{{bp-input widthSize="small" value="*"}}</td>
-								</tr>
+								{{#each representativeInputs as |resConf|}}
+									{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
+										<tr>
+											<td>
+												{{rcs.representativeConfig.representative.name}}
+											</td>
+											<td>
+												{{bp-input widthSize="small" 
+												value=resConf.productKnowledgeTraining}}
+											</td>
+											<td>
+												{{bp-input widthSize="small" 
+												value=resConf.salesAbilityTraining}}
+											</td>
+											<td>
+												{{bp-input widthSize="small" 
+												value=resConf.regionTraining}}
+											</td>
+											<td>
+												{{bp-input widthSize="small" 
+												value=resConf.performanceTraining}}
+											</td>
+											<td>
+												{{bp-input widthSize="small" 
+												value=resConf.vocationalDevelopment}}
+											</td>
+											<td>
+												{{bp-input widthSize="small"
+												disabled=true 
+												value=resConf.totalPoint}}
+											</td>
+										</tr>
+									{{/if}}
+								{{/each}}
 							{{/each}}
 						</tbody>
 					</table>

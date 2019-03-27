@@ -1,8 +1,28 @@
 import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
+import $ from 'jquery';
 
 export default Route.extend({
+	beforeModel({ params }) {
+		let proposalId = params['page-scenario']['proposal_id'],
+			that = this;
 
+		$.ajax({
+			method: 'POST',
+			url: `/v0/GeneratePaper?proposal-id=${proposalId}`,
+			headers: {
+				'Content-Type': 'application/json', // 默认值
+				'Accept': 'application/json',
+				'Authorization': `Bearer BONBBC4BPHE6LWW9ULVIBA`
+			},
+			data: {},
+			success: function (res) {
+				that.get('store').pushPayload(res);
+			},
+			error: function () {
+			}
+		});
+	},
 	model(params) {
 		let scenario = this.modelFor('application'),
 			scenarioId = scenario.id,
@@ -19,13 +39,13 @@ export default Route.extend({
 				return this.get('store').query('scenario',
 					{ 'proposal-id': proposalId });
 			})
-			// 获取 resourceConfig ->代表
+			// 获取 resourceConfig -> 代表
 			.then(data => {
 				scenarios = data;
 				return this.get('store').query('resourceConfig',
 					{ 'scenario-id': scenarioId, 'resource-type': 1 });
 			})
-			// 获取 resourceConfig ->经理
+			// 获取 resourceConfig -> 经理
 			.then(data => {
 				resourceConfRep = data;
 				return this.get('store').query('resourceConfig',
@@ -41,6 +61,8 @@ export default Route.extend({
 					goodsConfigs: this.get('store').query('goodsConfig',
 						{ 'scenario-id': scenarioId }),
 					destConfigs: this.get('store').query('destConfig',
+						{ 'scenario-id': scenarioId }),
+					resourceConfig: this.get('store').query('resourceConfig',
 						{ 'scenario-id': scenarioId })
 				});
 			});

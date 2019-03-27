@@ -1,8 +1,8 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-	hospitalId: DS.attr('string'),
-	representativeId: DS.attr('string'),
+	destConfigId: DS.attr('string'),
+	resourceConfigId: DS.attr('string'),
 	salesTarget: DS.attr('number'),
 	budget: DS.attr('number'),
 	meetingPlaces: DS.attr('number'),
