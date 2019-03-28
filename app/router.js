@@ -16,6 +16,10 @@ Router.map(function () {
 		this.route('reference');
 	});
 	this.route('page-proposal', { path: 'proposals' });
+	this.route('page-result', { path: 'result' }, function () {
+		this.route('index', { path: '/' });
+		this.route('review');
+	});
 });
 
 export default Router;

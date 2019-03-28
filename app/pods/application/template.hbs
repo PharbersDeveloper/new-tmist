@@ -1,10 +1,12 @@
-<header local-class="application-header">
-	{{#bp-layout main="between" 
-		cross='center'}}
-		<p>
-			<img src="/images/logo.png" alt="tmist logo">
-			TMIST</p>
-		<img src="/images/logo.png" alt="user avatar">
-	{{/bp-layout}}
-</header>
-{{outlet}}
+{{!-- <header local-class="application-header" class="bg-white"> --}}
+{{#bp-layout tagName="header"  main="between" cross='center'
+		local-class="header" classNames="bg-white px-4"}}
+	<p>
+		<img src="/assets/images/new-tmist.png" alt="tmist logo">
+		TMIST</p>
+	<img src="/assets/images/logo.png" alt="user avatar">
+{{/bp-layout}}
+{{!-- </header> --}}
+<section local-class="container">
+	{{outlet}}
+</section>

@@ -33,28 +33,7 @@ export default Route.extend({
 			store = this.get('store'),
 			businessInputs = store.peekAll('businessinput'),
 			tmp = this.hasBusinessInput(businessInputs, this, destConfigs, store);
-		// return new Promise((resolve) => {
-		// 	promiseArray = destConfigs.map(ele => {
-		// 		return this.get('store').createRecord('businessinput', {
-		// 			destConfigId: ele.id,
-		// 			representativeId: '',
-		// 			salesTarget: 0,
-		// 			budget: 0,
-		// 			meetingPlaces: 0,
-		// 			visitTime: 0
-		// 		});
-		// 	});
-		// 	resolve(rsvp.Promise.all(promiseArray));
-		// }).then(data => {
-		// 	this.controllerFor('page-scenario.business').set('businessInputs', data);
 
-		// 	return rsvp.hash({
-		// 		businessInputs: data,
-		// 		mConf: totalConfigs.resourceConfManager,
-		// 		goodsConfigs: totalConfigs.goodsConfigs,
-		// 		destConfigs: totalConfigs.destConfigs
-		// 	});
-		// });
 		this.controllerFor('page-scenario.business').set('businessInputs', tmp);
 
 		return rsvp.hash({

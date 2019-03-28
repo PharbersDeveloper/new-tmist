@@ -34,7 +34,11 @@
 		}
 	}
 
+
 	.product-content {
+		&.hidden {
+			display: none;
+		}
 
 		.left {
 			flex: 0 0 500px;
@@ -42,7 +46,6 @@
 
 			img {
 				flex: 0 0 133px;
-				// width: 133px;
 				height: 133px;
 			}
 

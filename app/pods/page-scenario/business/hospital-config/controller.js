@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
-	parentController: null,
 	IndicatorAllocationPercent: computed('businessinput.salesTarget', function () {
 		let { totalBusinessIndicators, businessinput } =
 			this.getProperties('totalBusinessIndicators', 'businessinput'),

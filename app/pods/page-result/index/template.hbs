@@ -1,0 +1,97 @@
+{{#bp-layout direction="col" local-class="report-container" }}
+	{{#bp-layout main="center" classNames="py-4" local-class="report-tabs" }}
+		{{#bp-button-group value=groupValue type="radio" 
+			onChange=(action (mut groupValue)) as |bg|}}
+			{{#bg.button type="default" value=0}}产品销售报告{{/bg.button}}
+			{{#bg.button type="default" value=1}}代表销售报告{{/bg.button}}
+			{{#bg.button type="default" value=2}}医院销售报告{{/bg.button}}
+		{{/bp-button-group}}
+	{{/bp-layout}}
+	{{#bp-layout local-class="report-content" }}
+		{{#if (bp-eq groupValue 0)}}
+			<div local-class="report product">
+				<h3>产品销售报告</h3>
+			</div>
+		{{else if (bp-eq groupValue 1)}}
+			<div local-class="report representative" class="bg-white">
+				<h3>代表销售报告</h3>
+			</div>
+		{{else}}
+			<div local-class="report hospital">
+				{{#bp-layout tagName="h3" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					医院销售报告
+				{{/bp-layout}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames="bg-white"}}
+						{{#bp-layout main="between" cross="center" 
+							local-class="choose-area" classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择医院</span>
+							{{#bp-dropdown widthSize="auto" 
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpRc.id}}
+										<p>{{tmpRc.productConfig.product.name}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each model.goodsConfigs as |gc|}}
+										{{#menu.option value=gc 
+												onClick=(action (mut tmpGc))}}
+											{{gc.productConfig.product.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center" 
+							local-class="choose-area"  classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择产品</span>
+							{{#bp-dropdown widthSize="auto" 
+								local-class="dd-sort dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpSr.name}}
+										<p>{{tmpSr.name}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each sortRules as |sr|}}
+										{{#menu.option value=sr 
+												onClick=(action (mut tmpSr))}}
+											{{sr.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+					<table local-class="table-container" class="table">
+						<thead>
+							<th>医院名称</th>
+							<th>潜力</th>
+							<th>2018第2季度</th>
+							<th>2018第3季度</th>
+							<th>2018第4季度</th>
+						</thead>
+						<tbody class="bg-white">
+							<tr>
+								<td>安贞医院</td>
+								<td>39742</td>
+								<td>62065</td>
+								<td>38608</td>
+								<td>10952</td>
+							</tr>
+						</tbody>
+					</table>
+				{{/bp-layout}}
+			</div>
+		{{/if}}
+	{{/bp-layout}}
+{{/bp-layout}}

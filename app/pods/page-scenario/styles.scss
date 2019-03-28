@@ -1,7 +1,5 @@
 .page-scenario {
-	padding: 3*$spacing;
-	height: calc(100% - 64px);
-	background-color: $n010;
+	height: 100%;
 	overflow: auto;
 
 	.scenario-header {

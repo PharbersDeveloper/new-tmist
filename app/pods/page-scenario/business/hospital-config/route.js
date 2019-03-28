@@ -7,7 +7,6 @@ export default Route.extend({
 			store = this.get('store'),
 			scenarios = this.modelFor('page-scenario'),
 			managerConf = scenarios.resourceConfManager,
-			businessController = this.controllerFor('page-scenario.business'),
 			currentController = this.controllerFor('page-scenario.business.hospital-config'),
 			businessInputs = store.peekAll('businessinput'),
 			businessinput = null;
@@ -35,7 +34,6 @@ export default Route.extend({
 				currentController.set('totalBudgets', data.tbg);
 				currentController.set('totalMeetingPlaces', data.tmp);
 			});
-		currentController.set('parentController', businessController);
 		currentController.set('businessinput', businessinput);
 
 		return hash({
@@ -43,8 +41,6 @@ export default Route.extend({
 			repConf: scenarios.resourceConfRep,
 			destConfig: store.findRecord('destConfig', dCId),
 			businessinput,
-			// businessinput: store.queryRecord('businessinput', { 'dest-config-id': dCId }),
-			// hospConfig: this.get('store').findRecord('hospitalConfig', hCId),
 			prodConfig: this.get('store').findAll('productConfig')
 		});
 	}

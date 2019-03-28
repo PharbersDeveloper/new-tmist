@@ -1,0 +1,201 @@
+{{#bp-layout direction="col" local-class="review-container" }}
+	{{#bp-layout main="center" classNames="py-4" local-class="review-tabs" }}
+		{{#bp-button-group value=groupValue type="radio" 
+			onChange=(action (mut groupValue)) as |bg|}}
+			{{#bg.button type="default" value=0}}业务决策情况{{/bg.button}}
+			{{#bg.button type="default" value=1}}管理决策情况{{/bg.button}}
+		{{/bp-button-group}}
+	{{/bp-layout}}
+	{{#bp-layout main="between" local-class="review-content" }}
+		{{#if (bp-eq groupValue 0)}}
+			<div local-class="situation business">
+				{{#bp-layout direction="col" classNames="bg-white"}}
+					{{#bp-layout main="between" local-class="choose-container"}}
+						{{#bp-layout main="between" cross="center" 
+							local-class="choose-area" classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择药品</span>
+							{{#bp-dropdown widthSize="auto" 
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpRc.id}}
+										<p>{{tmpRc.productConfig.product.name}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each model.goodsConfigs as |gc|}}
+										{{#menu.option value=gc 
+												onClick=(action (mut tmpGc))}}
+											{{gc.productConfig.product.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center" 
+							local-class="choose-area"  classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择排序</span>
+							{{#bp-dropdown widthSize="auto" 
+								local-class="dd-sort dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpSr.name}}
+										<p>{{tmpSr.name}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each sortRules as |sr|}}
+										{{#menu.option value=sr 
+												onClick=(action (mut tmpSr))}}
+											{{sr.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+					<table local-class="table-container" class="table">
+						<thead>
+							<th>医院名称</th>
+							<th>潜力</th>
+							<th>当期销售额</th>
+							<th>代表</th>
+							<th>分配时间</th>
+							<th>销售目标设定</th>
+							<th>预算费用</th>
+							<th>会议名额 </th>
+						</thead>
+						<tbody class="bg-white">
+							{{#if sortData.length}}
+								{{#each sortData as |dcs|}}
+									<tr>
+										<td>{{dcs.hospitalConfig.hospital.name}}</td>
+										<td>{{dcs.hospitalConfig.potential}}</td>
+										<td>{{dcs.hospitalConfig.sales}}</td>
+										<td>*</td>
+										<td>*</td>
+										<td>*</td>
+										<td>*</td>
+										<td>*</td>
+									</tr>
+								{{/each}}
+							{{else}}
+								{{#each model.destConfigs as |dcs|}}
+									<tr>
+										<td>{{dcs.hospitalConfig.hospital.name}}</td>
+										<td>{{dcs.hospitalConfig.potential}}</td>
+										<td>{{dcs.hospitalConfig.sales}}</td>
+										<td>*</td>
+										<td>*</td>
+										<td>*</td>
+										<td>*</td>
+										<td>*</td>
+									</tr>
+								{{/each}}
+							{{/if}}
+						</tbody>
+					</table>
+				{{/bp-layout}}
+			</div>
+		{{else}}
+			<div local-class="situation manager">
+				<div local-class="time">
+					{{#bp-layout tagName="h3" cross="center" 
+						local-class="title" classNames="bg-white px-4"}}
+						行动点数分配
+					{{/bp-layout}}
+					<div local-class="table-container" class="p-4 bg-white">
+						<table class="table">
+							<thead>
+								<th class="border-0">业务时间投入</th>
+								<th class="border-0">占比</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>业务数据策略分析</td>
+									<td>40%</td>
+								</tr>
+								<tr>
+									<td>行政工作</td>
+									<td>40%</td>
+								</tr>
+								<tr>
+									<td>重点目标客户管理</td>
+									<td>40%</td>
+								</tr>
+								<tr>
+									<td>代表及KPI</td>
+									<td>40%</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div local-class="table-container" class="p-4 bg-white">
+						<table class="table">
+							<thead>
+								<th class="border-0">团队时间投入</th>
+								<th class="border-0">占比</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>团队例会</td>
+									<td>60%</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div local-class="table-container" class="p-4 bg-white">
+						<table class="table">
+							<thead>
+								<th class="border-0">管理代表时间投入</th>
+								<th class="border-0">1v1能力辅导</th>
+								<th class="border-0">协访时间 </th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>小张</td>
+									<td>6</td>
+									<td>66</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div local-class="point">
+					{{#bp-layout tagName="h3" cross="center"
+						local-class="title" classNames="bg-white px-4"}}
+						经理时间分配
+					{{/bp-layout}}
+					<div local-class="table-container" class="p-4 bg-white">
+						<table class="table">
+							<thead>
+								<th class="border-0">代表姓名</th>
+								<th class="border-0">产品知识培训</th>
+								<th class="border-0">销售能力培训</th>
+								<th class="border-0">区域管理培训</th>
+								<th class="border-0">绩效约谈</th>
+								<th class="border-0">职业发展指导</th>
+								<th class="border-0">总点数</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>小张</td>
+									<td>6</td>
+									<td>66</td>
+									<td>66</td>
+									<td>66</td>
+									<td>66</td>
+									<td>66</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		{{/if}}
+	{{/bp-layout}}
+{{/bp-layout}}

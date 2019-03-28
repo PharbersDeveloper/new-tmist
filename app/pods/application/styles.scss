@@ -1,29 +1,28 @@
 @import "bp-components";
 
-.application-header {
-	padding: 0 3*$spacing;
+.header {
+	position: relative;
+	z-index: 1;
 	height: 8*$spacing;
 	@extend %shadow-z200;
 
-	&>div {
-		height: 100%;
-
-		p {
-			margin: 0;
-			@extend %p-primary;
-
-			img {
-				margin-right: 2*$spacing;
-				width: 4*$spacing;
-				height: 4*$spacing
-			}
-		}
+	p {
+		margin: 0;
+		@extend %header-small;
 
 		img {
-			width: 18px;
-			height: 18px;
-
+			margin-right: 2*$spacing;
+			width: 4*$spacing;
+			height: 4*$spacing
 		}
-
 	}
+
+	img {
+		width: 18px;
+		height: 18px;
+	}
+}
+
+.container {
+	height: calc(100% - 64px);
 }

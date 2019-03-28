@@ -31,6 +31,8 @@ export default Controller.extend({
 					tmpPaperinput.then(tmp => {
 						tmp.pushObject(data);
 						paper.save();
+					}).then(() => {
+						this.transitionToRoute('page-result');
 					});
 
 				});
