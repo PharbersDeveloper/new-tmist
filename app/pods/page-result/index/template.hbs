@@ -77,19 +77,24 @@
 							<th>医院名称</th>
 							<th>产品</th>
 							<th>潜力</th>
-							<th>2018第2季度</th>
-							<th>2018第3季度</th>
-							<th>2018第4季度</th>
+							{{#each hospitalData.times as |time|}}
+								<th>{{time}}</th>
+							{{/each}}
 						</thead>
 						<tbody class="bg-white">
-							{{#each model.hospitalsalesreports as |hosprep|}}
+							{{#each hospitalData.currentReport as |hospital|}}
 								<tr>
-									<td>{{hosprep.destConfig.hospitalConfig.hospital.name}}</td>
-									<td>{{hosprep.goodsConfig.productConfig.product.name}}</td>
-									<td>{{hosprep.potential}}</td>
-									<td>62065*</td>
-									<td>38608*</td>
-									<td>10952*</td>
+									<td>{{hospital.destConfig.hospitalConfig.hospital.name}}</td>
+									<td>{{hospital.goodsConfig.productConfig.product.name}}</td>
+									<td>{{hospital.potential}}</td>
+									{{#each hospitalData.historyReport as |history|}}
+										{{#each history as |item|}}
+											{{#if (eq hospital.destConfig.hospitalConfig.hospital.id item.destConfig.hospitalConfig.hospital.id)}}
+												<td>{{item.sales}}</td>
+											{{/if}}
+										{{/each}}
+									{{/each}}
+									<td>{{hospital.sales}}</td>
 								</tr>
 							{{/each}}
 						</tbody>

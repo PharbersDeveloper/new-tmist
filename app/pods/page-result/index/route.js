@@ -2,8 +2,12 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
 	model() {
-		return this.get('store').query('salesreport',
-			{"scenario-id": "5c7e3157eeefcc1c9ec104ae"}
-		).then(data => data.get('firstObject'));
+		let scenario = this.get('store').peekAll('scenario').sortBy('phase').get('lastObject');
+
+		return this.get('store').query('paper',
+			{'proposal-id': scenario.get('proposalId')}
+		).then(data => {
+			return data.get('lastObject').get('salesreports');
+		});
 	}
 });

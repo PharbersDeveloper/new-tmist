@@ -48,7 +48,8 @@
 	},
 	"dependencies": {
 		"bp-components": "*",
-		"ember-cookies": "^0.4.0"
+		"ember-cookies": "^0.4.0",
+		"ember-truth-helpers": "^2.1.0"
 	},
 	"engines": {
 		"node": "^4.5 || 6.* || >= 7.*"

@@ -2,7 +2,7 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 
 export default DS.Model.extend({
-	representativeId: DS.attr('string'),
+	resourceConfigId: DS.attr('string'),
 	productKnowledgeTraining: DS.attr('number'),
 	salesAbilityTraining: DS.attr('number'),
 	regionTraining: DS.attr('number'),
