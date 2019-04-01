@@ -9,7 +9,6 @@ export default DS.Model.extend({
 	spaceBelongs: DS.attr('string'),
 	abilityToPay: DS.attr('string'),
 	accessStatus: DS.attr('string'),
-	destConfig: DS.belongsTo('destConfig'),
 	hospital: DS.belongsTo('hospital'),
 	policies: DS.hasMany('policy'),
 	departments: DS.hasMany('department')

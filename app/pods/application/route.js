@@ -7,8 +7,7 @@ export default Route.extend({
 		let cookies = this.get('cookies'),
 			scenarios = this.get('store').query('scenario',
 				{
-					'porposal-id': '5c7ce8b1421aa9907926eb71',
-					phase: 3
+					'porposal-id': '5c7ce8b1421aa9907926eb71'
 				});
 
 		cookies.write('token', '46fa418a3ec8ec32cd8662a589f3b403');
@@ -16,11 +15,9 @@ export default Route.extend({
 		return scenarios.then(data => {
 			/**
 			 * 应该获取到最新的，但是最新的没有数据
+			 * 最新的scenario会在做完“题目”，生成报告后更新 Alex留
 			 */
-			// scenario = data.sortBy('phase').get('lastObject');
-			return data.get('lastObject');
-		}).then(data => {
-			return data;
+			return data.sortBy('phase').get('lastObject');
 		});
 	}
 });
