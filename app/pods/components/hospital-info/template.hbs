@@ -5,9 +5,10 @@
 	{{dests.hospitalConfig.hospital.name}}
 {{/bp-layout}}
 {{#if showContent}}
-	{{#bp-layout class="p-4" local-class="content" }}
-		<div local-class="infos">
-			{{#bp-layout local-class="basic" main="between" }}
+	{{#bp-layout direction="col" local-class="content" }}
+		{{#bp-layout main="between" local-class="infos"}}
+			{{#bp-layout main="between" local-class="basic" 
+				classNames="p-4"}}
 				{{#each dests.hospitalConfig.hospital.images as |img index|}}
 					{{#if (bp-eq index 0)}}
 						<img src={{img.img}} alt={{dests.hospitalConfig.hospital.name}} class="mr-4">
@@ -58,16 +59,23 @@
 					{{/bp-layout}}
 				</div>
 			{{/bp-layout}}
-			<div local-class="medic-access others">
-				<h4 local-class="title" class="mb-4">药品准入情况</h4>
-				{{#bp-layout local-class="content" }}
-					{{#bp-layout tagName="p" direction="col" local-class="key" class="mr-3 mb-0" }}
-						<span class="mb-3">药品通用名-药品名</span>
-						<span class="mb-3">状态</span>
-						<span>潜力值</span>
-					{{/bp-layout}}
-					{{#bp-layout tagName="p" direction="col" local-class="value" class="mb-0" }}
-						<span class="mb-3">
+			<div local-class="dynamic others" class="p-4">
+				<h4 local-class="title" class="mb-2">医院动态</h4>
+				{{#each dests.hospitalConfig.policies as |policy|}}
+					<p local-class="content" class="mb-2">
+						{{policy.describe}}
+					</p>
+				{{/each}}
+			</div>
+		{{/bp-layout}}
+		{{#bp-layout main="between" local-class="sell"}}
+			{{#bp-layout direction="col" local-class="medic-access"
+				classNames="p-4"}}
+				<h4 local-class="title" class="mb-3">药品准入情况</h4>
+				{{#bp-layout}}
+					{{#bp-layout direction="col" classNames="mr-5"}}
+						<p local-class="keys">药品通用名-药品名</p>
+						<p local-class="values">
 							{{#each prods as |prod|}}
 								{{#if (bp-eq prod.productConfig.productType "0")}}
 									{{prod.productConfig.product.name}}
@@ -75,29 +83,31 @@
 									{{prod.productConfig.product.generalName}}
 								{{/if}}
 							{{/each}}
-						</span>
-						<span class="mb-3">
-							{{dests.hospitalConfig.accessStatus}}
-						</span>
-						<span>
-							{{dests.hospitalConfig.potential}}
-						</span>
+						</p>
+					{{/bp-layout}}
+					{{#bp-layout direction="col"  classNames="mr-5"}}
+						<p local-class="keys">状态</p>
+						<p local-class="values">准入*</p>
+					{{/bp-layout}}
+					{{#bp-layout direction="col"}}
+						<p local-class="keys">潜力值</p>
+						<p local-class="values">90505641*</p>
 					{{/bp-layout}}
 				{{/bp-layout}}
-			</div>
-			<div local-class="dynamic others">
-				<h4 local-class="title" class="mb-4">医院动态</h4>
-				{{#each dests.hospitalConfig.policies as |policy|}}
-					<p local-class="content" class="mb-2">
-						{{policy.describe}}
-					</p>
-				{{/each}}
-			</div>
-		</div>
-		<div local-class="sell">
-			<h4 local-class="title" class="mb-4">药品销售情况</h4>
-			<div local-class="content">
-			</div>
-		</div>
+			{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="chart" 
+			classNames="p-4"}}
+				<h4 local-class="title" class="mb-2">药品销售额情况
+					<span local-class="subtitle" class="ml-2">
+						{{#each prods as |prod|}}
+							{{#if (bp-eq prod.productConfig.productType "0")}}
+								{{prod.productConfig.product.generalName}}
+							{{/if}}
+						{{/each}}
+					</span>
+				</h4>
+				<div local-class="content"></div>
+			{{/bp-layout}}
+		{{/bp-layout}}
 	{{/bp-layout}}
 {{/if}}

@@ -1,0 +1,9 @@
+<div local-class="products-container reference-content">
+	<div local-class="trend" class="mb-4">
+		<h3 local-class="title" class="px-4">产品份额竞争趋势</h3>
+		<div local-class="trend-line"></div>
+	</div>
+	{{#each model as |item|}}
+		{{product-info goods=item}}
+	{{/each}}
+</div>

@@ -1,6 +1,10 @@
 .reference-container {
 	height: calc(100% - 25px);
 
+	h4.title {
+		@extend %header-small;
+	}
+
 	.reference-tabs {
 		flex: 0 0 80px;
 	}
@@ -8,21 +12,64 @@
 	.reference-content {
 		flex: 1;
 
-		&.products-container {
-			.trend {
-				.title {
-					height: 52px;
-					line-height: 52px;
-					@extend %p-primary;
-				}
+		// &.products-container {
+		// 	.trend {
+		// 		.title {
+		// 			height: 52px;
+		// 			line-height: 52px;
+		// 			@extend %p-primary;
+		// 		}
 
-				.trend-line {
-					height: 470px;
-					background-color: #A1C6E7;
-				}
-			}
+		// 		.trend-line {
+		// 			height: 470px;
+		// 			background-color: #A1C6E7;
+		// 		}
+		// 	}
+		// }
 
-		}
+		// &.representative-container {
+		// 	.overview {
+		// 		&>div {
+		// 			flex: 1;
+		// 		}
+
+		// 		.infos {
+		// 			.keys {
+		// 				@extend %p-primary;
+		// 				flex: 0 0 56px;
+		// 			}
+
+		// 			.values {
+		// 				@extend %p-secondary;
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+		// &.historical-sales-container {
+		// 	.nav {
+		// 		flex: 0 0 270px;
+		// 		list-style: none;
+
+		// 		li {
+		// 			height: 4*$spacing;
+		// 			@extend %header-small;
+		// 			cursor: pointer;
+
+		// 			span {
+		// 				flex: 1;
+		// 			}
+
+		// 			&.active {
+		// 				background-color: $n020a;
+		// 			}
+		// 		}
+		// 	}
+
+		// 	.content {
+		// 		flex: 1;
+		// 	}
+		// }
 
 	}
 }

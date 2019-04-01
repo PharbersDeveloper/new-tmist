@@ -10,14 +10,7 @@
 
 		.report {
 			flex: 1;
-		}
 
-		h3.title {
-			height: 52px;
-			@extend %header-small;
-		}
-
-		.report.hospital {
 			.choose-container {
 				flex: 0 0 72px;
 
@@ -60,5 +53,32 @@
 				}
 			}
 		}
+
+		h3.title {
+			height: 52px;
+			@extend %header-small;
+		}
+
+
+		// .report.hospital,
+		// .report.product {
+		// 	.choose-container {
+		// 		flex: 0 0 72px;
+
+		// 		.choose-area {
+
+		// 			flex: 1;
+
+		// 			.keys {
+		// 				flex: 0 0 56px;
+		// 				@extend %p-primary;
+		// 			}
+
+		// 			.dd-area {
+		// 				flex: 1;
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
 }

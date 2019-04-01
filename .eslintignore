@@ -3,7 +3,7 @@
 /vendor/
 
 # route.js
-/app/route.js
+/app/router.js
 
 # compiled output
 /dist/

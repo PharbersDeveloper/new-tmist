@@ -59,9 +59,23 @@
 		}
 
 		.manager {
+			h2.title {
+				height: 60px;
+				@extend %header-medium;
+			}
+
 			h3.title {
 				height: 52px;
-				@extend %header-medium;
+				@extend %header-small;
+			}
+
+			.times>div {
+				flex: 1;
+			}
+
+			.keys,
+			.values {
+				@extend %p-primary;
 			}
 
 			.table-container {

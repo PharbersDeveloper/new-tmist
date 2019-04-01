@@ -104,56 +104,56 @@
 		{{else}}
 			<div local-class="situation manager">
 				<div local-class="time">
-					{{#bp-layout tagName="h3" cross="center" 
-						local-class="title" classNames="bg-white px-4"}}
-						行动点数分配
+					{{#bp-layout tagName="h2" cross="center" 
+						local-class="title" classNames="bg-white px-4 mb-2"}}
+						经理时间分配
 					{{/bp-layout}}
-					<div local-class="table-container" class="p-4 bg-white">
+					{{#bp-layout local-class="times" classNames="mb-2"}}
+						{{#bp-layout direction="col" classNames="mr-2 bg-white"}}
+							{{#bp-layout tagName="h3" cross="center" 
+						local-class="title" classNames="px-4"}}
+								业务投入时间
+							{{/bp-layout}}
+							{{#bp-layout }}
+								{{#bp-layout direction="col" classNames="p-4 mr-5"}}
+									<p class="mb-4" local-class="keys">业务数据策略分析</p>
+									<p class="mb-4" local-class="keys">行政工作</p>
+									<p class="mb-4" local-class="keys">重点目标客户管理</p>
+									<p local-class="keys">代表及KPI</p>
+								{{/bp-layout}}
+								{{#bp-layout direction="col" classNames="p-4"}}
+									<p class="mb-4" local-class="values">20%</p>
+									<p class="mb-4" local-class="values">10%</p>
+									<p class="mb-4" local-class="values">30%</p>
+									<p local-class="values">55%</p>
+								{{/bp-layout}}
+							{{/bp-layout}}
+						{{/bp-layout}}
+						{{#bp-layout direction="col" classNames="bg-white"}}
+							{{#bp-layout tagName="h3" cross="center" 
+						local-class="title" classNames="px-4"}}
+								团队时间投入
+							{{/bp-layout}}
+							{{#bp-layout }}
+								{{#bp-layout direction="col" classNames="p-4 mr-5"}}
+									<p class="mb-4" local-class="keys">团队例会</p>
+								{{/bp-layout}}
+								{{#bp-layout direction="col" classNames="p-4"}}
+									<p class="mb-4" local-class="values">20%</p>
+								{{/bp-layout}}
+							{{/bp-layout}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+					{{#bp-layout tagName="h2" cross="center" 
+						local-class="title" classNames="mb-0 px-4 bg-white"}}
+						管理代表时间投入
+					{{/bp-layout}}
+					<div local-class="table-container" class="mb-2 p-4 bg-white">
 						<table class="table">
 							<thead>
-								<th class="border-0">业务时间投入</th>
-								<th class="border-0">占比</th>
-							</thead>
-							<tbody>
-								<tr>
-									<td>业务数据策略分析</td>
-									<td>40%</td>
-								</tr>
-								<tr>
-									<td>行政工作</td>
-									<td>40%</td>
-								</tr>
-								<tr>
-									<td>重点目标客户管理</td>
-									<td>40%</td>
-								</tr>
-								<tr>
-									<td>代表及KPI</td>
-									<td>40%</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div local-class="table-container" class="p-4 bg-white">
-						<table class="table">
-							<thead>
-								<th class="border-0">团队时间投入</th>
-								<th class="border-0">占比</th>
-							</thead>
-							<tbody>
-								<tr>
-									<td>团队例会</td>
-									<td>60%</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div local-class="table-container" class="p-4 bg-white">
-						<table class="table">
-							<thead>
-								<th class="border-0">管理代表时间投入</th>
-								<th class="border-0">1v1能力辅导</th>
-								<th class="border-0">协访时间 </th>
+								<th class="border-0 pt-0">代表名称</th>
+								<th class="border-0 pt-0">1v1能力辅导</th>
+								<th class="border-0 pt-0">协访时间 </th>
 							</thead>
 							<tbody>
 								<tr>
@@ -166,9 +166,9 @@
 					</div>
 				</div>
 				<div local-class="point">
-					{{#bp-layout tagName="h3" cross="center"
-						local-class="title" classNames="bg-white px-4"}}
-						经理时间分配
+					{{#bp-layout tagName="h2" cross="center"
+						local-class="title" classNames="mb-0 px-4 bg-white"}}
+						行动点数分配
 					{{/bp-layout}}
 					<div local-class="table-container" class="p-4 bg-white">
 						<table class="table">

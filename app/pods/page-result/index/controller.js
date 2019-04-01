@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
+import { A } from '@ember/array';
 
 export default Controller.extend({
 	groupValue: 0,
@@ -17,5 +18,12 @@ export default Controller.extend({
 			times,
 			historyReport
 		};
-	})
+	}),
+	prodSalesReports: A([
+		{ season: '2018年第四季度销售额', value: '82222222' },
+		{ season: '2018年第四季度销售指标', value: '82222222' },
+		{ season: '2019年第一季度销售额', value: '82222222' },
+		{ season: '2019年第一季度销售指标', value: '82222222' }
+
+	])
 });

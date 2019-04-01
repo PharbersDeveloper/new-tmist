@@ -1,0 +1,26 @@
+{{#bp-layout local-class="overview" 
+			classNames="mb-4 bg-white"}}
+	{{#bp-layout main="center"}}
+		{{bp-radar}}
+	{{/bp-layout}}
+	{{#bp-layout direction="col" local-class="infos"
+				classNames="p-4"}}
+		<h4 local-class="title" class="mb-4">团队状况</h4>
+		{{#bp-layout tagName="p"}}
+			<span local-class="keys" class="mr-3">团队人数</span>
+			<span local-class="values">5人*</span>
+		{{/bp-layout}}
+		{{#bp-layout tagName="p"}}
+			<span local-class="keys" class="mr-3">业务经验</span>
+			<span local-class="values">口服抗生素、一代降糖药、三代降糖药*</span>
+		{{/bp-layout}}
+		{{#bp-layout tagName="p"}}
+			<span local-class="keys" class="mr-3">团队描述</span>
+			<span local-class="values">销售水平参差不齐，有老代表也有新代表，
+				刚开始负责铁马市的10家目标医院，还未与医院中的KOL打过交道。*</span>
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}
+{{#each model as |rrcs|}}
+	{{representative-info representative=rrcs}}
+{{/each}}
