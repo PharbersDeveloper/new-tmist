@@ -89,7 +89,7 @@
 									<td>{{hospital.potential}}</td>
 									{{#each hospitalData.historyReport as |history|}}
 										{{#each history as |item|}}
-											{{#if (eq hospital.destConfig.hospitalConfig.hospital.id item.destConfig.hospitalConfig.hospital.id)}}
+											{{#if (bp-eq hospital.destConfig.hospitalConfig.hospital.id item.destConfig.hospitalConfig.hospital.id)}}
 												<td>{{item.sales}}</td>
 											{{/if}}
 										{{/each}}
