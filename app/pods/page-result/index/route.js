@@ -5,9 +5,9 @@ export default Route.extend({
 		let scenario = this.get('store').peekAll('scenario').sortBy('phase').get('lastObject');
 
 		return this.get('store').query('paper',
-			{'proposal-id': scenario.get('proposalId')}
+			{ 'proposal-id': scenario.get('proposalId') }
 		).then(data => {
-			return data.get('lastObject').get('salesreports');
+			return data.get('lastObject').get('salesReports');
 		});
 	}
 });
