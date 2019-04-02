@@ -7,11 +7,10 @@
 	@extend %shadow-z200;
 
 	p {
-		margin: 0;
 		@extend %header-small;
+		cursor: pointer;
 
 		img {
-			margin-right: 2*$spacing;
 			width: 4*$spacing;
 			height: 4*$spacing
 		}

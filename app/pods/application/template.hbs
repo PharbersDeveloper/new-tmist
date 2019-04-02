@@ -1,12 +1,11 @@
-{{!-- <header local-class="application-header" class="bg-white"> --}}
 {{#bp-layout tagName="header"  main="between" cross='center'
 		local-class="header" classNames="bg-white px-4"}}
-	<p>
-		<img src="/assets/images/new-tmist.png" alt="tmist logo">
-		TMIST</p>
+	{{#link-to "application" tagName="p"  classNames="m-0"}}
+		<img src="/assets/images/new-tmist.png" alt="tmist logo" class="mr-3">
+		TMIST
+	{{/link-to}}
 	<img src="/assets/images/logo.png" alt="user avatar">
 {{/bp-layout}}
-{{!-- </header> --}}
 <section local-class="container">
 	{{outlet}}
 </section>

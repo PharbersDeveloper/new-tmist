@@ -2,6 +2,8 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
 	age: DS.attr('number'),
+	advantage: DS.attr('string'),
+	managerEvaluation: DS.attr('string'),
 	education: DS.attr('string'),
 	professional: DS.attr('string'),
 	experience: DS.attr('number'),

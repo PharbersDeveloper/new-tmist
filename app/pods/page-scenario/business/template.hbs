@@ -34,8 +34,8 @@
 				<span>Overall</span>
 				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
 					{{#dd.button type="link-subtle" }}
-						{{#if hospState.name}}
-							<p>{{hospState.name}}</p>
+						{{#if currentHospState.name}}
+							<p>{{currentHospState.name}}</p>
 						{{else}}
 							请选择
 						{{/if}}
@@ -44,7 +44,7 @@
 					{{#dd.menu as |menu|}}
 						{{#each hospitalState as |hs|}}
 							{{#menu.option value=hs 
-								onClick=(action (mut hospState))}}
+								onClick=(action (mut currentHospState))}}
 								{{hs.name}}
 							{{/menu.option}}
 						{{/each}}
@@ -54,7 +54,7 @@
 			{{#bp-layout direction="col" 
 				local-class="hospitals-configs" 
 				classNames="px-4"}}
-				{{#each model.destConfigs as |dc|}}
+				{{#each overallFilterData as |dc|}}
 					<div local-class="hospital-config" class="pt-4">
 						<h4 local-class="title" class="mb-3">
 							{{dc.hospitalConfig.hospital.name}}

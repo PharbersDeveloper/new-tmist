@@ -53,7 +53,7 @@
 				flex: 1;
 				font-size: 0;
 
-				p span:first-child {
+				p>span:first-child {
 					flex: 0 0 56px;
 					margin-right: 2*$spacing;
 					@extend %p-primary;
@@ -63,6 +63,7 @@
 					flex: 1;
 					@extend %p-secondary;
 				}
+
 			}
 		}
 

@@ -73,9 +73,146 @@
 				{{/bp-layout}}
 			</div>
 		{{else if (bp-eq salesGroupValue 1)}}
-			representative
+			<div local-class="report representative" class="bg-white">
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					代表销售报告
+				{{/bp-layout}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames="mb-4 bg-white"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择代表</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpRc.id}}
+										<p>{{tmpRc.representativeConfig.representative.name}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each model.resourceConfRep as |rc|}}
+										{{#menu.option value=rc
+												onClick=(action (mut tmpRc))}}
+											{{rc.representativeConfig.representative.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						<div local-class="choose-area"></div>
+					{{/bp-layout}}
+					<table local-class="table-container" class="table">
+						<thead>
+							<th>代表名称</th>
+							<th>潜力</th>
+							{{#each prodSalesReports as |report|}}
+								<th>{{report.season}}</th>
+							{{/each}}
+						</thead>
+						<tbody class="bg-white">
+							{{!-- 应该遍历多药品，显示上方下拉菜单中展示的药品 --}}
+							<tr>
+								<td>John</td>
+								<td>86</td>
+								{{#each prodSalesReports as |report|}}
+									<td>￥{{report.value}}</td>
+								{{/each}}
+							</tr>
+						</tbody>
+					</table>
+				{{/bp-layout}}
+			</div>
 		{{else}}
-			hospital
+			<div local-class="report hospital">
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					医院销售报告
+				{{/bp-layout}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames="bg-white"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择医院</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpDc.id}}
+										<p>{{tmpDc.productConfig.product.name}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each model.destConfigs as |dc|}}
+										{{#menu.option value=dc
+												onClick=(action (mut tmpDc))}}
+											{{dc.hospitalConfig.product.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area"  classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择产品</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-sort dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpSr.name}}
+										<p>{{tmpSr.name}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each sortRules as |sr|}}
+										{{#menu.option value=sr
+												onClick=(action (mut tmpSr))}}
+											{{sr.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+					<table local-class="table-container" class="table">
+						<thead>
+							<th>医院名称</th>
+							<th>产品</th>
+							<th>潜力</th>
+							{{#each hospitalData.times as |time|}}
+								<th>{{time}}</th>
+							{{/each}}
+						</thead>
+						<tbody class="bg-white">
+							{{#each hospitalData.currentReport as |hospital|}}
+								<tr>
+									<td>{{hospital.destConfig.hospitalConfig.hospital.name}}</td>
+									<td>{{hospital.goodsConfig.productConfig.product.name}}</td>
+									<td>{{hospital.potential}}</td>
+									{{#each hospitalData.historyReport as |history|}}
+										{{#each history as |item|}}
+											{{#if (bp-eq hospital.destConfig.hospitalConfig.hospital.id item.destConfig.hospitalConfig.hospital.id)}}
+												<td>{{item.sales}}</td>
+											{{/if}}
+										{{/each}}
+									{{/each}}
+									<td>{{hospital.sales}}</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				{{/bp-layout}}
+			</div>
 		{{/if}}
 	{{/bp-layout}}
 {{/bp-layout}}

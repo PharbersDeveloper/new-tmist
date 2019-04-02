@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
+import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	model(params) {
@@ -7,6 +8,8 @@ export default Route.extend({
 			store = this.get('store'),
 			scenarios = this.modelFor('page-scenario'),
 			managerConf = scenarios.resourceConfManager,
+			repConf = scenarios.resourceConfRep,
+			salesConfigs = scenarios.salesConfigs,
 			currentController = this.controllerFor('page-scenario.business.hospital-config'),
 			businessInputs = store.peekAll('businessinput'),
 			businessinput = null;
@@ -22,7 +25,7 @@ export default Route.extend({
 		/**
 		 * 获取总业务指标/总预算/总名额
 		 */
-		managerConf.get('managerConfig')
+		return managerConf.get('managerConfig')
 			.then(mc => {
 				return {
 					tbi: mc.get('totalBusinessIndicators'),
@@ -30,18 +33,32 @@ export default Route.extend({
 					tmp: mc.get('totalMeetingPlaces')
 				};
 			}).then(data => {
-				currentController.set('totalBusinessIndicators', data.tbi);
-				currentController.set('totalBudgets', data.tbg);
-				currentController.set('totalMeetingPlaces', data.tmp);
+				currentController.setProperties({
+					totalBusinessIndicators: data.tbi,
+					totalBudgets: data.tbg,
+					totalMeetingPlaces: data.tmp,
+					businessinput: businessinput
+				});
+				// 判断是否已经选择代表
+				if (isEmpty(businessinput.get('resourceConfigId'))) {
+					currentController.set('tmpRc', '');
+				} else {
+					repConf.forEach(ele => {
+						if (ele.id === businessinput.get('resourceConfigId')) {
+							currentController.set('tmpRc', ele);
+						}
+					});
+				}
+			})
+			.then(() => {
+				return hash({
+					managerConf,
+					repConf,
+					destConfig: store.findRecord('destConfig', dCId),
+					businessinput,
+					prodConfig: store.findAll('productConfig'),
+					salesConfigs
+				});
 			});
-		currentController.set('businessinput', businessinput);
-
-		return hash({
-			managerConf,
-			repConf: scenarios.resourceConfRep,
-			destConfig: store.findRecord('destConfig', dCId),
-			businessinput,
-			prodConfig: this.get('store').findAll('productConfig')
-		});
 	}
 });

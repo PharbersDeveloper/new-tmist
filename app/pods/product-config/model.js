@@ -8,6 +8,7 @@ export default DS.Model.extend({
 	productCategory: DS.attr('string'),
 	treatmentArea: DS.attr('string'),
 	productFeature: DS.attr('string'),
+	patentDescribe: DS.attr('string'),
 	referencePrice: DS.attr('number'),
 	costPrice: DS.attr('number'),
 	costEffective: DS.attr('string'),

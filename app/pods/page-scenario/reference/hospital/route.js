@@ -7,6 +7,7 @@ export default Route.extend({
 
 		return hash({
 			goodsConfigs: totalConfig.goodsConfigs,
+			salesConfigs: totalConfig.salesConfigs,
 			destConfigs: totalConfig.destConfigs
 		});
 	}

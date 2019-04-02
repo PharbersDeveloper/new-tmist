@@ -30,7 +30,7 @@
 						<span class="border-right pr-1">{{representative.representativeConfig.education}}</span>
 						<span class="border-right px-1">{{representative.representativeConfig.professional}}</span>
 						<span class="border-right px-1">{{representative.representativeConfig.experience}}年工作经验</span>
-						<span class="pl-1">入职{{representative.representativeConfig.jobEnthusiasm}}年</span>
+						<span class="pl-1">入职{{representative.representativeConfig.jobEnthusiasm}}*年</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
 						{{#bp-layout direction="col"}}
@@ -38,8 +38,12 @@
 							<span local-class="keys">历届经理评价</span>
 						{{/bp-layout}}
 						{{#bp-layout direction="col" classNames="ml-3"}}
-							<span local-class="values" class="mb-3">客户关系 学习能力 幻灯演讲*</span>
-							<span local-class="values">代表很棒棒*</span>
+							<span local-class="values" class="mb-3">
+								{{representative.representativeConfig.advantage}}
+							</span>
+							<span local-class="values">
+								{{representative.representativeConfig.managerEvaluation}}
+							</span>
 						{{/bp-layout}}
 					{{/bp-layout}}
 				{{/bp-layout}}

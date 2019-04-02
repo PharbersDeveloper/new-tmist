@@ -8,19 +8,22 @@
 		<h4 local-class="title" class="mb-4">团队状况</h4>
 		{{#bp-layout tagName="p"}}
 			<span local-class="keys" class="mr-3">团队人数</span>
-			<span local-class="values">5人*</span>
+			<span local-class="values">{{model.resourceConfReps.length}}人</span>
 		{{/bp-layout}}
 		{{#bp-layout tagName="p"}}
 			<span local-class="keys" class="mr-3">业务经验</span>
-			<span local-class="values">口服抗生素、一代降糖药、三代降糖药*</span>
+			<span local-class="values">
+				{{model.resourceConfManager.managerConfig.teamBusinessExperience}}
+			</span>
 		{{/bp-layout}}
 		{{#bp-layout tagName="p"}}
 			<span local-class="keys" class="mr-3">团队描述</span>
-			<span local-class="values">销售水平参差不齐，有老代表也有新代表，
-				刚开始负责铁马市的10家目标医院，还未与医院中的KOL打过交道。*</span>
+			<span local-class="values">
+				{{model.resourceConfManager.managerConfig.teamDescribe}}
+			</span>
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
-{{#each model as |rrcs|}}
+{{#each model.resourceConfReps as |rrcs|}}
 	{{representative-info representative=rrcs}}
 {{/each}}

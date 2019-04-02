@@ -24,7 +24,8 @@ export default Route.extend({
 		});
 	},
 	model(params) {
-		let scenario = this.modelFor('application'),
+		let store = this.get('store'),
+			scenario = this.modelFor('application'),
 			scenarioId = scenario.id,
 			proposal = null,
 			scenarios = null,
@@ -32,23 +33,23 @@ export default Route.extend({
 			resourceConfRep = null,
 			resourceConfManager = null;
 
-		return this.get('store').findRecord('proposal', proposalId)
+		return store.findRecord('proposal', proposalId)
 			.then(data => {
 				proposal = data;
 
-				return this.get('store').query('scenario',
+				return store.query('scenario',
 					{ 'proposal-id': proposalId });
 			})
 			// 获取 resourceConfig -> 代表
 			.then(data => {
 				scenarios = data;
-				return this.get('store').query('resourceConfig',
+				return store.query('resourceConfig',
 					{ 'scenario-id': scenarioId, 'resource-type': 1 });
 			})
 			// 获取 resourceConfig -> 经理
 			.then(data => {
 				resourceConfRep = data;
-				return this.get('store').query('resourceConfig',
+				return store.query('resourceConfig',
 					{ 'scenario-id': scenarioId, 'resource-type': 0 });
 			})
 			.then(data => {
@@ -58,11 +59,13 @@ export default Route.extend({
 					scenarios,
 					resourceConfRep,
 					resourceConfManager,
-					goodsConfigs: this.get('store').query('goodsConfig',
+					goodsConfigs: store.query('goodsConfig',
 						{ 'scenario-id': scenarioId }),
-					destConfigs: this.get('store').query('destConfig',
+					destConfigs: store.query('destConfig',
 						{ 'scenario-id': scenarioId }),
-					resourceConfig: this.get('store').query('resourceConfig',
+					resourceConfig: store.query('resourceConfig',
+						{ 'scenario-id': scenarioId }),
+					salesConfigs: store.query('salesConfig',
 						{ 'scenario-id': scenarioId })
 				});
 			});

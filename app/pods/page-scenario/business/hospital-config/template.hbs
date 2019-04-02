@@ -13,13 +13,25 @@
 		</tr>
 	</thead>
 	<tbody class="bg-white">
-		{{#each model.prodConfig as |pc|}}
-			{{#if (bp-eq pc.productType "0")}}
+		{{#each model.salesConfigs as |sc|}}
+			{{#if (bp-eq sc.destConfig.id model.destConfig.id)}}
 				<tr class="mx-0">
-					<td class="pl-2">{{pc.product.name}}</td>
-					<td class="pl-2">{{model.destConfig.hospitalConfig.potential}}</td>
-					<td class="pl-2">{{model.destConfig.hospitalConfig.lastYearSales}}</td>
-					<td class="pl-2">
+					<td class="pl-2 border-0">{{sc.goodsConfig.productConfig.product.name}}</td>
+					<td class="pl-2 border-0">
+						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
+							{{#if (bp-eq hsr.destConfig.id model.destConfig.id)}}
+								{{hsr.potential}}
+							{{/if}}
+						{{/each}}
+					</td>
+					<td class="pl-2 border-0">
+						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
+							{{#if (bp-eq hsr.destConfig.id model.destConfig.id)}}
+								{{hsr.sales}}
+							{{/if}}
+						{{/each}}
+					</td>
+					<td class="pl-2 border-0">
 						{{bp-input block=true widthSize="auto" 
 							classNames="mb-2"
 							value=model.businessinput.salesTarget}}
@@ -27,7 +39,7 @@
 							{{IndicatorAllocationPercent}}%
 						</p>
 					</td>
-					<td class="pl-2">
+					<td class="pl-2 border-0">
 						<p class="mb-2">￥{{budgetNumber}}</p>
 						{{bp-input block=true widthSize="small"
 							value=model.businessinput.budget}}

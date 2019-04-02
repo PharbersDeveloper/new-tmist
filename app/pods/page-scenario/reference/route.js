@@ -3,9 +3,12 @@ import { hash } from 'rsvp';
 
 export default Route.extend({
 	beforeModel(transition) {
-		let proposalId = transition.params['page-scenario']['proposal_id'];
+		let proposalId = transition.params['page-scenario']['proposal_id'],
+			currentChindRouteName = transition.targetName.split('.').get('lastObject'),
+			currentController = this.controllerFor('page-scenario.reference');
 
-		this.controllerFor('page-scenario.reference').set('proposalId', proposalId);
+		currentController.set('proposalId', proposalId);
+		currentController.set('groupValue', currentChindRouteName);
 	},
 	model() {
 		let totalConfig = this.modelFor('page-scenario');
@@ -13,7 +16,9 @@ export default Route.extend({
 		return hash({
 			goodsConfigs: totalConfig.goodsConfigs,
 			destConfigs: totalConfig.destConfigs,
-			resourceConfRep: totalConfig.resourceConfRep
+			salesConfigs: totalConfig.salesConfigs,
+			resourceConfRep: totalConfig.resourceConfRep,
+			resourceConfManager: totalConfig.resourceConfManager
 		});
 	}
 });

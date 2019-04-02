@@ -47,17 +47,18 @@ export default Route.extend({
 		};
 	},
 	// 判断是否有 managerinput
-	hasManaInput(array, self, store, resourceConfigs) {
+	hasManagerInput(array, self, store, resourceConfigs) {
 		if (array.get('length') > 0) {
 			return self.normalFlow(store);
 		}
 		return self.generateManagerInput(self, resourceConfigs);
 	},
+
 	model() {
 		let resourceConfig = this.modelFor('page-scenario'),
 			store = this.get('store'),
 			mConf = resourceConfig.resourceConfManager,
-			rConf = resourceConfig.resourceConfRep,
+			rConfs = resourceConfig.resourceConfRep,
 			currentController = this.controllerFor('page-scenario.management');
 
 		/**
@@ -76,15 +77,19 @@ export default Route.extend({
 			})
 			// 判断是否已经创建 inputs
 			.then(data => {
-				return this.hasManaInput(data, this, store, rConf);
+				return this.hasManagerInput(data, this, store, rConfs);
 			}).then(data => {
-				currentController.set('managerInput', data.managerInput);
-				currentController.set('representativeInputs', data.representativeInputs);
+				// currentController.set('managerInput', data.managerInput);
+				// currentController.set('representativeInputs', data.representativeInputs);
+				currentController.setProperties({
+					managerInput: data.managerInput,
+					representativeInputs: data.representativeInputs
+				});
 				return rsvp.hash({
 					representativeInputs: data.representativeInputs,
 					managerInput: data.managerInput,
 					mConf,
-					rConfs: resourceConfig.resourceConfRep
+					rConfs
 				});
 
 			});

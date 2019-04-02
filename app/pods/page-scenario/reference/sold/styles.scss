@@ -40,5 +40,29 @@ h2.title {
 				flex: 1;
 			}
 		}
+
+		.table-container {
+			thead {
+				background-color: transparent;
+
+				th {
+					padding-left: $spacing-2;
+					border: 0;
+					@extend %p-small;
+				}
+			}
+
+			tbody {
+				td {
+					padding: 0;
+					padding-left: $spacing-2;
+
+					height: 52px;
+					line-height: 52px;
+					@extend %p-primary;
+					border: 0;
+				}
+			}
+		}
 	}
 }
