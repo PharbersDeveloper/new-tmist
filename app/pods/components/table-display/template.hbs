@@ -5,8 +5,11 @@
 		{{/each}}
 	</thead>
 	<tbody>
-		{{#each tableDatum as |td|}}
+		{{#each tableDatum as |trDatum|}}
 			<tr>
+				{{#each trDatum as |td|}}
+					{{td}}
+				{{/each}}
 			</tr>
 		{{/each}}
 	</tbody>

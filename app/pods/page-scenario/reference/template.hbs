@@ -1,14 +1,23 @@
 {{#bp-layout direction="col" local-class="reference-container" }}
 	{{#bp-layout main="center" classNames="py-4" local-class="reference-tabs" }}
 		{{#bp-button-group value=groupValue type="radio" onChange=(action (mut groupValue)) as |bg|}}
-			{{#bg.button type="default" value=0 }}产品竞品信息{{/bg.button}}
-			{{#bg.button type="default" value=1}}医院基本信息{{/bg.button}}
-			{{#bg.button type="default" value=2}}团队成员信息{{/bg.button}}
-			{{#bg.button type="default" value=3}}历史部署情况{{/bg.button}}
+			{{#bg.button type="default" value='index' 
+				onClick=(action 'linkToRoute' 'index')}}产品竞品信息{{/bg.button}}
+			{{#bg.button type="default" value='hospital' 
+				onClick=(action 'linkToRoute' 'hospital')}}医院基本信息{{/bg.button}}
+			{{#bg.button type="default" value="member"
+				onClick=(action 'linkToRoute' 'member')}}团队成员信息{{/bg.button}}
+			{{#bg.button type="default" value="sold"
+			onClick=(action 'linkToRoute' 'sold')}}历史销售报告{{/bg.button}}
+			{{#bg.button type="default" value="decided"
+			onClick=(action 'linkToRoute' 'decided')}}往期决策回顾{{/bg.button}}
 		{{/bp-button-group}}
 	{{/bp-layout}}
+	<div local-class="reference-content">
+		{{outlet}}
+	</div>
 	{{#if (bp-eq groupValue 0)}}
-		<div local-class="products-container reference-content">
+		{{!-- <div local-class="products-container reference-content">
 			<div local-class="trend" class="mb-4">
 				<h3 local-class="title" class="px-4">产品份额竞争趋势</h3>
 				<div local-class="trend-line"></div>
@@ -16,16 +25,125 @@
 			{{#each model.goodsConfigs as |item|}}
 				{{product-info goods=item}}
 			{{/each}}
-		</div>
+		</div> --}}
 	{{else if (bp-eq groupValue 1)}}
-		<div local-class="hospitals-container reference-content">
+		{{!-- <div local-class="hospitals-container reference-content">
 			{{#each model.destConfigs as |dc|}}
 				{{hospital-info dests=dc prods=model.goodsConfigs}}
 			{{/each}}
-		</div>
+		</div> --}}
 	{{else if (bp-eq groupValue 2)}}
-		<h3>团队成员信息</h3>
+		{{!-- <div local-class="representative-container reference-content">
+			{{#bp-layout local-class="overview" 
+			classNames="mb-4 bg-white"}}
+				{{#bp-layout main="center"}}
+					{{bp-radar}}
+				{{/bp-layout}}
+				{{#bp-layout direction="col" local-class="infos"
+				classNames="p-4"}}
+					<h4 local-class="title" class="mb-4">团队状况</h4>
+					{{#bp-layout tagName="p"}}
+						<span local-class="keys" class="mr-3">团队人数</span>
+						<span local-class="values">5人*</span>
+					{{/bp-layout}}
+					{{#bp-layout tagName="p"}}
+						<span local-class="keys" class="mr-3">业务经验</span>
+						<span local-class="values">口服抗生素、一代降糖药、三代降糖药*</span>
+					{{/bp-layout}}
+					{{#bp-layout tagName="p"}}
+						<span local-class="keys" class="mr-3">团队描述</span>
+						<span local-class="values">销售水平参差不齐，有老代表也有新代表，
+							刚开始负责铁马市的10家目标医院，还未与医院中的KOL打过交道。*</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#each model.repResourceConfigs as |rrcs|}}
+				{{representative-info representative=rrcs}}
+			{{/each}}
+		</div> --}}
+	{{else if (bp-eq groupValue 3)}}
+		{{#bp-layout local-class="historical-sales-container reference-content"}}
+			{{#bp-layout tagName="ul" direction="col" local-class="nav" 
+				classNames="mr-4 p-4 bg-white"}}
+				{{#bp-layout tagName="li" cross="center" 
+					local-class=(if (bp-eq salesGroupValue 0) "active")
+					classNames="px-4"}}
+					<span {{action 'changeSalesValue' 0}}>产品销售报告</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="li" cross="center" 
+					local-class=(if (bp-eq salesGroupValue 1) "active")
+					classNames="px-4"}}
+					<span {{action 'changeSalesValue' 1}}>代表销售报告</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="li" cross="center" 
+					local-class=(if (bp-eq salesGroupValue 2) "active")
+					classNames="px-4"}}
+					<span {{action 'changeSalesValue' 2}}>医院销售报告</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout local-class="content"}}
+				{{#if (bp-eq salesGroupValue 0)}}
+					<div local-class="report product">
+						{{#bp-layout tagName="h3" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+							产品销售报告
+						{{/bp-layout}}
+						{{#bp-layout direction="col"}}
+							{{#bp-layout main="between" local-class="choose-container"
+						classNames="mb-4 bg-white"}}
+								{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+									<span local-class="keys" class="mr-4">选择药品</span>
+									{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+										{{#dd.button}}
+											{{#if tmpRc.id}}
+												<p>{{tmpRc.productConfig.product.name}}</p>
+											{{else}}
+												请选择
+											{{/if}}
+											{{bp-icon icon='down'}}
+										{{/dd.button}}
+										{{#dd.menu as |menu|}}
+											{{#each model.goodsConfigs as |gc|}}
+												{{#menu.option value=gc
+												onClick=(action (mut tmpGc))}}
+													{{gc.productConfig.product.name}}
+												{{/menu.option}}
+											{{/each}}
+										{{/dd.menu}}
+									{{/bp-dropdown}}
+								{{/bp-layout}}
+								<div local-class="choose-area"></div>
+							{{/bp-layout}}
+							<table local-class="table-container" class="table">
+								<thead>
+									<th>药品名称 </th>
+									{{#each prodSalesReports as |report|}}
+										<th>{{report.season}}</th>
+									{{/each}}
+								</thead>
+								<tbody class="bg-white">
+									{{!-- 应该遍历多药品，显示上方下拉菜单中展示的药品 --}}
+									<tr>
+										<td>口服抗生素</td>
+										{{#each prodSalesReports as |report|}}
+											<td>￥{{report.value}}</td>
+										{{/each}}
+									</tr>
+								</tbody>
+							</table>
+						{{/bp-layout}}
+					</div>
+				{{else if (bp-eq salesGroupValue 1)}}
+					representative
+				{{else}}
+					hospital
+				{{/if}}
+			{{/bp-layout}}
+		{{/bp-layout}}
 	{{else}}
-		<h3>历史部署情况</h3>
+		{{!-- <h3>往期决策回复</h3> --}}
 	{{/if}}
 {{/bp-layout}}

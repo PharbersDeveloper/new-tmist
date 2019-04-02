@@ -8,7 +8,6 @@
 		{{/if}}
 		{{goods.productConfig.product.name}} - {{goods.productConfig.product.generalName}}
 	</span>
-	<span local-class="cycle">{{goods.productConfig.lifeCycle}}</span>
 {{/bp-layout}}
 {{#bp-layout local-class=(if showContent "show product-content" "hidden product-content")
 		classNames="p-4" }}
@@ -20,6 +19,14 @@
 			{{#bp-layout tagName="p" }}
 				<span>上市时间</span>
 				<span>{{goods.productConfig.launchTime}}</span>
+			{{/bp-layout}}
+			{{#bp-layout tagName="p" }}
+				<span>市场定位</span>
+				<span>{{goods.productConfig.lifeCycle}}</span>
+			{{/bp-layout}}
+			{{#bp-layout tagName="p" classNames="mb-4" }}
+				<span>药品类型</span>
+				<span>原研药*-专利过期*</span>
 			{{/bp-layout}}
 			{{#bp-layout tagName="p" }}
 				<span>药品特点</span>

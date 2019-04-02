@@ -1,0 +1,16 @@
+.overview {
+	&>div {
+		flex: 1;
+	}
+
+	.infos {
+		.keys {
+			@extend %p-primary;
+			flex: 0 0 56px;
+		}
+
+		.values {
+			@extend %p-secondary;
+		}
+	}
+}

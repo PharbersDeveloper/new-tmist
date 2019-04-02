@@ -10,11 +10,113 @@
 	{{#bp-layout local-class="report-content" }}
 		{{#if (bp-eq groupValue 0)}}
 			<div local-class="report product">
-				<h3>产品销售报告</h3>
+				{{#bp-layout tagName="h3" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					产品销售报告
+				{{/bp-layout}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames="mb-4 bg-white"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择药品</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpRc.id}}
+										<p>{{tmpRc.productConfig.product.name}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each model.goodsConfigs as |gc|}}
+										{{#menu.option value=gc
+												onClick=(action (mut tmpGc))}}
+											{{gc.productConfig.product.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						<div local-class="choose-area"></div>
+					{{/bp-layout}}
+					<table local-class="table-container" class="table">
+						<thead>
+							<th>药品名称 </th>
+							{{#each prodSalesReports as |report|}}
+								<th>{{report.season}}</th>
+							{{/each}}
+						</thead>
+						<tbody class="bg-white">
+							{{!-- 应该遍历多药品，显示上方下拉菜单中展示的药品 --}}
+							<tr>
+								<td>口服抗生素</td>
+								{{#each prodSalesReports as |report|}}
+									<td>￥{{report.value}}</td>
+								{{/each}}
+							</tr>
+						</tbody>
+					</table>
+				{{/bp-layout}}
 			</div>
 		{{else if (bp-eq groupValue 1)}}
 			<div local-class="report representative" class="bg-white">
-				<h3>代表销售报告</h3>
+				{{#bp-layout tagName="h3" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					代表销售报告
+				{{/bp-layout}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames="mb-4 bg-white"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择代表</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpRc.id}}
+										<p>{{tmpRc.productConfig.product.name}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each model.goodsConfigs as |gc|}}
+										{{#menu.option value=gc
+												onClick=(action (mut tmpGc))}}
+											{{gc.productConfig.product.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						<div local-class="choose-area"></div>
+					{{/bp-layout}}
+					<table local-class="table-container" class="table">
+						<thead>
+							<th>代表名称</th>
+							<th>潜力</th>
+							{{#each prodSalesReports as |report|}}
+								<th>{{report.season}}</th>
+							{{/each}}
+						</thead>
+						<tbody class="bg-white">
+							{{!-- 应该遍历多药品，显示上方下拉菜单中展示的药品 --}}
+							<tr>
+								<td>John</td>
+								<td>86</td>
+								{{#each prodSalesReports as |report|}}
+									<td>￥{{report.value}}</td>
+								{{/each}}
+							</tr>
+						</tbody>
+					</table>
+				{{/bp-layout}}
 			</div>
 		{{else}}
 			<div local-class="report hospital">
