@@ -59,6 +59,8 @@ export default Route.extend({
 			store = this.get('store'),
 			mConf = resourceConfig.resourceConfManager,
 			rConfs = resourceConfig.resourceConfRep,
+			representativeInputs = A([]),
+			managerInput = null,
 			currentController = this.controllerFor('page-scenario.management');
 
 		/**
@@ -79,19 +81,46 @@ export default Route.extend({
 			.then(data => {
 				return this.hasManagerInput(data, this, store, rConfs);
 			}).then(data => {
-				// currentController.set('managerInput', data.managerInput);
-				// currentController.set('representativeInputs', data.representativeInputs);
+				// 获取团队平均能力
+				managerInput = data.managerInput;
+				representativeInputs = data.representativeInputs;
+
 				currentController.setProperties({
-					managerInput: data.managerInput,
-					representativeInputs: data.representativeInputs
+					managerInput,
+					representativeInputs
 				});
+
+				return rsvp.Promise.all(rConfs.map(ele => {
+					return ele.get('representativeConfig');
+				}));
+			})
+			.then(data => {
+				let averageAbility = [0, 0, 0, 0, 0],
+					averageJobEnthusiasm = 0,
+					averageProductKnowledge = 0,
+					averageBehaviorValidity = 0,
+					averageRegionalManagementAbility = 0,
+					averageSalesAbility = 0;
+
+				data.forEach(ele => {
+					averageJobEnthusiasm += ele.get('jobEnthusiasm') / 5;
+					averageProductKnowledge += ele.get('productKnowledge') / 5;
+					averageBehaviorValidity += ele.get('behaviorValidity') / 5;
+					averageRegionalManagementAbility += ele.get('regionalManagementAbility') / 5;
+					averageSalesAbility += ele.get('salesAbility') / 5;
+
+				});
+				averageAbility = [averageJobEnthusiasm, averageProductKnowledge,
+					averageBehaviorValidity, averageRegionalManagementAbility,
+					averageSalesAbility];
+				currentController.set('averageAbility', averageAbility);
+
 				return rsvp.hash({
-					representativeInputs: data.representativeInputs,
-					managerInput: data.managerInput,
+					representativeInputs,
+					managerInput,
 					mConf,
 					rConfs
 				});
-
 			});
 
 	}

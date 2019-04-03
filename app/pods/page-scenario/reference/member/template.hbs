@@ -1,7 +1,9 @@
 {{#bp-layout local-class="overview" 
 			classNames="mb-4 bg-white"}}
 	{{#bp-layout main="center"}}
-		{{bp-radar}}
+		{{bp-radar hasLegend=false 
+			radarData=model.radarData
+			radarColor=model.radarColor}}
 	{{/bp-layout}}
 	{{#bp-layout direction="col" local-class="infos"
 				classNames="p-4"}}
@@ -25,5 +27,7 @@
 	{{/bp-layout}}
 {{/bp-layout}}
 {{#each model.resourceConfReps as |rrcs|}}
-	{{representative-info representative=rrcs}}
+	{{representative-info
+		representative=rrcs 
+		averageAbility=model.radarData}}
 {{/each}}

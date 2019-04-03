@@ -30,7 +30,7 @@
 						<span class="border-right pr-1">{{representative.representativeConfig.education}}</span>
 						<span class="border-right px-1">{{representative.representativeConfig.professional}}</span>
 						<span class="border-right px-1">{{representative.representativeConfig.experience}}年工作经验</span>
-						<span class="pl-1">入职{{representative.representativeConfig.jobEnthusiasm}}*年</span>
+						<span class="pl-1">入职{{representative.representativeConfig.entryTime}}年</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
 						{{#bp-layout direction="col"}}
@@ -82,7 +82,7 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout main="center" local-class="chart"}}
-			{{bp-radar}}
+			{{bp-radar radarData=radarData}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/if}}

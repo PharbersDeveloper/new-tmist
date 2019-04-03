@@ -67,26 +67,9 @@ export default Controller.extend({
 	}),
 	radarData: computed('repConf', function () {
 		let repConf = this.get('repConf'),
-			repConfs = this.get('model').rConfs,
 			originalAbility = [],
-			averageAbility = this.get('averageAbility'),
-			averageJobEnthusiasm = 0,
-			averageProductKnowledge = 0,
-			averageBehaviorValidity = 0,
-			averageRegionalManagementAbility = 0,
-			averageSalesAbility = 0;
+			averageAbility = this.get('averageAbility') || [0, 0, 0, 0, 0];
 
-		repConfs.forEach(ele => {
-			averageJobEnthusiasm += ele.get('representativeConfig').get('jobEnthusiasm') / 5;
-			averageProductKnowledge += ele.get('representativeConfig').get('productKnowledge') / 5;
-			averageBehaviorValidity += ele.get('representativeConfig').get('behaviorValidity') / 5;
-			averageRegionalManagementAbility += ele.get('representativeConfig').get('regionalManagementAbility') / 5;
-			averageSalesAbility += ele.get('representativeConfig').get('salesAbility') / 5;
-
-		});
-		averageAbility = [averageJobEnthusiasm, averageProductKnowledge,
-			averageBehaviorValidity, averageRegionalManagementAbility,
-			averageSalesAbility];
 		if (repConf === null) {
 			return [
 				{
@@ -110,7 +93,6 @@ export default Controller.extend({
 		originalAbility.push(repConf.get('behaviorValidity'));
 		originalAbility.push(repConf.get('regionalManagementAbility'));
 		originalAbility.push(repConf.get('salesAbility'));
-
 		return [
 			{
 				value: originalAbility,
