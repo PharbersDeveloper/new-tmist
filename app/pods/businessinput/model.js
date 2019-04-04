@@ -6,9 +6,9 @@ import { A } from '@ember/array';
 export default DS.Model.extend({
 	destConfigId: DS.attr('string'),
 	resourceConfigId: DS.attr('string'),
-	salesTarget: DS.attr('number'),
-	budget: DS.attr('number'),
-	meetingPlaces: DS.attr('number'),
+	salesTarget: DS.attr('number'),	// 销售目标设定
+	budget: DS.attr('number'),	// 预算费用
+	meetingPlaces: DS.attr('number'),	// 会议名额
 	visitTime: DS.attr('number'),
 	isFinish: computed('salesTarget', 'budget', 'meetingPlaces', 'visitTime', 'resourceConfigId', function () {
 		let { salesTarget, budget, meetingPlaces, visitTime, resourceConfigId } =
@@ -18,5 +18,6 @@ export default DS.Model.extend({
 		return tmpArray.every(ele => {
 			return !isEmpty(ele);
 		});
-	})
+	}),
+	destConfig: DS.belongsTo()
 });

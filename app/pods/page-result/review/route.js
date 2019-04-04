@@ -1,38 +1,38 @@
 import Route from '@ember/routing/route';
-import { hash } from 'rsvp';
 import { A } from '@ember/array';
+import RSVP from 'rsvp';
 
 export default Route.extend({
 	model() {
-		/**
-		 * should ,but not
-		 */
-		// let store = this.get('store');
+		let store = this.get('store'),
+			paper = store.peekAll('paper').get('lastObject'),
+			paperinputs = paper.get('paperinputs'),
+			increasePaperinputs = A([]),
+			lastPaperinput = {},
+			managerinput = null,
+			representativeinputs = A([]),
+			businessinputs = A([]);
 
-		// return hash({
-		// 	businessInputs: store.peekAll('businessinput'),
-		// 	destConfigs: store.peekAll('destConfig'),
-		// 	goodsConfigs: store.peekAll('goodsConfig')
-		// });
-		/**
-		 * mock data
-		 */
-		return hash({
-			businessInputs: A([]),
-			destConfigs: A([
-				{ hospitalConfig: { hospital: { name: '安贞医院' }, potential: 3343, sales: 44535 } },
-				{ hospitalConfig: { hospital: { name: '中日友好医院' }, potential: 47405, sales: 6818 } },
-				{ hospitalConfig: { hospital: { name: '协和医院' }, potential: 45705, sales: 39764 } },
-				{ hospitalConfig: { hospital: { name: '首都大学医院' }, potential: 7739, sales: 59561 } },
-				{ hospitalConfig: { hospital: { name: '301医院' }, potential: 59945, sales: 32444 } },
-				{ hospitalConfig: { hospital: { name: '人民医院' }, potential: 21509, sales: 27 } },
-				{ hospitalConfig: { hospital: { name: '肿瘤医院' }, potential: 22370, sales: 43019 } },
-				{ hospitalConfig: { hospital: { name: '天坛医院' }, potential: 45122, sales: 20029 } },
-				{ hospitalConfig: { hospital: { name: '阜外医院' }, potential: 35467, sales: 37044 } },
-				{ hospitalConfig: { hospital: { name: '宣武医院' }, potential: 1973, sales: 12032 } }
-
-			]),
-			goodsConfigs: A([])
+		return paperinputs.then(data => {
+			increasePaperinputs = data.sortBy('phase');
+			lastPaperinput = increasePaperinputs.get('lastObject');
+			return lastPaperinput.get('managerinputs');
+		}).then(data => {
+			// 组合 managerinput 的数据
+			managerinput = data.get('lastObject');
+			return lastPaperinput.get('representativeinputs');
+		}).then(data => {
+			// 组合 representativeinputs 的数据
+			representativeinputs = data;
+			return lastPaperinput.get('businessinputs');
+		}).then(data => {
+			// 组合 businessinputs 的数据
+			businessinputs = data;
+			return RSVP.hash({
+				managerinput,
+				businessinputs,
+				representativeinputs
+			});
 		});
 	}
 });

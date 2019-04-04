@@ -23,8 +23,16 @@ export default Route.extend({
 			});
 		});
 		tmpTableBody.map((ele, index) => {
-			ele.tableTr =
-				totalData[index].concat(totalData[index + reportsLength]);
+			let seasonNum = totalData.length / reportsLength,
+				tmpTableTr = [];
+
+			for (let i = 1; i <= seasonNum; i++) {
+				tmpTableTr.push(totalData[index + (i - 1) * reportsLength][0]);
+			}
+			for (let i = 1; i <= seasonNum; i++) {
+				tmpTableTr.push(totalData[index + (i - 1) * reportsLength][1]);
+			}
+			ele.tableTr = tmpTableTr.flat();
 			return ele;
 		});
 		return tmpTableBody;
@@ -38,8 +46,7 @@ export default Route.extend({
 		return promiseArray;
 	},
 	model() {
-		let totalConfig = this.modelFor('page-scenario.reference'),
-			store = this.get('store'),
+		let store = this.get('store'),
 			salesReports = store.peekAll('paper').get('firstObject').get('salesReports'),
 			increaseSalesReports = A([]),
 			tmpHead = A([]),
@@ -105,7 +112,6 @@ export default Route.extend({
 					productSalesReports,
 					representativeSalesReports,
 					hospitalSalesReports,
-					destConfigs: totalConfig.destConfigs,
 					salesReports,
 					tableHead,
 					prodTableBody,

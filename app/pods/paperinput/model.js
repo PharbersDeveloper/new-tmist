@@ -6,5 +6,4 @@ export default DS.Model.extend({
 	businessinputs: DS.hasMany('businessinput'),
 	managerinputs: DS.hasMany('managerinput'),
 	representativeinputs: DS.hasMany('representativeinput')
-
 });
