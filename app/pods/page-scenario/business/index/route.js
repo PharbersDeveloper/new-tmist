@@ -9,10 +9,7 @@ export default Route.extend({
 
 		this.transitionTo('/scenario/' + proposalId + '/business/hospital/' +
 			firstDestConfig.id);
-		// firstDestConfig.get('hospitalConfig').then(data => {
-		// 	this.transitionTo('/scenario/' + proposalId + '/business/hospital/' +
-		// 		data.id);
-		// });
+
 
 	}
 });

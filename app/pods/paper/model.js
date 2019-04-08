@@ -7,7 +7,7 @@ export default DS.Model.extend({
 	describe: DS.attr('string'),
 	startTime: DS.attr('number'),
 	endTime: DS.attr('number'),
-	state: DS.attr('string'),
+	state: DS.attr('number'),
 	paperinputs: DS.hasMany('paperinput'),
 	salesReports: DS.hasMany('salesReport')
 });
