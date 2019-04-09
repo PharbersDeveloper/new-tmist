@@ -14,27 +14,28 @@
 	</thead>
 	<tbody class="bg-white">
 		{{#each model.salesConfigs as |sc|}}
-			{{#if (bp-eq sc.destConfig.id model.destConfig.id)}}
+			{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
 				<tr class="mx-0">
 					<td class="pl-2 border-0">{{sc.goodsConfig.productConfig.product.name}}</td>
 					<td class="pl-2 border-0">
 						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
-							{{#if (bp-eq hsr.destConfig.id model.destConfig.id)}}
-								{{hsr.potential}}
+							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
+								{{format-number hsr.potential}}
 							{{/if}}
 						{{/each}}
 					</td>
 					<td class="pl-2 border-0">
 						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
-							{{#if (bp-eq hsr.destConfig.id model.destConfig.id)}}
-								{{hsr.sales}}
+							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
+								{{format-number hsr.sales}}
 							{{/if}}
 						{{/each}}
 					</td>
 					<td class="pl-2 border-0">
 						{{bp-input block=true widthSize="auto" 
 							classNames="mb-2"
-							value=model.businessinput.salesTarget}}
+							value=model.businessinput.salesTarget
+							disabled=(not tmpRc.id)}}
 						<p class="m-0 ">
 							{{IndicatorAllocationPercent}}%
 						</p>
@@ -42,7 +43,8 @@
 					<td class="pl-2 border-0">
 						<p class="mb-2">￥{{budgetNumber}}</p>
 						{{bp-input block=true widthSize="small"
-							value=model.businessinput.budget}}
+							value=model.businessinput.budget
+							disabled=(not tmpRc.id)}}
 					</td>
 				</tr>
 			{{/if}}
@@ -69,11 +71,15 @@
 						{{#if tmpRc.id}}
 							<p>{{tmpRc.representativeConfig.representative.name}}</p>
 						{{else}}
-							请选择
+							不分配代表
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
+						{{#menu.option value='none'
+								onClick=(action 'changedRep')}}
+							不分配代表
+						{{/menu.option}}
 						{{#each model.repConf as |rc|}}
 							{{#if (bp-eq rc.resourceType 1)}}
 								{{#menu.option value=rc 
@@ -99,7 +105,8 @@
 						{{/if}}</span>
 				{{/bp-layout}}
 				{{bp-input
-					value=model.businessinput.visitTime}}
+					value=model.businessinput.visitTime
+					disabled=(not tmpRc.id)}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -115,7 +122,8 @@
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="operating"}}
 				{{bp-input widthSize="auto"
-					value=model.businessinput.meetingPlaces}}
+					value=model.businessinput.meetingPlaces
+					disabled=(not tmpRc.id)}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}

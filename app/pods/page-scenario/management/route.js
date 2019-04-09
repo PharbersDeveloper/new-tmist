@@ -32,10 +32,14 @@ export default Route.extend({
 	},
 	// managerinput 已经存在
 	normalFlow(store) {
+		let managerinputs = store.peekAll('managerinput'),
+			representativeInputs = store.peekAll('representativeinput'),
+			newManagerinput = managerinputs.filter(ele => ele.get('isNew')),
+			newRepresentativeInputs = representativeInputs.filter(ele => ele.get('isNew'));
 
 		return {
-			managerInput: store.peekAll('managerinput').get('firstObject'),
-			representativeInputs: store.peekAll('representativeinput')
+			managerInput: newManagerinput.get('firstObject'),
+			representativeInputs: newRepresentativeInputs
 		};
 	},
 	//	生成 managerinput
@@ -47,8 +51,11 @@ export default Route.extend({
 		};
 	},
 	// 判断是否有 managerinput
-	hasManagerInput(array, self, store, resourceConfigs) {
-		if (array.get('length') > 0) {
+	hasManagerInput(managerinputs, self, store, resourceConfigs) {
+		// 应该根据 managerinput 中有没有id 为null的
+		let isNewManagerinputs = managerinputs.filter(ele => ele.get('isNew'));
+
+		if (isNewManagerinputs.length > 0) {
 			return self.normalFlow(store);
 		}
 		return self.generateManagerInput(self, resourceConfigs);
@@ -89,7 +96,6 @@ export default Route.extend({
 					managerInput,
 					representativeInputs
 				});
-
 				return rsvp.Promise.all(rConfs.map(ele => {
 					return ele.get('representativeConfig');
 				}));

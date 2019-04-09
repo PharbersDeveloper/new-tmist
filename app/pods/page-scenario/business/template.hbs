@@ -1,4 +1,5 @@
-{{#bp-layout main="between" local-class="business-container" classNames="pt-4"}}
+{{#bp-layout main="between" local-class="business-container" 
+	classNames="pt-4"}}
 	{{#bp-layout direction="col" local-class="infos" classNames='mr-4'}}
 		{{#bp-layout direction="col" classNames="mb-4 bg-white"}}
 			{{#bp-layout tagName="h3"  cross="center" 
@@ -7,28 +8,29 @@
 			{{/bp-layout}}
 			<p>{{model.managerConfig.id}}</p>
 			{{#bp-layout classNames="p-4"}}
-				{{#bp-layout direction="col" local-class="keys" classNames="mr-3"}}
+				{{#bp-layout direction="col" local-class="keys" 
+					classNames="mr-3"}}
 					<p class="mb-3">总业务指标</p>
 					<p class="mb-3">总预算</p>
 					<p>总名额</p>
 				{{/bp-layout}}
 				{{#bp-layout direction="col" local-class="values"}}
 					<p class="mb-3">
-						{{total.usedSalesTarget}} /
-						{{model.mConf.managerConfig.totalBusinessIndicators}}
+						{{format-number total.usedSalesTarget}} /
+						{{format-number model.mConf.managerConfig.totalBusinessIndicators}}
 					</p>
 					<p class="mb-3">
-						{{total.usedBudget}} /
-						{{model.mConf.managerConfig.totalBudgets}}
+						{{format-number total.usedBudget}} /
+						{{format-number model.mConf.managerConfig.totalBudgets}}
 					</p>
 					<p>
-						{{total.usedMeetingPlaces}} /
-						{{model.mConf.managerConfig.totalMeetingPlaces}}
+						{{format-number total.usedMeetingPlaces}} /
+						{{format-number model.mConf.managerConfig.totalMeetingPlaces}}
 					</p>
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout direction="col" classNames="bg-white"}}
+		{{#bp-layout direction="col" local-class="over-all" classNames="bg-white"}}
 			{{#bp-layout tagName="h3" cross="center" main="between"
 				local-class="title" classNames="px-4 m-0"}}
 				<span>Overall</span>
@@ -69,8 +71,8 @@
 											<span>预算</span>
 										{{/bp-layout}}
 										{{#bp-layout direction="col" local-class="values"}}
-											<span class="mb-1">￥{{dc.hospitalConfig.potential}}</span>
-											<span>￥{{bi.budget}}</span>
+											<span class="mb-1">￥{{format-number dc.hospitalConfig.potential}}</span>
+											<span>￥{{format-number bi.budget}}</span>
 										{{/bp-layout}}
 									{{/bp-layout}}
 									{{#bp-layout}}
@@ -80,8 +82,8 @@
 											<span>会议名额(次)</span>
 										{{/bp-layout}}
 										{{#bp-layout direction="col" local-class="values"}}
-											<span class="mb-1">{{bi.salesTarget}}</span>
-											<span>{{bi.meetingPlaces}}</span>
+											<span class="mb-1">{{format-number bi.salesTarget}}</span>
+											<span>{{format-number bi.meetingPlaces}}</span>
 										{{/bp-layout}}
 									{{/bp-layout}}
 								{{/bp-layout}}

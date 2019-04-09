@@ -29,6 +29,13 @@
 			max-height: 402px;
 			overflow: auto;
 		}
+
+		.over-all {
+			.values {
+				@extend %p-small;
+				line-height: 20px;
+			}
+		}
 	}
 
 	.hospitals {

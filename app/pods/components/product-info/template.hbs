@@ -79,14 +79,14 @@
 			{{#bp-layout direction="col" main="between" local-class="square" }}
 				<span>
 					{{goods.productConfig.priceType}}
-					{{goods.productConfig.referencePrice}}
+					{{format-number goods.productConfig.referencePrice}}
 				</span>
 				<span>公司考核价</span>
 			{{/bp-layout}}
 			{{#bp-layout direction="col" main="between" local-class="square" }}
 				<span>
 					{{goods.productConfig.priceType}}
-					{{goods.productConfig.costPrice}}
+					{{format-number goods.productConfig.costPrice}}
 				</span>
 				<span>单位成本价</span>
 			{{/bp-layout}}

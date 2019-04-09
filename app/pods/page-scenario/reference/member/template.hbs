@@ -28,6 +28,7 @@
 {{/bp-layout}}
 {{#each model.resourceConfReps as |rrcs|}}
 	{{representative-info
-		representative=rrcs 
+		representative=rrcs
+		lastPersonnelAssessment=model.lastPersonnelAssessment
 		averageAbility=model.radarData}}
 {{/each}}

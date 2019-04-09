@@ -6,23 +6,29 @@ export default Route.extend({
 	model() {
 		let totalConfig = this.modelFor('page-scenario.reference'),
 			resourceConfReps = totalConfig.resourceConfRep,
+			paper = totalConfig.paper,
 			promiseArray = A([]),
 			managementController = this.controllerFor('page-scenario.management'),
-			averageAbility = managementController.get('averageAbility') || A([]);
+			averageAbility = managementController.get('averageAbility') || A([]),
+			radarData = null;
 
 		/**
 		 * 先从 管理决策 页面获取，如果没有，则计算
 		 */
 		if (averageAbility.length > 0) {
-			return rsvp.hash({
-				radarData: [{
-					value: averageAbility,
-					name: '团队平均能力'
-				}],
-				radarColor: ['#3172E0'],
-				resourceConfManager: totalConfig.resourceConfManager,
-				resourceConfReps
-			});
+			return paper.get('personnelAssessments')
+				.then(data => {
+					return rsvp.hash({
+						radarData: [{
+							value: averageAbility,
+							name: '团队平均能力'
+						}],
+						lastPersonnelAssessment: data.get('lastObject'),
+						radarColor: ['#3172E0'],
+						resourceConfManager: totalConfig.resourceConfManager,
+						resourceConfReps
+					});
+				});
 		}
 		promiseArray = resourceConfReps.map(ele => {
 			return ele.get('representativeConfig');
@@ -53,8 +59,12 @@ export default Route.extend({
 					}
 				];
 			}).then(data => {
+				radarData = data;
+				return paper.get('personnelAssessments');
+			}).then(data => {
 				return rsvp.hash({
-					radarData: data,
+					radarData,
+					lastPersonnelAssessment: data.get('lastObject'),
 					radarColor: ['#3172E0'],
 					resourceConfManager: totalConfig.resourceConfManager,
 					resourceConfReps

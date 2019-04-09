@@ -9,5 +9,6 @@ export default DS.Model.extend({
 	endTime: DS.attr('number'),
 	state: DS.attr('number'),
 	paperinputs: DS.hasMany('paperinput'),
-	salesReports: DS.hasMany('salesReport')
+	salesReports: DS.hasMany('salesReport'),
+	personnelAssessments: DS.hasMany('personnelAssessment')
 });

@@ -14,6 +14,5 @@ export default DS.Model.extend({
 	entryTime: DS.attr('number'),	// 入职时长
 	behaviorValidity: DS.attr('number'),
 	totalTime: DS.attr('number'),
-	resourceConfig: DS.belongsTo('resourceConfig'),
 	representative: DS.belongsTo('representative')
 });

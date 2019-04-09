@@ -6,10 +6,10 @@ export default Route.extend({
 	model(params) {
 		let dCId = params['config_id'],
 			store = this.get('store'),
-			scenarios = this.modelFor('page-scenario'),
-			managerConf = scenarios.resourceConfManager,
-			repConf = scenarios.resourceConfRep,
-			salesConfigs = scenarios.salesConfigs,
+			totalModels = this.modelFor('page-scenario'),
+			managerConf = totalModels.resourceConfManager,
+			repConf = totalModels.resourceConfRep,
+			salesConfigs = totalModels.salesConfigs,
 			currentController = this.controllerFor('page-scenario.business.hospital-config'),
 			businessInputs = store.peekAll('businessinput'),
 			businessinput = null;

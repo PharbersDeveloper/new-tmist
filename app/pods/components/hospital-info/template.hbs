@@ -41,15 +41,15 @@
 				<div local-class="properties">
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">医生数量</span>
-						<span>{{destConfig.hospitalConfig.doctorNumber}}</span>
+						<span>{{format-number destConfig.hospitalConfig.doctorNumber}}</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">病床数量</span>
-						<span>{{destConfig.hospitalConfig.bedNumber}}</span>
+						<span>{{format-number destConfig.hospitalConfig.bedNumber}}</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">医药收入</span>
-						<span>{{destConfig.hospitalConfig.income}}</span>
+						<span>{{format-number destConfig.hospitalConfig.income}}</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">患者支付力</span>
@@ -99,10 +99,10 @@
 						<p local-class="keys">潜力值</p>
 						<p local-class="values">
 							{{#each salesConfigs as |sc|}}
-								{{#if (bp-eq sc.destConfig.id destConfig.id)}}
+								{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
 									{{#each sc.salesReport.hospitalSalesReports as |item|}}
-										{{#if (bp-eq item.destConfig.id destConfig.id)}}
-											{{item.potential}}
+										{{#if (bp-eq item.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
+											{{format-number item.potential}}
 										{{/if}}
 									{{/each}}
 								{{/if}}

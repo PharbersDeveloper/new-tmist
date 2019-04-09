@@ -33,11 +33,12 @@ export default Controller.extend({
 	}),
 	total: computed('businessInputs.@each.{salesTarget,budget,meetingPlaces}', function () {
 		let businessInputs = this.get('businessInputs'),
+			newBusinessInputs = businessInputs.filter(ele => ele.get('isNew')),
 			usedSalesTarget = 0,
 			usedBudget = 0,
 			usedMeetingPlaces = 0;
 
-		businessInputs.forEach(bi => {
+		newBusinessInputs.forEach(bi => {
 			usedSalesTarget += Number(bi.get('salesTarget'));
 			usedBudget += Number(bi.get('budget'));
 			usedMeetingPlaces += Number(bi.get('meetingPlaces'));
