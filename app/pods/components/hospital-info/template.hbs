@@ -113,16 +113,16 @@
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="chart" 
 			classNames="p-4"}}
-				<h4 local-class="title" class="mb-2">药品销售额情况
-					<span local-class="subtitle" class="ml-2">
-						{{#each salesConfigs as |sc|}}
-							{{#if (bp-eq sc.destConfig.id destConfig.id)}}
-								{{sc.goodsConfig.productConfig.product.generalName}}
-							{{/if}}
-						{{/each}}
-					</span>
-				</h4>
-				<div local-class="content"></div>
+				<div local-class="content">
+					{{#each salesConfigs as |sc|}}
+						{{#if (bp-eq sc.destConfig.id destConfig.id)}}
+							{{bp-bar/tm
+								barData=barData
+								title='药品销售额情况' 
+								subText=sc.goodsConfig.productConfig.product.generalName}}
+						{{/if}}
+					{{/each}}
+				</div>
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
