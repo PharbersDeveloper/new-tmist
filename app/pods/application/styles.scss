@@ -4,7 +4,7 @@
 	position: relative;
 	z-index: 1;
 	height: 8*$spacing;
-	@extend %shadow-z200;
+	@extend %depth-z200;
 
 	p {
 		@extend %header-small;

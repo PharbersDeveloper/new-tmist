@@ -1,0 +1,64 @@
+.page-mission {
+	height: 100%;
+	overflow: auto;
+
+	&>div {
+		height: 100%;
+	}
+
+	h3 {
+		@extend %header-medium;
+	}
+
+	.mission-list {
+		flex: 1;
+
+		.mission-info {
+			width: 270px;
+			height: 138px;
+			@extend %depth-z200;
+			cursor: pointer;
+
+
+
+			.phase {
+				@extend %p-secondary;
+			}
+
+			.state {
+				span {
+					display: inline-block;
+					@extend %p-small-inverse;
+					@extend %defaultRadius;
+					background-color: $g400;
+				}
+			}
+		}
+	}
+
+	.mission-desc {
+		flex: 0 0 392px;
+		background-color: $n000;
+
+		.phase {
+			@extend %p-primary;
+		}
+
+		.desc {
+			@extend %p-secondary;
+		}
+
+		h4 {
+			font-size: 0;
+
+			span.title {
+				@extend %header-small;
+			}
+
+			span.times {
+				@extend %p-secondary;
+			}
+
+		}
+	}
+}
