@@ -19,7 +19,7 @@ export default DS.JSONAPIAdapter.extend({
 			'dataType': 'json',
 			'contentType': 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${cookies.read('token')}`
+			'Authorization': `Bearer ${cookies.read('access_token')}`
 		};
 	})
 });

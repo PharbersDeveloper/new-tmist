@@ -27,6 +27,7 @@ Router.map(function () {
 	});
 	this.route('oauth-callback');
 	this.route('page-overview', { path: 'overview' });
+	this.route('page-notice', { path: 'notice/:proposalId' });
 });
 
 export default Router;

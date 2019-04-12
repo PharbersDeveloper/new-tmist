@@ -24,4 +24,8 @@
 
 .container {
 	height: calc(100% - 64px);
+
+	.content-box {
+		height: 100%;
+	}
 }

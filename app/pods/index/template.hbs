@@ -4,9 +4,7 @@
 			{{#each model.papers as |paper pindex|}}
 				{{#if (bp-eq uindex pindex)}}
 					{{#each paper as |useableProposalPaper|}}
-						<div local-class="mission-info" class="p-4" {{!-- {{action (action (mut model.detailProposal) useableProposal)}}>
-							--}}
-							{{action 'changeDetail' useableProposal useableProposalPaper}}>
+						<div local-class="mission-info" class="p-4" {{action 'changeDetail' useableProposal useableProposalPaper}}>
 							<h3 class="mb-2">{{useableProposal.proposal.name}}</h3>
 							<p local-class="phase" class="mb-4">
 								{{#if (bp-gt useableProposal.proposal.totalPhase 2)}}
@@ -36,22 +34,34 @@
 		<p local-class="desc" class="mb-4">
 			{{model.detailProposal.proposal.describe }}
 		</p>
-		{{#bp-layout main="end" classNames="mb-4"}}
-			{{#bp-button type="primary"}}开始部署{{/bp-button}}
+		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
+			{{#bp-button type="primary"}}
+				{{#link-to "page-notice" model.detailProposal.proposal.id}}
+					开始部署
+				{{/link-to}}
+			{{/bp-button}}
 		{{/bp-layout}}
 		<div class="dropdown-divider mt-3 mb-4"></div>
-		{{#bp-layout tagName="h4" main="between" classNames="mt-3 mb-2"}}
+		{{#bp-layout tagName="h4" main="between" classNames="mt-3 mb-4"}}
 			<span local-class="title">历史报告</span>
 			{{#if (bp-gt model.detailPaper.paperinputs.length 0)}}
 				<span local-class="times">共完成{{model.detailPaper.paperinputs.length}}次</span>
 			{{/if}}
 		{{/bp-layout}}
 		{{#each model.detailPaper.paperinputs as |paperinput index|}}
-			{{#bp-layout tagName="p"}}
-				<span>{{index}}</span>
-				<span>s级*</span>
-				<span>{{paperinput.time}}</span>
-				<span>查看</span>
+			{{#bp-layout tagName="p" main="between" cross="center" local-class="historp-report" classNames="px-2 py-3 m-0"}}
+				{{#bp-layout tagName="span" local-class="infos"}}
+					{{!-- <span local-class="infos"> --}}
+					<span class="mr-3">{{bp-increment-property index}}</span>
+					<span class="mr-4">s级*</span>
+					<span>{{bp-string-slice paperinput.time 0 -3}}</span>
+					{{!-- </span> --}}
+				{{/bp-layout}}
+				{{!-- <span local-class="btn">查看</span> --}}
+				{{!-- {{#bp-button type="subtle"}}查看{{/bp-button}} --}}
+				{{#link-to "page-result"}}
+					查看
+				{{/link-to}}
 			{{/bp-layout}}
 		{{else}}
 			<p>还没有完成过该任务</p>

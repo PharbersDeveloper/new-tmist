@@ -1,16 +1,29 @@
 import Route from '@ember/routing/route';
-import rsvp from 'rsvp';
+import RSVP from 'rsvp';
 import { A } from '@ember/array';
 import { inject as service } from '@ember/service';
+import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	cookies: service(),
+
 	model() {
-		let store = this.get('store'),
+		let applicationModel = this.modelFor('application'),
+			store = this.get('store'),
 			cookies = this.get('cookies'),
 			useableProposals = A([]),
-			accountId = cookies.read('account_id');
+			accountId = cookies.read('account_id'),
+			papers = A([]);
 
+		if (!isEmpty(applicationModel)) {
+			return RSVP.hash({
+				papers: applicationModel.papers,
+				useableProposals: applicationModel.useableProposals,
+				detailProposal: applicationModel.detailProposal,
+				detailPaper: applicationModel.detailPaper,
+				scenario: applicationModel.scenario
+			});
+		}
 		return store.query('useableProposal', {
 			'account-id': accountId
 		}).then(data => {
@@ -23,14 +36,15 @@ export default Route.extend({
 					'account-id': accountId
 				});
 			});
-			return rsvp.Promise.all(promiseArray);
+			return RSVP.Promise.all(promiseArray);
 
 		}).then(data => {
-			return rsvp.hash({
-				papers: data,
+			papers = data;
+			return RSVP.hash({
+				papers,
 				useableProposals,
 				detailProposal: useableProposals.get('firstObject'),
-				detailPaper: data[0].get('firstObject')
+				detailPaper: papers[0].get('firstObject')
 			});
 		});
 	},
@@ -38,7 +52,6 @@ export default Route.extend({
 		changeDetail(useableProposal, paper) {
 			this.set('model.detailProposal', useableProposal);
 			this.set('model.detailPaper', paper);
-
 		}
 	}
 });

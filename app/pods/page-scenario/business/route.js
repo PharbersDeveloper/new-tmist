@@ -4,7 +4,9 @@ import { hash } from 'rsvp';
 
 export default Route.extend({
 	isHaveBusinessInput(businessInputs, self, destConfigs, store) {
-		if (businessInputs.get('length') > 0) {
+		let isNewBusinessInputs = businessInputs.filter(ele => ele.get('isNew'));
+
+		if (isNewBusinessInputs.length > 0) {
 			return self.normalFlow(store);
 		}
 		return self.generateBusinessInputs(destConfigs);

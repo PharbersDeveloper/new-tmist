@@ -6,7 +6,7 @@ export default DS.Model.extend({
 	highLevelFrequency: DS.attr('number'),	// A类医生拜访频次
 	middleLevelFrequency: DS.attr('number'),	// B类医生拜访频次
 	lowLevelFrequency: DS.attr('number'),	// C类医生拜访频次
-	time: DS.attr('date'),
+	time: DS.attr('formatDate'),
 	representative: DS.belongsTo('representative')
 
 });

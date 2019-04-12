@@ -14,7 +14,7 @@ export default Route.extend({
 		let totalConfig = this.modelFor('page-scenario');
 
 		return hash({
-			paper: this.get('store').peekAll('paper').get('lastObject'),
+			paper: totalConfig.paper,
 			goodsConfigs: totalConfig.goodsConfigs,
 			destConfigs: totalConfig.destConfigs,
 			salesConfigs: totalConfig.salesConfigs,

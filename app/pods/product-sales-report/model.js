@@ -1,7 +1,9 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-	sales: DS.attr('number'),
-	salesQuota: DS.attr('number'),
-	productName: DS.attr('string')
+	productName: DS.attr('string'),
+	sales: DS.attr('number'),	// 销售额
+	salesQuota: DS.attr('number'),	// 销售指标
+	share: DS.attr('number'),	// 份额
+	quotaAchievement: DS.attr('number')	// 指标达成率
 });

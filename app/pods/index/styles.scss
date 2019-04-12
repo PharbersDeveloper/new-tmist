@@ -48,6 +48,16 @@
 			@extend %p-secondary;
 		}
 
+		.start {
+			a {
+				color: #fff;
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+
 		h4 {
 			font-size: 0;
 
@@ -59,6 +69,13 @@
 				@extend %p-secondary;
 			}
 
+		}
+
+		p.historp-report {
+			// font-size: 0;
+			@extend %p-small;
+
+			span.infos {}
 		}
 	}
 }

@@ -37,10 +37,10 @@ export default Route.extend({
 					cookies.write('refresh_token', response.refresh_token);
 					cookies.write('expiry', response.expiry);
 					cookies.write('token_type', response.token_type);
-					this.transitionTo('page-overview');
+					this.transitionTo('application');
 				});
 		} else {
-			this.transitionTo('page-overview');
+			this.transitionTo('application');
 		}
 	}
 });

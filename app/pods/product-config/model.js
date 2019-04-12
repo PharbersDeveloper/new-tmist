@@ -4,7 +4,7 @@ export default DS.Model.extend({
 	productType: DS.attr('string'),
 	priceType: DS.attr('string'),
 	lifeCycle: DS.attr('string'),
-	launchTime: DS.attr('date'),
+	launchTime: DS.attr('formatDate'),
 	productCategory: DS.attr('string'),
 	treatmentArea: DS.attr('string'),
 	productFeature: DS.attr('string'),

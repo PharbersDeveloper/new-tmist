@@ -52,7 +52,7 @@ export default Route.extend({
 	},
 	// 判断是否有 managerinput
 	hasManagerInput(managerinputs, self, store, resourceConfigs) {
-		// 应该根据 managerinput 中有没有id 为null的
+		// 应该根据 managerinput 中的isNew 属性
 		let isNewManagerinputs = managerinputs.filter(ele => ele.get('isNew'));
 
 		if (isNewManagerinputs.length > 0) {

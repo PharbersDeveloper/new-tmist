@@ -2,7 +2,6 @@ import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
 import $ from 'jquery';
 import { inject as service } from '@ember/service';
-import { A } from '@ember/array';
 
 export default Route.extend({
 	cookies: service(),
@@ -17,7 +16,7 @@ export default Route.extend({
 			headers: {
 				'Content-Type': 'application/json', // 默认值
 				'Accept': 'application/json',
-				'Authorization': `Bearer ${cookies.read('token')}`
+				'Authorization': `Bearer ${cookies.read('access_token')}`
 			},
 			data: {},
 			success: function (res) {
@@ -31,24 +30,25 @@ export default Route.extend({
 		const store = this.get('store'),
 			cookies = this.get('cookies');
 
-		let scenario = null,
-			scenarioId = '',
-			proposal = null,
-			scenarios = A([]),
+		let noticeModel = this.modelFor('page-notice'),
+			scenario = noticeModel.scenario,
+			scenarioId = scenario.get('id'),
+			proposal = noticeModel.detailProposal,
 			proposalId = params['proposal_id'],
+			paper = noticeModel.detailPaper,
 			resourceConfRep = null,
 			resourceConfManager = null;
 
-		return store.query('scenario', {
-			'proposal-id': proposalId,
-			'account-id': cookies.read('account_id')
-		})
-			.then(data => {
-				scenarios = data;
-				scenario = scenarios.get('lastObject');
-				scenarioId = scenario.id;
-				return store.findRecord('proposal', proposalId);
-			})
+		// return store.query('scenario', {
+		// 	'proposal-id': proposalId,
+		// 	'account-id': cookies.read('account_id')
+		// })
+		// 	.then(data => {
+		// 		scenarios = data;
+		// 		scenario = scenarios.get('lastObject');
+		// 		scenarioId = scenario.id;
+		return store.findRecord('proposal', proposalId)
+			// })
 			.then(data => {
 				proposal = data;
 				// 获取 resourceConfig -> 代表
@@ -65,7 +65,7 @@ export default Route.extend({
 				resourceConfManager = data.get('firstObject');
 				return hash({
 					proposal,
-					scenarios,
+					paper,
 					resourceConfRep,
 					resourceConfManager,
 					goodsConfigs: store.query('goodsConfig',
@@ -83,5 +83,4 @@ export default Route.extend({
 				});
 			});
 	}
-
 });

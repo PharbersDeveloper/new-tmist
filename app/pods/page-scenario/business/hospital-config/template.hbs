@@ -71,15 +71,11 @@
 						{{#if tmpRc.id}}
 							<p>{{tmpRc.representativeConfig.representative.name}}</p>
 						{{else}}
-							不分配代表
+							未分配代表
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
-						{{#menu.option value='none'
-								onClick=(action 'changedRep')}}
-							不分配代表
-						{{/menu.option}}
 						{{#each model.repConf as |rc|}}
 							{{#if (bp-eq rc.resourceType 1)}}
 								{{#menu.option value=rc 
