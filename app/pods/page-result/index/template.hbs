@@ -32,6 +32,10 @@
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
+									{{#menu.option value=totalProduct
+										onClick=(action (mut tmpPsr))}}
+										全部选择
+									{{/menu.option}}
 									{{#each model.productSalesReports as |psrs|}}
 										{{#menu.option value=psrs
 												onClick=(action (mut tmpPsr))}}
@@ -52,12 +56,23 @@
 						</thead>
 						<tbody class="bg-white">
 							{{#each model.prodTableBody as |tr|}}
-								<tr>
-									<td>{{tr.name}}</td>
-									{{#each tr.tableTr as |td|}}
-										<td>￥{{td}}</td>
-									{{/each}}
-								</tr>
+								{{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
+									{{#if (bp-eq tmpPsr.productName tr.name)}}
+										<tr>
+											<td>{{tr.name}}</td>
+											{{#each tr.tableTr as |td|}}
+												<td>￥{{format-number td}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{tr.name}}</td>
+										{{#each tr.tableTr as |td|}}
+											<td>￥{{format-number td}}</td>
+										{{/each}}
+									</tr>
+								{{/if}}
 							{{/each}}
 						</tbody>
 					</table>
@@ -87,6 +102,10 @@
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
+									{{#menu.option value=totalRepresentatives
+										onClick=(action (mut tmpRsr))}}
+										全部选择
+									{{/menu.option}}
 									{{#each model.representativeSalesReports as |rsrs|}}
 										{{#menu.option value=rsrs
 												onClick=(action (mut tmpRsr))}}
@@ -108,13 +127,25 @@
 						</thead>
 						<tbody class="bg-white">
 							{{#each model.repTableBody as |tr|}}
-								<tr>
-									<td>{{tr.name}}</td>
-									<td>{{tr.potential}}</td>
-									{{#each tr.tableTr as |td|}}
-										<td>￥{{td}}</td>
-									{{/each}}
-								</tr>
+								{{#if (bp-not-eq tmpRsr.representativeName undefined '全部选择')}}
+									{{#if (bp-eq tmpRsr.representativeName tr.name)}}
+										<tr>
+											<td>{{tr.name}}</td>
+											<td>{{tr.potential}}</td>
+											{{#each tr.tableTr as |td|}}
+												<td>￥{{format-number td}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{tr.name}}</td>
+										<td>{{tr.potential}}</td>
+										{{#each tr.tableTr as |td|}}
+											<td>￥{{format-number td}}</td>
+										{{/each}}
+									</tr>
+								{{/if}}
 							{{/each}}
 						</tbody>
 					</table>
@@ -143,6 +174,10 @@
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
+									{{#menu.option value=totalHospitals
+										onClick=(action (mut tmpHsr))}}
+										全部选择
+									{{/menu.option}}
 									{{#each model.hospitalSalesReports as |hsrs|}}
 										{{#menu.option value=hsrs
 												onClick=(action (mut tmpHsr))}}
@@ -186,16 +221,7 @@
 							{{/each}}
 						</thead>
 						<tbody class="bg-white">
-							{{#each model.hospTableBody as |tr|}}
-								<tr>
-									<td>{{tr.name}}</td>
-									<td>{{tr.productName}}</td>
-									<td>{{tr.potential}}</td>
-									{{#each tr.tableTr as |td|}}
-										<td>￥{{td}}</td>
-									{{/each}}
-								</tr>
-							{{/each}}
+							{{!-- 
 							{{#each hospitalData.currentReport as |hospital|}}
 								<tr>
 									<td>{{hospital.destConfig.hospitalConfig.hospital.name}}</td>
@@ -210,6 +236,29 @@
 									{{/each}}
 									<td>{{hospital.sales}}</td>
 								</tr>
+							{{/each}} --}}
+							{{#each model.hospTableBody as |tr|}}
+								{{#if (bp-not-eq tmpHsr.hospitalName undefined '全部选择')}}
+									{{#if (bp-eq tmpHsr.hospitalName tr.name)}}
+										<tr>
+											<td>{{tr.name}}</td>
+											<td>{{tr.productName}}</td>
+											<td>{{format-number tr.potential}}</td>
+											{{#each tr.tableTr as |td|}}
+												<td>￥{{format-number td}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{tr.name}}</td>
+										<td>{{tr.productName}}</td>
+										<td>{{format-number tr.potential}}</td>
+										{{#each tr.tableTr as |td|}}
+											<td>￥{{format-number td}}</td>
+										{{/each}}
+									</tr>
+								{{/if}}
 							{{/each}}
 						</tbody>
 					</table>

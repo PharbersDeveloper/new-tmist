@@ -89,6 +89,11 @@
 						:global(.bp-progress) {
 							height: $spacing;
 						}
+
+						.circle {
+							width: 64px;
+							height: 64px;
+						}
 					}
 
 					h4 {

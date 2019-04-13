@@ -12,28 +12,6 @@
 
 	.mission-list {
 		flex: 1;
-
-		.mission-info {
-			width: 270px;
-			height: 138px;
-			@extend %depth-z200;
-			cursor: pointer;
-
-
-
-			.phase {
-				@extend %p-secondary;
-			}
-
-			.state {
-				span {
-					display: inline-block;
-					@extend %p-small-inverse;
-					@extend %defaultRadius;
-					background-color: $g400;
-				}
-			}
-		}
 	}
 
 	.mission-desc {
@@ -46,16 +24,6 @@
 
 		.desc {
 			@extend %p-secondary;
-		}
-
-		.start {
-			a {
-				color: #fff;
-
-				&:hover {
-					text-decoration: none;
-				}
-			}
 		}
 
 		h4 {

@@ -31,11 +31,11 @@
 						local-class="icon"}}
 					{{#bp-layout direction="col" local-class="main-box"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
-							<h4 class="m-0">安排医院数量20*家</h4>
-							<span local-class="schedule">0/20*</span>
+							<h4 class="m-0">安排医院数量0家</h4>
+							<span local-class="schedule">0/{{model.destConfigs.length}}</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=20}}
+							{{p.bar value=0 maxValue=model.destConfigs.length}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
@@ -45,34 +45,38 @@
 						local-class="icon"}}
 					{{#bp-layout direction="col" local-class="main-box"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
-							<h4 class="m-0">管理代表人数10*人</h4>
-							<span local-class="schedule">0/10*</span>
+							<h4 class="m-0">管理代表人数0人</h4>
+							<span local-class="schedule">0/{{model.resourceConfigRepresentatives.length}}</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=50}}
+							{{p.bar value=0 maxValue=model.resourceConfigRepresentatives.length}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
 				{{/bp-layout}}
-				{{#bp-layout local-class="item-resource" classNames="my-4"}}
-					{{bp-icon size='large' icon='china-money' 
+				{{#each model.resourceConfigManagers as |rcm|}}
+					{{#bp-layout local-class="item-resource" classNames="my-4"}}
+						{{bp-icon size='large' icon='china-money' 
 						local-class="icon"}}
-					{{#bp-layout direction="col" local-class="main-box"}}
-						{{#bp-layout main="between" classNames="mb-2"}}
-							<h4 class="m-0">分配预算总金额</h4>
-							<span local-class="schedule">￥{{format-number 1000000}}*</span>
+						{{#bp-layout direction="col" local-class="main-box"}}
+							{{#bp-layout main="between" classNames="mb-2"}}
+								<h4 class="m-0">分配预算总金额</h4>
+								<span local-class="schedule">￥{{format-number rcm.managerConfig.totalBudgets}}</span>
+							{{/bp-layout}}
+							{{#bp-progress as |p|}}
+								{{p.bar value=0 maxValue=rcm.managerConfig.totalBudgets}}
+							{{/bp-progress}}
 						{{/bp-layout}}
-						{{#bp-progress as |p|}}
-							{{p.bar value=20}}
-						{{/bp-progress}}
+						<div local-class="blank"></div>
 					{{/bp-layout}}
-					<div local-class="blank"></div>
-				{{/bp-layout}}
+				{{/each}}
 				{{#bp-layout local-class="item-resource" classNames="my-4"}}
 					{{bp-icon size='large' icon='pie' 
 						local-class="icon"}}
 					{{#bp-layout cross="center" local-class="main-box"}}
 						<h4 class="m-0">分配经理资源</h4>
+						{{bp-circle classNames="ml-4" local-class="circle"}}
+						{{bp-circle local-class="circle"}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
 				{{/bp-layout}}

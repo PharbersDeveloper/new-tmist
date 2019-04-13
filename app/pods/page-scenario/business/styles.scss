@@ -28,6 +28,16 @@
 		.hospitals-configs {
 			max-height: 402px;
 			overflow: auto;
+
+			a:hover {
+				text-decoration: none;
+			}
+
+			:global(.current-hospital) {
+				:global(.hospital-box) {
+					background-color: $n040a;
+				}
+			}
 		}
 
 		.over-all {

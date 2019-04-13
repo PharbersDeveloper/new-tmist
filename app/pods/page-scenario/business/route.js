@@ -3,16 +3,16 @@ import { A } from '@ember/array';
 import { hash } from 'rsvp';
 
 export default Route.extend({
-	isHaveBusinessInput(businessInputs, self, destConfigs, store) {
+	isHaveBusinessInput(businessInputs, self, destConfigs) {
 		let isNewBusinessInputs = businessInputs.filter(ele => ele.get('isNew'));
 
 		if (isNewBusinessInputs.length > 0) {
-			return self.normalFlow(store);
+			return self.normalFlow(isNewBusinessInputs);
 		}
 		return self.generateBusinessInputs(destConfigs);
 	},
-	normalFlow(store) {
-		return store.peekAll('businessinput');
+	normalFlow(newBusinessInputs) {
+		return newBusinessInputs;
 	},
 	generateBusinessInputs(destConfigs) {
 		let promiseArray = A([]);
@@ -34,10 +34,9 @@ export default Route.extend({
 			totalConfigs = this.modelFor('page-scenario'),
 			destConfigs = totalConfigs.destConfigs,
 			businessInputs = store.peekAll('businessinput'),
-			tmp = this.isHaveBusinessInput(businessInputs, this, destConfigs, store);
+			tmp = this.isHaveBusinessInput(businessInputs, this, destConfigs);
 
 		this.controllerFor('page-scenario.business').set('businessInputs', tmp);
-
 		return hash({
 			businessInputs: tmp,
 			mConf: totalConfigs.resourceConfManager,

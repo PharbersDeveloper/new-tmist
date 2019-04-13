@@ -41,17 +41,12 @@ export default Route.extend({
 		}).then(data => {
 			papers = data;
 			return RSVP.hash({
+				results: A([]),
 				papers,
 				useableProposals,
 				detailProposal: useableProposals.get('firstObject'),
 				detailPaper: papers[0].get('firstObject')
 			});
 		});
-	},
-	actions: {
-		changeDetail(useableProposal, paper) {
-			this.set('model.detailProposal', useableProposal);
-			this.set('model.detailPaper', paper);
-		}
 	}
 });

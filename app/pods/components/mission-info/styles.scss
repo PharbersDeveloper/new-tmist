@@ -1,0 +1,10 @@
+.mission-info {
+	width: 270px;
+	height: 138px;
+	@extend %depth-z200;
+	cursor: pointer;
+
+	.phase {
+		@extend %p-secondary;
+	}
+}

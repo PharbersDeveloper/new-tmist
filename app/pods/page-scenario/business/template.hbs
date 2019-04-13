@@ -57,7 +57,7 @@
 				local-class="hospitals-configs" 
 				classNames="px-4"}}
 				{{#each overallFilterData as |dc|}}
-					<div local-class="hospital-config" class="pt-4">
+					{{!-- <div local-class="hospital-config" class="pt-4">
 						<h4 local-class="title" class="mb-3">
 							{{dc.hospitalConfig.hospital.name}}
 						</h4>
@@ -90,7 +90,14 @@
 								<div class="dropdown-divider"></div>
 							{{/if}}
 						{{/each}}
-					</div>
+					</div> --}}
+					{{#link-to "page-scenario.business.hospital-config" dc.id
+						activeClass="current-hospital"}}
+						{{hospital-overall
+							hospitalName=dc.hospitalConfig.hospital.name
+							businessInputs=model.businessInputs
+							overallFilterData=dc}}
+					{{/link-to}}
 				{{/each}}
 			{{/bp-layout}}
 		{{/bp-layout}}
