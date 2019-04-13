@@ -114,8 +114,16 @@
 			{{#bp-layout direction="col" local-class="chart" 
 			classNames="p-4"}}
 				<div local-class="content">
-					{{#each salesConfigs as |sc|}}
+					{{!-- {{#each salesConfigs as |sc|}}
 						{{#if (bp-eq sc.destConfig.id destConfig.id)}}
+							{{bp-bar/tm
+								barData=barData
+								title='药品销售额情况' 
+								subText=sc.goodsConfig.productConfig.product.generalName}}
+						{{/if}}
+					{{/each}} --}}
+					{{#each barDatum as |barData|}}
+						{{#if (bp-eq barData.destConfigId destConfig.id)}}
 							{{bp-bar/tm
 								barData=barData
 								title='药品销售额情况' 
