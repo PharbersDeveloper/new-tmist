@@ -54,9 +54,8 @@ export default Route.extend({
 				return hash({
 					managerConf,
 					repConf,
-					destConfig: store.findRecord('destConfig', dCId),
+					destConfig: store.peekRecord('destConfig', dCId),
 					businessinput,
-					prodConfig: store.findAll('productConfig'),
 					salesConfigs
 				});
 			});

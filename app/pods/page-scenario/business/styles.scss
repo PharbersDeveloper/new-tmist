@@ -51,25 +51,64 @@
 	.hospitals {
 		flex: 1;
 
-		ul.nav-hosp {
-			list-style: none;
+		.hospitals-configs {
+			flex: 0 0 368px;
+			max-height: 700px;
+			overflow: auto;
 
-			li {
-				width: 145px;
-				height: 32px;
-				@extend %p-primary;
-				line-height: 32px;
-				@extend %defaultRadius;
-				text-align: center;
-				background-color: $n040;
-				cursor: pointer;
+			h3.title {
+				flex: 0 0 54px;
+				@extend %header-medium;
 
-				&:global(.active) {
-					color: $n000;
-					background-color: $n400;
+				.dd-hosp {
+					width: 98px;
 				}
 			}
 
+			a:hover {
+				text-decoration: none;
+			}
+
+			:global(.current-hospital) {
+				:global(.hospital-box) {
+					background-color: $n040a;
+				}
+			}
+		}
+
+		.hospital {
+			flex: 1;
+		}
+	}
+
+	.overviews {
+		flex: 0 0 170px;
+
+		.item {
+			flex: 1;
+			background-color: $n000;
+
+			h2 {
+				@extend %header-medium;
+			}
+
+			.info {
+				@extend %header-large;
+			}
+
+			:global(.bp-progress) {
+				height: $spacing;
+
+				:global(.bp-progress-bar) {
+					background-color: $b200;
+				}
+			}
+
+			&:last-child {
+				:global(.bp-progress .bp-progress-bar) {
+					background-color: $n500;
+				}
+			}
 		}
 	}
 }

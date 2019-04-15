@@ -65,13 +65,15 @@ export default Route.extend({
 			increaseSalesReports = data.sortBy('time');
 
 			tmpHead = increaseSalesReports.map(ele => {
-				return ele.get('formatTime');
+				let name = ele.get('scenario.name');
+
+				return name.slice(0, 4) + name.slice(-4);
 			});
 			tmpHead.forEach(ele => {
-				tableHead.push(ele + ' 销售额');
+				tableHead.push(ele + `\n销售额`);
 			});
 			tmpHead.forEach(ele => {
-				tableHead.push(ele + ' 销售指标');
+				tableHead.push(ele + '\n销售指标');
 			});
 
 			promiseArray = this.generatePromiseArray(increaseSalesReports, 'productSalesReports');

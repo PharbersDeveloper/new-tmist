@@ -1,23 +1,33 @@
 import Route from '@ember/routing/route';
 import { A } from '@ember/array';
+import { reject } from 'rsvp';
 
 export default Route.extend({
 	model() {
 		let store = this.get('store'),
 			currentController = this.controllerFor('page-scenario.reference.decided'),
 			paper = store.peekAll('paper').get('lastObject'),
-			paperinputs = store.query('paperinput', { 'paper-id': paper.id }),
+			paperinputs = store.query('paperinput',
+				{ 'paper-id': paper.id }),
 			increasePaperinputs = A([]),
 			phases = A([]),
 			totalModel = A([]);
 
 		return paperinputs.then(data => {
 			increasePaperinputs = data.sortBy('phase');
+			let hasOldDecided = increasePaperinputs.some(ele => {
+				return ele.get('phase') > 0;
+			});
+
+			if (!hasOldDecided) {
+				return reject();
+			}
 			phases = increasePaperinputs.map(ele => {
 				return {
 					phase: `第${ele.get('phase')}周期`,
 					index: ele.get('phase') - 1
 				};
+
 			});
 			currentController.set('phases', phases);
 			currentController.set('tmpPhase', phases.get('lastObject'));
@@ -49,9 +59,9 @@ export default Route.extend({
 			data.forEach((ele, index) => {
 				totalModel[index].businessinputs = ele;
 			});
-		})
-			.then(() => {
-				return totalModel;
-			});
+		}).catch(() => {
+		}).then(() => {
+			return totalModel;
+		});
 	}
 });

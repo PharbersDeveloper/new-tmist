@@ -31,7 +31,9 @@ export default Route.extend({
 			return RSVP.hash({
 				managerinput,
 				businessinputs,
-				representativeinputs
+				representativeinputs,
+				goodsConfigs: store.query('goodsConfig',
+					{ 'scenario-id': '5c7cdf18421aa98e2c382f61' })
 			});
 		});
 	}

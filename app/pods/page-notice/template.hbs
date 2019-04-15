@@ -22,7 +22,7 @@
 		</h1>
 		<div local-class="resource" class="mb-2 p-3 rounded">
 			<h2 class="mb-2">
-				{{bp-icon icon="trash"}}
+				{{bp-icon icon="mission-1"}}
 				<span>合理管理与分配资源</span>
 			</h2>
 			{{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}
@@ -84,7 +84,7 @@
 		</div>
 		<div local-class="resource" class="mb-4 p-3 rounded">
 			<h2 class="mb-2">
-				{{bp-icon icon="trash"}}
+				{{bp-icon icon="mission-2"}}
 				<span>完成药品销售额指标</span>
 			</h2>
 			{{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}
@@ -97,7 +97,7 @@
 							<span local-class="schedule">￥{{format-number 1000000}}*</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=60}}
+							{{p.bar value=0 maxValue=1000000}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
