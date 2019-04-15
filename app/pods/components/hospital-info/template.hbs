@@ -2,66 +2,66 @@
 	<span class="mr-2" local-class="icon" {{action 'showContent'}}>
 		{{bp-icon icon=icon}}
 	</span>
-	{{dests.hospitalConfig.hospital.name}}
+	{{destConfig.hospitalConfig.hospital.name}}
 {{/bp-layout}}
 {{#if showContent}}
 	{{#bp-layout direction="col" local-class="content" }}
 		{{#bp-layout main="between" local-class="infos"}}
 			{{#bp-layout main="between" local-class="basic" 
 				classNames="p-4"}}
-				{{#each dests.hospitalConfig.hospital.images as |img index|}}
+				{{#each destConfig.hospitalConfig.hospital.images as |img index|}}
 					{{#if (bp-eq index 0)}}
-						<img src={{img.img}} alt={{dests.hospitalConfig.hospital.name}} class="mr-4">
+						<img src={{img.img}} alt={{destConfig.hospitalConfig.hospital.name}} class="mr-4">
 					{{/if}}
 				{{/each}}
 				<div local-class="properties">
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">成立时间</span>
 						<span>
-							{{dests.hospitalConfig.hospital.regtime}}
+							{{destConfig.hospitalConfig.hospital.regtime}}
 						</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">医院等级</span>
 						<span>
-							{{dests.hospitalConfig.hospital.hospitalLevel}}
+							{{destConfig.hospitalConfig.hospital.hospitalLevel}}
 						</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">医院类型</span>
 						<span>
-							{{dests.hospitalConfig.hospital.hospitalCategory}}
+							{{destConfig.hospitalConfig.hospital.hospitalCategory}}
 						</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">空间所属</span>
-						<span>{{dests.hospitalConfig.spaceBelongs}}</span>
+						<span>{{destConfig.hospitalConfig.spaceBelongs}}</span>
 					{{/bp-layout}}
 				</div>
 				<div local-class="properties">
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">医生数量</span>
-						<span>{{dests.hospitalConfig.doctorNumber}}</span>
+						<span>{{format-number destConfig.hospitalConfig.doctorNumber}}</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">病床数量</span>
-						<span>{{dests.hospitalConfig.bedNumber}}</span>
+						<span>{{format-number destConfig.hospitalConfig.bedNumber}}</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">医药收入</span>
-						<span>{{dests.hospitalConfig.income}}</span>
+						<span>{{format-number destConfig.hospitalConfig.income}}</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">患者支付力</span>
 						<span>
-							{{dests.hospitalConfig.abilityToPay}}
+							{{destConfig.hospitalConfig.abilityToPay}}
 						</span>
 					{{/bp-layout}}
 				</div>
 			{{/bp-layout}}
 			<div local-class="dynamic others" class="p-4">
 				<h4 local-class="title" class="mb-2">医院动态</h4>
-				{{#each dests.hospitalConfig.policies as |policy|}}
+				{{#each destConfig.hospitalConfig.policies as |policy|}}
 					<p local-class="content" class="mb-2">
 						{{policy.describe}}
 					</p>
@@ -76,37 +76,61 @@
 					{{#bp-layout direction="col" classNames="mr-5"}}
 						<p local-class="keys">药品通用名-药品名</p>
 						<p local-class="values">
-							{{#each prods as |prod|}}
-								{{#if (bp-eq prod.productConfig.productType "0")}}
-									{{prod.productConfig.product.name}}
+							{{#each salesConfigs as |sc|}}
+								{{#if (bp-eq sc.destConfig.id destConfig.id)}}
+									{{sc.goodsConfig.productConfig.product.name}}
 									-
-									{{prod.productConfig.product.generalName}}
+									{{sc.goodsConfig.productConfig.product.generalName}}
 								{{/if}}
 							{{/each}}
 						</p>
 					{{/bp-layout}}
 					{{#bp-layout direction="col"  classNames="mr-5"}}
 						<p local-class="keys">状态</p>
-						<p local-class="values">准入*</p>
+						<p local-class="values">
+							{{#each salesConfigs as |sc|}}
+								{{#if (bp-eq sc.destConfig.id destConfig.id)}}
+									{{sc.accessStatus}}
+								{{/if}}
+							{{/each}}
+						</p>
 					{{/bp-layout}}
 					{{#bp-layout direction="col"}}
 						<p local-class="keys">潜力值</p>
-						<p local-class="values">90505641*</p>
+						<p local-class="values">
+							{{#each salesConfigs as |sc|}}
+								{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
+									{{#each sc.salesReport.hospitalSalesReports as |item|}}
+										{{#if (bp-eq item.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
+											{{format-number item.potential}}
+										{{/if}}
+									{{/each}}
+								{{/if}}
+							{{/each}}
+						</p>
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="chart" 
 			classNames="p-4"}}
-				<h4 local-class="title" class="mb-2">药品销售额情况
-					<span local-class="subtitle" class="ml-2">
-						{{#each prods as |prod|}}
-							{{#if (bp-eq prod.productConfig.productType "0")}}
-								{{prod.productConfig.product.generalName}}
-							{{/if}}
-						{{/each}}
-					</span>
-				</h4>
-				<div local-class="content"></div>
+				<div local-class="content">
+					{{!-- {{#each salesConfigs as |sc|}}
+						{{#if (bp-eq sc.destConfig.id destConfig.id)}}
+							{{bp-bar/tm
+								barData=barData
+								title='药品销售额情况' 
+								subText=sc.goodsConfig.productConfig.product.generalName}}
+						{{/if}}
+					{{/each}} --}}
+					{{#each barDatum as |barData|}}
+						{{#if (bp-eq barData.destConfigId destConfig.id)}}
+							{{bp-bar/tm
+								barData=barData
+								title='药品销售额情况' 
+								subText=sc.goodsConfig.productConfig.product.generalName}}
+						{{/if}}
+					{{/each}}
+				</div>
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}

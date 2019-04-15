@@ -12,7 +12,6 @@
 				{{#if (bp-eq groupValue 0)}}
 					<h3 local-class="title" class="px-4">经理剩余时间</h3>
 					<div local-class="pie" class="px-4">
-						{{!-- {{ model.mConf.managerConfig.managerTime}} --}}
 						{{bp-circle
 							seriesName="经理剩余时间" 
 							circleData=circleTime}}
@@ -20,7 +19,6 @@
 				{{else}}
 					<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
 					<div local-class="pie" class="px-4">
-						{{!-- {{ model.mConf.managerConfig.managerKpi}} --}}
 						{{bp-circle
 							seriesName="经理剩余行动点数"
 							circleData=circlePoint}}

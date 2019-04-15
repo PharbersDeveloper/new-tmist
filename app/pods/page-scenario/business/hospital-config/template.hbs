@@ -13,24 +13,38 @@
 		</tr>
 	</thead>
 	<tbody class="bg-white">
-		{{#each model.prodConfig as |pc|}}
-			{{#if (bp-eq pc.productType "0")}}
+		{{#each model.salesConfigs as |sc|}}
+			{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
 				<tr class="mx-0">
-					<td class="pl-2">{{pc.product.name}}</td>
-					<td class="pl-2">{{model.destConfig.hospitalConfig.potential}}</td>
-					<td class="pl-2">{{model.destConfig.hospitalConfig.lastYearSales}}</td>
-					<td class="pl-2">
+					<td class="pl-2 border-0">{{sc.goodsConfig.productConfig.product.name}}</td>
+					<td class="pl-2 border-0">
+						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
+							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
+								{{format-number hsr.potential}}
+							{{/if}}
+						{{/each}}
+					</td>
+					<td class="pl-2 border-0">
+						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
+							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
+								{{format-number hsr.sales}}
+							{{/if}}
+						{{/each}}
+					</td>
+					<td class="pl-2 border-0">
 						{{bp-input block=true widthSize="auto" 
 							classNames="mb-2"
-							value=model.businessinput.salesTarget}}
+							value=model.businessinput.salesTarget
+							disabled=(not tmpRc.id)}}
 						<p class="m-0 ">
 							{{IndicatorAllocationPercent}}%
 						</p>
 					</td>
-					<td class="pl-2">
+					<td class="pl-2 border-0">
 						<p class="mb-2">￥{{budgetNumber}}</p>
 						{{bp-input block=true widthSize="small"
-							value=model.businessinput.budget}}
+							value=model.businessinput.budget
+							disabled=(not tmpRc.id)}}
 					</td>
 				</tr>
 			{{/if}}
@@ -57,7 +71,7 @@
 						{{#if tmpRc.id}}
 							<p>{{tmpRc.representativeConfig.representative.name}}</p>
 						{{else}}
-							请选择
+							未分配代表
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
@@ -87,7 +101,8 @@
 						{{/if}}</span>
 				{{/bp-layout}}
 				{{bp-input
-					value=model.businessinput.visitTime}}
+					value=model.businessinput.visitTime
+					disabled=(not tmpRc.id)}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -103,7 +118,8 @@
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="operating"}}
 				{{bp-input widthSize="auto"
-					value=model.businessinput.meetingPlaces}}
+					value=model.businessinput.meetingPlaces
+					disabled=(not tmpRc.id)}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}

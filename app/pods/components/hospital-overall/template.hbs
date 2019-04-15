@@ -1,25 +1,58 @@
-{{#bp-layout classNames="pb-4"}}
-	{{#bp-layout classNames="mr-4"}}
-		{{#bp-layout direction="col" 
-				local-class="keys" classNames="mr-2"}}
-			<span class="mb-1">潜力</span>
-			<span>预算</span>
-		{{/bp-layout}}
-		{{#bp-layout direction="col" local-class="values"}}
-			<span class="mb-1">￥{{dc.hospitalConfig.potential}}</span>
-			<span>￥8888888*</span>
-		{{/bp-layout}}
-	{{/bp-layout}}
-	{{#bp-layout}}
-		{{#bp-layout direction="col" 
-									local-class="keys" classNames="mr-2"}}
-			<span class="mb-1">指标</span>
-			<span>会议名额(次)</span>
-		{{/bp-layout}}
-		{{#bp-layout direction="col" local-class="values"}}
-			<span class="mb-1">￥8888888*</span>
-			<span>20*</span>
-		{{/bp-layout}}
-	{{/bp-layout}}
-{{/bp-layout}}
+<div local-class="hospital-box" class="hospital-box mb-3 p-2">
+	<h4 local-class="title" class="m-0">
+		{{hospitalName}}
+	</h4>
+	{{#each businessInputs as |bi|}}
+		{{#if (bp-eq bi.destConfigId overallFilterData.id)}}
+			{{#bp-layout classNames="pb-2 pt-3"}}
+				{{#bp-layout classNames="mr-4"}}
+					{{#bp-layout direction="col" 
+							local-class="keys" classNames="mr-2"}}
+						<span class="mb-1">潜力</span>
+						<span>预算</span>
+					{{/bp-layout}}
+					{{#bp-layout direction="col" local-class="values"}}
+						<span class="mb-1">
+							{{#if (bp-eq overallFilterData.hospitalConfig.potential '')}}
+								-
+							{{else}}
+								￥{{format-number overallFilterData.hospitalConfig.potential}}
+							{{/if}}
+						</span>
+						<span>
+							{{#unless (bp-eq bi.budget '')}}
+								￥{{format-number bi.budget}}
+							{{else}}
+								-
+							{{/unless}}
+						</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+				{{#bp-layout}}
+					{{#bp-layout direction="col" 
+							local-class="keys" classNames="mr-2"}}
+						<span class="mb-1">指标</span>
+						<span>会议名额(次)</span>
+					{{/bp-layout}}
+					{{#bp-layout direction="col" local-class="values"}}
+						<span class="mb-1">
+							{{#unless (bp-eq bi.salesTarget '')}}
+								{{format-number bi.salesTarget}}
+							{{else}}
+								-
+							{{/unless}}
+						</span>
+						<span>
+							{{#unless (bp-eq bi.meetingPlaces '')}}
+								{{format-number bi.meetingPlaces}}
+							{{else}}
+								-
+							{{/unless}}
+						</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/if}}
+	{{/each}}
+</div>
 <div class="dropdown-divider"></div>

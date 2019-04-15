@@ -1,3 +1,6 @@
 {{#each model.destConfigs as |dc|}}
-	{{hospital-info dests=dc prods=model.goodsConfigs}}
+	{{hospital-info
+		destConfig=dc 
+		salesConfigs=model.salesConfigs
+		barDatum=model.barDatum}}
 {{/each}}

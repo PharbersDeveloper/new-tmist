@@ -7,5 +7,6 @@ export default DS.Model.extend({
 	totalBusinessIndicators: DS.attr('number'),
 	totalBudgets: DS.attr('number'),
 	totalMeetingPlaces: DS.attr('number'),
-	resourceConfig: DS.belongsTo('resourceConfig')
+	teamBusinessExperience: DS.attr('string'),	// 团队业务经验
+	teamDescribe: DS.attr('string')		// 团队描述
 });

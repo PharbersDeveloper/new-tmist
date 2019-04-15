@@ -24,18 +24,22 @@
 							{{#bp-dropdown widthSize="auto"
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpRc.id}}
-										<p>{{tmpRc.productConfig.product.name}}</p>
+									{{#if tmpPsr.id}}
+										<p>{{tmpPsr.productName}}</p>
 									{{else}}
 										请选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
-									{{#each model.goodsConfigs as |gc|}}
-										{{#menu.option value=gc
-												onClick=(action (mut tmpGc))}}
-											{{gc.productConfig.product.name}}
+									{{#menu.option value=totalProduct
+										onClick=(action (mut tmpPsr))}}
+										全部选择
+									{{/menu.option}}
+									{{#each model.productSalesReports as |psrs|}}
+										{{#menu.option value=psrs
+												onClick=(action (mut tmpPsr))}}
+											{{psrs.productName}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
@@ -46,18 +50,30 @@
 					<table local-class="table-container" class="table">
 						<thead>
 							<th>药品名称 </th>
-							{{#each prodSalesReports as |report|}}
-								<th>{{report.season}}</th>
+							{{#each model.tableHead as |th|}}
+								<th>{{th}}</th>
 							{{/each}}
 						</thead>
 						<tbody class="bg-white">
-							{{!-- 应该遍历多药品，显示上方下拉菜单中展示的药品 --}}
-							<tr>
-								<td>口服抗生素</td>
-								{{#each prodSalesReports as |report|}}
-									<td>￥{{report.value}}</td>
-								{{/each}}
-							</tr>
+							{{#each model.prodTableBody as |tr|}}
+								{{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
+									{{#if (bp-eq tmpPsr.productName tr.name)}}
+										<tr>
+											<td>{{tr.name}}</td>
+											{{#each tr.tableTr as |td|}}
+												<td>￥{{format-number td}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{tr.name}}</td>
+										{{#each tr.tableTr as |td|}}
+											<td>￥{{format-number td}}</td>
+										{{/each}}
+									</tr>
+								{{/if}}
+							{{/each}}
 						</tbody>
 					</table>
 				{{/bp-layout}}
@@ -78,18 +94,22 @@
 							{{#bp-dropdown widthSize="auto"
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpRc.id}}
-										<p>{{tmpRc.productConfig.product.name}}</p>
+									{{#if tmpRsr.id}}
+										<p>{{tmpRsr.representativeName}}</p>
 									{{else}}
 										请选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
-									{{#each model.goodsConfigs as |gc|}}
-										{{#menu.option value=gc
-												onClick=(action (mut tmpGc))}}
-											{{gc.productConfig.product.name}}
+									{{#menu.option value=totalRepresentatives
+										onClick=(action (mut tmpRsr))}}
+										全部选择
+									{{/menu.option}}
+									{{#each model.representativeSalesReports as |rsrs|}}
+										{{#menu.option value=rsrs
+												onClick=(action (mut tmpRsr))}}
+											{{rsrs.representativeName}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
@@ -101,19 +121,32 @@
 						<thead>
 							<th>代表名称</th>
 							<th>潜力</th>
-							{{#each prodSalesReports as |report|}}
-								<th>{{report.season}}</th>
+							{{#each model.tableHead as |th|}}
+								<th>{{th}}</th>
 							{{/each}}
 						</thead>
 						<tbody class="bg-white">
-							{{!-- 应该遍历多药品，显示上方下拉菜单中展示的药品 --}}
-							<tr>
-								<td>John</td>
-								<td>86</td>
-								{{#each prodSalesReports as |report|}}
-									<td>￥{{report.value}}</td>
-								{{/each}}
-							</tr>
+							{{#each model.repTableBody as |tr|}}
+								{{#if (bp-not-eq tmpRsr.representativeName undefined '全部选择')}}
+									{{#if (bp-eq tmpRsr.representativeName tr.name)}}
+										<tr>
+											<td>{{tr.name}}</td>
+											<td>{{tr.potential}}</td>
+											{{#each tr.tableTr as |td|}}
+												<td>￥{{format-number td}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{tr.name}}</td>
+										<td>{{tr.potential}}</td>
+										{{#each tr.tableTr as |td|}}
+											<td>￥{{format-number td}}</td>
+										{{/each}}
+									</tr>
+								{{/if}}
+							{{/each}}
 						</tbody>
 					</table>
 				{{/bp-layout}}
@@ -133,18 +166,22 @@
 							{{#bp-dropdown widthSize="auto"
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpRc.id}}
-										<p>{{tmpRc.productConfig.product.name}}</p>
+									{{#if tmpHsr.id}}
+										<p>{{tmpHsr.hospitalName}}</p>
 									{{else}}
 										请选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
-									{{#each model.goodsConfigs as |gc|}}
-										{{#menu.option value=gc
-												onClick=(action (mut tmpGc))}}
-											{{gc.productConfig.product.name}}
+									{{#menu.option value=totalHospitals
+										onClick=(action (mut tmpHsr))}}
+										全部选择
+									{{/menu.option}}
+									{{#each model.hospitalSalesReports as |hsrs|}}
+										{{#menu.option value=hsrs
+												onClick=(action (mut tmpHsr))}}
+											{{hsrs.hospitalName}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
@@ -156,18 +193,18 @@
 							{{#bp-dropdown widthSize="auto"
 								local-class="dd-sort dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpSr.name}}
-										<p>{{tmpSr.name}}</p>
+									{{#if tmpPsr.id}}
+										<p>{{tmpPsr.productName}}</p>
 									{{else}}
 										请选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
-									{{#each sortRules as |sr|}}
-										{{#menu.option value=sr
-												onClick=(action (mut tmpSr))}}
-											{{sr.name}}
+									{{#each model.productSalesReports as |psrs|}}
+										{{#menu.option value=psrs
+												onClick=(action (mut tmpPsr))}}
+											{{psrs.productName}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
@@ -179,11 +216,12 @@
 							<th>医院名称</th>
 							<th>产品</th>
 							<th>潜力</th>
-							{{#each hospitalData.times as |time|}}
-								<th>{{time}}</th>
+							{{#each model.tableHead as |th|}}
+								<th>{{th}}</th>
 							{{/each}}
 						</thead>
 						<tbody class="bg-white">
+							{{!-- 
 							{{#each hospitalData.currentReport as |hospital|}}
 								<tr>
 									<td>{{hospital.destConfig.hospitalConfig.hospital.name}}</td>
@@ -198,6 +236,29 @@
 									{{/each}}
 									<td>{{hospital.sales}}</td>
 								</tr>
+							{{/each}} --}}
+							{{#each model.hospTableBody as |tr|}}
+								{{#if (bp-not-eq tmpHsr.hospitalName undefined '全部选择')}}
+									{{#if (bp-eq tmpHsr.hospitalName tr.name)}}
+										<tr>
+											<td>{{tr.name}}</td>
+											<td>{{tr.productName}}</td>
+											<td>{{format-number tr.potential}}</td>
+											{{#each tr.tableTr as |td|}}
+												<td>￥{{format-number td}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{tr.name}}</td>
+										<td>{{tr.productName}}</td>
+										<td>{{format-number tr.potential}}</td>
+										{{#each tr.tableTr as |td|}}
+											<td>￥{{format-number td}}</td>
+										{{/each}}
+									</tr>
+								{{/if}}
 							{{/each}}
 						</tbody>
 					</table>

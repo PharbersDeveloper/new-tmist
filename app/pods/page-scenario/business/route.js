@@ -1,16 +1,18 @@
 import Route from '@ember/routing/route';
 import { A } from '@ember/array';
-import rsvp from 'rsvp';
+import { hash } from 'rsvp';
 
 export default Route.extend({
-	hasBusinessInput(businessInputs, self, destConfigs, store) {
-		if (businessInputs.get('length') > 0) {
-			return self.normalFlow(store);
+	isHaveBusinessInput(businessInputs, self, destConfigs) {
+		let isNewBusinessInputs = businessInputs.filter(ele => ele.get('isNew'));
+
+		if (isNewBusinessInputs.length > 0) {
+			return self.normalFlow(isNewBusinessInputs);
 		}
 		return self.generateBusinessInputs(destConfigs);
 	},
-	normalFlow(store) {
-		return store.peekAll('businessinput');
+	normalFlow(newBusinessInputs) {
+		return newBusinessInputs;
 	},
 	generateBusinessInputs(destConfigs) {
 		let promiseArray = A([]);
@@ -19,28 +21,28 @@ export default Route.extend({
 			return this.get('store').createRecord('businessinput', {
 				destConfigId: ele.id,
 				representativeId: '',
-				salesTarget: 0,
-				budget: 0,
-				meetingPlaces: 0,
-				visitTime: 0
+				salesTarget: '',
+				budget: '',
+				meetingPlaces: '',
+				visitTime: ''
 			});
 		});
 		return promiseArray;
 	},
 	model() {
-		let totalConfigs = this.modelFor('page-scenario'),
+		let store = this.get('store'),
+			totalConfigs = this.modelFor('page-scenario'),
 			destConfigs = totalConfigs.destConfigs,
-			store = this.get('store'),
 			businessInputs = store.peekAll('businessinput'),
-			tmp = this.hasBusinessInput(businessInputs, this, destConfigs, store);
+			tmp = this.isHaveBusinessInput(businessInputs, this, destConfigs);
 
 		this.controllerFor('page-scenario.business').set('businessInputs', tmp);
-
-		return rsvp.hash({
+		return hash({
 			businessInputs: tmp,
 			mConf: totalConfigs.resourceConfManager,
 			goodsConfigs: totalConfigs.goodsConfigs,
-			destConfigs: totalConfigs.destConfigs
+			destConfigs,
+			salesConfigs: totalConfigs.salesConfigs
 		});
 
 	}

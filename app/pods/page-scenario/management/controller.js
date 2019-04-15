@@ -68,7 +68,7 @@ export default Controller.extend({
 	radarData: computed('repConf', function () {
 		let repConf = this.get('repConf'),
 			originalAbility = [],
-			averageAbility = [5, 14, 28, 31, 42];
+			averageAbility = this.get('averageAbility') || [0, 0, 0, 0, 0];
 
 		if (repConf === null) {
 			return [
@@ -78,7 +78,7 @@ export default Controller.extend({
 				},
 				{
 					value: averageAbility,
-					name: '团队平均能力*'
+					name: '团队平均能力'
 				}
 			];
 		}
@@ -100,7 +100,7 @@ export default Controller.extend({
 			},
 			{
 				value: averageAbility,
-				name: '团队平均能力*'
+				name: '团队平均能力'
 			}
 		];
 	})

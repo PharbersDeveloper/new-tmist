@@ -1,10 +1,13 @@
 import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
 import $ from 'jquery';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
+	cookies: service(),
 	beforeModel({ params }) {
 		let proposalId = params['page-scenario']['proposal_id'],
+			cookies = this.get('cookies'),
 			that = this;
 
 		$.ajax({
@@ -13,7 +16,7 @@ export default Route.extend({
 			headers: {
 				'Content-Type': 'application/json', // 默认值
 				'Accept': 'application/json',
-				'Authorization': `Bearer BONBBC4BPHE6LWW9ULVIBA`
+				'Authorization': `Bearer ${cookies.read('access_token')}`
 			},
 			data: {},
 			success: function (res) {
@@ -24,46 +27,59 @@ export default Route.extend({
 		});
 	},
 	model(params) {
-		let scenario = this.modelFor('application'),
-			scenarioId = scenario.id,
-			proposal = null,
-			scenarios = null,
+		const store = this.get('store'),
+			cookies = this.get('cookies');
+
+		let noticeModel = this.modelFor('page-notice'),
+			scenario = noticeModel.scenario,
+			scenarioId = scenario.get('id'),
+			proposal = noticeModel.detailProposal,
 			proposalId = params['proposal_id'],
+			paper = noticeModel.detailPaper,
 			resourceConfRep = null,
 			resourceConfManager = null;
 
-		return this.get('store').findRecord('proposal', proposalId)
+		// return store.query('scenario', {
+		// 	'proposal-id': proposalId,
+		// 	'account-id': cookies.read('account_id')
+		// })
+		// 	.then(data => {
+		// 		scenarios = data;
+		// 		scenario = scenarios.get('lastObject');
+		// 		scenarioId = scenario.id;
+		return store.findRecord('proposal', proposalId)
+			// })
 			.then(data => {
 				proposal = data;
-
-				return this.get('store').query('scenario',
-					{ 'proposal-id': proposalId });
-			})
-			// 获取 resourceConfig -> 代表
-			.then(data => {
-				scenarios = data;
-				return this.get('store').query('resourceConfig',
+				// 获取 resourceConfig -> 代表
+				return store.query('resourceConfig',
 					{ 'scenario-id': scenarioId, 'resource-type': 1 });
 			})
-			// 获取 resourceConfig -> 经理
 			.then(data => {
 				resourceConfRep = data;
-				return this.get('store').query('resourceConfig',
+				// 获取 resourceConfig -> 经理
+				return store.query('resourceConfig',
 					{ 'scenario-id': scenarioId, 'resource-type': 0 });
 			})
 			.then(data => {
 				resourceConfManager = data.get('firstObject');
 				return hash({
 					proposal,
-					scenarios,
+					paper,
 					resourceConfRep,
 					resourceConfManager,
-					goodsConfigs: this.get('store').query('goodsConfig',
+					goodsConfigs: store.query('goodsConfig',
 						{ 'scenario-id': scenarioId }),
-					destConfigs: this.get('store').query('destConfig',
+					destConfigs: store.query('destConfig',
 						{ 'scenario-id': scenarioId }),
-					resourceConfig: this.get('store').query('resourceConfig',
-						{ 'scenario-id': scenarioId })
+					resourceConfig: store.query('resourceConfig',
+						{ 'scenario-id': scenarioId }),
+					salesConfigs: store.query('salesConfig',
+						{
+							'scenario-id': scenarioId,
+							'proposal-id': proposalId,
+							'account-id': cookies.read('account_id')
+						})
 				});
 			});
 	}

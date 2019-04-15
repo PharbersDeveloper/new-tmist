@@ -34,18 +34,22 @@
 							{{#bp-dropdown widthSize="auto"
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpGc.id}}
-										<p>{{tmpGc.productConfig.product.name}}</p>
+									{{#if tmpPsr.id}}
+										<p>{{tmpPsr.productName}}</p>
 									{{else}}
 										请选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
-									{{#each model.goodsConfigs as |gc|}}
-										{{#menu.option value=gc
-												onClick=(action (mut tmpGc))}}
-											{{gc.productConfig.product.name}}
+									{{#menu.option value=totalProduct
+												onClick=(action (mut tmpPsr))}}
+										全部选择
+									{{/menu.option}}
+									{{#each model.productSalesReports as |psrs|}}
+										{{#menu.option value=psrs
+												onClick=(action (mut tmpPsr))}}
+											{{psrs.productName}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
@@ -56,26 +60,204 @@
 					<table local-class="table-container" class="table">
 						<thead>
 							<th>药品名称 </th>
-							{{#each prodSalesReports as |report|}}
-								<th>{{report.season}}</th>
+							{{#each model.tableHead as |th|}}
+								<th>{{th}}</th>
 							{{/each}}
 						</thead>
 						<tbody class="bg-white">
-							{{!-- 应该遍历多药品，显示上方下拉菜单中展示的药品 --}}
-							<tr>
-								<td>口服抗生素</td>
-								{{#each prodSalesReports as |report|}}
-									<td>￥{{report.value}}</td>
-								{{/each}}
-							</tr>
+							{{#each model.prodTableBody as |tr|}}
+								{{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
+									{{#if (bp-eq tmpPsr.productName tr.name)}}
+										<tr>
+											<td>{{tr.name}}</td>
+											{{#each tr.tableTr as |td|}}
+												<td>￥{{format-number td}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{tr.name}}</td>
+										{{#each tr.tableTr as |td|}}
+											<td>￥{{format-number td}}</td>
+										{{/each}}
+									</tr>
+								{{/if}}
+							{{/each}}
 						</tbody>
 					</table>
 				{{/bp-layout}}
 			</div>
 		{{else if (bp-eq salesGroupValue 1)}}
-			representative
+			<div local-class="report representative" class="bg-white">
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					代表销售报告
+				{{/bp-layout}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames="mb-4 bg-white"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择代表</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpRsr.id}}
+										<p>{{tmpRsr.representativeName}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#menu.option value=totalRepresentatives
+												onClick=(action (mut tmpRsr))}}
+										全部选择
+									{{/menu.option}}
+									{{#each model.representativeSalesReports as |rsrs|}}
+										{{#menu.option value=rsrs
+												onClick=(action (mut tmpRsr))}}
+											{{rsrs.representativeName}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						<div local-class="choose-area"></div>
+					{{/bp-layout}}
+					<table local-class="table-container" class="table">
+						<thead>
+							<th>代表名称</th>
+							<th>潜力</th>
+							{{#each model.tableHead as |th|}}
+								<th>{{th}}</th>
+							{{/each}}
+						</thead>
+						<tbody class="bg-white">
+							{{#each model.repTableBody as |tr|}}
+								{{#if (bp-not-eq tmpRsr.representativeName undefined '全部选择')}}
+									{{#if (bp-eq tmpRsr.representativeName tr.name)}}
+										<tr>
+											<td>{{tr.name}}</td>
+											<td>{{tr.potential}}</td>
+											{{#each tr.tableTr as |td|}}
+												<td>￥{{format-number td}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{tr.name}}</td>
+										<td>{{tr.potential}}</td>
+										{{#each tr.tableTr as |td|}}
+											<td>￥{{format-number td}}</td>
+										{{/each}}
+									</tr>
+								{{/if}}
+							{{/each}}
+						</tbody>
+					</table>
+				{{/bp-layout}}
+			</div>
 		{{else}}
-			hospital
+			<div local-class="report hospital">
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					医院销售报告
+				{{/bp-layout}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames="bg-white"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择医院</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpHsr.id}}
+										<p>{{tmpHsr.hospitalName}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#menu.option value=totalHospitals
+										onClick=(action (mut tmpHsr))}}
+										全部选择
+									{{/menu.option}}
+									{{#each model.hospitalSalesReports as |hsrs|}}
+										{{#menu.option value=hsrs
+												onClick=(action (mut tmpHsr))}}
+											{{hsrs.hospitalName}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area"  classNames="px-4"}}
+							<span local-class="keys" class="mr-4">选择产品</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-sort dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpPsr.id}}
+										<p>{{tmpPsr.productName}}</p>
+									{{else}}
+										请选择
+									{{/if}}
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each model.productSalesReports as |psrs|}}
+										{{#menu.option value=psrs
+												onClick=(action (mut tmpPsr))}}
+											{{psrs.productName}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+					<table local-class="table-container" class="table">
+						<thead>
+							<th>医院名称</th>
+							<th>产品</th>
+							<th>潜力</th>
+							{{#each model.tableHead as |th|}}
+								<th>{{th}}</th>
+							{{/each}}
+						</thead>
+						<tbody class="bg-white">
+							{{#each model.hospTableBody as |tr|}}
+								{{#if (bp-not-eq tmpHsr.hospitalName undefined '全部选择')}}
+									{{#if (bp-eq tmpHsr.hospitalName tr.name)}}
+										<tr>
+											<td>{{tr.name}}</td>
+											<td>{{tr.productName}}</td>
+											<td>{{format-number tr.potential}}</td>
+											{{#each tr.tableTr as |td|}}
+												<td>￥{{format-number td}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{tr.name}}</td>
+										<td>{{tr.productName}}</td>
+										<td>{{format-number tr.potential}}</td>
+										{{#each tr.tableTr as |td|}}
+											<td>￥{{format-number td}}</td>
+										{{/each}}
+									</tr>
+								{{/if}}
+							{{/each}}
+						</tbody>
+					</table>
+				{{/bp-layout}}
+			</div>
 		{{/if}}
 	{{/bp-layout}}
 {{/bp-layout}}

@@ -32,10 +32,14 @@ export default Route.extend({
 	},
 	// managerinput 已经存在
 	normalFlow(store) {
+		let managerinputs = store.peekAll('managerinput'),
+			representativeInputs = store.peekAll('representativeinput'),
+			newManagerinput = managerinputs.filter(ele => ele.get('isNew')),
+			newRepresentativeInputs = representativeInputs.filter(ele => ele.get('isNew'));
 
 		return {
-			managerInput: store.peekAll('managerinput').get('firstObject'),
-			representativeInputs: store.peekAll('representativeinput')
+			managerInput: newManagerinput.get('firstObject'),
+			representativeInputs: newRepresentativeInputs
 		};
 	},
 	//	生成 managerinput
@@ -47,17 +51,23 @@ export default Route.extend({
 		};
 	},
 	// 判断是否有 managerinput
-	hasManaInput(array, self, store, resourceConfigs) {
-		if (array.get('length') > 0) {
+	hasManagerInput(managerinputs, self, store, resourceConfigs) {
+		// 应该根据 managerinput 中的isNew 属性
+		let isNewManagerinputs = managerinputs.filter(ele => ele.get('isNew'));
+
+		if (isNewManagerinputs.length > 0) {
 			return self.normalFlow(store);
 		}
 		return self.generateManagerInput(self, resourceConfigs);
 	},
+
 	model() {
 		let resourceConfig = this.modelFor('page-scenario'),
 			store = this.get('store'),
 			mConf = resourceConfig.resourceConfManager,
-			rConf = resourceConfig.resourceConfRep,
+			rConfs = resourceConfig.resourceConfRep,
+			representativeInputs = A([]),
+			managerInput = null,
 			currentController = this.controllerFor('page-scenario.management');
 
 		/**
@@ -76,17 +86,47 @@ export default Route.extend({
 			})
 			// 判断是否已经创建 inputs
 			.then(data => {
-				return this.hasManaInput(data, this, store, rConf);
+				return this.hasManagerInput(data, this, store, rConfs);
 			}).then(data => {
-				currentController.set('managerInput', data.managerInput);
-				currentController.set('representativeInputs', data.representativeInputs);
-				return rsvp.hash({
-					representativeInputs: data.representativeInputs,
-					managerInput: data.managerInput,
-					mConf,
-					rConfs: resourceConfig.resourceConfRep
-				});
+				// 获取团队平均能力
+				managerInput = data.managerInput;
+				representativeInputs = data.representativeInputs;
 
+				currentController.setProperties({
+					managerInput,
+					representativeInputs
+				});
+				return rsvp.Promise.all(rConfs.map(ele => {
+					return ele.get('representativeConfig');
+				}));
+			})
+			.then(data => {
+				let averageAbility = [0, 0, 0, 0, 0],
+					averageJobEnthusiasm = 0,
+					averageProductKnowledge = 0,
+					averageBehaviorValidity = 0,
+					averageRegionalManagementAbility = 0,
+					averageSalesAbility = 0;
+
+				data.forEach(ele => {
+					averageJobEnthusiasm += ele.get('jobEnthusiasm') / 5;
+					averageProductKnowledge += ele.get('productKnowledge') / 5;
+					averageBehaviorValidity += ele.get('behaviorValidity') / 5;
+					averageRegionalManagementAbility += ele.get('regionalManagementAbility') / 5;
+					averageSalesAbility += ele.get('salesAbility') / 5;
+
+				});
+				averageAbility = [averageJobEnthusiasm, averageProductKnowledge,
+					averageBehaviorValidity, averageRegionalManagementAbility,
+					averageSalesAbility];
+				currentController.set('averageAbility', averageAbility);
+
+				return rsvp.hash({
+					representativeInputs,
+					managerInput,
+					mConf,
+					rConfs
+				});
 			});
 
 	}

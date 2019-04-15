@@ -1,0 +1,7 @@
+<h3 class="mb-2">{{useableProposal.proposal.name}}</h3>
+<p local-class="phase" class="mb-4">
+	{{#if (bp-gt useableProposal.proposal.totalPhase 2)}}
+		共{{useableProposal.proposal.totalPhase}}周期
+	{{/if}}
+</p>
+{{mission-state useableProposalPaper.state}}
