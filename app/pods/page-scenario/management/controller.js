@@ -103,5 +103,10 @@ export default Controller.extend({
 				name: '团队平均能力'
 			}
 		];
-	})
+	}),
+	actions: {
+		changeState(context, key) {
+			context.toggleProperty(key);
+		}
+	}
 });

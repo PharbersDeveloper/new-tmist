@@ -63,6 +63,8 @@
 						}
 
 						.square {
+							/* 新需求去掉 square */
+							display: none;
 							margin-right: $spacing;
 							width: 2*$spacing;
 							height: 2*$spacing;

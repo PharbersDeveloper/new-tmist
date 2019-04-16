@@ -40,7 +40,7 @@
 										{{#each representativesVisitPercent as |rvp|}}
 											{{#if (bp-eq rvp.id rc.id)}}
 												<span local-class="rest-time">
-													剩余时间 {{rvp.usedPercent}}%
+													剩余时间 {{rvp.restTime}}%
 												</span>
 											{{/if}}
 										{{/each}}
@@ -126,12 +126,12 @@
 							classNames="mb-2"
 							value=model.businessinput.salesTarget
 							disabled=(not tmpRc.id)}}
-						<p class="m-0 ">
+						{{!-- <p class="m-0 ">
 							{{IndicatorAllocationPercent}}%
-						</p>
+						</p> --}}
 					</td>
 					<td class="pl-2 border-0">
-						<p class="mb-2">￥{{budgetNumber}}</p>
+						{{!-- <p class="mb-2">￥{{budgetNumber}}</p> --}}
 						{{bp-input block=true widthSize="small"
 							value=model.businessinput.budget
 							disabled=(not tmpRc.id)}}

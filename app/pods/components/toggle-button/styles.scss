@@ -1,0 +1,16 @@
+.toggle-button {
+	display: inline-block;
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	@extend %p-primary;
+	@extend %defaultRadius;
+	background-color: $n020a;
+	cursor: pointer;
+
+	&.choosed {
+		color: $n000;
+		background-color: $n400;
+	}
+
+}

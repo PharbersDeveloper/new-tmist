@@ -1,9 +1,9 @@
 <div local-class="hospital-box" class="hospital-box mb-3 p-2">
 	<h4 local-class="title" class="m-0">
-		{{hospitalName}}
+		{{hospitalName}} <span></span>
 	</h4>
 	{{#each businessInputs as |bi|}}
-		{{#if (bp-eq bi.destConfigId overallFilterData.id)}}
+		{{#if (bp-eq bi.destConfig.id overallFilterData.id)}}
 			{{#bp-layout classNames="pb-2 pt-3"}}
 				{{#bp-layout classNames="mr-4"}}
 					{{#bp-layout direction="col" 

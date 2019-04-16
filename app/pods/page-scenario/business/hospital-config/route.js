@@ -18,7 +18,7 @@ export default Route.extend({
 		 * 当前的业务决策实例
 		 */
 		businessInputs.forEach(ele => {
-			if (ele.get('destConfigId') === dCId) {
+			if (ele.get('destConfig.id') === dCId) {
 				businessinput = ele;
 			}
 		});
