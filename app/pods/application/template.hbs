@@ -1,2 +1,11 @@
-<h1 local-class="welcome">welcome to NEW-TMIST</h1>
-{{outlet}}
+{{#bp-layout tagName="header"  main="between" cross='center'
+		local-class="header" classNames="bg-white px-4"}}
+	{{#link-to "application" tagName="p"  classNames="m-0"}}
+		<img src="/assets/images/logo_tmist.png" alt="tmist logo" class="mr-3">
+		{{!-- TMIST --}}
+	{{/link-to}}
+	<img src="/assets/images/logo.png" alt="user avatar">
+{{/bp-layout}}
+<section local-class="container">
+	{{outlet}}
+</section>

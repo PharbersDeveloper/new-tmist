@@ -1,0 +1,14 @@
+<div local-class="products-container reference-content">
+	<div local-class="trend" class="mb-4">
+		<div local-class="trend-line">
+			{{bp-line/tm
+		title="产品份额竞争趋势"
+		subText='全国'
+		lineData=model.lineDataTm
+		lineColor=model.lineColorTm}}
+		</div>
+	</div>
+	{{#each model.goodsConfigs as |item|}}
+		{{product-info goods=item}}
+	{{/each}}
+</div>

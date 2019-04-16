@@ -1,0 +1,116 @@
+{{#bp-layout local-class="page-notice"}}
+	<div local-class="blank"></div>
+	{{#bp-layout direction="col" local-class="item" 
+		classNames="mr-4"}}
+		{{#bp-layout direction="col" local-class="manager" 
+		classNames="p-4"}}
+			<img src="https://i.loli.net/2019/04/12/5cb004ea5f31f.png" alt="manager avatar">
+			<h2 local-class="title" class="mb-4">经理，您好！</h2>
+			<p local-class="desc" class="mb-4">这是您本期的任务内容，
+				我们将在您提交执行决策后，对您的决策的结果和表现进行评估。<br>
+				期待您为公司带来业绩上的增长和团队能力的提升!
+			</p>
+			<p>
+				{{#bp-button type="link"}}规则介绍{{/bp-button}}
+			</p>
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout direction="col" local-class="mission-notice item" classNames="mt-4"}}
+		<h1 class="mb-3 p-3">
+			<span local-class="title" class="mr-3">本期任务通知</span>
+			<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
+		</h1>
+		<div local-class="resource" class="mb-2 p-3 rounded">
+			<h2 class="mb-2">
+				{{bp-icon icon="mission-1"}}
+				<span>合理管理与分配资源</span>
+			</h2>
+			{{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}
+				{{#bp-layout local-class="item-resource" classNames="my-4"}}
+					{{bp-icon size='large' icon='office-building' 
+						local-class="icon"}}
+					{{#bp-layout direction="col" local-class="main-box"}}
+						{{#bp-layout main="between" classNames="mb-2"}}
+							<h4 class="m-0">安排医院数量0家</h4>
+							<span local-class="schedule">0/{{model.destConfigs.length}}</span>
+						{{/bp-layout}}
+						{{#bp-progress as |p|}}
+							{{p.bar value=0 maxValue=model.destConfigs.length}}
+						{{/bp-progress}}
+					{{/bp-layout}}
+					<div local-class="blank"></div>
+				{{/bp-layout}}
+				{{#bp-layout local-class="item-resource" classNames="my-4"}}
+					{{bp-icon size='large' icon='people' 
+						local-class="icon"}}
+					{{#bp-layout direction="col" local-class="main-box"}}
+						{{#bp-layout main="between" classNames="mb-2"}}
+							<h4 class="m-0">管理代表人数0人</h4>
+							<span local-class="schedule">0/{{model.resourceConfigRepresentatives.length}}</span>
+						{{/bp-layout}}
+						{{#bp-progress as |p|}}
+							{{p.bar value=0 maxValue=model.resourceConfigRepresentatives.length}}
+						{{/bp-progress}}
+					{{/bp-layout}}
+					<div local-class="blank"></div>
+				{{/bp-layout}}
+				{{#each model.resourceConfigManagers as |rcm|}}
+					{{#bp-layout local-class="item-resource" classNames="my-4"}}
+						{{bp-icon size='large' icon='china-money' 
+						local-class="icon"}}
+						{{#bp-layout direction="col" local-class="main-box"}}
+							{{#bp-layout main="between" classNames="mb-2"}}
+								<h4 class="m-0">分配预算总金额</h4>
+								<span local-class="schedule">￥{{format-number rcm.managerConfig.totalBudgets}}</span>
+							{{/bp-layout}}
+							{{#bp-progress as |p|}}
+								{{p.bar value=0 maxValue=rcm.managerConfig.totalBudgets}}
+							{{/bp-progress}}
+						{{/bp-layout}}
+						<div local-class="blank"></div>
+					{{/bp-layout}}
+				{{/each}}
+				{{#bp-layout local-class="item-resource" classNames="my-4"}}
+					{{bp-icon size='large' icon='pie' 
+						local-class="icon"}}
+					{{#bp-layout cross="center" local-class="main-box"}}
+						<h4 class="m-0">分配经理资源</h4>
+						{{bp-circle classNames="ml-4" local-class="circle"}}
+						{{bp-circle local-class="circle"}}
+					{{/bp-layout}}
+					<div local-class="blank"></div>
+				{{/bp-layout}}
+			{{/bp-layout}}
+		</div>
+		<div local-class="resource" class="mb-4 p-3 rounded">
+			<h2 class="mb-2">
+				{{bp-icon icon="mission-2"}}
+				<span>完成药品销售额指标</span>
+			</h2>
+			{{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}
+				{{#bp-layout local-class="item-resource" classNames="my-4"}}
+					{{bp-icon size='large' icon='pill' 
+						local-class="icon"}}
+					{{#bp-layout direction="col" local-class="main-box"}}
+						{{#bp-layout main="between" classNames="mb-2"}}
+							<h4 class="m-0">口服抗生素</h4>
+							<span local-class="schedule">￥{{format-number 1000000}}*</span>
+						{{/bp-layout}}
+						{{#bp-progress as |p|}}
+							{{p.bar value=0 maxValue=1000000}}
+						{{/bp-progress}}
+					{{/bp-layout}}
+					<div local-class="blank"></div>
+				{{/bp-layout}}
+			{{/bp-layout}}
+		</div>
+		{{#bp-layout main="end" local-class="entry-mission"}}
+			{{#bp-button type="primary"}}
+				{{#link-to "page-scenario" model.detailProposal.proposal.id}}
+					进入任务
+				{{/link-to}}
+			{{/bp-button}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	<div local-class="blank"></div>
+{{/bp-layout}}

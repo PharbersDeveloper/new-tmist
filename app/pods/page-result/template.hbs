@@ -1,0 +1,35 @@
+{{#bp-layout direction="col" local-class="page-result" }}
+	<p local-class="back-area" class="mb-3">
+		{{#link-to "index"}}
+			返回
+		{{/link-to}}
+	</p>
+	{{#bp-page-header class="mb-4" local-class='result-header' as |ph|}}
+		{{#ph.body as |body|}}
+			{{#body.left as |left|}}
+				{{#left.item }}
+					执行结果报告
+				{{/left.item}}
+				{{#left.item }}
+					第一周期*
+				{{/left.item}}
+			{{/body.left}}
+		{{/ph.body}}
+	{{/bp-page-header}}
+	{{#bp-tabs local-class="tabs-container" as |tabs|}}
+		{{#tabs.tablist as |list|}}
+			<li class="nav-item">
+				{{#list.link-to 'page-result.index' 
+					classNames='nav-link'  }}
+					销售结果{{/list.link-to}}
+			</li>
+			<li class="nav-item">
+				{{#list.link-to 'page-result.review' 
+					classNames='nav-link' }}
+					决策回顾
+				{{/list.link-to}}
+			</li>
+		{{/tabs.tablist}}
+		{{outlet}}
+	{{/bp-tabs}}
+{{/bp-layout}}

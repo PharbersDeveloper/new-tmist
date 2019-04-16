@@ -1,0 +1,34 @@
+{{#bp-layout local-class="overview" 
+			classNames="mb-4 bg-white"}}
+	{{#bp-layout main="center"}}
+		{{bp-radar hasLegend=false 
+			radarData=model.radarData
+			radarColor=model.radarColor}}
+	{{/bp-layout}}
+	{{#bp-layout direction="col" local-class="infos"
+				classNames="p-4"}}
+		<h4 local-class="title" class="mb-4">团队状况</h4>
+		{{#bp-layout tagName="p"}}
+			<span local-class="keys" class="mr-3">团队人数</span>
+			<span local-class="values">{{model.resourceConfReps.length}}人</span>
+		{{/bp-layout}}
+		{{#bp-layout tagName="p"}}
+			<span local-class="keys" class="mr-3">业务经验</span>
+			<span local-class="values">
+				{{model.resourceConfManager.managerConfig.teamBusinessExperience}}
+			</span>
+		{{/bp-layout}}
+		{{#bp-layout tagName="p"}}
+			<span local-class="keys" class="mr-3">团队描述</span>
+			<span local-class="values">
+				{{model.resourceConfManager.managerConfig.teamDescribe}}
+			</span>
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}
+{{#each model.resourceConfReps as |rrcs|}}
+	{{representative-info
+		representative=rrcs
+		lastPersonnelAssessment=model.lastPersonnelAssessment
+		averageAbility=model.radarData}}
+{{/each}}

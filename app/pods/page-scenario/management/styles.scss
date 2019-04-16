@@ -1,0 +1,143 @@
+.management-container {
+	height: calc(100% - 25px);
+
+	.management-tabs {
+		flex: 0 0 80px;
+	}
+
+	.management-content {
+		flex: 1;
+
+		.title {
+			margin: 0;
+			line-height: 52px;
+			@extend %header-small;
+		}
+
+		.p-primary {
+			@extend %p-primary;
+		}
+
+		.infos {
+			flex: 0 0 368px;
+
+			.manager-infos {
+
+				.pie {
+					height: 192px;
+				}
+			}
+
+			.team-infos {
+				.content {
+					height: 425px;
+
+					.drop-area {
+						span {
+							flex: 0 0 28px;
+							@extend %p-primary;
+						}
+
+						&>div {
+							flex: 1;
+						}
+					}
+				}
+			}
+		}
+
+		.actions {
+			flex: 1;
+
+			.actions-content {
+
+				&.business-time,
+				&.team-time,
+				&.represent-time {
+					.content {
+
+						p {
+							margin: 0;
+							margin-right: $spacing;
+							height: 5*$spacing;
+						}
+
+						.square {
+							/* 新需求去掉 square */
+							display: none;
+							margin-right: $spacing;
+							width: 2*$spacing;
+							height: 2*$spacing;
+							@extend %defaultRadius;
+
+							&.square-1 {
+								background-color: #00875A;
+							}
+
+							&.square-2 {
+								background-color: #36B37E;
+								;
+							}
+
+							&.square-3 {
+								background-color: #57D9A3;
+								;
+							}
+
+							&.square-4 {
+								background-color: #79F2C0;
+								;
+							}
+
+						}
+					}
+				}
+
+				&.team-time {
+					.square-m {
+						background-color: $y300;
+
+					}
+				}
+
+				&.represent-time {
+
+					.inputs p:first-child,
+					.keys p:first-child {
+						height: 20px;
+						@extend %header-small;
+					}
+
+					.square-a {
+						background-color: #5243AA;
+					}
+
+					.square-t {
+						background-color: #998DD9;
+						;
+					}
+				}
+			}
+
+			.allot-point-content {
+				table {
+					th {
+						@extend %p-small;
+					}
+
+					th:first-child {
+						min-width: 80px;
+
+					}
+
+					td {
+						border: 0;
+						@extend %p-primary;
+						vertical-align: middle;
+					}
+				}
+			}
+		}
+
+	}
+}

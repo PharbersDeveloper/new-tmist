@@ -1,0 +1,113 @@
+h4.title {
+	height: 54px;
+	@extend %header-medium;
+}
+
+h5.title {
+	height: 52px;
+	@extend %header-small;
+}
+
+.prod {
+	thead {
+		th {
+			@extend %p-small;
+		}
+	}
+
+	tbody {
+		tr {
+
+			td {
+				align-self: center;
+				padding: 2*$spacing 0;
+				vertical-align: middle;
+				@extend %p-primary;
+			}
+		}
+	}
+}
+
+.reps-meeting {
+
+	.reps,
+	.meeting {
+		flex: 1;
+
+		.keys {
+			@extend %p-primary;
+		}
+
+		.operating {
+			flex: 1;
+			@extend %p-secondary;
+		}
+	}
+
+	.reps {
+		.keys {
+			flex: 0 0 56px;
+
+			span:first-child {
+				height: 40px;
+				line-height: 40px;
+			}
+
+			span:last-child {
+				height: 32px;
+				line-height: 32px;
+			}
+		}
+
+		.operating {
+			.dd-representative {
+				.representative-info {
+					font-size: 0;
+
+					div {
+						height: 100%;
+					}
+
+					span.name {
+						@extend %p-primary;
+					}
+
+					span.rest-time {
+						@extend %p-secondary;
+					}
+				}
+			}
+
+			// .progress-container {
+			// 	.progress {
+			// 		flex: 1;
+			// 		height: $spacing;
+			// 		line-height: 20px;
+
+			// 		.bar {
+			// 			background-color: $n300;
+			// 		}
+			// 	}
+
+			// 	span.desc {
+			// 		flex: 0 0 40px;
+			// 		text-align: right;
+
+			// 	}
+			// }
+
+		}
+	}
+
+	.meeting {
+
+		.keys {
+			flex: 0 0 84px;
+
+			span:last-child {
+				height: 32px;
+				line-height: 32px;
+			}
+		}
+	}
+}

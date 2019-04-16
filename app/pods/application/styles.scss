@@ -1,3 +1,30 @@
-.welcome {
-	color: gray;
+@import "bp-components";
+
+.header {
+	position: relative;
+	z-index: 1;
+	height: 8*$spacing;
+	@extend %depth-z200;
+
+	p {
+		@extend %header-small;
+		cursor: pointer;
+
+		img {
+			width: 7*$spacing;
+		}
+	}
+
+	img {
+		width: 18px;
+		height: 18px;
+	}
+}
+
+.container {
+	height: calc(100% - 64px);
+
+	.content-box {
+		height: 100%;
+	}
 }

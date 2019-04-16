@@ -1,0 +1,226 @@
+{{#bp-layout direction="col" local-class="management-container" }}
+	{{#bp-layout main="center" classNames="py-4" local-class="management-tabs" }}
+		{{#bp-button-group value=groupValue type="radio" 
+			onChange=(action (mut groupValue)) as |bg|}}
+			{{#bg.button type="default" value=0}}经理时间管理{{/bg.button}}
+			{{#bg.button type="default" value=1}}行动点数分配{{/bg.button}}
+		{{/bp-button-group}}
+	{{/bp-layout}}
+	{{#bp-layout main="between" local-class="management-content" }}
+		<div local-class="infos" class="mr-4 ">
+			<div local-class="manager-infos" class="mb-2 bg-white">
+				{{#if (bp-eq groupValue 0)}}
+					<h3 local-class="title" class="px-4">经理剩余时间</h3>
+					<div local-class="pie" class="px-4">
+						{{bp-circle
+							seriesName="经理剩余时间" 
+							circleData=circleTime}}
+					</div>
+				{{else}}
+					<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
+					<div local-class="pie" class="px-4">
+						{{bp-circle
+							seriesName="经理剩余行动点数"
+							circleData=circlePoint}}
+					</div>
+				{{/if}}
+			</div>
+			<div local-class="team-infos" class="bg-white">
+				<h3 local-class="title" class="px-4">团队及代表能力情况</h3>
+				<div local-class="content" class="p-4">
+					{{#bp-layout main="between" cross=center local-class="drop-area" }}
+						<span class="mr-3">代表</span>
+						{{#bp-dropdown widthSize="auto" as |dd|}}
+							{{#dd.button }}
+								{{#if repConf.representative.name}}
+									<p>{{repConf.representative.name}}</p>
+								{{else}}
+									请选择
+								{{/if}}
+								{{bp-icon icon='down'}}
+							{{/dd.button}}
+							{{#dd.menu as |menu|}}
+								{{#each model.rConfs as |rcs|}}
+									{{#menu.option value=rcs.representativeConfig 
+											onClick=(action (mut repConf))}}
+										{{rcs.representativeConfig.representative.name}}
+									{{/menu.option}}
+								{{/each}}
+							{{/dd.menu}}
+						{{/bp-dropdown}}
+					{{/bp-layout}}
+					{{bp-radar radarData=radarData}}
+				</div>
+			</div>
+		</div>
+		{{#if (bp-eq groupValue 0)}}
+			<div local-class="actions manage">
+				<div local-class="business-time actions-content" class="bg-white mb-2">
+					<h4 local-class="title" class="px-4">业务时间投入</h4>
+					{{#bp-layout local-class="content" main="between" class="p-4" }}
+						{{#bp-layout}}
+							{{#bp-layout direction=col local-class="keys" }}
+								{{#bp-layout tagName="p" cross=center class="mb-4" }}
+									<span local-class="square square-1"></span>
+									<span local-class="p-primary">业务数据策略分析</span>
+								{{/bp-layout}}
+								{{#bp-layout tagName="p" cross=center}}
+									<span local-class="square square-2"></span>
+									<span local-class="p-primary">重点目标客户管理</span>
+								{{/bp-layout}}
+							{{/bp-layout}}
+							{{#bp-layout direction=col local-class="inputs" }}
+								{{bp-input value=managerInput.strategyAnalysisTime
+									palceholder="%" 
+									size="medium" widthSize="medium" 
+									onChange=(action (mut managerInput.strategyAnalysisTime))
+									classNames="mb-4"}}
+								{{bp-input value=managerInput.clientManagementTime
+									palceholder="%" 
+									size="medium" widthSize="medium"}}
+							{{/bp-layout}}
+						{{/bp-layout}}
+						{{#bp-layout}}
+							{{#bp-layout direction=col local-class="keys" }}
+								{{#bp-layout tagName="p" cross=center class="mb-4" }}
+									<span local-class="square  square-3"></span>
+									<span local-class="p-primary">行政工作</span>
+								{{/bp-layout}}
+								{{#bp-layout tagName="p" cross=center}}
+									<span local-class="square  square-4"></span>
+									<span local-class="p-primary">代表及KPI分析</span>
+								{{/bp-layout}}
+							{{/bp-layout}}
+							{{#bp-layout direction=col local-class="inputs" }}
+								{{bp-input value=managerInput.adminWorkTime
+									palceholder="%" 
+									size="medium" widthSize="medium"
+									classNames="mb-4"}}
+								{{bp-input value=managerInput.kpiAnalysisTime
+									palceholder="%" 
+									size="medium" widthSize="medium"}}
+							{{/bp-layout}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+				</div>
+				<div local-class="team-time actions-content" class="bg-white  mb-2">
+					<h4 local-class="title" class="px-4">团队管理时间投入</h4>
+					{{#bp-layout local-class="content" class="p-4" }}
+						{{#bp-layout direction=col local-class="keys" }}
+							{{#bp-layout tagName="p" cross=center }}
+								<span local-class="square  square-m"></span>
+								<span local-class="p-primary">团队例会</span>
+							{{/bp-layout}}
+						{{/bp-layout}}
+						{{#bp-layout direction=col local-class="inputs" }}
+							{{bp-input value=managerInput.teamMeetingTime  palceholder="%" size="medium"}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+				</div>
+				<div local-class="represent-time actions-content" class="bg-white mb-2">
+					<h4 local-class="title" class="px-4">管理代表时间投入</h4>
+					{{#bp-layout local-class="content" main="between" class="p-4" }}
+						{{#bp-layout direction=col local-class="keys" }}
+							<p class="text-center mb-2 mr-0"></p>
+							{{#bp-layout tagName="p" cross=center class="mb-4" }}
+								<span local-class="square square-a"></span>
+								<span local-class="p-primary">1v1能力辅导</span>
+							{{/bp-layout}}
+							{{#bp-layout tagName="p" cross=center}}
+								<span local-class="square square-t"></span>
+								<span local-class="p-primary">协访时间</span>
+							{{/bp-layout}}
+						{{/bp-layout}}
+						{{#each model.rConfs as |rcs|}}
+							{{#bp-layout direction=col local-class="inputs" }}
+								<p class="text-center mb-2 mr-0">
+									{{rcs.representativeConfig.representative.name}}
+								</p>
+								{{#each representativeInputs as |resConf|}}
+									{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
+										{{bp-input value=resConf.assistAccessTime
+										palceholder="%" 
+										size="medium" widthSize="small" 
+										classNames="mb-4"}}
+										{{bp-input value=resConf.abilityCoach 
+										palceholder="%" 
+										size="medium" widthSize="small"}}
+									{{/if}}
+								{{/each}}
+							{{/bp-layout}}
+						{{/each}}
+					{{/bp-layout}}
+				</div>
+			</div>
+		{{else}}
+			<div local-class="actions allot-point" class="bg-white">
+				<div local-class="allot-point-content" class="bg-white mb-2 px-4">
+					<h4 local-class="title">行动点数分配</h4>
+					<table class="table text-center">
+						<thead>
+							<th class="border-0">代表姓名</th>
+							<th class="border-0">产品知识培训</th>
+							<th class="border-0">销售能力培训</th>
+							<th class="border-0">区域管理培训</th>
+							<th class="border-0">绩效约谈</th>
+							<th class="border-0">职业发展指导</th>
+							{{!-- <th class="border-0">总点数</th> --}}
+						</thead>
+						<tbody>
+							{{#each model.rConfs as |rcs|}}
+								{{#each representativeInputs as |resConf|}}
+									{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
+										<tr>
+											<td>
+												{{rcs.representativeConfig.representative.name}}
+											</td>
+											<td>
+												{{!-- {{bp-input widthSize="small" 
+												value=resConf.productKnowledgeTraining}} --}}
+												{{toggle-button context=resConf key='productKnowledgeTraining' 
+													changeState=(action 'changeState')}}
+											</td>
+											<td>
+												{{!-- {{bp-input widthSize="small" 
+												value=resConf.salesAbilityTraining}} --}}
+												{{toggle-button context=resConf 
+													key='salesAbilityTraining' 
+													changeState=(action 'changeState')}}
+											</td>
+											<td>
+												{{!-- {{bp-input widthSize="small" 
+												value=resConf.regionTraining}} --}}
+												{{toggle-button context=resConf 
+													key='regionTraining' 
+													changeState=(action 'changeState')}}
+											</td>
+											<td>
+												{{!-- {{bp-input widthSize="small" 
+												value=resConf.performanceTraining}} --}}
+												{{toggle-button context=resConf 
+													key='performanceTraining' 
+													changeState=(action 'changeState')}}
+											</td>
+											<td>
+												{{!-- {{bp-input widthSize="small" 
+												value=resConf.vocationalDevelopment}} --}}
+												{{toggle-button context=resConf 
+													key='vocationalDevelopment' 
+													changeState=(action 'changeState')}}
+											</td>
+											{{!-- <td>
+												{{bp-input widthSize="small"
+												disabled=true 
+												value=resConf.totalPoint}}
+											</td> --}}
+										</tr>
+									{{/if}}
+								{{/each}}
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{{/if}}
+	{{/bp-layout}}
+{{/bp-layout}}

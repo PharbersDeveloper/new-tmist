@@ -1,2 +1,8 @@
-
 @import "ember-bootstrap/bootstrap";
+
+html,
+body,
+body>:global(.ember-view) {
+	height: 100%;
+	background-color: $n010;
+}

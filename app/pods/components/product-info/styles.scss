@@ -1,0 +1,96 @@
+.product {
+
+	.title {
+		line-height: 52px;
+		@extend %header-small;
+
+		button {
+			height: auto;
+		}
+
+		.icon {
+			cursor: pointer;
+		}
+
+		span.type {
+			margin: 0 12px 0 8px;
+			padding: $spacing-compact 3*$spacing-compact;
+			@extend %defaultRadius;
+
+			&.self {
+				@extend %p-secondary;
+				color: #0049B0;
+				background-color: #B3D4FF;
+			}
+
+			&.compete {
+				@extend %p-secondary;
+				background-color: $n030;
+			}
+		}
+
+		span.cycle {
+			@extend %p-secondary;
+		}
+	}
+
+
+	.product-content {
+		&.hidden {
+			display: none;
+		}
+
+		.left {
+			flex: 0 0 500px;
+			margin-right: 74px;
+
+			img {
+				flex: 0 0 133px;
+				height: 133px;
+			}
+
+			.product-infos {
+				flex: 1;
+				font-size: 0;
+
+				p>span:first-child {
+					flex: 0 0 56px;
+					margin-right: 2*$spacing;
+					@extend %p-primary;
+				}
+
+				p span:last-child {
+					flex: 1;
+					@extend %p-secondary;
+				}
+
+			}
+		}
+
+		.right {
+			.prod-property {
+				margin-bottom: 4*$spacing;
+			}
+
+			.prod-property:last-child {
+				margin-bottom: 0;
+			}
+
+			.square {
+				margin-right: 2*$spacing;
+				padding: $spacing 1.5*$spacing;
+				height: 60px;
+				min-width: 60px;
+				background-color: $n010;
+
+				span:first-child {
+					@extend %p-primary;
+				}
+
+				span:last-child {
+					@extend %p-small;
+				}
+			}
+		}
+	}
+}
