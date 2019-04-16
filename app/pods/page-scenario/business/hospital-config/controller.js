@@ -29,8 +29,7 @@ export default Controller.extend({
 	representativesVisitPercent: computed('businessinput.visitTime', 'tmpRc', function () {
 		let resourceConfigs = this.get('model').repConf,
 			result = A([]),
-			newBusinessinputs = this.get('store').peekAll('businessinput').filter(ele => ele.get('isNew')),
-			that = this;
+			newBusinessinputs = this.get('store').peekAll('businessinput').filter(ele => ele.get('isNew'));
 
 		result = resourceConfigs.map(ele => {
 

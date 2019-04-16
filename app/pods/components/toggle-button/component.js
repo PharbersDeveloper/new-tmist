@@ -1,8 +1,6 @@
 import Component from '@ember/component';
 import { A } from '@ember/array';
 import { equal } from '@ember/object/computed';
-import { computed } from '@ember/object';
-
 
 export default Component.extend({
 	tagName: 'span',

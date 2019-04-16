@@ -37,7 +37,6 @@ export default Route.extend({
 			businessInputs = store.peekAll('businessinput'),
 			tmp = this.isHaveBusinessInput(businessInputs, this, destConfigs);
 
-		console.log(tmp);
 		this.controllerFor('page-scenario.business').set('businessInputs', tmp);
 		return hash({
 			businessInputs: tmp,

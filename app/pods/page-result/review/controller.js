@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { A } from '@ember/array';
-import { computed } from '@ember/object';
 
 export default Controller.extend({
 	groupValue: 1,
