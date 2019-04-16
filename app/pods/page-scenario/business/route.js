@@ -20,7 +20,9 @@ export default Route.extend({
 		promiseArray = destConfigs.map(ele => {
 			return this.get('store').createRecord('businessinput', {
 				destConfig: ele,
+				destConfigId: ele.id,
 				representativeId: '',
+				resourceConfigId: '',
 				salesTarget: '',
 				budget: '',
 				meetingPlaces: '',

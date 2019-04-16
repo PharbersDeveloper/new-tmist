@@ -54,22 +54,20 @@
 					{{/bp-layout}}
 					<div local-class="blank"></div>
 				{{/bp-layout}}
-				{{#each model.resourceConfigManagers as |rcm|}}
-					{{#bp-layout local-class="item-resource" classNames="my-4"}}
-						{{bp-icon size='large' icon='china-money' 
+				{{#bp-layout local-class="item-resource" classNames="my-4"}}
+					{{bp-icon size='large' icon='china-money' 
 						local-class="icon"}}
-						{{#bp-layout direction="col" local-class="main-box"}}
-							{{#bp-layout main="between" classNames="mb-2"}}
-								<h4 class="m-0">分配预算总金额</h4>
-								<span local-class="schedule">￥{{format-number rcm.managerConfig.totalBudgets}}</span>
-							{{/bp-layout}}
-							{{#bp-progress as |p|}}
-								{{p.bar value=0 maxValue=rcm.managerConfig.totalBudgets}}
-							{{/bp-progress}}
+					{{#bp-layout direction="col" local-class="main-box"}}
+						{{#bp-layout main="between" classNames="mb-2"}}
+							<h4 class="m-0">分配预算总金额</h4>
+							<span local-class="schedule">￥{{format-number model.resourceConfigManager.managerConfig.totalBudgets}}</span>
 						{{/bp-layout}}
-						<div local-class="blank"></div>
+						{{#bp-progress as |p|}}
+							{{p.bar value=0 maxValue=model.resourceConfigManager.managerConfig.totalBudgets}}
+						{{/bp-progress}}
 					{{/bp-layout}}
-				{{/each}}
+					<div local-class="blank"></div>
+				{{/bp-layout}}
 				{{#bp-layout local-class="item-resource" classNames="my-4"}}
 					{{bp-icon size='large' icon='pie' 
 						local-class="icon"}}

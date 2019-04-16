@@ -40,6 +40,8 @@ export default Route.extend({
 					businessinput: businessinput
 				});
 				// 判断是否已经选择代表
+				console.log(businessinput.get('resourceConfigId'));
+
 				if (isEmpty(businessinput.get('resourceConfigId'))) {
 					currentController.set('tmpRc', '');
 				} else {

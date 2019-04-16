@@ -43,7 +43,7 @@ export default Route.extend({
 							'scenario-id': scenarioId,
 							'resource-type': 1
 						}),
-					resourceConfigManagers: store.query('resourceConfig',
+					resourceConfigManager: store.queryRecord('resourceConfig',
 						{
 							'scenario-id': scenarioId,
 							'resource-type': 0

@@ -54,16 +54,22 @@ export default Route.extend({
 				proposal = data;
 				// 获取 resourceConfig -> 代表
 				return store.query('resourceConfig',
-					{ 'scenario-id': scenarioId, 'resource-type': 1 });
+					{
+						'scenario-id': scenarioId,
+						'resource-type': 1
+					});
 			})
 			.then(data => {
 				resourceConfRep = data;
 				// 获取 resourceConfig -> 经理
-				return store.query('resourceConfig',
-					{ 'scenario-id': scenarioId, 'resource-type': 0 });
+				return store.queryRecord('resourceConfig',
+					{
+						'scenario-id': scenarioId,
+						'resource-type': 0
+					});
 			})
 			.then(data => {
-				resourceConfManager = data.get('firstObject');
+				resourceConfManager = data;
 				return hash({
 					proposal,
 					paper,
