@@ -12,7 +12,8 @@ export default Route.extend({
 
 		$.ajax({
 			method: 'POST',
-			url: `/v0/GeneratePaper?proposal-id=${proposalId}`,
+			url: `/v0/GeneratePaper?proposal-id=${proposalId}
+				&account-id=${cookies.read('account_id')}`,
 			headers: {
 				'Content-Type': 'application/json', // 默认值
 				'Accept': 'application/json',

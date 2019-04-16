@@ -9,7 +9,9 @@ export default Controller.extend({
 	meetingValue: 0,
 	hospitalState: A([
 		{ name: '全部', state: 0 },
-		{ name: '未分配', state: 1 }
+		{ name: '待分配', state: 1 },
+		{ name: '已分配', state: 2 }
+
 	]),
 	overallFilterData: computed('currentHospState.state', function () {
 		let currentHospState = this.get('currentHospState').state,
@@ -18,7 +20,7 @@ export default Controller.extend({
 			tmpDestConfigs = A([]);
 
 		if (currentHospState) {
-			let tmpBis = businessInputs.filterBy('isFinish', false);
+			let tmpBis = businessInputs.filterBy('isFinish', currentHospState !== 1);
 
 			tmpBis.forEach(ele => {
 				destConfigs.forEach(item => {

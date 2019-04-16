@@ -87,9 +87,9 @@
 								{{#each model.businessinputs as |bi|}}
 									<tr>
 										<td>{{bi.destConfig.hospitalConfig.hospital.name}}</td>
-										<td>{{bi.destConfig.hospitalConfig.potential}}</td>
-										<td>{{bi.destConfig.hospitalConfig.sales}}</td>
-										<td>{{bi.resourceConfigId}}</td>
+										<td>{{format-number bi.destConfig.hospitalConfig.potential}}</td>
+										<td>{{format-number bi.destConfig.hospitalConfig.lastYearSales}}</td>
+										<td>{{bi.resourceConfig.representativeConfig.representative.name}}</td>
 										<td>{{bi.visitTime}}</td>
 										<td>{{bi.salesTarget}}</td>
 										<td>{{bi.budget}}</td>

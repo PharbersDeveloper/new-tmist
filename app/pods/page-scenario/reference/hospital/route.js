@@ -6,7 +6,11 @@ export default Route.extend({
 	model() {
 		let totalConfig = this.modelFor('page-scenario.reference'),
 			paper = totalConfig.paper,
-			seasons = A([]);
+			store = this.get('store'),
+			seasons = A([]),
+			tmpData = A([]),
+			destConfigs = totalConfig.destConfigs;
+
 
 		return paper.get('salesReports')
 			.then(data => {
@@ -22,13 +26,17 @@ export default Route.extend({
 				return RSVP.Promise.all(promiseArray);
 
 			}).then(data => {
+				let promiseArray = A([]);
+
 				// 获取基于周期的数据
-				let tmpData = data.map((hospitalSalesReports, index) => {
+				tmpData = data.map((hospitalSalesReports, index) => {
 					let productNames = this.eachArray(hospitalSalesReports, 'productName'),
 						sales = this.eachArray(hospitalSalesReports, 'sales'),
 						salesQuotas = this.eachArray(hospitalSalesReports, 'salesQuota'),
 						quotaAchievement = this.eachArray(hospitalSalesReports, 'salesQuota'),
-						destConfig = this.eachArray(hospitalSalesReports, 'destConfig');
+						destConfigIds = this.eachArray(hospitalSalesReports, 'destConfig.id');
+
+					promiseArray = destConfigIds.map(ele => store.findRecord('destConfig', ele));
 
 					return {
 						productNames,
@@ -36,20 +44,23 @@ export default Route.extend({
 						sales,
 						salesQuotas,
 						quotaAchievement,
-						destConfig
+						destConfigIds
 					};
 				});
-
-				return tmpData;
+				return RSVP.Promise.all(promiseArray);
 			}).then(data => {
-				let tmpData = data[0].destConfig.map((dc, index) => {
+				let result = A([]);
+
+				result = data.map((dc, index) => {
+					let equalHospital = destConfigs.filter(currentDc => dc.get('hospitalConfig.hospital.id') === currentDc.get('hospitalConfig.hospital.id'));
+
 					return {
-						destConfigId: dc.get('id'),
-						name: data[0].productNames[index],
+						hospitalId: equalHospital[0].get('hospitalConfig.hospital.id'),
+						name: tmpData[0].productNames[index],
 						date: seasons,
-						sales: data.map(ele => ele.sales[index]),
-						salesQuotas: data.map(ele => ele.salesQuotas[index]),
-						quotaAchievementes: data.map(ele => ele.quotaAchievement[index])
+						sales: tmpData.map(ele => ele.sales[index]),
+						salesQuotas: tmpData.map(ele => ele.salesQuotas[index]),
+						quotaAchievementes: tmpData.map(ele => ele.quotaAchievement[index])
 					};
 
 				});
@@ -63,14 +74,15 @@ export default Route.extend({
 				// 		rates: ['39%', '23%', '13%', '33%']
 				// 	}
 				// ])
-				return tmpData;
+
+				return result;
 			}).then(data => {
 
 				return hash({
 					barDatum: data,
 					goodsConfigs: totalConfig.goodsConfigs,
 					salesConfigs: totalConfig.salesConfigs,
-					destConfigs: totalConfig.destConfigs
+					destConfigs
 				});
 			});
 	},

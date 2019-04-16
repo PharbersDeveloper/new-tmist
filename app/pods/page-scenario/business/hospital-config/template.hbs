@@ -2,12 +2,102 @@
 	local-class="title" classNames="px-4  bg-white"}}
 	{{model.destConfig.hospitalConfig.hospital.name}}
 {{/bp-layout}}
+{{#bp-layout main="between" local-class="reps-meeting"}}
+	{{#bp-layout direction="col" 
+		local-class="reps" classNames="bg-white mr-2"}}
+		{{#bp-layout tagName="h5" cross="center" 
+			local-class="title" classNames="px-4 m-0"}}
+			代表和时间分配
+		{{/bp-layout}}
+		{{#bp-layout classNames="p-4"}}
+			{{#bp-layout direction="col" cross="center" local-class="keys" classNames="mr-3"}}
+				<span class="mb-4">指定代表</span>
+				{{!-- <span class="mb-4">代表时间</span> --}}
+				<span>分配时间</span>
+			{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="operating"}}
+				{{#bp-dropdown widthSize="auto" 
+					local-class="dd-representative" classNames="mb-4" as |dd|}}
+					{{#dd.button}}
+						{{#if tmpRc.id}}
+							<p>{{tmpRc.representativeConfig.representative.name}}</p>
+						{{else}}
+							未分配代表
+						{{/if}}
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{#each model.repConf as |rc|}}
+							{{#if (bp-eq rc.resourceType 1)}}
+								{{#menu.option value=rc 
+									onClick=(action 'changedRep')
+									local-class="representative-info"}}
+									{{#bp-layout cross="center"}}
+										<img width="24" src={{rc.representativeConfig.representative.images.firstObject.img}} alt="avatar" class="mr-2">
+										<span local-class="name" class="mr-2">
+											{{rc.representativeConfig.representative.name}}
+										</span>
+										{{#each representativesVisitPercent as |rvp|}}
+											{{#if (bp-eq rvp.id rc.id)}}
+												<span local-class="rest-time">
+													剩余时间 {{rvp.usedPercent}}%
+												</span>
+											{{/if}}
+										{{/each}}
+									{{/bp-layout}}
+									{{!-- <span local-class="rest-time">
+										剩余时间 {{visitPercent}}%
+									</span> --}}
+								{{/menu.option}}
+							{{/if}}
+						{{/each}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+				{{!-- 记得删除 js逻辑 --}}
+				{{!-- {{#bp-layout cross="center" local-class="progress-container" classNames="mb-4" }}
+					{{#bs-progress local-class="progress"
+						as |p|}}
+						{{p.bar maxValue=tmpRc.representativeConfig.totalTime 
+							local-class="bar" value=model.businessinput.visitTime}}
+					{{/bs-progress}}
+					<span local-class="desc" class="ml-2">
+						{{model.businessinput.visitTime}}/
+						{{#if tmpRc.representativeConfig.totalTime}}
+							{{tmpRc.representativeConfig.totalTime}}
+						{{else}}
+							0
+						{{/if}}</span>
+				{{/bp-layout}} --}}
+				{{bp-input
+					value=model.businessinput.visitTime
+					disabled=(not tmpRc.id)}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout direction="col" 
+		local-class="meeting"  classNames="bg-white"}}
+		{{#bp-layout tagName="h5" cross="center" 
+			local-class="title" classNames="px-4 m-0"}}
+			会议名额分配
+		{{/bp-layout}}
+		{{#bp-layout classNames="p-4"}}
+			{{#bp-layout direction="col" local-class="keys" classNames="mr-3"}}
+				<span>分配会议名额</span>
+			{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="operating"}}
+				{{bp-input widthSize="auto"
+					value=model.businessinput.meetingPlaces
+					disabled=(not tmpRc.id)}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}
 <table local-class="prod" class="table mb-2">
 	<thead>
 		<tr>
 			<th class="border-0 pb-2 pl-2">产品名称</th>
 			<th class="border-0 pb-2 pl-2">药品潜力</th>
-			<th class="border-0 pb-2 pl-2">上期销售额</th>
+			<th class="border-0 pb-2 pl-2">上季度销售额</th>
 			<th class="border-0 pb-2 pl-2">指标分配</th>
 			<th class="border-0 pb-2 pl-2">预算分配</th>
 		</tr>
@@ -51,76 +141,3 @@
 		{{/each}}
 	</tbody>
 </table>
-{{#bp-layout main="between" local-class="reps-meeting"}}
-	{{#bp-layout direction="col" 
-		local-class="reps" classNames="bg-white mr-2"}}
-		{{#bp-layout tagName="h4" cross="center" 
-			local-class="title" classNames="px-4 m-0"}}
-			代表和时间分配
-		{{/bp-layout}}
-		{{#bp-layout classNames="p-4"}}
-			{{#bp-layout direction="col" cross="center" local-class="keys" classNames="mr-3"}}
-				<span class="mb-4">指定代表</span>
-				<span class="mb-4">代表时间</span>
-				<span>分配时间</span>
-			{{/bp-layout}}
-			{{#bp-layout direction="col" local-class="operating"}}
-				{{#bp-dropdown widthSize="auto" 
-					local-class="dd-hosp" classNames="mb-4" as |dd|}}
-					{{#dd.button}}
-						{{#if tmpRc.id}}
-							<p>{{tmpRc.representativeConfig.representative.name}}</p>
-						{{else}}
-							未分配代表
-						{{/if}}
-						{{bp-icon icon='down'}}
-					{{/dd.button}}
-					{{#dd.menu as |menu|}}
-						{{#each model.repConf as |rc|}}
-							{{#if (bp-eq rc.resourceType 1)}}
-								{{#menu.option value=rc 
-								onClick=(action 'changedRep')}}
-									{{rc.representativeConfig.representative.name}}
-								{{/menu.option}}
-							{{/if}}
-						{{/each}}
-					{{/dd.menu}}
-				{{/bp-dropdown}}
-				{{#bp-layout cross="center" classNames="mb-4"  local-class="progress-container"}}
-					{{#bs-progress local-class="progress"
-						as |p|}}
-						{{p.bar maxValue=tmpRc.representativeConfig.totalTime 
-							local-class="bar" value=model.businessinput.visitTime}}
-					{{/bs-progress}}
-					<span local-class="desc" class="ml-2">
-						{{model.businessinput.visitTime}}/
-						{{#if tmpRc.representativeConfig.totalTime}}
-							{{tmpRc.representativeConfig.totalTime}}
-						{{else}}
-							0
-						{{/if}}</span>
-				{{/bp-layout}}
-				{{bp-input
-					value=model.businessinput.visitTime
-					disabled=(not tmpRc.id)}}
-			{{/bp-layout}}
-		{{/bp-layout}}
-	{{/bp-layout}}
-	{{#bp-layout direction="col" 
-		local-class="meeting"  classNames="bg-white"}}
-		{{#bp-layout tagName="h4" cross="center" 
-			local-class="title" classNames="px-4 m-0"}}
-			会议名额分配
-		{{/bp-layout}}
-		{{#bp-layout classNames="p-4"}}
-			{{#bp-layout direction="col" local-class="keys" classNames="mr-3"}}
-				<span>分配会议名额</span>
-			{{/bp-layout}}
-			{{#bp-layout direction="col" local-class="operating"}}
-				{{bp-input widthSize="auto"
-					value=model.businessinput.meetingPlaces
-					disabled=(not tmpRc.id)}}
-			{{/bp-layout}}
-		{{/bp-layout}}
-	{{/bp-layout}}
-{{/bp-layout}}

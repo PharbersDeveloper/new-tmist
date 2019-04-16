@@ -1,6 +1,8 @@
-{{#bp-layout main="between" local-class="business-container" 
+{{#bp-layout direction="col" local-class="business-container" 
 	classNames="pt-4"}}
-	{{#bp-layout direction="col" local-class="infos" classNames='mr-4'}}
+	{{!-- 
+	{{#bp-layout main="between" local-class="infos" classNames='mr-4'}}
+		
 		{{#bp-layout direction="col" classNames="mb-4 bg-white"}}
 			{{#bp-layout tagName="h3"  cross="center" 
 				local-class="title" classNames="px-4 m-0"}}
@@ -29,8 +31,8 @@
 					</p>
 				{{/bp-layout}}
 			{{/bp-layout}}
-		{{/bp-layout}}
-		{{#bp-layout direction="col" local-class="over-all" classNames="bg-white"}}
+		{{/bp-layout}} --}}
+	{{!-- {{#bp-layout direction="col" local-class="over-all" classNames="bg-white"}}
 			{{#bp-layout tagName="h3" cross="center" main="between"
 				local-class="title" classNames="px-4 m-0"}}
 				<span>Overall</span>
@@ -57,7 +59,7 @@
 				local-class="hospitals-configs" 
 				classNames="px-4"}}
 				{{#each overallFilterData as |dc|}}
-					{{!-- <div local-class="hospital-config" class="pt-4">
+					{!-- <div local-class="hospital-config" class="pt-4">
 						<h4 local-class="title" class="mb-3">
 							{{dc.hospitalConfig.hospital.name}}
 						</h4>
@@ -90,7 +92,7 @@
 								<div class="dropdown-divider"></div>
 							{{/if}}
 						{{/each}}
-					</div> --}}
+					</div> --}
 					{{#link-to "page-scenario.business.hospital-config" dc.id
 						activeClass="current-hospital"}}
 						{{hospital-overall
@@ -100,15 +102,94 @@
 					{{/link-to}}
 				{{/each}}
 			{{/bp-layout}}
-		{{/bp-layout}}
+		{{/bp-layout}} 
+	{{/bp-layout}}--}}
+	{{#bp-layout main="between" local-class="overviews" classNames='mb-4'}}
+		<div local-class="item">
+			{{#bp-layout tagName="h2" cross="center" classNames="px-4 py-3"}}
+				总业务指标
+			{{/bp-layout}}
+			<div class="p-4">
+				<p local-class="info" class="mb-4">
+					{{format-number total.usedSalesTarget}} /
+					￥{{format-number model.mConf.managerConfig.totalBusinessIndicators}}
+				</p>
+				{{#bp-progress as |p|}}
+					{{p.bar value=total.usedSalesTarget maxValue=model.mConf.managerConfig.totalBusinessIndicators}}
+				{{/bp-progress}}
+			</div>
+		</div>
+		<div local-class="item" class="mx-2">
+			{{#bp-layout tagName="h2" cross="center" classNames="px-4 py-3"}}
+				总预算
+			{{/bp-layout}}
+			<div class="p-4">
+				<p local-class="info" class="mb-4">
+					{{format-number total.usedBudget}} /
+					￥{{format-number model.mConf.managerConfig.totalBudgets}}
+				</p>
+				{{#bp-progress as |p|}}
+					{{p.bar value=total.usedBudget maxValue=model.mConf.managerConfig.totalBudgets}}
+				{{/bp-progress}}
+			</div>
+		</div>
+		<div local-class="item">
+			{{#bp-layout tagName="h2" cross="center" classNames="px-4 py-3"}}
+				总会议名额
+			{{/bp-layout}}
+			<div class="p-4">
+				<p local-class="info" class="mb-4">
+					{{format-number total.usedMeetingPlaces}} /
+					{{format-number model.mConf.managerConfig.totalMeetingPlaces}}
+				</p>
+				{{#bp-progress as |p|}}
+					{{p.bar value=total.usedMeetingPlaces maxValue=model.mConf.managerConfig.totalMeetingPlaces}}
+				{{/bp-progress}}
+			</div>
+		</div>
 	{{/bp-layout}}
-	{{#bp-layout direction="col" local-class="hospitals"}}
-		{{#bp-layout tagName="ul"  wrap=true local-class="nav-hosp" 
+	{{#bp-layout local-class="hospitals"}}
+		{{!-- {{#bp-layout tagName="ul"  wrap=true local-class="nav-hosp" 
 			class="pt-4 mb-2 bg-white"}}
 			{{#each model.destConfigs as |dc|}}
 				{{#link-to "page-scenario.business.hospital-config" dc.id 
 					tagName="li" classNames="ml-4 mb-4"}}
 					{{dc.hospitalConfig.hospital.name}}
+				{{/link-to}}
+			{{/each}}
+		{{/bp-layout}} --}}
+		{{#bp-layout direction="col" 
+				local-class="hospitals-configs" 
+				classNames="mr-4 px-4 bg-white"}}
+			{{#bp-layout tagName="h3" cross="center" main="between"
+				local-class="title" classNames="m-0"}}
+				<span>医院</span>
+				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
+					{{#dd.button type="link-subtle" }}
+						{{#if currentHospState.name}}
+							<p>{{currentHospState.name}}</p>
+						{{else}}
+							请选择
+						{{/if}}
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{#each hospitalState as |hs|}}
+							{{#menu.option value=hs 
+								onClick=(action (mut currentHospState))}}
+								{{hs.name}}
+							{{/menu.option}}
+						{{/each}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
+			{{#each overallFilterData as |dc|}}
+				{{#link-to "page-scenario.business.hospital-config" dc.id
+						activeClass="current-hospital"}}
+					{{hospital-overall
+							hospitalName=dc.hospitalConfig.hospital.name
+							businessInputs=model.businessInputs
+							overallFilterData=dc}}
 				{{/link-to}}
 			{{/each}}
 		{{/bp-layout}}

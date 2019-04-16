@@ -10,9 +10,14 @@ export default Route.extend({
 	clientSecret: '5c90db71eeefcc082c0823b2',
 	redirectUri: 'http://192.168.100.165:8081/oauth-callback',
 	beforeModel({ targetName }) {
+		// TODO
+		this.get('cookies').write('access_token', '112');
+		this.get('cookies').write('account_id', '5c4552455ee2dd7c36a94a9e');
+
 		let cookies = this.get('cookies'),
 			store = this.get('store'),
 			token = cookies.read('access_token');
+
 
 		if (!token && targetName !== 'oauth-callback') {
 			let host = 'http://192.168.100.116:31415',

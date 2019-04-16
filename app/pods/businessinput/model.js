@@ -19,5 +19,6 @@ export default DS.Model.extend({
 			return !isEmpty(ele);
 		});
 	}),
-	destConfig: DS.belongsTo()
+	destConfig: DS.belongsTo(),
+	resourceConfig: DS.belongsTo()
 });
