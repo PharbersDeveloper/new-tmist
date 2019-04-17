@@ -6,7 +6,12 @@ import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	cookies: service(),
+	activate() {
+		this._super(...arguments);
+		let applicationController = this.controllerFor('application');
 
+		applicationController.set('testProgress', 0);
+	},
 	model() {
 		let applicationModel = this.modelFor('application'),
 			store = this.get('store'),

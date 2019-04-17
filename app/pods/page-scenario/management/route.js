@@ -129,5 +129,11 @@ export default Route.extend({
 				});
 			});
 
+	},
+	setupController(controller, model) {
+		this._super(...arguments);
+		let rConfs = model.rConfs;
+
+		controller.set('tmpRepConf', rConfs.get('firstObject').get('representativeConfig'));
 	}
 });

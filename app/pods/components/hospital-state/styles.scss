@@ -1,0 +1,17 @@
+.state {
+	span {
+		display: inline-block;
+		@extend %p-small;
+		@extend %defaultRadius;
+	}
+
+	&.pending span {
+		color: $n500;
+		background-color: $n040;
+	}
+
+	&.done span {
+		color: $g500;
+		background-color: $g50;
+	}
+}

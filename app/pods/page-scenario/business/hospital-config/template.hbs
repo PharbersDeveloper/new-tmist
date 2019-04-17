@@ -1,6 +1,7 @@
-{{#bp-layout tagName="h4" cross="center"
+{{#bp-layout tagName="h4" main='between' cross="center"
 	local-class="title" classNames="px-4  bg-white"}}
 	{{model.destConfig.hospitalConfig.hospital.name}}
+	{{#bp-button onClick=(action 'reInput')}}重置{{/bp-button}}
 {{/bp-layout}}
 {{#bp-layout main="between" local-class="reps-meeting"}}
 	{{#bp-layout direction="col" 
@@ -27,7 +28,7 @@
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
-						{{#each model.repConf as |rc|}}
+						{{#each model.repConfs as |rc|}}
 							{{#if (bp-eq rc.resourceType 1)}}
 								{{#menu.option value=rc 
 									onClick=(action 'changedRep')

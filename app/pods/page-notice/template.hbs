@@ -31,11 +31,11 @@
 						local-class="icon"}}
 					{{#bp-layout direction="col" local-class="main-box"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
-							<h4 class="m-0">安排医院数量0家</h4>
-							<span local-class="schedule">0/{{model.destConfigs.length}}</span>
+							<h4 class="m-0">安排医院数量{{usedResource.arrangedHospital}}家</h4>
+							<span local-class="schedule">{{usedResource.arrangedHospital}}/{{model.destConfigs.length}}</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=0 maxValue=model.destConfigs.length}}
+							{{p.bar value=usedResource.arrangedHospital maxValue=model.destConfigs.length}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
@@ -45,11 +45,11 @@
 						local-class="icon"}}
 					{{#bp-layout direction="col" local-class="main-box"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
-							<h4 class="m-0">管理代表人数0人</h4>
-							<span local-class="schedule">0/{{model.resourceConfigRepresentatives.length}}</span>
+							<h4 class="m-0">管理代表人数{{usedResource.arrangedRepresentative}}人</h4>
+							<span local-class="schedule">{{usedResource.arrangedRepresentative}}/{{model.resourceConfigRepresentatives.length}}</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=0 maxValue=model.resourceConfigRepresentatives.length}}
+							{{p.bar value=usedResource.arrangedRepresentative maxValue=model.resourceConfigRepresentatives.length}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
@@ -63,7 +63,7 @@
 							<span local-class="schedule">￥{{format-number model.resourceConfigManager.managerConfig.totalBudgets}}</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=0 maxValue=model.resourceConfigManager.managerConfig.totalBudgets}}
+							{{p.bar value=usedResource.assignedBudgets maxValue=model.resourceConfigManager.managerConfig.totalBudgets}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
@@ -73,8 +73,18 @@
 						local-class="icon"}}
 					{{#bp-layout cross="center" local-class="main-box"}}
 						<h4 class="m-0">分配经理资源</h4>
-						{{bp-circle classNames="ml-4" local-class="circle"}}
-						{{bp-circle local-class="circle"}}
+						{{#bp-layout direction="col" cross="center" classNames="mx-4"}}
+							{{bp-circle local-class="circle"
+								seriesName="经理剩余时间" 
+								circleData=circleTime}}
+							<p class="mt-1 mb-0">时间</p>
+						{{/bp-layout}}
+						{{#bp-layout direction="col" cross="center"}}
+							{{bp-circle local-class="circle"
+								seriesName="经理剩余行动点数"
+								circleData=circlePoint}}
+							<p class="mt-1 mb-0">行动点数</p>
+						{{/bp-layout}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
 				{{/bp-layout}}
@@ -91,11 +101,17 @@
 						local-class="icon"}}
 					{{#bp-layout direction="col" local-class="main-box"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
-							<h4 class="m-0">口服抗生素</h4>
-							<span local-class="schedule">￥{{format-number 1000000}}*</span>
+							{{#each model.goodsConfigs as |gc|}}
+								{{#if (bp-eq gc.productConfig.productType 0)}}
+									<h4 class="m-0">{{gc.productConfig.product.name}}</h4>
+								{{/if}}
+							{{/each}}
+							<span local-class="schedule">
+								￥{{format-number model.resourceConfigManager.managerConfig.totalBusinessIndicators}}
+							</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=0 maxValue=1000000}}
+							{{p.bar value=usedResource.assignedMedicines maxValue=model.resourceConfigManager.managerConfig.totalBusinessIndicators}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>

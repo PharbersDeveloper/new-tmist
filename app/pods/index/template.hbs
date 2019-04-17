@@ -5,6 +5,7 @@
 				{{#if (bp-eq uindex pindex)}}
 					{{#each paper as |useableProposalPaper|}}
 						{{mission-info
+							local-class=(if (bp-eq model.detailPaper.id useableProposalPaper.id) 'choosed')
 							useableProposal=useableProposal
 							useableProposalPaper=useableProposalPaper
 							onClick=(action 'changeDetail' useableProposal useableProposalPaper)}}

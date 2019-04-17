@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-	productType: DS.attr('string'),
+	productType: DS.attr('number'),
 	priceType: DS.attr('string'),
 	lifeCycle: DS.attr('string'),
 	launchTime: DS.attr('formatDate'),

@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
-import { isEmpty } from '@ember/utils';
 
 export default Controller.extend({
 	// IndicatorAllocationPercent: computed('businessinput.salesTarget', function () {
@@ -27,7 +26,7 @@ export default Controller.extend({
 	// }),
 	// 代表分配时间percent
 	representativesVisitPercent: computed('businessinput.visitTime', 'tmpRc', function () {
-		let resourceConfigs = this.get('model').repConf,
+		let resourceConfigs = this.get('model').repConfs,
 			result = A([]),
 			newBusinessinputs = this.get('store').peekAll('businessinput').filter(ele => ele.get('isNew'));
 
@@ -46,23 +45,36 @@ export default Controller.extend({
 				totalTime,
 				usedTime,
 				restTime: 100 - usedTime
-				// usedPercent: that.computedPercentage(usedTime, totalTime)
 			};
 		});
 
 		return result;
 
 	}),
-	computedPercentage(numerator, denominator, tofixed = 2) {
-		if (isEmpty(denominator) || isEmpty(numerator)) {
-			return 100;
-		}
-		return ((denominator - numerator) * 100 / denominator).toFixed(tofixed);
-	},
+
 	actions: {
 		changedRep(item) {
+			let businessinput = this.get('businessinput');
+
 			this.set('tmpRc', item);
-			this.set('businessinput.resourceConfigId', item.id);
+			businessinput.setProperties({
+				resourceConfigId: item.id,
+				resourceConfig: item
+			});
+		},
+		reInput() {
+			let businessinput = this.get('businessinput');
+
+			this.set('tmpRc', null);
+
+			businessinput.setProperties({
+				resourceConfigId: '',
+				resourceConfig: null,
+				visitTime: '',
+				meetingPlaces: '',
+				salesTarget: '',
+				budget: ''
+			});
 		}
 	}
 });

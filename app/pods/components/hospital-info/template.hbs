@@ -4,7 +4,7 @@
 	</span>
 	{{destConfig.hospitalConfig.hospital.name}}
 {{/bp-layout}}
-{{#if showContent}}
+{{#bs-collapse collapsed=showContent}}
 	{{#bp-layout direction="col" local-class="content" }}
 		{{#bp-layout main="between" local-class="infos"}}
 			{{#bp-layout main="between" local-class="basic" 
@@ -134,4 +134,4 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-{{/if}}
+{{/bs-collapse}}

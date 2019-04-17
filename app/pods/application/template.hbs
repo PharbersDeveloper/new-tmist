@@ -4,7 +4,29 @@
 		<img src="/assets/images/logo_tmist.png" alt="tmist logo" class="mr-3">
 		{{!-- TMIST --}}
 	{{/link-to}}
-	<img src="/assets/images/logo.png" alt="user avatar">
+	{{#if (bp-eq testProgress 1)}}
+		{{#bp-button}}结束任务{{/bp-button}}
+	{{else if (bp-eq testProgress 2)}}
+		<span local-class="button-area">
+			{{#bp-button type="subtle" classNames="mr-3"}}任务通知{{/bp-button}}
+			{{#bp-button}}退出任务{{/bp-button}}
+		</span>
+	{{else}}
+		{{#bp-dropdown widthSize="auto"
+			local-class="dd-medicines dd-area" as |dd|}}
+			{{#dd.button tagName="span" classNames="bg-white"}}
+				<img src="/assets/images/logo.png" alt="user avatar">
+			{{/dd.button}}
+			{{#dd.menu align="right" as |menu|}}
+				{{#menu.option onClick=(action 'logout')}}
+					账号设置
+				{{/menu.option}}
+				{{#menu.option onClick=(action 'logout')}}
+					退出账号
+				{{/menu.option}}
+			{{/dd.menu}}
+		{{/bp-dropdown}}
+	{{/if}}
 {{/bp-layout}}
 <section local-class="container">
 	{{outlet}}
