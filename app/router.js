@@ -19,6 +19,7 @@ Router.map(function () {
 			this.route('sold');
 			this.route('decided');
 		});
+		this.route('decision-review', { path: 'decision' });
 	});
 	this.route('page-proposal', { path: 'proposals' });
 	this.route('page-result', { path: 'result' }, function () {

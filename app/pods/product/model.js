@@ -7,6 +7,5 @@ export default DS.Model.extend({
 	productCategory: DS.attr('string'),
 	medicareCategory: DS.attr('string'),
 	corpName: DS.attr('string'),
-	productConfig: DS.belongsTo('productConfig'),
 	images: DS.hasMany('image')
 });

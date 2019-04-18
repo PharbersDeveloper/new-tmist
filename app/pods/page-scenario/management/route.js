@@ -5,11 +5,11 @@ import { A } from '@ember/array';
 export default Route.extend({
 	createManagerInput() {
 		return this.get('store').createRecord('managerinput', {
-			strategyAnalysisTime: 0,
-			adminWorkTime: 0,
-			clientManagementTime: 0,
-			kpiAnalysisTime: 0,
-			teamMeetingTime: 0
+			strategyAnalysisTime: '',
+			adminWorkTime: '',
+			clientManagementTime: '',
+			kpiAnalysisTime: '',
+			teamMeetingTime: ''
 		});
 	},
 	createRepInputs(resourceConfigs) {
@@ -18,14 +18,15 @@ export default Route.extend({
 		promiseArray = resourceConfigs.map(ele => {
 			return this.get('store').createRecord('representativeinput', {
 				resourceConfigId: ele.id,
+				resourceConfig: ele,
 				productKnowledgeTraining: 0,
 				salesAbilityTraining: 0,
 				regionTraining: 0,
 				performanceTraining: 0,
 				vocationalDevelopment: 0,
-				assistAccessTime: 0,
-				teamMeeting: 0,
-				abilityCoach: 0
+				assistAccessTime: '',
+				teamMeeting: '',
+				abilityCoach: ''
 			});
 		});
 		return promiseArray;
@@ -129,5 +130,11 @@ export default Route.extend({
 				});
 			});
 
+	},
+	setupController(controller, model) {
+		this._super(...arguments);
+		let rConfs = model.rConfs;
+
+		controller.set('tmpRepConf', rConfs.get('firstObject').get('representativeConfig'));
 	}
 });

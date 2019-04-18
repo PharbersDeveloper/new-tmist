@@ -90,6 +90,10 @@
 							height: $spacing;
 						}
 
+						p {
+							@extend %p-small;
+						}
+
 						.circle {
 							width: 64px;
 							height: 64px;
@@ -117,4 +121,14 @@
 			}
 		}
 	}
+}
+
+:global(.bs-popover-bottom) {
+	&.rule {
+		:global(.popover-body) {
+			@extend %p-secondary;
+		}
+
+	}
+
 }

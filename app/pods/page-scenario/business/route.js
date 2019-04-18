@@ -19,8 +19,10 @@ export default Route.extend({
 
 		promiseArray = destConfigs.map(ele => {
 			return this.get('store').createRecord('businessinput', {
+				destConfig: ele,
 				destConfigId: ele.id,
 				representativeId: '',
+				resourceConfigId: '',
 				salesTarget: '',
 				budget: '',
 				meetingPlaces: '',
@@ -33,6 +35,7 @@ export default Route.extend({
 		let store = this.get('store'),
 			totalConfigs = this.modelFor('page-scenario'),
 			destConfigs = totalConfigs.destConfigs,
+			goodsConfigs = totalConfigs.goodsConfigs,
 			businessInputs = store.peekAll('businessinput'),
 			tmp = this.isHaveBusinessInput(businessInputs, this, destConfigs);
 
@@ -40,10 +43,9 @@ export default Route.extend({
 		return hash({
 			businessInputs: tmp,
 			mConf: totalConfigs.resourceConfManager,
-			goodsConfigs: totalConfigs.goodsConfigs,
+			goodsConfigs,
 			destConfigs,
 			salesConfigs: totalConfigs.salesConfigs
 		});
-
 	}
 });

@@ -8,7 +8,7 @@ export default Route.extend({
 			store = this.get('store'),
 			totalModels = this.modelFor('page-scenario'),
 			managerConf = totalModels.resourceConfManager,
-			repConf = totalModels.resourceConfRep,
+			repConfs = totalModels.resourceConfRep,
 			salesConfigs = totalModels.salesConfigs,
 			currentController = this.controllerFor('page-scenario.business.hospital-config'),
 			businessInputs = store.peekAll('businessinput'),
@@ -18,7 +18,7 @@ export default Route.extend({
 		 * 当前的业务决策实例
 		 */
 		businessInputs.forEach(ele => {
-			if (ele.get('destConfigId') === dCId) {
+			if (ele.get('destConfig.id') === dCId) {
 				businessinput = ele;
 			}
 		});
@@ -43,7 +43,7 @@ export default Route.extend({
 				if (isEmpty(businessinput.get('resourceConfigId'))) {
 					currentController.set('tmpRc', '');
 				} else {
-					repConf.forEach(ele => {
+					repConfs.forEach(ele => {
 						if (ele.id === businessinput.get('resourceConfigId')) {
 							currentController.set('tmpRc', ele);
 						}
@@ -53,7 +53,7 @@ export default Route.extend({
 			.then(() => {
 				return hash({
 					managerConf,
-					repConf,
+					repConfs,
 					destConfig: store.peekRecord('destConfig', dCId),
 					businessinput,
 					salesConfigs

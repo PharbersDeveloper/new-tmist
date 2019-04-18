@@ -54,16 +54,26 @@ export default Route.extend({
 				proposal = data;
 				// 获取 resourceConfig -> 代表
 				return store.query('resourceConfig',
-					{ 'scenario-id': scenarioId, 'resource-type': 1 });
+					{
+						'scenario-id': scenarioId,
+						'resource-type': 1
+					});
 			})
 			.then(data => {
 				resourceConfRep = data;
 				// 获取 resourceConfig -> 经理
-				return store.query('resourceConfig',
-					{ 'scenario-id': scenarioId, 'resource-type': 0 });
+				return store.queryRecord('resourceConfig',
+					{
+						'scenario-id': scenarioId,
+						'resource-type': 0
+					});
 			})
 			.then(data => {
-				resourceConfManager = data.get('firstObject');
+				resourceConfManager = data;
+				return store.query('destConfig',
+					{ 'scenario-id': scenarioId });
+			}).then(data => {
+
 				return hash({
 					proposal,
 					paper,
@@ -71,8 +81,7 @@ export default Route.extend({
 					resourceConfManager,
 					goodsConfigs: store.query('goodsConfig',
 						{ 'scenario-id': scenarioId }),
-					destConfigs: store.query('destConfig',
-						{ 'scenario-id': scenarioId }),
+					destConfigs: data.sortBy('hospitalConfig.potential').reverse(),
 					resourceConfig: store.query('resourceConfig',
 						{ 'scenario-id': scenarioId }),
 					salesConfigs: store.query('salesConfig',
@@ -83,5 +92,10 @@ export default Route.extend({
 						})
 				});
 			});
+	},
+	afterModel() {
+		let applicationController = this.controllerFor('application');
+
+		applicationController.set('testProgress', 2);
 	}
 });

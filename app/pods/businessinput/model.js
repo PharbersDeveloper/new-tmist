@@ -4,7 +4,7 @@ import { isEmpty } from '@ember/utils';
 import { A } from '@ember/array';
 
 export default DS.Model.extend({
-	destConfigId: DS.attr('string'),
+	destConfigId: DS.attr('string'),	// 待删除
 	resourceConfigId: DS.attr('string'),
 	salesTarget: DS.attr('number'),	// 销售目标设定
 	budget: DS.attr('number'),	// 预算费用
@@ -20,5 +20,6 @@ export default DS.Model.extend({
 		});
 	}),
 	destConfig: DS.belongsTo(),
-	resourceConfig: DS.belongsTo()
+	resourceConfig: DS.belongsTo(),
+	goodsConfig: DS.belongsTo()
 });

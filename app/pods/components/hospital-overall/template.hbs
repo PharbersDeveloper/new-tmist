@@ -1,9 +1,10 @@
 <div local-class="hospital-box" class="hospital-box mb-3 p-2">
-	<h4 local-class="title" class="m-0">
-		{{hospitalName}}
-	</h4>
 	{{#each businessInputs as |bi|}}
-		{{#if (bp-eq bi.destConfigId overallFilterData.id)}}
+		{{#if (bp-eq bi.destConfig.id overallFilterData.id)}}
+			{{#bp-layout tagName="h4" local-class="title" classNames="m-0"}}
+				{{bi.destConfig.hospitalConfig.hospital.name}}
+				{{hospital-state bi.isFinish classNames="ml-1"}}
+			{{/bp-layout}}
 			{{#bp-layout classNames="pb-2 pt-3"}}
 				{{#bp-layout classNames="mr-4"}}
 					{{#bp-layout direction="col" 

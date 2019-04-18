@@ -63,6 +63,8 @@
 						}
 
 						.square {
+							/* 新需求去掉 square */
+							display: none;
 							margin-right: $spacing;
 							width: 2*$spacing;
 							height: 2*$spacing;
@@ -135,6 +137,25 @@
 					}
 				}
 			}
+
+			.input-prepend {
+				position: relative;
+
+				input {
+					padding-left: 30px;
+				}
+
+				&::after {
+					content: '%';
+					position: absolute;
+					left: 8px;
+					top: 50%;
+					transform: translateY(-50%);
+					@extend %p-secondary;
+
+				}
+			}
+
 		}
 
 	}

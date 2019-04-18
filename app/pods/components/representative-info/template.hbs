@@ -4,7 +4,7 @@
 	</span>
 	{{representative.representativeConfig.representative.name}}
 {{/bp-layout}}
-{{#if showContent}}
+{{#bs-collapse collapsed=showContent}}
 	{{#bp-layout local-class="content"}}
 		{{#bp-layout direction="col" local-class="basic-infos" classNames="p-4"}}
 			{{#bp-layout local-class="rep"}}
@@ -115,4 +115,4 @@
 			{{bp-radar radarData=radarData}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-{{/if}}
+{{/bs-collapse}}
