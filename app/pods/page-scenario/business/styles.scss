@@ -1,6 +1,50 @@
 .business-container {
 	height: calc(100% - 25px);
 
+	.overviews {
+		flex: 0 0 170px;
+
+		.item {
+			flex: 1;
+			background-color: $n000;
+
+			h2 {
+				@extend %header-medium;
+			}
+
+			.info {
+				@extend %header-large;
+			}
+
+			:global(.bp-progress) {
+				height: $spacing;
+
+				:global(.bp-progress-bar) {
+					background-color: $b200;
+				}
+			}
+
+			.progress {
+				&:global(.bp-progress .bp-progress-bar) {
+					background-color: $n500;
+				}
+			}
+
+			.legend {
+				.circle {
+					width: 8px;
+					height: 8px;
+					border-radius: 50%;
+					background-color: $b200;
+				}
+
+				.values {
+					@extend %p-secondary;
+				}
+			}
+		}
+	}
+
 	.infos {
 		flex: 0 0 314px;
 
@@ -81,34 +125,5 @@
 		}
 	}
 
-	.overviews {
-		flex: 0 0 170px;
 
-		.item {
-			flex: 1;
-			background-color: $n000;
-
-			h2 {
-				@extend %header-medium;
-			}
-
-			.info {
-				@extend %header-large;
-			}
-
-			:global(.bp-progress) {
-				height: $spacing;
-
-				:global(.bp-progress-bar) {
-					background-color: $b200;
-				}
-			}
-
-			&:last-child {
-				:global(.bp-progress .bp-progress-bar) {
-					background-color: $n500;
-				}
-			}
-		}
-	}
 }

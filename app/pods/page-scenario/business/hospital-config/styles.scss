@@ -110,4 +110,41 @@ h5.title {
 			}
 		}
 	}
+
+}
+
+.reps-meeting .input-prepend,
+.prod .input-prepend {
+	position: relative;
+
+	input {
+		padding-left: 30px;
+	}
+
+	&::after {
+		position: absolute;
+		left: 8px;
+		top: 50%;
+		transform: translateY(-50%);
+		@extend %p-secondary;
+
+	}
+
+	&.input-time {
+		&::after {
+			content: '%';
+		}
+	}
+
+	&.input-meeting {
+		&::after {
+			content: '个';
+		}
+	}
+
+	&.input-money {
+		&::after {
+			content: '￥';
+		}
+	}
 }

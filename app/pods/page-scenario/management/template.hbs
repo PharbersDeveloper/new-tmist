@@ -71,13 +71,13 @@
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
 								{{bp-input value=managerInput.strategyAnalysisTime
-									palceholder="%" 
 									size="medium" widthSize="medium" 
 									onChange=(action (mut managerInput.strategyAnalysisTime))
-									classNames="mb-4"}}
+									classNames="mb-4"
+									local-class="input-prepend"}}
 								{{bp-input value=managerInput.clientManagementTime
-									palceholder="%" 
-									size="medium" widthSize="medium"}}
+									size="medium" widthSize="medium"
+									local-class="input-prepend"}}
 							{{/bp-layout}}
 						{{/bp-layout}}
 						{{#bp-layout}}
@@ -93,12 +93,12 @@
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
 								{{bp-input value=managerInput.adminWorkTime
-									palceholder="%" 
 									size="medium" widthSize="medium"
-									classNames="mb-4"}}
+									classNames="mb-4"
+									local-class="input-prepend"}}
 								{{bp-input value=managerInput.kpiAnalysisTime
-									palceholder="%" 
-									size="medium" widthSize="medium"}}
+									size="medium" widthSize="medium"
+									local-class="input-prepend"}}
 							{{/bp-layout}}
 						{{/bp-layout}}
 					{{/bp-layout}}
@@ -113,7 +113,10 @@
 							{{/bp-layout}}
 						{{/bp-layout}}
 						{{#bp-layout direction=col local-class="inputs" }}
-							{{bp-input value=managerInput.teamMeetingTime  palceholder="%" size="medium"}}
+							{{bp-input
+								value=managerInput.teamMeetingTime  
+								size="medium"
+								local-class="input-prepend"}}
 						{{/bp-layout}}
 					{{/bp-layout}}
 				</div>
@@ -139,12 +142,13 @@
 								{{#each representativeInputs as |resConf|}}
 									{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
 										{{bp-input value=resConf.assistAccessTime
-										palceholder="%" 
 										size="medium" widthSize="small" 
-										classNames="mb-4"}}
+										classNames="mb-4"
+										local-class="input-prepend"}}
 										{{bp-input value=resConf.abilityCoach 
-										palceholder="%" 
-										size="medium" widthSize="small"}}
+										size="medium" 
+										widthSize="small"
+										local-class="input-prepend"}}
 									{{/if}}
 								{{/each}}
 							{{/bp-layout}}

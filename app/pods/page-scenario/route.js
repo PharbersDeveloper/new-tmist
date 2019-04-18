@@ -70,6 +70,10 @@ export default Route.extend({
 			})
 			.then(data => {
 				resourceConfManager = data;
+				return store.query('destConfig',
+					{ 'scenario-id': scenarioId });
+			}).then(data => {
+
 				return hash({
 					proposal,
 					paper,
@@ -77,8 +81,7 @@ export default Route.extend({
 					resourceConfManager,
 					goodsConfigs: store.query('goodsConfig',
 						{ 'scenario-id': scenarioId }),
-					destConfigs: store.query('destConfig',
-						{ 'scenario-id': scenarioId }),
+					destConfigs: data.sortBy('hospitalConfig.potential').reverse(),
 					resourceConfig: store.query('resourceConfig',
 						{ 'scenario-id': scenarioId }),
 					salesConfigs: store.query('salesConfig',

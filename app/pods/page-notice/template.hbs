@@ -10,8 +10,15 @@
 				我们将在您提交执行决策后，对您的决策的结果和表现进行评估。<br>
 				期待您为公司带来业绩上的增长和团队能力的提升!
 			</p>
-			<p>
-				{{#bp-button type="link"}}规则介绍{{/bp-button}}
+			<p local-class="desc">
+				{{#bp-button type="link"}}
+					规则介绍
+					{{#bs-popover placement="bottom" title="" local-class="rule"}}
+						这是您本期的任务内容，
+						我们将在您提交执行决策后，对您的决策的结果和表现进行评估。<br>
+						期待您为公司带来业绩上的增长和团队能力的提升!
+					{{/bs-popover}}
+				{{/bp-button}}
 			</p>
 		{{/bp-layout}}
 	{{/bp-layout}}

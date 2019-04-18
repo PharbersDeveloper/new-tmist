@@ -47,6 +47,5 @@ export default Route.extend({
 			destConfigs,
 			salesConfigs: totalConfigs.salesConfigs
 		});
-
 	}
 });

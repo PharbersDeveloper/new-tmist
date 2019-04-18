@@ -5,11 +5,18 @@
 		{{!-- TMIST --}}
 	{{/link-to}}
 	{{#if (bp-eq testProgress 1)}}
-		{{#bp-button}}结束任务{{/bp-button}}
+		{{#bp-button onClick=(action "endMission")}}结束任务{{/bp-button}}
 	{{else if (bp-eq testProgress 2)}}
 		<span local-class="button-area">
-			{{#bp-button type="subtle" classNames="mr-3"}}任务通知{{/bp-button}}
-			{{#bp-button}}退出任务{{/bp-button}}
+			{{#bp-button type="subtle"  classNames="mr-3"}}
+				任务通知
+				{{#bs-popover placement="bottom" title="" local-class="rule"}}
+					这是您本期的任务内容，
+					我们将在您提交执行决策后，对您的决策的结果和表现进行评估。<br>
+					期待您为公司带来业绩上的增长和团队能力的提升!
+				{{/bs-popover}}
+			{{/bp-button}}
+			{{#bp-button onClick="exitMission"}}退出任务{{/bp-button}}
 		</span>
 	{{else}}
 		{{#bp-dropdown widthSize="auto"

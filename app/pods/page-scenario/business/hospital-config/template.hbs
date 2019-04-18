@@ -68,7 +68,8 @@
 				{{/bp-layout}} --}}
 				{{bp-input
 					value=model.businessinput.visitTime
-					disabled=(not tmpRc.id)}}
+					disabled=(not tmpRc.id)
+					local-class="input-prepend input-time"}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -85,7 +86,8 @@
 			{{#bp-layout direction="col" local-class="operating"}}
 				{{bp-input widthSize="auto"
 					value=model.businessinput.meetingPlaces
-					disabled=(not tmpRc.id)}}
+					disabled=(not tmpRc.id)
+					local-class="input-prepend input-meeting"}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -121,18 +123,20 @@
 					</td>
 					<td class="pl-2 border-0">
 						{{bp-input block=true widthSize="auto" 
-							classNames="mb-2"
 							value=model.businessinput.salesTarget
-							disabled=(not tmpRc.id)}}
+							disabled=(not tmpRc.id)
+							local-class="input-prepend input-money"
+							classNames="mb-2"}}
 						{{!-- <p class="m-0 ">
 							{{IndicatorAllocationPercent}}%
 						</p> --}}
 					</td>
 					<td class="pl-2 border-0">
 						{{!-- <p class="mb-2">￥{{budgetNumber}}</p> --}}
-						{{bp-input block=true widthSize="small"
+						{{bp-input block=true widthSize="auto"
 							value=model.businessinput.budget
-							disabled=(not tmpRc.id)}}
+							disabled=(not tmpRc.id)
+							local-class="input-prepend input-money"}}
 					</td>
 				</tr>
 			{{/if}}

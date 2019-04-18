@@ -17,8 +17,8 @@
 							{{#bp-dropdown widthSize="auto" 
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpRc.id}}
-										<p>{{tmpRc.productConfig.product.name}}</p>
+									{{#if tmpGc.id}}
+										<p>{{tmpGc.productConfig.product.name}}</p>
 									{{else}}
 										请选择
 									{{/if}}
@@ -26,10 +26,12 @@
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
 									{{#each model.goodsConfigs as |gc|}}
-										{{#menu.option value=gc 
+										{{#unless gc.productConfig.productType}}
+											{{#menu.option value=gc 
 												onClick=(action (mut tmpGc))}}
-											{{gc.productConfig.product.name}}
-										{{/menu.option}}
+												{{gc.productConfig.product.name}}
+											{{/menu.option}}
+										{{/unless}}
 									{{/each}}
 								{{/dd.menu}}
 							{{/bp-dropdown}}
@@ -89,11 +91,41 @@
 										<td>{{bi.destConfig.hospitalConfig.hospital.name}}</td>
 										<td>{{format-number bi.destConfig.hospitalConfig.potential}}</td>
 										<td>{{format-number bi.destConfig.hospitalConfig.lastYearSales}}</td>
-										<td>{{bi.resourceConfig.representativeConfig.representative.name}}</td>
-										<td>{{bi.visitTime}}</td>
-										<td>{{bi.salesTarget}}</td>
-										<td>{{bi.budget}}</td>
-										<td>{{bi.meetingPlaces}}</td>
+										<td>
+											{{#unless bi.resourceConfig.representativeConfig.representative.name}}
+												-
+											{{else}}
+												{{bi.resourceConfig.representativeConfig.representative.name}}
+											{{/unless}}
+										</td>
+										<td>
+											{{#unless bi.visitTime}}
+												-
+											{{else}}
+												{{bi.visitTime}}
+											{{/unless}}
+										</td>
+										<td>
+											{{#unless bi.salesTarget}}
+												-
+											{{else}}
+												{{bi.salesTarget}}
+											{{/unless}}
+										</td>
+										<td>
+											{{#unless bi.budget}}
+												-
+											{{else}}
+												{{bi.budget}}
+											{{/unless}}
+										</td>
+										<td>
+											{{#unless bi.meetingPlaces}}
+												-
+											{{else}}
+												{{bi.meetingPlaces}}
+											{{/unless}}
+										</td>
 									</tr>
 								{{/each}}
 							{{/if}}
@@ -127,16 +159,32 @@
 									<p class="mb-4" local-class="values">30%</p>
 									<p local-class="values">55%</p> --}}
 									<p class="mb-4" local-class="values">
-										{{model.managerinput.strategyAnalysisTime}}%
+										{{#if model.managerinput.strategyAnalysisTime}}
+											{{model.managerinput.strategyAnalysisTime}}%
+										{{else}}
+											-
+										{{/if}}
 									</p>
 									<p class="mb-4" local-class="values">
-										{{model.managerinput.adminWorkTime}}%
+										{{#if model.managerinput.adminWorkTime}}
+											{{model.managerinput.adminWorkTime}}%
+										{{else}}
+											-
+										{{/if}}
 									</p>
 									<p class="mb-4" local-class="values">
-										{{model.managerinput.clientManagementTime}}%
+										{{#if model.managerinput.clientManagementTime}}
+											{{model.managerinput.clientManagementTime}}%
+										{{else}}
+											-
+										{{/if}}
 									</p>
 									<p local-class="values">
-										{{model.managerinput.kpiAnalysisTime}}%
+										{{#if model.managerinput.kpiAnalysisTime}}
+											{{model.managerinput.kpiAnalysisTime}}%
+										{{else}}
+											-
+										{{/if}}
 									</p>
 								{{/bp-layout}}
 							{{/bp-layout}}
@@ -152,7 +200,11 @@
 								{{/bp-layout}}
 								{{#bp-layout direction="col" classNames="p-4"}}
 									<p class="mb-4" local-class="values">
-										{{model.managerinput.teamMeetingTime}}%
+										{{#if model.managerinput.teamMeetingTime}}
+											{{model.managerinput.teamMeetingTime}}%
+										{{else}}
+											-
+										{{/if}}
 									</p>
 								{{/bp-layout}}
 							{{/bp-layout}}
@@ -172,10 +224,26 @@
 							<tbody>
 								{{#each model.representativeinputs as |rep|}}
 									<tr>
-										<td>{{rep.resourceConfig.representativeConfig.representative.name}}</td>
-										<td>{{rep.abilityCoach}}</td>
-										<td>{{rep.assistAccessTime}}</td>
+										<td>
+											{{rep.resourceConfig.representativeConfig.representative.name}}
+										</td>
+										<td>
+											{{#if rep.abilityCoach}}
+												{{rep.abilityCoach}}%
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										<td>
+											{{#if rep.assistAccessTime}}
+												{{rep.assistAccessTime}}%
+											{{else}}
+												-
+											{{/if}}
+										</td>
 									</tr>
+								{{else}}
+									暂无填写数据
 								{{/each}}
 							</tbody>
 						</table>
@@ -195,19 +263,53 @@
 								<th class="border-0">区域管理培训</th>
 								<th class="border-0">绩效约谈</th>
 								<th class="border-0">职业发展指导</th>
-								<th class="border-0">总点数</th>
+								{{!-- <th class="border-0">总点数</th> --}}
 							</thead>
 							<tbody>
 								{{#each model.representativeinputs as |rep|}}
 									<tr>
-										<td>{{rep.resourceConfig.representativeConfig.representative.name}}</td>
-										<td>{{rep.productKnowledgeTraining}}</td>
-										<td>{{rep.salesAbilityTraining}}</td>
-										<td>{{rep.regionTraining}}</td>
-										<td>{{rep.performanceTraining}}</td>
-										<td>{{rep.vocationalDevelopment}}</td>
-										<td>{{rep.totalPoint}}</td>
+										<td>
+											{{rep.resourceConfig.representativeConfig.representative.name}}
+										</td>
+										<td>
+											{{#if rep.productKnowledgeTraining}}
+												已分配
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										<td>
+											{{#if rep.salesAbilityTraining}}
+												已分配
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										<td>
+											{{#if rep.regionTraining}}
+												已分配
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										<td>
+											{{#if rep.performanceTraining}}
+												已分配
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										<td>
+											{{#if rep.vocationalDevelopment}}
+												已分配
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										{{!-- <td>{{rep.totalPoint}}</td> --}}
 									</tr>
+								{{else}}
+									暂无填写数据
 								{{/each}}
 							</tbody>
 						</table>
