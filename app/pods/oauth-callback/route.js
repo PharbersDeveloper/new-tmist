@@ -10,7 +10,7 @@ export default Route.extend({
 	beforeModel(transition) {
 		let version = 'v0',
 			resource = 'GenerateAccessToken',
-			scope = 'NTM',
+			scope = 'App/System:[NTM]',
 			url = '',
 			cookies = this.get('cookies');
 
