@@ -45,3 +45,24 @@
 		{{outlet}}
 	{{/bp-tabs}}
 {{/bp-layout}}
+{{#bp-modal
+		open=warning.open 
+		position='center'
+		onSubmit=(action "submit") 
+		onHidden=(action (mut warning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			提交执行
+		</h4>
+	{{/modal.header}}
+	{{#modal.body}}
+		<p>
+			{{warning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+		{{!-- {{#bp-button type="danger"}}Delete{{/bp-button}} --}}
+		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
+	{{/modal.footer}}
+{{/bp-modal}}

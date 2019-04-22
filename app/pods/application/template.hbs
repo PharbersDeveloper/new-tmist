@@ -16,7 +16,7 @@
 					期待您为公司带来业绩上的增长和团队能力的提升!
 				{{/bs-popover}}
 			{{/bp-button}}
-			{{#bp-button onClick="exitMission"}}退出任务{{/bp-button}}
+			{{#bp-button onClick=(action "exitMission")}}退出任务{{/bp-button}}
 		</span>
 	{{else}}
 		{{#bp-dropdown widthSize="auto"
