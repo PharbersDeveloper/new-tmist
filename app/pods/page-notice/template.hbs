@@ -3,16 +3,22 @@
 	{{#bp-layout direction="col" local-class="item" 
 		classNames="mr-4"}}
 		{{#bp-layout direction="col" local-class="manager" 
-		classNames="p-4"}}
+		classNames="mb-4 p-4"}}
 			<img src="https://i.loli.net/2019/04/12/5cb004ea5f31f.png" alt="manager avatar">
 			<h2 local-class="title" class="mb-4">经理，您好！</h2>
 			<p local-class="desc" class="mb-4">这是您本期的任务内容，
 				我们将在您提交执行决策后，对您的决策的结果和表现进行评估。<br>
 				期待您为公司带来业绩上的增长和团队能力的提升!
 			</p>
-			<p>
-				{{#bp-button type="link"}}规则介绍{{/bp-button}}
-			</p>
+		{{/bp-layout}}
+		{{#bp-layout direction="col" local-class="rule" classNames="p-4"}}
+			<h2 local-class="title" class="mb-4">规则介绍</h2>
+			<p>1. 经理需完成 业务决策 后才能提交任务。</p>
+			<p>2. 所有医院都必须被制定指标和分配资源。（若不分配资源可设数值为0）。</p>
+			<p>3. 所有代表都必须被分配负责的医院。</p>
+			<p>4. 预算的分配不可超过给定的总预算。</p>
+			<p>5. 每一周期决策提交后，将不可再修改。当期决策可在“决策回顾”中查看。</p>
+			<p>6. 第一周期提交后，后续周期中将不可更改医院代表，只能进行药品相关资源设定。</p>
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout direction="col" local-class="mission-notice item" classNames="mt-4"}}
@@ -25,17 +31,17 @@
 				{{bp-icon icon="mission-1"}}
 				<span>合理管理与分配资源</span>
 			</h2>
-			{{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}
+			{{!-- {{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}
 				{{#bp-layout local-class="item-resource" classNames="my-4"}}
 					{{bp-icon size='large' icon='office-building' 
 						local-class="icon"}}
 					{{#bp-layout direction="col" local-class="main-box"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
-							<h4 class="m-0">安排医院数量0家</h4>
-							<span local-class="schedule">0/{{model.destConfigs.length}}</span>
+							<h4 class="m-0">安排医院数量{{usedResource.arrangedHospital}}家</h4>
+							<span local-class="schedule">{{usedResource.arrangedHospital}}/{{model.destConfigs.length}}</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=0 maxValue=model.destConfigs.length}}
+							{{p.bar value=usedResource.arrangedHospital maxValue=model.destConfigs.length}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
@@ -45,41 +51,107 @@
 						local-class="icon"}}
 					{{#bp-layout direction="col" local-class="main-box"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
-							<h4 class="m-0">管理代表人数0人</h4>
-							<span local-class="schedule">0/{{model.resourceConfigRepresentatives.length}}</span>
+							<h4 class="m-0">管理代表人数{{usedResource.arrangedRepresentative}}人</h4>
+							<span local-class="schedule">{{usedResource.arrangedRepresentative}}/{{model.resourceConfigRepresentatives.length}}</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=0 maxValue=model.resourceConfigRepresentatives.length}}
+							{{p.bar value=usedResource.arrangedRepresentative maxValue=model.resourceConfigRepresentatives.length}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
 				{{/bp-layout}}
-				{{#each model.resourceConfigManagers as |rcm|}}
-					{{#bp-layout local-class="item-resource" classNames="my-4"}}
-						{{bp-icon size='large' icon='china-money' 
+				{{#bp-layout local-class="item-resource" classNames="my-4"}}
+					{{bp-icon size='large' icon='china-money' 
 						local-class="icon"}}
-						{{#bp-layout direction="col" local-class="main-box"}}
-							{{#bp-layout main="between" classNames="mb-2"}}
-								<h4 class="m-0">分配预算总金额</h4>
-								<span local-class="schedule">￥{{format-number rcm.managerConfig.totalBudgets}}</span>
-							{{/bp-layout}}
-							{{#bp-progress as |p|}}
-								{{p.bar value=0 maxValue=rcm.managerConfig.totalBudgets}}
-							{{/bp-progress}}
+					{{#bp-layout direction="col" local-class="main-box"}}
+						{{#bp-layout main="between" classNames="mb-2"}}
+							<h4 class="m-0">分配预算总金额</h4>
+							<span local-class="schedule">￥{{format-number model.resourceConfigManager.managerConfig.totalBudgets}}</span>
 						{{/bp-layout}}
-						<div local-class="blank"></div>
+						{{#bp-progress as |p|}}
+							{{p.bar value=usedResource.assignedBudgets maxValue=model.resourceConfigManager.managerConfig.totalBudgets}}
+						{{/bp-progress}}
 					{{/bp-layout}}
-				{{/each}}
+					<div local-class="blank"></div>
+				{{/bp-layout}}
 				{{#bp-layout local-class="item-resource" classNames="my-4"}}
 					{{bp-icon size='large' icon='pie' 
 						local-class="icon"}}
 					{{#bp-layout cross="center" local-class="main-box"}}
 						<h4 class="m-0">分配经理资源</h4>
-						{{bp-circle classNames="ml-4" local-class="circle"}}
-						{{bp-circle local-class="circle"}}
+						{{#bp-layout direction="col" cross="center" classNames="mx-4"}}
+							{{bp-circle local-class="circle"
+								seriesName="经理剩余时间" 
+								circleData=circleTime}}
+							<p class="mt-1 mb-0">时间</p>
+						{{/bp-layout}}
+						{{#bp-layout direction="col" cross="center"}}
+							{{bp-circle local-class="circle"
+								seriesName="经理剩余行动点数"
+								circleData=circlePoint}}
+							<p class="mt-1 mb-0">行动点数</p>
+						{{/bp-layout}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>
 				{{/bp-layout}}
+			{{/bp-layout}} --}}
+			{{#bp-layout main="between" classNames="py-3 bg-white rounded"}}
+				<div local-class="item" class="text-center">
+					{{bp-icon size='large' icon='office-building' 
+						local-class="icon"}}
+					<p local-class="desc" class="my-2">安排医院数量</p>
+					<h4 local-class="title">
+						{{model.destConfigs.length}}家
+					</h4>
+				</div>
+				<div local-class="item" class="text-center">
+					{{bp-icon size='large' icon='people' 
+						local-class="icon"}}
+					<p local-class="desc" class="my-2">管理代表人数</p>
+					<h4 local-class="title">
+						{{model.resourceConfigRepresentatives.length}}人
+					</h4>
+				</div>
+				<div local-class="item" class="text-center">
+					{{bp-icon size='large' icon='people' 
+						local-class="icon"}}
+					<p local-class="desc" class="my-2">代表人均时间</p>
+					<h4 local-class="title">
+						100%
+					</h4>
+				</div>
+				<div local-class="item" class="text-center">
+					{{bp-icon size='large' icon='raised-hand' 
+						local-class="icon"}}
+					<p local-class="desc" class="my-2">分配会议名额</p>
+					<h4 local-class="title">
+						66*
+					</h4>
+				</div>
+			{{/bp-layout}}
+		</div>
+		<div local-class="resource" class="mb-4 p-3 rounded">
+			<h2 class="mb-2">
+				{{bp-icon icon="mission-2"}}
+				<span>团队与自我管理</span>
+			</h2>
+			{{#bp-layout main="between" classNames="py-3 bg-white rounded"}}
+				<div local-class="item" class="text-center">
+					{{bp-icon size='large' icon='pie' 
+						local-class="icon"}}
+					<p local-class="desc" class="my-2">分配经理时间 </p>
+					<h4 local-class="title">
+						100%
+					</h4>
+				</div>
+				<div local-class="item" class="text-center">
+					{{bp-icon size='large' icon='people' 
+						local-class="icon"}}
+					<p local-class="desc" class="my-2">经理行动点数</p>
+					<h4 local-class="title">
+						{{model.resourceConfigManager.managerConfig.managerKpi}}
+					</h4>
+				</div>
 			{{/bp-layout}}
 		</div>
 		<div local-class="resource" class="mb-4 p-3 rounded">
@@ -93,11 +165,17 @@
 						local-class="icon"}}
 					{{#bp-layout direction="col" local-class="main-box"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
-							<h4 class="m-0">口服抗生素</h4>
-							<span local-class="schedule">￥{{format-number 1000000}}*</span>
+							{{#each model.goodsConfigs as |gc|}}
+								{{#if (bp-eq gc.productConfig.productType 0)}}
+									<h4 class="m-0">{{gc.productConfig.product.name}}</h4>
+								{{/if}}
+							{{/each}}
+							<span local-class="schedule">
+								￥{{format-number model.resourceConfigManager.managerConfig.totalBusinessIndicators}}
+							</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
-							{{p.bar value=0 maxValue=1000000}}
+							{{p.bar value=usedResource.assignedMedicines maxValue=model.resourceConfigManager.managerConfig.totalBusinessIndicators}}
 						{{/bp-progress}}
 					{{/bp-layout}}
 					<div local-class="blank"></div>

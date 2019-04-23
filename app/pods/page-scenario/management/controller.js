@@ -1,12 +1,12 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
+import { isEmpty } from '@ember/utils';
 
 export default Controller.extend({
 	groupValue: 0,
 	col: 'col',
 	center: 'center',
-	repConf: null,
 	circleUsedTime: 0,
 	circleRestTime: 1,
 	circleTime: computed(`managerInput.totalManagerUsedTime`,
@@ -65,12 +65,12 @@ export default Controller.extend({
 			{ name: '未分配', value: restPoint }
 		]);
 	}),
-	radarData: computed('repConf', function () {
-		let repConf = this.get('repConf'),
+	radarData: computed('tmpRepConf', function () {
+		let tmpRepConf = this.get('tmpRepConf'),
 			originalAbility = [],
 			averageAbility = this.get('averageAbility') || [0, 0, 0, 0, 0];
 
-		if (repConf === null) {
+		if (isEmpty(tmpRepConf)) {
 			return [
 				{
 					value: [0, 0, 0, 0, 0],
@@ -88,11 +88,11 @@ export default Controller.extend({
 		// { name: '行为有效性', max: 100 },
 		// { name: '区域管理能力', max: 100 },
 		// { name: '销售知识', max: 100 }
-		originalAbility.push(repConf.get('jobEnthusiasm'));
-		originalAbility.push(repConf.get('productKnowledge'));
-		originalAbility.push(repConf.get('behaviorValidity'));
-		originalAbility.push(repConf.get('regionalManagementAbility'));
-		originalAbility.push(repConf.get('salesAbility'));
+		originalAbility.push(tmpRepConf.get('jobEnthusiasm'));
+		originalAbility.push(tmpRepConf.get('productKnowledge'));
+		originalAbility.push(tmpRepConf.get('behaviorValidity'));
+		originalAbility.push(tmpRepConf.get('regionalManagementAbility'));
+		originalAbility.push(tmpRepConf.get('salesAbility'));
 		return [
 			{
 				value: originalAbility,

@@ -6,11 +6,9 @@ export default Route.extend({
 	model() {
 		let totalConfig = this.modelFor('page-scenario.reference'),
 			paper = totalConfig.paper,
-			store = this.get('store'),
 			seasons = A([]),
 			tmpData = A([]),
 			destConfigs = totalConfig.destConfigs;
-
 
 		return paper.get('salesReports')
 			.then(data => {
@@ -21,12 +19,18 @@ export default Route.extend({
 					});
 
 				seasons = increaseSalesReports.map(ele => {
-					return ele.get('formatTime');
+					return ele.get('scenario');
 				});
-				return RSVP.Promise.all(promiseArray);
+				return hash({
+					hospitalSalesReports: RSVP.Promise.all(promiseArray),
+					seasons: RSVP.Promise.all(seasons)
+				});
 
-			}).then(data => {
-				let promiseArray = A([]);
+			}).then(result => {
+				let promiseArray = A([]),
+					data = result.hospitalSalesReports;
+
+				seasons = result.seasons.map(ele => ele.name);
 
 				// 获取基于周期的数据
 				tmpData = data.map((hospitalSalesReports, index) => {
@@ -34,9 +38,9 @@ export default Route.extend({
 						sales = this.eachArray(hospitalSalesReports, 'sales'),
 						salesQuotas = this.eachArray(hospitalSalesReports, 'salesQuota'),
 						quotaAchievement = this.eachArray(hospitalSalesReports, 'salesQuota'),
-						destConfigIds = this.eachArray(hospitalSalesReports, 'destConfig.id');
+						destConfigIds = this.eachArray(hospitalSalesReports, 'destConfig');
 
-					promiseArray = destConfigIds.map(ele => store.findRecord('destConfig', ele));
+					promiseArray = destConfigIds;
 
 					return {
 						productNames,
@@ -49,20 +53,27 @@ export default Route.extend({
 				});
 				return RSVP.Promise.all(promiseArray);
 			}).then(data => {
+				let promiseArray = data.map(ele => ele.hospitalConfig);
+
+				return RSVP.Promise.all(promiseArray);
+
+			}).then(data => {
+				let promiseArray = data.map(ele => ele.hospital);
+
+				return RSVP.Promise.all(promiseArray);
+			}).then(data => {
 				let result = A([]);
 
 				result = data.map((dc, index) => {
-					let equalHospital = destConfigs.filter(currentDc => dc.get('hospitalConfig.hospital.id') === currentDc.get('hospitalConfig.hospital.id'));
 
 					return {
-						hospitalId: equalHospital[0].get('hospitalConfig.hospital.id'),
+						hospitalId: dc.id,
 						name: tmpData[0].productNames[index],
 						date: seasons,
 						sales: tmpData.map(ele => ele.sales[index]),
 						salesQuotas: tmpData.map(ele => ele.salesQuotas[index]),
 						quotaAchievementes: tmpData.map(ele => ele.quotaAchievement[index])
 					};
-
 				});
 
 				// A([

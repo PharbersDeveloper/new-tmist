@@ -6,38 +6,17 @@ import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	cookies: service(),
-	clientId: '5c90f3fc830346b827fb0905',
+	ajax: service(),
+	clientId: '5cbd9f94f4ce4352ecb082a0',
 	clientSecret: '5c90db71eeefcc082c0823b2',
 	redirectUri: 'http://192.168.100.165:8081/oauth-callback',
 	beforeModel({ targetName }) {
-		// TODO
-		this.get('cookies').write('access_token', '112');
-		this.get('cookies').write('account_id', '5c4552455ee2dd7c36a94a9e');
+		const cookies = this.get('cookies');
 
-		let cookies = this.get('cookies'),
-			store = this.get('store'),
-			token = cookies.read('access_token');
-
+		let token = cookies.read('access_token');
 
 		if (!token && targetName !== 'oauth-callback') {
-			let host = 'http://192.168.100.116:31415',
-				version = 'v0',
-				resource = 'GenerateUserAgent',
-				scope = 'NTM',
-				url = '';
-
-			url = `?response_type=code
-                        &client_id=${this.get('clientId')}
-                        &client_secret=${this.get('clientSecret')}
-                        &scope=${scope}
-						&redirect_uri=${this.get('redirectUri')}`.
-				replace(/\n/gm, '').
-				replace(/ /gm, '').
-				replace(/\t/gm, '');
-			window.location = [host, version, resource, url].join('/');
-		}
-		if (token && store.peekAll('scecario').get('length') === 0) {
-			this.transitionTo('index');
+			this.transitionTo('login');
 		}
 	},
 	model() {
@@ -73,5 +52,12 @@ export default Route.extend({
 				detailPaper: papers[0].get('firstObject')
 			});
 		});
+	},
+	actions: {
+		error(error, transition) {
+			console.log(error);
+			console.log(transition);
+			this.transitionTo('application');
+		}
 	}
 });

@@ -61,26 +61,26 @@
 						<table local-class="table-container" class="table">
 							<thead>
 								<th>药品名称 </th>
-								{{#each model.tableHead as |th|}}
-									<th class="text-center">{{th}}</th>
+								{{#each model.tableHead as |tcontent|}}
+									<th class="text-center">{{tcontent}}</th>
 								{{/each}}
 							</thead>
 							<tbody class="bg-white">
-								{{#each model.prodTableBody as |tr|}}
+								{{#each model.prodTableBody as |trContent|}}
 									{{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
-										{{#if (bp-eq tmpPsr.productName tr.name)}}
+										{{#if (bp-eq tmpPsr.productName trContent.name)}}
 											<tr>
-												<td>{{tr.name}}</td>
-												{{#each tr.tableTr as |td|}}
-													<td>￥{{format-number td}}</td>
+												<td>{{trContent.name}}</td>
+												{{#each trContent.tableTr as |tdContent|}}
+													<td>￥{{format-number tdContent}}</td>
 												{{/each}}
 											</tr>
 										{{/if}}
 									{{else}}
 										<tr>
-											<td>{{tr.name}}</td>
-											{{#each tr.tableTr as |td|}}
-												<td>￥{{format-number td}}</td>
+											<td>{{trContent.name}}</td>
+											{{#each trContent.tableTr as |tdContent|}}
+												<td>￥{{format-number tdContent}}</td>
 											{{/each}}
 										</tr>
 									{{/if}}
@@ -133,28 +133,28 @@
 						<thead>
 							<th>代表名称</th>
 							<th>潜力</th>
-							{{#each model.tableHead as |th|}}
-								<th>{{th}}</th>
+							{{#each model.tableHead as |thContent|}}
+								<th>{{thContent}}</th>
 							{{/each}}
 						</thead>
 						<tbody class="bg-white">
-							{{#each model.repTableBody as |tr|}}
+							{{#each model.repTableBody as |trContent|}}
 								{{#if (bp-not-eq tmpRsr.representativeName undefined '全部选择')}}
-									{{#if (bp-eq tmpRsr.representativeName tr.name)}}
+									{{#if (bp-eq tmpRsr.representativeName trContent.name)}}
 										<tr>
-											<td>{{tr.name}}</td>
-											<td>{{tr.potential}}</td>
-											{{#each tr.tableTr as |td|}}
-												<td>￥{{format-number td}}</td>
+											<td>{{trContent.name}}</td>
+											<td>{{trContent.potential}}</td>
+											{{#each trContent.tableTr as |tdContent|}}
+												<td>￥{{format-number tdContent}}</td>
 											{{/each}}
 										</tr>
 									{{/if}}
 								{{else}}
 									<tr>
-										<td>{{tr.name}}</td>
-										<td>{{tr.potential}}</td>
-										{{#each tr.tableTr as |td|}}
-											<td>￥{{format-number td}}</td>
+										<td>{{trContent.name}}</td>
+										<td>{{trContent.potential}}</td>
+										{{#each trContent.tableTr as |tdContent|}}
+											<td>￥{{format-number tdContent}}</td>
 										{{/each}}
 									</tr>
 								{{/if}}
@@ -228,30 +228,30 @@
 							<th>医院名称</th>
 							<th>产品</th>
 							<th>潜力</th>
-							{{#each model.tableHead as |th|}}
-								<th>{{th}}</th>
+							{{#each model.tableHead as |tcontent|}}
+								<th>{{tcontent}}</th>
 							{{/each}}
 						</thead>
 						<tbody class="bg-white">
-							{{#each model.hospTableBody as |tr|}}
+							{{#each model.hospTableBody as |trContent|}}
 								{{#if (bp-not-eq tmpHsr.hospitalName undefined '全部选择')}}
-									{{#if (bp-eq tmpHsr.hospitalName tr.name)}}
+									{{#if (bp-eq tmpHsr.hospitalName trContent.name)}}
 										<tr>
-											<td>{{tr.name}}</td>
-											<td>{{tr.productName}}</td>
-											<td>{{format-number tr.potential}}</td>
-											{{#each tr.tableTr as |td|}}
-												<td>￥{{format-number td}}</td>
+											<td>{{trContent.name}}</td>
+											<td>{{trContent.productName}}</td>
+											<td>{{format-number trContent.potential}}</td>
+											{{#each trContent.tableTr as |tdContent|}}
+												<td>￥{{format-number tdContent}}</td>
 											{{/each}}
 										</tr>
 									{{/if}}
 								{{else}}
 									<tr>
-										<td>{{tr.name}}</td>
-										<td>{{tr.productName}}</td>
-										<td>{{format-number tr.potential}}</td>
-										{{#each tr.tableTr as |td|}}
-											<td>￥{{format-number td}}</td>
+										<td>{{trContent.name}}</td>
+										<td>{{trContent.productName}}</td>
+										<td>{{format-number trContent.potential}}</td>
+										{{#each trContent.tableTr as |tdContent|}}
+											<td>￥{{format-number tdContent}}</td>
 										{{/each}}
 									</tr>
 								{{/if}}

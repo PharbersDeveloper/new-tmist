@@ -1,6 +1,7 @@
-{{#bp-layout tagName="h4" cross="center"
+{{#bp-layout tagName="h4" main='between' cross="center"
 	local-class="title" classNames="px-4  bg-white"}}
 	{{model.destConfig.hospitalConfig.hospital.name}}
+	{{#bp-button onClick=(action 'reInput')}}重置{{/bp-button}}
 {{/bp-layout}}
 {{#bp-layout main="between" local-class="reps-meeting"}}
 	{{#bp-layout direction="col" 
@@ -27,7 +28,7 @@
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
-						{{#each model.repConf as |rc|}}
+						{{#each model.repConfs as |rc|}}
 							{{#if (bp-eq rc.resourceType 1)}}
 								{{#menu.option value=rc 
 									onClick=(action 'changedRep')
@@ -45,9 +46,6 @@
 											{{/if}}
 										{{/each}}
 									{{/bp-layout}}
-									{{!-- <span local-class="rest-time">
-										剩余时间 {{visitPercent}}%
-									</span> --}}
 								{{/menu.option}}
 							{{/if}}
 						{{/each}}
@@ -70,7 +68,8 @@
 				{{/bp-layout}} --}}
 				{{bp-input
 					value=model.businessinput.visitTime
-					disabled=(not tmpRc.id)}}
+					disabled=(not tmpRc.id)
+					local-class="input-prepend input-time"}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -87,7 +86,8 @@
 			{{#bp-layout direction="col" local-class="operating"}}
 				{{bp-input widthSize="auto"
 					value=model.businessinput.meetingPlaces
-					disabled=(not tmpRc.id)}}
+					disabled=(not tmpRc.id)
+					local-class="input-prepend input-meeting"}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -123,18 +123,20 @@
 					</td>
 					<td class="pl-2 border-0">
 						{{bp-input block=true widthSize="auto" 
-							classNames="mb-2"
 							value=model.businessinput.salesTarget
-							disabled=(not tmpRc.id)}}
+							disabled=(not tmpRc.id)
+							local-class="input-prepend input-money"
+							classNames="mb-2"}}
 						{{!-- <p class="m-0 ">
 							{{IndicatorAllocationPercent}}%
 						</p> --}}
 					</td>
 					<td class="pl-2 border-0">
 						{{!-- <p class="mb-2">￥{{budgetNumber}}</p> --}}
-						{{bp-input block=true widthSize="small"
+						{{bp-input block=true widthSize="auto"
 							value=model.businessinput.budget
-							disabled=(not tmpRc.id)}}
+							disabled=(not tmpRc.id)
+							local-class="input-prepend input-money"}}
 					</td>
 				</tr>
 			{{/if}}

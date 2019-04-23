@@ -9,7 +9,7 @@
 	.item {
 		flex: 5;
 
-		& .manager {
+		.manager {
 			position: relative;
 			margin-top: 90px;
 			@extend %depth-z200;
@@ -29,6 +29,19 @@
 			}
 
 			p.desc {
+				@extend %p-secondary;
+			}
+		}
+
+		.rule {
+			@extend %depth-z200;
+			@extend %defaultRadius;
+
+			h2.title {
+				@extend %header-large;
+			}
+
+			p {
 				@extend %p-secondary;
 			}
 		}
@@ -72,6 +85,21 @@
 
 				}
 
+				.item {
+					.icon {
+						width: 32px;
+						height: 32px;
+					}
+
+					p.desc {
+						@extend %p-secondary;
+					}
+
+					h4.title {
+						@extend %header-small;
+					}
+				}
+
 				.item-resource {
 					.icon {
 						flex: 0 0 32px;
@@ -88,6 +116,10 @@
 
 						:global(.bp-progress) {
 							height: $spacing;
+						}
+
+						p {
+							@extend %p-small;
 						}
 
 						.circle {
@@ -117,4 +149,14 @@
 			}
 		}
 	}
+}
+
+:global(.bs-popover-bottom) {
+	&.rule {
+		:global(.popover-body) {
+			@extend %p-secondary;
+		}
+
+	}
+
 }

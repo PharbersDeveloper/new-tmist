@@ -114,9 +114,17 @@
 					{{format-number total.usedSalesTarget}} /
 					￥{{format-number model.mConf.managerConfig.totalBusinessIndicators}}
 				</p>
-				{{#bp-progress as |p|}}
+				{{#bp-progress local-class="progress" classNames="mb-4" as |p|}}
 					{{p.bar value=total.usedSalesTarget maxValue=model.mConf.managerConfig.totalBusinessIndicators}}
 				{{/bp-progress}}
+				{{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
+					{{#bp-layout tagName="span" cross="center"}}
+						<span local-class="circle" class="mr-2"></span>
+						<span local-class="values">
+							{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}
+						</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
 			</div>
 		</div>
 		<div local-class="item" class="mx-2">
@@ -128,9 +136,17 @@
 					{{format-number total.usedBudget}} /
 					￥{{format-number model.mConf.managerConfig.totalBudgets}}
 				</p>
-				{{#bp-progress as |p|}}
+				{{#bp-progress classNames="mb-4" as |p|}}
 					{{p.bar value=total.usedBudget maxValue=model.mConf.managerConfig.totalBudgets}}
 				{{/bp-progress}}
+				{{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
+					{{#bp-layout tagName="span" cross="center"}}
+						<span local-class="circle" class="mr-2"></span>
+						<span local-class="values">
+							{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}
+						</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
 			</div>
 		</div>
 		<div local-class="item">
@@ -149,15 +165,6 @@
 		</div>
 	{{/bp-layout}}
 	{{#bp-layout local-class="hospitals"}}
-		{{!-- {{#bp-layout tagName="ul"  wrap=true local-class="nav-hosp" 
-			class="pt-4 mb-2 bg-white"}}
-			{{#each model.destConfigs as |dc|}}
-				{{#link-to "page-scenario.business.hospital-config" dc.id 
-					tagName="li" classNames="ml-4 mb-4"}}
-					{{dc.hospitalConfig.hospital.name}}
-				{{/link-to}}
-			{{/each}}
-		{{/bp-layout}} --}}
 		{{#bp-layout direction="col" 
 				local-class="hospitals-configs" 
 				classNames="mr-4 px-4 bg-white"}}

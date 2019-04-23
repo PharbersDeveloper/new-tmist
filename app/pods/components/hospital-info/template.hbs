@@ -4,14 +4,14 @@
 	</span>
 	{{destConfig.hospitalConfig.hospital.name}}
 {{/bp-layout}}
-{{#if showContent}}
+{{#bs-collapse collapsed=showContent}}
 	{{#bp-layout direction="col" local-class="content" }}
 		{{#bp-layout main="between" local-class="infos"}}
 			{{#bp-layout main="between" local-class="basic" 
 				classNames="p-4"}}
-				{{#each destConfig.hospitalConfig.hospital.images as |img index|}}
+				{{#each destConfig.hospitalConfig.hospital.images as |imgRcs index|}}
 					{{#if (bp-eq index 0)}}
-						<img src={{img.img}} alt={{destConfig.hospitalConfig.hospital.name}} class="mr-4">
+						<img src={{imgRcs.img}} alt={{destConfig.hospitalConfig.hospital.name}} class="mr-4">
 					{{/if}}
 				{{/each}}
 				<div local-class="properties">
@@ -134,4 +134,4 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-{{/if}}
+{{/bs-collapse}}

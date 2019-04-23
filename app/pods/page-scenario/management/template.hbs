@@ -11,15 +11,15 @@
 			<div local-class="manager-infos" class="mb-2 bg-white">
 				{{#if (bp-eq groupValue 0)}}
 					<h3 local-class="title" class="px-4">经理剩余时间</h3>
-					<div local-class="pie" class="px-4">
-						{{bp-circle
+					<div local-class="pie" class="p-4">
+						{{bp-circle widthSize="auto"
 							seriesName="经理剩余时间" 
 							circleData=circleTime}}
 					</div>
 				{{else}}
 					<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
-					<div local-class="pie" class="px-4">
-						{{bp-circle
+					<div local-class="pie" class="p-4">
+						{{bp-circle widthSize="auto"
 							seriesName="经理剩余行动点数"
 							circleData=circlePoint}}
 					</div>
@@ -32,8 +32,8 @@
 						<span class="mr-3">代表</span>
 						{{#bp-dropdown widthSize="auto" as |dd|}}
 							{{#dd.button }}
-								{{#if repConf.representative.name}}
-									<p>{{repConf.representative.name}}</p>
+								{{#if tmpRepConf.representative.name}}
+									<p>{{tmpRepConf.representative.name}}</p>
 								{{else}}
 									请选择
 								{{/if}}
@@ -42,7 +42,7 @@
 							{{#dd.menu as |menu|}}
 								{{#each model.rConfs as |rcs|}}
 									{{#menu.option value=rcs.representativeConfig 
-											onClick=(action (mut repConf))}}
+											onClick=(action (mut tmpRepConf))}}
 										{{rcs.representativeConfig.representative.name}}
 									{{/menu.option}}
 								{{/each}}
@@ -71,13 +71,13 @@
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
 								{{bp-input value=managerInput.strategyAnalysisTime
-									palceholder="%" 
 									size="medium" widthSize="medium" 
 									onChange=(action (mut managerInput.strategyAnalysisTime))
-									classNames="mb-4"}}
+									classNames="mb-4"
+									local-class="input-prepend"}}
 								{{bp-input value=managerInput.clientManagementTime
-									palceholder="%" 
-									size="medium" widthSize="medium"}}
+									size="medium" widthSize="medium"
+									local-class="input-prepend"}}
 							{{/bp-layout}}
 						{{/bp-layout}}
 						{{#bp-layout}}
@@ -93,12 +93,12 @@
 							{{/bp-layout}}
 							{{#bp-layout direction=col local-class="inputs" }}
 								{{bp-input value=managerInput.adminWorkTime
-									palceholder="%" 
 									size="medium" widthSize="medium"
-									classNames="mb-4"}}
+									classNames="mb-4"
+									local-class="input-prepend"}}
 								{{bp-input value=managerInput.kpiAnalysisTime
-									palceholder="%" 
-									size="medium" widthSize="medium"}}
+									size="medium" widthSize="medium"
+									local-class="input-prepend"}}
 							{{/bp-layout}}
 						{{/bp-layout}}
 					{{/bp-layout}}
@@ -113,7 +113,10 @@
 							{{/bp-layout}}
 						{{/bp-layout}}
 						{{#bp-layout direction=col local-class="inputs" }}
-							{{bp-input value=managerInput.teamMeetingTime  palceholder="%" size="medium"}}
+							{{bp-input
+								value=managerInput.teamMeetingTime  
+								size="medium"
+								local-class="input-prepend"}}
 						{{/bp-layout}}
 					{{/bp-layout}}
 				</div>
@@ -139,12 +142,13 @@
 								{{#each representativeInputs as |resConf|}}
 									{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
 										{{bp-input value=resConf.assistAccessTime
-										palceholder="%" 
 										size="medium" widthSize="small" 
-										classNames="mb-4"}}
+										classNames="mb-4"
+										local-class="input-prepend"}}
 										{{bp-input value=resConf.abilityCoach 
-										palceholder="%" 
-										size="medium" widthSize="small"}}
+										size="medium" 
+										widthSize="small"
+										local-class="input-prepend"}}
 									{{/if}}
 								{{/each}}
 							{{/bp-layout}}

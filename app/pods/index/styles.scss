@@ -12,6 +12,10 @@
 
 	.mission-list {
 		flex: 1;
+
+		.choosed {
+			background-color: $n020a;
+		}
 	}
 
 	.mission-desc {

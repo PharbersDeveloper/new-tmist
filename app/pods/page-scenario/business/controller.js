@@ -13,7 +13,7 @@ export default Controller.extend({
 		{ name: '已分配', state: 2 }
 
 	]),
-	overallFilterData: computed('currentHospState.state', function () {
+	overallFilterData: computed('currentHospState.state', 'businessInputs.@each.isFinish', function () {
 		let currentHospState = this.get('currentHospState').state,
 			destConfigs = this.get('model').destConfigs,
 			businessInputs = this.get('businessInputs'),
