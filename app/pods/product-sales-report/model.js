@@ -6,5 +6,5 @@ export default DS.Model.extend({
 	salesQuota: DS.attr('number'),	// 销售指标
 	share: DS.attr('number'),	// 份额
 	quotaAchievement: DS.attr('number'),	// 指标达成率
-	goodsConfig: DS.belongsTo('goodsConfig')
+	goodsConfig: DS.belongsTo()
 });
