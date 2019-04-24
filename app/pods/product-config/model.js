@@ -16,5 +16,5 @@ export default DS.Model.extend({
 	effectiveness: DS.attr('string'),
 	convenience: DS.attr('string'),
 	targetDepartment: DS.attr('string'),
-	product: DS.belongsTo('product')
+	product: DS.belongsTo()
 });
