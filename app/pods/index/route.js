@@ -6,6 +6,15 @@ import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	cookies: service(),
+	beforeModel() {
+		const cookies = this.get('cookies');
+
+		let token = cookies.read('access_token');
+
+		if (!token) {
+			this.transitionTo('login');
+		}
+	},
 	activate() {
 		this._super(...arguments);
 		let applicationController = this.controllerFor('application');
@@ -36,8 +45,16 @@ export default Route.extend({
 			let promiseArray = A([]);
 
 			promiseArray = useableProposals.map(ele => {
+				return ele.get('proposal');
+			});
+			return RSVP.Promise.all(promiseArray);
+		}).then(data => {
+			let useableProposalIds = data,
+				promiseArray = A([]);
+
+			promiseArray = useableProposalIds.map(ele => {
 				return store.query('paper', {
-					'proposal-id': ele.get('proposal').get('id'),
+					'proposal-id': ele.id,
 					'account-id': accountId
 				});
 			});
