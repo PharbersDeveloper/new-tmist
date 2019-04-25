@@ -9,7 +9,6 @@ export default Route.extend({
 	ajax: service(),
 	clientId: '5cbd9f94f4ce4352ecb082a0',
 	clientSecret: '5c90db71eeefcc082c0823b2',
-	redirectUri: 'http://192.168.100.165:8081/oauth-callback',
 	beforeModel({ targetName }) {
 		const cookies = this.get('cookies');
 

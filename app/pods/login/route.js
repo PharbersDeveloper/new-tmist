@@ -10,12 +10,11 @@ export default Route.extend({
 			applicationAdapter = this.get('store').adapterFor('application');
 
 		let version = `${applicationAdapter.get('namespace')}`,
-			host = `${applicationAdapter.get('service')}`,
+			host = `${applicationAdapter.get('serviceHost')}`,
 			resource = 'Thirdparty',
 			scope = 'App/System:[NTM]',
 			url = '',
 			redirectUri = `${applicationAdapter.get('host')}/oauth-callback`;
-
 
 		url = `?client_id=${this.get('clientId')}
 					&client_secret=${this.get('clientSecret')}

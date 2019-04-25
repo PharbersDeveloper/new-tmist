@@ -13,7 +13,7 @@ export default Route.extend({
 			applicationAdapter = this.get('store').adapterFor('application');
 
 		let version = `${applicationAdapter.get('namespace')}`,
-			host = `${applicationAdapter.get('service')}`,
+			host = `${applicationAdapter.get('serviceHost')}`,
 			resource = 'GenerateAccessToken',
 			scope = 'App/System:[NTM]',
 			url = '',
