@@ -8,8 +8,8 @@ export default DS.JSONAPIAdapter.extend({
 	namespace: 'v0',
 	host: 'http://ntm.pharbers.com',
 	// host: 'http://ntm.pharbers.com:8081',
-	service: 'oauth.pharbers.com',
-	// service: 'http://192.168.100.116:9097',
+	serviceHost: 'http://oauth.pharbers.com',
+	// serviceHost: 'http://192.168.100.116:9097',
 	cookies: service(),
 	pathForType(type) {
 		let newType = pluralize(camelize(type));
