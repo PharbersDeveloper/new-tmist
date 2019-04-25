@@ -35,8 +35,16 @@ export default Route.extend({
 			let promiseArray = A([]);
 
 			promiseArray = useableProposals.map(ele => {
+				return ele.get('proposal');
+			});
+			return RSVP.Promise.all(promiseArray);
+		}).then(data => {
+			let useableProposalIds = data,
+				promiseArray = A([]);
+
+			promiseArray = useableProposalIds.map(ele => {
 				return store.query('paper', {
-					'proposal-id': ele.get('proposal').get('id'),
+					'proposal-id': ele.id,
 					'account-id': accountId
 				});
 			});
