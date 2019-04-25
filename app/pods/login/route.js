@@ -9,13 +9,12 @@ export default Route.extend({
 		const ajax = this.get('ajax'),
 			applicationAdapter = this.get('store').adapterFor('application');
 
-		let host = 'http://192.168.100.116:9097',
-			version = `${applicationAdapter.get('namespace')}`,
+		let version = `${applicationAdapter.get('namespace')}`,
+			host = `${applicationAdapter.get('serviceHost')}`,
 			resource = 'Thirdparty',
 			scope = 'App/System:[NTM]',
 			url = '',
 			redirectUri = `${applicationAdapter.get('host')}/oauth-callback`;
-
 
 		url = `?client_id=${this.get('clientId')}
 					&client_secret=${this.get('clientSecret')}

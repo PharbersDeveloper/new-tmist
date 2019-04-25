@@ -6,7 +6,6 @@ export default Route.extend({
 	cookies: service(),
 	clientId: '5cbd9f94f4ce4352ecb082a0',
 	clientSecret: '5c90db71eeefcc082c0823b2',
-	redirectUri: 'http://192.168.100.165:8081/oauth-callback',
 	beforeModel(transition) {
 		const ajax = this.get('ajax'),
 			cookies = this.get('cookies'),
@@ -14,7 +13,7 @@ export default Route.extend({
 			applicationAdapter = this.get('store').adapterFor('application');
 
 		let version = `${applicationAdapter.get('namespace')}`,
-			host = 'http://192.168.100.116:9097',
+			host = `${applicationAdapter.get('serviceHost')}`,
 			resource = 'GenerateAccessToken',
 			scope = 'App/System:[NTM]',
 			url = '',
