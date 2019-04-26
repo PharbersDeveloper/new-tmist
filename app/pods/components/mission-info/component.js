@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import { A } from '@ember/array';
 
 export default Component.extend({
-	classNames: ['p-4'],
+	classNames: ['mr-4 mb-4 p-4'],
 	localClassNames: 'mission-info',
 	classNameBindings: ['isMultiplePhase:multiple-phase'],
 	localClassNameBindings: A(['isMultiplePhase:multiple-phase']),

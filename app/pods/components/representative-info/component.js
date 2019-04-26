@@ -5,7 +5,7 @@ import { A } from '@ember/array';
 export default Component.extend({
 	classNames: ['mb-4', 'bg-white'],
 	localClassNames: 'representative',
-	showContent: true,
+	showContent: false,
 	icon: computed('showContent', function () {
 		let showContent = this.get('showContent');
 

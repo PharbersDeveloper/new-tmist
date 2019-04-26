@@ -112,7 +112,11 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout main="center" local-class="chart"}}
-			{{bp-radar radarData=radarData}}
+			{{bp-radar
+				eid=(string-concat 'radarRepresentative' index)
+				radarData=radarData}}
+			{{!-- {{bp-radar
+				radarData=radarData}} --}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bs-collapse}}

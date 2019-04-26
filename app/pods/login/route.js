@@ -5,6 +5,7 @@ export default Route.extend({
 	ajax: inject(),
 	clientId: '5cbd9f94f4ce4352ecb082a0',
 	clientSecret: '5c90db71eeefcc082c0823b2',
+	showNav: false,
 	model() {
 		const ajax = this.get('ajax'),
 			applicationAdapter = this.get('store').adapterFor('application');
@@ -26,7 +27,7 @@ export default Route.extend({
 			replace(/\t/gm, '');
 		return ajax.request([host, version, resource, url].join('/'), {
 			dataType: 'text'
-		}).then(response => {
+		}).then((response) => {
 			return response;
 		});
 	}

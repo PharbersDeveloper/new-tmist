@@ -1,5 +1,5 @@
 {{#bp-layout local-class="page-mission"}}
-	{{#bp-layout wrap=true local-class="mission-list" classNames="p-4"}}
+	{{#bp-layout wrap=true multi=start local-class="mission-list" classNames="p-4"}}
 		{{#each model.useableProposals as |useableProposal uindex|}}
 			{{#each model.papers as |paper pindex|}}
 				{{#if (bp-eq uindex pindex)}}
