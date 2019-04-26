@@ -63,11 +63,13 @@ export default Route.extend({
 	},
 
 	model() {
-		let resourceConfig = this.modelFor('page-scenario'),
-			store = this.get('store'),
+		const store = this.get('store'),
+			resourceConfig = this.modelFor('page-scenario'),
+			scenarioId = resourceConfig.scenarioId,
 			mConf = resourceConfig.resourceConfManager,
-			rConfs = resourceConfig.resourceConfRep,
-			representativeInputs = A([]),
+			rConfs = resourceConfig.resourceConfRep;
+
+		let representativeInputs = A([]),
 			managerInput = null,
 			currentController = this.controllerFor('page-scenario.management');
 
@@ -100,7 +102,15 @@ export default Route.extend({
 				return rsvp.Promise.all(rConfs.map(ele => {
 					return ele.get('representativeConfig');
 				}));
+				// return store.queryRecord('personnelAssessment', {
+				// 	'scenario-id': scenarioId
+				// });
 			})
+			// .then(data => {
+			// 	console.log(data);
+
+			// 	return data.get('representativeAbility');
+			// })
 			.then(data => {
 				let averageAbility = [0, 0, 0, 0, 0],
 					averageJobEnthusiasm = 0,

@@ -6,6 +6,5 @@ export default DS.Model.extend({
 	regionalManagementAbility: DS.attr('number'),	// 区域管理能力
 	jobEnthusiasm: DS.attr('number'),	// 工作热情程度
 	behaviorValidity: DS.attr('number'),	//行为有效性
-	representative: DS.belongsTo('representative')
-
+	representative: DS.belongsTo()
 });
