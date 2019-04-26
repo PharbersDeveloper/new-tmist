@@ -63,9 +63,15 @@ export default Route.extend({
 			let promiseArray = A([]);
 
 			increaseSalesReports = data.sortBy('time');
+			promiseArray = increaseSalesReports.map(ele => {
+				return ele.get('scenario');
+			});
+			return rsvp.Promise.all(promiseArray);
+		}).then(data => {
+			let promiseArray = A([]);
 
-			tmpHead = increaseSalesReports.map(ele => {
-				let name = ele.get('scenario.name');
+			tmpHead = data.map(ele => {
+				let name = ele.get('name');
 
 				return name.slice(0, 4) + name.slice(-4);
 			});
