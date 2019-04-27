@@ -65,7 +65,7 @@ export default Route.extend({
 	model() {
 		const store = this.get('store'),
 			resourceConfig = this.modelFor('page-scenario'),
-			scenarioId = resourceConfig.scenarioId,
+			paper = resourceConfig.paper,
 			mConf = resourceConfig.resourceConfManager,
 			rConfs = resourceConfig.resourceConfRep;
 
@@ -99,19 +99,21 @@ export default Route.extend({
 					managerInput,
 					representativeInputs
 				});
-				return rsvp.Promise.all(rConfs.map(ele => {
-					return ele.get('representativeConfig');
-				}));
-				// return store.queryRecord('personnelAssessment', {
-				// 	'scenario-id': scenarioId
-				// });
+				// return rsvp.Promise.all(rConfs.map(ele => {
+				// 	return ele.get('representativeConfig');
+				// }));
+				return paper.get('personnelAssessments');
 			})
-			// .then(data => {
-			// 	console.log(data);
-
-			// 	return data.get('representativeAbility');
-			// })
 			.then(data => {
+				let increasePersonnelAssessment = data.sortBy('time'),
+					currentAbility = increasePersonnelAssessment.get('lastObject');
+
+				// console.log(currentAbility.get('id'));
+				return currentAbility.get('representativeAbilities');
+			})
+			.then(data => {
+				currentController.set('representativeAbilities', data);
+
 				let averageAbility = [0, 0, 0, 0, 0],
 					averageJobEnthusiasm = 0,
 					averageProductKnowledge = 0,
@@ -127,9 +129,11 @@ export default Route.extend({
 					averageSalesAbility += ele.get('salesAbility') / 5;
 
 				});
-				averageAbility = [averageJobEnthusiasm, averageProductKnowledge,
-					averageBehaviorValidity, averageRegionalManagementAbility,
-					averageSalesAbility];
+				averageAbility = [averageJobEnthusiasm.toFixed(2),
+					averageProductKnowledge.toFixed(2),
+					averageBehaviorValidity.toFixed(2),
+					averageRegionalManagementAbility.toFixed(2),
+					averageSalesAbility.toFixed(2)];
 				currentController.set('averageAbility', averageAbility);
 
 				return rsvp.hash({

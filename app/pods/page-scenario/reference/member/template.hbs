@@ -30,8 +30,10 @@
 {{/bp-layout}}
 {{#each model.resourceConfReps as |rrcs index|}}
 	{{representative-info
-		representative=rrcs
+		resourceRepresentative=rrcs
+		representativeId=rrcs.representativeConfig.representative.id
 		lastPersonnelAssessment=model.lastPersonnelAssessment
+		representativeAbilities=model.lastPersonnelAssessment.representativeAbilities
 		averageAbility=model.radarData
 		index=index}}
 {{/each}}

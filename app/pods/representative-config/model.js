@@ -7,12 +7,12 @@ export default DS.Model.extend({
 	education: DS.attr('string'),
 	professional: DS.attr('string'),
 	experience: DS.attr('number'),
-	productKnowledge: DS.attr('number'),
-	salesAbility: DS.attr('number'),
-	regionalManagementAbility: DS.attr('number'),
-	jobEnthusiasm: DS.attr('number'),
+	// productKnowledge: DS.attr('number'),
+	// salesAbility: DS.attr('number'),
+	// regionalManagementAbility: DS.attr('number'),
+	// jobEnthusiasm: DS.attr('number'),
 	entryTime: DS.attr('number'),	// 入职时长
-	behaviorValidity: DS.attr('number'),
+	// behaviorValidity: DS.attr('number'),
 	totalTime: DS.attr('number'),
 	representative: DS.belongsTo()
 });

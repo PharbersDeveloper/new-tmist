@@ -75,7 +75,6 @@ export default Route.extend({
 			}).then(data => {
 
 				return hash({
-					scenarioId,
 					proposal,
 					paper,
 					resourceConfRep,

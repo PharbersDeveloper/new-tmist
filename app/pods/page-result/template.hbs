@@ -1,4 +1,4 @@
-{{#bp-layout direction="col" local-class="page-result" }}
+{{#bp-layout direction="col" local-class="page-result" classNames="p-4" }}
 	<p local-class="back-area" class="mb-3">
 		{{#link-to "index"}}
 			返回
@@ -14,6 +14,9 @@
 					第一周期*
 				{{/left.item}}
 			{{/body.left}}
+			{{#body.right}}
+				{{#bp-button type='primary' onClick=(action 'toReport')}}查看经理测评报告{{/bp-button}}
+			{{/body.right}}
 		{{/ph.body}}
 	{{/bp-page-header}}
 	{{#bp-tabs local-class="tabs-container" as |tabs|}}

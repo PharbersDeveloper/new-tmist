@@ -56,3 +56,29 @@
 		{{/each}}
 	{{/bp-layout}}
 {{/bp-layout}}
+{{#bp-modal
+		open=notice 
+		position='center'
+		onSubmit=(action "submit") 
+		onHidden=(action (mut notice) false) as |modal|}}
+	{{#modal.header closeButton=false}}
+		<h4 class="modal-title">
+			欢迎进入铁马区域管理模拟平台
+		</h4>
+	{{/modal.header}}
+	{{#modal.body}}
+		{{detail}}
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="link" onClick=(action modal.close)}}跳过{{/bp-button}}
+		{{#if (bp-eq step 3)}}
+			{{#bp-button onClick=(action 'prevStep')}}上一步{{/bp-button}}
+			{{#bp-button type="primary" onClick=(action modal.close)}}开始{{/bp-button}}
+		{{else if (bp-eq step 2)}}
+			{{#bp-button onClick=(action 'prevStep')}}上一步{{/bp-button}}
+			{{#bp-button type="primary" onClick=(action modal.submit)}}下一步({{step}}/3){{/bp-button}}
+		{{else}}
+			{{#bp-button type="primary" onClick=(action modal.submit)}}下一步({{step}}/3){{/bp-button}}
+		{{/if}}
+	{{/modal.footer}}
+{{/bp-modal}}

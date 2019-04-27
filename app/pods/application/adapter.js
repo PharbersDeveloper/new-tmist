@@ -9,12 +9,12 @@ export default DS.JSONAPIAdapter.extend({
 	/**
 	 * 本地部署
 	 */
-	// host: 'http://ntm.pharbers.com:8081',
+	host: 'http://ntm.pharbers.com:8081',
 	// serviceHost: 'http://192.168.100.116:9097',
 	/**
 	 * 线上部署
 	 */
-	host: 'http://ntm.pharbers.com',
+	// host: 'http://ntm.pharbers.com',
 	serviceHost: 'http://oauth.pharbers.com',
 	cookies: service(),
 	pathForType(type) {

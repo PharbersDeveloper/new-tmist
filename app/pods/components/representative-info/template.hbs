@@ -2,35 +2,35 @@
 	<span class="mr-2" local-class="icon" {{action 'showContent'}}>
 		{{bp-icon icon=icon}}
 	</span>
-	{{representative.representativeConfig.representative.name}}
+	{{resourceRepresentative.representativeConfig.representative.name}}
 {{/bp-layout}}
 {{#bs-collapse collapsed=showContent}}
 	{{#bp-layout local-class="content"}}
 		{{#bp-layout direction="col" local-class="basic-infos" classNames="p-4"}}
 			{{#bp-layout local-class="rep"}}
-				{{#each representative.representativeConfig.representative.images as |avatar index|}}
+				{{#each resourceRepresentative.representativeConfig.representative.images as |avatar index|}}
 					{{#if (bp-eq index 0)}}
-						<img src={{avatar.img}} alt={{representative.representativeConfig.representative.name}}>
+						<img src={{avatar.img}} alt={{resourceRepresentative.representativeConfig.representative.name}}>
 					{{/if}}
 				{{/each}}
 				{{#bp-layout direction="col" local-class="infos"
 					classNames="ml-4"}}
 					<h4 local-class="title" class="mb-4">
-						{{representative.representativeConfig.representative.name}}
+						{{resourceRepresentative.representativeConfig.representative.name}}
 					</h4>
 					<p local-class="properties" class="m-0">
-						{{#if (bp-eq representative.representativeConfig.representative.gender 0)}}
+						{{#if (bp-eq resourceRepresentative.representativeConfig.representative.gender 0)}}
 							女
 						{{else}}
 							男
 						{{/if}}
-						<span class="ml-2">{{representative.representativeConfig.age}}岁</span>
+						<span class="ml-2">{{resourceRepresentative.representativeConfig.age}}岁</span>
 					</p>
 					{{#bp-layout tagName="p" local-class="properties" classNames="mb-4"}}
-						<span class="border-right pr-1">{{representative.representativeConfig.education}}</span>
-						<span class="border-right px-1">{{representative.representativeConfig.professional}}</span>
-						<span class="border-right px-1">{{representative.representativeConfig.experience}}年工作经验</span>
-						<span class="pl-1">入职{{representative.representativeConfig.entryTime}}年</span>
+						<span class="border-right pr-1">{{resourceRepresentative.representativeConfig.education}}</span>
+						<span class="border-right px-1">{{resourceRepresentative.representativeConfig.professional}}</span>
+						<span class="border-right px-1">{{resourceRepresentative.representativeConfig.experience}}年工作经验</span>
+						<span class="pl-1">入职{{resourceRepresentative.representativeConfig.entryTime}}年</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
 						{{#bp-layout direction="col"}}
@@ -39,10 +39,10 @@
 						{{/bp-layout}}
 						{{#bp-layout direction="col" classNames="ml-3"}}
 							<span local-class="values" class="mb-3">
-								{{representative.representativeConfig.advantage}}
+								{{resourceRepresentative.representativeConfig.advantage}}
 							</span>
 							<span local-class="values">
-								{{representative.representativeConfig.managerEvaluation}}
+								{{resourceRepresentative.representativeConfig.managerEvaluation}}
 							</span>
 						{{/bp-layout}}
 					{{/bp-layout}}
@@ -56,7 +56,7 @@
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
 							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
-								{{#if (bp-eq representative.representativeConfig.representative.id kpi.representative.id)}}
+								{{#if (bp-eq resourceRepresentative.representativeConfig.representative.id kpi.representative.id)}}
 									{{format-number kpi.targetNumber}}
 								{{/if}}
 							{{/each}}
@@ -67,7 +67,7 @@
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
 							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
-								{{#if (bp-eq representative.representativeConfig.representative.id kpi.representative.id)}}
+								{{#if (bp-eq resourceRepresentative.representativeConfig.representative.id kpi.representative.id)}}
 									{{format-number kpi.targetCoverage}}
 								{{/if}}
 							{{/each}}
@@ -78,7 +78,7 @@
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
 							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
-								{{#if (bp-eq representative.representativeConfig.representative.id kpi.representative.id)}}
+								{{#if (bp-eq resourceRepresentative.representativeConfig.representative.id kpi.representative.id)}}
 									{{format-number kpi.highLevelFrequency}}
 								{{/if}}
 							{{/each}}
@@ -89,7 +89,7 @@
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
 							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
-								{{#if (bp-eq representative.representativeConfig.representative.id kpi.representative.id)}}
+								{{#if (bp-eq resourceRepresentative.representativeConfig.representative.id kpi.representative.id)}}
 									{{format-number kpi.middleLevelFrequency}}
 								{{/if}}
 							{{/each}}
@@ -100,7 +100,7 @@
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
 							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
-								{{#if (bp-eq representative.representativeConfig.representative.id kpi.representative.id)}}
+								{{#if (bp-eq resourceRepresentative.representativeConfig.representative.id kpi.representative.id)}}
 									{{format-number kpi.lowLevelFrequency}}
 								{{/if}}
 							{{/each}}

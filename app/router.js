@@ -39,5 +39,6 @@ Router.map(function () {
 	this.route('page-overview', { path: 'overview' });
 	this.route('page-notice', { path: 'notice/:proposalId' });
 	this.route('login');
+	this.route('page-report', { path: 'report' });
 });
 export default Router;
