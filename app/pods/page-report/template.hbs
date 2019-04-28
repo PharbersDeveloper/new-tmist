@@ -1,0 +1,59 @@
+{{#bp-layout direction="col" local-class="page-report" 
+	classNames="p-4"}}
+	{{#bp-page-header local-class='report-header' class="mb-4 bg-white" as |ph|}}
+		{{#ph.body as |body|}}
+			{{#body.left as |left|}}
+				{{#left.item }}
+					测试综合表现
+				{{/left.item}}
+				{{#left.item }}
+					日期：<span class="mx-2">2019-02-05*</span>
+					用时：<span class="mx-2">50min* </span>
+				{{/left.item}}
+			{{/body.left}}
+			{{#body.right}}
+				{{#bp-button disabled=true onClick=(action 'toResult') classNames="mr-1"}}
+					导出测试数据
+				{{/bp-button}}
+				{{#bp-button onClick=(action 'toResult')}}
+					返回报告
+				{{/bp-button}}
+			{{/body.right}}
+		{{/ph.body}}
+	{{/bp-page-header}}
+	{{#bp-layout tagName='h3' cross='center' local-class="title" 
+		classNames="m-0 px-4 bg-white"}}
+		综合表现
+	{{/bp-layout}}
+	{{#bp-layout main="between" local-class="performance" classNames="mb-2 bg-white"}}
+		{{#bp-layout direction="col" cross="center" local-class="score" 
+			classNames="p-4"}}
+			<img src="https://i.loli.net/2019/04/27/5cc3e0a8ae8a2.png" alt="designation" title="designation" class="mb-4" />
+			<p local-class="level">A级(优秀)*</p>
+		{{/bp-layout}}
+		{{#bp-layout direction="col" local-class="evaluation" classNames="p-4"}}
+			<h4 local-class="title" class="mb-3">等级评价</h4>
+			<p local-class="desc" class="m-0">您还需要花更多的精力，完善自己在报表与数据理解上的能力，透过科学化的分析，能使您在部署战略上，了解全局现状，洞察问题关键，预判发展趋势。从数据中你将收获宏观的视野，掌握全局。</p>
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout tagName='h3' cross='center' local-class="title" 
+		classNames="m-0 px-4 bg-white"}}
+		指标达成结果
+	{{/bp-layout}}
+	{{#bp-layout main="between" cross='center' local-class="rate" classNames="px-4 bg-white"}}
+		<span local-class="keys">总达成率</span>
+		<span local-class="values">90%</span>
+	{{/bp-layout}}
+	{{#bp-layout main="between" cross='center' local-class="rate-item" classNames="px-4 bg-white"}}
+		<span local-class="keys">2019Q1</span>
+		<span local-class="values">90%</span>
+	{{/bp-layout}}
+	{{#bp-layout main="between" cross='center' local-class="rate-item" classNames="px-4 bg-white"}}
+		<span local-class="keys">2019Q2</span>
+		<span local-class="values">90%</span>
+	{{/bp-layout}}
+	{{#bp-layout main="between" cross='center' local-class="rate-item" classNames="px-4 bg-white"}}
+		<span local-class="keys">2019Q3</span>
+		<span local-class="values">90%</span>
+	{{/bp-layout}}
+{{/bp-layout}}

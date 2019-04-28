@@ -24,13 +24,16 @@
 	{{#bp-layout direction="col" local-class="mission-notice item" classNames="mt-4"}}
 		<h1 class="mb-3 p-3">
 			<span local-class="title" class="mr-3">本期任务通知</span>
-			<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
+			{{#if (bp-not-eq model.scenario.phase 1)}}
+				<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
+			{{/if}}
+			{{!-- <span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span> --}}
 		</h1>
 		<div local-class="resource" class="mb-2 p-3 rounded">
-			<h2 class="mb-2">
+			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
 				{{bp-icon icon="mission-1"}}
-				<span>合理管理与分配资源</span>
-			</h2>
+				<span class="ml-2">合理分配资源完成业务目标</span>
+			{{/bp-layout}}
 			{{!-- {{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}
 				{{#bp-layout local-class="item-resource" classNames="my-4"}}
 					{{bp-icon size='large' icon='office-building' 
@@ -125,16 +128,16 @@
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">分配会议名额</p>
 					<h4 local-class="title">
-						66*
+						{{model.resourceConfigManager.managerConfig.totalMeetingPlaces}}
 					</h4>
 				</div>
 			{{/bp-layout}}
 		</div>
 		<div local-class="resource" class="mb-4 p-3 rounded">
-			<h2 class="mb-2">
+			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
 				{{bp-icon icon="mission-2"}}
-				<span>团队与自我管理</span>
-			</h2>
+				<span class="ml-2">团队与自我管理</span>
+			{{/bp-layout}}
 			{{#bp-layout main="between" classNames="py-3 bg-white rounded"}}
 				<div local-class="item" class="text-center">
 					{{bp-icon size='large' icon='pie' 
@@ -155,15 +158,33 @@
 			{{/bp-layout}}
 		</div>
 		<div local-class="resource" class="mb-4 p-3 rounded">
-			<h2 class="mb-2">
+			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
 				{{bp-icon icon="mission-3"}}
-				<span>完成药品销售额指标</span>
-			</h2>
-			{{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}
-				{{#bp-layout local-class="item-resource" classNames="my-4"}}
+				<span class="ml-2">有限预算超额完成业务目标</span>
+			{{/bp-layout}}
+			{{!-- <h2 class="mb-2">
+				{{bp-icon icon="mission-3"}}
+				<span>有限预算超额完成业务目标</span>
+			</h2> --}}
+			{{#bp-layout direction="col"}}
+				{{#bp-layout local-class="item-resource" classNames="mb-4 p-4 bg-white rounded"}}
+					{{bp-icon size='large' icon='china-money' 
+						local-class="icon"}}
+					{{#bp-layout direction="col" local-class="main-box" classNames="ml-4"}}
+						{{#bp-layout main="between" classNames="mb-2"}}
+							<h4 class="m-0">总预算</h4>
+							<span local-class="schedule">￥{{format-number model.resourceConfigManager.managerConfig.totalBudgets}}</span>
+						{{/bp-layout}}
+						{{#bp-progress as |p|}}
+							{{p.bar value=usedResource.assignedBudgets maxValue=model.resourceConfigManager.managerConfig.totalBudgets}}
+						{{/bp-progress}}
+					{{/bp-layout}}
+					<div local-class="blank"></div>
+				{{/bp-layout}}
+				{{#bp-layout local-class="item-resource" classNames="p-4 bg-white rounded"}}
 					{{bp-icon size='large' icon='pill' 
 						local-class="icon"}}
-					{{#bp-layout direction="col" local-class="main-box"}}
+					{{#bp-layout direction="col" local-class="main-box" classNames="ml-4"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
 							{{#each model.goodsConfigs as |gc|}}
 								{{#if (bp-eq gc.productConfig.productType 0)}}

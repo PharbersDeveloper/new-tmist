@@ -4,13 +4,13 @@ import { A } from '@ember/array';
 
 export default Route.extend({
 	model() {
-		let totalConfig = this.modelFor('page-scenario.reference'),
+		const totalConfig = this.modelFor('page-scenario.reference'),
 			resourceConfReps = totalConfig.resourceConfRep,
-			paper = totalConfig.paper,
-			promiseArray = A([]),
-			managementController = this.controllerFor('page-scenario.management'),
+			paper = totalConfig.paper;
+
+		let managementController = this.controllerFor('page-scenario.management'),
 			averageAbility = managementController.get('averageAbility') || A([]),
-			radarData = null;
+			lastPersonnelAssessment = A([]);
 
 		/**
 		 * 先从 管理决策 页面获取，如果没有，则计算
@@ -18,22 +18,28 @@ export default Route.extend({
 		if (averageAbility.length > 0) {
 			return paper.get('personnelAssessments')
 				.then(data => {
+					let increasePersonnelAssessment = data.sortBy('time'),
+						currentAbility = increasePersonnelAssessment.get('lastObject');
+
 					return rsvp.hash({
 						radarData: [{
 							value: averageAbility,
 							name: '团队平均能力'
 						}],
-						lastPersonnelAssessment: data.get('lastObject'),
+						lastPersonnelAssessment: currentAbility,
 						radarColor: ['#3172E0'],
 						resourceConfManager: totalConfig.resourceConfManager,
 						resourceConfReps
 					});
 				});
 		}
-		promiseArray = resourceConfReps.map(ele => {
-			return ele.get('representativeConfig');
-		});
-		return rsvp.Promise.all(promiseArray)
+		return paper.get('personnelAssessments')
+			.then(data => {
+				let increasePersonnelAssessment = data.sortBy('time');
+
+				lastPersonnelAssessment = increasePersonnelAssessment.get('lastObject');
+				return lastPersonnelAssessment.get('representativeAbilities');
+			})
 			.then(data => {
 				let averageJobEnthusiasm = 0,
 					averageProductKnowledge = 0,
@@ -49,9 +55,9 @@ export default Route.extend({
 					averageSalesAbility += ele.get('salesAbility') / 5;
 
 				});
-				averageAbility = [averageJobEnthusiasm, averageProductKnowledge,
-					averageBehaviorValidity, averageRegionalManagementAbility,
-					averageSalesAbility];
+				averageAbility = [averageJobEnthusiasm.toFixed(2), averageProductKnowledge.toFixed(2),
+					averageBehaviorValidity.toFixed(2), averageRegionalManagementAbility.toFixed(2),
+					averageSalesAbility.toFixed(2)];
 				return [
 					{
 						value: averageAbility,
@@ -59,13 +65,10 @@ export default Route.extend({
 					}
 				];
 			}).then(data => {
-				radarData = data;
-				return paper.get('personnelAssessments');
-			}).then(data => {
 				return rsvp.hash({
-					radarData,
-					lastPersonnelAssessment: data.get('lastObject'),
-					radarColor: ['#3172E0'],
+					radarData: data,
+					lastPersonnelAssessment,
+					radarColor: ['#C1C7D0'],
 					resourceConfManager: totalConfig.resourceConfManager,
 					resourceConfReps
 				});

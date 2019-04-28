@@ -14,7 +14,11 @@ export default Route.extend({
 
 		let token = cookies.read('access_token');
 
-		if (!token && targetName !== 'oauth-callback') {
+		// 初始化 notice 页面的 notcie
+		if (isEmpty(localStorage.getItem('notice'))) {
+			localStorage.setItem('notice', true);
+		}
+		if (isEmpty(token) && targetName !== 'oauth-callback') {
 			this.transitionTo('login');
 		}
 	},

@@ -1,0 +1,51 @@
+.page-report {
+	height: 100%;
+	background-color: $n010;
+	overflow: auto;
+
+	h3.title {
+		height: 54px;
+		@extend %header-medium;
+	}
+
+	h4.title {
+		@extend %header-small;
+	}
+
+	h4.title {
+		@extend %header-small;
+	}
+
+	.performance {
+		.score {
+			flex: 1;
+
+			img {
+				width: 128px;
+				height: 144px;
+			}
+
+			.level {
+				@extend %p-secondary;
+			}
+		}
+
+		.evaluation {
+			flex: 2;
+
+			.desc {
+				@extend %p-primary;
+			}
+		}
+	}
+
+	.rate,
+	.rate-item {
+		height: 52px;
+
+		.keys,
+		.values {
+			@extend %p-primary;
+		}
+	}
+}

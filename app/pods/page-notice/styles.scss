@@ -70,9 +70,9 @@
 				position: absolute;
 				right: -20px;
 				top: -5px;
-				border-left: 30px solid transparent;
+				border-left: 25px solid transparent;
 				border-right: 30px solid transparent;
-				border-bottom: 30px solid #fff;
+				border-bottom: 25px solid $n010;
 				transform: rotate(45deg);
 				width: 0;
 			}
@@ -89,7 +89,7 @@
 					.icon {
 						width: 32px;
 						height: 32px;
-						color: rgb(80, 95, 121);
+						fill: rgb(80, 95, 121);
 					}
 
 					p.desc {
@@ -102,10 +102,11 @@
 				}
 
 				.item-resource {
+					@extend %depth-z200;
+
 					.icon {
 						flex: 0 0 32px;
 						height: 32px;
-						margin-right: $spacing-3;
 					}
 
 					.blank {
@@ -150,14 +151,4 @@
 			}
 		}
 	}
-}
-
-:global(.bs-popover-bottom) {
-	&.rule {
-		:global(.popover-body) {
-			@extend %p-secondary;
-		}
-
-	}
-
 }

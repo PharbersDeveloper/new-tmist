@@ -37,9 +37,12 @@ export default Controller.extend({
 			});
 
 			restTime = managerTotalTime - usedTime;
+			if (restTime < 0) {
+				this.set('overManagerTotalTime', true);
+			}
 			return A([
 				{ name: '已分配', value: usedTime },
-				{ name: '未分配', value: restTime }
+				{ name: '未分配', value: restTime < 0 ? 0 : restTime }
 			]);
 		}),
 	circlePoint: computed(`representativeInputs.@each.{totalPoint}`, function () {
@@ -67,8 +70,11 @@ export default Controller.extend({
 	}),
 	radarData: computed('tmpRepConf', function () {
 		let tmpRepConf = this.get('tmpRepConf'),
+			representativeId = '',
 			originalAbility = [],
-			averageAbility = this.get('averageAbility') || [0, 0, 0, 0, 0];
+			averageAbility = this.get('averageAbility') || [0, 0, 0, 0, 0],
+			representativeAbilities = this.get('representativeAbilities'),
+			reallyAbility = null;
 
 		if (isEmpty(tmpRepConf)) {
 			return [
@@ -88,11 +94,17 @@ export default Controller.extend({
 		// { name: '行为有效性', max: 100 },
 		// { name: '区域管理能力', max: 100 },
 		// { name: '销售知识', max: 100 }
-		originalAbility.push(tmpRepConf.get('jobEnthusiasm'));
-		originalAbility.push(tmpRepConf.get('productKnowledge'));
-		originalAbility.push(tmpRepConf.get('behaviorValidity'));
-		originalAbility.push(tmpRepConf.get('regionalManagementAbility'));
-		originalAbility.push(tmpRepConf.get('salesAbility'));
+		representativeId = tmpRepConf.get('representative.id');
+		representativeAbilities.forEach(ele => {
+			if (ele.get('representative.id') === representativeId) {
+				reallyAbility = ele;
+			}
+		});
+		originalAbility.push(reallyAbility.get('jobEnthusiasm'));
+		originalAbility.push(reallyAbility.get('productKnowledge'));
+		originalAbility.push(reallyAbility.get('behaviorValidity'));
+		originalAbility.push(reallyAbility.get('regionalManagementAbility'));
+		originalAbility.push(reallyAbility.get('salesAbility'));
 		return [
 			{
 				value: originalAbility,

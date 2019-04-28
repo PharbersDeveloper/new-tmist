@@ -56,3 +56,55 @@
 		{{/each}}
 	{{/bp-layout}}
 {{/bp-layout}}
+{{#bp-modal
+		open=notice 
+		position='center'
+		onSubmit=(action "submit") 
+		onHidden=(action (mut notice) false) as |modal|}}
+	{{#modal.header closeButton=false classNames="p-4"}}
+		欢迎进入铁马区域管理模拟平台
+	{{/modal.header}}
+	{{#modal.body classNames="px-4 pt-0"}}
+		{{detail}}
+	{{/modal.body}}
+	{{!-- {{#modal.footer tagName="div"}} --}}
+	{{#bp-layout main="between" classNames="px-4"}}
+		<p>
+			{{#choose-group type="checkbox" onChange=(action 'chooseItem') as |choose|}}
+				{{#each neverShow as |radio|}}
+					{{choose.item radio=radio}}
+				{{/each}}
+			{{/choose-group}}
+		</p>
+		<p>
+			{{#bp-button type="link" onClick=(action modal.close)}}跳过{{/bp-button}}
+			{{#if (bp-eq step 3)}}
+				{{#bp-button onClick=(action 'prevStep')}}上一步{{/bp-button}}
+				{{#bp-button type="primary" onClick=(action modal.close)}}开始{{/bp-button}}
+			{{else if (bp-eq step 2)}}
+				{{#bp-button onClick=(action 'prevStep')}}上一步{{/bp-button}}
+				{{#bp-button type="primary" onClick=(action modal.submit)}}下一步({{step}}/3){{/bp-button}}
+			{{else}}
+				{{#bp-button type="primary" onClick=(action modal.submit)}}下一步({{step}}/3){{/bp-button}}
+			{{/if}}
+		</p>
+	{{/bp-layout}}
+	{{!-- {{/modal.footer}} --}}
+{{/bp-modal}}
+{{#bp-modal
+		open=reDeploy 
+		position='center'
+		onHidden=(action (mut reDeploy) false) as |modal|}}
+	{{#modal.header closeButton=false}}
+		<h4 class="modal-title">
+			重新部署
+		</h4>
+	{{/modal.header}}
+	{{#modal.body}}
+		重新开始将清空您上次尚未完成的决策记录，是否继续？
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="link" onClick=(action modal.close)}}取消{{/bp-button}}
+		{{#bp-button type="primary" onClick=(action 'reConfirmDeploy')}}重新部署{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}

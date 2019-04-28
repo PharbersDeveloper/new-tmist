@@ -65,53 +65,62 @@ export default Route.extend({
 	model() {
 		const store = this.get('store'),
 			resourceConfig = this.modelFor('page-scenario'),
-			scenarioId = resourceConfig.scenarioId,
+			paper = resourceConfig.paper,
 			mConf = resourceConfig.resourceConfManager,
-			rConfs = resourceConfig.resourceConfRep;
+			rConfs = resourceConfig.resourceConfRep,
+			managerTotalTime = resourceConfig.managerTotalTime,
+			managerTotalKpi = resourceConfig.managerTotalKpi;
 
-		let representativeInputs = A([]),
-			managerInput = null,
-			currentController = this.controllerFor('page-scenario.management');
+		let currentController = this.controllerFor('page-scenario.management'),
+			inputResource = this.hasManagerInput(store.peekAll('managerinput'), this, store, rConfs),
+			managerInput = inputResource.managerInput,
+			representativeInputs = inputResource.representativeInputs;
+
 
 		/**
 		 * 获取经理总时间/总预算/总名额
 		 */
-		return mConf.get('managerConfig')
-			.then(mc => {
-				return {
-					time: mc.get('managerTime'),
-					kpi: mc.get('managerKpi')
-				};
-			}).then(data => {
-				currentController.set('managerTotalTime', data.time);
-				currentController.set('managerTotalKpi', data.kpi);
-				return store.peekAll('managerinput');
-			})
-			// 判断是否已经创建 inputs
-			.then(data => {
-				return this.hasManagerInput(data, this, store, rConfs);
-			}).then(data => {
-				// 获取团队平均能力
-				managerInput = data.managerInput;
-				representativeInputs = data.representativeInputs;
+		// return mConf.get('managerConfig')
+		// 	.then(mc => {
+		// 		return {
+		// 			time: mc.get('managerTime'),
+		// 			kpi: mc.get('managerKpi')
+		// 		};
+		// 	}).then(data => {
+		// currentController.set('managerTotalTime', managerTotalTime);
+		// currentController.set('managerTotalKpi', managerTotalKpi);
+		// return store.peekAll('managerinput')
+		// })
+		// 判断是否已经创建 inputs
+		// .then(data => {
+		// return this.hasManagerInput(store.peekAll('managerinput'), this, store, rConfs)
+		// })
+		// .then(data => {
+		// 获取团队平均能力
+		// managerInput = data.managerInput;
+		// representativeInputs = data.representativeInputs;
 
-				currentController.setProperties({
-					managerInput,
-					representativeInputs
-				});
-				return rsvp.Promise.all(rConfs.map(ele => {
-					return ele.get('representativeConfig');
-				}));
-				// return store.queryRecord('personnelAssessment', {
-				// 	'scenario-id': scenarioId
-				// });
-			})
-			// .then(data => {
-			// 	console.log(data);
-
-			// 	return data.get('representativeAbility');
+		currentController.setProperties({
+			managerInput,
+			representativeInputs,
+			managerTotalTime,
+			managerTotalKpi
+		});
+		// return rsvp.Promise.all(rConfs.map(ele => {
+		// 	return ele.get('representativeConfig');
+		// }));
+		// 获取团队平均能力
+		return paper.get('personnelAssessments')
 			// })
 			.then(data => {
+				let increasePersonnelAssessment = data.sortBy('time'),
+					currentAbility = increasePersonnelAssessment.get('lastObject');
+
+				return currentAbility.get('representativeAbilities');
+			})
+			.then(data => {
+				currentController.set('representativeAbilities', data);
+
 				let averageAbility = [0, 0, 0, 0, 0],
 					averageJobEnthusiasm = 0,
 					averageProductKnowledge = 0,
@@ -127,9 +136,11 @@ export default Route.extend({
 					averageSalesAbility += ele.get('salesAbility') / 5;
 
 				});
-				averageAbility = [averageJobEnthusiasm, averageProductKnowledge,
-					averageBehaviorValidity, averageRegionalManagementAbility,
-					averageSalesAbility];
+				averageAbility = [averageJobEnthusiasm.toFixed(2),
+					averageProductKnowledge.toFixed(2),
+					averageBehaviorValidity.toFixed(2),
+					averageRegionalManagementAbility.toFixed(2),
+					averageSalesAbility.toFixed(2)];
 				currentController.set('averageAbility', averageAbility);
 
 				return rsvp.hash({

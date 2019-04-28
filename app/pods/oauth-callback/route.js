@@ -15,7 +15,7 @@ export default Route.extend({
 		let version = `${applicationAdapter.get('namespace')}`,
 			host = `${applicationAdapter.get('serviceHost')}`,
 			resource = 'GenerateAccessToken',
-			scope = 'App/System:[NTM]',
+			scope = `${applicationAdapter.get('scope')}`,
 			url = '',
 			redirectUri = `${applicationAdapter.get('host')}/oauth-callback`;
 
@@ -41,20 +41,23 @@ export default Route.extend({
 					// cookies.write('account_id', response.account_id);
 					cookies.write('account_id', '5c4552455ee2dd7c36a94a9e', {
 						maxAge: maxAge,
-						domain: 'pharbers.com'
+						domain: 'ntm.pharbers.com'
 					});
 					cookies.write('access_token', response.access_token, {
 						maxAge: maxAge,
-						domain: 'pharbers.com'
+						domain: 'ntm.pharbers.com'
 					});
 					cookies.write('refresh_token', response.refresh_token, {
 						maxAge: maxAge,
-						domain: 'pharbers.com'
+						domain: 'ntm.pharbers.com'
 					});
-					// cookies.write('expiry', response.expiry);
 					cookies.write('token_type', response.token_type, {
 						maxAge: maxAge,
-						domain: 'pharbers.com'
+						domain: 'ntm.pharbers.com'
+					});
+					cookies.write('scope', response.scope, {
+						maxAge: maxAge,
+						domain: 'ntm.pharbers.com'
 					});
 					this.transitionTo('application');
 				});

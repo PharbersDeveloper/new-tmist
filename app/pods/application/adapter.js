@@ -6,11 +6,12 @@ import { inject as service } from '@ember/service';
 
 export default DS.JSONAPIAdapter.extend({
 	namespace: 'v0',
+	scope: `APP/NTM`,
 	/**
 	 * 本地部署
 	 */
 	// host: 'http://ntm.pharbers.com:8081',
-	// serviceHost: 'http://192.168.100.116:9097',
+	// serviceHost: 'http://192.168.100.174:9097',
 	/**
 	 * 线上部署
 	 */

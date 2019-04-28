@@ -14,7 +14,15 @@
 		flex: 1;
 
 		.choosed {
-			background-color: $n020a;
+			border: 2px solid $b100;
+
+			&:global(.new-mission-active) {
+				border: 2px solid $p100;
+			}
+
+			&:global(.done-mission-active) {
+				border: 2px solid $g200;
+			}
 		}
 	}
 

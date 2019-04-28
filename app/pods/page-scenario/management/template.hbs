@@ -64,7 +64,6 @@
 							eid='representativeRadar' 
 							radarData=radarData}}
 					</div>
-					{{!-- {{bp-radar radarData=radarData}} --}}
 				</div>
 			</div>
 		</div>
@@ -242,9 +241,22 @@
 			</div>
 		{{/if}}
 	{{/bp-layout}}
-	{{!-- <div style="height: 144px">
-		{{bp-circle/tm seriesName="经理剩余时间" 
-			eid='managerTime'
-			circleData=circleTime}}
-	</div> --}}
 {{/bp-layout}}
+{{#bp-modal
+		open=overManagerTotalTime
+		position='center' 
+		onHidden=(action (mut overManagerTotalTime) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			提醒
+		</h4>
+	{{/modal.header}}
+	{{#modal.body}}
+		<p>
+			经理时间超过限制，请重新设置。
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}
