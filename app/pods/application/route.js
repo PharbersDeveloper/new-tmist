@@ -18,7 +18,7 @@ export default Route.extend({
 		if (isEmpty(localStorage.getItem('notice'))) {
 			localStorage.setItem('notice', true);
 		}
-		if (!token && targetName !== 'oauth-callback') {
+		if (isEmpty(token) && targetName !== 'oauth-callback') {
 			this.transitionTo('login');
 		}
 	},

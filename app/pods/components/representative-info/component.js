@@ -33,15 +33,12 @@ export default Component.extend({
 				}
 			];
 		}
-		console.log(`currentRepresentativeId${representativeId}`);
 		representativeAbilities.forEach(ele => {
-			console.log(`arrayRepresentativeAbilitiesId${ele.get('representative.id')}`);
 			if (ele.get('representative.id') === representativeId) {
 				reallyAbility = ele;
 			}
 		});
 
-		console.log(reallyAbility);
 		if (isEmpty(reallyAbility)) {
 			originalAbility = [0, 0, 0, 0, 0];
 		} else {

@@ -1,23 +1,18 @@
 {{#if showNavbar}}
-	{{#bp-layout tagName="header"  main="between" cross='center'
+	{{#bp-layout tagName="header" main="between" cross='center'
 		local-class="header" classNames="bg-white px-4"}}
 		{{#link-to "application" tagName="p"  classNames="m-0"}}
 			<img src="/assets/images/logo_tmist.png" alt="tmist logo" class="mr-3">
-			{{!-- TMIST --}}
 		{{/link-to}}
 		{{#if (bp-eq testProgress 1)}}
 			{{#bp-button onClick=(action "endMission")}}结束任务{{/bp-button}}
 		{{else if (bp-eq testProgress 2)}}
 			<span local-class="button-area">
-				{{#bp-button type="subtle"  classNames="mr-3"}}
-					任务通知
-					{{#bs-popover placement="bottom" title="" local-class="rule"}}
-						这是您本期的任务内容，
-						我们将在您提交执行决策后，对您的决策的结果和表现进行评估。<br>
-						期待您为公司带来业绩上的增长和团队能力的提升!
-					{{/bs-popover}}
+				{{#bp-button type="subtle"  classNames="mr-3"
+					onClick=(action (mut rules) true)}}
+					规则介绍
 				{{/bp-button}}
-				{{#bp-button onClick=(action "exitMission")}}退出任务{{/bp-button}}
+				{{#bp-button onClick=(action (mut exitMission) true)}}结束任务{{/bp-button}}
 			</span>
 		{{else}}
 			{{#bp-dropdown widthSize="auto"
@@ -40,3 +35,38 @@
 <section local-class={{if showNavbar 'container' 'container-height'}}>
 	{{outlet}}
 </section>
+{{#bp-modal
+		open=rules 
+		position='center'
+		onHidden=(action (mut rules) false) 
+		local-class="bp-modal" as |modal|}}
+	{{#modal.header classNames='px-4 py-3 border-0'}}
+		规则介绍
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p local-class="desc" class="mb-3">1. 经理需完成 业务决策 后才能提交任务。</p>
+		<p local-class="desc" class="mb-3">2. 第一周期中，医院须先选择代表，才能分配指标和预算。</p>
+		<p local-class="desc" class="mb-3">3. 所有医院都必须被制定指标和分配资源。（若不分配资源可设数值为0）</p>
+		<p local-class="desc" class="mb-3">4. 所有代表都必须被分配负责的医院。</p>
+		<p local-class="desc" class="mb-3">5. 预算的分配不可超过给定的总预算。</p>
+		<p local-class="desc" class="mb-3">6. 每一周期决策提交后，将不可再修改。当期决策和执行结果可在“参考信息-往期决策回顾”中查看</p>
+	{{/modal.body}}
+{{/bp-modal}}
+{{#bp-modal
+		open=exitMission 
+		position='center'
+		onHidden=(action (mut exitMission) false) 
+		local-class="bp-modal" as |modal|}}
+	{{#modal.header classNames='px-4 py-3 border-0'}}
+		提示
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p local-class="desc" class="mb-3">
+			您当前的决策将被保存并等待完成。您确定要退出任务吗？
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="link" onClick=(action modal.close)}}取消{{/bp-button}}
+		{{#bp-button type="primary" onClick=(action 'saveInputs')}}确定{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}

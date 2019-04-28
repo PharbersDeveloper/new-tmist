@@ -6,3 +6,18 @@ body>:global(.ember-view) {
 	height: 100%;
 	background-color: $n010;
 }
+
+:global(.modal-header) {
+	@extend %header-large;
+	border: 0;
+}
+
+:global(.modal-body) {
+	.desc {
+		@extend %p-primary;
+	}
+}
+
+:global(.modal-footer) {
+	border: 0;
+}

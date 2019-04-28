@@ -37,10 +37,12 @@ export default Controller.extend({
 			});
 
 			restTime = managerTotalTime - usedTime;
-
+			if (restTime < 0) {
+				this.set('overManagerTotalTime', true);
+			}
 			return A([
 				{ name: '已分配', value: usedTime },
-				{ name: '未分配', value: restTime }
+				{ name: '未分配', value: restTime < 0 ? 0 : restTime }
 			]);
 		}),
 	circlePoint: computed(`representativeInputs.@each.{totalPoint}`, function () {
