@@ -11,16 +11,26 @@
 			<div local-class="manager-infos" class="mb-2 bg-white">
 				{{#if (bp-eq groupValue 0)}}
 					<h3 local-class="title" class="px-4">经理剩余时间</h3>
-					<div local-class="pie" class="p-4">
+					{{!-- <div local-class="pie" class="p-4">
 						{{bp-circle widthSize="auto"
+							seriesName="经理剩余时间" 
+							circleData=circleTime}}
+					</div> --}}
+					<div local-class="pie" class="p-4">
+						{{bp-circle/tm
+							eid='managerTime'
 							seriesName="经理剩余时间" 
 							circleData=circleTime}}
 					</div>
 				{{else}}
 					<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
 					<div local-class="pie" class="p-4">
-						{{bp-circle widthSize="auto"
+						{{!-- {{bp-circle widthSize="auto"
 							seriesName="经理剩余行动点数"
+							circleData=circlePoint}} --}}
+						{{bp-circle/tm
+							eid='managerPoint'
+							seriesName="经理剩余行动点数" 
 							circleData=circlePoint}}
 					</div>
 				{{/if}}
@@ -49,7 +59,11 @@
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 					{{/bp-layout}}
-					{{bp-radar radarData=radarData}}
+					<div local-class="radar-container">
+						{{bp-radar
+							eid='representativeRadar' 
+							radarData=radarData}}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -227,4 +241,9 @@
 			</div>
 		{{/if}}
 	{{/bp-layout}}
+	{{!-- <div style="height: 144px">
+		{{bp-circle/tm seriesName="经理剩余时间" 
+			eid='managerTime'
+			circleData=circleTime}}
+	</div> --}}
 {{/bp-layout}}

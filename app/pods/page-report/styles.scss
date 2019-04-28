@@ -1,0 +1,38 @@
+.page-report {
+	height: 100%;
+	background-color: $n010;
+	overflow: auto;
+
+	h3.title {
+		height: 54px;
+		@extend %header-medium;
+	}
+
+	h4.title {
+		@extend %header-small;
+	}
+
+	.performance {
+		&>div {
+			flex: 1;
+		}
+
+		.score-designation {
+			.image-container {
+				flex: 0 0 116px;
+
+				img {
+					width: 116px;
+				}
+
+				p.level {
+					@extend %p-secondary;
+				}
+			}
+
+			p.desc {
+				flex: 1;
+			}
+		}
+	}
+}

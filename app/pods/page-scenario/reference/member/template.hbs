@@ -1,7 +1,9 @@
-{{#bp-layout local-class="overview" 
+{{#bp-layout main="between" local-class="overview" 
 			classNames="mb-4 bg-white"}}
-	{{#bp-layout main="center"}}
-		{{bp-radar hasLegend=false 
+	{{#bp-layout main="center" local-class="chart"}}
+		{{bp-radar
+			eid='radarTotal'
+			hasLegend=false 
 			radarData=model.radarData
 			radarColor=model.radarColor}}
 	{{/bp-layout}}
@@ -26,9 +28,12 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
-{{#each model.resourceConfReps as |rrcs|}}
+{{#each model.resourceConfReps as |rrcs index|}}
 	{{representative-info
-		representative=rrcs
+		resourceRepresentative=rrcs
+		representativeId=rrcs.representativeConfig.representative.id
 		lastPersonnelAssessment=model.lastPersonnelAssessment
-		averageAbility=model.radarData}}
+		representativeAbilities=model.lastPersonnelAssessment.representativeAbilities
+		averageAbility=model.radarData
+		index=index}}
 {{/each}}

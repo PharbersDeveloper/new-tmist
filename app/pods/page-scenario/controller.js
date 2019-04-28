@@ -5,6 +5,18 @@ import { isEmpty } from '@ember/utils';
 // import rsvp from 'rsvp';
 
 export default Controller.extend({
+	verificationManagerInput(managerinput, representativeinput) {
+		if (isEmpty(managerinput) || isEmpty(representativeinput)) {
+			return false;
+			// this.set('warning', {
+			// 	open: true,
+			// 	title: `未填写管理决策`,
+			// 	detail:`未填写管理决策`
+			// });
+		}
+
+
+	},
 	actions: {
 		submit() {
 			let store = this.get('store'),
@@ -40,7 +52,7 @@ export default Controller.extend({
 					differentRepresentatives = null;
 
 				// 判断是不是有代表没有分配工作
-				if (allocateRepresentatives.length < 5) {
+				if (allocateRepresentatives.length < representatives.length) {
 					differentRepresentatives = representativeIds.concat(allocateRepresentatives).filter(v => !representativeIds.includes(v) || !allocateRepresentatives.includes(v));
 					let firstRepId = differentRepresentatives.get('firstObject');
 
@@ -50,6 +62,9 @@ export default Controller.extend({
 						detail: `尚未对“${store.peekRecord('representative', firstRepId).get('name')}”分配工作，请为其分配。`
 					});
 					return;
+					// 代表全部分配完毕
+				} else if (allocateRepresentatives.length === representatives.length) {
+
 				}
 				//	如果没有则应该判断管理决策的输入情况
 				this.transitionToRoute('page-result');

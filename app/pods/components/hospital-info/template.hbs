@@ -113,8 +113,8 @@
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="chart" 
 			classNames="p-4"}}
-				<div local-class="content">
-					{{!-- {{#each salesConfigs as |sc|}}
+				{{!-- <div local-class="content"> --}}
+				{{!-- {{#each salesConfigs as |sc|}}
 						{{#if (bp-eq sc.destConfig.id destConfig.id)}}
 							{{bp-bar/tm
 								barData=barData
@@ -122,15 +122,16 @@
 								subText=sc.goodsConfig.productConfig.product.generalName}}
 						{{/if}}
 					{{/each}} --}}
-					{{#each barDatum as |barData|}}
-						{{#if (bp-eq barData.hospitalId destConfig.hospitalConfig.hospital.id)}}
-							{{bp-bar/tm
+				{{#each barDatum as |barData index|}}
+					{{#if (bp-eq barData.hospitalId destConfig.hospitalConfig.hospital.id)}}
+						{{bp-bar/tm
+								eid=(string-concat index "barMedicineSales")
 								barData=barData
 								title='药品销售额情况' 
 								subText=sc.goodsConfig.productConfig.product.generalName}}
-						{{/if}}
-					{{/each}}
-				</div>
+					{{/if}}
+				{{/each}}
+				{{!-- </div> --}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}

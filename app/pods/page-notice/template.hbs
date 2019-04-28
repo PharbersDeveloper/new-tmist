@@ -113,7 +113,7 @@
 					</h4>
 				</div>
 				<div local-class="item" class="text-center">
-					{{bp-icon size='large' icon='people' 
+					{{bp-icon size='large' icon='time' 
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">代表人均时间</p>
 					<h4 local-class="title">
@@ -125,7 +125,7 @@
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">分配会议名额</p>
 					<h4 local-class="title">
-						66*
+						{{model.resourceConfigManager.managerConfig.totalMeetingPlaces}}
 					</h4>
 				</div>
 			{{/bp-layout}}
@@ -145,7 +145,7 @@
 					</h4>
 				</div>
 				<div local-class="item" class="text-center">
-					{{bp-icon size='large' icon='people' 
+					{{bp-icon size='large' icon='point' 
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">经理行动点数</p>
 					<h4 local-class="title">
@@ -156,7 +156,7 @@
 		</div>
 		<div local-class="resource" class="mb-4 p-3 rounded">
 			<h2 class="mb-2">
-				{{bp-icon icon="mission-2"}}
+				{{bp-icon icon="mission-3"}}
 				<span>完成药品销售额指标</span>
 			</h2>
 			{{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}

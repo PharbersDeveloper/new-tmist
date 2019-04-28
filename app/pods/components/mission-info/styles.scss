@@ -8,13 +8,31 @@
 		@extend %p-secondary;
 	}
 
+	&.multiple-phase::before {
+		content: "";
+		position: absolute;
+		left: 50%;
+		bottom: -8px;
+		transform: translateX(-50%);
+		z-index: 0;
+		width: 243px;
+		height: 8px;
+		border-radius: 20%;
+		opacity: .7;
+		box-shadow: 0 4px 7px -2px rgba(9, 30, 66, 0.25);
+	}
+
 	&.multiple-phase::after {
-		// content: '';
-		// border: 2px solid red;
-		// width: 222px;
-		left: 80px;
-		bottom: 5px;
-		width: 50%;
-		height: 35%;
+		content: "";
+		position: absolute;
+		left: 50%;
+		bottom: -16px;
+		transform: translateX(-50%);
+		z-index: -1;
+		width: 216px;
+		height: 8px;
+		border-radius: 20%;
+		opacity: .5;
+		box-shadow: 0 3px 6px -2px rgba(9, 30, 66, 0.25);
 	}
 }

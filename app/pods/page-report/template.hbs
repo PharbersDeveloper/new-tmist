@@ -1,0 +1,52 @@
+{{#bp-layout direction="col" local-class="page-report" 
+	classNames="p-4"}}
+	{{#bp-page-header local-class='report-header' class="mb-4 bg-white" as |ph|}}
+		{{#ph.body as |body|}}
+			{{#body.left as |left|}}
+				{{#left.item }}
+					经理能力评估报告
+				{{/left.item}}
+				{{#left.item }}
+					日期：<span class="mx-2">2019-02-05*</span>
+					用时：<span class="mx-2">50min* </span>
+				{{/left.item}}
+			{{/body.left}}
+			{{#body.right}}
+				{{#bp-button type='primary' onClick=(action 'toResult')}}
+					查看执行结果
+				{{/bp-button}}
+			{{/body.right}}
+		{{/ph.body}}
+	{{/bp-page-header}}
+	{{#bp-layout tagName='h3' cross='center' local-class="title" classNames="mb-2 px-4 bg-white"}}
+		综合表现
+	{{/bp-layout}}
+	{{#bp-layout main="between" local-class="performance"}}
+		{{#bp-layout direction="col" local-class="score-designation item" classNames="mr-2"}}
+			{{#bp-layout direction="col" classNames="mb-2 p-4"}}
+				<h4 local-class="title">能力得分</h4>
+				{{#bp-layout }}
+					<div local-class="image-container" class="mr-4">
+						<img src="https://i.loli.net/2019/04/27/5cc3e0a8ae8a2.png" alt="designation" title="designation" />
+					</div>
+					<p local-class="desc">等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。</p>
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout direction="col" classNames="p-4"}}
+				<h4 local-class="title">荣获称号</h4>
+				{{#bp-layout }}
+					<div local-class="image-container" class="mr-4">
+						<img src="https://i.loli.net/2019/04/27/5cc3e0a8ae8a2.png" alt="designation" title="designation" />
+						<p local-class="level">S级*</p>
+					</div>
+					<p local-class="desc">等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。</p>
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout local-class="radar-container item"}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout tagName='h3' cross='center' local-class="title" classNames="mb-2 px-4 bg-white"}}
+		分项表现
+	{{/bp-layout}}
+{{/bp-layout}}

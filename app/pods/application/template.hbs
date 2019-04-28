@@ -37,6 +37,6 @@
 		{{/if}}
 	{{/bp-layout}}
 {{/if}}
-<section local-class="container">
+<section local-class={{if showNavbar 'container' 'container-height'}}>
 	{{outlet}}
 </section>
