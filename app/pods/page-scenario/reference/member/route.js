@@ -4,8 +4,7 @@ import { A } from '@ember/array';
 
 export default Route.extend({
 	model() {
-		const store = this.get('store'),
-			totalConfig = this.modelFor('page-scenario.reference'),
+		const totalConfig = this.modelFor('page-scenario.reference'),
 			resourceConfReps = totalConfig.resourceConfRep,
 			paper = totalConfig.paper;
 
@@ -34,9 +33,6 @@ export default Route.extend({
 					});
 				});
 		}
-		// promiseArray = resourceConfReps.map(ele => {
-		// 	return ele.get('representativeConfig');
-		// });
 		return paper.get('personnelAssessments')
 			.then(data => {
 				let increasePersonnelAssessment = data.sortBy('time');
@@ -44,7 +40,6 @@ export default Route.extend({
 				lastPersonnelAssessment = increasePersonnelAssessment.get('lastObject');
 				return lastPersonnelAssessment.get('representativeAbilities');
 			})
-			// return rsvp.Promise.all(promiseArray)
 			.then(data => {
 				let averageJobEnthusiasm = 0,
 					averageProductKnowledge = 0,
@@ -61,8 +56,8 @@ export default Route.extend({
 
 				});
 				averageAbility = [averageJobEnthusiasm.toFixed(2), averageProductKnowledge.toFixed(2),
-				averageBehaviorValidity.toFixed(2), averageRegionalManagementAbility.toFixed(2),
-				averageSalesAbility.toFixed(2)];
+					averageBehaviorValidity.toFixed(2), averageRegionalManagementAbility.toFixed(2),
+					averageSalesAbility.toFixed(2)];
 				return [
 					{
 						value: averageAbility,
