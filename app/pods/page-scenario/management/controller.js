@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
 import { isEmpty } from '@ember/utils';
+import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
 	groupValue: 0,
@@ -9,6 +10,19 @@ export default Controller.extend({
 	center: 'center',
 	circleUsedTime: 0,
 	circleRestTime: 1,
+	ManagerUsedKpi: alias('circlePoint.firstObject.value'),
+	// isOverKpi: gt('ManagerUsedKpi', 'managerTotalKpi'),
+	isOverKpi: computed('ManagerUsedKpi', 'managerTotalKpi', function () {
+		let { ManagerUsedKpi, managerTotalKpi } =
+			this.getProperties('ManagerUsedKpi', 'managerTotalKpi');
+
+		if (isEmpty(managerTotalKpi)) {
+			return false;
+		}
+		if (ManagerUsedKpi >= managerTotalKpi) {
+			return true;
+		}
+	}),
 	circleTime: computed(`managerInput.totalManagerUsedTime`,
 		`representativeInputs.@each.{assistAccessTime,abilityCoach}`,
 		function () {
@@ -66,7 +80,7 @@ export default Controller.extend({
 		restPoint = managerTotalKpi - usedPoint;
 		return A([
 			{ name: '已分配', value: usedPoint },
-			{ name: '未分配', value: restPoint }
+			{ name: '未分配', value: restPoint < 0 ? 0 : restPoint }
 		]);
 	}),
 	radarData: computed('tmpRepConf', function () {

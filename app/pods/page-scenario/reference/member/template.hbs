@@ -14,12 +14,12 @@
 			<span local-class="keys" class="mr-3">团队人数</span>
 			<span local-class="values">{{model.resourceConfReps.length}}人</span>
 		{{/bp-layout}}
-		{{#bp-layout tagName="p"}}
+		{{!-- {{#bp-layout tagName="p"}}
 			<span local-class="keys" class="mr-3">业务经验</span>
 			<span local-class="values">
 				{{model.resourceConfManager.managerConfig.teamBusinessExperience}}
 			</span>
-		{{/bp-layout}}
+		{{/bp-layout}} --}}
 		{{#bp-layout tagName="p"}}
 			<span local-class="keys" class="mr-3">团队描述</span>
 			<span local-class="values">
@@ -33,7 +33,7 @@
 		resourceRepresentative=rrcs
 		representativeId=rrcs.representativeConfig.representative.id
 		lastPersonnelAssessment=model.lastPersonnelAssessment
-		representativeAbilities=model.lastPersonnelAssessment.representativeAbilities
 		averageAbility=model.radarData
+		representativeAbilities=model.representativeAbilities
 		index=index}}
 {{/each}}
