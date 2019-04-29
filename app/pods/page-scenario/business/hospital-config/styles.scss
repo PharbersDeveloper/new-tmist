@@ -23,6 +23,10 @@ h5.title {
 				padding: 2*$spacing 0;
 				vertical-align: middle;
 				@extend %p-primary;
+
+				.percent {
+					@extend %p-secondary;
+				}
 			}
 		}
 	}
@@ -77,25 +81,6 @@ h5.title {
 					}
 				}
 			}
-
-			// .progress-container {
-			// 	.progress {
-			// 		flex: 1;
-			// 		height: $spacing;
-			// 		line-height: 20px;
-
-			// 		.bar {
-			// 			background-color: $n300;
-			// 		}
-			// 	}
-
-			// 	span.desc {
-			// 		flex: 0 0 40px;
-			// 		text-align: right;
-
-			// 	}
-			// }
-
 		}
 	}
 

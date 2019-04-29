@@ -55,7 +55,12 @@
 			// font-size: 0;
 			@extend %p-small;
 
-			span.infos {}
+			span.infos {
+				.level {
+					color: #fce2aa;
+					font-size: 20px;
+				}
+			}
 		}
 	}
 }

@@ -8,12 +8,17 @@
 			flex: 1;
 			background-color: $n000;
 
-			h2 {
+			h2.title {
+				height: 54px;
 				@extend %header-medium;
 			}
 
 			.info {
 				@extend %header-large;
+			}
+
+			.m-name {
+				@extend %p-small;
 			}
 
 			:global(.bp-progress) {
@@ -97,7 +102,7 @@
 
 		.hospitals-configs {
 			flex: 0 0 368px;
-			max-height: 700px;
+			max-height: 400px;
 			overflow: auto;
 
 			h3.title {
