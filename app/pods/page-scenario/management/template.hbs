@@ -195,7 +195,9 @@
 											<td>
 												{{!-- {{bp-input widthSize="small" 
 												value=resConf.productKnowledgeTraining}} --}}
-												{{toggle-button context=resConf key='productKnowledgeTraining' 
+												{{toggle-button context=resConf 
+													key='productKnowledgeTraining' 
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
@@ -203,6 +205,7 @@
 												value=resConf.salesAbilityTraining}} --}}
 												{{toggle-button context=resConf 
 													key='salesAbilityTraining' 
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
@@ -210,20 +213,23 @@
 												value=resConf.regionTraining}} --}}
 												{{toggle-button context=resConf 
 													key='regionTraining' 
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
 												{{!-- {{bp-input widthSize="small" 
 												value=resConf.performanceTraining}} --}}
 												{{toggle-button context=resConf 
-													key='performanceTraining' 
+													key='performanceTraining'
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
 												{{!-- {{bp-input widthSize="small" 
 												value=resConf.vocationalDevelopment}} --}}
 												{{toggle-button context=resConf 
-													key='vocationalDevelopment' 
+													key='vocationalDevelopment'
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											{{!-- <td>

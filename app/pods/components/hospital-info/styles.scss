@@ -18,9 +18,10 @@
 
 	.content {
 		.infos {
-			&>div {
-				flex: 1;
-			}
+			flex: 1;
+			// &>div {
+			// 	flex: 1;
+			// }
 
 			.basic {
 				img {
@@ -61,23 +62,27 @@
 		}
 
 		.sell {
-			&>div {
-				flex: 1;
-			}
+			flex: 1;
+			// &>div {
+			// 	flex: 1;
+			// }
 
-			.medic-access {
-				.keys {
-					margin-bottom: $spacing;
-					@extend %p-small;
-				}
+			// .medic-access {
+			// 	.keys {
+			// 		margin-bottom: $spacing;
+			// 		@extend %p-small;
+			// 	}
 
-				.values {
-					@extend %p-primary;
-				}
-			}
+			// 	.values {
+			// 		@extend %p-primary;
+			// 	}
+			// }
+			height: 343px;
 
 			.chart {
-				height: 321px;
+				// height: 321px;
+				height: 343px;
+
 				// background-color: #A1C6E7;
 			}
 		}

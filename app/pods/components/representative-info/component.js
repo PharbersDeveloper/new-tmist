@@ -19,7 +19,6 @@ export default Component.extend({
 			originalAbility = A([]),
 			representativeAbilities = this.get('representativeAbilities'),
 			reallyAbility = null;
-		// representativeConfig = this.get('representative').get('representativeConfig');
 
 		if (isEmpty(representativeId)) {
 			return [

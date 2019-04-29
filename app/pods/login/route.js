@@ -29,6 +29,9 @@ export default Route.extend({
 			dataType: 'text'
 		}).then((response) => {
 			return response;
+		}).catch(err => {
+			window.console.log('error');
+			window.console.log(err);
 		});
 	}
 });

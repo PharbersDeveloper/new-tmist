@@ -104,7 +104,7 @@
 					{{bp-icon size='large' icon='office-building' 
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">安排医院数量</p>
-					<h4 local-class="title">
+					<h4 local-class="title" class="m-0">
 						{{model.destConfigs.length}}家
 					</h4>
 				</div>
@@ -112,7 +112,7 @@
 					{{bp-icon size='large' icon='people' 
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">管理代表人数</p>
-					<h4 local-class="title">
+					<h4 local-class="title" class="m-0">
 						{{model.resourceConfigRepresentatives.length}}人
 					</h4>
 				</div>
@@ -120,7 +120,7 @@
 					{{bp-icon size='large' icon='time' 
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">代表人均时间</p>
-					<h4 local-class="title">
+					<h4 local-class="title" class="m-0">
 						100%
 					</h4>
 				</div>
@@ -128,7 +128,7 @@
 					{{bp-icon size='large' icon='raised-hand' 
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">分配会议名额</p>
-					<h4 local-class="title">
+					<h4 local-class="title" class="m-0">
 						{{model.resourceConfigManager.managerConfig.totalMeetingPlaces}}
 					</h4>
 				</div>
@@ -144,15 +144,15 @@
 					{{bp-icon size='large' icon='pie' 
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">分配经理时间 </p>
-					<h4 local-class="title">
-						100%
+					<h4 local-class="title" class="m-0">
+						{{model.resourceConfigManager.managerConfig.managerTime}}%
 					</h4>
 				</div>
 				<div local-class="item" class="text-center">
 					{{bp-icon size='large' icon='point' 
 						local-class="icon"}}
 					<p local-class="desc" class="my-2">经理行动点数</p>
-					<h4 local-class="title">
+					<h4 local-class="title" class="m-0">
 						{{model.resourceConfigManager.managerConfig.managerKpi}}
 					</h4>
 				</div>
@@ -161,14 +161,10 @@
 		<div local-class="resource" class="mb-4 p-3 rounded">
 			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
 				{{bp-icon icon="mission-3"}}
-				<span class="ml-2">有限预算超额完成业务目标</span>
+				<span class="ml-2">合理支配预算</span>
 			{{/bp-layout}}
-			{{!-- <h2 class="mb-2">
-				{{bp-icon icon="mission-3"}}
-				<span>有限预算超额完成业务目标</span>
-			</h2> --}}
 			{{#bp-layout direction="col"}}
-				{{#bp-layout local-class="item-resource" classNames="mb-4 p-4 bg-white rounded"}}
+				{{#bp-layout local-class="item-resource" classNames="p-4 bg-white rounded"}}
 					{{bp-icon size='large' icon='china-money' 
 						local-class="icon"}}
 					{{#bp-layout direction="col" local-class="main-box" classNames="ml-4"}}
@@ -182,6 +178,14 @@
 					{{/bp-layout}}
 					<div local-class="blank"></div>
 				{{/bp-layout}}
+			{{/bp-layout}}
+		</div>
+		<div local-class="resource" class="mb-4 p-3 rounded">
+			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
+				{{bp-icon icon="mission-4"}}
+				<span class="ml-2">完成销售额指标</span>
+			{{/bp-layout}}
+			{{#bp-layout direction="col"}}
 				{{#bp-layout local-class="item-resource" classNames="p-4 bg-white rounded"}}
 					{{bp-icon size='large' icon='pill' 
 						local-class="icon"}}

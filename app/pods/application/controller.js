@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
 import RSVP from 'rsvp';
 const { keys } = Object;
 
@@ -24,7 +25,7 @@ export default Controller.extend({
 
 			new RSVP.Promise((resolve) => {
 				totalCookies.forEach(ele => {
-					this.get('cookies').clear(ele.name, { domain: 'pharbers.com' });
+					this.get('cookies').clear(ele.name, { domain: 'pharbers.com', path: '/' });
 				});
 				localStorage.clear();
 				return resolve(true);

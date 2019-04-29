@@ -14,13 +14,17 @@ export default Component.extend({
 		return context.get(key);
 	},
 	click() {
-		let action = this.get('changeState');
+		let action = this.get('changeState'),
+			disabled = this.get('disabled'),
+			state = this.get('state');
 
-		action(this.get('context'), this.get('key'));
+		// 如果 disalbed 为true，说明 超出。只有state 为true的点击有效
+		if (!disabled || disabled && Boolean(state)) {
+			action(this.get('context'), this.get('key'));
+		}
 		this.set('state', this.computedStateValue());
 	},
-	changeState() {
-	},
+	changeState() { },
 	didReceiveAttrs() {
 		this._super(...arguments);
 		this.set('state', this.computedStateValue());
