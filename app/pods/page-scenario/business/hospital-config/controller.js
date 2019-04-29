@@ -1,29 +1,30 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
+import { isEmpty } from '@ember/utils';
 
 export default Controller.extend({
-	// IndicatorAllocationPercent: computed('businessinput.salesTarget', function () {
-	// 	let { totalBusinessIndicators, businessinput } =
-	// 		this.getProperties('totalBusinessIndicators', 'businessinput'),
-	// 		salesTarget = businessinput.get('salesTarget');
+	IndicatorAllocationPercent: computed('businessinput.salesTarget', function () {
+		let { totalBusinessIndicators, businessinput } =
+			this.getProperties('totalBusinessIndicators', 'businessinput'),
+			salesTarget = businessinput.get('salesTarget');
 
-	// 	if (salesTarget === 0 || typeof totalBusinessIndicators === 'undefined') {
-	// 		return 0;
-	// 	}
-	// 	return (salesTarget / totalBusinessIndicators).toFixed(2) * 100;
+		if (salesTarget === 0 || typeof totalBusinessIndicators === 'undefined') {
+			return 0;
+		}
+		return (salesTarget / totalBusinessIndicators).toFixed(2) * 100;
 
-	// }),
-	// budgetNumber: computed('businessinput.budget', function () {
-	// 	let { totalBudgets, businessinput } =
-	// 		this.getProperties('totalBudgets', 'businessinput'),
-	// 		budget = businessinput.get('budget');
+	}),
+	budgetPercent: computed('businessinput.budget', function () {
+		let { totalBudgets, businessinput } =
+			this.getProperties('totalBudgets', 'businessinput'),
+			budget = businessinput.get('budget');
 
-	// 	if (budget === 0 || typeof totalBudgets === 'undefined') {
-	// 		return 0;
-	// 	}
-	// 	return (budget / 100 * totalBudgets).toFixed(2);
-	// }),
+		if (budget === 0 || isEmpty(totalBudgets)) {
+			return 0;
+		}
+		return (budget / totalBudgets).toFixed(2) * 100;
+	}),
 	// 代表分配时间percent
 	representativesVisitPercent: computed('businessinput.visitTime', 'tmpRc', function () {
 		let resourceConfigs = this.get('model').repConfs,

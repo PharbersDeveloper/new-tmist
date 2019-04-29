@@ -38,6 +38,7 @@ export default Controller.extend({
 
 			restTime = managerTotalTime - usedTime;
 			if (restTime < 0) {
+				// eslint-disable-next-line ember/no-side-effects
 				this.set('overManagerTotalTime', true);
 			}
 			return A([

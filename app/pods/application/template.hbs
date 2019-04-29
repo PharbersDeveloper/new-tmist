@@ -3,6 +3,7 @@
 		local-class="header" classNames="bg-white px-4"}}
 		{{#link-to "application" tagName="p"  classNames="m-0"}}
 			<img src="/assets/images/logo_tmist.png" alt="tmist logo" class="mr-3">
+			<span>铁马</span>
 		{{/link-to}}
 		{{#if (bp-eq testProgress 1)}}
 			{{#bp-button onClick=(action "endMission")}}结束任务{{/bp-button}}
@@ -44,12 +45,13 @@
 		规则介绍
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
-		<p local-class="desc" class="mb-3">1. 经理需完成 业务决策 后才能提交任务。</p>
-		<p local-class="desc" class="mb-3">2. 第一周期中，医院须先选择代表，才能分配指标和预算。</p>
-		<p local-class="desc" class="mb-3">3. 所有医院都必须被制定指标和分配资源。（若不分配资源可设数值为0）</p>
-		<p local-class="desc" class="mb-3">4. 所有代表都必须被分配负责的医院。</p>
-		<p local-class="desc" class="mb-3">5. 预算的分配不可超过给定的总预算。</p>
-		<p local-class="desc" class="mb-3">6. 每一周期决策提交后，将不可再修改。当期决策和执行结果可在“参考信息-往期决策回顾”中查看</p>
+		<p local-class="desc" class="mb-3">1、经理需完成 业务决策、管理决策后才能提交任务。</p>
+		<p local-class="desc" class="mb-3">2、所有代表都必须被分配负责的医院。</p>
+		<p local-class="desc" class="mb-3">3、所有的医院都必须有为其负责的代表。</p>
+		<p local-class="desc" class="mb-3">4、预算的分配不可超过给定的总预算。</p>
+		<p local-class="desc" class="mb-3">5、经理的时间需要全部分配。</p>
+		<p local-class="desc" class="mb-3">6、你的整体决策可在“本期决策回顾”中查看。</p>
+		<p local-class="desc" class="mb-3">7、决策提交后，将不可再修改。</p>
 	{{/modal.body}}
 {{/bp-modal}}
 {{#bp-modal

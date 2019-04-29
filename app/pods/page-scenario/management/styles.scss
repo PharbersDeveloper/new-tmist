@@ -45,6 +45,12 @@
 
 					.radar-container {
 						height: 340px;
+
+						:global(.chart-container) {
+							display: flex;
+							justify-content: center;
+
+						}
 					}
 				}
 			}
