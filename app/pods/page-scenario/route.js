@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
-import { hash } from 'rsvp';
+import RSVP, { hash } from 'rsvp';
+import { A } from '@ember/array';
 import $ from 'jquery';
 import { inject as service } from '@ember/service';
 
@@ -29,16 +30,18 @@ export default Route.extend({
 	},
 	model(params) {
 		const store = this.get('store'),
-			cookies = this.get('cookies');
-
-		let noticeModel = this.modelFor('page-notice'),
+			cookies = this.get('cookies'),
+			noticeModel = this.modelFor('page-notice'),
 			scenario = noticeModel.scenario,
 			scenarioId = scenario.get('id'),
-			proposal = noticeModel.detailProposal,
 			proposalId = params['proposal_id'],
-			paper = noticeModel.detailPaper,
+			paper = noticeModel.detailPaper;
+
+		let proposal = noticeModel.detailProposal,
 			resourceConfRep = null,
-			resourceConfManager = null;
+			resourceConfManager = null,
+			managerTotalTime = 0,
+			managerTotalKpi = 0;
 
 		// return store.query('scenario', {
 		// 	'proposal-id': proposalId,
@@ -70,6 +73,16 @@ export default Route.extend({
 			})
 			.then(data => {
 				resourceConfManager = data;
+				let promiseArray = A([
+					data.get('managerConfig').get('managerTime'),
+					data.get('managerConfig').get('managerKpi')
+				]);
+
+				return RSVP.Promise.all(promiseArray);
+			})
+			.then(data => {
+				managerTotalTime = data[0];
+				managerTotalKpi = data[1];
 				return store.query('destConfig',
 					{ 'scenario-id': scenarioId });
 			}).then(data => {
@@ -79,6 +92,8 @@ export default Route.extend({
 					paper,
 					resourceConfRep,
 					resourceConfManager,
+					managerTotalTime,
+					managerTotalKpi,
 					goodsConfigs: store.query('goodsConfig',
 						{ 'scenario-id': scenarioId }),
 					destConfigs: data.sortBy('hospitalConfig.potential').reverse(),

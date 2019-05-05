@@ -18,26 +18,38 @@
 			{{/each}}
 			{{#bp-layout direction="col" local-class="product-infos" }}
 				{{#bp-layout tagName="p" }}
+					<span>治疗领域</span>
+					<span>{{goods.productConfig.treatmentArea}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" }}
 					<span>上市时间</span>
 					<span>{{goods.productConfig.launchTime}}</span>
+				{{/bp-layout}}
+				{{!-- {{#bp-layout tagName="p" }}
+					<span>市场定位</span>
+					<span>{{goods.productConfig.lifeCycle}}</span>
+				{{/bp-layout}} --}}
+				{{#bp-layout tagName="p" }}
+					<span>药品类型</span>
+					<span>{{goods.productConfig.patentDescribe}}</span>
 				{{/bp-layout}}
 				{{#bp-layout tagName="p" }}
 					<span>市场定位</span>
 					<span>{{goods.productConfig.lifeCycle}}</span>
 				{{/bp-layout}}
-				{{#bp-layout tagName="p" classNames="mb-4" }}
-					<span>药品类型</span>
-					<span>{{goods.productConfig.patentDescribe}}</span>
+				{{#bp-layout tagName="p" classNames="m-0"}}
+					<span>产品单价</span>
+					<span>{{format-number goods.productConfig.referencePrice}}</span>
 				{{/bp-layout}}
-				{{#bp-layout tagName="p" }}
+				{{!-- {{#bp-layout tagName="p" }}
 					<span>药品特点</span>
 					<span>{{goods.productConfig.productFeature}}</span>
-				{{/bp-layout}}
-				{{#bp-layout tagName="p" }}
+				{{/bp-layout}} --}}
+				{{!-- {{#bp-layout tagName="p" }}
 					<span>治疗领域</span>
 					<span>{{goods.productConfig.treatmentArea}}</span>
-				{{/bp-layout}}
-				{{#bp-layout tagName="p" local-class="target-department"}}
+				{{/bp-layout}} --}}
+				{{!-- {{#bp-layout tagName="p" local-class="target-department"}}
 					<span>目标科室</span>
 					<span>
 						{{#each (string-to-array goods.productConfig.targetDepartment '#') as |item|}}
@@ -46,10 +58,10 @@
 							</span>
 						{{/each}}
 					</span>
-				{{/bp-layout}}
+				{{/bp-layout}} --}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout direction="col" main="between" local-class="right" }}
+		{{!-- {{#bp-layout direction="col" main="between" local-class="right" }}
 			{{#bp-layout local-class="property prod-property" }}
 				{{#bp-layout direction="col" main="between" local-class="square" }}
 					<span>
@@ -106,6 +118,12 @@
 					<span>生产厂商</span>
 				{{/bp-layout}}
 			{{/bp-layout}}
+		{{/bp-layout}} --}}
+		{{#bp-layout direction="col" local-class="right" }}
+			<p local-class="keys" class="mb-2">产品特点</p>
+			<p local-class="values">
+				{{goods.productConfig.productFeature}}
+			</p>
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bs-collapse}}

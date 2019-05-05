@@ -17,7 +17,7 @@
 							circleData=circleTime}}
 					</div> --}}
 					<div local-class="pie" class="p-4">
-						{{bp-circle/tm
+						{{bp-circle
 							eid='managerTime'
 							seriesName="经理剩余时间" 
 							circleData=circleTime}}
@@ -28,7 +28,7 @@
 						{{!-- {{bp-circle widthSize="auto"
 							seriesName="经理剩余行动点数"
 							circleData=circlePoint}} --}}
-						{{bp-circle/tm
+						{{bp-circle
 							eid='managerPoint'
 							seriesName="经理剩余行动点数" 
 							circleData=circlePoint}}
@@ -195,7 +195,9 @@
 											<td>
 												{{!-- {{bp-input widthSize="small" 
 												value=resConf.productKnowledgeTraining}} --}}
-												{{toggle-button context=resConf key='productKnowledgeTraining' 
+												{{toggle-button context=resConf 
+													key='productKnowledgeTraining' 
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
@@ -203,6 +205,7 @@
 												value=resConf.salesAbilityTraining}} --}}
 												{{toggle-button context=resConf 
 													key='salesAbilityTraining' 
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
@@ -210,20 +213,23 @@
 												value=resConf.regionTraining}} --}}
 												{{toggle-button context=resConf 
 													key='regionTraining' 
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
 												{{!-- {{bp-input widthSize="small" 
 												value=resConf.performanceTraining}} --}}
 												{{toggle-button context=resConf 
-													key='performanceTraining' 
+													key='performanceTraining'
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
 												{{!-- {{bp-input widthSize="small" 
 												value=resConf.vocationalDevelopment}} --}}
 												{{toggle-button context=resConf 
-													key='vocationalDevelopment' 
+													key='vocationalDevelopment'
+													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											{{!-- <td>
@@ -241,9 +247,22 @@
 			</div>
 		{{/if}}
 	{{/bp-layout}}
-	{{!-- <div style="height: 144px">
-		{{bp-circle/tm seriesName="经理剩余时间" 
-			eid='managerTime'
-			circleData=circleTime}}
-	</div> --}}
 {{/bp-layout}}
+{{#bp-modal
+		open=overManagerTotalTime
+		position='center' 
+		onHidden=(action (mut overManagerTotalTime) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			提醒
+		</h4>
+	{{/modal.header}}
+	{{#modal.body}}
+		<p>
+			经理时间超过限制，请重新设置。
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}

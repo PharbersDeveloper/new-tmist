@@ -21,6 +21,14 @@
 	}
 }
 
+.container {
+	height: calc(100% - 64px);
+
+	.content-box {
+		height: 100%;
+	}
+}
+
 .container-height {
 	height: 100%;
 

@@ -13,7 +13,7 @@ export default Route.extend({
 		let version = `${applicationAdapter.get('namespace')}`,
 			host = `${applicationAdapter.get('serviceHost')}`,
 			resource = 'Thirdparty',
-			scope = 'App/System:[NTM]',
+			scope = `${applicationAdapter.get('scope')}`,
 			url = '',
 			redirectUri = `${applicationAdapter.get('host')}/oauth-callback`;
 
@@ -29,6 +29,9 @@ export default Route.extend({
 			dataType: 'text'
 		}).then((response) => {
 			return response;
+		}).catch(err => {
+			window.console.log('error');
+			window.console.log(err);
 		});
 	}
 });

@@ -5,8 +5,8 @@
 	{{destConfig.hospitalConfig.hospital.name}}
 {{/bp-layout}}
 {{#bs-collapse collapsed=showContent}}
-	{{#bp-layout direction="col" local-class="content" }}
-		{{#bp-layout main="between" local-class="infos"}}
+	{{#bp-layout main="between" local-class="content" }}
+		{{#bp-layout direction="col" local-class="infos"}}
 			{{#bp-layout main="between" local-class="basic" 
 				classNames="p-4"}}
 				{{#each destConfig.hospitalConfig.hospital.images as |imgRcs index|}}
@@ -16,9 +16,9 @@
 				{{/each}}
 				<div local-class="properties">
 					{{#bp-layout tagName="p" }}
-						<span class="mr-3">成立时间</span>
+						<span class="mr-3">医院类型</span>
 						<span>
-							{{destConfig.hospitalConfig.hospital.regtime}}
+							{{destConfig.hospitalConfig.hospital.hospitalCategory}}
 						</span>
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" }}
@@ -27,18 +27,6 @@
 							{{destConfig.hospitalConfig.hospital.hospitalLevel}}
 						</span>
 					{{/bp-layout}}
-					{{#bp-layout tagName="p" }}
-						<span class="mr-3">医院类型</span>
-						<span>
-							{{destConfig.hospitalConfig.hospital.hospitalCategory}}
-						</span>
-					{{/bp-layout}}
-					{{#bp-layout tagName="p" }}
-						<span class="mr-3">空间所属</span>
-						<span>{{destConfig.hospitalConfig.spaceBelongs}}</span>
-					{{/bp-layout}}
-				</div>
-				<div local-class="properties">
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">医生数量</span>
 						<span>{{format-number destConfig.hospitalConfig.doctorNumber}}</span>
@@ -51,13 +39,25 @@
 						<span class="mr-3">医药收入</span>
 						<span>{{format-number destConfig.hospitalConfig.income}}</span>
 					{{/bp-layout}}
+					{{!-- {{#bp-layout tagName="p" }}
+						<span class="mr-3">成立时间</span>
+						<span>
+							{{destConfig.hospitalConfig.hospital.regtime}}
+						</span>
+					{{/bp-layout}}
+					{{#bp-layout tagName="p" }}
+						<span class="mr-3">空间所属</span>
+						<span>{{destConfig.hospitalConfig.spaceBelongs}}</span>
+					{{/bp-layout}} --}}
+				</div>
+				{{!-- <div local-class="properties">
 					{{#bp-layout tagName="p" }}
 						<span class="mr-3">患者支付力</span>
 						<span>
 							{{destConfig.hospitalConfig.abilityToPay}}
 						</span>
 					{{/bp-layout}}
-				</div>
+				</div> --}}
 			{{/bp-layout}}
 			<div local-class="dynamic others" class="p-4">
 				<h4 local-class="title" class="mb-2">医院动态</h4>
@@ -68,8 +68,8 @@
 				{{/each}}
 			</div>
 		{{/bp-layout}}
-		{{#bp-layout main="between" local-class="sell"}}
-			{{#bp-layout direction="col" local-class="medic-access"
+		{{#bp-layout main="between" local-class="sell" classNames="pb-4"}}
+			{{!-- {{#bp-layout direction="col" local-class="medic-access"
 				classNames="p-4"}}
 				<h4 local-class="title" class="mb-3">药品准入情况</h4>
 				{{#bp-layout}}
@@ -110,11 +110,11 @@
 						</p>
 					{{/bp-layout}}
 				{{/bp-layout}}
-			{{/bp-layout}}
-			{{#bp-layout direction="col" local-class="chart" 
-			classNames="p-4"}}
-				{{!-- <div local-class="content"> --}}
-				{{!-- {{#each salesConfigs as |sc|}}
+			{{/bp-layout}} --}}
+			{{!-- {{#bp-layout direction="col" local-class="chart" 
+			classNames="p-4"}} --}}
+			{{!-- <div local-class="content"> --}}
+			{{!-- {{#each salesConfigs as |sc|}}
 						{{#if (bp-eq sc.destConfig.id destConfig.id)}}
 							{{bp-bar/tm
 								barData=barData
@@ -122,17 +122,17 @@
 								subText=sc.goodsConfig.productConfig.product.generalName}}
 						{{/if}}
 					{{/each}} --}}
-				{{#each barDatum as |barData index|}}
-					{{#if (bp-eq barData.hospitalId destConfig.hospitalConfig.hospital.id)}}
-						{{bp-bar/tm
-								eid=(string-concat index "barMedicineSales")
-								barData=barData
-								title='药品销售额情况' 
-								subText=sc.goodsConfig.productConfig.product.generalName}}
-					{{/if}}
-				{{/each}}
-				{{!-- </div> --}}
-			{{/bp-layout}}
+			{{#each barDatum as |barData index|}}
+				{{#if (bp-eq barData.hospitalId destConfig.hospitalConfig.hospital.id)}}
+					{{bp-bar/tm
+						eid=(string-concat index "barMedicineSales")
+						barData=barData
+						title='药品销售额情况' 
+						subText=sc.goodsConfig.productConfig.product.generalName}}
+				{{/if}}
+			{{/each}}
+			{{!-- </div> --}}
+			{{!-- {{/bp-layout}} --}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bs-collapse}}

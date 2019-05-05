@@ -1,115 +1,13 @@
 {{#bp-layout direction="col" local-class="business-container" 
 	classNames="pt-4"}}
-	{{!-- 
-	{{#bp-layout main="between" local-class="infos" classNames='mr-4'}}
-		
-		{{#bp-layout direction="col" classNames="mb-4 bg-white"}}
-			{{#bp-layout tagName="h3"  cross="center" 
-				local-class="title" classNames="px-4 m-0"}}
-				指标和资源
-			{{/bp-layout}}
-			<p>{{model.managerConfig.id}}</p>
-			{{#bp-layout classNames="p-4"}}
-				{{#bp-layout direction="col" local-class="keys" 
-					classNames="mr-3"}}
-					<p class="mb-3">总业务指标</p>
-					<p class="mb-3">总预算</p>
-					<p>总名额</p>
-				{{/bp-layout}}
-				{{#bp-layout direction="col" local-class="values"}}
-					<p class="mb-3">
-						{{format-number total.usedSalesTarget}} /
-						{{format-number model.mConf.managerConfig.totalBusinessIndicators}}
-					</p>
-					<p class="mb-3">
-						{{format-number total.usedBudget}} /
-						{{format-number model.mConf.managerConfig.totalBudgets}}
-					</p>
-					<p>
-						{{format-number total.usedMeetingPlaces}} /
-						{{format-number model.mConf.managerConfig.totalMeetingPlaces}}
-					</p>
-				{{/bp-layout}}
-			{{/bp-layout}}
-		{{/bp-layout}} --}}
-	{{!-- {{#bp-layout direction="col" local-class="over-all" classNames="bg-white"}}
-			{{#bp-layout tagName="h3" cross="center" main="between"
-				local-class="title" classNames="px-4 m-0"}}
-				<span>Overall</span>
-				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
-					{{#dd.button type="link-subtle" }}
-						{{#if currentHospState.name}}
-							<p>{{currentHospState.name}}</p>
-						{{else}}
-							请选择
-						{{/if}}
-						{{bp-icon icon='down'}}
-					{{/dd.button}}
-					{{#dd.menu as |menu|}}
-						{{#each hospitalState as |hs|}}
-							{{#menu.option value=hs 
-								onClick=(action (mut currentHospState))}}
-								{{hs.name}}
-							{{/menu.option}}
-						{{/each}}
-					{{/dd.menu}}
-				{{/bp-dropdown}}
-			{{/bp-layout}}
-			{{#bp-layout direction="col" 
-				local-class="hospitals-configs" 
-				classNames="px-4"}}
-				{{#each overallFilterData as |dc|}}
-					{!-- <div local-class="hospital-config" class="pt-4">
-						<h4 local-class="title" class="mb-3">
-							{{dc.hospitalConfig.hospital.name}}
-						</h4>
-						{{#each model.businessInputs as |bi|}}
-							{{#if (bp-eq bi.destConfigId dc.id)}}
-								{{#bp-layout classNames="pb-4"}}
-									{{#bp-layout classNames="mr-4"}}
-										{{#bp-layout direction="col" 
-									local-class="keys" classNames="mr-2"}}
-											<span class="mb-1">潜力</span>
-											<span>预算</span>
-										{{/bp-layout}}
-										{{#bp-layout direction="col" local-class="values"}}
-											<span class="mb-1">￥{{format-number dc.hospitalConfig.potential}}</span>
-											<span>￥{{format-number bi.budget}}</span>
-										{{/bp-layout}}
-									{{/bp-layout}}
-									{{#bp-layout}}
-										{{#bp-layout direction="col" 
-									local-class="keys" classNames="mr-2"}}
-											<span class="mb-1">指标</span>
-											<span>会议名额(次)</span>
-										{{/bp-layout}}
-										{{#bp-layout direction="col" local-class="values"}}
-											<span class="mb-1">{{format-number bi.salesTarget}}</span>
-											<span>{{format-number bi.meetingPlaces}}</span>
-										{{/bp-layout}}
-									{{/bp-layout}}
-								{{/bp-layout}}
-								<div class="dropdown-divider"></div>
-							{{/if}}
-						{{/each}}
-					</div> --}
-					{{#link-to "page-scenario.business.hospital-config" dc.id
-						activeClass="current-hospital"}}
-						{{hospital-overall
-							hospitalName=dc.hospitalConfig.hospital.name
-							businessInputs=model.businessInputs
-							overallFilterData=dc}}
-					{{/link-to}}
-				{{/each}}
-			{{/bp-layout}}
-		{{/bp-layout}} 
-	{{/bp-layout}}--}}
 	{{#bp-layout main="between" local-class="overviews" classNames='mb-4'}}
 		<div local-class="item">
-			{{#bp-layout tagName="h2" cross="center" classNames="px-4 py-3"}}
+			{{#bp-layout tagName="h2" cross="center" 
+				classNames="m-0 px-4" local-class="title"}}
 				总业务指标
 			{{/bp-layout}}
-			<div class="p-4">
+			<div class="px-4">
+				<p local-class="m-name" class="mt-2 mb-0">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
 				<p local-class="info" class="mb-4">
 					{{format-number total.usedSalesTarget}} /
 					￥{{format-number model.mConf.managerConfig.totalBusinessIndicators}}
@@ -117,21 +15,23 @@
 				{{#bp-progress local-class="progress" classNames="mb-4" as |p|}}
 					{{p.bar value=total.usedSalesTarget maxValue=model.mConf.managerConfig.totalBusinessIndicators}}
 				{{/bp-progress}}
-				{{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
+				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
 					{{#bp-layout tagName="span" cross="center"}}
 						<span local-class="circle" class="mr-2"></span>
 						<span local-class="values">
 							{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}
 						</span>
 					{{/bp-layout}}
-				{{/bp-layout}}
+				{{/bp-layout}} --}}
 			</div>
 		</div>
 		<div local-class="item" class="mx-2">
-			{{#bp-layout tagName="h2" cross="center" classNames="px-4 py-3"}}
+			{{#bp-layout tagName="h2" cross="center" 
+				classNames="m-0 px-4" local-class="title"}}
 				总预算
 			{{/bp-layout}}
-			<div class="p-4">
+			<div class="px-4">
+				<p local-class="m-name" class="mt-2 mb-0">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
 				<p local-class="info" class="mb-4">
 					{{format-number total.usedBudget}} /
 					￥{{format-number model.mConf.managerConfig.totalBudgets}}
@@ -139,21 +39,23 @@
 				{{#bp-progress classNames="mb-4" as |p|}}
 					{{p.bar value=total.usedBudget maxValue=model.mConf.managerConfig.totalBudgets}}
 				{{/bp-progress}}
-				{{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
+				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
 					{{#bp-layout tagName="span" cross="center"}}
 						<span local-class="circle" class="mr-2"></span>
 						<span local-class="values">
 							{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}
 						</span>
 					{{/bp-layout}}
-				{{/bp-layout}}
+				{{/bp-layout}} --}}
 			</div>
 		</div>
 		<div local-class="item">
-			{{#bp-layout tagName="h2" cross="center" classNames="px-4 py-3"}}
+			{{#bp-layout tagName="h2" cross="center" 
+				classNames="m-0 px-4" local-class="title"}}
 				总会议名额
 			{{/bp-layout}}
-			<div class="p-4">
+			<div class="px-4">
+				<p local-class="m-name" class="mt-2 mb-0">&nbsp;</p>
 				<p local-class="info" class="mb-4">
 					{{format-number total.usedMeetingPlaces}} /
 					{{format-number model.mConf.managerConfig.totalMeetingPlaces}}

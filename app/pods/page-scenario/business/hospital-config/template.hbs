@@ -66,7 +66,7 @@
 							0
 						{{/if}}</span>
 				{{/bp-layout}} --}}
-				{{bp-input
+				{{bp-input widthSize="auto"
 					value=model.businessinput.visitTime
 					disabled=(not tmpRc.id)
 					local-class="input-prepend input-time"}}
@@ -92,14 +92,17 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
+{{#bp-layout tagName="h5" cross="center" classNames="mb-4 px-4"}}
+	药品相关资源设定
+{{/bp-layout}}
 <table local-class="prod" class="table mb-2">
 	<thead>
 		<tr>
 			<th class="border-0 pb-2 pl-2">产品名称</th>
 			<th class="border-0 pb-2 pl-2">药品潜力</th>
 			<th class="border-0 pb-2 pl-2">上季度销售额</th>
-			<th class="border-0 pb-2 pl-2">指标分配</th>
-			<th class="border-0 pb-2 pl-2">预算分配</th>
+			<th class="border-0 pb-2 pl-2 text-center">指标分配</th>
+			<th class="border-0 pb-2 pl-2 text-center ">预算分配</th>
 		</tr>
 	</thead>
 	<tbody class="bg-white">
@@ -127,16 +130,18 @@
 							disabled=(not tmpRc.id)
 							local-class="input-prepend input-money"
 							classNames="mb-2"}}
-						{{!-- <p class="m-0 ">
+						<p class="mt-2 mb-0 text-center" local-class="percent">
 							{{IndicatorAllocationPercent}}%
-						</p> --}}
+						</p>
 					</td>
 					<td class="pl-2 border-0">
-						{{!-- <p class="mb-2">￥{{budgetNumber}}</p> --}}
 						{{bp-input block=true widthSize="auto"
 							value=model.businessinput.budget
 							disabled=(not tmpRc.id)
 							local-class="input-prepend input-money"}}
+						<p class="mt-2 mb-0 text-center" local-class="percent">
+							{{budgetPercent}}%
+						</p>
 					</td>
 				</tr>
 			{{/if}}

@@ -12,27 +12,40 @@
 		@extend %header-small;
 	}
 
+	h4.title {
+		@extend %header-small;
+	}
+
 	.performance {
-		&>div {
+		.score {
 			flex: 1;
+
+			img {
+				width: 128px;
+				height: 144px;
+			}
+
+			.level {
+				@extend %p-secondary;
+			}
 		}
 
-		.score-designation {
-			.image-container {
-				flex: 0 0 116px;
+		.evaluation {
+			flex: 2;
 
-				img {
-					width: 116px;
-				}
-
-				p.level {
-					@extend %p-secondary;
-				}
+			.desc {
+				@extend %p-primary;
 			}
+		}
+	}
 
-			p.desc {
-				flex: 1;
-			}
+	.rate,
+	.rate-item {
+		height: 52px;
+
+		.keys,
+		.values {
+			@extend %p-primary;
 		}
 	}
 }

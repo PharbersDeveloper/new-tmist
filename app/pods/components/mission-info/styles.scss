@@ -1,7 +1,10 @@
 .mission-info {
+	position: relative;
+	z-index: 1;
 	width: 270px;
 	height: 138px;
 	@extend %depth-z200;
+	@extend %defaultRadius;
 	cursor: pointer;
 
 	.phase {

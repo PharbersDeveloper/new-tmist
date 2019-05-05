@@ -15,7 +15,7 @@ export default Route.extend({
 		let version = `${applicationAdapter.get('namespace')}`,
 			host = `${applicationAdapter.get('serviceHost')}`,
 			resource = 'GenerateAccessToken',
-			scope = 'App/System:[NTM]',
+			scope = `${applicationAdapter.get('scope')}`,
 			url = '',
 			redirectUri = `${applicationAdapter.get('host')}/oauth-callback`;
 
@@ -36,30 +36,23 @@ export default Route.extend({
 					let expiry = response.expiry,
 						parseExpiry = Date.parse(expiry),
 						currentDate = Date.parse(new Date()),
-						maxAge = Math.floor((parseExpiry - currentDate) / 1000);
+						maxAge = Math.floor((parseExpiry - currentDate) / 1000),
+						options = {
+							maxAge: maxAge,
+							domain: '.pharbers.com',
+							path: '/'
+						};
 
 					// cookies.write('account_id', response.account_id);
-					cookies.write('account_id', '5c4552455ee2dd7c36a94a9e', {
-						maxAge: maxAge,
-						domain: 'pharbers.com'
-					});
-					cookies.write('access_token', response.access_token, {
-						maxAge: maxAge,
-						domain: 'pharbers.com'
-					});
-					cookies.write('refresh_token', response.refresh_token, {
-						maxAge: maxAge,
-						domain: 'pharbers.com'
-					});
-					// cookies.write('expiry', response.expiry);
-					cookies.write('token_type', response.token_type, {
-						maxAge: maxAge,
-						domain: 'pharbers.com'
-					});
-					this.transitionTo('application');
+					cookies.write('account_id', '5c4552455ee2dd7c36a94a9e', options);
+					cookies.write('access_token', response.access_token, options);
+					cookies.write('refresh_token', response.refresh_token, options);
+					cookies.write('token_type', response.token_type, options);
+					cookies.write('scope', response.scope, options);
+					this.transitionTo('index');
 				});
 		} else {
-			this.transitionTo('application');
+			this.transitionTo('login');
 		}
 	}
 });
