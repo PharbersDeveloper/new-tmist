@@ -3,18 +3,19 @@ import { A } from '@ember/array';
 import { hash } from 'rsvp';
 
 export default Route.extend({
-	isHaveBusinessInput(businessInputs, self, destConfigs) {
-		let isNewBusinessInputs = businessInputs.filter(ele => ele.get('isNew'));
 
-		if (isNewBusinessInputs.length > 0) {
-			return self.normalFlow(isNewBusinessInputs);
+	isHaveBusinessInput(paper, destConfigs, goodsConfig) {
+		let state = paper.get('state');
+
+		if (state === 1) {
+			return paper.get('paperinputs');
 		}
-		return self.generateBusinessInputs(destConfigs);
+		return this.generateBusinessInputs(destConfigs, goodsConfig);
 	},
-	normalFlow(newBusinessInputs) {
-		return newBusinessInputs;
-	},
-	generateBusinessInputs(destConfigs) {
+	// normalFlow(newBusinessInputs) {
+	// 	return newBusinessInputs;
+	// },
+	generateBusinessInputs(destConfigs, goodsConfig) {
 		let promiseArray = A([]);
 
 		promiseArray = destConfigs.map(ele => {
@@ -23,8 +24,10 @@ export default Route.extend({
 				destConfigId: ele.id,
 				representativeId: '',
 				resourceConfigId: '',
+				resourceConfig: null,
 				salesTarget: '',
 				budget: '',
+				goodsConfig,
 				meetingPlaces: '',
 				visitTime: ''
 			});
@@ -32,20 +35,39 @@ export default Route.extend({
 		return promiseArray;
 	},
 	model() {
-		let store = this.get('store'),
-			totalConfigs = this.modelFor('page-scenario'),
+		const totalConfigs = this.modelFor('page-scenario'),
+			paper = totalConfigs.paper,
 			destConfigs = totalConfigs.destConfigs,
 			goodsConfigs = totalConfigs.goodsConfigs,
-			businessInputs = store.peekAll('businessinput'),
-			tmp = this.isHaveBusinessInput(businessInputs, this, destConfigs);
+			goodsConfig = goodsConfigs.filter(ele => ele.get('productConfig.productType') === 0).firstObject;
 
-		this.controllerFor('page-scenario.business').set('businessInputs', tmp);
-		return hash({
-			businessInputs: tmp,
-			mConf: totalConfigs.resourceConfManager,
-			goodsConfigs,
-			destConfigs,
-			salesConfigs: totalConfigs.salesConfigs
-		});
+		let tmp = this.isHaveBusinessInput(paper, destConfigs, goodsConfig);
+
+		if (!tmp.isFulfilled) {
+			this.controllerFor('page-scenario.business').set('businessInputs', tmp);
+			this.controllerFor('page-scenario').set('businessInputs', tmp);
+
+			return hash({
+				businessInputs: tmp,
+				mConf: totalConfigs.resourceConfManager,
+				goodsConfigs,
+				destConfigs,
+				salesConfigs: totalConfigs.salesConfigs
+			});
+		}
+
+		return tmp.sortBy('time').lastObject.get('businessinputs')
+			.then(data => {
+				this.controllerFor('page-scenario.business').set('businessInputs', data);
+				this.controllerFor('page-scenario').set('businessInputs', data);
+
+				return hash({
+					businessInputs: data,
+					mConf: totalConfigs.resourceConfManager,
+					goodsConfigs,
+					destConfigs,
+					salesConfigs: totalConfigs.salesConfigs
+				});
+			});
 	}
 });

@@ -46,9 +46,11 @@ export default Route.extend({
 		return promiseArray;
 	},
 	model() {
-		let store = this.get('store'),
-			salesReports = store.peekAll('paper').get('firstObject').get('salesReports'),
-			increaseSalesReports = A([]),
+		const totalConfig = this.modelFor('page-scenario.reference'),
+			paper = totalConfig.paper,
+			salesReports = paper.get('salesReports');
+
+		let increaseSalesReports = A([]),
 			tmpHead = A([]),
 			productSalesReports = A([]),
 			representativeSalesReports = A([]),

@@ -31,7 +31,7 @@ export default Route.extend({
 					//	如果为新的则需要获取destConfig/resourceConfig/
 					return detailPaper.get('paperinput');
 				}
-				// 问题：不是新的state的解决办法。
+				// TODO：不是新的state的解决办法。
 				return store.query('paperinput', {
 					'scenario-id': scenario.get('id')
 				});

@@ -34,8 +34,8 @@ export default Controller.extend({
 		return destConfigs;
 	}),
 	total: computed('businessInputs.@each.{salesTarget,budget,meetingPlaces}', function () {
-		let businessInputs = this.get('businessInputs'),
-			newBusinessInputs = businessInputs.filter(ele => ele.get('isNew')),
+		let businessInputs = this.get('model').businessInputs,
+			newBusinessInputs = businessInputs,
 			usedSalesTarget = 0,
 			usedBudget = 0,
 			usedMeetingPlaces = 0;

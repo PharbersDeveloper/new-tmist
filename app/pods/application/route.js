@@ -33,13 +33,13 @@ export default Route.extend({
 		if (targetName === 'oauth-callback') {
 			return;
 		}
+		// 初始化 notice 页面的 notcie
 		if (isEmpty(localStorage.getItem('notice'))) {
 			localStorage.setItem('notice', true);
 		}
 		if (this.oauth_service.judgeAuth()) {
-			if (targetName === 'login') {
-				this.transitionTo('index');
-			}
+			this.transitionTo('index');
+
 		} else {
 			this.transitionTo('login');
 		}
@@ -88,9 +88,9 @@ export default Route.extend({
 	},
 	actions: {
 		error(error, transition) {
-			console.log(error);
-			console.log(transition);
-			this.transitionTo('application');
+			window.console.log(error);
+			window.console.log(transition);
+			this.transitionTo('index');
 		}
 	}
 });

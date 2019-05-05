@@ -92,7 +92,8 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
-{{#bp-layout tagName="h5" cross="center" classNames="mb-4 px-4"}}
+{{#bp-layout tagName="h5" cross="center" local-class="title" 
+	classNames="mb-4 px-4 bg-white"}}
 	药品相关资源设定
 {{/bp-layout}}
 <table local-class="prod" class="table mb-2">
@@ -113,14 +114,14 @@
 					<td class="pl-2 border-0">
 						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
 							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
-								{{format-number hsr.potential}}
+								￥{{format-number hsr.potential}}
 							{{/if}}
 						{{/each}}
 					</td>
 					<td class="pl-2 border-0">
 						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
 							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
-								{{format-number hsr.sales}}
+								￥{{format-number hsr.sales}}
 							{{/if}}
 						{{/each}}
 					</td>

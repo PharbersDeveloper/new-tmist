@@ -5,7 +5,7 @@ import { A } from '@ember/array';
 
 export default DS.Model.extend({
 	destConfigId: DS.attr('string'),	// 待删除
-	resourceConfigId: DS.attr('string'),
+	resourceConfigId: DS.attr('string'),	// 待删除
 	salesTarget: DS.attr('number'),	// 销售目标设定
 	budget: DS.attr('number'),	// 预算费用
 	meetingPlaces: DS.attr('number'),	// 会议名额

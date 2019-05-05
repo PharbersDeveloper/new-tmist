@@ -1,6 +1,8 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
+import { A } from '@ember/array';
+const { keys } = Object;
 
 export default Service.extend({
 	cookies: service(),
@@ -16,13 +18,13 @@ export default Service.extend({
 	/**
 	 * 本地部署
 	 */
-	// redirectUri: 'http://ntm.pharbers.com:8081/oauth-callback',
-	// host: 'http://192.168.100.174:9096',
+	redirectUri: 'http://ntm.pharbers.com:8081',
+	host: 'http://192.168.100.174:9096',
 	/**
 	 * 线上部署
 	 */
-	redirectUri: 'http://ntm.pharbers.com/oauth-callback',
-	host: 'http://oauth.pharbers.com',
+	// redirectUri: 'http://ntm.pharbers.com',
+	// host: 'http://oauth.pharbers.com',
 
 	oauthOperation() {
 		const ajax = this.get('ajax');
@@ -36,7 +38,7 @@ export default Service.extend({
                     &client_secret=${this.get('clientSecret')}
                     &scope=${this.get('scope')}
                     &status=${this.get('status')}
-                    &redirect_uri=${this.get('redirectUri')}`.
+                    &redirect_uri=${this.get('redirectUri')}/oauth-callback`.
 			replace(/\n/gm, '').
 			replace(/ /gm, '').
 			replace(/\t/gm, '');
@@ -65,7 +67,7 @@ export default Service.extend({
 			url = `?client_id=${this.get('clientId')}
 					&client_secret=${this.get('clientSecret')}
 					&scope=${this.get('scope')}
-					&redirect_uri=${this.get('redirectUri')}
+					&redirect_uri=${this.get('redirectUri')}/oauth-callback
 					&code=${queryParams.code}
 					&state=${queryParams.state}`.
 				replace(/\n/gm, '').
@@ -89,10 +91,10 @@ export default Service.extend({
 					cookies.write('scope', response.scope, options);
 					cookies.write('expiry', response.expiry, options);
 
-					this.get('router').transitionTo('country-lv-monitor');
+					this.get('router').transitionTo('index');
 				});
 		} else {
-			this.get('router').transitionTo('country-lv-monitor');
+			this.get('router').transitionTo('index');
 		}
 	},
 
@@ -136,20 +138,16 @@ export default Service.extend({
 
 	removeAuth() {
 		this.set('groupName', '');
-		let options = {
-			domain: '.pharbers.com',
-			path: '/'
-		};
+		let options = { domain: '.pharbers.com', path: '/' },
+			cookies = this.get('cookies').read(),
+			totalCookies = A([]);
 
-		this.cookies.clear('token', options);
-		this.cookies.clear('account_id', options);
-		this.cookies.clear('access_token', options);
-		this.cookies.clear('refresh_token', options);
-		this.cookies.clear('token_type', options);
-		this.cookies.clear('scope', options);
-		this.cookies.clear('expiry', options);
+		totalCookies = keys(cookies).map(ele => ele);
 
-		window.console.log('clear cookies!');
+		totalCookies.forEach(ele => {
+			this.get('cookies').clear(ele, options);
+		});
+
 	}
 
 });
