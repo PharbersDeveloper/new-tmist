@@ -4,19 +4,11 @@ import { A } from '@ember/array';
 
 export default Route.extend({
 	model() {
-		let store = this.get('store'),
-			businessModel = this.modelFor('page-scenario.business'),
-			managementModel = this.modelFor('page-scenario.management'),
-
+		let businessModel = this.modelFor('page-scenario.business'),
 			totalModel = this.modelFor('page-scenario'),
-
-			managerinput = managementModel.managerInput,
-			representativeinputs = managementModel.representativeInputs,
+			managerinput = totalModel.managerInput,
+			representativeinputs = totalModel.representativeInputs,
 			businessinputs = businessModel.businessInputs;
-
-		// managerinput = store.peekAll('managerinput').filter(ele => ele.get('isNew')).get('lastObject'),
-		// representativeinputs = store.peekAll('representativeinput').filter(ele => ele.get('isNew')),
-		// businessinputs = store.peekAll('businessinput').filter(ele => ele.get('isNew'));
 
 		return hash({
 			managerinput,

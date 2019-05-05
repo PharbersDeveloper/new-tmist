@@ -5,7 +5,9 @@ import RSVP from 'rsvp';
 export default Route.extend({
 	model() {
 		let store = this.get('store'),
-			paper = store.peekAll('paper').get('lastObject'),
+			resourceConfig = this.modelFor('page-scenario'),
+			paper = resourceConfig.paper,
+			scenario = resourceConfig.scenario,
 			paperinputs = paper.get('paperinputs'),
 			increasePaperinputs = A([]),
 			lastPaperinput = {},
@@ -14,7 +16,7 @@ export default Route.extend({
 			businessinputs = A([]);
 
 		return paperinputs.then(data => {
-			increasePaperinputs = data.sortBy('phase');
+			increasePaperinputs = data.sortBy('time');
 			lastPaperinput = increasePaperinputs.get('lastObject');
 			return lastPaperinput.get('managerinputs');
 		}).then(data => {
@@ -33,7 +35,7 @@ export default Route.extend({
 				businessinputs,
 				representativeinputs,
 				goodsConfigs: store.query('goodsConfig',
-					{ 'scenario-id': '5c7cdf18421aa98e2c382f61' })
+					{ 'scenario-id': scenario.id })
 			});
 		});
 	}

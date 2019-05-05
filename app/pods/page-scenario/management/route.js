@@ -3,76 +3,75 @@ import { reject, hash } from 'rsvp';
 import { A, isArray } from '@ember/array';
 
 export default Route.extend({
-	createManagerInput() {
-		return this.get('store').createRecord('managerinput', {
-			strategyAnalysisTime: '',
-			adminWorkTime: '',
-			clientManagementTime: '',
-			kpiAnalysisTime: '',
-			teamMeetingTime: ''
-		});
-	},
-	createRepInputs(resourceConfigs) {
-		let promiseArray = A([]);
+	// createManagerInput() {
+	// 	return this.get('store').createRecord('managerinput', {
+	// 		strategyAnalysisTime: '',
+	// 		adminWorkTime: '',
+	// 		clientManagementTime: '',
+	// 		kpiAnalysisTime: '',
+	// 		teamMeetingTime: ''
+	// 	});
+	// },
+	// createRepInputs(resourceConfigs) {
+	// 	let promiseArray = A([]);
 
-		promiseArray = resourceConfigs.map(ele => {
-			return this.get('store').createRecord('representativeinput', {
-				resourceConfigId: ele.id,
-				resourceConfig: ele,
-				productKnowledgeTraining: 0,
-				salesAbilityTraining: 0,
-				regionTraining: 0,
-				performanceTraining: 0,
-				vocationalDevelopment: 0,
-				assistAccessTime: '',
-				teamMeeting: '',
-				abilityCoach: ''
-			});
-		});
-		return promiseArray;
-	},
-	// managerinput 已经存在
-	normalFlow(store) {
-		let managerinputs = store.peekAll('managerinput'),
-			representativeInputs = store.peekAll('representativeinput'),
-			newManagerinput = managerinputs.filter(ele => ele.get('isNew')),
-			newRepresentativeInputs = representativeInputs.filter(ele => ele.get('isNew'));
+	// 	promiseArray = resourceConfigs.map(ele => {
+	// 		return this.get('store').createRecord('representativeinput', {
+	// 			resourceConfigId: ele.id,
+	// 			resourceConfig: ele,
+	// 			productKnowledgeTraining: 0,
+	// 			salesAbilityTraining: 0,
+	// 			regionTraining: 0,
+	// 			performanceTraining: 0,
+	// 			vocationalDevelopment: 0,
+	// 			assistAccessTime: '',
+	// 			teamMeeting: '',
+	// 			abilityCoach: ''
+	// 		});
+	// 	});
+	// 	return promiseArray;
+	// },
+	// // managerinput 已经存在
+	// normalFlow(store) {
+	// 	let managerinputs = store.peekAll('managerinput'),
+	// 		representativeInputs = store.peekAll('representativeinput'),
+	// 		newManagerinput = managerinputs.filter(ele => ele.get('isNew')),
+	// 		newRepresentativeInputs = representativeInputs.filter(ele => ele.get('isNew'));
 
-		return {
-			managerInput: newManagerinput.get('firstObject'),
-			representativeInputs: newRepresentativeInputs
-		};
-	},
-	//	生成 managerinput
-	generateManagerInput(resourceConfigs) {
+	// 	return {
+	// 		managerInput: newManagerinput.get('firstObject'),
+	// 		representativeInputs: newRepresentativeInputs
+	// 	};
+	// },
+	// //	生成 managerinput
+	// generateManagerInput(resourceConfigs) {
 
-		return {
-			managerInput: this.createManagerInput(),
-			representativeInputs: this.createRepInputs(resourceConfigs)
-		};
-	},
-	// 判断是否有 managerinput
-	hasManagerInput(paper, resourceConfigs) {
+	// 	return {
+	// 		managerInput: this.createManagerInput(),
+	// 		representativeInputs: this.createRepInputs(resourceConfigs)
+	// 	};
+	// },
+	// // 判断是否有 managerinput
+	// hasManagerInput(paper, resourceConfigs) {
 
-		// 应该根据 paper 中的 state 属性
-		let state = paper.get('state');
+	// 	// 应该根据 paper 中的 state 属性
+	// 	let state = paper.get('state');
 
-		if (state === 1) {
-			return paper.get('paperinputs');
-		}
-		return this.generateManagerInput(resourceConfigs);
-		// 应该根据 managerinput 中的isNew 属性
-		// let isNewManagerinputs = managerinputs.filter(ele => ele.get('isNew'));
+	// 	if (state === 1) {
+	// 		return paper.get('paperinputs');
+	// 	}
+	// 	return this.generateManagerInput(resourceConfigs);
+	// 	// 应该根据 managerinput 中的isNew 属性
+	// 	// let isNewManagerinputs = managerinputs.filter(ele => ele.get('isNew'));
 
-		// if (isNewManagerinputs.length > 0) {
-		// 	return this.normalFlow(store);
-		// }
-		// return this.generateManagerInput(resourceConfigs);
-	},
+	// 	// if (isNewManagerinputs.length > 0) {
+	// 	// 	return this.normalFlow(store);
+	// 	// }
+	// 	// return this.generateManagerInput(resourceConfigs);
+	// },
 
 	model() {
-		const store = this.get('store'),
-			resourceConfig = this.modelFor('page-scenario'),
+		const resourceConfig = this.modelFor('page-scenario'),
 			paper = resourceConfig.paper,
 			mConf = resourceConfig.resourceConfManager,
 			rConfs = resourceConfig.resourceConfRep,
@@ -81,9 +80,11 @@ export default Route.extend({
 
 		let currentController = this.controllerFor('page-scenario.management'),
 			averageAbility = [0, 0, 0, 0, 0],
-			inputResource = this.hasManagerInput(paper, rConfs),
-			managerInput = isArray(inputResource) ? null : inputResource.managerInput,
-			representativeInputs = isArray(inputResource) ? null : inputResource.representativeInputs;
+			// inputResource = this.hasManagerInput(paper, rConfs),
+			// managerInput = isArray(inputResource) ? null : inputResource.managerInput,
+			// representativeInputs = isArray(inputResource) ? null : inputResource.representativeInputs;
+			managerInput = resourceConfig.managerInput,
+			representativeInputs = resourceConfig.representativeInputs;
 
 		/**
 		 * 获取经理总时间/总预算/总名额
@@ -145,28 +146,28 @@ export default Route.extend({
 					averageRegionalManagementAbility.toFixed(2),
 					averageSalesAbility.toFixed(2)];
 
-				if (!isArray(inputResource)) {
-					return reject();
-				}
-				return inputResource.sortBy('time').lastObject.get('managerinputs');
-			})
-			.then(data => {
-				managerInput = data.firstObject;
-				return inputResource.sortBy('time').lastObject.get('representativeinputs');
-			})
-			.then(data => {
+				// 	if (!isArray(inputResource)) {
+				// 		return reject();
+				// 	}
+				// 	return inputResource.sortBy('time').lastObject.get('managerinputs');
+				// })
+				// .then(data => {
+				// 	managerInput = data.firstObject;
+				// 	return inputResource.sortBy('time').lastObject.get('representativeinputs');
+				// })
+				// .then(data => {
 
-				representativeInputs = data;
-				return null;
-			})
-			.catch(() => { })
-			.then(() => {
-				let pageScenarioController = this.controllerFor('page-scenario');
+				// 	representativeInputs = data;
+				// 	return null;
+				// })
+				// .catch(() => { })
+				// .then(() => {
+				// let pageScenarioController = this.controllerFor('page-scenario');
 
-				pageScenarioController.setProperties({
-					managerInput,
-					representativeInputs
-				});
+				// pageScenarioController.setProperties({
+				// 	managerInput,
+				// 	representativeInputs
+				// });
 				currentController.setProperties({
 					averageAbility,
 					managerInput,

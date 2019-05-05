@@ -46,8 +46,8 @@ export default Route.extend({
 	},
 	model() {
 		let store = this.get('store'),
-			paper = store.findRecord('paper', '5c9b41d1421aa997100c2cb4'),
-			salesReports = store.findRecord('paper', '5c9b41d1421aa997100c2cb4'),
+			resourceConfig = this.modelFor('page-scenario'),
+			paperId = resourceConfig.paper.id,
 			increaseSalesReports = A([]),
 			tmpHead = A([]),
 			productSalesReports = A([]),
@@ -59,62 +59,71 @@ export default Route.extend({
 			hospTableBody = A([]);
 
 		// 拼接 产品销售报告数据
-		return paper.then(data => {
-			return data.get('salesReports');
-		}).then(data => {
-			let promiseArray = A([]);
+		return store.findRecord('paper', paperId)
+			.then(data => {
+				return data.get('salesReports');
+			}).then(data => {
+				let promiseArray = A([]);
 
-			increaseSalesReports = data.sortBy('time');
+				increaseSalesReports = data.sortBy('time');
 
-			tmpHead = increaseSalesReports.map(ele => {
-				return ele.get('formatTime');
-			});
-			tmpHead.forEach(ele => {
-				tableHead.push(ele + ' 销售额');
-			});
-			tmpHead.forEach(ele => {
-				tableHead.push(ele + ' 销售指标');
-			});
+				promiseArray = increaseSalesReports.map(ele => {
+					return ele.get('scenario');
+				});
+				return rsvp.Promise.all(promiseArray);
+			}).then(data => {
+				let promiseArray = A([]);
 
-			promiseArray = this.generatePromiseArray(increaseSalesReports, 'productSalesReports');
-			return rsvp.Promise.all(promiseArray);
-		}).then(data => {
-			// data 代表两个时期
-			productSalesReports = data[0];
+				tmpHead = data.map(ele => {
+					let name = ele.get('name');
 
-			prodTableBody = this.generateTableBody(data, 'productName');
+					return name.slice(0, 4) + name.slice(-4);
+				});
+				tmpHead.forEach(ele => {
+					tableHead.push(ele + `\n销售额`);
+				});
+				tmpHead.forEach(ele => {
+					tableHead.push(ele + '\n销售指标');
+				});
 
-			return null;
-		}).then(() => {
-			//	获取代表销售报告
-			let promiseArray = this.generatePromiseArray(increaseSalesReports, 'representativeSalesReports');
+				promiseArray = this.generatePromiseArray(increaseSalesReports, 'productSalesReports');
+				return rsvp.Promise.all(promiseArray);
+			}).then(data => {
+				// data 代表两个时期
+				productSalesReports = data[0];
 
-			return rsvp.Promise.all(promiseArray);
-		}).then(data => {
-			//	拼接代表销售报告
-			representativeSalesReports = data[0];
+				prodTableBody = this.generateTableBody(data, 'productName');
 
-			repTableBody = this.generateTableBody(data, 'representativeName');
-			return null;
-		}).then(() => {
-			//	获取医院销售报告
-			let promiseArray = this.generatePromiseArray(increaseSalesReports, 'hospitalSalesReports');
+				return null;
+			}).then(() => {
+				//	获取代表销售报告
+				let promiseArray = this.generatePromiseArray(increaseSalesReports, 'representativeSalesReports');
 
-			return rsvp.Promise.all(promiseArray);
-		}).then(data => {
-			//	拼接医院销售报告
-			hospitalSalesReports = data[0];
+				return rsvp.Promise.all(promiseArray);
+			}).then(data => {
+				//	拼接代表销售报告
+				representativeSalesReports = data[0];
 
-			hospTableBody = this.generateTableBody(data, 'hospitalName');
-			return null;
-		})
+				repTableBody = this.generateTableBody(data, 'representativeName');
+				return null;
+			}).then(() => {
+				//	获取医院销售报告
+				let promiseArray = this.generatePromiseArray(increaseSalesReports, 'hospitalSalesReports');
+
+				return rsvp.Promise.all(promiseArray);
+			}).then(data => {
+				//	拼接医院销售报告
+				hospitalSalesReports = data[0];
+
+				hospTableBody = this.generateTableBody(data, 'hospitalName');
+				return null;
+			})
 			.then(() => {
 				return rsvp.hash({
 					// 任一周期下的产品是相同的
 					productSalesReports,
 					representativeSalesReports,
 					hospitalSalesReports,
-					salesReports,
 					tableHead,
 					prodTableBody,
 					repTableBody,

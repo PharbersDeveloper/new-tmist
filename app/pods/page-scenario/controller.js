@@ -5,6 +5,8 @@ import rsvp from 'rsvp';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
+	ajax: service(),
+	cookies: service(),
 	oauthService: service('oauth_service'),
 	/**
 	 * @param  {number} managerTotalTime=100	经理分配总时间，默认值100(百分比值)
@@ -19,7 +21,7 @@ export default Controller.extend({
 		if (isEmpty(managerinput) || isEmpty(representativeinputs)) {
 			return { state: false, warning };
 		}
-		usedTime = managerinput.get('firstObject').get('totalManagerUsedTime');
+		usedTime = managerinput.get('totalManagerUsedTime');
 		representativeinputs.forEach(ele => {
 			usedTime += Number(ele.get('assistAccessTime'));
 			usedTime += Number(ele.get('abilityCoach'));
@@ -82,6 +84,8 @@ export default Controller.extend({
 				representativeinputs = this.get('representativeInputs'),
 				manangerInputState = this.verificationManagerInput(managerTotalTime, managerinput, representativeinputs);
 
+			// eslint-disable-next-line no-debugger
+			debugger;
 			if (!manangerInputState.state) {
 				// 经理管理时间输入完毕,弹窗，点击确定为提交 input 及跳转
 				this.set('warning', manangerInputState.warning);
@@ -112,9 +116,14 @@ export default Controller.extend({
 	},
 	// 发送input data
 	sendInput(state) {
+		const ajax = this.get('ajax'),
+			applicationAdapter = this.get('store').adapterFor('application'),
+			store = this.get('store'),
+			paper = this.get('model').paper;
+
 		//	正常逻辑
-		let store = this.get('store'),
-			paper = this.get('model').paper,
+		let version = `${applicationAdapter.get('namespace')}`,
+			host = `${applicationAdapter.get('serviceHost')}`,
 			paperId = paper.id,
 			paperinputs = paper.get('paperinputs').sortBy('time'),
 			paperinput = paperinputs.lastObject,
@@ -167,57 +176,62 @@ export default Controller.extend({
 					window.location = this.get('oauthService').redirectUri;
 					return;
 				}
-				this.transitionToRoute('page-result');
+				return ajax.request(`${version}/CallRCalculate`, {
+					method: 'POST',
+					data: {
+						'proposal-id': this.get('model').proposal.id,
+						'account-id': this.get('cookies').read('account_id')
+					}
+				}).then((response) => {
+					if (response.status === 'Success') {
+						this.transitionToRoute('page-result');
+						return;
+					}
+
+					return response;
+				}).catch(err => {
+					window.console.log('error');
+					window.console.log(err);
+				});
 			});
 	},
 	actions: {
 		submit() {
 			let store = this.get('store'),
 				representatives = store.peekAll('representative'),
-				// representativeIds = representatives.map(ele => ele.get('id')),
 				// 验证businessinputs
 				// 在page-scenario.business 获取之后进行的设置.
 				businessinputs = this.get('businessInputs');
 
 			this.verificationBusinessinputs(businessinputs, representatives);
 
-			//	正常逻辑
-			// let store = this.get('store'),
-			// 	paper = store.peekAll('paper').get('firstObject'),
-			// 	paperId = paper.id,
-			// 	phase = paper.get('paperinputs').get('length') + 1,
-			// 	promiseArray = A([
-			// 		store.peekAll('businessinput').save(),
-			// 		store.peekAll('managerinput').save(),
-			// 		store.peekAll('representativeinput').save()
-			// 	]);
-
-			// rsvp.Promise.all(promiseArray)
-			// 	.then(data => {
-			// 		return store.createRecord('paperinput', {
-			// 			paperId,
-			// 			phase,
-			// 			businessinputs: data[0],
-			// 			managerinputs: data[1],
-			// 			representativeinputs: data[2]
-
-			// 		}).save();
-			// 	}).then(data => {
-			// 		let tmpPaperinput = paper.get('paperinputs');
-
-			// 		tmpPaperinput.then(tmp => {
-			// 			tmp.pushObject(data);
-			// 			paper.save();
-			// 		}).then(() => {
-			// 			this.transitionToRoute('page-result');
-			// 		});
-
-			// 	});
-			// 临时逻辑
-			// this.transitionToRoute('page-result');
+			console.log('verification ok');
+			this.sendInput(3);
 		},
 		saveInputs() {
 			this.sendInput(1);
+		},
+		TESTrCalculate() {
+			let ajax = this.get('ajax'),
+				version = 'v0';
+
+			return ajax.request(`${version}/CallRCalculate`, {
+				method: 'POST',
+				data: JSON.stringify({
+					'proposal-id': '5cc018a2f4ce4374c23cece6',
+					'account-id': '5c4552455ee2dd7c36a94a9e'
+				})
+			}).then((response) => {
+				if (response.status === 'Success') {
+					this.transitionToRoute('page-result');
+					return;
+				}
+
+				return response;
+			}).catch(err => {
+				window.console.log('error');
+				window.console.log(err);
+			});
 		}
 	}
 });

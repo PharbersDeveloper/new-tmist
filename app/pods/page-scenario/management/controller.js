@@ -11,7 +11,6 @@ export default Controller.extend({
 	circleUsedTime: 0,
 	circleRestTime: 1,
 	ManagerUsedKpi: alias('circlePoint.firstObject.value'),
-	// isOverKpi: gt('ManagerUsedKpi', 'managerTotalKpi'),
 	isOverKpi: computed('ManagerUsedKpi', 'managerTotalKpi', function () {
 		let { ManagerUsedKpi, managerTotalKpi } =
 			this.getProperties('ManagerUsedKpi', 'managerTotalKpi');
@@ -43,7 +42,7 @@ export default Controller.extend({
 			//	Number(managerInput.get('clientManagementTime')) +	// 重点目标客户管理
 			//	Number(managerInput.get('kpiAnalysisTime')) +	// 代表及KPI分析
 			//	Number(managerInput.get('teamMeetingTime'));	// 团队例会
-			usedTime = managerInput.get('totalManagerUsedTime');
+			usedTime = isEmpty(managerInput) ? 0 : managerInput.get('totalManagerUsedTime');
 			representativeInputs.forEach(ele => {
 
 				usedTime += Number(ele.get('assistAccessTime'));
@@ -74,7 +73,9 @@ export default Controller.extend({
 		}
 
 		representativeInputs.forEach(ele => {
-			usedPoint += Number(ele.get('totalPoint'));
+			let totalPoint = isEmpty(ele) ? 0 : ele.get('totalPoint');
+
+			usedPoint += Number(totalPoint);
 		});
 
 		restPoint = managerTotalKpi - usedPoint;
