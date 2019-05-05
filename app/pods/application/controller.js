@@ -6,7 +6,7 @@ const { keys } = Object;
 
 export default Controller.extend({
 	cookies: service(),
-
+	oauthService: service('oauth_service'),
 	actions: {
 		/**
 		 * 退出账号
@@ -15,17 +15,11 @@ export default Controller.extend({
 			let cookies = this.get('cookies').read(),
 				totalCookies = A([]);
 
-			totalCookies = keys(cookies).reduce((acc, key) => {
-				let value = cookies[key];
-
-				acc.push({ name: key, value });
-
-				return acc;
-			}, []);
+			totalCookies = keys(cookies).map(ele => ele);
 
 			new RSVP.Promise((resolve) => {
 				totalCookies.forEach(ele => {
-					this.get('cookies').clear(ele.name, { domain: 'pharbers.com', path: '/' });
+					this.get('cookies').clear(ele, { domain: 'pharbers.com', path: '/' });
 				});
 				localStorage.clear();
 				return resolve(true);
@@ -34,7 +28,9 @@ export default Controller.extend({
 			});
 		},
 		endMission() {
-			this.transitionToRoute('index');
+			let url = this.get('oauthService').get('redirectUri');
+
+			window.location = url;
 		},
 		saveInputs() {
 			this.set('exitMission', false);

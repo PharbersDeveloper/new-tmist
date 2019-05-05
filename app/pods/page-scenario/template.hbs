@@ -11,7 +11,7 @@
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
-				{{#bp-button disabled=true classNames="mr-1" }}保存{{/bp-button}}
+				{{#bp-button classNames="mr-1" onClick=(action 'saveInputs')}}保存{{/bp-button}}
 				{{#bp-button type='primary' onClick=(action 'submit') }}提交执行{{/bp-button}}
 			{{/body.right}}
 		{{/ph.body}}

@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
-import rsvp from 'rsvp';
-import { A } from '@ember/array';
+import { reject, hash } from 'rsvp';
+import { A, isArray } from '@ember/array';
 
 export default Route.extend({
 	createManagerInput() {
@@ -44,22 +44,30 @@ export default Route.extend({
 		};
 	},
 	//	生成 managerinput
-	generateManagerInput(self, resourceConfigs) {
+	generateManagerInput(resourceConfigs) {
 
 		return {
-			managerInput: self.createManagerInput(),
-			representativeInputs: self.createRepInputs(resourceConfigs)
+			managerInput: this.createManagerInput(),
+			representativeInputs: this.createRepInputs(resourceConfigs)
 		};
 	},
 	// 判断是否有 managerinput
-	hasManagerInput(managerinputs, self, store, resourceConfigs) {
-		// 应该根据 managerinput 中的isNew 属性
-		let isNewManagerinputs = managerinputs.filter(ele => ele.get('isNew'));
+	hasManagerInput(paper, resourceConfigs) {
 
-		if (isNewManagerinputs.length > 0) {
-			return self.normalFlow(store);
+		// 应该根据 paper 中的 state 属性
+		let state = paper.get('state');
+
+		if (state === 1) {
+			return paper.get('paperinputs');
 		}
-		return self.generateManagerInput(self, resourceConfigs);
+		return this.generateManagerInput(resourceConfigs);
+		// 应该根据 managerinput 中的isNew 属性
+		// let isNewManagerinputs = managerinputs.filter(ele => ele.get('isNew'));
+
+		// if (isNewManagerinputs.length > 0) {
+		// 	return this.normalFlow(store);
+		// }
+		// return this.generateManagerInput(resourceConfigs);
 	},
 
 	model() {
@@ -72,10 +80,10 @@ export default Route.extend({
 			managerTotalKpi = resourceConfig.managerTotalKpi;
 
 		let currentController = this.controllerFor('page-scenario.management'),
-			inputResource = this.hasManagerInput(store.peekAll('managerinput'), this, store, rConfs),
-			managerInput = inputResource.managerInput,
-			representativeInputs = inputResource.representativeInputs;
-
+			averageAbility = [0, 0, 0, 0, 0],
+			inputResource = this.hasManagerInput(paper, rConfs),
+			managerInput = isArray(inputResource) ? null : inputResource.managerInput,
+			representativeInputs = isArray(inputResource) ? null : inputResource.representativeInputs;
 
 		/**
 		 * 获取经理总时间/总预算/总名额
@@ -100,12 +108,7 @@ export default Route.extend({
 		// managerInput = data.managerInput;
 		// representativeInputs = data.representativeInputs;
 
-		currentController.setProperties({
-			managerInput,
-			representativeInputs,
-			managerTotalTime,
-			managerTotalKpi
-		});
+
 		// return rsvp.Promise.all(rConfs.map(ele => {
 		// 	return ele.get('representativeConfig');
 		// }));
@@ -121,8 +124,8 @@ export default Route.extend({
 			.then(data => {
 				currentController.set('representativeAbilities', data);
 
-				let averageAbility = [0, 0, 0, 0, 0],
-					averageJobEnthusiasm = 0,
+				// let averageAbility = [0, 0, 0, 0, 0],
+				let averageJobEnthusiasm = 0,
 					averageProductKnowledge = 0,
 					averageBehaviorValidity = 0,
 					averageRegionalManagementAbility = 0,
@@ -141,9 +144,38 @@ export default Route.extend({
 					averageBehaviorValidity.toFixed(2),
 					averageRegionalManagementAbility.toFixed(2),
 					averageSalesAbility.toFixed(2)];
-				currentController.set('averageAbility', averageAbility);
 
-				return rsvp.hash({
+				if (!isArray(inputResource)) {
+					return reject();
+				}
+				return inputResource.sortBy('time').lastObject.get('managerinputs');
+			})
+			.then(data => {
+				managerInput = data.firstObject;
+				return inputResource.sortBy('time').lastObject.get('representativeinputs');
+			})
+			.then(data => {
+
+				representativeInputs = data;
+				return null;
+			})
+			.catch(() => { })
+			.then(() => {
+				let pageScenarioController = this.controllerFor('page-scenario');
+
+				pageScenarioController.setProperties({
+					managerInput,
+					representativeInputs
+				});
+				currentController.setProperties({
+					averageAbility,
+					managerInput,
+					representativeInputs,
+					managerTotalTime,
+					managerTotalKpi
+				});
+
+				return hash({
 					representativeInputs,
 					managerInput,
 					mConf,

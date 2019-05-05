@@ -11,7 +11,7 @@ export default Route.extend({
 			repConfs = totalModels.resourceConfRep,
 			salesConfigs = totalModels.salesConfigs,
 			currentController = this.controllerFor('page-scenario.business.hospital-config'),
-			businessInputs = store.peekAll('businessinput'),
+			businessInputs = this.modelFor('page-scenario.business').businessInputs,
 			businessinput = null;
 
 		/**
@@ -22,6 +22,9 @@ export default Route.extend({
 				businessinput = ele;
 			}
 		});
+		/**
+		 *
+		 */
 		/**
 		 * 获取总业务指标/总预算/总名额
 		 */
@@ -37,10 +40,11 @@ export default Route.extend({
 					totalBusinessIndicators: data.tbi,
 					totalBudgets: data.tbg,
 					totalMeetingPlaces: data.tmp,
+					businessInputs,
 					businessinput: businessinput
 				});
 				// 判断是否已经选择代表
-				if (isEmpty(businessinput.get('resourceConfigId'))) {
+				if (isEmpty(businessinput.get('resourceConfig.id'))) {
 					currentController.set('tmpRc', '');
 				} else {
 					repConfs.forEach(ele => {
@@ -56,6 +60,7 @@ export default Route.extend({
 					repConfs,
 					destConfig: store.peekRecord('destConfig', dCId),
 					businessinput,
+					businessInputs,
 					salesConfigs
 				});
 			});

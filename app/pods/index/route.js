@@ -6,15 +6,15 @@ import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	cookies: service(),
-	beforeModel() {
-		const cookies = this.get('cookies');
+	// beforeModel() {
+	// 	const cookies = this.get('cookies');
 
-		let token = cookies.read('access_token');
+	// 	let token = cookies.read('access_token');
 
-		if (!token) {
-			this.transitionTo('login');
-		}
-	},
+	// 	if (!token) {
+	// 		this.transitionTo('login');
+	// 	}
+	// },
 	activate() {
 		this._super(...arguments);
 		let applicationController = this.controllerFor('application');

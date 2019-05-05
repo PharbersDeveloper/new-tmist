@@ -90,6 +90,8 @@ export default Route.extend({
 				return hash({
 					proposal,
 					paper,
+					scenario,
+					paperState: paper.get('state'),
 					resourceConfRep,
 					resourceConfManager,
 					managerTotalTime,

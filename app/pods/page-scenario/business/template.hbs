@@ -72,7 +72,7 @@
 				classNames="mr-4 px-4 bg-white"}}
 			{{#bp-layout tagName="h3" cross="center" main="between"
 				local-class="title" classNames="m-0"}}
-				<span>医院</span>
+				<span>医院（{{overallFilterData.length}}）</span>
 				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
 					{{#dd.button type="link-subtle" }}
 						{{#if currentHospState.name}}
