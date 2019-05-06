@@ -236,28 +236,28 @@ export default Controller.extend({
 		},
 		saveInputs() {
 			this.sendInput(1);
-		},
-		TESTrCalculate() {
-			let ajax = this.get('ajax'),
-				version = 'v0';
-
-			return ajax.request(`${version}/CallRCalculate`, {
-				method: 'POST',
-				data: JSON.stringify({
-					'proposal-id': '5cc018a2f4ce4374c23cece6',
-					'account-id': '5c4552455ee2dd7c36a94a9e'
-				})
-			}).then((response) => {
-				if (response.status === 'Success') {
-					this.transitionToRoute('page-result');
-					return;
-				}
-
-				return response;
-			}).catch(err => {
-				window.console.log('error');
-				window.console.log(err);
-			});
 		}
+		// TESTrCalculate() {
+		// 	let ajax = this.get('ajax'),
+		// 		version = 'v0';
+
+		// 	return ajax.request(`${version}/CallRCalculate`, {
+		// 		method: 'POST',
+		// 		data: JSON.stringify({
+		// 			'proposal-id': '5cc018a2f4ce4374c23cece6',
+		// 			'account-id': '5c4552455ee2dd7c36a94a9e'
+		// 		})
+		// 	}).then((response) => {
+		// 		if (response.status === 'Success') {
+		// 			this.transitionToRoute('page-result');
+		// 			return;
+		// 		}
+
+		// 		return response;
+		// 	}).catch(err => {
+		// 		window.console.log('error');
+		// 		window.console.log(err);
+		// 	});
+		// }
 	}
 });

@@ -17,7 +17,7 @@ RUN npm update && \
 
 WORKDIR /app
 
-LABEL ntm.version=0.0.8
+LABEL ntm.version=0.0.9
 
 RUN git clone https://github.com/PharbersDeveloper/new-tmist.git && \
 	git clone https://github.com/PharbersDeveloper/BP-Components.git 
@@ -30,7 +30,10 @@ RUN git checkout -b frank origin/frank && \
 
 WORKDIR /app/new-tmist
 
-RUN npm install && \
+RUN rm -rf node_modules && \
+	rm package-lock.json && \
+	npm cache clear --force && \
+	npm install && \
 	npm link bp-components
 
 RUN ember b --environment production
