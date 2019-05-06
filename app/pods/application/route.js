@@ -29,7 +29,7 @@ export default Route.extend({
 	// 	}
 	// },
 	beforeModel({ targetName }) {
-		window.console.log('target route:' + targetName);
+		// window.console.log('target route:' + targetName);
 		if (targetName === 'oauth-callback') {
 			return;
 		}

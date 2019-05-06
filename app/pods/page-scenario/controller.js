@@ -98,6 +98,8 @@ export default Controller.extend({
 				title: `确认提交`,
 				detail: `您将提交本季度决策并输出执行报告，提交后将不可更改决策。`
 			});
+			this.set('confirmSubmit', true);
+			return;
 		}
 	},
 	//	验证 businessinput
@@ -119,32 +121,47 @@ export default Controller.extend({
 		const ajax = this.get('ajax'),
 			applicationAdapter = this.get('store').adapterFor('application'),
 			store = this.get('store'),
-			paper = this.get('model').paper;
+			model = this.get('model'),
+			paper = model.paper,
+			scenario = model.scenario;
 
 		//	正常逻辑
 		let version = `${applicationAdapter.get('namespace')}`,
-			host = `${applicationAdapter.get('serviceHost')}`,
 			paperId = paper.id,
 			paperinputs = paper.get('paperinputs').sortBy('time'),
 			paperinput = paperinputs.lastObject,
-			scenario = this.get('model').scenario,
+			reDeploy = Number(localStorage.getItem('reDeploy')),
 			phase = 1,
-			promiseArray = A([
-				store.peekAll('businessinput').save(),
-				store.peekAll('managerinput').save(),
-				store.peekAll('representativeinput').save()
-			]);
+			promiseArray = A([]);
 
+		promiseArray = A([
+			store.peekAll('businessinput').save(),
+			store.peekAll('managerinput').save(),
+			store.peekAll('representativeinput').save()
+		]);
+		// if (paper.state === 1 && reDeploy === 1 || paper.state !== 1) {
+		// 	console.log(store.peekAll('businessinput'));
+		// 	promiseArray = A([
+		// 		store.peekAll('businessinput').save(),
+		// 		store.peekAll('managerinput').save(),
+		// 		store.peekAll('representativeinput').save()
+		// 	]);
+		// } else {
+		// 	console.log(model.managerInput);
+		// 	console.log(this.get('businessInputs'));
+
+		// 	console.log(model.representativeInputs);
+
+		// 	promiseArray = A([
+		// 		model.managerInput.save(),
+		// 		store.peekAll('businessinput').save(),
+		// 		// this.get('businessInputs').save(),
+		// 		model.representativeInputs.save()
+		// 	]);
+		// }
 		rsvp.Promise.all(promiseArray)
 			.then(data => {
-
-				// if (state === 2) {
-				// 	phase = paper.get('totalPhase');
-				// } else if (state === 3) {
-				// 	phase = 1;
-				// }
-				if (paper.state !== 1) {
-
+				if (paper.state === 1 && reDeploy === 1 || paper.state !== 1) {
 					return store.createRecord('paperinput', {
 						paperId,
 						phase,
@@ -153,7 +170,6 @@ export default Controller.extend({
 						businessinputs: data[0],
 						managerinputs: data[1],
 						representativeinputs: data[2]
-
 					}).save();
 				}
 				paperinput.setProperties({
@@ -165,23 +181,31 @@ export default Controller.extend({
 				});
 				return paperinput.save();
 			}).then(data => {
-
 				paper.get('paperinputs').pushObject(data);
 				paper.set('state', state);
-				// TODO: start / end time
+				if (paper.state !== 1) {
+					paper.set('startTime', localStorage.getItem('startTime'));
+				}
+				if (state === 3) {
+					paper.set('endTime', new Date().getTime());
+				}
 				return paper.save();
 
 			}).then(() => {
+				let notice = localStorage.getItem('notice');
+
+				localStorage.clear();
+				localStorage.setItem('notice', notice);
 				if (state === 1) {
 					window.location = this.get('oauthService').redirectUri;
 					return;
 				}
 				return ajax.request(`${version}/CallRCalculate`, {
 					method: 'POST',
-					data: {
+					data: JSON.stringify({
 						'proposal-id': this.get('model').proposal.id,
 						'account-id': this.get('cookies').read('account_id')
-					}
+					})
 				}).then((response) => {
 					if (response.status === 'Success') {
 						this.transitionToRoute('page-result');
@@ -201,11 +225,13 @@ export default Controller.extend({
 				representatives = store.peekAll('representative'),
 				// 验证businessinputs
 				// 在page-scenario.business 获取之后进行的设置.
-				businessinputs = this.get('businessInputs');
+
+				// businessinputs = this.get('businessInputs');
+				businessinputs = store.peekAll('businessinput');
 
 			this.verificationBusinessinputs(businessinputs, representatives);
-
-			console.log('verification ok');
+		},
+		confirmSubmit() {
 			this.sendInput(3);
 		},
 		saveInputs() {

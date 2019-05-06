@@ -18,8 +18,18 @@ export default Route.extend({
 	activate() {
 		this._super(...arguments);
 		let applicationController = this.controllerFor('application');
+		// refresh = localStorage.getItem('refresh');
 
 		applicationController.set('testProgress', 0);
+		localStorage.removeItem('reDeploy');
+		// 如果 refresh 为 undefined 不刷新,并将refresh 设置为1。
+		// 在下一页面，
+		// if (isEmpty(refresh)) {
+		// 	localStorage.setItem('refresh', 1);
+		// } else {
+		// 	localStorage.removeItem('refresh');
+		// 	window.location.reload(true);
+		// }
 	},
 	model() {
 		let applicationModel = this.modelFor('application'),

@@ -15,7 +15,7 @@
 					产品销售报告
 				{{/bp-layout}}
 				{{#bp-layout direction="col"}}
-					{{#bp-layout main="between" local-class="choose-container"
+					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="mb-4 bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" 
@@ -46,7 +46,7 @@
 							{{/bp-dropdown}}
 						{{/bp-layout}}
 						<div local-class="choose-area"></div>
-					{{/bp-layout}}
+					{{/bp-layout}} --}}
 					<table local-class="table-container" class="table">
 						<thead>
 							<th>药品名称 </th>
@@ -56,7 +56,13 @@
 						</thead>
 						<tbody class="bg-white">
 							{{#each model.prodTableBody as |trContent|}}
-								{{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
+								<tr>
+									<td>{{trContent.goodsConfig.productConfig.product.name}}</td>
+									{{#each trContent.tableTr as |tdContent|}}
+										<td>￥{{format-number tdContent}}</td>
+									{{/each}}
+								</tr>
+								{{!-- {{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
 									{{#if (bp-eq tmpPsr.productName trContent.name)}}
 										<tr>
 											<td>{{trContent.name}}</td>
@@ -72,7 +78,7 @@
 											<td>￥{{format-number tdContent}}</td>
 										{{/each}}
 									</tr>
-								{{/if}}
+								{{/if}} --}}
 							{{/each}}
 						</tbody>
 					</table>
@@ -85,7 +91,7 @@
 					代表销售报告
 				{{/bp-layout}}
 				{{#bp-layout direction="col"}}
-					{{#bp-layout main="between" local-class="choose-container"
+					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="mb-4 bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" 
@@ -95,7 +101,7 @@
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
 									{{#if tmpRsr.id}}
-										<p>{{tmpRsr.representativeName}}</p>
+										<p>{{tmpRsr.resourceConfig.representativeConfig.representative.name}}</p>
 									{{else}}
 										请选择
 									{{/if}}
@@ -109,14 +115,14 @@
 									{{#each model.representativeSalesReports as |rsrs|}}
 										{{#menu.option value=rsrs
 												onClick=(action (mut tmpRsr))}}
-											{{rsrs.representativeName}}
+											{{rsrs.resourceConfig.representativeConfig.representative.name}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
 							{{/bp-dropdown}}
 						{{/bp-layout}}
 						<div local-class="choose-area"></div>
-					{{/bp-layout}}
+					{{/bp-layout}} --}}
 					<table local-class="table-container" class="table">
 						<thead>
 							<th>代表名称</th>
@@ -127,10 +133,17 @@
 						</thead>
 						<tbody class="bg-white">
 							{{#each model.repTableBody as |trContent|}}
-								{{#if (bp-not-eq tmpRsr.representativeName undefined '全部选择')}}
-									{{#if (bp-eq tmpRsr.representativeName trContent.name)}}
+								<tr>
+									<td>{{trContent.resourceConfig.representativeConfig.representative.name}}</td>
+									<td>{{trContent.potential}}</td>
+									{{#each trContent.tableTr as |tdContent|}}
+										<td>￥{{format-number tdContent}}</td>
+									{{/each}}
+								</tr>
+								{{!-- {{#if (bp-not-eq tmpRsr.resourceConfig.representativeConfig.representative.name undefined '全部选择')}}
+									{{#if (bp-eq tmpRsr.resourceConfig.representativeConfig.representative.name trContent.resourceConfig.representativeConfig.representative.name)}}
 										<tr>
-											<td>{{trContent.name}}</td>
+											<td>{{trContent.resourceConfig.representativeConfig.representative.name}}</td>
 											<td>{{trContent.potential}}</td>
 											{{#each trContent.tableTr as |tdContent|}}
 												<td>￥{{format-number tdContent}}</td>
@@ -139,13 +152,13 @@
 									{{/if}}
 								{{else}}
 									<tr>
-										<td>{{trContent.name}}</td>
+										<td>{{trContent.resourceConfig.representativeConfig.representative.name}}</td>
 										<td>{{trContent.potential}}</td>
 										{{#each trContent.tableTr as |tdContent|}}
 											<td>￥{{format-number tdContent}}</td>
 										{{/each}}
 									</tr>
-								{{/if}}
+								{{/if}} --}}
 							{{/each}}
 						</tbody>
 					</table>
@@ -158,7 +171,7 @@
 					医院销售报告
 				{{/bp-layout}}
 				{{#bp-layout direction="col"}}
-					{{#bp-layout main="between" local-class="choose-container"
+					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" classNames="px-4"}}
@@ -167,7 +180,7 @@
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
 									{{#if tmpHsr.id}}
-										<p>{{tmpHsr.hospitalName}}</p>
+										<p>{{tmpHsr.destConfig.hospitalConfig.hospital.name}}</p>
 									{{else}}
 										请选择
 									{{/if}}
@@ -181,7 +194,7 @@
 									{{#each model.hospitalSalesReports as |hsrs|}}
 										{{#menu.option value=hsrs
 												onClick=(action (mut tmpHsr))}}
-											{{hsrs.hospitalName}}
+											{{hsrs.destConfig.hospitalConfig.hospital.name}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
@@ -193,8 +206,8 @@
 							{{#bp-dropdown widthSize="auto"
 								local-class="dd-sort dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpPsr.id}}
-										<p>{{tmpPsr.productName}}</p>
+									{{#if tmpHsrPsr.id}}
+										<p>{{tmpHsrPsr.goodsConfig.productConfig.product.name}}</p>
 									{{else}}
 										请选择
 									{{/if}}
@@ -203,14 +216,14 @@
 								{{#dd.menu as |menu|}}
 									{{#each model.productSalesReports as |psrs|}}
 										{{#menu.option value=psrs
-												onClick=(action (mut tmpPsr))}}
-											{{psrs.productName}}
+												onClick=(action (mut tmpHsrPsr))}}
+											{{psrs.goodsConfig.productConfig.product.name}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
 							{{/bp-dropdown}}
 						{{/bp-layout}}
-					{{/bp-layout}}
+					{{/bp-layout}} --}}
 					<table local-class="table-container" class="table">
 						<thead>
 							<th>医院名称</th>
@@ -221,28 +234,20 @@
 							{{/each}}
 						</thead>
 						<tbody class="bg-white">
-							{{!-- 
-							{{#each hospitalData.currentReport as |hospital|}}
-								<tr>
-									<td>{{hospital.destConfig.hospitalConfig.hospital.name}}</td>
-									<td>{{hospital.goodsConfig.productConfig.product.name}}</td>
-									<td>{{hospital.potential}}</td>
-									{{#each hospitalData.historyReport as |history|}}
-										{{#each history as |item|}}
-											{{#if (bp-eq hospital.destConfig.hospitalConfig.hospital.id item.destConfig.hospitalConfig.hospital.id)}}
-												<td>{{item.sales}}</td>
-											{{/if}}
-										{{/each}}
-									{{/each}}
-									<td>{{hospital.sales}}</td>
-								</tr>
-							{{/each}} --}}
 							{{#each model.hospTableBody as |trContent|}}
-								{{#if (bp-not-eq tmpHsr.hospitalName undefined '全部选择')}}
-									{{#if (bp-eq tmpHsr.hospitalName trContent.name)}}
+								<tr>
+									<td>{{trContent.destConfig.hospitalConfig.hospital.name}}</td>
+									<td>{{trContent.goodsConfig.productConfig.product.name}}</td>
+									<td>{{format-number trContent.potential}}</td>
+									{{#each trContent.tableTr as |tdContent|}}
+										<td>￥{{format-number tdContent}}</td>
+									{{/each}}
+								</tr>
+								{{!-- {{#if (bp-not-eq tmpHsr.destConfig.hospitalConfig.hospital.name undefined '全部选择')}}
+									{{#if (bp-eq tmpHsr.destConfig.hospitalConfig.hospital.name trContent.destConfig.hospitalConfig.hospital.name)}}
 										<tr>
-											<td>{{trContent.name}}</td>
-											<td>{{trContent.productName}}</td>
+											<td>{{trContent.destConfig.hospitalConfig.hospital.name}}</td>
+											<td>{{trContent.goodsConfig.productConfig.product.name}}</td>
 											<td>{{format-number trContent.potential}}</td>
 											{{#each trContent.tableTr as |tdContent|}}
 												<td>￥{{format-number tdContent}}</td>
@@ -251,14 +256,14 @@
 									{{/if}}
 								{{else}}
 									<tr>
-										<td>{{trContent.name}}</td>
-										<td>{{trContent.productName}}</td>
+										<td>{{trContent.destConfig.hospitalConfig.hospital.name}}</td>
+										<td>{{trContent.goodsConfig.productConfig.product.name}}</td>
 										<td>{{format-number trContent.potential}}</td>
 										{{#each trContent.tableTr as |tdContent|}}
 											<td>￥{{format-number tdContent}}</td>
 										{{/each}}
 									</tr>
-								{{/if}}
+								{{/if}} --}}
 							{{/each}}
 						</tbody>
 					</table>

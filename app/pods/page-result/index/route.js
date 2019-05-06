@@ -3,7 +3,7 @@ import rsvp from 'rsvp';
 import { A } from '@ember/array';
 
 export default Route.extend({
-	generateTableBody(seasonData, nameKey) {
+	generateTableBody(seasonData) {
 		let totalData = A([]),
 			reportsLength = 0,
 			tmpTableBody = A([]);
@@ -15,8 +15,9 @@ export default Route.extend({
 				totalData.push(
 					[ele.get('sales'), ele.get('salesQuota')]);
 				return {
-					name: ele.get(nameKey),
-					productName: ele.get('productName'),
+					goodsConfig: ele.get('goodsConfig'),
+					resourceConfig: ele.get('resourceConfig'),
+					destConfig: ele.get('destConfig'),
 					potential: ele.get('potential')
 				};
 			});
@@ -46,8 +47,8 @@ export default Route.extend({
 	},
 	model() {
 		let store = this.get('store'),
-			resourceConfig = this.modelFor('page-scenario'),
-			paperId = resourceConfig.paper.id,
+			indexModel = this.modelFor('index'),
+			paperId = indexModel.detailPaper.id,
 			increaseSalesReports = A([]),
 			tmpHead = A([]),
 			productSalesReports = A([]),
@@ -92,7 +93,7 @@ export default Route.extend({
 				// data 代表两个时期
 				productSalesReports = data[0];
 
-				prodTableBody = this.generateTableBody(data, 'productName');
+				prodTableBody = this.generateTableBody(data);
 
 				return null;
 			}).then(() => {

@@ -31,9 +31,21 @@
 			{{model.detailProposal.proposal.describe }}
 		</p>
 		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
-			{{#bp-button type="primary" tagName='span' onClick=(action 'start' model.detailProposal.proposal.id)}}
+			{{!-- {{#bp-button type="primary" tagName='span' onClick=(action 'startDeploy' model.detailProposal.proposal.id)}}
 				开始部署
-			{{/bp-button}}
+			{{/bp-button}} --}}
+			{{#if (bp-eq model.detailPaper.state 1)}}
+				{{#bp-button tagName='span' classNames="mr-1" onClick=(action (mut reDeploy) true)}}
+					重新部署
+				{{/bp-button}}
+				{{#bp-button type="primary" tagName='span' onClick=(action 'startDeploy' model.detailProposal.proposal.id)}}
+					继续部署
+				{{/bp-button}}
+			{{else}}
+				{{#bp-button type="primary" tagName='span' onClick=(action 'startDeploy' model.detailProposal.proposal.id)}}
+					开始部署
+				{{/bp-button}}
+			{{/if}}
 		{{/bp-layout}}
 		<div class="dropdown-divider mt-3 mb-4"></div>
 		{{#bp-layout tagName="h4" main="between" classNames="m-0"}}
@@ -109,6 +121,6 @@
 	{{/modal.body}}
 	{{#modal.footer}}
 		{{#bp-button type="link" onClick=(action modal.close)}}取消{{/bp-button}}
-		{{#bp-button type="primary" onClick=(action 'reConfirmDeploy')}}重新部署{{/bp-button}}
+		{{#bp-button type="primary" onClick=(action 'reDeploy')}}重新部署{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}

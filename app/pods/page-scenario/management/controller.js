@@ -31,6 +31,7 @@ export default Controller.extend({
 				usedTime = 0,
 				restTime = 1;
 
+			representativeInputs = isEmpty(representativeInputs) ? [] : representativeInputs;
 			if (typeof managerTotalTime === 'undefined' || typeof representativeInputs === 'undefined') {
 				return A([
 					{ name: '已分配', value: usedTime },
@@ -44,9 +45,12 @@ export default Controller.extend({
 			//	Number(managerInput.get('teamMeetingTime'));	// 团队例会
 			usedTime = isEmpty(managerInput) ? 0 : managerInput.get('totalManagerUsedTime');
 			representativeInputs.forEach(ele => {
-
-				usedTime += Number(ele.get('assistAccessTime'));
-				usedTime += Number(ele.get('abilityCoach'));
+				if (isEmpty(ele)) {
+					usedTime += 0;
+				} else {
+					usedTime += Number(ele.get('assistAccessTime'));
+					usedTime += Number(ele.get('abilityCoach'));
+				}
 			});
 
 			restTime = managerTotalTime - usedTime;
@@ -64,6 +68,8 @@ export default Controller.extend({
 			this.getProperties('managerTotalKpi', 'representativeInputs'),
 			usedPoint = 0,
 			restPoint = 1;
+
+		representativeInputs = isEmpty(representativeInputs) ? [] : representativeInputs;
 
 		if (typeof managerTotalKpi === 'undefined') {
 			return A([

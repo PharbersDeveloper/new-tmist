@@ -1,9 +1,28 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import { A } from '@ember/array';
 import { isEmpty } from '@ember/utils';
+import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
+	// total: computed('businessInputs.@each.{salesTarget,budget,meetingPlaces}', function () {
+	// 	let businessInputs = this.get('model').businessInputs,
+	// 		newBusinessInputs = businessInputs,
+	// 		usedSalesTarget = 0,
+	// 		usedBudget = 0,
+	// 		usedMeetingPlaces = 0;
+
+	// 	newBusinessInputs.forEach(bi => {
+	// 		usedSalesTarget += Number(bi.get('salesTarget'));
+	// 		usedBudget += Number(bi.get('budget'));
+	// 		usedMeetingPlaces += Number(bi.get('meetingPlaces'));
+	// 	});
+
+	// 	return {
+	// 		usedSalesTarget,
+	// 		usedBudget,
+	// 		usedMeetingPlaces
+	// 	};
+	// }),
 	usedResource: computed('model.paperinput', function () {
 		if (isEmpty(this.model.paperinput)) {
 			return {
@@ -14,89 +33,57 @@ export default Controller.extend({
 			};
 		}
 	}),
-	// 只有为空的逻辑，若是继续部署，可以参照下面的获取方式
-	circleTime: computed('model.paperinput', 'totalTime', function () {
-		let paperinput = this.get('model.paperinput'),
-			//	resourceConfigManager = this.get('model.resourceConfigManager'),
-			totalTime = this.get('totalTime');
+	restManagerTime: alias('restManagerResource.restTime'),
+	restManagerKpi: alias('restManagerResource.restKpi'),
+	usedBudget: alias('restManagerResource.usedBudget'),
+	usedSalesTarget: alias('restManagerResource.usedSalesTarget'),
+	restManagerResource: computed('model.{managerInput,representativeInputs,businessInputs}', 'totalTime', 'totalKpi', function () {
+		const model = this.get('model'),
+			paperinput = model.paperinput,
+			managerInput = model.managerInput,
+			businessInputs = model.businessInputs,
+			representativeInputs = model.representativeInputs;
+
+		let usedManagerTime = 0,
+			usedManagerKpi = 0,
+			usedSalesTarget = 0,
+			usedBudget = 0;
 
 		if (isEmpty(paperinput)) {
-			return A([
-				{ name: '已分配', value: 0 },
-				{ name: '未分配', value: totalTime }
-			]);
+			return {
+				restTime: this.get('totalTime'),
+				restKpi: this.get('totalKpi'),
+				usedBudget,
+				usedSalesTarget
+			};
 		}
+		usedManagerTime = managerInput.get('totalManagerUsedTime');
 
+		representativeInputs.forEach(ele => {
+			usedManagerTime += Number(ele.get('abilityCoach'));
+			usedManagerTime += Number(ele.get('assistAccessTime'));
+			usedManagerKpi += Number(ele.get('totalPoint'));
+		});
+		businessInputs.forEach(bi => {
+			usedSalesTarget += Number(bi.get('salesTarget'));
+			usedBudget += Number(bi.get('budget'));
+			// usedMeetingPlaces += Number(bi.get('meetingPlaces'));
+		});
+		return {
+			restTime: this.get('totalTime') - usedManagerTime,
+			restKpi: this.get('totalKpi') - usedManagerKpi,
+			usedBudget,
+			usedSalesTarget
+		};
 	}),
-	//
-	// circleTime: computed(`managerInput.totalManagerUsedTime`,
-	// 	`representativeInputs.@each.{assistAccessTime,abilityCoach}`,
-	// 	function () {
-	// 		let { managerInput, managerTotalTime, representativeInputs } =
-	// 			this.getProperties('managerInput', 'managerTotalTime',
-	// 				'representativeInputs'),
-	// 			usedTime = 0,
-	// 			restTime = 1;
+	actions: {
+		entryMission(proposalId) {
+			let now = new Date().getTime();
 
-	// 		if (typeof managerTotalTime === 'undefined' || typeof representativeInputs === 'undefined') {
-	// 			return A([
-	// 				{ name: '已分配', value: usedTime },
-	// 				{ name: '未分配', value: restTime }
-	// 			]);
-	// 		}
-	// 		// usedTime = Number(managerInput.get('strategyAnalysisTime')) +
-	// 		//	Number(managerInput.get('adminWorkTime')) +	// 行政工作
-	// 		//	Number(managerInput.get('clientManagementTime')) +	// 重点目标客户管理
-	// 		//	Number(managerInput.get('kpiAnalysisTime')) +	// 代表及KPI分析
-	// 		//	Number(managerInput.get('teamMeetingTime'));	// 团队例会
-	// 		usedTime = managerInput.get('totalManagerUsedTime');
-	// 		representativeInputs.forEach(ele => {
-
-	// 			usedTime += Number(ele.get('assistAccessTime'));
-	// 			usedTime += Number(ele.get('abilityCoach'));
-	// 		});
-
-	// 		restTime = managerTotalTime - usedTime;
-	// 		return A([
-	// 			{ name: '已分配', value: usedTime },
-	// 			{ name: '未分配', value: restTime }
-	// 		]);
-	// 	}),
-	// 只有为空的逻辑，若是继续部署，可以参照下面的获取方式
-
-	circlePoint: computed('model.input', 'totalKpi', function () {
-		let paperinput = this.get('model.paperinput'),
-			// resourceConfigManager = this.get('model.resourceConfigManager'),
-			totalKpi = this.get('totalTime');
-
-		if (isEmpty(paperinput)) {
-			return A([
-				{ name: '已分配', value: 0 },
-				{ name: '未分配', value: totalKpi }
-			]);
+			if (this.get('model').detailPaper.state !== 1) {
+				localStorage.setItem('paperStartTime', now);
+			}
+			this.transitionToRoute('page-scenario', proposalId);
 		}
-	})
-	// circlePoint: computed(`representativeInputs.@each.{totalPoint}`, function () {
-	// 	let { managerTotalKpi, representativeInputs } =
-	// 		this.getProperties('managerTotalKpi', 'representativeInputs'),
-	// 		usedPoint = 0,
-	// 		restPoint = 1;
-
-	// 	if (typeof managerTotalKpi === 'undefined') {
-	// 		return A([
-	// 			{ name: '已分配', value: usedPoint },
-	// 			{ name: '未分配', value: restPoint }
-	// 		]);
-	// 	}
-
-	// 	representativeInputs.forEach(ele => {
-	// 		usedPoint += Number(ele.get('totalPoint'));
-	// 	});
-
-	// 	restPoint = managerTotalKpi - usedPoint;
-	// 	return A([
-	// 		{ name: '已分配', value: usedPoint },
-	// 		{ name: '未分配', value: restPoint }
-	// 	]);
-	// })
+	}
 });
