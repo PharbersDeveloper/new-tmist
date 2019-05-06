@@ -4,19 +4,15 @@ import { A } from '@ember/array';
 
 export default Controller.extend({
 	// 设置一些默认值
-	indicatorValue: 0,
-	budgetValue: 0,
-	meetingValue: 0,
 	hospitalState: A([
 		{ name: '全部', state: 0 },
 		{ name: '待分配', state: 1 },
 		{ name: '已分配', state: 2 }
-
 	]),
-	overallFilterData: computed('currentHospState.state', 'businessInputs.@each.isFinish', function () {
+	overallFilterData: computed('currentHospState.state', 'model.businessInputs.@each.isFinish', function () {
 		let currentHospState = this.get('currentHospState').state,
 			destConfigs = this.get('model').destConfigs,
-			businessInputs = this.get('businessInputs'),
+			businessInputs = this.get('model.businessInputs'),
 			tmpDestConfigs = A([]);
 
 		if (currentHospState) {
@@ -33,7 +29,7 @@ export default Controller.extend({
 		}
 		return destConfigs;
 	}),
-	total: computed('businessInputs.@each.{salesTarget,budget,meetingPlaces}', function () {
+	total: computed('model.businessInputs.@each.{salesTarget,budget,meetingPlaces}', function () {
 		let businessInputs = this.get('model').businessInputs,
 			newBusinessInputs = businessInputs,
 			usedSalesTarget = 0,

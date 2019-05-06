@@ -6,6 +6,7 @@ export default DS.Model.extend({
 	salesQuota: DS.attr('number'),
 	representativeName: DS.attr('string'),
 	productName: DS.attr('string'),
-	destConfig: DS.belongsTo('destConfig'),
-	goodsConfig: DS.belongsTo('goodsConfig')
+	destConfig: DS.belongsTo(),
+	goodsConfig: DS.belongsTo(),
+	resourceConfig: DS.belongsTo()
 });

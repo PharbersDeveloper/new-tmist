@@ -10,3 +10,7 @@
 		flex: 1;
 	}
 }
+
+.bp-modal-content {
+	@extend %p-primary;
+}

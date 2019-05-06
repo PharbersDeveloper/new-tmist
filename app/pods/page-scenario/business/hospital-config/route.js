@@ -11,12 +11,14 @@ export default Route.extend({
 			repConfs = totalModels.resourceConfRep,
 			salesConfigs = totalModels.salesConfigs,
 			currentController = this.controllerFor('page-scenario.business.hospital-config'),
-			businessInputs = this.modelFor('page-scenario.business').businessInputs,
+			businessController = this.controllerFor('page-scenario.business'),
+			businessInputs = businessController.businessInputs,
 			businessinput = null;
 
 		/**
 		 * 当前的业务决策实例
 		 */
+
 		businessInputs.forEach(ele => {
 			if (ele.get('destConfig.id') === dCId) {
 				businessinput = ele;

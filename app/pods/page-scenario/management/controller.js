@@ -11,7 +11,6 @@ export default Controller.extend({
 	circleUsedTime: 0,
 	circleRestTime: 1,
 	ManagerUsedKpi: alias('circlePoint.firstObject.value'),
-	// isOverKpi: gt('ManagerUsedKpi', 'managerTotalKpi'),
 	isOverKpi: computed('ManagerUsedKpi', 'managerTotalKpi', function () {
 		let { ManagerUsedKpi, managerTotalKpi } =
 			this.getProperties('ManagerUsedKpi', 'managerTotalKpi');
@@ -32,6 +31,7 @@ export default Controller.extend({
 				usedTime = 0,
 				restTime = 1;
 
+			representativeInputs = isEmpty(representativeInputs) ? [] : representativeInputs;
 			if (typeof managerTotalTime === 'undefined' || typeof representativeInputs === 'undefined') {
 				return A([
 					{ name: '已分配', value: usedTime },
@@ -43,11 +43,14 @@ export default Controller.extend({
 			//	Number(managerInput.get('clientManagementTime')) +	// 重点目标客户管理
 			//	Number(managerInput.get('kpiAnalysisTime')) +	// 代表及KPI分析
 			//	Number(managerInput.get('teamMeetingTime'));	// 团队例会
-			usedTime = managerInput.get('totalManagerUsedTime');
+			usedTime = isEmpty(managerInput) ? 0 : managerInput.get('totalManagerUsedTime');
 			representativeInputs.forEach(ele => {
-
-				usedTime += Number(ele.get('assistAccessTime'));
-				usedTime += Number(ele.get('abilityCoach'));
+				if (isEmpty(ele)) {
+					usedTime += 0;
+				} else {
+					usedTime += Number(ele.get('assistAccessTime'));
+					usedTime += Number(ele.get('abilityCoach'));
+				}
 			});
 
 			restTime = managerTotalTime - usedTime;
@@ -66,6 +69,8 @@ export default Controller.extend({
 			usedPoint = 0,
 			restPoint = 1;
 
+		representativeInputs = isEmpty(representativeInputs) ? [] : representativeInputs;
+
 		if (typeof managerTotalKpi === 'undefined') {
 			return A([
 				{ name: '已分配', value: usedPoint },
@@ -74,7 +79,9 @@ export default Controller.extend({
 		}
 
 		representativeInputs.forEach(ele => {
-			usedPoint += Number(ele.get('totalPoint'));
+			let totalPoint = isEmpty(ele) ? 0 : ele.get('totalPoint');
+
+			usedPoint += Number(totalPoint);
 		});
 
 		restPoint = managerTotalKpi - usedPoint;

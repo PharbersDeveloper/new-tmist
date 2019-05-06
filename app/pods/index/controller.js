@@ -12,8 +12,16 @@ export default Controller.extend({
 			this.set('model.detailProposal', useableProposal);
 			this.set('model.detailPaper', paper);
 		},
-		start(id) {
-			this.transitionToRoute('page-notice', id);
+		startDeploy(proposalId) {
+			this.transitionToRoute('page-notice', proposalId);
+		},
+		reDeploy() {
+			let proposalId = this.get('model').detailProposal.get('proposal.id');
+
+			this.set('reDeploy', false);
+			// reDeploy 为 1 的时候，代表用户选择`重新部署`
+			localStorage.setItem('reDeploy', 1);
+			this.transitionToRoute('page-notice', proposalId);
 		},
 		prevStep() {
 			let step = this.get('step') - 1;
@@ -51,7 +59,6 @@ export default Controller.extend({
 				localStorage.setItem('notice', false);
 			} else {
 				localStorage.setItem('notice', true);
-
 			}
 		}
 	}

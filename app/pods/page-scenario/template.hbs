@@ -11,6 +11,7 @@
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
+				{{#bp-button classNames="mr-1" onClick=(action 'TESTrCalculate')}}TESTrCalculate{{/bp-button}}
 				{{#bp-button classNames="mr-1" onClick=(action 'saveInputs')}}保存{{/bp-button}}
 				{{#bp-button type='primary' onClick=(action 'submit') }}提交执行{{/bp-button}}
 			{{/body.right}}
@@ -48,7 +49,7 @@
 {{#bp-modal
 		open=warning.open 
 		position='center'
-		onSubmit=(action "submit") 
+		onSubmit=(action "confirmSubmit") 
 		onHidden=(action (mut warning.open) false) as |modal|}}
 	{{#modal.header}}
 		<h4 class="modal-title">
@@ -56,12 +57,16 @@
 		</h4>
 	{{/modal.header}}
 	{{#modal.body}}
-		<p>
+		<p class="m-0" local-class="bp-modal-content">
 			{{warning.detail}}
 		</p>
 	{{/modal.body}}
 	{{#modal.footer}}
-		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+		{{#unless confirmSubmit}}
+			{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+		{{else}}
+			{{#bp-button type="primary" onClick=(action modal.submit)}}确定提交{{/bp-button}}
+		{{/unless}}
 		{{!-- {{#bp-button type="danger"}}Delete{{/bp-button}} --}}
 		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
 	{{/modal.footer}}
