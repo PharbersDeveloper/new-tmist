@@ -62,7 +62,7 @@ export default Route.extend({
 
 
 		if (state === 1 && !reDeploy) {
-			return paper.get('paperinputs');
+			return this.get('store').peekAll('businessinput');
 		}
 		return this.generateBusinessInputs(destConfigs, goodsConfig);
 	},
@@ -128,6 +128,7 @@ export default Route.extend({
 			managerTotalTime = 0,
 			managerTotalKpi = 0,
 			inputResource = null,
+			businessInputs = null,
 			managerInput = null,
 			representativeInputs = null;
 		// reDeploy = Number(localStorage.getItem('reDeploy')) === 1;
@@ -198,8 +199,9 @@ export default Route.extend({
 				managerInput = inputResource.managerInput;
 				representativeInputs = inputResource.representativeInputs;
 
-				// let goodsConfig = goodsConfigs.filter(ele => ele.get('productConfig.productType') === 0).firstObject,
-				// 	tmp = this.isHaveBusinessInput(paper, destConfigs, goodsConfig);
+				let goodsConfig = goodsConfigs.filter(ele => ele.get('productConfig.productType') === 0).firstObject;
+
+				businessInputs = this.isHaveBusinessInput(paper, destConfigs, goodsConfig);
 
 				// if (!tmp.isFulfilled) {
 				// 	return tmp;
@@ -212,7 +214,7 @@ export default Route.extend({
 					proposal,
 					managerInput,
 					representativeInputs,
-					// businessInputs: data,
+					businessInputs,
 					paper,
 					scenario,
 					paperState: paper.get('state'),
@@ -244,7 +246,5 @@ export default Route.extend({
 		controller.set('managerInput', model.managerInput);
 		controller.set('representativeInputs', model.representativeInputs);
 		controller.set('businessInputs', model.businessInputs);
-
-
 	}
 });

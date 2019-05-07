@@ -13,7 +13,7 @@
 					onClick=(action (mut rules) true)}}
 					规则介绍
 				{{/bp-button}}
-				{{#bp-button onClick=(action (mut exitMission) true)}}结束任务{{/bp-button}}
+				{{#bp-button onClick=(action "saveInputEndMission")}}结束任务{{/bp-button}}
 			</span>
 		{{else}}
 			{{#bp-dropdown widthSize="auto"

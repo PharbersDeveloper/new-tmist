@@ -5,10 +5,12 @@ import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	cookies: service(),
-	afterModel() {
+	afterModel(model) {
 		let applicationController = this.controllerFor('application');
 
 		applicationController.set('testProgress', 1);
+		applicationController.set('scenario', model.scenario);
+
 	},
 	model({ proposalId }) {
 		const store = this.get('store'),

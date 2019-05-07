@@ -25,7 +25,7 @@
 					产品销售报告
 				{{/bp-layout}}
 				{{#bp-layout direction="col"}}
-					{{#bp-layout main="between" local-class="choose-container"
+					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="mb-4 bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" 
@@ -37,7 +37,7 @@
 									{{#if tmpPsr.id}}
 										<p>{{tmpPsr.productName}}</p>
 									{{else}}
-										请选择
+										全部选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
@@ -56,9 +56,9 @@
 							{{/bp-dropdown}}
 						{{/bp-layout}}
 						<div local-class="choose-area" class="px-4"></div>
-					{{/bp-layout}}
+					{{/bp-layout}} --}}
 					<div class="table-responsive">
-						<table local-class="table-container" class="table">
+						<table local-class="table-container" class="table table-hover">
 							<thead>
 								<th>药品名称 </th>
 								{{#each model.tableHead as |tcontent|}}
@@ -67,7 +67,18 @@
 							</thead>
 							<tbody class="bg-white">
 								{{#each model.prodTableBody as |trContent|}}
-									{{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
+									<tr>
+										<td>{{trContent.goodsConfig.productConfig.product.name}}</td>
+										{{#each trContent.tableTr as |tdContent|}}
+											{{!-- <td>￥{{format-number tdContent}}</td> --}}
+											{{#if (type-number tdContent)}}
+												<td>￥{{format-number tdContent}}</td>
+											{{else}}
+												<td>{{tdContent}}</td>
+											{{/if}}
+										{{/each}}
+									</tr>
+									{{!-- {{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
 										{{#if (bp-eq tmpPsr.productName trContent.name)}}
 											<tr>
 												<td>{{trContent.name}}</td>
@@ -83,7 +94,7 @@
 												<td>￥{{format-number tdContent}}</td>
 											{{/each}}
 										</tr>
-									{{/if}}
+									{{/if}} --}}
 								{{/each}}
 							</tbody>
 						</table>
@@ -96,8 +107,8 @@
 				 classNames="m-0 bg-white px-4"}}
 					代表销售报告
 				{{/bp-layout}}
-				{{#bp-layout direction="col"}}
-					{{#bp-layout main="between" local-class="choose-container"
+				{{#bp-layout direction="col" classNames="table-responsive"}}
+					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="mb-4 bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" 
@@ -109,7 +120,7 @@
 									{{#if tmpRsr.id}}
 										<p>{{tmpRsr.representativeName}}</p>
 									{{else}}
-										请选择
+										全部选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
@@ -128,8 +139,8 @@
 							{{/bp-dropdown}}
 						{{/bp-layout}}
 						<div local-class="choose-area"></div>
-					{{/bp-layout}}
-					<table local-class="table-container" class="table">
+					{{/bp-layout}} --}}
+					<table local-class="table-container" class="table table-hover">
 						<thead>
 							<th>代表名称</th>
 							<th>潜力</th>
@@ -139,7 +150,19 @@
 						</thead>
 						<tbody class="bg-white">
 							{{#each model.repTableBody as |trContent|}}
-								{{#if (bp-not-eq tmpRsr.representativeName undefined '全部选择')}}
+								<tr>
+									<td>{{trContent.resourceConfig.representativeConfig.representative.name}}</td>
+									<td>{{format-number trContent.potential}}</td>
+									{{#each trContent.tableTr as |tdContent index|}}
+										{{#if (type-number tdContent)}}
+											<td>￥{{format-number tdContent}}</td>
+										{{else}}
+											<td>{{tdContent}}</td>
+										{{/if}}
+										{{!-- <td>￥{{format-number tdContent}}</td> --}}
+									{{/each}}
+								</tr>
+								{{!-- {{#if (bp-not-eq tmpRsr.representativeName undefined '全部选择')}}
 									{{#if (bp-eq tmpRsr.representativeName trContent.name)}}
 										<tr>
 											<td>{{trContent.name}}</td>
@@ -157,7 +180,7 @@
 											<td>￥{{format-number tdContent}}</td>
 										{{/each}}
 									</tr>
-								{{/if}}
+								{{/if}} --}}
 							{{/each}}
 						</tbody>
 					</table>
@@ -169,8 +192,8 @@
 				 classNames="m-0 bg-white px-4"}}
 					医院销售报告
 				{{/bp-layout}}
-				{{#bp-layout direction="col"}}
-					{{#bp-layout main="between" local-class="choose-container"
+				{{#bp-layout direction="col" classNames="table-responsive"}}
+					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" classNames="px-4"}}
@@ -179,9 +202,9 @@
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
 									{{#if tmpHsr.id}}
-										<p>{{tmpHsr.hospitalName}}</p>
+										<p>{{ .hospitalName}}</p>
 									{{else}}
-										请选择
+										全部选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
@@ -222,8 +245,8 @@
 								{{/dd.menu}}
 							{{/bp-dropdown}}
 						{{/bp-layout}}
-					{{/bp-layout}}
-					<table local-class="table-container" class="table">
+					{{/bp-layout}} --}}
+					<table local-class="table-container" class="table table-hover">
 						<thead>
 							<th>医院名称</th>
 							<th>产品</th>
@@ -234,7 +257,20 @@
 						</thead>
 						<tbody class="bg-white">
 							{{#each model.hospTableBody as |trContent|}}
-								{{#if (bp-not-eq tmpHsr.hospitalName undefined '全部选择')}}
+								<tr>
+									<td>{{trContent.destConfig.hospitalConfig.hospital.name}}</td>
+									<td>{{trContent.goodsConfig.productConfig.product.name}}</td>
+									<td>{{format-number trContent.potential}}</td>
+									{{#each trContent.tableTr as |tdContent|}}
+										{{!-- <td>￥{{format-number tdContent}}</td> --}}
+										{{#if (type-number tdContent)}}
+											<td>￥{{format-number tdContent}}</td>
+										{{else}}
+											<td>{{tdContent}}</td>
+										{{/if}}
+									{{/each}}
+								</tr>
+								{{!-- {{#if (bp-not-eq tmpHsr.hospitalName undefined '全部选择')}}
 									{{#if (bp-eq tmpHsr.hospitalName trContent.name)}}
 										<tr>
 											<td>{{trContent.name}}</td>
@@ -254,7 +290,7 @@
 											<td>￥{{format-number tdContent}}</td>
 										{{/each}}
 									</tr>
-								{{/if}}
+								{{/if}} --}}
 							{{/each}}
 						</tbody>
 					</table>

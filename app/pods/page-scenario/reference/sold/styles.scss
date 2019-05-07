@@ -42,6 +42,8 @@ h2.title {
 		}
 
 		.table-container {
+			table-layout: fixed;
+
 			thead {
 				background-color: transparent;
 
@@ -50,9 +52,9 @@ h2.title {
 					border: 0;
 					@extend %p-small;
 
-					&:first-child {
-						min-width: 50px;
-					}
+					// &:first-child {
+					// 	min-width: 50px;
+					// }
 				}
 			}
 
@@ -60,7 +62,6 @@ h2.title {
 				td {
 					padding: 0;
 					padding-left: $spacing-2;
-
 					height: 52px;
 					line-height: 52px;
 					@extend %p-primary;

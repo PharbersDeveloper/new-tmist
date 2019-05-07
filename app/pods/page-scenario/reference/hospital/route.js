@@ -37,7 +37,7 @@ export default Route.extend({
 					let productNames = this.eachArray(hospitalSalesReports, 'productName'),
 						sales = this.eachArray(hospitalSalesReports, 'sales'),
 						salesQuotas = this.eachArray(hospitalSalesReports, 'salesQuota'),
-						quotaAchievement = this.eachArray(hospitalSalesReports, 'salesQuota'),
+						quotaAchievement = this.eachArray(hospitalSalesReports, 'quotaAchievement'),
 						destConfigIds = this.eachArray(hospitalSalesReports, 'destConfig');
 
 					promiseArray = destConfigIds;
@@ -72,7 +72,7 @@ export default Route.extend({
 						date: seasons,
 						sales: tmpData.map(ele => ele.sales[index]),
 						salesQuotas: tmpData.map(ele => ele.salesQuotas[index]),
-						quotaAchievementes: tmpData.map(ele => ele.quotaAchievement[index])
+						quotaAchievementes: tmpData.map(ele => ele.quotaAchievement[index] * 100)
 					};
 				});
 

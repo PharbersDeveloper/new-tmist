@@ -9,7 +9,7 @@
 			<div class="px-4">
 				<p local-class="m-name" class="mt-2 mb-0">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
 				<p local-class="info" class="mb-4">
-					{{format-number total.usedSalesTarget}} /
+					￥{{format-number total.usedSalesTarget}} /
 					￥{{format-number model.mConf.managerConfig.totalBusinessIndicators}}
 				</p>
 				{{#bp-progress local-class="progress" classNames="mb-4" as |p|}}
@@ -33,7 +33,7 @@
 			<div class="px-4">
 				<p local-class="m-name" class="mt-2 mb-0">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
 				<p local-class="info" class="mb-4">
-					{{format-number total.usedBudget}} /
+					￥{{format-number total.usedBudget}} /
 					￥{{format-number model.mConf.managerConfig.totalBudgets}}
 				</p>
 				{{#bp-progress classNames="mb-4" as |p|}}
@@ -58,7 +58,7 @@
 				<p local-class="m-name" class="mt-2 mb-0">&nbsp;</p>
 				<p local-class="info" class="mb-4">
 					{{format-number total.usedMeetingPlaces}} /
-					{{format-number model.mConf.managerConfig.totalMeetingPlaces}}
+					{{format-number model.mConf.managerConfig.totalMeetingPlaces}}个
 				</p>
 				{{#bp-progress as |p|}}
 					{{p.bar value=total.usedMeetingPlaces maxValue=model.mConf.managerConfig.totalMeetingPlaces}}
@@ -72,7 +72,7 @@
 				classNames="mr-4 px-4 bg-white"}}
 			{{#bp-layout tagName="h3" cross="center" main="between"
 				local-class="title" classNames="m-0"}}
-				<span>医院（{{overallFilterData.length}}）</span>
+				<span>目标医院选择（{{overallFilterData.length}}）</span>
 				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
 					{{#dd.button type="link-subtle" }}
 						{{#if currentHospState.name}}
@@ -92,13 +92,14 @@
 					{{/dd.menu}}
 				{{/bp-dropdown}}
 			{{/bp-layout}}
-			{{#each overallFilterData as |dc|}}
-				{{#link-to "page-scenario.business.hospital-config" dc.id
+			{{#each overallFilterData as |destConfig|}}
+				{{#link-to "page-scenario.business.hospital-config" destConfig.id
 						activeClass="current-hospital"}}
 					{{hospital-overall
-							hospitalName=dc.hospitalConfig.hospital.name
+							hospitalName=destConfig.hospitalConfig.hospital.name
 							businessInputs=model.businessInputs
-							overallFilterData=dc}}
+							overallFilterData=destConfig
+							salesConfigs=model.salesConfigs}}
 				{{/link-to}}
 			{{/each}}
 		{{/bp-layout}}

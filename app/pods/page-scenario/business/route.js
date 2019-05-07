@@ -1,76 +1,75 @@
 import Route from '@ember/routing/route';
-import { A } from '@ember/array';
+// import { A } from '@ember/array';
 import { hash } from 'rsvp';
 
 export default Route.extend({
-	isHaveBusinessInput(paper, destConfigs, goodsConfig) {
-		let state = paper.get('state'),
-			reDeploy = Number(localStorage.getItem('reDeploy')) === 1;
+	// isHaveBusinessInput(paper, destConfigs, goodsConfig) {
+	// 	let state = paper.get('state'),
+	// 		reDeploy = Number(localStorage.getItem('reDeploy')) === 1;
 
+	// 	if (state === 1 && !reDeploy) {
+	// 		// return paper.get('paperinputs');
+	// 		return this.get('store').peekAll('businessinput');
 
-		if (state === 1 && !reDeploy) {
-			// return paper.get('paperinputs');
-			return this.get('store').peekAll('businessinput');
-
-		}
-		return this.generateBusinessInputs(destConfigs, goodsConfig);
-	},
-	// normalFlow(newBusinessInputs) {
-	// 	return newBusinessInputs;
+	// 	}
+	// 	return this.generateBusinessInputs(destConfigs, goodsConfig);
 	// },
-	generateBusinessInputs(destConfigs, goodsConfig) {
-		let promiseArray = A([]);
+	// // normalFlow(newBusinessInputs) {
+	// // 	return newBusinessInputs;
+	// // },
+	// generateBusinessInputs(destConfigs, goodsConfig) {
+	// 	let promiseArray = A([]);
 
-		promiseArray = destConfigs.map(ele => {
-			return this.get('store').createRecord('businessinput', {
-				destConfig: ele,
-				destConfigId: ele.id,
-				representativeId: '',
-				resourceConfigId: '',
-				resourceConfig: null,
-				salesTarget: '',
-				budget: '',
-				goodsConfig,
-				meetingPlaces: '',
-				visitTime: ''
-			});
-		});
-		return promiseArray;
-	},
+	// 	promiseArray = destConfigs.map(ele => {
+	// 		return this.get('store').createRecord('businessinput', {
+	// 			destConfig: ele,
+	// 			destConfigId: ele.id,
+	// 			representativeId: '',
+	// 			resourceConfigId: '',
+	// 			resourceConfig: null,
+	// 			salesTarget: '',
+	// 			budget: '',
+	// 			goodsConfig,
+	// 			meetingPlaces: '',
+	// 			visitTime: ''
+	// 		});
+	// 	});
+	// 	return promiseArray;
+	// },
 	model() {
-		const totalConfigs = this.modelFor('page-scenario'),
-			paper = totalConfigs.paper,
-			destConfigs = totalConfigs.destConfigs,
-			goodsConfigs = totalConfigs.goodsConfigs,
-			goodsConfig = goodsConfigs.filter(ele => ele.get('productConfig.productType') === 0).firstObject;
+		const pageScenarioModel = this.modelFor('page-scenario'),
+			// paper = pageScenarioModel.paper,
+			businessInputs = pageScenarioModel.businessInputs,
+			destConfigs = pageScenarioModel.destConfigs,
+			goodsConfigs = pageScenarioModel.goodsConfigs;
 
-		let tmp = this.isHaveBusinessInput(paper, destConfigs, goodsConfig);
+		// goodsConfig = goodsConfigs.filter(ele => ele.get('productConfig.productType') === 0).firstObject;
 
-		// let businessInputs = totalConfigs.businessInputs;
-		// if (!tmp.isFulfilled) {
-		this.controllerFor('page-scenario.business').set('businessInputs', tmp);
-		this.controllerFor('page-scenario').set('businessInputs', tmp);
+		// let businessInputs = this.isHaveBusinessInput(paper, destConfigs, goodsConfig);
+
+		this.controllerFor('page-scenario.business').set('businessInputs', businessInputs);
+		this.controllerFor('page-scenario').set('businessInputs', businessInputs);
 
 		return hash({
-			businessInputs: tmp,
-			mConf: totalConfigs.resourceConfManager,
+			businessInputs: businessInputs,
+			mConf: pageScenarioModel.resourceConfManager,
 			goodsConfigs,
 			destConfigs,
-			salesConfigs: totalConfigs.salesConfigs
+			salesConfigs: pageScenarioModel.salesConfigs
 		});
 		// }
 
-		// return tmp.sortBy('time').lastObject.get('businessinputs')
+		// return businessInputs.sortBy('time').lastObject.get('businessinputs')
 		// 	.then(data => {
 		// 		this.controllerFor('page-scenario.business').set('businessInputs', data);
 		// 		this.controllerFor('page-scenario').set('businessInputs', data);
 
 		// 		return hash({
 		// 			businessInputs: data,
-		// 			mConf: totalConfigs.resourceConfManager,
+		// 			mConf: pageScenarioModel.resourceConfManager,
 		// 			goodsConfigs,
 		// 			destConfigs,
-		// 			salesConfigs: totalConfigs.salesConfigs
+		// 			salesConfigs: pageScenarioModel.salesConfigs
 		// 		});
 		// 	});
 	}

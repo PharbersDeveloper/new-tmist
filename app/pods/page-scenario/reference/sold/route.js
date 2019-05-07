@@ -4,20 +4,30 @@ import { A } from '@ember/array';
 
 export default Route.extend({
 
-	generateTableBody(seasonData, nameKey) {
+	generateTableBody(seasonData) {
 		let totalData = A([]),
+			ratesData = A([]),
 			reportsLength = 0,
 			tmpTableBody = A([]);
 
-		seasonData.forEach(item => {
+		seasonData.forEach((item, i) => {
 			// 当前季度下的 one -> many **SalesReports()
 			reportsLength = item.get('length');
 			tmpTableBody = item.map(ele => {
 				totalData.push(
 					[ele.get('sales'), ele.get('salesQuota')]);
+				if (seasonData.length - 1 === i) {
+					ratesData.push(
+						[
+							(ele.get('salesGrowth') * 100).toFixed(0) + '%',
+							(ele.get('quotaAchievement') * 100).toFixed(0) + '%'
+						]);
+				}
+
 				return {
-					name: ele.get(nameKey),
-					productName: ele.get('productName'),
+					goodsConfig: ele.get('goodsConfig'),
+					resourceConfig: ele.get('resourceConfig'),
+					destConfig: ele.get('destConfig'),
 					potential: ele.get('potential')
 				};
 			});
@@ -32,6 +42,7 @@ export default Route.extend({
 			for (let i = 1; i <= seasonNum; i++) {
 				tmpTableTr.push(totalData[index + (i - 1) * reportsLength][1]);
 			}
+			tmpTableTr.push(ratesData[index]);
 			ele.tableTr = tmpTableTr.flat();
 			return ele;
 		});
@@ -83,6 +94,8 @@ export default Route.extend({
 			tmpHead.forEach(ele => {
 				tableHead.push(ele + '\n销售指标');
 			});
+			tableHead.push(`销售增长率\n${tmpHead.lastObject}`);
+			tableHead.push(`指标达成率\n${tmpHead.lastObject}`);
 
 			promiseArray = this.generatePromiseArray(increaseSalesReports, 'productSalesReports');
 			return rsvp.Promise.all(promiseArray);
@@ -90,7 +103,7 @@ export default Route.extend({
 			// data 代表两个时期
 			productSalesReports = data[0];
 
-			prodTableBody = this.generateTableBody(data, 'productName');
+			prodTableBody = this.generateTableBody(data);
 
 			return null;
 		}).then(() => {
@@ -102,7 +115,7 @@ export default Route.extend({
 			//	拼接代表销售报告
 			representativeSalesReports = data[0];
 
-			repTableBody = this.generateTableBody(data, 'representativeName');
+			repTableBody = this.generateTableBody(data);
 			return null;
 		}).then(() => {
 			//	获取医院销售报告
@@ -113,7 +126,7 @@ export default Route.extend({
 			//	拼接医院销售报告
 			hospitalSalesReports = data[0];
 
-			hospTableBody = this.generateTableBody(data, 'hospitalName');
+			hospTableBody = this.generateTableBody(data);
 			return null;
 		})
 			.then(() => {

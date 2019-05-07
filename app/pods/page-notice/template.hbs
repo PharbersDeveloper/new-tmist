@@ -5,10 +5,14 @@
 		{{#bp-layout direction="col" local-class="manager" 
 		classNames="mb-4 p-4"}}
 			<img src="https://i.loli.net/2019/04/12/5cb004ea5f31f.png" alt="manager avatar">
-			<h2 local-class="title" class="mb-4">经理，您好！</h2>
-			<p local-class="desc" class="mb-4">这是您本期的任务内容，
-				我们将在您提交执行决策后，对您的决策的结果和表现进行评估。<br>
-				期待您为公司带来业绩上的增长和团队能力的提升!
+			<h2 local-class="title" class="mb-4">
+				经理，您好！<br />
+				欢迎进入铁马区域项目管理
+			</h2>
+			<p local-class="desc" class="mb-4">
+				在本次案例测试中，您的任务是对您所负责的地区完成新一季度的区域周期计划，
+				周期计划的内容包括业务决策与管理决策，请仔细阅读右侧的任务通知，
+				了解地区概况与您手上的资源后，点击“进入任务”，开始测试。
 			</p>
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="rule" classNames="p-4"}}
@@ -25,10 +29,10 @@
 	{{#bp-layout direction="col" local-class="mission-notice item" classNames="mt-4"}}
 		<h1 class="mb-3 p-3">
 			<span local-class="title" class="mr-3">本期任务通知</span>
-			{{#if (bp-not-eq model.scenario.phase 1)}}
+			{{!-- {{#if (bp-not-eq model.scenario.phase 1)}}
 				<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
-			{{/if}}
-			{{!-- <span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span> --}}
+			{{/if}} --}}
+			<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
 		</h1>
 		<div local-class="resource" class="mb-2 p-3 rounded">
 			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
@@ -171,7 +175,9 @@
 					{{#bp-layout direction="col" local-class="main-box" classNames="ml-4"}}
 						{{#bp-layout main="between" classNames="mb-2"}}
 							<h4 class="m-0">总预算</h4>
-							<span local-class="schedule">{{format-number usedBudget}} / ￥{{format-number model.resourceConfigManager.managerConfig.totalBudgets}}</span>
+							<span local-class="schedule">
+								￥{{format-number usedBudget}} / ￥{{format-number model.resourceConfigManager.managerConfig.totalBudgets}}
+							</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}
 							{{p.bar value=usedBudget maxValue=model.resourceConfigManager.managerConfig.totalBudgets}}
@@ -198,7 +204,7 @@
 								{{/if}}
 							{{/each}}
 							<span local-class="schedule">
-								{{format-number usedSalesTarget}} / ￥{{format-number model.resourceConfigManager.managerConfig.totalBusinessIndicators}}
+								￥{{format-number usedSalesTarget}} / ￥{{format-number model.resourceConfigManager.managerConfig.totalBusinessIndicators}}
 							</span>
 						{{/bp-layout}}
 						{{#bp-progress as |p|}}

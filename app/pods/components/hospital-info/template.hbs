@@ -59,6 +59,46 @@
 					{{/bp-layout}}
 				</div> --}}
 			{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="medic-access"
+				classNames="px-4"}}
+				<h4 local-class="title" class="mb-3">药品准入情况</h4>
+				{{#bp-layout}}
+					{{#bp-layout direction="col" classNames="mr-5"}}
+						<p local-class="keys">药品名</p>
+						<p local-class="values">
+							{{#each salesConfigs as |sc|}}
+								{{#if (bp-eq sc.destConfig.id destConfig.id)}}
+									{{sc.goodsConfig.productConfig.product.name}}
+								{{/if}}
+							{{/each}}
+						</p>
+					{{/bp-layout}}
+					{{#bp-layout direction="col"  classNames="mr-5"}}
+						<p local-class="keys">准入情况</p>
+						<p local-class="values">
+							{{#each salesConfigs as |sc|}}
+								{{#if (bp-eq sc.destConfig.id destConfig.id)}}
+									{{sc.accessStatus}}
+								{{/if}}
+							{{/each}}
+						</p>
+					{{/bp-layout}}
+					{{#bp-layout direction="col"}}
+						<p local-class="keys">潜力值</p>
+						<p local-class="values">
+							{{#each salesConfigs as |sc|}}
+								{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
+									{{#each sc.salesReport.hospitalSalesReports as |item|}}
+										{{#if (bp-eq item.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
+											￥{{format-number item.potential}}
+										{{/if}}
+									{{/each}}
+								{{/if}}
+							{{/each}}
+						</p>
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
 			<div local-class="dynamic others" class="p-4">
 				<h4 local-class="title" class="mb-2">医院动态</h4>
 				{{#each destConfig.hospitalConfig.policies as |policy|}}
