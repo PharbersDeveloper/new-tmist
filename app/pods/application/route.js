@@ -7,7 +7,7 @@ import { isEmpty } from '@ember/utils';
 export default Route.extend({
 	cookies: service(),
 	ajax: service(),
-	'oauth_service': service(),
+	oauthService: service('oauth_service'),
 	clientId: '5cbd9f94f4ce4352ecb082a0',
 	clientSecret: '5c90db71eeefcc082c0823b2',
 	beforeModel({ targetName }) {
@@ -18,9 +18,8 @@ export default Route.extend({
 		if (isEmpty(localStorage.getItem('notice'))) {
 			localStorage.setItem('notice', true);
 		}
-		if (this.oauth_service.judgeAuth()) {
+		if (this.oauthService.judgeAuth()) {
 			this.transitionTo('index');
-
 		} else {
 			this.transitionTo('login');
 		}
@@ -67,11 +66,18 @@ export default Route.extend({
 			});
 		});
 	},
+	judgeOauth() {
+		let oauthService = this.get('oauthService'),
+			judgeAuth = oauthService.judgeAuth();
+
+		return judgeAuth ? oauthService.redirectUri : null;
+	},
 	actions: {
 		error(error, transition) {
 			window.console.log(error);
 			window.console.log(transition);
-			this.transitionTo('index');
+			window.location = this.oauthService.redirectUri;
+			// this.transitionTo('index');
 		}
 	}
 });
