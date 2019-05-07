@@ -12,7 +12,7 @@ export default Controller.extend({
 		if (salesTarget === 0 || typeof totalBusinessIndicators === 'undefined') {
 			return 0;
 		}
-		return (salesTarget / totalBusinessIndicators).toFixed(2) * 100;
+		return (salesTarget * 100 / totalBusinessIndicators).toFixed(2);
 
 	}),
 	budgetPercent: computed('businessinput.budget', function () {
@@ -23,7 +23,7 @@ export default Controller.extend({
 		if (budget === 0 || isEmpty(totalBudgets)) {
 			return 0;
 		}
-		return (budget / totalBudgets).toFixed(2) * 100;
+		return (budget * 100 / totalBudgets).toFixed(2);
 	}),
 	// 代表分配时间percent
 	representativesVisitPercent: computed('businessinput.visitTime', 'tmpRc', function () {

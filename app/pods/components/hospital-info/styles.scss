@@ -50,6 +50,17 @@
 				}
 			}
 
+			.medic-access {
+				.keys {
+					margin-bottom: $spacing;
+					@extend %p-small;
+				}
+
+				.values {
+					@extend %p-primary;
+				}
+			}
+
 			.others {
 				&.dynamic {
 					font-size: 0;
@@ -77,12 +88,14 @@
 			// 		@extend %p-primary;
 			// 	}
 			// }
-			height: 343px;
+			// height: 343px;
+			height: 429px;
+
 
 			.chart {
 				// height: 321px;
-				height: 343px;
-
+				// height: 343px;
+				height: 429px;
 				// background-color: #A1C6E7;
 			}
 		}

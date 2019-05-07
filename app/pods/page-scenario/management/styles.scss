@@ -131,6 +131,10 @@
 
 			.allot-point-content {
 				table {
+					&.point-table {
+						table-layout: fixed;
+					}
+
 					th {
 						@extend %p-small;
 					}

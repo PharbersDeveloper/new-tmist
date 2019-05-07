@@ -18,13 +18,13 @@ export default Service.extend({
 	/**
 	 * 本地部署
 	 */
-	redirectUri: 'http://ntm.pharbers.com:8081',
-	host: 'http://192.168.100.174:9096',
+	// redirectUri: 'http://ntm.pharbers.com:8081',
+	// host: 'http://192.168.100.174:9096',
 	/**
 	 * 线上部署
 	 */
-	// redirectUri: 'http://ntm.pharbers.com',
-	// host: 'http://oauth.pharbers.com',
+	redirectUri: 'http://ntm.pharbers.com',
+	host: 'http://oauth.pharbers.com',
 
 	oauthOperation() {
 		const ajax = this.get('ajax');

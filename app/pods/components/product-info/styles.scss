@@ -59,10 +59,7 @@
 				font-size: 0;
 
 				p>span:first-child {
-					-webkit-box-flex: 0;
-					-webkit-flex: 0 0 56px;
-					-ms-flex: 0 0 56px;
-					flex: 0 0 56px;
+					flex: 0 0 70px;
 					margin-right: 2*$spacing;
 					@extend %p-primary;
 				}

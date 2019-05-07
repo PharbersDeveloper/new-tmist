@@ -10,26 +10,7 @@ export default Route.extend({
 	'oauth_service': service(),
 	clientId: '5cbd9f94f4ce4352ecb082a0',
 	clientSecret: '5c90db71eeefcc082c0823b2',
-	// beforeModel({ targetName }) {
-	// 	const cookies = this.get('cookies');
-
-	// 	let token = cookies.read('access_token'),
-	// 		scope = cookies.read('scope'),
-	// 		hasProject = scope ? scope.includes('NTM') : false,
-	// 		scopeGroup = scope ? !isEmpty(scope.split(':')[1]) : false,
-	// 		isScopeCorrect = hasProject && scopeGroup;
-
-	// 	console.log(targetName);
-	// 	// 初始化 notice 页面的 notcie
-	// 	if (isEmpty(localStorage.getItem('notice'))) {
-	// 		localStorage.setItem('notice', true);
-	// 	}
-	// 	if (isEmpty(token) || !isScopeCorrect) {
-	// 		this.transitionTo('login');
-	// 	}
-	// },
 	beforeModel({ targetName }) {
-		// window.console.log('target route:' + targetName);
 		if (targetName === 'oauth-callback') {
 			return;
 		}

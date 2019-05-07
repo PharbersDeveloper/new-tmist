@@ -84,8 +84,6 @@ export default Controller.extend({
 				representativeinputs = this.get('representativeInputs'),
 				manangerInputState = this.verificationManagerInput(managerTotalTime, managerinput, representativeinputs);
 
-			// eslint-disable-next-line no-debugger
-			debugger;
 			if (!manangerInputState.state) {
 				// 经理管理时间输入完毕,弹窗，点击确定为提交 input 及跳转
 				this.set('warning', manangerInputState.warning);
@@ -139,26 +137,7 @@ export default Controller.extend({
 			store.peekAll('managerinput').save(),
 			store.peekAll('representativeinput').save()
 		]);
-		// if (paper.state === 1 && reDeploy === 1 || paper.state !== 1) {
-		// 	console.log(store.peekAll('businessinput'));
-		// 	promiseArray = A([
-		// 		store.peekAll('businessinput').save(),
-		// 		store.peekAll('managerinput').save(),
-		// 		store.peekAll('representativeinput').save()
-		// 	]);
-		// } else {
-		// 	console.log(model.managerInput);
-		// 	console.log(this.get('businessInputs'));
 
-		// 	console.log(model.representativeInputs);
-
-		// 	promiseArray = A([
-		// 		model.managerInput.save(),
-		// 		store.peekAll('businessinput').save(),
-		// 		// this.get('businessInputs').save(),
-		// 		model.representativeInputs.save()
-		// 	]);
-		// }
 		rsvp.Promise.all(promiseArray)
 			.then(data => {
 				if (paper.state === 1 && reDeploy === 1 || paper.state !== 1) {
@@ -183,11 +162,10 @@ export default Controller.extend({
 			}).then(data => {
 				paper.get('paperinputs').pushObject(data);
 				paper.set('state', state);
+				paper.set('endTime', new Date().getTime());
+
 				if (paper.state !== 1) {
 					paper.set('startTime', localStorage.getItem('startTime'));
-				}
-				if (state === 3) {
-					paper.set('endTime', new Date().getTime());
 				}
 				return paper.save();
 
@@ -219,9 +197,16 @@ export default Controller.extend({
 				});
 			});
 	},
+	judgeOauth() {
+		let oauthService = this.get('oauthService'),
+			judgeAuth = oauthService.judgeAuth();
+
+		return judgeAuth ? oauthService.redirectUri : null;
+	},
 	actions: {
 		submit() {
-			let store = this.get('store'),
+			let judgeAuth = this.judgeOauth(),
+				store = this.get('store'),
 				representatives = store.peekAll('representative'),
 				// 验证businessinputs
 				// 在page-scenario.business 获取之后进行的设置.
@@ -229,12 +214,22 @@ export default Controller.extend({
 				// businessinputs = this.get('businessInputs');
 				businessinputs = store.peekAll('businessinput');
 
+			if (isEmpty(judgeAuth)) {
+				window.location = judgeAuth;
+				return;
+			}
 			this.verificationBusinessinputs(businessinputs, representatives);
 		},
 		confirmSubmit() {
 			this.sendInput(3);
 		},
 		saveInputs() {
+			let judgeAuth = this.judgeOauth();
+
+			if (isEmpty(judgeAuth)) {
+				window.location = judgeAuth;
+				return;
+			}
 			this.sendInput(1);
 		}
 		// TESTrCalculate() {

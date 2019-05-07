@@ -1,12 +1,19 @@
 import Controller from '@ember/controller';
 import { htmlSafe } from '@ember/template';
 import { A } from '@ember/array';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
 	notice: localStorage.getItem('notice') !== 'false',
 	step: 1,
 	detail: htmlSafe(`<p class='m-0 model-desc'>平台介绍</p><p class='m-0 model-desc'>在平台中，您将作为区域销售经理</p>`),
 	neverShow: A(['不在显示']),
+	reports: computed('model.detailPaper', function () {
+		let paper = this.get('model.detailPaper'),
+			inputs = paper.get('paperinputs');
+
+		return inputs.sortBy('time').reverse();
+	}),
 	actions: {
 		changeDetail(useableProposal, paper) {
 			this.set('model.detailProposal', useableProposal);

@@ -17,7 +17,10 @@
 		{{/each}}
 	{{/bp-layout}}
 	{{#bp-layout direction="col" local-class="mission-desc" classNames="p-4"}}
-		{{mission-state model.detailPaper.state classNames="mb-4"}}
+		{{#bp-layout main="between" cross="center"  classNames="mb-4"}}
+			{{mission-state model.detailPaper.state}}
+			{{show-endtime model.detailPaper}}
+		{{/bp-layout}}
 		<h3 class="mt-3 mb-4">
 			{{model.detailProposal.proposal.name}}
 		</h3>
@@ -49,19 +52,19 @@
 		{{/bp-layout}}
 		<div class="dropdown-divider mt-3 mb-4"></div>
 		{{!-- {{#bp-layout tagName="h4" main="between" classNames="m-0"}}
-			<span local-class="title">历史报告</span>
+			<span local-class="title">历史评测报告</span>
 			{{#if (bp-gt model.detailPaper.paperinputs.length 0)}}
 				<span local-class="times">共完成{{model.detailPaper.paperinputs.length}}次</span>
 			{{/if}}
 		{{/bp-layout}}
-		{{#each model.detailPaper.paperinputs as |paperinput index|}}
+		{{#each reports as |paperinput index|}}
 			{{#bp-layout tagName="p" main="between" cross="center" 
 				local-class="historp-report" classNames="px-2 py-3 m-0"
 				classNames=(if (bp-eq index 0) "mt-4 mb-0 px-2 py-3" "m-0 px-2 py-3")}}
 				{{#bp-layout tagName="span" local-class="infos"}}
 					<span class="mr-3">{{bp-increment-property index}}</span>
 					<span class="mr-4"> <span local-class="level" class="mr-1">S</span>级*</span>
-					<span>{{bp-string-slice paperinput.time 0 -3}}</span>
+					<span>{{bp-string-slice paperinput.time 0}}</span>
 				{{/bp-layout}}
 				{{#link-to "page-result"}}
 					查看
