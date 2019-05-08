@@ -4,8 +4,7 @@ import { A } from '@ember/array';
 
 export default Route.extend({
 	model() {
-		const store = this.get('store'),
-			pageScenarioModel = this.modelFor('page-scenario'),
+		const pageScenarioModel = this.modelFor('page-scenario'),
 			salesConfigs = pageScenarioModel.salesConfigs;
 
 		let businessModel = this.modelFor('page-scenario.business'),

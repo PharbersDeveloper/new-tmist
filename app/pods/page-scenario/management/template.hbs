@@ -70,8 +70,15 @@
 		</div>
 		{{#if (bp-eq groupValue 0)}}
 			<div local-class="actions manage">
+				{{#bp-layout tagName="h3" main="between" cross="center" 
+					local-class="title" classNames="px-4 bg-white"}}
+					<span local-class="title">
+						经理剩余时间
+					</span>
+					{{#bp-button onClick=(action 'reInputTime')}}重置{{/bp-button}}
+				{{/bp-layout}}
 				<div local-class="business-time actions-content" class="bg-white mb-2">
-					<h4 local-class="title" class="px-4">业务时间投入</h4>
+					<h4 local-class="title" class="px-4">业务时间分配</h4>
 					{{#bp-layout local-class="content" main="between" class="p-4" }}
 						{{#bp-layout}}
 							{{#bp-layout direction=col local-class="keys" }}
@@ -119,7 +126,7 @@
 					{{/bp-layout}}
 				</div>
 				<div local-class="team-time actions-content" class="bg-white  mb-2">
-					<h4 local-class="title" class="px-4">团队管理时间投入</h4>
+					<h4 local-class="title" class="px-4">团队管理时间分配</h4>
 					{{#bp-layout local-class="content" class="p-4" }}
 						{{#bp-layout direction=col local-class="keys" }}
 							{{#bp-layout tagName="p" cross=center }}
@@ -136,7 +143,7 @@
 					{{/bp-layout}}
 				</div>
 				<div local-class="represent-time actions-content" class="bg-white mb-2">
-					<h4 local-class="title" class="px-4">管理代表时间投入</h4>
+					<h4 local-class="title" class="px-4">管理代表时间</h4>
 					{{#bp-layout local-class="content" main="between" class="p-4" }}
 						{{#bp-layout direction=col local-class="keys" }}
 							<p class="text-center mb-2 mr-0"></p>
@@ -174,7 +181,14 @@
 		{{else}}
 			<div local-class="actions allot-point" class="bg-white">
 				<div local-class="allot-point-content" class="bg-white mb-2 px-4">
-					<h4 local-class="title">行动点数分配</h4>
+					{{!-- <h4 local-class="title">行动点数分配</h4> --}}
+					{{#bp-layout tagName="h3" main="between" cross="center" 
+					local-class="title"}}
+						<span local-class="title">
+							行动点数分配
+						</span>
+						{{#bp-button onClick=(action 'reInputPoint')}}重置{{/bp-button}}
+					{{/bp-layout}}
 					<table class="table text-center" local-class="point-table">
 						<thead>
 							<th class="border-0">代表姓名</th>

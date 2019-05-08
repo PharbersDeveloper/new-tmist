@@ -72,7 +72,7 @@
 										{{#each trContent.tableTr as |tdContent|}}
 											{{!-- <td>￥{{format-number tdContent}}</td> --}}
 											{{#if (type-number tdContent)}}
-												<td>￥{{format-number tdContent}}</td>
+												<td>￥{{format-number tdContent 0}}</td>
 											{{else}}
 												<td>{{tdContent}}</td>
 											{{/if}}
@@ -155,7 +155,7 @@
 									<td>{{format-number trContent.potential}}</td>
 									{{#each trContent.tableTr as |tdContent index|}}
 										{{#if (type-number tdContent)}}
-											<td>￥{{format-number tdContent}}</td>
+											<td>￥{{format-number tdContent 0}}</td>
 										{{else}}
 											<td>{{tdContent}}</td>
 										{{/if}}
@@ -264,7 +264,7 @@
 									{{#each trContent.tableTr as |tdContent|}}
 										{{!-- <td>￥{{format-number tdContent}}</td> --}}
 										{{#if (type-number tdContent)}}
-											<td>￥{{format-number tdContent}}</td>
+											<td>￥{{format-number tdContent 0}}</td>
 										{{else}}
 											<td>{{tdContent}}</td>
 										{{/if}}

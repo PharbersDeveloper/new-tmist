@@ -1,9 +1,9 @@
 {{#bp-layout direction="col" local-class="page-result" classNames="p-4" }}
-	<p local-class="back-area" class="mb-3">
-		{{#link-to "index"}}
+	{{!-- <p local-class="back-area" class="mb-3">
+		{{#bp-button type="link" onClick=(action 'toIndex')}}
 			返回
-		{{/link-to}}
-	</p>
+		{{/bp-button}}
+	</p> --}}
 	{{#bp-page-header class="mb-4" local-class='result-header' as |ph|}}
 		{{#ph.body as |body|}}
 			{{#body.left as |left|}}

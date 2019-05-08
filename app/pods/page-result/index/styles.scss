@@ -1,84 +1,157 @@
-.report-container {
-	height: calc(100% - 25px);
+// .report-container {
+// 	height: calc(100% - 25px);
 
-	.report-tabs {
-		flex: 0 0 80px;
+// 	.report-tabs {
+// 		flex: 0 0 80px;
+// 	}
+
+// 	.report-content {
+// 		flex: 1;
+
+// 		.report {
+// 			flex: 1;
+
+// 			.choose-container {
+// 				flex: 0 0 72px;
+
+// 				.choose-area {
+
+// 					flex: 1;
+
+// 					.keys {
+// 						flex: 0 0 56px;
+// 						@extend %p-primary;
+// 					}
+
+// 					.dd-area {
+// 						flex: 1;
+// 					}
+// 				}
+// 			}
+
+// 			.table-container {
+// 				thead {
+// 					background-color: transparent;
+
+// 					th {
+// 						padding-left: $spacing-2;
+// 						border: 0;
+// 						@extend %p-small;
+// 					}
+// 				}
+
+// 				tbody {
+// 					td {
+// 						padding: 0;
+// 						padding-left: $spacing-2;
+
+// 						height: 52px;
+// 						line-height: 52px;
+// 						@extend %p-primary;
+// 						border: 0;
+// 					}
+// 				}
+// 			}
+// 		}
+
+// 		h3.title {
+// 			height: 52px;
+// 			@extend %header-small;
+// 		}
+
+
+// 		// .report.hospital,
+// 		// .report.product {
+// 		// 	.choose-container {
+// 		// 		flex: 0 0 72px;
+
+// 		// 		.choose-area {
+
+// 		// 			flex: 1;
+
+// 		// 			.keys {
+// 		// 				flex: 0 0 56px;
+// 		// 				@extend %p-primary;
+// 		// 			}
+
+// 		// 			.dd-area {
+// 		// 				flex: 1;
+// 		// 			}
+// 		// 		}
+// 		// 	}
+// 		// }
+// 	}
+// }
+h2.title {
+	height: 54px;
+	@extend %header-medium;
+}
+
+.nav {
+	flex: 0 0 270px;
+	list-style: none;
+
+	li {
+		height: 4*$spacing;
+		@extend %header-small;
+		cursor: pointer;
+
+		span {
+			flex: 1;
+		}
+
+		&.active {
+			background-color: $n020a;
+		}
 	}
+}
 
-	.report-content {
+.content {
+	flex: 1;
+
+	.report {
 		flex: 1;
 
-		.report {
+		.choose-area {
 			flex: 1;
 
-			.choose-container {
-				flex: 0 0 72px;
-
-				.choose-area {
-
-					flex: 1;
-
-					.keys {
-						flex: 0 0 56px;
-						@extend %p-primary;
-					}
-
-					.dd-area {
-						flex: 1;
-					}
-				}
+			.keys {
+				flex: 0 0 56px;
+				@extend %p-primary;
 			}
 
-			.table-container {
-				thead {
-					background-color: transparent;
-
-					th {
-						padding-left: $spacing-2;
-						border: 0;
-						@extend %p-small;
-					}
-				}
-
-				tbody {
-					td {
-						padding: 0;
-						padding-left: $spacing-2;
-
-						height: 52px;
-						line-height: 52px;
-						@extend %p-primary;
-						border: 0;
-					}
-				}
+			.dd-area {
+				flex: 1;
 			}
 		}
 
-		h3.title {
-			height: 52px;
-			@extend %header-small;
+		.table-container {
+			table-layout: fixed;
+
+			thead {
+				background-color: transparent;
+
+				th {
+					padding-left: $spacing-2;
+					border: 0;
+					@extend %p-small;
+
+					// &:first-child {
+					// 	min-width: 50px;
+					// }
+				}
+			}
+
+			tbody {
+				td {
+					padding: 0;
+					padding-left: $spacing-2;
+					height: 52px;
+					line-height: 52px;
+					@extend %p-primary;
+					border: 0;
+				}
+			}
 		}
-
-
-		// .report.hospital,
-		// .report.product {
-		// 	.choose-container {
-		// 		flex: 0 0 72px;
-
-		// 		.choose-area {
-
-		// 			flex: 1;
-
-		// 			.keys {
-		// 				flex: 0 0 56px;
-		// 				@extend %p-primary;
-		// 			}
-
-		// 			.dd-area {
-		// 				flex: 1;
-		// 			}
-		// 		}
-		// 	}
-		// }
 	}
 }
