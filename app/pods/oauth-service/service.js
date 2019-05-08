@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
+import ENV from 'new-tmist/config/environment';
 import { isEmpty } from '@ember/utils';
 import { A } from '@ember/array';
 const { keys } = Object;
@@ -15,16 +16,8 @@ export default Service.extend({
 	clientSecret: '5c90db71eeefcc082c0823b2',
 	status: 'self',
 	scope: 'APP/NTM',
-	/**
-	 * 本地部署
-	 */
-	// redirectUri: 'http://ntm.pharbers.com:8081',
-	// host: 'http://192.168.100.174:9096',
-	/**
-	 * 线上部署
-	 */
-	redirectUri: 'http://ntm.pharbers.com',
-	host: 'http://oauth.pharbers.com',
+	host: ENV.host,
+	redirectUri: ENV.redirectUri,
 
 	oauthOperation() {
 		const ajax = this.get('ajax');

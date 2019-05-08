@@ -81,14 +81,14 @@
 											<td>
 												{{#each salesConfig.salesReport.hospitalSalesReports as |hsr|}}
 													{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id bi.destConfig.hospitalConfig.hospital.id)}}
-														￥{{format-number hsr.potential}}
+														￥{{format-number hsr.potential 0}}
 													{{/if}}
 												{{/each}}
 											</td>
 											<td>
 												{{#each salesConfig.salesReport.hospitalSalesReports as |hsr|}}
 													{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id bi.destConfig.hospitalConfig.hospital.id)}}
-														￥{{format-number hsr.sales}}
+														￥{{format-number hsr.sales 0}}
 													{{/if}}
 												{{/each}}
 											</td>
@@ -130,48 +130,6 @@
 										</tr>
 									{{/if}}
 								{{/each}}
-								{{!-- <tr>
-									<td>{{bi.destConfig.hospitalConfig.hospital.name}}</td>
-									<td>
-										{{format-number bi.destConfig.hospitalConfig.potential}}
-									</td>
-									<td>{{format-number bi.destConfig.hospitalConfig.lastYearSales}}</td>
-									<td>
-										{{#unless bi.resourceConfig.representativeConfig.representative.name}}
-											-
-										{{else}}
-											{{bi.resourceConfig.representativeConfig.representative.name}}
-										{{/unless}}
-									</td>
-									<td>
-										{{#unless bi.visitTime}}
-											-
-										{{else}}
-											{{bi.visitTime}}
-										{{/unless}}
-									</td>
-									<td>
-										{{#unless bi.salesTarget}}
-											-
-										{{else}}
-											{{bi.salesTarget}}
-										{{/unless}}
-									</td>
-									<td>
-										{{#unless bi.budget}}
-											-
-										{{else}}
-											{{bi.budget}}
-										{{/unless}}
-									</td>
-									<td>
-										{{#unless bi.meetingPlaces}}
-											-
-										{{else}}
-											{{bi.meetingPlaces}}
-										{{/unless}}
-									</td>
-								</tr> --}}
 							{{/each}}
 						</tbody>
 					</table>

@@ -3,10 +3,12 @@ import RSVP from 'rsvp';
 
 export default Route.extend({
 	model() {
-		let store = this.get('store'),
-			resourceConfig = this.modelFor('page-scenario'),
-			// paper = resourceConfig.paper,
-			scenario = resourceConfig.scenario;
+		const store = this.get('store'),
+			pageScenarioModel = this.modelFor('page-scenario'),
+			salesConfigs = pageScenarioModel.salesConfigs,
+
+			// paper = pageScenarioModel.paper,
+			scenario = pageScenarioModel.scenario;
 		// paperinputs = paper.get('paperinputs'),
 		// increasePaperinputs = A([]),
 		// lastPaperinput = {},
@@ -38,6 +40,7 @@ export default Route.extend({
 		// 	});
 		// });
 		return RSVP.hash({
+			salesConfigs,
 			managerinput: store.peekAll('managerinput').lastObject,
 			businessinputs: store.peekAll('businessinput'),
 			representativeinputs: store.peekAll('representativeinput'),

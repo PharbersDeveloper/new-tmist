@@ -16,13 +16,13 @@
 						<span class="mb-1">
 							{{#each salesConfigs.firstObject.salesReport.hospitalSalesReports as |hsr|}}
 								{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id overallFilterData.hospitalConfig.hospital.id)}}
-									￥{{format-number hsr.potential}}
+									￥{{format-number hsr.potential 0}}
 								{{/if}}
 							{{/each}}
 						</span>
 						<span>
 							{{#unless (bp-eq bi.budget '')}}
-								￥{{format-number bi.budget}}
+								￥{{format-number bi.budget 0}}
 							{{else}}
 								-
 							{{/unless}}

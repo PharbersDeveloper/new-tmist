@@ -1,4 +1,6 @@
 import Controller from '@ember/controller';
+import ENV from 'new-tmist/config/environment';
+import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { A } from '@ember/array';
 import rsvp from 'rsvp';
@@ -7,6 +9,12 @@ import { inject as service } from '@ember/service';
 export default Controller.extend({
 	ajax: service(),
 	cookies: service(),
+	testBtn: computed(function () {
+		if (ENV.environment === 'development') {
+			return true;
+		}
+		return false;
+	}),
 	oauthService: service('oauth_service'),
 	/**
 	 * @param  {number} managerTotalTime=100	经理分配总时间，默认值100(百分比值)
@@ -15,7 +23,7 @@ export default Controller.extend({
 	 */
 	verificationManagerInput(managerTotalTime = 100, managerinput, representativeinputs) {
 		let warningText = `尚未完成对经理时间的分配，请继续分配`,
-			warning = { open: true, title: warningText, detail: warningText },
+			warning = { open: true, title: `提交执行`, detail: warningText },
 			usedTime = 0;
 
 		if (isEmpty(managerinput) || isEmpty(representativeinputs)) {
@@ -48,7 +56,7 @@ export default Controller.extend({
 		}
 		this.set('warning', {
 			open: true,
-			title: firstNotFinishBI.get('destConfig.hospitalConfig.hospital.name'),
+			title: hospitalName,
 			detail
 		});
 		return;
@@ -67,12 +75,13 @@ export default Controller.extend({
 		// 判断是不是有代表没有分配工作
 		if (allocateRepresentatives.length < representatives.length) {
 			differentRepresentatives = representativeIds.concat(allocateRepresentatives).filter(v => !representativeIds.includes(v) || !allocateRepresentatives.includes(v));
-			let firstRepId = differentRepresentatives.get('firstObject');
+			let firstRepId = differentRepresentatives.get('firstObject'),
+				representativeName = this.get('store').peekRecord('representative', firstRepId).get('name');
 
 			this.set('warning', {
 				open: true,
-				title: this.get('store').peekRecord('representative', firstRepId).get('name'),
-				detail: `尚未对“${this.get('store').peekRecord('representative', firstRepId).get('name')}”分配工作，请为其分配。`
+				title: representativeName,
+				detail: `尚未对“${representativeName}”分配工作，请为其分配。`
 			});
 			return;
 			// 代表全部分配完毕
@@ -161,7 +170,7 @@ export default Controller.extend({
 				return paperinput.save();
 			}).then(data => {
 				paper.get('paperinputs').pushObject(data);
-				paper.set('state', state);
+				// paper.set('state', state);
 				paper.set('endTime', new Date().getTime());
 
 				if (paper.state !== 1) {
@@ -175,7 +184,12 @@ export default Controller.extend({
 				localStorage.clear();
 				localStorage.setItem('notice', notice);
 				if (state === 1) {
-					window.location = this.get('oauthService').redirectUri;
+					this.set('warning', {
+						open: true,
+						title: `保存成功`,
+						detail: `保存成功。`
+					});
+					// window.location = this.get('oauthService').redirectUri;
 					return;
 				}
 				return ajax.request(`${version}/CallRCalculate`, {
@@ -186,7 +200,10 @@ export default Controller.extend({
 					})
 				}).then((response) => {
 					if (response.status === 'Success') {
-						this.transitionToRoute('page-result');
+						paper.set('state', state);
+						paper.save().then(() => {
+							this.transitionToRoute('page-result');
+						});
 						return;
 					}
 
@@ -231,28 +248,9 @@ export default Controller.extend({
 				return;
 			}
 			this.sendInput(1);
+		},
+		testResult() {
+			this.transitionToRoute('page-result');
 		}
-		// TESTrCalculate() {
-		// 	let ajax = this.get('ajax'),
-		// 		version = 'v0';
-
-		// 	return ajax.request(`${version}/CallRCalculate`, {
-		// 		method: 'POST',
-		// 		data: JSON.stringify({
-		// 			'proposal-id': '5cc018a2f4ce4374c23cece6',
-		// 			'account-id': '5c4552455ee2dd7c36a94a9e'
-		// 		})
-		// 	}).then((response) => {
-		// 		if (response.status === 'Success') {
-		// 			this.transitionToRoute('page-result');
-		// 			return;
-		// 		}
-
-		// 		return response;
-		// 	}).catch(err => {
-		// 		window.console.log('error');
-		// 		window.console.log(err);
-		// 	});
-		// }
 	}
 });

@@ -141,6 +141,37 @@ export default Controller.extend({
 	actions: {
 		changeState(context, key) {
 			context.toggleProperty(key);
+		},
+		reInputTime() {
+			let managerInput = this.get('model.managerInput'),
+				representativeInputs = this.get('model.representativeInputs');
+
+			managerInput.setProperties({
+				strategyAnalysisTime: '',
+				adminWorkTime: '',
+				clientManagementTime: '',
+				kpiAnalysisTime: '',
+				teamMeetingTime: ''
+			});
+			representativeInputs.forEach(ele => {
+				ele.setProperties({
+					abilityCoach: '',
+					assistAccessTime: ''
+				});
+			});
+		},
+		reInputPoint() {
+			let representativeInputs = this.get('model.representativeInputs');
+
+			representativeInputs.forEach(ele => {
+				ele.setProperties({
+					productKnowledgeTraining: 0,
+					salesAbilityTraining: 0,
+					regionTraining: 0,
+					performanceTraining: 0,
+					vocationalDevelopment: 0
+				});
+			});
 		}
 	}
 });
