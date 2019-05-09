@@ -98,7 +98,7 @@ export default Route.extend({
 // 		return [
 // 			{
 // 				value: [0, 0, 0, 0, 0],
-// 				name: '代表本期初始能力'
+// 				name: '代表个人能力'
 // 			},
 // 			{
 // 				value: averageAbilityObject,
@@ -125,7 +125,7 @@ export default Route.extend({
 // 	return [
 // 		{
 // 			value: originalAbility,
-// 			name: '代表本期初始能力'
+// 			name: '代表个人能力'
 // 		},
 // 		averageAbilityObject
 // 	];

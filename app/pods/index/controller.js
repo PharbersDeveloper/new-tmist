@@ -20,6 +20,7 @@ export default Controller.extend({
 			this.set('model.detailPaper', paper);
 		},
 		startDeploy(proposalId) {
+			localStorage.setItem('notice', false);
 			this.transitionToRoute('page-notice', proposalId);
 		},
 		reDeploy() {

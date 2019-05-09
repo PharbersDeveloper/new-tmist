@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 import { A } from '@ember/array';
 import { isEmpty } from '@ember/utils';
+import ENV from 'new-tmist/config/environment';
 
 export default Route.extend({
 	cookies: service(),
@@ -66,18 +67,19 @@ export default Route.extend({
 			});
 		});
 	},
-	judgeOauth() {
-		let oauthService = this.get('oauthService'),
-			judgeAuth = oauthService.judgeAuth();
+	// judgeOauth() {
+	// 	let oauthService = this.get('oauthService'),
+	// 		judgeAuth = oauthService.judgeAuth();
 
-		return judgeAuth ? oauthService.redirectUri : null;
-	},
+	// 	return judgeAuth ? oauthService.redirectUri : null;
+	// },
 	actions: {
 		error(error, transition) {
 			window.console.log(error);
 			window.console.log(transition);
-			window.location = this.oauthService.redirectUri;
-			// this.transitionTo('index');
+			if (ENV.environment === 'production') {
+				window.location = ENV.redirectUri;
+			}
 		}
 	}
 });

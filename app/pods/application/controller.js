@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import ENV from 'new-tmist/config/environment';
 import { A } from '@ember/array';
 import { isEmpty } from '@ember/utils';
 import RSVP from 'rsvp';
@@ -131,6 +132,10 @@ export default Controller.extend({
 				return;
 			}
 			this.toggleProperty('exitMission');
+		},
+		resultPageEndMission() {
+			window.location = ENV.redirectUri;
+
 		},
 		saveInputs() {
 			this.set('exitMission', false);

@@ -45,7 +45,8 @@
 					继续部署
 				{{/bp-button}}
 			{{else}}
-				{{#bp-button type="primary" tagName='span' onClick=(action 'startDeploy' model.detailProposal.proposal.id)}}
+				{{#bp-button type="primary" tagName='span' 
+					onClick=(action 'startDeploy' model.detailProposal.proposal.id)}}
 					开始部署
 				{{/bp-button}}
 			{{/if}}

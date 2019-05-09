@@ -5,5 +5,5 @@ export default DS.Model.extend({
 	resourceType: DS.attr('number'),
 	resourceId: DS.attr('string'),
 	managerConfig: DS.belongsTo('managerConfig'),
-	representativeConfig: DS.belongsTo('representativeConfig')
+	representativeConfig: DS.belongsTo()
 });

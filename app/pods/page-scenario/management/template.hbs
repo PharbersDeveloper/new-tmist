@@ -212,7 +212,6 @@
 												value=resConf.productKnowledgeTraining}} --}}
 												{{toggle-button context=resConf 
 													key='productKnowledgeTraining' 
-													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
@@ -220,7 +219,6 @@
 												value=resConf.salesAbilityTraining}} --}}
 												{{toggle-button context=resConf 
 													key='salesAbilityTraining' 
-													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
@@ -228,7 +226,6 @@
 												value=resConf.regionTraining}} --}}
 												{{toggle-button context=resConf 
 													key='regionTraining' 
-													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
@@ -236,7 +233,6 @@
 												value=resConf.performanceTraining}} --}}
 												{{toggle-button context=resConf 
 													key='performanceTraining'
-													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											<td>
@@ -244,7 +240,6 @@
 												value=resConf.vocationalDevelopment}} --}}
 												{{toggle-button context=resConf 
 													key='vocationalDevelopment'
-													disabled=isOverKpi
 													changeState=(action 'changeState')}}
 											</td>
 											{{!-- <td>
@@ -264,17 +259,17 @@
 	{{/bp-layout}}
 {{/bp-layout}}
 {{#bp-modal
-		open=overManagerTotalTime
+		open=warning.open
 		position='center' 
-		onHidden=(action (mut overManagerTotalTime) false) as |modal|}}
+		onHidden=(action (mut warning.open) false) as |modal|}}
 	{{#modal.header}}
 		<h4 class="modal-title">
-			提醒
+			{{warning.title}}
 		</h4>
 	{{/modal.header}}
 	{{#modal.body}}
-		<p>
-			经理时间超过限制，请重新设置。
+		<p local-class="desc">
+			{{warning.detail}}
 		</p>
 	{{/modal.body}}
 	{{#modal.footer}}

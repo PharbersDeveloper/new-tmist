@@ -67,7 +67,7 @@
 							<th>分配时间</th>
 							<th>销售目标设定</th>
 							<th>预算费用</th>
-							<th>会议名额 </th>
+							<th>会议名额</th>
 						</thead>
 						<tbody class="bg-white">
 							{{#each model.businessinputs as |bi|}}
@@ -107,19 +107,19 @@
 												{{#unless bi.salesTarget}}
 													-
 												{{else}}
-													{{bi.salesTarget}}
+													{{format-number bi.salesTarget}}
 												{{/unless}}
 											</td>
 											<td>
 												{{#unless bi.budget}}
 													-
 												{{else}}
-													{{bi.budget}}
+													{{format-number bi.budget}}
 												{{/unless}}
 											</td>
 											<td>
 												{{#unless bi.meetingPlaces}}
-													-
+													0
 												{{else}}
 													{{bi.meetingPlaces}}
 												{{/unless}}
@@ -240,11 +240,11 @@
 								<th class="border-0">区域管理培训</th>
 								<th class="border-0">绩效约谈</th>
 								<th class="border-0">职业发展指导</th>
-								<th class="border-0">总点数</th>
+								{{!-- <th class="border-0">总点数</th> --}}
 							</thead>
 							<tbody>
 								{{#each model.representativeinputs as |rep|}}
-									<tr>
+									{{!-- <tr>
 										<td>{{rep.resourceConfig.representativeConfig.representative.name}}</td>
 										<td>{{rep.productKnowledgeTraining}}</td>
 										<td>{{rep.salesAbilityTraining}}</td>
@@ -252,6 +252,47 @@
 										<td>{{rep.performanceTraining}}</td>
 										<td>{{rep.vocationalDevelopment}}</td>
 										<td>{{rep.totalPoint}}</td>
+									</tr> --}}
+									<tr>
+										<td>
+											{{rep.resourceConfig.representativeConfig.representative.name}}
+										</td>
+										<td>
+											{{#if rep.productKnowledgeTraining}}
+												n
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										<td>
+											{{#if rep.salesAbilityTraining}}
+												n
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										<td>
+											{{#if rep.regionTraining}}
+												n
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										<td>
+											{{#if rep.performanceTraining}}
+												n
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										<td>
+											{{#if rep.vocationalDevelopment}}
+												n
+											{{else}}
+												-
+											{{/if}}
+										</td>
+										{{!-- <td>{{rep.totalPoint}}</td> --}}
 									</tr>
 								{{/each}}
 							</tbody>
