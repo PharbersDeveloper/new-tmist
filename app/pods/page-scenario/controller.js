@@ -9,6 +9,7 @@ import { inject as service } from '@ember/service';
 export default Controller.extend({
 	ajax: service(),
 	cookies: service(),
+	verify: service('service-verify'),
 	testBtn: computed(function () {
 		if (ENV.environment === 'development') {
 			return true;
@@ -17,6 +18,7 @@ export default Controller.extend({
 	}),
 	oauthService: service('oauth_service'),
 	/**
+	 * 验证 managerinput
 	 * @param  {number} managerTotalTime=100	经理分配总时间，默认值100(百分比值)
 	 * @param  {model} managerinput	经理的输入
 	 * @param  {models} representativeinputs 代表们的输入
@@ -39,8 +41,17 @@ export default Controller.extend({
 		}
 		return { state: true };
 	},
-	//	存在没有完成的输入
+	allVerifySuccessful() {
+		this.set('warning', {
+			open: true,
+			title: `确认提交`,
+			detail: `您将提交本季度决策并输出执行报告，提交后将不可更改决策。`
+		});
+		this.set('confirmSubmit', true);
+		return;
+	},
 	/**
+	 * 存在没有完成的 businessinputs
 	 * @param  {Array} notFinishBusinessInputs
 	 */
 	exitNotEntered(notFinishBusinessInputs) {
@@ -61,65 +72,195 @@ export default Controller.extend({
 		});
 		return;
 	},
-	// businessinput 都输入完成后，验证是否有代表没有分配
+	verifyTotalValue(businessinputs) {
+		const verifyService = this.get('verify'),
+			model = this.get('model'),
+			resourceConfRep = model.resourceConfRep,
+			resourceConfigManager = model.resourceConfManager,
+			total = verifyService.verifyInput(resourceConfRep, businessinputs, resourceConfigManager);
+
+		let { overTotalBusinessIndicators, overTotalBudgets,
+				overTotalMeetingPlaces, overVisitTime, illegal, lowTotalBusinessIndicators,
+				lowTotalBudgets, lowTotalMeetingPlaces, lowVisitTime } =
+			total,
+			warning = { open: false, title: '', detail: '' };
+
+		switch (true) {
+		case illegal:
+			warning.open = true;
+			warning.title = '非法值警告';
+			warning.detail = '请输入数字！';
+			this.set('warning', warning);
+			return false;
+		case lowTotalBusinessIndicators:
+			warning.open = true;
+			warning.title = '总业务指标未达标';
+			warning.detail = '您的业务销售额指标尚未完成，请完成总业务指标。';
+			this.set('warning', warning);
+			return false;
+		case lowTotalBudgets:
+			warning.open = true;
+			warning.title = '总预算剩余';
+			warning.detail = '您还有总预算剩余，请分配完毕。';
+			this.set('warning', warning);
+			return false;
+		case lowTotalMeetingPlaces:
+			warning.open = true;
+			warning.title = '会议名额剩余';
+			warning.detail = '您还有会议名额剩余，请分配完毕。';
+			this.set('warning', warning);
+			return false;
+		case lowVisitTime.length > 0:
+			warning.open = true;
+			warning.title = '代表有剩余时间未分配';
+			warning.detail = `${lowVisitTime.firstObject.resourceConfig.get('representativeConfig.representative.name')}还有剩余时间未被分配，请合理分配。`;
+			this.set('warning', warning);
+			return false;
+		case overTotalBusinessIndicators:
+			warning.open = true;
+			warning.title = '总业务指标超额';
+			warning.detail = '您的销售额指标设定总值已超出业务总指标限制，请重新分配。';
+			this.set('warning', warning);
+			return false;
+		case overTotalBudgets:
+			warning.open = true;
+			warning.title = '总预算超额';
+			warning.detail = '您的预算设定总值已超出总预算限制，请重新分配。';
+			this.set('warning', warning);
+			return false;
+		case overTotalMeetingPlaces:
+			warning.open = true;
+			warning.title = '会议总名额超额';
+			warning.detail = '您的会议名额设定已超过总名额限制，请重新分配。';
+			this.set('warning', warning);
+			return false;
+		case overVisitTime.length > 0:
+			warning.open = true;
+			warning.title = '代表拜访时间超额';
+			warning.detail = `该代表(${overVisitTime.firstObject.resourceConfig.get('representativeConfig.representative.name')})的拜访时间已超过总时间限制，请重新分配。`;
+			this.set('warning', warning);
+			return false;
+		default:
+			this.allVerifySuccessful();
+			// this.set('warning', {
+			// 	open: true,
+			// 	title: `确认提交`,
+			// 	detail: `您将提交本季度决策并输出执行报告，提交后将不可更改决策。`
+			// });
+			// this.set('confirmSubmit', true);
+			// return;
+			return true;
+		}
+
+	},
 	/**
+	 * 有代表没有分配工作
+	 * @param {} representativeIds
+	 * @param {*} allocateRepresentatives
+	 */
+	repNotAlloction(representativeIds, allocateRepresentatives) {
+		let differentRepresentatives = representativeIds.concat(allocateRepresentatives).filter(v => !representativeIds.includes(v) || !allocateRepresentatives.includes(v)),
+			firstRepId = differentRepresentatives.get('firstObject'),
+			representativeName = this.get('store').peekRecord('representative', firstRepId).get('name');
+
+		this.set('warning', {
+			open: true,
+			title: representativeName,
+			detail: `尚未对“${representativeName}”分配工作，请为其分配。`
+		});
+		return;
+	},
+	/**
+	 * 所有代表都分配医院,验证经理输入
+	 */
+	repAllAlloction() {
+		// // 如果验证通过，则返回 true ，否则为 false
+		// let verifyState =this.verifyTotalValue(businessinputs, representatives);
+
+		// if (verifyState) {
+		// 	验证
+		// }
+		let managerTotalTime = this.get('model').managerTotalTime,
+			// 在page-scenario.management 获取之后进行的设置.
+			managerinput = this.get('managerInput'),
+			representativeinputs = this.get('representativeInputs'),
+			manangerInputState = this.verificationManagerInput(managerTotalTime, managerinput, representativeinputs);
+
+		if (!manangerInputState.state) {
+			// 未分配完毕经理时间
+			this.set('warning', manangerInputState.warning);
+			return false;
+		}
+		return true;
+	},
+	/**
+	 * businessinput 都输入完成后，验证是否有代表没有分配
 	 * @param  {model} businessinputs
 	 * @param  {model} representatives
+	 * @return
 	 */
 	verificationRepHasAllocation(businessinputs, representatives) {
 		let businessinputRepresentatives = businessinputs.map(ele => ele.get('resourceConfig.representativeConfig.representative.id')),
 			allocateRepresentatives = businessinputRepresentatives.uniq().filter(item => item),
-			differentRepresentatives = null,
+			// differentRepresentatives = null,
 			representativeIds = representatives.map(ele => ele.get('id'));
 
 		// 判断是不是有代表没有分配工作
 		if (allocateRepresentatives.length < representatives.length) {
-			differentRepresentatives = representativeIds.concat(allocateRepresentatives).filter(v => !representativeIds.includes(v) || !allocateRepresentatives.includes(v));
-			let firstRepId = differentRepresentatives.get('firstObject'),
-				representativeName = this.get('store').peekRecord('representative', firstRepId).get('name');
+			this.repNotAlloction(representativeIds, allocateRepresentatives);
+			// differentRepresentatives = representativeIds.concat(allocateRepresentatives).filter(v => !representativeIds.includes(v) || !allocateRepresentatives.includes(v));
+			// let firstRepId = differentRepresentatives.get('firstObject'),
+			// 	representativeName = this.get('store').peekRecord('representative', firstRepId).get('name');
 
-			this.set('warning', {
-				open: true,
-				title: representativeName,
-				detail: `尚未对“${representativeName}”分配工作，请为其分配。`
-			});
+			// this.set('warning', {
+			// 	open: true,
+			// 	title: representativeName,
+			// 	detail: `尚未对“${representativeName}”分配工作，请为其分配。`
+			// });
 			return;
 			// 代表全部分配完毕
 		} else if (allocateRepresentatives.length === representatives.length) {
-			let managerTotalTime = this.get('model').managerTotalTime,
-				// 获取 businessinput & representativeinputs
-				// 在page-scenario.management 获取之后进行的设置.
-				managerinput = this.get('managerInput'),
-				representativeinputs = this.get('representativeInputs'),
-				manangerInputState = this.verificationManagerInput(managerTotalTime, managerinput, representativeinputs);
+			// let managerTotalTime = this.get('model').managerTotalTime,
+			// 	// 在page-scenario.management 获取之后进行的设置.
+			// 	managerinput = this.get('managerInput'),
+			// 	representativeinputs = this.get('representativeInputs'),
+			// 	manangerInputState = this.verificationManagerInput(managerTotalTime, managerinput, representativeinputs);
 
-			if (!manangerInputState.state) {
-				// 经理管理时间输入完毕,弹窗，点击确定为提交 input 及跳转
-				this.set('warning', manangerInputState.warning);
+			// if (!manangerInputState.state) {
+			// 	// 未分配完毕经理时间
+			// 	this.set('warning', manangerInputState.warning);
+			// 	return;
+			// }
+			let managerInputState = this.repAllAlloction();
+
+			// 经理管理时间输入完毕 验证输入总值。
+			if (managerInputState) {
+				this.verifyTotalValue(businessinputs, representatives);
 				return;
 			}
-			// 经理管理时间输入完毕,弹窗，点击确定为提交 input 及跳转
 
-			this.set('warning', {
-				open: true,
-				title: `确认提交`,
-				detail: `您将提交本季度决策并输出执行报告，提交后将不可更改决策。`
-			});
-			this.set('confirmSubmit', true);
-			return;
+			// this.set('warning', {
+			// 	open: true,
+			// 	title: `确认提交`,
+			// 	detail: `您将提交本季度决策并输出执行报告，提交后将不可更改决策。`
+			// });
+			// this.set('confirmSubmit', true);
+			// return;
 		}
 	},
-	//	验证 businessinput
 	/**
+	 * 验证 businessinput 的完成状态
 	 * @param  {model} businessinputs
 	 * @param  {model} representatives
 	 */
 	verificationBusinessinputs(businessinputs, representatives) {
 		let notFinishBusinessInputs = businessinputs.filter(ele => !ele.get('isFinish'));
 
+		// 有未完成的businessinputs
 		if (notFinishBusinessInputs.length !== 0) {
 			this.exitNotEntered(notFinishBusinessInputs);
 		} else {
+			// this.verifyTotalValue(businessinputs, representatives);
 			this.verificationRepHasAllocation(businessinputs, representatives);
 		}
 	},
@@ -171,6 +312,9 @@ export default Controller.extend({
 			}).then(data => {
 				paper.get('paperinputs').pushObject(data);
 				// paper.set('state', state);
+				if (state === 1) {
+					paper.set('state', state);
+				}
 				paper.set('endTime', new Date().getTime());
 
 				if (paper.state !== 1) {
@@ -241,6 +385,8 @@ export default Controller.extend({
 			this.sendInput(3);
 		},
 		saveInputs() {
+			this.set('confirmSubmit', false);
+
 			let judgeAuth = this.judgeOauth();
 
 			if (isEmpty(judgeAuth)) {

@@ -73,7 +73,7 @@ export default Route.extend({
 					return {
 						name: data[index].name,
 						date: seasons,
-						data: tmpData.map(item => item.shareData[index])
+						data: tmpData.map(item => (item.shareData[index] * 100).toFixed(0))
 					};
 				});
 

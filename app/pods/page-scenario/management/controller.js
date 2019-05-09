@@ -11,6 +11,8 @@ export default Controller.extend({
 	circleUsedTime: 0,
 	circleRestTime: 1,
 	ManagerUsedKpi: alias('circlePoint.firstObject.value'),
+	ManagerUsedTime: alias('circleTime.firstObject.value'),
+
 	isOverKpi: computed('ManagerUsedKpi', 'managerTotalKpi', function () {
 		let { ManagerUsedKpi, managerTotalKpi } =
 			this.getProperties('ManagerUsedKpi', 'managerTotalKpi');
@@ -22,6 +24,7 @@ export default Controller.extend({
 			return true;
 		}
 	}),
+
 	circleTime: computed(`managerInput.totalManagerUsedTime`,
 		`representativeInputs.@each.{assistAccessTime,abilityCoach}`,
 		function () {
@@ -56,7 +59,11 @@ export default Controller.extend({
 			restTime = managerTotalTime - usedTime;
 			if (restTime < 0) {
 				// eslint-disable-next-line ember/no-side-effects
-				this.set('overManagerTotalTime', true);
+				this.set('warning', {
+					open: true,
+					title: '经理时间超额',
+					detail: '经理时间设定已超过限制，请重新分配。'
+				});
 			}
 			return A([
 				{ name: '已分配', value: usedTime },
@@ -102,7 +109,7 @@ export default Controller.extend({
 			return [
 				{
 					value: [0, 0, 0, 0, 0],
-					name: '代表本期初始能力'
+					name: '代表个人能力'
 				},
 				{
 					value: averageAbility,
@@ -130,7 +137,7 @@ export default Controller.extend({
 		return [
 			{
 				value: originalAbility,
-				name: '代表本期初始能力'
+				name: '代表个人能力'
 			},
 			{
 				value: averageAbility,
@@ -140,7 +147,18 @@ export default Controller.extend({
 	}),
 	actions: {
 		changeState(context, key) {
-			context.toggleProperty(key);
+			let isOverKpi = this.get('isOverKpi'),
+				state = Number(context.get(key));
+
+			if (!isOverKpi || state !== 0) {
+				context.toggleProperty(key);
+			} else {
+				this.set('warning', {
+					open: true,
+					title: '经理行动点数超额',
+					detail: '经理无剩余行动点数可供分配。'
+				});
+			}
 		},
 		reInputTime() {
 			let managerInput = this.get('model.managerInput'),

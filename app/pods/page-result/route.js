@@ -6,5 +6,10 @@ export default Route.extend({
 			scenario = noticeModel.scenario;
 
 		return scenario;
+	},
+	afterModel() {
+		let applicationController = this.controllerFor('application');
+
+		applicationController.set('testProgress', 3);
 	}
 });

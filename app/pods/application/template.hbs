@@ -15,6 +15,14 @@
 				{{/bp-button}}
 				{{#bp-button onClick=(action "saveInputEndMission")}}结束任务{{/bp-button}}
 			</span>
+		{{else if (bp-eq testProgress 3)}}
+			<span local-class="button-area">
+				{{#bp-button type="subtle"  classNames="mr-3"
+					onClick=(action (mut rules) true)}}
+					规则介绍
+				{{/bp-button}}
+				{{#bp-button onClick=(action "resultPageEndMission")}}结束任务{{/bp-button}}
+			</span>
 		{{else}}
 			{{#bp-dropdown widthSize="auto"
 			local-class="dd-medicines dd-area" as |dd|}}

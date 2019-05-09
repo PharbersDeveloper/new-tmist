@@ -41,7 +41,8 @@ export default Route.extend({
 			// paper = pageScenarioModel.paper,
 			businessInputs = pageScenarioModel.businessInputs,
 			destConfigs = pageScenarioModel.destConfigs,
-			goodsConfigs = pageScenarioModel.goodsConfigs;
+			goodsConfigs = pageScenarioModel.goodsConfigs,
+			resourceConfRep = pageScenarioModel.resourceConfRep;
 
 		// goodsConfig = goodsConfigs.filter(ele => ele.get('productConfig.productType') === 0).firstObject;
 
@@ -52,9 +53,10 @@ export default Route.extend({
 
 		return hash({
 			businessInputs: businessInputs,
-			mConf: pageScenarioModel.resourceConfManager,
+			resourceConfManager: pageScenarioModel.resourceConfManager,
 			goodsConfigs,
 			destConfigs,
+			resourceConfRep,
 			salesConfigs: pageScenarioModel.salesConfigs
 		});
 		// }
