@@ -6,6 +6,7 @@ import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	cookies: service(),
+	ajax: service(),
 	// beforeModel() {
 	// 	const cookies = this.get('cookies');
 
@@ -62,24 +63,29 @@ export default Route.extend({
 			return RSVP.Promise.all(promiseArray);
 		}).then(data => {
 			let useableProposalIds = data,
-				promiseArray = A([]);
+				promiseArray = A([]),
+				ajax = this.get('ajax');
 
 			promiseArray = useableProposalIds.map(ele => {
-				return store.query('paper', {
-					'proposal-id': ele.id,
-					'account-id': accountId
+				return ajax.request(`/v0/GeneratePaper?proposal-id=${ele.id}
+				&account-id=${cookies.read('account_id')}`, {
+					method: 'POST',
+					data: {}
 				});
 			});
 			return RSVP.Promise.all(promiseArray);
 
 		}).then(data => {
-			papers = data;
+			data.forEach(ele => {
+				store.pushPayload(ele);
+			});
+			papers = store.peekAll('paper');
 			return RSVP.hash({
 				results: A([]),
 				papers,
 				useableProposals,
 				detailProposal: useableProposals.get('firstObject'),
-				detailPaper: papers[0].get('firstObject')
+				detailPaper: papers.get('firstObject')
 			});
 		});
 	}

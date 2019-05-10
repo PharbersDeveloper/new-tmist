@@ -274,27 +274,31 @@
 						{{/bp-layout}}
 						<div local-class="choose-area" class="px-4"></div>
 					{{/bp-layout}} --}}
-					<div class="table-responsive">
-						<table local-class="table-container" class="table table-hover">
+					<div local-class="table-container">
+						<table class="table table-hover">
 							<thead>
-								<th>药品名称 </th>
+								<th>药品名称</th>
 								{{#each model.tableHead as |tcontent|}}
-									<th class="text-center">{{tcontent}}</th>
+									<th>{{tcontent}}</th>
 								{{/each}}
 							</thead>
 							<tbody class="bg-white">
 								{{#each model.prodTableBody as |trContent|}}
-									<tr>
-										<td>{{trContent.goodsConfig.productConfig.product.name}}</td>
-										{{#each trContent.tableTr as |tdContent|}}
-											{{!-- <td>￥{{format-number tdContent}}</td> --}}
-											{{#if (type-number tdContent)}}
-												<td>￥{{format-number tdContent}}</td>
-											{{else}}
-												<td>{{tdContent}}</td>
-											{{/if}}
-										{{/each}}
-									</tr>
+									{{#if (bp-eq trContent.goodsConfig.productConfig.productType 0)}}
+										<tr>
+											<td>
+												{{trContent.goodsConfig.productConfig.product.name}}
+											</td>
+											{{#each trContent.tableTr as |tdContent|}}
+												{{!-- <td>￥{{format-number tdContent}}</td> --}}
+												{{#if (type-number tdContent)}}
+													<td>￥{{format-number tdContent 0}}</td>
+												{{else}}
+													<td>{{tdContent}}</td>
+												{{/if}}
+											{{/each}}
+										</tr>
+									{{/if}}
 									{{!-- {{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
 										{{#if (bp-eq tmpPsr.productName trContent.name)}}
 											<tr>
@@ -324,7 +328,7 @@
 				 classNames="m-0 bg-white px-4"}}
 					代表销售报告
 				{{/bp-layout}}
-				{{#bp-layout direction="col" classNames="table-responsive"}}
+				{{#bp-layout direction="col" local-class="table-container"}}
 					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="mb-4 bg-white"}}
 						{{#bp-layout main="between" cross="center"
@@ -357,7 +361,7 @@
 						{{/bp-layout}}
 						<div local-class="choose-area"></div>
 					{{/bp-layout}} --}}
-					<table local-class="table-container" class="table table-hover">
+					<table class="table table-hover">
 						<thead>
 							<th>代表名称</th>
 							<th>潜力</th>
@@ -369,7 +373,9 @@
 							{{#each model.repTableBody as |trContent|}}
 								<tr>
 									<td>{{trContent.resourceConfig.representativeConfig.representative.name}}</td>
-									<td>{{format-number trContent.potential}}</td>
+									<td>
+										￥{{format-number trContent.potential}}
+									</td>
 									{{#each trContent.tableTr as |tdContent index|}}
 										{{#if (type-number tdContent)}}
 											<td>￥{{format-number tdContent}}</td>
@@ -409,7 +415,7 @@
 				 classNames="m-0 bg-white px-4"}}
 					医院销售报告
 				{{/bp-layout}}
-				{{#bp-layout direction="col" classNames="table-responsive"}}
+				{{#bp-layout direction="col" local-class="table-container"}}
 					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="bg-white"}}
 						{{#bp-layout main="between" cross="center"
@@ -463,10 +469,10 @@
 							{{/bp-dropdown}}
 						{{/bp-layout}}
 					{{/bp-layout}} --}}
-					<table local-class="table-container" class="table table-hover">
+					<table class="table table-hover">
 						<thead>
 							<th>医院名称</th>
-							<th>产品</th>
+							<th>代表</th>
 							<th>潜力</th>
 							{{#each model.tableHead as |tcontent|}}
 								<th>{{tcontent}}</th>
@@ -476,8 +482,8 @@
 							{{#each model.hospTableBody as |trContent|}}
 								<tr>
 									<td>{{trContent.destConfig.hospitalConfig.hospital.name}}</td>
-									<td>{{trContent.goodsConfig.productConfig.product.name}}</td>
-									<td>{{format-number trContent.potential}}</td>
+									<td>{{trContent.resourceConfig.representativeConfig.representative.name}}</td>
+									<td>￥{{format-number trContent.potential}}</td>
 									{{#each trContent.tableTr as |tdContent|}}
 										{{!-- <td>￥{{format-number tdContent}}</td> --}}
 										{{#if (type-number tdContent)}}

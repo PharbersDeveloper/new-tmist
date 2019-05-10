@@ -12,9 +12,9 @@ export default Controller.extend({
 	// 发送input data
 	sendInput(state) {
 		const ajax = this.get('ajax'),
-			applicationAdapter = this.get('store').adapterFor('application'),
 			store = this.get('store'),
 			model = this.get('model'),
+			applicationAdapter = store.adapterFor('application'),
 			paper = model.detailPaper,
 			scenario = this.get('scenario');
 

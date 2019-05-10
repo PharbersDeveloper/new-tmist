@@ -1,6 +1,8 @@
 import Route from '@ember/routing/route';
-import rsvp from 'rsvp';
+import { htmlSafe } from '@ember/template';
+import { isEmpty } from '@ember/utils';
 import { A } from '@ember/array';
+import rsvp from 'rsvp';
 
 export default Route.extend({
 	generateTableBody(seasonData) {
@@ -35,13 +37,14 @@ export default Route.extend({
 			let seasonNum = totalData.length / reportsLength,
 				tmpTableTr = [];
 
+			tmpTableTr.push(ratesData[index]);
+
 			for (let i = 1; i <= seasonNum; i++) {
 				tmpTableTr.push(totalData[index + (i - 1) * reportsLength][0]);
 			}
 			for (let i = 1; i <= seasonNum; i++) {
 				tmpTableTr.push(totalData[index + (i - 1) * reportsLength][1]);
 			}
-			tmpTableTr.push(ratesData[index]);
 			ele.tableTr = tmpTableTr.flat();
 			return ele;
 		});
@@ -54,6 +57,19 @@ export default Route.extend({
 			return ele.get(key);
 		});
 		return promiseArray;
+	},
+	seasonQ(seasonText) {
+		let season = isEmpty(seasonText) ? '' : seasonText;
+
+		if (season === '') {
+			return season;
+		}
+		season = season.replace('第一季度', 'Q1');
+		season = season.replace('第二季度', 'Q2');
+		season = season.replace('第三季度', 'Q3');
+		season = season.replace('第四季度', 'Q4');
+
+		return season;
 	},
 	model() {
 		let store = this.get('store'),
@@ -83,21 +99,26 @@ export default Route.extend({
 				});
 				return rsvp.Promise.all(promiseArray);
 			}).then(data => {
-				let promiseArray = A([]);
+				let promiseArray = A([]),
+					seasonQ = '';
 
 				tmpHead = data.map(ele => {
 					let name = ele.get('name');
 
 					return name.slice(0, 4) + name.slice(-4);
 				});
+				seasonQ = this.seasonQ(tmpHead.lastObject);
+				tableHead.push(htmlSafe(`销售增长率\n${seasonQ}`));
+				tableHead.push(htmlSafe(`指标达成率\n${seasonQ}`));
 				tmpHead.forEach(ele => {
-					tableHead.push(ele + `\n销售额`);
+					seasonQ = this.seasonQ(ele);
+					tableHead.push(htmlSafe(`销售额\n${seasonQ}`));
 				});
 				tmpHead.forEach(ele => {
-					tableHead.push(ele + '\n销售指标');
+					seasonQ = this.seasonQ(ele);
+					tableHead.push(htmlSafe(`销售指标\n${seasonQ}`));
 				});
-				tableHead.push(`销售增长率\n${tmpHead.lastObject}`);
-				tableHead.push(`指标达成率\n${tmpHead.lastObject}`);
+
 				promiseArray = this.generatePromiseArray(increaseSalesReports, 'productSalesReports');
 				return rsvp.Promise.all(promiseArray);
 			}).then(data => {

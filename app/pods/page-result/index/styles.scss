@@ -108,6 +108,7 @@ h2.title {
 
 .content {
 	flex: 1;
+	overflow-x: auto;
 
 	.report {
 		flex: 1;
@@ -126,30 +127,31 @@ h2.title {
 		}
 
 		.table-container {
-			table-layout: fixed;
+			// table-layout: fixed;
 
-			thead {
-				background-color: transparent;
+			overflow-x: auto;
 
-				th {
-					padding-left: $spacing-2;
-					border: 0;
-					@extend %p-small;
+			table {
+				thead {
+					background-color: transparent;
 
-					// &:first-child {
-					// 	min-width: 50px;
-					// }
+					th {
+						border: 0;
+						@extend %p-small;
+						min-width: 100px;
+						text-align: right;
+					}
 				}
-			}
 
-			tbody {
-				td {
-					padding: 0;
-					padding-left: $spacing-2;
-					height: 52px;
-					line-height: 52px;
-					@extend %p-primary;
-					border: 0;
+				tbody {
+					td {
+						height: 52px;
+						line-height: 52px;
+						@extend %p-primary;
+						border: 0;
+						text-align: right;
+
+					}
 				}
 			}
 		}

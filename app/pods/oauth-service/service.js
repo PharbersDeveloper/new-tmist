@@ -85,6 +85,9 @@ export default Service.extend({
 					cookies.write('expiry', response.expiry, options);
 
 					this.get('router').transitionTo('index');
+				})
+				.catch(() => {
+					this.get('router').transitionTo('index');
 				});
 		} else {
 			this.get('router').transitionTo('index');
