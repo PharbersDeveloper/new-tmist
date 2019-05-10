@@ -8,11 +8,6 @@ export default Component.extend({
 	localClassNames: 'toggle-button',
 	localClassNameBindings: A(['choosed']),
 	choosed: equal('state', true),
-	computedStateValue() {
-		let { context, key } = this.getProperties('context', 'key');
-
-		return context.get(key);
-	},
 	click() {
 		let action = this.get('changeState'),
 			disabled = this.get('disabled'),
@@ -22,11 +17,6 @@ export default Component.extend({
 		if (!disabled || disabled && Boolean(state)) {
 			action(this.get('context'), this.get('key'));
 		}
-		this.set('state', this.computedStateValue());
 	},
-	changeState() { },
-	didReceiveAttrs() {
-		this._super(...arguments);
-		this.set('state', this.computedStateValue());
-	}
+	changeState() { }
 });

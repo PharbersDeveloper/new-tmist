@@ -8,5 +8,6 @@ export default DS.Model.extend({
 	quotaAchievement: DS.attr('number', { defaultValue: 0 }),	// 指标达成率
 	salesGrowth: DS.attr('number', { defaultValue: 0 }),	// 销售增长率
 	destConfig: DS.belongsTo('destConfig'),
-	goodsConfig: DS.belongsTo('goodsConfig')
+	goodsConfig: DS.belongsTo('goodsConfig'),
+	resourceConfig: DS.belongsTo()
 });

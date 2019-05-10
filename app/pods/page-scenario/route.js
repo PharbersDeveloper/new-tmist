@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 import RSVP, { hash } from 'rsvp';
 import { A } from '@ember/array';
-import $ from 'jquery';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
@@ -89,28 +88,28 @@ export default Route.extend({
 		});
 		return promiseArray;
 	},
-	beforeModel({ params }) {
-		let proposalId = params['page-scenario']['proposal_id'],
-			cookies = this.get('cookies'),
-			store = this.get('store');
+	// beforeModel({ params }) {
+	// 	let proposalId = params['page-scenario']['proposal_id'],
+	// 		cookies = this.get('cookies'),
+	// 		store = this.get('store');
 
-		$.ajax({
-			method: 'POST',
-			url: `/v0/GeneratePaper?proposal-id=${proposalId}
-				&account-id=${cookies.read('account_id')}`,
-			headers: {
-				'Content-Type': 'application/json', // 默认值
-				'Accept': 'application/json',
-				'Authorization': `Bearer ${cookies.read('access_token')}`
-			},
-			data: {},
-			success: function (res) {
-				store.pushPayload(res);
-			},
-			error: function () {
-			}
-		});
-	},
+	// 	$.ajax({
+	// 		method: 'POST',
+	// 		url: `/v0/GeneratePaper?proposal-id=${proposalId}
+	// 			&account-id=${cookies.read('account_id')}`,
+	// 		headers: {
+	// 			'Content-Type': 'application/json', // 默认值
+	// 			'Accept': 'application/json',
+	// 			'Authorization': `Bearer ${cookies.read('access_token')}`
+	// 		},
+	// 		data: {},
+	// 		success: function (res) {
+	// 			store.pushPayload(res);
+	// 		},
+	// 		error: function () {
+	// 		}
+	// 	});
+	// },
 	model(params) {
 		const store = this.get('store'),
 			cookies = this.get('cookies'),
