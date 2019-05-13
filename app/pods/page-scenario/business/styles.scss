@@ -15,6 +15,10 @@
 
 			.info {
 				@extend %header-large;
+
+				.unit {
+					@extend %p-small;
+				}
 			}
 
 			.m-name {
@@ -45,6 +49,25 @@
 
 				.values {
 					@extend %p-secondary;
+				}
+			}
+
+			.rest-time {
+				margin-bottom: 16px;
+
+				width: 50%;
+				font-size: 0;
+
+				.keys {
+					@extend %p-primary;
+				}
+
+				.values {
+					@extend %p-secondary;
+				}
+
+				&:last-child {
+					margin: 0;
 				}
 			}
 		}

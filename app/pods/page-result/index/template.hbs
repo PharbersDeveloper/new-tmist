@@ -482,7 +482,9 @@
 							{{#each model.hospTableBody as |trContent|}}
 								<tr>
 									<td>{{trContent.destConfig.hospitalConfig.hospital.name}}</td>
-									<td>{{trContent.resourceConfig.representativeConfig.representative.name}}</td>
+									<td>
+										{{trContent.resourceConfig.representativeConfig.representative.name}}
+									</td>
 									<td>￥{{format-number trContent.potential}}</td>
 									{{#each trContent.tableTr as |tdContent|}}
 										{{!-- <td>￥{{format-number tdContent}}</td> --}}

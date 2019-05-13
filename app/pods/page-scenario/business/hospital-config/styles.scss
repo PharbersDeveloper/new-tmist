@@ -8,7 +8,36 @@ h5.title {
 	@extend %header-small;
 }
 
+.keys {
+	@extend %p-primary;
+}
+
+
+.representative-time,
+.meeting-place {
+	.item {
+		flex: 1;
+
+		.keys {
+			flex: 0 0 56px;
+		}
+
+		.operating {
+			flex: 1;
+		}
+	}
+}
+
+.meeting-place {
+	.item {
+		.keys {
+			flex: 0 0 84px;
+		}
+	}
+}
+
 .prod {
+
 	thead {
 		th {
 			@extend %p-small;
@@ -99,7 +128,9 @@ h5.title {
 }
 
 .reps-meeting .input-prepend,
-.prod .input-prepend {
+.prod .input-prepend,
+.representative-time .input-prepend,
+.meeting-place .input-prepend {
 	position: relative;
 
 	input {
@@ -128,8 +159,45 @@ h5.title {
 	}
 
 	&.input-money {
+		input {
+			padding-left: 8px;
+			padding-right: 30px;
+		}
+
 		&::after {
+			left: auto;
+			right: 8px;
+			top: 50%;
+			transform: translateY(-50%);
 			content: '￥';
+		}
+	}
+}
+
+.disabled {
+	color: $n060 !important;
+
+	.input-prepend {
+		&::after {
+			color: $n060;
+		}
+	}
+
+	thead {
+		th {
+			color: $n060;
+		}
+	}
+
+	tbody {
+		tr {
+			td {
+				color: $n060;
+
+				.percent {
+					color: $n060;
+				}
+			}
 		}
 	}
 }

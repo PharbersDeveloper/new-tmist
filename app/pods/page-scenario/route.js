@@ -83,7 +83,7 @@ export default Route.extend({
 				budget: '',
 				goodsConfig,
 				meetingPlaces: '',
-				visitTime: ''
+				visitTime: 0
 			});
 		});
 		return promiseArray;

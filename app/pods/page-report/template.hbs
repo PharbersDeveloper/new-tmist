@@ -22,10 +22,44 @@
 		{{/ph.body}}
 	{{/bp-page-header}}
 	{{#bp-layout tagName='h3' cross='center' local-class="title" 
-		classNames="m-0 px-4 bg-white"}}
+		classNames="m-0 mb-2 px-4 bg-white"}}
 		综合表现
 	{{/bp-layout}}
-	{{#bp-layout main="between" local-class="performance" classNames="mb-2 bg-white"}}
+	{{#bp-layout main="between" local-class="performance"}}
+		{{#bp-layout direction="col" main="between" local-class="item"
+			classNames="mr-2"}}
+			{{#bp-layout direction='col' classNames='p-4 bg-white'}}
+				{{#bp-layout tabName='h4' cross='center' local-class="title" 
+					classNames='mb-4'}}
+					能力得分
+				{{/bp-layout}}
+				{{#bp-layout cross='center' local-class='score content' classNames='mb-2'}}
+					<img src="https://www.easyicon.net/api/resizeApi.php?id=1121550&size=128" alt="">
+					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
+						等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout direction='col' classNames='p-4 bg-white'}}
+				{{#bp-layout tabName='h4' cross='center' local-class="title" 
+					classNames='mb-4'}}
+					荣获称号
+				{{/bp-layout}}
+				{{#bp-layout cross='center' local-class='won-title content'}}
+					{{#bp-layout direction='col' main='center' local-class='img-container'}}
+						<img src="https://i.loli.net/2019/05/13/5cd8db8f8d3db53613.png" alt="">
+						<p>S级*</p>
+					{{/bp-layout}}
+					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
+						等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout local-class="item" classNames="bg-white"}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{!-- {{#bp-layout main="between" local-class="performance" classNames="mb-2 bg-white"}}
 		{{#bp-layout direction="col" cross="center" local-class="score" 
 			classNames="p-4"}}
 			<img src="https://i.loli.net/2019/04/27/5cc3e0a8ae8a2.png" alt="designation" title="designation" class="mb-4" />
@@ -55,5 +89,5 @@
 	{{#bp-layout main="between" cross='center' local-class="rate-item" classNames="px-4 bg-white"}}
 		<span local-class="keys">2019Q3</span>
 		<span local-class="values">90%</span>
-	{{/bp-layout}}
+	{{/bp-layout}} --}}
 {{/bp-layout}}

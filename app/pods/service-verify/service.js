@@ -58,9 +58,9 @@ export default Service.extend({
 				resourceConfig: ele
 			};
 		});
-
 		return {
 			illegal: !numberVerify.test(usedSalesTarget) || !numberVerify.test(usedBudget) || !numberVerify.test(usedMeetingPlaces) || !numberVerify.test(usedVisitTime),
+			zeroVisitTime: newBusinessInputs.filter(ele => ele.get('visitTime') !== '' && Number(ele.get('visitTime')) === 0),
 			lowTotalBusinessIndicators: usedSalesTarget < totalBusinessIndicators,
 			lowTotalBudgets: usedBudget < totalBudgets,
 			lowTotalMeetingPlaces: usedMeetingPlaces < totalMeetingPlaces,
@@ -69,6 +69,7 @@ export default Service.extend({
 			overTotalBudgets: usedBudget > totalBudgets,
 			overTotalMeetingPlaces: usedMeetingPlaces > totalMeetingPlaces,
 			overVisitTime: representativeVisitTimes.filter(ele => ele.visitTime > 100),
+			blankMeetingPlaces: newBusinessInputs.filter(ele => isEmpty(ele.meetingPlaces)),
 			usedSalesTarget,
 			usedBudget,
 			usedMeetingPlaces

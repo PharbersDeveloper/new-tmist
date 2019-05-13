@@ -59,20 +59,5 @@ export default Route.extend({
 			resourceConfRep,
 			salesConfigs: pageScenarioModel.salesConfigs
 		});
-		// }
-
-		// return businessInputs.sortBy('time').lastObject.get('businessinputs')
-		// 	.then(data => {
-		// 		this.controllerFor('page-scenario.business').set('businessInputs', data);
-		// 		this.controllerFor('page-scenario').set('businessInputs', data);
-
-		// 		return hash({
-		// 			businessInputs: data,
-		// 			mConf: pageScenarioModel.resourceConfManager,
-		// 			goodsConfigs,
-		// 			destConfigs,
-		// 			salesConfigs: pageScenarioModel.salesConfigs
-		// 		});
-		// 	});
 	}
 });

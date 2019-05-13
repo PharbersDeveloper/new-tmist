@@ -2,6 +2,18 @@
 	height: 100%;
 	overflow: auto;
 
+	h2.title {
+		@extend %header-large;
+	}
+
+	h3 {
+		@extend %header-medium;
+	}
+
+	h4.title {
+		@extend %header-small;
+	}
+
 	.blank {
 		flex: 1;
 	}
@@ -25,7 +37,7 @@
 
 			h2.title {
 				margin-top: 78px;
-				@extend %header-large;
+				// @extend %header-large;
 			}
 
 			p.desc {
@@ -37,11 +49,12 @@
 			@extend %depth-z200;
 			@extend %defaultRadius;
 
-			h2.title {
-				@extend %header-large;
-			}
+			// h2.title {
+			// 	@extend %header-large;
+			// }
 
 			p {
+				margin: 0;
 				@extend %p-secondary;
 			}
 		}
@@ -80,10 +93,9 @@
 			.resource {
 				background-color: $n040;
 
-				h2 {
-					@extend %header-medium;
-
-				}
+				// h2 {
+				// 	@extend %header-medium;
+				// }
 
 				.item {
 					.icon {
