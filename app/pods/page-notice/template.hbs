@@ -17,13 +17,17 @@
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="rule" classNames="p-4"}}
 			<h2 local-class="title" class="mb-4">规则介绍</h2>
-			<p>1、经理需完成 业务决策、管理决策后才能提交任务。</p>
-			<p>2、所有代表都必须被分配负责的医院。</p>
-			<p>3、所有的医院都必须有为其负责的代表。</p>
-			<p>4、预算的分配不可超过给定的总预算。</p>
-			<p>5、经理的时间需要全部分配。</p>
-			<p>6、你的整体决策可在“本期决策回顾”中查看。</p>
-			<p>7、决策提交后，将不可再修改。</p>
+			<p>经理需要彻底利用有限“预算”，达成“药品销售额指标”，</p>
+			<p>彻底完成业务决策、管理决策后才能提交任务，一旦提交决策，将不可更改。</p>
+			<p class="mb-4">您的决策设定可在“本期决策回顾中”查看。</p>
+			<h4 local-class='title' class="mt-0 mb-3">业务决策</h4>
+			<p class="mb-4">1. 业务决策中，优先选择代表，所有医院都需要有代表负责。
+				每一个代表必须充分利用“拜访时间”负责医院药品销售业务，
+				“代表拜访时间”不能为“0”，“代表剩余时间”必须 为“0”。</p>
+			<p class="mb-4">2. 所有医院的“药品销售指标”和“预算”都得分配，若不分配，请输入“0”。</p>
+			<p class="mb-4">3. 会议名额需要被彻底分配，请为不分配会议名额的医院设定名额值为“0”。</p>
+			<h4 local-class='title' class="mt-0 mb-3">管理决策</h4>
+			<p>1. 经理的时间需要全部分配。</p>
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout direction="col" local-class="mission-notice item" classNames="mt-4"}}
@@ -35,7 +39,7 @@
 			<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
 		</h1>
 		<div local-class="resource" class="mb-2 p-3 rounded">
-			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
+			{{#bp-layout tagName="h3" cross="center" classNames="mb-3"}}
 				{{bp-icon icon="mission-1"}}
 				<span class="ml-2">合理分配资源完成业务目标</span>
 			{{/bp-layout}}
@@ -139,7 +143,7 @@
 			{{/bp-layout}}
 		</div>
 		<div local-class="resource" class="mb-4 p-3 rounded">
-			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
+			{{#bp-layout tagName="h3" cross="center" classNames="mb-3"}}
 				{{bp-icon icon="mission-2"}}
 				<span class="ml-2">团队与自我管理</span>
 			{{/bp-layout}}
@@ -164,7 +168,7 @@
 			{{/bp-layout}}
 		</div>
 		<div local-class="resource" class="mb-4 p-3 rounded">
-			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
+			{{#bp-layout tagName="h3" cross="center" classNames="mb-3"}}
 				{{bp-icon icon="mission-3"}}
 				<span class="ml-2">合理支配预算</span>
 			{{/bp-layout}}
@@ -188,7 +192,7 @@
 			{{/bp-layout}}
 		</div>
 		<div local-class="resource" class="mb-4 p-3 rounded">
-			{{#bp-layout tagName="h2" cross="center" classNames="mb-3"}}
+			{{#bp-layout tagName="h3" cross="center" classNames="mb-3"}}
 				{{bp-icon icon="mission-4"}}
 				<span class="ml-2">完成销售额指标</span>
 			{{/bp-layout}}

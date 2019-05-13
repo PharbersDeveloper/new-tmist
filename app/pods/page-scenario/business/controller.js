@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
-// import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
@@ -12,6 +11,35 @@ export default Controller.extend({
 		{ name: '已分配', state: 2 }
 	]),
 	verify: service('service-verify'),
+	representativesVisitPercent: computed('model.businessInputs.@each.{visitTime,resourceConfigId}', function () {
+		const model = this.get('model');
+
+		let resourceConfigs = model.resourceConfRep,
+			result = A([]),
+			businessInputs = model.businessInputs;
+
+		result = resourceConfigs.map(ele => {
+
+			let usedTime = 0,
+				totalTime = ele.get('representativeConfig.totalTime');
+
+			businessInputs.map(nbi => {
+				if (ele.get('id') === nbi.get('resourceConfigId')) {
+					usedTime += Number(nbi.get('visitTime'));
+				}
+			});
+			return {
+				id: ele.get('id'),
+				resourceConfig: ele,
+				totalTime,
+				usedTime,
+				restTime: 100 - usedTime
+			};
+		});
+
+		return result;
+
+	}),
 	overallFilterData: computed('currentHospState.state', 'model.businessInputs.@each.isFinish', function () {
 		let currentHospState = this.get('currentHospState').state,
 			destConfigs = this.get('model').destConfigs,
@@ -32,9 +60,9 @@ export default Controller.extend({
 		}
 		return destConfigs;
 	}),
-	warning: computed('total.{overTotalBusinessIndicators,overTotalBudgets,overTotalMeetingPlaces,illegal}', function () {
+	warning: computed('total.{overTotalBusinessIndicators,overTotalBudgets,overTotalMeetingPlaces,illegal,zeroVisitTime}', function () {
 		let { overTotalBusinessIndicators, overTotalBudgets,
-				overTotalMeetingPlaces, overVisitTime, illegal } =
+				overTotalMeetingPlaces, overVisitTime, illegal, zeroVisitTime } =
 			this.get('total'),
 			warning = { open: false, title: '', detail: '' };
 
@@ -43,6 +71,11 @@ export default Controller.extend({
 			warning.open = true;
 			warning.title = '非法值警告';
 			warning.detail = '请输入数字！';
+			return warning;
+		case zeroVisitTime.length > 0:
+			warning.open = true;
+			warning.title = '代表拜访时间不能为0';
+			warning.detail = '代表拜访时间不能为0%，请合理分配。';
 			return warning;
 		case overTotalBusinessIndicators:
 			warning.open = true;
@@ -76,67 +109,8 @@ export default Controller.extend({
 			businessInputs = model.businessInputs,
 			resourceConfigManager = model.resourceConfManager;
 
+		console.log('total computed');
 		return verifyService.verifyInput(resourceConfRep, businessInputs, resourceConfigManager);
-		// const model = this.get('model'),
-		// 	resourceConfRep = model.resourceConfRep;
-
-		// let newBusinessInputs = model.businessInputs,
-		// 	representativeInputVisitTimes = A([]),
-		// 	representativeVisitTimes = A([]),
-
-		// 	usedSalesTarget = 0,
-		// 	usedBudget = 0,
-		// 	usedMeetingPlaces = 0,
-		// 	usedVisitTime = 0,
-		// 	numberVerify = this.get('numberVerify'),
-		// 	totalBusinessIndicators = model.mConf.get('managerConfig.totalBusinessIndicators'),
-		// 	totalBudgets = model.mConf.get('managerConfig.totalBudgets'),
-		// 	totalMeetingPlaces = model.mConf.get('managerConfig.totalMeetingPlaces');
-
-		// representativeInputVisitTimes = newBusinessInputs.map(bi => {
-		// 	let choosedRep = isEmpty(bi.get('resourceConfig'));
-
-		// 	usedSalesTarget += Number(bi.get('salesTarget'));
-		// 	usedBudget += Number(bi.get('budget'));
-		// 	usedMeetingPlaces += Number(bi.get('meetingPlaces'));
-		// 	usedVisitTime += Number(bi.get('visitTime'));
-
-		// 	return {
-		// 		visitTime: Number(bi.get('visitTime')),
-		// 		representativeId: choosedRep ? '' : bi.get('resourceConfig.representativeConfig.representative.id'),
-		// 		resourceConfig: choosedRep ? null : bi.get('resourceConfig')
-		// 	};
-		// });
-
-		// representativeVisitTimes = resourceConfRep.map(ele => {
-		// 	let perVisitTime = 0;
-
-		// 	representativeInputVisitTimes.forEach(item => {
-		// 		if (item.representativeId === '') {
-		// 			perVisitTime = 0;
-		// 			return;
-		// 		}
-		// 		if (ele.get('representativeConfig.representative.id') === item.representativeId) {
-		// 			perVisitTime += item.visitTime;
-		// 		}
-		// 	});
-		// 	return {
-		// 		visitTime: perVisitTime,
-		// 		resourceConfig: ele
-		// 	};
-		// });
-		// console.log(representativeVisitTimes);
-
-		// return {
-		// 	illegal: !numberVerify.test(usedSalesTarget) || !numberVerify.test(usedBudget) || !numberVerify.test(usedMeetingPlaces) || !numberVerify.test(usedVisitTime),
-		// 	overTotalBusinessIndicators: usedSalesTarget > totalBusinessIndicators,
-		// 	overTotalBudgets: usedBudget > totalBudgets,
-		// 	overTotalMeetingPlaces: usedMeetingPlaces > totalMeetingPlaces,
-		// 	overVisitTime: representativeVisitTimes.some(ele => ele.visitTime > 100),
-		// 	usedSalesTarget,
-		// 	usedBudget,
-		// 	usedMeetingPlaces
-		// };
 	}),
 	init() {
 		this._super(...arguments);

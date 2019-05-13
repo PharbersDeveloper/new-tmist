@@ -14,8 +14,16 @@ body>:global(.ember-view) {
 }
 
 :global(.modal-body) {
-	.desc {
+	:global(.desc) {
 		@extend %p-primary;
+	}
+
+	:global(.secondary) {
+		@extend %p-secondary;
+	}
+
+	h4 {
+		@extend %header-small;
 	}
 }
 

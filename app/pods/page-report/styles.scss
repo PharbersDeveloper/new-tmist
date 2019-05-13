@@ -12,40 +12,50 @@
 		@extend %header-small;
 	}
 
-	h4.title {
-		@extend %header-small;
-	}
-
 	.performance {
-		.score {
+		.item {
 			flex: 1;
 
-			img {
-				width: 128px;
-				height: 144px;
+			.content {
+
+				img,
+				.img-container {
+					flex: 102.4px;
+					width: 102.4px;
+					height: 115.2px;
+				}
+
+				.text {
+					flex: 1;
+					@extend %p-primary;
+				}
 			}
 
-			.level {
-				@extend %p-secondary;
-			}
-		}
-
-		.evaluation {
-			flex: 2;
-
-			.desc {
-				@extend %p-primary;
-			}
-		}
-	}
-
-	.rate,
-	.rate-item {
-		height: 52px;
-
-		.keys,
-		.values {
-			@extend %p-primary;
 		}
 	}
+
+	// .performance {
+	// 	.score {
+	// 		flex: 1;
+
+	// 		img {
+	// 			width: 128px;
+	// 			height: 144px;
+	// 		}
+
+	// 		.level {
+	// 			@extend %p-secondary;
+	// 		}
+	// 	}
+
+	// 	.evaluation {
+	// 		flex: 2;
+
+	// 		.desc {
+	// 			@extend %p-primary;
+	// 		}
+	// 	}
+	// }
+
+
 }

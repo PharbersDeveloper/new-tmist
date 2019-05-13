@@ -81,7 +81,7 @@ export default Controller.extend({
 
 		let { overTotalBusinessIndicators, overTotalBudgets,
 				overTotalMeetingPlaces, overVisitTime, illegal, lowTotalBusinessIndicators,
-				lowTotalBudgets, lowTotalMeetingPlaces, lowVisitTime } =
+				lowTotalBudgets, lowTotalMeetingPlaces, lowVisitTime, blankMeetingPlaces } =
 			total,
 			warning = { open: false, title: '', detail: '' };
 
@@ -134,6 +134,13 @@ export default Controller.extend({
 			warning.detail = '您的会议名额设定已超过总名额限制，请重新分配。';
 			this.set('warning', warning);
 			return false;
+
+		case blankMeetingPlaces.length > 0:
+			warning.open = true;
+			warning.title = '会议总名额未填写';
+			warning.detail = `请为“${blankMeetingPlaces.firstObject.destConfig.get('hospitalConfig.hospital.name')}”设定会议名额，若不分配，请输入值“0”`;
+			this.set('warning', warning);
+			return false;
 		case overVisitTime.length > 0:
 			warning.open = true;
 			warning.title = '代表拜访时间超额';
@@ -174,12 +181,6 @@ export default Controller.extend({
 	 * 所有代表都分配医院,验证经理输入
 	 */
 	repAllAlloction() {
-		// // 如果验证通过，则返回 true ，否则为 false
-		// let verifyState =this.verifyTotalValue(businessinputs, representatives);
-
-		// if (verifyState) {
-		// 	验证
-		// }
 		let managerTotalTime = this.get('model').managerTotalTime,
 			// 在page-scenario.management 获取之后进行的设置.
 			managerinput = this.get('managerInput'),
@@ -206,31 +207,12 @@ export default Controller.extend({
 			representativeIds = representatives.map(ele => ele.get('id'));
 
 		// 判断是不是有代表没有分配工作
+		// 有代表未分配工作
 		if (allocateRepresentatives.length < representatives.length) {
 			this.repNotAlloction(representativeIds, allocateRepresentatives);
-			// differentRepresentatives = representativeIds.concat(allocateRepresentatives).filter(v => !representativeIds.includes(v) || !allocateRepresentatives.includes(v));
-			// let firstRepId = differentRepresentatives.get('firstObject'),
-			// 	representativeName = this.get('store').peekRecord('representative', firstRepId).get('name');
-
-			// this.set('warning', {
-			// 	open: true,
-			// 	title: representativeName,
-			// 	detail: `尚未对“${representativeName}”分配工作，请为其分配。`
-			// });
 			return;
 			// 代表全部分配完毕
 		} else if (allocateRepresentatives.length === representatives.length) {
-			// let managerTotalTime = this.get('model').managerTotalTime,
-			// 	// 在page-scenario.management 获取之后进行的设置.
-			// 	managerinput = this.get('managerInput'),
-			// 	representativeinputs = this.get('representativeInputs'),
-			// 	manangerInputState = this.verificationManagerInput(managerTotalTime, managerinput, representativeinputs);
-
-			// if (!manangerInputState.state) {
-			// 	// 未分配完毕经理时间
-			// 	this.set('warning', manangerInputState.warning);
-			// 	return;
-			// }
 			let managerInputState = this.repAllAlloction();
 
 			// 经理管理时间输入完毕 验证输入总值。
@@ -238,14 +220,6 @@ export default Controller.extend({
 				this.verifyTotalValue(businessinputs, representatives);
 				return;
 			}
-
-			// this.set('warning', {
-			// 	open: true,
-			// 	title: `确认提交`,
-			// 	detail: `您将提交本季度决策并输出执行报告，提交后将不可更改决策。`
-			// });
-			// this.set('confirmSubmit', true);
-			// return;
 		}
 	},
 	/**
@@ -259,10 +233,10 @@ export default Controller.extend({
 		// 有未完成的businessinputs
 		if (notFinishBusinessInputs.length !== 0) {
 			this.exitNotEntered(notFinishBusinessInputs);
-		} else {
-			// this.verifyTotalValue(businessinputs, representatives);
-			this.verificationRepHasAllocation(businessinputs, representatives);
+			return false;
 		}
+		// this.verifyTotalValue(businessinputs, representatives);
+		this.verificationRepHasAllocation(businessinputs, representatives);
 	},
 	// 发送input data
 	sendInput(state) {
@@ -372,7 +346,6 @@ export default Controller.extend({
 				// 验证businessinputs
 				// 在page-scenario.business 获取之后进行的设置.
 
-				// businessinputs = this.get('businessInputs');
 				businessinputs = store.peekAll('businessinput');
 
 			if (isEmpty(judgeAuth)) {
