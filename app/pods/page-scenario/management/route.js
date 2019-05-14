@@ -41,11 +41,7 @@ export default Route.extend({
 					averageSalesAbility += ele.get('salesAbility') / 5;
 
 				});
-				averageAbility = [averageJobEnthusiasm.toFixed(2),
-					averageProductKnowledge.toFixed(2),
-					averageBehaviorValidity.toFixed(2),
-					averageRegionalManagementAbility.toFixed(2),
-					averageSalesAbility.toFixed(2)];
+				averageAbility = [averageJobEnthusiasm.toFixed(2), averageProductKnowledge.toFixed(2), averageBehaviorValidity.toFixed(2), averageRegionalManagementAbility.toFixed(2), averageSalesAbility.toFixed(2)];
 
 				currentController.setProperties({
 					averageAbility,

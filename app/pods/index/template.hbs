@@ -126,8 +126,10 @@
 			重新部署
 		</h4>
 	{{/modal.header}}
-	{{#modal.body}}
-		重新开始将清空您上次尚未完成的决策记录，是否继续？
+	{{#modal.body classNames="p-4"}}
+		<p class="desc">
+			重新开始将清空您上次尚未完成的决策记录，是否继续？
+		</p>
 	{{/modal.body}}
 	{{#modal.footer}}
 		{{#bp-button type="link" onClick=(action modal.close)}}取消{{/bp-button}}

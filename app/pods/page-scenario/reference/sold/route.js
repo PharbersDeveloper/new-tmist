@@ -46,7 +46,9 @@ export default Route.extend({
 				tmpTableTr.push(totalData[index + (i - 1) * reportsLength][1]);
 			}
 
-			ele.tableTr = tmpTableTr.flat();
+			// ele.tableTr = tmpTableTr.flat();
+			ele.tableTr = tmpTableTr.reduce((acc, value) => acc.concat(value), []);
+
 			return ele;
 		});
 		return tmpTableBody;

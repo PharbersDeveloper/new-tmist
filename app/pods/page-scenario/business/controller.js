@@ -60,9 +60,9 @@ export default Controller.extend({
 		}
 		return destConfigs;
 	}),
-	warning: computed('total.{overTotalBusinessIndicators,overTotalBudgets,overTotalMeetingPlaces,illegal,zeroVisitTime}', function () {
+	warning: computed('total.{overTotalBusinessIndicators,overTotalBudgets,overTotalMeetingPlaces,illegal,zeroVisitTime,blankMeetingPlaces}', function () {
 		let { overTotalBusinessIndicators, overTotalBudgets,
-				overTotalMeetingPlaces, overVisitTime, illegal, zeroVisitTime } =
+				overTotalMeetingPlaces, overVisitTime, illegal, zeroVisitTime, blankMeetingPlaces } =
 			this.get('total'),
 			warning = { open: false, title: '', detail: '' };
 
@@ -76,6 +76,11 @@ export default Controller.extend({
 			warning.open = true;
 			warning.title = '代表拜访时间不能为0';
 			warning.detail = '代表拜访时间不能为0%，请合理分配。';
+			return warning;
+		case blankMeetingPlaces.length > 0:
+			warning.open = true;
+			warning.title = '会议总名额未填写';
+			warning.detail = `请为“${blankMeetingPlaces.firstObject.destConfig.get('hospitalConfig.hospital.name')}”设定会议名额，若不分配，请输入值“0”`;
 			return warning;
 		case overTotalBusinessIndicators:
 			warning.open = true;
@@ -109,7 +114,6 @@ export default Controller.extend({
 			businessInputs = model.businessInputs,
 			resourceConfigManager = model.resourceConfManager;
 
-		console.log('total computed');
 		return verifyService.verifyInput(resourceConfRep, businessInputs, resourceConfigManager);
 	}),
 	init() {

@@ -5,7 +5,6 @@ import { isEmpty } from '@ember/utils';
 import { A } from '@ember/array';
 import rsvp from 'rsvp';
 import { inject as service } from '@ember/service';
-
 export default Controller.extend({
 	ajax: service(),
 	cookies: service(),
@@ -149,13 +148,6 @@ export default Controller.extend({
 			return false;
 		default:
 			this.allVerifySuccessful();
-			// this.set('warning', {
-			// 	open: true,
-			// 	title: `确认提交`,
-			// 	detail: `您将提交本季度决策并输出执行报告，提交后将不可更改决策。`
-			// });
-			// this.set('confirmSubmit', true);
-			// return;
 			return true;
 		}
 
@@ -245,7 +237,8 @@ export default Controller.extend({
 			store = this.get('store'),
 			model = this.get('model'),
 			paper = model.paper,
-			scenario = model.scenario;
+			scenario = model.scenario,
+			that = this;
 
 		//	正常逻辑
 		let version = `${applicationAdapter.get('namespace')}`,
@@ -285,7 +278,6 @@ export default Controller.extend({
 				return paperinput.save();
 			}).then(data => {
 				paper.get('paperinputs').pushObject(data);
-				// paper.set('state', state);
 				if (state === 1) {
 					paper.set('state', state);
 				}
@@ -318,18 +310,26 @@ export default Controller.extend({
 					})
 				}).then((response) => {
 					if (response.status === 'Success') {
-						paper.set('state', state);
-						paper.save().then(() => {
-							this.transitionToRoute('page-result');
-						});
-						return;
+						return that.updatePaper(store, paperId, state, that);
 					}
-
 					return response;
+				}).then(() => {
 				}).catch(err => {
 					window.console.log('error');
 					window.console.log(err);
 				});
+			});
+	},
+	updatePaper(store, paperId, state, context) {
+		store.findRecord('paper', paperId, { reload: true })
+			.then(data => {
+				data.set('state', state);
+				return data.save();
+			}).then(() => {
+				this.set('loadingForSubmit', false);
+
+				context.transitionToRoute('page-result');
+				return null;
 			});
 	},
 	judgeOauth() {
@@ -355,6 +355,9 @@ export default Controller.extend({
 			this.verificationBusinessinputs(businessinputs, representatives);
 		},
 		confirmSubmit() {
+			this.set('warning', { open: false });
+			this.set('loadingForSubmit', true);
+
 			this.sendInput(3);
 		},
 		saveInputs() {
