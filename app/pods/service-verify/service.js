@@ -44,9 +44,7 @@ export default Service.extend({
 					perVisitTime = 0;
 					return;
 				}
-				// if (ele.get('representativeConfig.representative.id') === item.representativeId) {
-				// 	perVisitTime += item.visitTime;
-				// }
+
 				if (ele.get('id') === item.resourceConfigId) {
 					perVisitTime += item.visitTime;
 				}

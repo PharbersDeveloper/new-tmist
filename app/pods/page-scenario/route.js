@@ -82,8 +82,8 @@ export default Route.extend({
 				salesTarget: '',
 				budget: '',
 				goodsConfig,
-				meetingPlaces: '',
-				visitTime: 0
+				meetingPlaces: 0,
+				visitTime: ''
 			});
 		});
 		return promiseArray;

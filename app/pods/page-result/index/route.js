@@ -45,7 +45,10 @@ export default Route.extend({
 			for (let i = 1; i <= seasonNum; i++) {
 				tmpTableTr.push(totalData[index + (i - 1) * reportsLength][1]);
 			}
-			ele.tableTr = tmpTableTr.flat();
+			// ele.tableTr = tmpTableTr.flat();
+			ele.tableTr = tmpTableTr.reduce((acc, value) => acc.concat(value), []);
+
+
 			return ele;
 		});
 		return tmpTableBody;
