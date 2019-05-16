@@ -4,13 +4,14 @@ import { A } from '@ember/array';
 
 export default Route.extend({
 	model() {
-		let totalConfig = this.modelFor('page-scenario.reference'),
-			paper = totalConfig.paper,
-			seasons = A([]),
-			tmpData = A([]),
-			destConfigs = totalConfig.destConfigs;
+		const pageScenarioModel = this.modelFor('page-scenario'),
+			proposal = pageScenarioModel.proposal,
+			destConfigs = pageScenarioModel.destConfigs;
 
-		return paper.get('salesReports')
+		let seasons = A([]),
+			tmpData = A([]);
+
+		return proposal.get('salesReports')
 			.then(data => {
 				// 获取hospitalSalesReport
 				let increaseSalesReports = data.sortBy('time'),
@@ -91,8 +92,8 @@ export default Route.extend({
 
 				return hash({
 					barDatum: data,
-					goodsConfigs: totalConfig.goodsConfigs,
-					salesConfigs: totalConfig.salesConfigs,
+					goodsConfigs: pageScenarioModel.goodsConfigs,
+					salesConfigs: pageScenarioModel.salesConfigs,
 					destConfigs
 				});
 			});

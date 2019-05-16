@@ -1,9 +1,16 @@
 import Controller from '@ember/controller';
+import ENV from 'new-tmist/config/environment';
 import { htmlSafe } from '@ember/template';
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
+	testBtn: computed(function () {
+		if (ENV.environment === 'development') {
+			return true;
+		}
+		return false;
+	}),
 	notice: localStorage.getItem('notice') !== 'false',
 	step: 1,
 	detail: htmlSafe(`<p class='m-0 model-desc'>平台介绍</p><p class='m-0 model-desc'>在平台中，您将作为区域销售经理</p>`),

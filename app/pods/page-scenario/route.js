@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import RSVP, { hash } from 'rsvp';
+import RSVP, { hash, all } from 'rsvp';
 import { A } from '@ember/array';
 import { inject as service } from '@ember/service';
 
@@ -129,7 +129,10 @@ export default Route.extend({
 			inputResource = null,
 			businessInputs = null,
 			managerInput = null,
-			representativeInputs = null;
+			representativeInputs = null,
+			salesReports = A([]),
+			lastSeasonHospitalSalesReports = A([]);
+
 		// reDeploy = Number(localStorage.getItem('reDeploy')) === 1;
 
 		// // 当用户点击继续部署的时候，在 notice 页面已经存在了 inputs的资源
@@ -175,26 +178,27 @@ export default Route.extend({
 					{ 'scenario-id': scenarioId });
 			}).then(data => {
 				goodsConfigs = data;
-				return store.query('destConfig',
-					{ 'scenario-id': scenarioId });
-				// 判断 管理决策是否存在
+				return proposal.get('salesReports');
 			}).then(data => {
-				destConfigs = data.sortBy('hospitalConfig.potential').reverse();
+				salesReports = data.sortBy('time');
+
+				let salesReport = salesReports.get('lastObject');
+
+				return salesReport.get('hospitalSalesReports');
+			}).then(data => {
+
+				lastSeasonHospitalSalesReports = data.sortBy('potential').reverse();
+
+				let promiseArray = lastSeasonHospitalSalesReports.map(ele => {
+					return ele.get('destConfig');
+				});
+
+				return all(promiseArray);
+			}).then(data => {
+
+				destConfigs = data;
 				inputResource = this.hasManagerInput(paper, resourceConfRep);
 
-				// if (!isArray(inputResource)) {
-				// 	return reject(inputResource);
-				// }
-				// 	return inputResource.sortBy('time').lastObject.get('managerinputs');
-				// }).then(data => {
-				// 	managerInput = data.firstObject;
-				// 	return inputResource.sortBy('time').lastObject.get('representativeinputs');
-				// })
-				// .then(data => {
-				// 	representativeInputs = data;
-				// 	return null;
-				// })
-				// .catch((data) => {
 				managerInput = inputResource.managerInput;
 				representativeInputs = inputResource.representativeInputs;
 
@@ -202,13 +206,6 @@ export default Route.extend({
 
 				businessInputs = this.isHaveBusinessInput(paper, destConfigs, goodsConfig);
 
-				// if (!tmp.isFulfilled) {
-				// 	return tmp;
-				// }
-				// return tmp.sortBy('time').lastObject.get('businessinputs');
-				// })
-
-				// .then((data) => {
 				return hash({
 					proposal,
 					managerInput,
@@ -223,6 +220,8 @@ export default Route.extend({
 					managerTotalKpi,
 					goodsConfigs,
 					destConfigs,
+					salesReports,
+					lastSeasonHospitalSalesReports,
 					resourceConfig: store.query('resourceConfig',
 						{ 'scenario-id': scenarioId }),
 					salesConfigs: store.query('salesConfig',

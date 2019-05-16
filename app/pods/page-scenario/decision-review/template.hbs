@@ -61,7 +61,7 @@
 							{{/bp-dropdown}}
 						{{/bp-layout}} 
 				{{/bp-layout}}--}}
-					<table local-class="table-container" class="table">
+					{{!-- <table local-class="table-container" class="table">
 						<thead>
 							<th>医院名称</th>
 							<th>潜力</th>
@@ -70,7 +70,7 @@
 							<th>分配时间</th>
 							<th>销售目标设定</th>
 							<th>预算费用</th>
-							<th>会议名额 </th>
+							<th>会议名额</th>
 						</thead>
 						<tbody class="bg-white">
 							{{#each model.businessinputs as |bi|}}
@@ -132,7 +132,8 @@
 								{{/each}}
 							{{/each}}
 						</tbody>
-					</table>
+					</table> --}}
+					{{business-review model=model.tableData}}
 				{{/bp-layout}}
 			</div>
 		{{else}}

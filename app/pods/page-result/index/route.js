@@ -75,9 +75,9 @@ export default Route.extend({
 		return season;
 	},
 	model() {
-		let store = this.get('store'),
-			indexModel = this.modelFor('index'),
-			paperId = indexModel.detailPaper.id,
+		let noticeModel = this.modelFor('page-scenario'),
+			proposal = noticeModel.proposal,
+			paper = noticeModel.paper,
 			increaseSalesReports = A([]),
 			tmpHead = A([]),
 			productSalesReports = A([]),
@@ -86,18 +86,24 @@ export default Route.extend({
 			tableHead = A([]),
 			prodTableBody = A([]),
 			repTableBody = A([]),
-			hospTableBody = A([]);
+			hospTableBody = A([]),
+			tmpSalesReport = A([]);
 
 		// 拼接 产品销售报告数据
-		return store.findRecord('paper', paperId)
+		return proposal.get('salesReports')
 			.then(data => {
-				return data.get('salesReports');
+				tmpSalesReport = data.map(ele => {
+					return ele;
+				});
+				return paper.get('salesReports');
 			}).then(data => {
 				let promiseArray = A([]);
 
 				increaseSalesReports = data.sortBy('time');
-
-				promiseArray = increaseSalesReports.map(ele => {
+				if (increaseSalesReports.length >= 5) {
+					tmpSalesReport.push(increaseSalesReports.get('lastObject'));
+				}
+				promiseArray = tmpSalesReport.map(ele => {
 					return ele.get('scenario');
 				});
 				return rsvp.Promise.all(promiseArray);
@@ -111,18 +117,18 @@ export default Route.extend({
 					return name.slice(0, 4) + name.slice(-4);
 				});
 				seasonQ = this.seasonQ(tmpHead.lastObject);
-				tableHead.push(htmlSafe(`销售增长率\n${seasonQ}`));
-				tableHead.push(htmlSafe(`指标达成率\n${seasonQ}`));
+				tableHead.push(htmlSafe(`销售增长率<br>${seasonQ}`));
+				tableHead.push(htmlSafe(`指标达成率<br>${seasonQ}`));
 				tmpHead.forEach(ele => {
 					seasonQ = this.seasonQ(ele);
-					tableHead.push(htmlSafe(`销售额\n${seasonQ}`));
+					tableHead.push(htmlSafe(`销售额<br>${seasonQ}`));
 				});
 				tmpHead.forEach(ele => {
 					seasonQ = this.seasonQ(ele);
-					tableHead.push(htmlSafe(`销售指标\n${seasonQ}`));
+					tableHead.push(htmlSafe(`销售指标<br>${seasonQ}`));
 				});
 
-				promiseArray = this.generatePromiseArray(increaseSalesReports, 'productSalesReports');
+				promiseArray = this.generatePromiseArray(tmpSalesReport, 'productSalesReports');
 				return rsvp.Promise.all(promiseArray);
 			}).then(data => {
 				// data 代表两个时期
@@ -133,7 +139,7 @@ export default Route.extend({
 				return null;
 			}).then(() => {
 				//	获取代表销售报告
-				let promiseArray = this.generatePromiseArray(increaseSalesReports, 'representativeSalesReports');
+				let promiseArray = this.generatePromiseArray(tmpSalesReport, 'representativeSalesReports');
 
 				return rsvp.Promise.all(promiseArray);
 			}).then(data => {
@@ -144,7 +150,7 @@ export default Route.extend({
 				return null;
 			}).then(() => {
 				//	获取医院销售报告
-				let promiseArray = this.generatePromiseArray(increaseSalesReports, 'hospitalSalesReports');
+				let promiseArray = this.generatePromiseArray(tmpSalesReport, 'hospitalSalesReports');
 
 				return rsvp.Promise.all(promiseArray);
 			}).then(data => {

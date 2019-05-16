@@ -6,10 +6,11 @@ export default Route.extend({
 	model(params) {
 		let dCId = params['config_id'],
 			store = this.get('store'),
-			totalModels = this.modelFor('page-scenario'),
-			managerConf = totalModels.resourceConfManager,
-			repConfs = totalModels.resourceConfRep,
-			salesConfigs = totalModels.salesConfigs,
+			pageScenarioModel = this.modelFor('page-scenario'),
+			proposal = pageScenarioModel.proposal,
+			managerConf = pageScenarioModel.resourceConfManager,
+			repConfs = pageScenarioModel.resourceConfRep,
+			salesConfigs = pageScenarioModel.salesConfigs,
 			currentController = this.controllerFor('page-scenario.business.hospital-config'),
 			businessController = this.controllerFor('page-scenario.business'),
 			businessInputs = businessController.businessInputs,
@@ -63,7 +64,8 @@ export default Route.extend({
 					destConfig: store.peekRecord('destConfig', dCId),
 					businessinput,
 					businessInputs,
-					salesConfigs
+					salesConfigs,
+					salesReport: proposal.get('salesReports').sortBy('time').get('lastObject')
 				});
 			});
 	}

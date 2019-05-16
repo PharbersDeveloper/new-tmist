@@ -11,5 +11,6 @@ export default DS.Model.extend({
 	totalPhase: DS.attr('number'),
 	paperinputs: DS.hasMany('paperinput'),
 	salesReports: DS.hasMany('salesReport'),
-	personnelAssessments: DS.hasMany('personnelAssessment')
+	personnelAssessments: DS.hasMany('personnelAssessment'),
+	assessmentReports: DS.hasMany('assessmentReport')
 });
