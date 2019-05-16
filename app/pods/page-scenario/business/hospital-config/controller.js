@@ -87,7 +87,7 @@ export default Controller.extend({
 				resourceConfigId: '',
 				resourceConfig: null,
 				visitTime: '',
-				meetingPlaces: '',
+				meetingPlaces: 0,
 				salesTarget: '',
 				budget: ''
 			});

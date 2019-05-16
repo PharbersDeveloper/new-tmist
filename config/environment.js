@@ -9,6 +9,11 @@ module.exports = function (environment) {
 		locationType: 'auto',
 		redirectUri: 'http://ntm.pharbers.com',
 		host: 'http://oauth.pharbers.com',
+		fontawesome: {
+			icons: {
+				'free-solid-svg-icons': 'all'
+			}
+		},
 		EmberENV: {
 			FEATURES: {
 				// Here you can enable experimental features on an ember canary build

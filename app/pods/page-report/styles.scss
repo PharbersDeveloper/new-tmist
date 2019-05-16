@@ -9,6 +9,11 @@
 	}
 
 	h4.title {
+		height: 52px;
+		@extend %header-small;
+	}
+
+	h5.title {
 		@extend %header-small;
 	}
 
@@ -18,19 +23,55 @@
 
 			.content {
 
-				img,
 				.img-container {
-					flex: 102.4px;
-					width: 102.4px;
+					flex: 0 0 102.4px;
 					height: 115.2px;
+
 				}
 
 				.text {
 					flex: 1;
 					@extend %p-primary;
 				}
+
+				&.score {
+					img {
+						width: 60px;
+					}
+				}
+
+				&.won-title {
+					img {
+						width: 102px;
+					}
+
+					p {
+						@extend %header-small;
+					}
+				}
+
+
 			}
 
+		}
+	}
+
+	.abilities {
+		.score {
+			flex: 1;
+		}
+
+		.point,
+		.evaluation {
+			flex: 2;
+		}
+
+		.keys {
+			@extend %p-small;
+		}
+
+		.values {
+			@extend %p-primary;
 		}
 	}
 

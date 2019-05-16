@@ -1,0 +1,16 @@
+.table {
+	.thead {
+		table thead th {
+			padding-top: 8px;
+			@extend %p-small;
+		}
+	}
+
+	.tbody {
+		table tbody td {
+			height: 52px;
+			line-height: 52px;
+			@extend %p-primary;
+		}
+	}
+}

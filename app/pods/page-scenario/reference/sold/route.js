@@ -75,11 +75,11 @@ export default Route.extend({
 		return season;
 	},
 	model() {
-		const totalConfig = this.modelFor('page-scenario.reference'),
-			paper = totalConfig.paper,
-			salesReports = paper.get('salesReports');
+		const pageScenarioModel = this.modelFor('page-scenario'),
+			proposal = pageScenarioModel.proposal;
 
-		let increaseSalesReports = A([]),
+		let salesReports = proposal.get('salesReports'),
+			increaseSalesReports = A([]),
 			tmpHead = A([]),
 			productSalesReports = A([]),
 			representativeSalesReports = A([]),
