@@ -144,43 +144,16 @@
 		</tr>
 	</thead>
 	<tbody class="bg-white">
-		{{!-- {{#each model.salesConfigs as |sc|}} --}}
 		{{#each model.salesReport.hospitalSalesReports as |hSR|}}
-			{{!-- {{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}} --}}
 			{{#if (bp-eq hSR.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
 				<tr class="mx-0 px-4">
 					<td class="pl-4 pr-2 border-0 text-left">
-						{{!-- {{sc.goodsConfig.productConfig.product.name}} --}}
 						{{model.salesReport.productSalesReports.firstObject.goodsConfig.productConfig.product.name}}
 					</td>
-					{{!-- <td class="px-2 border-0 text-right">
-						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
-							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
-								￥{{format-number hsr.potential}}
-							{{/if}}
-						{{/each}}
-					</td> --}}
 					<td class="px-2 border-0 text-right">
-						{{!-- {{#each model.salesReport.hospitalSalesReports as |hsr|}}
-							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
-								￥{{format-number hsr.potential}}
-							{{/if}}
-						{{/each}} --}}
 						￥{{format-number hSR.potential}}
 					</td>
-					{{!-- <td class="px-2 border-0 text-right">
-						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
-							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
-								￥{{format-number hsr.sales 0}}
-							{{/if}}
-						{{/each}}
-					</td> --}}
 					<td class="px-2 border-0 text-right">
-						{{!-- {{#each model.salesReport.hospitalSalesReports as |hsr|}}
-							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
-								￥{{format-number hsr.sales 0}}
-							{{/if}}
-						{{/each}} --}}
 						￥{{format-number hSR.sales 0}}
 					</td>
 					<td class="px-2 border-0">

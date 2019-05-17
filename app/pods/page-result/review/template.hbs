@@ -10,140 +10,42 @@
 		{{#if (bp-eq groupValue 0)}}
 			<div local-class="situation business">
 				{{#bp-layout direction="col" classNames="bg-white"}}
-					{{!-- {{#bp-layout main="between" local-class="choose-container"}}
-						{{#bp-layout main="between" cross="center" 
-							local-class="choose-area" classNames="px-4"}}
-							<span local-class="keys" class="mr-4">选择药品</span>
-							{{#bp-dropdown widthSize="auto" 
-								local-class="dd-medicines dd-area" as |dd|}}
-								{{#dd.button}}
-									{{#if tmpRc.id}}
-										<p>{{tmpRc.productConfig.product.name}}</p>
-									{{else}}
-										请选择
-									{{/if}}
-									{{bp-icon icon='down'}}
-								{{/dd.button}}
-								{{#dd.menu as |menu|}}
-									{{#each model.goodsConfigs as |gc|}}
-										{{#menu.option value=gc 
-												onClick=(action (mut tmpGc))}}
-											{{gc.productConfig.product.name}}
-										{{/menu.option}}
-									{{/each}}
-								{{/dd.menu}}
-							{{/bp-dropdown}}
-						{{/bp-layout}}
-						{{#bp-layout main="between" cross="center" 
+					{{#bp-layout direction="col" classNames="bg-white"}}
+						{{#bp-layout main="between" local-class="choose-container"
+						classNames='px-4 '}}
+							{{#bp-layout cross='center' local-class="choose-area title" }}
+								业务员决策回顾
+							{{/bp-layout}}
+							{{#bp-layout main="between" cross="center" 
 							local-class="choose-area"  classNames="px-4"}}
-							<span local-class="keys" class="mr-4">选择排序</span>
-							{{#bp-dropdown widthSize="auto" 
+								<span local-class="keys" class="mr-4">代表</span>
+								{{#bp-dropdown widthSize="auto" 
 								local-class="dd-sort dd-area" as |dd|}}
-								{{#dd.button}}
-									{{#if tmpSr.name}}
-										<p>{{tmpSr.name}}</p>
-									{{else}}
-										请选择
-									{{/if}}
-									{{bp-icon icon='down'}}
-								{{/dd.button}}
-								{{#dd.menu as |menu|}}
-									{{#each sortRules as |sr|}}
-										{{#menu.option value=sr 
-												onClick=(action (mut tmpSr))}}
-											{{sr.name}}
+									{{#dd.button}}
+										{{#if tmpRepName}}
+											<p>{{tmpRepName}}</p>
+										{{else}}
+											请选择
+										{{/if}}
+										{{bp-icon icon='down'}}
+									{{/dd.button}}
+									{{#dd.menu as |menu|}}
+										{{#menu.option value=''
+												onClick=(action (mut tmpRepName))}}
+											全部代表
 										{{/menu.option}}
-									{{/each}}
-								{{/dd.menu}}
-							{{/bp-dropdown}}
+										{{#each model.representativeinputs as |ri|}}
+											{{#menu.option value=ri.resourceConfig.representativeConfig.representative.name
+												onClick=(action (mut tmpRepName))}}
+												{{ri.resourceConfig.representativeConfig.representative.name}}
+											{{/menu.option}}
+										{{/each}}
+									{{/dd.menu}}
+								{{/bp-dropdown}}
+							{{/bp-layout}}
 						{{/bp-layout}}
-					{{/bp-layout}} --}}
-					<table local-class="table-container" class="table">
-						<thead>
-							<th>医院名称</th>
-							<th>潜力</th>
-							<th>上季度销售额</th>
-							<th>代表</th>
-							<th>分配时间</th>
-							<th>销售目标设定</th>
-							<th>预算费用</th>
-							<th>会议名额</th>
-						</thead>
-						<tbody class="bg-white">
-							{{#each model.businessinputs as |bi|}}
-								{{#each model.salesConfigs as |salesConfig|}}
-									{{#if (bp-eq bi.destConfig.hospitalConfig.hospital.id salesConfig.destConfig.hospitalConfig.hospital.id)}}
-										<tr>
-											<td>{{bi.destConfig.hospitalConfig.hospital.name}}</td>
-											<td>
-												{{#each salesConfig.salesReport.hospitalSalesReports as |hsr|}}
-													{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id bi.destConfig.hospitalConfig.hospital.id)}}
-														￥{{format-number hsr.potential 0}}
-													{{/if}}
-												{{/each}}
-											</td>
-											<td>
-												{{#each salesConfig.salesReport.hospitalSalesReports as |hsr|}}
-													{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id bi.destConfig.hospitalConfig.hospital.id)}}
-														￥{{format-number hsr.sales 0}}
-													{{/if}}
-												{{/each}}
-											</td>
-											<td>
-												{{#unless bi.resourceConfig.representativeConfig.representative.name}}
-													-
-												{{else}}
-													{{bi.resourceConfig.representativeConfig.representative.name}}
-												{{/unless}}
-											</td>
-											<td>
-												{{#unless bi.visitTime}}
-													-
-												{{else}}
-													{{bi.visitTime}}
-												{{/unless}}
-											</td>
-											<td>
-												{{#unless bi.salesTarget}}
-													-
-												{{else}}
-													{{format-number bi.salesTarget}}
-												{{/unless}}
-											</td>
-											<td>
-												{{#unless bi.budget}}
-													-
-												{{else}}
-													{{format-number bi.budget}}
-												{{/unless}}
-											</td>
-											<td>
-												{{#unless bi.meetingPlaces}}
-													0
-												{{else}}
-													{{bi.meetingPlaces}}
-												{{/unless}}
-											</td>
-										</tr>
-									{{/if}}
-								{{/each}}
-							{{/each}}
-							{{!-- {{#each model.businessinputs as |bi|}}
-								<tr>
-									<td>{{bi.destConfig.hospitalConfig.hospital.name}}</td>
-									<td>
-										{{format-number bi.destConfig.hospitalConfig.potential}}
-									</td>
-									<td>{{format-number bi.destConfig.hospitalConfig.lastYearSales}}</td>
-									<td>{{bi.resourceConfig.representativeConfig.representative.name}}</td>
-									<td>{{bi.visitTime}}</td>
-									<td>{{bi.salesTarget}}</td>
-									<td>{{bi.budget}}</td>
-									<td>{{bi.meetingPlaces}}</td>
-								</tr>
-							{{/each}} --}}
-						</tbody>
-					</table>
+					{{/bp-layout}}
+					{{business-review model=filterTableData}}
 				{{/bp-layout}}
 			</div>
 		{{else}}

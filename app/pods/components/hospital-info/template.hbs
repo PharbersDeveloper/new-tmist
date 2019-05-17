@@ -67,8 +67,13 @@
 						<p local-class="keys">药品名</p>
 						<p local-class="values">
 							{{#each salesConfigs as |sc|}}
-								{{#if (bp-eq sc.destConfig.id destConfig.id)}}
-									{{sc.goodsConfig.productConfig.product.name}}
+								{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
+									{{#each sc.salesReport.hospitalSalesReports as |item|}}
+										{{#if (bp-eq item.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
+											{{sc.goodsConfig.productConfig.product.name}}
+											{{sc.accessStatus}}
+										{{/if}}
+									{{/each}}
 								{{/if}}
 							{{/each}}
 						</p>
@@ -77,8 +82,12 @@
 						<p local-class="keys">准入情况</p>
 						<p local-class="values">
 							{{#each salesConfigs as |sc|}}
-								{{#if (bp-eq sc.destConfig.id destConfig.id)}}
-									{{sc.accessStatus}}
+								{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
+									{{#each sc.salesReport.hospitalSalesReports as |item|}}
+										{{#if (bp-eq item.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
+											{{sc.accessStatus}}
+										{{/if}}
+									{{/each}}
 								{{/if}}
 							{{/each}}
 						</p>
