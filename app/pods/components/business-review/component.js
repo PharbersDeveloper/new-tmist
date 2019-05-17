@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import Table from 'ember-light-table';
+import { isEmpty } from '@ember/utils';
 
 export default Component.extend({
 	iconSortable: 'sort',
@@ -58,9 +59,13 @@ export default Component.extend({
 	}),
 
 	table: computed('model', function () {
-		let handledData = [];
+		let handledData = [],
+			data = this.get('model');
 
-		this.get('model').forEach(function (d) {
+		if (isEmpty(data)) {
+			return new Table(this.get('columns'), handledData);
+		}
+		data.forEach(function (d) {
 			let temp = {
 				hospitalName: '',
 				potential: '',

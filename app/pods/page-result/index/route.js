@@ -5,7 +5,7 @@ import { A } from '@ember/array';
 import rsvp from 'rsvp';
 
 export default Route.extend({
-	generateTableBody(seasonData) {
+	generateTableBody(seasonData, key) {
 		let totalData = A([]),
 			ratesData = A([]),
 			reportsLength = 0,
@@ -14,6 +14,8 @@ export default Route.extend({
 		seasonData.forEach((item, i) => {
 			// 当前季度下的 one -> many **SalesReports()
 			reportsLength = item.get('length');
+			// let tmpItemData = key === 'hospital' ? item.sortBy('potential') : item;
+
 			tmpTableBody = item.map(ele => {
 				totalData.push(
 					[ele.get('sales'), ele.get('salesQuota')]);
@@ -75,9 +77,8 @@ export default Route.extend({
 		return season;
 	},
 	model() {
-		let noticeModel = this.modelFor('page-scenario'),
-			proposal = noticeModel.proposal,
-			paper = noticeModel.paper,
+		let pageScenarioModel = this.modelFor('page-scenario'),
+			paper = pageScenarioModel.paper,
 			increaseSalesReports = A([]),
 			tmpHead = A([]),
 			productSalesReports = A([]),
@@ -90,16 +91,16 @@ export default Route.extend({
 			tmpSalesReport = A([]);
 
 		// 拼接 产品销售报告数据
-		return proposal.get('salesReports')
+		return paper.get('salesReports')
 			.then(data => {
-				tmpSalesReport = data.map(ele => {
-					return ele;
-				});
-				return paper.get('salesReports');
-			}).then(data => {
 				let promiseArray = A([]);
 
 				increaseSalesReports = data.sortBy('time');
+				increaseSalesReports.forEach((ele, index) => {
+					if (index < 4) {
+						tmpSalesReport.push(ele);
+					}
+				});
 				if (increaseSalesReports.length >= 5) {
 					tmpSalesReport.push(increaseSalesReports.get('lastObject'));
 				}
@@ -156,8 +157,11 @@ export default Route.extend({
 			}).then(data => {
 				//	拼接医院销售报告
 				hospitalSalesReports = data[0];
+				let increasePotential = data.map(ele => {
+					return ele.sortBy('potential').reverse();
+				});
 
-				hospTableBody = this.generateTableBody(data);
+				hospTableBody = this.generateTableBody(increasePotential, 'hospital');
 				return null;
 			})
 			.then(() => {

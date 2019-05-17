@@ -17,7 +17,7 @@ RUN npm update && \
 
 WORKDIR /app
 
-LABEL ntm.version=0.1.6
+LABEL ntm.version=0.1.7
 
 RUN git clone https://github.com/PharbersDeveloper/new-tmist.git && \
 	git clone https://github.com/PharbersDeveloper/BP-Components.git 

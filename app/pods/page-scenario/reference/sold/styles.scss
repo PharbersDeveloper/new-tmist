@@ -3,9 +3,14 @@ h2.title {
 	@extend %header-medium;
 }
 
+.historical-sales-container {
+	height: 100%;
+}
+
 .nav {
 	flex: 0 0 270px;
 	list-style: none;
+	height: 100%;
 
 	li {
 		height: 4*$spacing;

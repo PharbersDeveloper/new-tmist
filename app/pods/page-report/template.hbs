@@ -7,22 +7,28 @@
 					测试综合表现
 				{{/left.item}}
 				{{#left.item }}
-					日期：<span class="mx-2">2019-02-05*</span>
-					用时：<span class="mx-2">50min* </span>
+					日期：<span class="mx-2">{{model.time}}</span>
+					用时：<span class="mx-2">50min*</span>
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
 				{{#bp-button disabled=true onClick=(action 'toResult') classNames="mr-1"}}
 					导出测试数据
 				{{/bp-button}}
-				{{#bp-button onClick=(action 'toResult')}}
-					返回报告
-				{{/bp-button}}
+				{{#if fromResult}}
+					{{#bp-button onClick=(action 'toResult')}}
+						返回报告
+					{{/bp-button}}
+				{{else}}
+					{{#bp-button onClick=(action 'toIndex')}}
+						返回关卡
+					{{/bp-button}}
+				{{/if}}
 			{{/body.right}}
 		{{/ph.body}}
 	{{/bp-page-header}}
 	{{#bp-layout tagName='h3' cross='center' local-class="title" 
-		classNames="m-0 mb-2 px-4 bg-white"}}
+		classNames="mb-2 px-4 bg-white"}}
 		综合表现
 	{{/bp-layout}}
 	{{#bp-layout main="between" local-class="performance"}}
@@ -35,10 +41,10 @@
 				{{/bp-layout}}
 				{{#bp-layout cross='center' local-class='score content' classNames='mb-2'}}
 					{{#bp-layout main='center' cross='center' local-class='img-container'}}
-						<img src="https://www.easyicon.net/api/resizeApi.php?id=1121550&size=128" alt="">
+						<img src={{model.generalPerformanceResult.levelConfig.level.image.img}} alt="">
 					{{/bp-layout}}
 					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
-						等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。
+						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
@@ -49,23 +55,33 @@
 				{{/bp-layout}}
 				{{#bp-layout cross='center' local-class='won-title content'}}
 					{{#bp-layout direction='col' main='center' local-class='img-container'}}
-						<img src="https://i.loli.net/2019/05/13/5cd8db8f8d3db53613.png" alt="">
-						<p class="m-0 text-center">S级*</p>
+						<img src={{model.generalPerformanceResult.levelConfig.title.image.img}} alt="">
+						<p class="m-0 text-center">{{model.generalPerformanceResult.levelConfig.title.value}}</p>
 					{{/bp-layout}}
 					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
-						等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。
+						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout local-class="item" classNames="bg-white"}}
+		{{#bp-layout direction='col' local-class="item" classNames="bg-white"}}
+			{{#bp-layout cross='center' local-class="title" 
+					classNames='p-4'}}
+				能力分析
+			{{/bp-layout}}
+			{{bp-radar-ability
+				eid='radarRepresentative'
+				radarData=radarData
+				hasLegend=false 
+				items=radarItems
+				maxValue=5}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout tagName='h3' cross='center' local-class="title" 
 		classNames="m-0 mb-2 px-4 bg-white"}}
 		分项表现
 	{{/bp-layout}}
-	{{#bp-layout direction='col' classNames='bg-white'}}
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
 		{{#bp-layout tagName='h4' cross='center' local-class="title" 
 		classNames="m-0 mb-2 px-4"}}
 			区域划分能力
@@ -73,17 +89,17 @@
 		{{#bp-layout main='between'	local-class='abilities'}}
 			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
 				<p local-class='keys'>能力得分</p>
-				<img width='26' src="https://www.easyicon.net/api/resizeApi.php?id=1121550&size=128" alt="">
+				<img width='26' src={{model.regionalDivisionResult.levelConfig.level.image.img}} alt="">
 			{{/bp-layout}}
 			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
 				{{#bp-layout tagName='h5' cross='center' local-class="title" 
 		classNames="mb-3"}}
 					动作点解读
 				{{/bp-layout}}
-				<ul>
-					<li local-class='values'> 具备对信息、数字、咨询的敏感度。</li>
-					<li local-class='values'> 具备对信息、数字、咨询的敏感度。</li>
-					<li local-class='values'> 具备对信息、数字、咨询的敏感度。</li>
+				<ul class="m-0">
+					{{#each model.regionalDivisionResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
 				</ul>
 			{{/bp-layout}}
 			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
@@ -91,39 +107,138 @@
 		classNames="mb-3"}}
 					等级评价
 				{{/bp-layout}}
-				<p local-class='values'>您还需要花更多的精力，完善自己在报表与数据理解上的能力，透过科学化的分析，能使您在部署战略上，了解全局现状，洞察问题关键，预判发展趋势。从数据中你将收获宏观的视野，掌握全局。</p>
+				<p local-class='values'>
+					{{model.regionalDivisionResult.levelConfig.text}}
+				</p>
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-	{{!-- {{#bp-layout main="between" local-class="performance" classNames="mb-2 bg-white"}}
-		{{#bp-layout direction="col" cross="center" local-class="score" 
-			classNames="p-4"}}
-			<img src="https://i.loli.net/2019/04/27/5cc3e0a8ae8a2.png" alt="designation" title="designation" class="mb-4" />
-			<p local-class="level">A级(优秀)*</p>
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+		{{#bp-layout tagName='h4' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4"}}
+			指标分配能力
 		{{/bp-layout}}
-		{{#bp-layout direction="col" local-class="evaluation" classNames="p-4"}}
-			<h4 local-class="title" class="mb-3">等级评价</h4>
-			<p local-class="desc" class="m-0">您还需要花更多的精力，完善自己在报表与数据理解上的能力，透过科学化的分析，能使您在部署战略上，了解全局现状，洞察问题关键，预判发展趋势。从数据中你将收获宏观的视野，掌握全局。</p>
+		{{#bp-layout main='between'	local-class='abilities'}}
+			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+				<p local-class='keys'>能力得分</p>
+				<img width='26' src={{model.targetAssignsResult.levelConfig.level.image.img}} alt="">
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					动作点解读
+				{{/bp-layout}}
+				<ul class="m-0">
+					{{#each model.targetAssignsResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
+				</ul>
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					等级评价
+				{{/bp-layout}}
+				<p local-class='values'>
+					{{model.targetAssignsResult.levelConfig.text}}
+				</p>
+			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-	{{#bp-layout tagName='h3' cross='center' local-class="title" 
-		classNames="m-0 px-4 bg-white"}}
-		指标达成结果
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+		{{#bp-layout tagName='h4' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4"}}
+			资源优化能力
+		{{/bp-layout}}
+		{{#bp-layout main='between'	local-class='abilities'}}
+			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+				<p local-class='keys'>能力得分</p>
+				<img width='26' src={{model.resourceAssignsResult.levelConfig.level.image.img}} alt="">
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					动作点解读
+				{{/bp-layout}}
+				<ul class="m-0">
+					{{#each model.resourceAssignsResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
+				</ul>
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					等级评价
+				{{/bp-layout}}
+				<p local-class='values'>
+					{{model.resourceAssignsResult.levelConfig.text}}
+				</p>
+			{{/bp-layout}}
+		{{/bp-layout}}
 	{{/bp-layout}}
-	{{#bp-layout main="between" cross='center' local-class="rate" classNames="px-4 bg-white"}}
-		<span local-class="keys">总达成率</span>
-		<span local-class="values">90%</span>
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+		{{#bp-layout tagName='h4' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4"}}
+			自我时间管理能力
+		{{/bp-layout}}
+		{{#bp-layout main='between'	local-class='abilities'}}
+			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+				<p local-class='keys'>能力得分</p>
+				<img width='26' src={{model.manageTimeResult.levelConfig.level.image.img}} alt="">
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					动作点解读
+				{{/bp-layout}}
+				<ul class="m-0">
+					{{#each model.manageTimeResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
+				</ul>
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					等级评价
+				{{/bp-layout}}
+				<p local-class='values'>
+					{{model.manageTimeResult.levelConfig.text}}
+				</p>
+			{{/bp-layout}}
+		{{/bp-layout}}
 	{{/bp-layout}}
-	{{#bp-layout main="between" cross='center' local-class="rate-item" classNames="px-4 bg-white"}}
-		<span local-class="keys">2019Q1</span>
-		<span local-class="values">90%</span>
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+		{{#bp-layout tagName='h4' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4"}}
+			领导力
+		{{/bp-layout}}
+		{{#bp-layout main='between'	local-class='abilities'}}
+			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+				<p local-class='keys'>能力得分</p>
+				<img width='26' src={{model.manageTeamResult.levelConfig.level.image.img}} alt="">
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					动作点解读
+				{{/bp-layout}}
+				<ul class="m-0">
+					{{#each model.manageTeamResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
+				</ul>
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					等级评价
+				{{/bp-layout}}
+				<p local-class='values'>
+					{{model.manageTeamResult.levelConfig.text}}
+				</p>
+			{{/bp-layout}}
+		{{/bp-layout}}
 	{{/bp-layout}}
-	{{#bp-layout main="between" cross='center' local-class="rate-item" classNames="px-4 bg-white"}}
-		<span local-class="keys">2019Q2</span>
-		<span local-class="values">90%</span>
-	{{/bp-layout}}
-	{{#bp-layout main="between" cross='center' local-class="rate-item" classNames="px-4 bg-white"}}
-		<span local-class="keys">2019Q3</span>
-		<span local-class="values">90%</span>
-	{{/bp-layout}} --}}
 {{/bp-layout}}

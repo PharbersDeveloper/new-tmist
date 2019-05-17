@@ -10,57 +10,39 @@
 		{{#if (bp-eq groupValue 0)}}
 			<div local-class="situation business">
 				{{#bp-layout direction="col" classNames="bg-white"}}
-					{{!-- TODO 删除JS 逻辑 --}}
-					{{!-- {{#bp-layout main="between" local-class="choose-container"}}
-						{{#bp-layout main="between" cross="center" 
-							local-class="choose-area" classNames="px-4"}}
-							<span local-class="keys" class="mr-4">选择药品</span>
-							{{#bp-dropdown widthSize="auto" 
-								local-class="dd-medicines dd-area" as |dd|}}
-								{{#dd.button}}
-									{{#if tmpGc.id}}
-										<p>{{tmpGc.productConfig.product.name}}</p>
-									{{else}}
-										请选择
-									{{/if}}
-									{{bp-icon icon='down'}}
-								{{/dd.button}}
-								{{#dd.menu as |menu|}}
-									{{#each model.goodsConfigs as |gc|}}
-										{{#unless gc.productConfig.productType}}
-											{{#menu.option value=gc 
-												onClick=(action (mut tmpGc))}}
-												{{gc.productConfig.product.name}}
-											{{/menu.option}}
-										{{/unless}}
-									{{/each}}
-								{{/dd.menu}}
-							{{/bp-dropdown}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames='px-4 '}}
+						{{#bp-layout cross='center' local-class="choose-area title" }}
+							业务员决策回顾
 						{{/bp-layout}}
 						{{#bp-layout main="between" cross="center" 
 							local-class="choose-area"  classNames="px-4"}}
-							<span local-class="keys" class="mr-4">选择排序</span>
+							<span local-class="keys" class="mr-4">代表</span>
 							{{#bp-dropdown widthSize="auto" 
 								local-class="dd-sort dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpSr.name}}
-										<p>{{tmpSr.name}}</p>
+									{{#if tmpRepName}}
+										<p>{{tmpRepName}}</p>
 									{{else}}
 										请选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
-									{{#each sortRules as |sr|}}
-										{{#menu.option value=sr 
-												onClick=(action (mut tmpSr))}}
-											{{sr.name}}
+									{{#menu.option value=''
+										onClick=(action (mut tmpRepName))}}
+										全部代表
+									{{/menu.option}}
+									{{#each model.representativeinputs as |ri|}}
+										{{#menu.option value=ri.resourceConfig.representativeConfig.representative.name
+												onClick=(action (mut tmpRepName))}}
+											{{ri.resourceConfig.representativeConfig.representative.name}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
 							{{/bp-dropdown}}
-						{{/bp-layout}} 
-				{{/bp-layout}}--}}
+						{{/bp-layout}}
+					{{/bp-layout}}
 					{{!-- <table local-class="table-container" class="table">
 						<thead>
 							<th>医院名称</th>
@@ -133,7 +115,7 @@
 							{{/each}}
 						</tbody>
 					</table> --}}
-					{{business-review model=model.tableData}}
+					{{business-review model=filterTableData}}
 				{{/bp-layout}}
 			</div>
 		{{else}}

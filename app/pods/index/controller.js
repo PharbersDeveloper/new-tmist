@@ -22,6 +22,10 @@ export default Controller.extend({
 		return inputs.sortBy('time').reverse();
 	}),
 	actions: {
+		checkReport(assessmentReport) {
+			this.transitionToRoute('page-report', assessmentReport.id);
+
+		},
 		changeDetail(useableProposal, paper) {
 			this.set('model.detailProposal', useableProposal);
 			this.set('model.detailPaper', paper);
