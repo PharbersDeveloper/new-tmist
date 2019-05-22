@@ -5,11 +5,10 @@ import { isEmpty } from '@ember/utils';
 import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
+	numberVerify: /^-?[1-9]\d*$/,
 	groupValue: 0,
 	col: 'col',
 	center: 'center',
-	circleUsedTime: 0,
-	circleRestTime: 1,
 	ManagerUsedKpi: alias('circlePoint.firstObject.value'),
 	ManagerUsedTime: alias('circleTime.firstObject.value'),
 
@@ -47,6 +46,7 @@ export default Controller.extend({
 			//	Number(managerInput.get('kpiAnalysisTime')) +	// 代表及KPI分析
 			//	Number(managerInput.get('teamMeetingTime'));	// 团队例会
 			usedTime = isEmpty(managerInput) ? 0 : managerInput.get('totalManagerUsedTime');
+
 			representativeInputs.forEach(ele => {
 				if (isEmpty(ele)) {
 					usedTime += 0;
@@ -56,6 +56,14 @@ export default Controller.extend({
 				}
 			});
 
+			if (!this.get('numberVerify').test(usedTime)) {
+				// eslint-disable-next-line ember/no-side-effects
+				this.set('warning', {
+					open: true,
+					title: '非法值警告',
+					detail: '请输入数字！'
+				});
+			}
 			restTime = managerTotalTime - usedTime;
 			if (restTime < 0) {
 				// eslint-disable-next-line ember/no-side-effects
