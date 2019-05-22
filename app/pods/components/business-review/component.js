@@ -34,11 +34,12 @@ export default Component.extend({
 			width: '150px'
 		}, {
 			label: '潜力',
-			valuePath: 'potential'
-
+			valuePath: 'potential',
+			cellComponent: 'light-table-format-number'
 		}, {
 			label: '上期销售额',
-			valuePath: 'sales'
+			valuePath: 'sales',
+			cellComponent: 'light-table-format-number'
 		}, {
 			label: '代表',
 			valuePath: 'representative',
@@ -48,10 +49,12 @@ export default Component.extend({
 			valuePath: 'visitTime'
 		}, {
 			label: '销售目标设定',
-			valuePath: 'salesTarget'
+			valuePath: 'salesTarget',
+			cellComponent: 'light-table-format-number'
 		}, {
 			label: '预算费用',
-			valuePath: 'budget'
+			valuePath: 'budget',
+			cellComponent: 'light-table-format-number'
 		}, {
 			label: '会议名额',
 			valuePath: 'meetingPlaces'
