@@ -4,7 +4,7 @@ import { A } from '@ember/array';
 import { isEmpty } from '@ember/utils';
 
 export default Controller.extend({
-	numberVerify: /^-?[1-9]\d*$/,
+	numberVerify: /^-?[0-9]\d*$/,
 	IndicatorAllocationPercent: computed('businessinput.salesTarget', function () {
 		let { totalBusinessIndicators, businessinput } =
 			this.getProperties('totalBusinessIndicators', 'businessinput'),

@@ -5,7 +5,7 @@ import { isEmpty } from '@ember/utils';
 import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
-	numberVerify: /^-?[1-9]\d*$/,
+	numberVerify: /^-?[0-9]\d*$/,
 	groupValue: 0,
 	col: 'col',
 	center: 'center',
@@ -55,7 +55,6 @@ export default Controller.extend({
 					usedTime += Number(ele.get('abilityCoach'));
 				}
 			});
-
 			if (!this.get('numberVerify').test(usedTime)) {
 				// eslint-disable-next-line ember/no-side-effects
 				this.set('warning', {

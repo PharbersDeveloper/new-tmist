@@ -1,1 +1,5 @@
-￥{{format-number value}}
+{{#if (bp-eq value '-')}}
+	{{value}}
+{{else}}
+	￥{{format-number value}}
+{{/if}}
