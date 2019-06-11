@@ -9,6 +9,7 @@ export default Controller.extend({
 	ajax: service(),
 	cookies: service(),
 	verify: service('service-verify'),
+	toast: service(),
 	testBtn: computed(function () {
 		if (ENV.environment === 'development') {
 			return true;
@@ -294,10 +295,16 @@ export default Controller.extend({
 				localStorage.clear();
 				localStorage.setItem('notice', notice);
 				if (state === 1) {
-					this.set('warning', {
-						open: true,
-						title: `保存成功`,
-						detail: `保存成功。`
+					// this.set('warning', {
+					// 	open: true,
+					// 	title: `保存成功`,
+					// 	detail: `保存成功。`
+					// });
+					this.toast.success('', '保存成功', {
+						closeButton: false,
+						positionClass: 'toast-top-center',
+						progressBar: false,
+						timeOut: '2000'
 					});
 					// window.location = this.get('oauthService').redirectUri;
 					return;
@@ -372,7 +379,13 @@ export default Controller.extend({
 			this.sendInput(1);
 		},
 		testResult() {
-			this.transitionToRoute('page-result');
+			this.toast.success('', '保存成功', {
+				closeButton: false,
+				positionClass: 'toast-top-center',
+				progressBar: false,
+				timeOut: '2000'
+			});
+			// this.transitionToRoute('page-result');
 		}
 	}
 });

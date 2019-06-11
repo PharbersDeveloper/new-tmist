@@ -1,6 +1,6 @@
 .toggle-button {
 	display: inline-block;
-	width: 100%;
+	width: 32px;
 	height: 32px;
 	line-height: 32px;
 	@extend %p-primary;
@@ -8,9 +8,20 @@
 	background-color: $n020a;
 	cursor: pointer;
 
+	svg {
+		path {
+			fill: $n040;
+		}
+	}
+
 	&.choosed {
-		color: $n000;
 		background-color: $n400;
+
+		svg {
+			path {
+				fill: $n000;
+			}
+		}
 	}
 
 }

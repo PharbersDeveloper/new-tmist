@@ -1,6 +1,6 @@
 {
 	"name": "new-tmist",
-	"version": "0.1.9",
+	"version": "0.2.0",
 	"private": true,
 	"description": "new TMIST project for PHARBERS company.",
 	"repository": "",
@@ -50,10 +50,12 @@
 		"ember-resolver": "^5.0.1",
 		"ember-responsive": "^3.0.0",
 		"ember-source": "~3.4.0",
+		"ember-toastr": "^1.7.2",
 		"eslint-plugin-ember": "^5.2.0",
 		"loader.js": "^4.7.0",
 		"qunit-dom": "^0.7.1",
-		"sass": "^1.17.3"
+		"sass": "^1.17.3",
+		"toastr": "^2.1.4"
 	},
 	"dependencies": {
 		"bp-components": "*",

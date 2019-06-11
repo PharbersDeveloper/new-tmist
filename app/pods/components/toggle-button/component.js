@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
 	tagName: 'span',
-	classNames: ['px-2', 'text-center'],
+	classNames: ['text-center'],
 	localClassNames: 'toggle-button',
 	localClassNameBindings: A(['choosed']),
 	// choosed: equal('state', true),

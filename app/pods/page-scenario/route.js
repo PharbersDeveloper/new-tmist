@@ -233,10 +233,11 @@ export default Route.extend({
 				});
 			});
 	},
-	afterModel() {
+	afterModel(model) {
 		let applicationController = this.controllerFor('application');
 
 		applicationController.set('testProgress', 2);
+		applicationController.set('paper', model.paper);
 	},
 	setupController(controller, model) {
 		this._super(...arguments);

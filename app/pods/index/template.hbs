@@ -92,7 +92,7 @@
 		{{/bp-layout}}
 	{{/if}}
 {{/bp-layout}}
-{{#bp-modal
+{{!-- {{#bp-modal
 		open=notice 
 		position='center'
 		onSubmit=(action "submit") 
@@ -103,7 +103,6 @@
 	{{#modal.body classNames="px-4 pt-0"}}
 		{{detail}}
 	{{/modal.body}}
-	{{!-- {{#modal.footer tagName="div"}} --}}
 	{{#bp-layout main="between" classNames="px-4"}}
 		<p>
 			{{#choose-group type="checkbox" onChange=(action 'chooseItem') as |choose|}}
@@ -125,7 +124,31 @@
 			{{/if}}
 		</p>
 	{{/bp-layout}}
-	{{!-- {{/modal.footer}} --}}
+{{/bp-modal}} --}}
+{{#bp-modal
+		open=notice 
+		position='center'
+		onHidden=(action (mut notice) false) as |modal|}}
+	{{#modal.header closeButton=false classNames="p-4"}}
+		欢迎进入铁马区域管理模拟平台
+	{{/modal.header}}
+	{{#modal.body classNames="px-4 pt-0"}}
+		<p class="desc mb-4">
+			铁马以多维科学管理理论，精准算法模型定制真实场景，实现精准培训。 为您深度解读团队能力图谱及挑战，协助您应对复杂多变的医药销售环境。 挑战即将开始…
+		</p>
+	{{/modal.body}}
+	{{#bp-layout main="between" classNames="px-4"}}
+		<p>
+			{{#choose-group type="checkbox" onChange=(action 'chooseItem') as |choose|}}
+				{{#each neverShow as |radio|}}
+					{{choose.item radio=radio}}
+				{{/each}}
+			{{/choose-group}}
+		</p>
+		<p>
+			{{#bp-button type="primary" onClick=(action modal.close)}}开始挑战{{/bp-button}}
+		</p>
+	{{/bp-layout}}
 {{/bp-modal}}
 {{#bp-modal
 		open=reDeploy 

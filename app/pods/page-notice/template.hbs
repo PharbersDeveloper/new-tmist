@@ -31,13 +31,19 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout direction="col" local-class="mission-notice item" classNames="mt-4"}}
-		<h1 class="mb-3 p-3">
+		{{!-- <h1 class="mb-3 p-3">
 			<span local-class="title" class="mr-3">本期任务通知</span>
-			{{!-- {{#if (bp-not-eq model.scenario.phase 1)}}
-				<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
-			{{/if}} --}}
 			<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
-		</h1>
+		</h1> --}}
+		{{#bp-layout tagName='h1' main='between' cross='center' classNames='mb-3 p-3'}}
+			<p class="m-0">
+				<span local-class="title" class="mr-3">本期任务通知</span>
+				<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
+			</p>
+			{{#bp-button type="primary" onClick=(action 'entryMission' model.detailProposal.proposal.id)}}
+				进入任务
+			{{/bp-button}}
+		{{/bp-layout}}
 		<div local-class="resource" class="mb-2 p-3 rounded">
 			{{#bp-layout tagName="h3" cross="center" classNames="mb-3"}}
 				{{bp-icon icon="mission-1"}}
@@ -219,13 +225,11 @@
 				{{/bp-layout}}
 			{{/bp-layout}}
 		</div>
-		{{#bp-layout main="end" local-class="entry-mission"}}
+		{{!-- {{#bp-layout main="end" local-class="entry-mission"}}
 			{{#bp-button type="primary" onClick=(action 'entryMission' model.detailProposal.proposal.id)}}
-				{{!-- {{#link-to "page-scenario" model.detailProposal.proposal.id}} --}}
 				进入任务
-				{{!-- {{/link-to}} --}}
 			{{/bp-button}}
-		{{/bp-layout}}
+		{{/bp-layout}} --}}
 	{{/bp-layout}}
 	<div local-class="blank"></div>
 {{/bp-layout}}

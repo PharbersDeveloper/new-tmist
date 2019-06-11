@@ -13,4 +13,9 @@
 			@extend %p-primary;
 		}
 	}
+
+	.no-data {
+		height: 68px;
+		@extend %p-secondary;
+	}
 }

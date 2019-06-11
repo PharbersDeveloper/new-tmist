@@ -5,7 +5,7 @@ import { A } from '@ember/array';
 import rsvp from 'rsvp';
 
 export default Route.extend({
-	generateTableBody(seasonData, key) {
+	generateTableBody(seasonData) {
 		let totalData = A([]),
 			ratesData = A([]),
 			reportsLength = 0,

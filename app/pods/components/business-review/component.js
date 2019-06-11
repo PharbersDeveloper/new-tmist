@@ -8,10 +8,17 @@ export default Component.extend({
 	iconAscending: 'sort-up',
 	iconDescending: 'sort-down',
 	iconComponent: 'sort-icon',
+	height: computed('model', function () {
+		if (isEmpty(this.model)) {
+			return '100px';
+		}
+		return '570px';
+	}),
 	sortIcons: computed('iconSortable', 'iconAscending', 'iconDescending', 'iconComponent', function () {
 		return this.getProperties(['iconSortable', 'iconAscending', 'iconDescending', 'iconComponent']);
 	}).readOnly(),
 	sort: '',
+
 	dir: 'asc',
 	sortedModel: computed.sort('model', 'sortBy').readOnly(),
 	sortBy: computed('dir', 'sort', function () {

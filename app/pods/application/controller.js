@@ -15,7 +15,7 @@ export default Controller.extend({
 			store = this.get('store'),
 			model = this.get('model'),
 			applicationAdapter = store.adapterFor('application'),
-			paper = model.detailPaper,
+			paper = isEmpty(model.detailPaper) ? this.paper : model.detailPaper,
 			scenario = this.get('scenario');
 
 		//	正常逻辑
@@ -135,7 +135,6 @@ export default Controller.extend({
 		},
 		resultPageEndMission() {
 			window.location = ENV.redirectUri;
-
 		},
 		saveInputs() {
 			this.set('exitMission', false);

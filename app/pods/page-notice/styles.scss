@@ -37,7 +37,6 @@
 
 			h2.title {
 				margin-top: 78px;
-				// @extend %header-large;
 			}
 
 			p.desc {
@@ -49,10 +48,6 @@
 			@extend %depth-z200;
 			@extend %defaultRadius;
 
-			// h2.title {
-			// 	@extend %header-large;
-			// }
-
 			p {
 				margin: 0;
 				@extend %p-secondary;
@@ -63,32 +58,32 @@
 			h1 {
 				position: relative;
 				font-size: 0;
-				background-color: $n300;
+				// background-color: $n300;
 
 				span {
 					display: inline-block;
 				}
 
 				.title {
-					@extend %header-large-inverse;
+					@extend %header-large;
 				}
 
 				.time {
-					@extend %p-primary-inverse;
+					@extend %p-primary;
 				}
 			}
 
-			h1::after {
-				content: '';
-				position: absolute;
-				right: -20px;
-				top: -5px;
-				border-left: 25px solid transparent;
-				border-right: 30px solid transparent;
-				border-bottom: 25px solid $n010;
-				transform: rotate(45deg);
-				width: 0;
-			}
+			// h1::after {
+			// 	content: '';
+			// 	position: absolute;
+			// 	right: -20px;
+			// 	top: -5px;
+			// 	border-left: 25px solid transparent;
+			// 	border-right: 30px solid transparent;
+			// 	border-bottom: 25px solid $n010;
+			// 	transform: rotate(45deg);
+			// 	width: 0;
+			// }
 
 			.resource {
 				background-color: $n040;

@@ -1,5 +1,5 @@
 {{#light-table table 
-	height='570px'
+	height=height
 	local-class='table'
 	classNames='px-4'
 	as |t|}}
@@ -33,11 +33,16 @@
 			{{/each}}
 		</tr>
 	{{/t.head}} --}}
-	{{#t.body
-    canSelect=false
-    onScrolledToBottom=(action 'onScrolledToBottom')
-	local-class='tbody'
-    as |body|
-  }}
-	{{/t.body}}
+	{{#if model}}
+		{{#t.body
+		canSelect=false
+		onScrolledToBottom=(action 'onScrolledToBottom')
+		local-class='tbody'
+		as |body|}}
+		{{/t.body}}
+	{{else}}
+		{{#bp-layout tagName='p' main='center' cross='center' classNames='m-0' local-class='no-data'}}
+			尚未对该代表分配医院
+		{{/bp-layout}}
+	{{/if}}
 {{/light-table}}
