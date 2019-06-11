@@ -1,10 +1,11 @@
 import Controller from '@ember/controller';
 import ENV from 'new-tmist/config/environment';
-import { htmlSafe } from '@ember/template';
+import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
+	cookies: service(),
 	testBtn: computed(function () {
 		if (ENV.environment === 'development') {
 			return true;
@@ -12,8 +13,15 @@ export default Controller.extend({
 		return false;
 	}),
 	notice: localStorage.getItem('notice') !== 'false',
-	step: 1,
-	detail: htmlSafe(`<p class='m-0 model-desc'>平台介绍</p><p class='m-0 model-desc'>在平台中，您将作为区域销售经理</p>`),
+	// notice: computed('cookies.notice', function () {
+	// 	let localStorageNotice = localStorage.getItem('notice'),
+	// 		notice = this.cookies.read('notice');
+
+	// 	if (localStorageNotice === 'false' || !isEmpty(notice)) {
+	// 		return false;
+	// 	}
+	// 	return true;
+	// }),
 	neverShow: A(['不在显示']),
 	reports: computed('model.detailPaper', function () {
 		let paper = this.get('model.detailPaper'),
@@ -24,7 +32,6 @@ export default Controller.extend({
 	actions: {
 		checkReport(assessmentReport) {
 			this.transitionToRoute('page-report', assessmentReport.id);
-
 		},
 		changeDetail(useableProposal, paper) {
 			this.set('model.detailProposal', useableProposal);
@@ -41,34 +48,6 @@ export default Controller.extend({
 			// reDeploy 为 1 的时候，代表用户选择`重新部署`
 			localStorage.setItem('reDeploy', 1);
 			this.transitionToRoute('page-notice', proposalId);
-		},
-		prevStep() {
-			let step = this.get('step') - 1;
-
-			this.set('step', step);
-			if (step === 2) {
-				this.set('detail',
-					htmlSafe(`<p class='m-0 model-desc'>关卡流程介绍</p>
-				<p class='m-0 model-desc'>每个关卡都代表一个虚拟销售区域，有多周目、单周目，您需要，关卡完成后您将
-				得到一份测评报告</p>`));
-			} else {
-				this.set('detail',
-					htmlSafe(`<p class='m-0 model-desc'>平台介绍</p><p class='m-0 model-desc'>在平台中，您将作为区域销售经理</p>`));
-			}
-		},
-		submit() {
-			let step = this.get('step');
-
-			if (step === 1) {
-				this.set('detail',
-					htmlSafe(`<p class='m-0 model-desc'>关卡流程介绍</p>
-				<p class='m-0 model-desc'>每个关卡都代表一个虚拟销售区域，有多周目、单周目，您需要，关卡完成后您将
-				得到一份测评报告</p>`));
-			} else {
-				this.set('detail',
-					htmlSafe(`<p class='m-0 model-desc'>新的挑战即将开始，您准备好了吗？</p>`));
-			}
-			this.set('step', ++step);
 		},
 		closeNotice() {
 			this.set('notice', false);

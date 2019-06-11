@@ -20,12 +20,6 @@
 	.management-content {
 		flex: 1;
 
-		// .title {
-		// 	margin: 0;
-		// 	line-height: 52px;
-		// 	@extend %header-small;
-		// }
-
 		.p-primary {
 			@extend %p-primary;
 		}
@@ -168,21 +162,20 @@
 				position: relative;
 
 				input {
-					padding-left: 30px;
+					// padding-left: 30px;
+					padding-right: 30px;
 				}
 
 				&::after {
 					content: '%';
 					position: absolute;
-					left: 8px;
+					// left: 8px;
+					right: 8px;
 					top: 50%;
 					transform: translateY(-50%);
 					@extend %p-secondary;
-
 				}
 			}
-
 		}
-
 	}
 }

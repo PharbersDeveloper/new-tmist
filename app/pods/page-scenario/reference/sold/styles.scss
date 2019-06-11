@@ -66,13 +66,18 @@ h2.title {
 				}
 
 				tbody {
+					tr:hover {
+						td {
+							background-color: rgba(0, 0, 0, 0.075);
+						}
+					}
+
 					td {
 						height: 52px;
 						line-height: 52px;
 						@extend %p-primary;
 						border: 0;
 						text-align: right;
-
 					}
 				}
 			}

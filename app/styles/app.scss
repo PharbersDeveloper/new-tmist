@@ -30,3 +30,7 @@ body>:global(.ember-view) {
 :global(.modal-footer) {
 	border: 0;
 }
+
+:global(.toast-top-center .toast-success) {
+	background-color: #51A351;
+}
