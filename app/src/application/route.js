@@ -10,22 +10,22 @@ export default Route.extend( {
 	cookies: service(),
 	ajax: service(),
 	oauthService: service( "service/oauth" ),
-	clientId: "5cbd9f94f4ce4352ecb082a0",
-	clientSecret: "5c90db71eeefcc082c0823b2",
+	// clientId: "5cbd9f94f4ce4352ecb082a0",
+	// clientSecret: "5c90db71eeefcc082c0823b2",
 	beforeModel( { targetName } ) {
 		this.get( "intl" ).setLocale( ["zh-CN"] )
-		// if ( targetName === "oauth-callback" ) {
-		// 	return
-		// }
-		// // 初始化 notice 页面的 notcie
-		// if ( isEmpty( localStorage.getItem( "notice" ) ) ) {
-		// 	localStorage.setItem( "notice", true )
-		// }
-		// if ( this.oauthService.judgeAuth() ) {
-		// 	this.transitionTo( "index" )
-		// } else {
-		// 	this.transitionTo( "login" )
-		// }
+		if ( targetName === "oauth-callback" ) {
+			return
+		}
+		// 初始化 notice 页面的 notcie
+		if ( isEmpty( localStorage.getItem( "notice" ) ) ) {
+			localStorage.setItem( "notice", true )
+		}
+		if ( this.oauthService.judgeAuth() ) {
+			this.transitionTo( "/page/index" )
+		} else {
+			this.transitionTo( "/page/login" )
+		}
 	},
 	model() {
 		let store = this.get( "store" ),
@@ -86,8 +86,8 @@ export default Route.extend( {
 	// },
 	actions: {
 		error( error, transition ) {
-			window.console.log( error )
-			window.console.log( transition )
+			console.error( error )
+			console.error( transition )
 			if ( ENV.environment === "production" ) {
 				window.location = ENV.redirectUri
 			}

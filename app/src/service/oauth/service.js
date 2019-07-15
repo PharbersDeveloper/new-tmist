@@ -1,8 +1,8 @@
 import Service from "@ember/service"
 import { inject as service } from "@ember/service"
-import ENV from "new-tmist/config/environment"
 import { isEmpty } from "@ember/utils"
 import { A } from "@ember/array"
+import ENV from "../../../config/environment"
 const { keys } = Object
 
 export default Service.extend( {
@@ -11,44 +11,35 @@ export default Service.extend( {
 	router: service(),
 
 	groupName: "",
-	version: "v0",
-	clientId: "5cbd9f94f4ce4352ecb082a0",
-	clientSecret: "5c90db71eeefcc082c0823b2",
-	status: "self",
-	scope: "APP/NTM",
-	host: ENV.host,
-	redirectUri: ENV.redirectUri,
 
 	oauthOperation() {
 		const ajax = this.get( "ajax" )
 
-		let host = `${this.get( "host" )}`,
-			version = `${this.get( "version" )}`,
+		let host = `${ ENV.OAuth.Host }`,
+			version = `${ ENV.API.Version }`,
 			resource = "ThirdParty",
-			url = ""
+			url = `?client_id=${ ENV.OAuth.ClientId }
+                    &client_secret=${ ENV.OAuth.ClientSecret }
+                    &scope=${ ENV.OAuth.Scope }
+                    &status=${ ENV.OAuth.Status }
+                    &redirect_uri=${ ENV.OAuth.RedirectUri }/oauth-callback`.
+				replace( /\n/gm, "" ).
+				replace( / /gm, "" ).
+				replace( /\t/gm, "" )
 
-		url = `?client_id=${this.get( "clientId" )}
-                    &client_secret=${this.get( "clientSecret" )}
-                    &scope=${this.get( "scope" )}
-                    &status=${this.get( "status" )}
-                    &redirect_uri=${this.get( "redirectUri" )}/oauth-callback`.
-			replace( /\n/gm, "" ).
-			replace( / /gm, "" ).
-			replace( /\t/gm, "" )
 		return ajax.request( [host, version, resource, url].join( "/" ), {
-			dataType: "text"
+			dataType: "text/html"
 		} ).then( response => {
 			return response
+
+		} ).catch( err => {
+			console.error( err )
 		} )
-			.catch( err => {
-				window.console.log( "error" )
-				window.console.log( err )
-			} )
 	},
 
 	oauthCallback( transition ) {
-		let version = `${this.get( "version" )}`,
-			host = `${this.get( "host" )}`,
+		let version = `${ ENV.API.Version }`,
+			host = `${ ENV.OAuth.Host }`,
 			resource = "GenerateAccessToken",
 			url = "",
 			cookies = this.get( "cookies" )
@@ -57,15 +48,16 @@ export default Service.extend( {
 			{ queryParams } = transition
 
 		if ( queryParams.code && queryParams.state ) {
-			url = `?client_id=${this.get( "clientId" )}
-					&client_secret=${this.get( "clientSecret" )}
-					&scope=${this.get( "scope" )}
-					&redirect_uri=${this.get( "redirectUri" )}/oauth-callback
+			url = `?client_id=${ ENV.OAuth.ClientId }
+					&client_secret=${ ENV.OAuth.ClientSecret }
+					&scope=${ ENV.OAuth.Scope }
+					&redirect_uri=${ ENV.OAuth.RedirectUri }/oauth-callback
 					&code=${queryParams.code}
 					&state=${queryParams.state}`.
 				replace( /\n/gm, "" ).
 				replace( / /gm, "" ).
 				replace( /\t/gm, "" )
+
 			ajax.request( [host, version, resource, url].join( "/" ) )
 				.then( response => {
 					this.removeAuth()

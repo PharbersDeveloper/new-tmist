@@ -17,7 +17,10 @@ Route.reopen( {
 } )
 
 Router.map( function() {
-	this.route( "test" )
+	this.route( "page", function() {
+		this.route( "login" )
+		this.route( "wellcome" )
+	} )
 } )
 
 export default Router

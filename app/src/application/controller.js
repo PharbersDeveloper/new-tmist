@@ -4,6 +4,7 @@ import ENV from "new-tmist/config/environment"
 import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
 import RSVP from "rsvp"
+import Ember from "ember"
 const { keys } = Object
 
 export default Controller.extend( {
@@ -87,8 +88,7 @@ export default Controller.extend( {
 
 					return response
 				} ).catch( err => {
-					window.console.log( "error" )
-					window.console.log( err )
+					Ember.Logger.error( `error: ${err}` )
 				} )
 			} )
 	},

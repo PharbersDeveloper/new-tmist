@@ -9,22 +9,28 @@
 			<span>{{t "nav.name"}}</span>
 		</p>
 		{{#if (bp-eq testProgress 1)}}
-			{{#bp-button onClick=(action "endMission")}}结束任务{{/bp-button}}
+			{{#bp-button onClick=(action "endMission")}}
+				{{t "nav.actions.end-mission"}}
+			{{/bp-button}}
 		{{else if (bp-eq testProgress 2)}}
 			<span local-class="button-area">
 				{{#bp-button type="subtle"  classNames="mr-3"
 					onClick=(action (mut rules) true)}}
-					规则介绍
+					{{t "nav.actions.rules-description"}}
 				{{/bp-button}}
-				{{#bp-button onClick=(action "saveInputEndMission")}}结束任务{{/bp-button}}
+				{{#bp-button onClick=(action "saveInputEndMission")}}
+					{{t "nav.actions.end-mission"}}
+				{{/bp-button}}
 			</span>
 		{{else if (bp-eq testProgress 3)}}
 			<span local-class="button-area">
 				{{#bp-button type="subtle"  classNames="mr-3"
 					onClick=(action (mut rules) true)}}
-					规则介绍
+					{{t "nav.actions.rules-description"}}
 				{{/bp-button}}
-				{{#bp-button onClick=(action "resultPageEndMission")}}结束任务{{/bp-button}}
+				{{#bp-button onClick=(action "resultPageEndMission")}}
+					{{t "nav.actions.end-mission"}}
+				{{/bp-button}}
 			</span>
 		{{else}}
 			{{#bp-dropdown widthSize="auto"
@@ -34,10 +40,10 @@
 				{{/dd.button}}
 				{{#dd.menu align="right" as |menu|}}
 					{{#menu.option onClick=(action "logout")}}
-						账号设置
+						{{t "nav.actions.profile-config"}}
 					{{/menu.option}}
 					{{#menu.option onClick=(action "logout")}}
-						退出账号
+						{{t "nav.actions.logout"}}
 					{{/menu.option}}
 				{{/dd.menu}}
 			{{/bp-dropdown}}
@@ -53,22 +59,36 @@
 		onHidden=(action (mut rules) false) 
 		local-class="bp-modal" as |modal|}}
 	{{#modal.header classNames="px-4 py-3 border-0"}}
-		规则介绍
+		{{t "nav.actions.rules-description"}}
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
-		<p class="secondary mb-0">经理需要彻底利用有限“预算”，达成“药品销售额指标”，</p>
-		<p class="secondary mb-0">彻底完成业务决策、管理决策后才能提交任务，一旦提交决策，将不可更改。</p>
-		<p class="secondary mb-4">您的决策设定可在“本期决策回顾中”查看。</p>
-		<h4 class="title mt-0 mb-3">业务决策</h4>
-		<p class="secondary mb-4">
-			1. 业务决策中，优先选择代表，所有医院都需要有代表负责。
-			每一个代表必须充分利用“拜访时间”负责医院药品销售业务，
-			“代表拜访时间”不能为“0”，“代表剩余时间”必须 为“0”。
+		<p class="secondary mb-0">
+			{{t "nav.modal.line-01"}}
 		</p>
-		<p class="secondary mb-4">2. 所有医院的“药品销售指标”和“预算”都得分配，若不分配，请输入“0”。</p>
-		<p class="secondary mb-4">3. 会议名额需要被彻底分配，请为不分配会议名额的医院设定名额值为“0”。</p>
-		<h4 class="title mt-0 mb-3">管理决策</h4>
-		<p class="secondary">1. 经理的时间需要全部分配。</p>
+		<p class="secondary mb-0">
+			{{t "nav.modal.line-02"}}
+		</p>
+		<p class="secondary mb-4">
+			{{t "nav.modal.line-03"}}
+		</p>
+		<h4 class="title mt-0 mb-3">
+			{{t "nav.modal.line-04"}}
+		</h4>
+		<p class="secondary mb-4">
+			{{t "nav.modal.line-05"}}
+		</p>
+		<p class="secondary mb-4">
+			{{t "nav.modal.line-06"}}
+		</p>
+		<p class="secondary mb-4">
+			{{t "nav.modal.line-07"}}
+		</p>
+		<h4 class="title mt-0 mb-3">
+			{{t "nav.modal.line-08"}}
+		</h4>
+		<p class="secondary">
+			{{t "nav.modal.line-09"}}
+		</p>
 	{{/modal.body}}
 {{/bp-modal}}
 {{#bp-modal
@@ -76,15 +96,19 @@
 		position="center"
 		onHidden=(action (mut exitMission) false) as |modal|}}
 	{{#modal.header classNames="px-4 py-3 border-0"}}
-		提示
+		{{t "nav.hits.title"}}
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
 		<p class="desc mb-3">
-			您当前的决策将被保存，等您继续部署。您确定要结束任务吗？
+			{{t "nav.hits.content"}}
 		</p>
 	{{/modal.body}}
 	{{#modal.footer}}
-		{{#bp-button type="link" onClick=(action modal.close)}}取消{{/bp-button}}
-		{{#bp-button type="primary" onClick=(action "saveInputs")}}确定{{/bp-button}}
+		{{#bp-button type="link" onClick=(action modal.close)}}
+			{{t "nav.hits.cancel-btn"}}
+		{{/bp-button}}
+		{{#bp-button type="primary" onClick=(action "saveInputs")}}
+			{{t "nav.hits.confirm-btn"}}
+		{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}

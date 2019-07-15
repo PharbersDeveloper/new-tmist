@@ -1,0 +1,31 @@
+.login {
+	height: 100%;
+
+	div.input {
+		flex: 1;
+		position: relative;
+
+		.area {
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+
+			.title {
+				@extend %title;
+			}
+
+			.desc {
+				@extend %p-secondary;
+				margin-bottom: 54px;
+			}
+		}
+	}
+
+	div.img {
+		background-image: url("https://i.loli.net/2019/04/22/5cbd9393f20db.png");
+		background-size: cover;
+		flex: 1;
+	}
+
+}

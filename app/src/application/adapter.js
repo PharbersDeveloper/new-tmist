@@ -6,7 +6,7 @@ import { inject as service } from "@ember/service"
 
 export default DS.JSONAPIAdapter.extend( {
 	namespace: "v0",
-	scope: `APP/NTM`,
+	scope: "APP/NTM",
 	cookies: service(),
 	pathForType( type ) {
 		let newType = pluralize( camelize( type ) )
