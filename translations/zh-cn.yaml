@@ -1,0 +1,9 @@
+price_banner: The {product} costs {price, number, USD}
+nav:
+  name: 铁马
+  logo: TMIST LOGO
+  actions:
+    rules-description: 规则介绍
+    profile-config: 账号设置
+    end-mission: 结束任务
+    logout: 退出账号
