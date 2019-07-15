@@ -5,7 +5,7 @@ import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
 import ENV from "new-tmist/config/environment"
 
-export default Route.extend( {	
+export default Route.extend( {
 	intl: service(),
 	cookies: service(),
 	ajax: service(),
