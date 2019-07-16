@@ -4,32 +4,48 @@ import { A } from '@ember/array';
 import { isEmpty } from '@ember/utils';
 
 export default Controller.extend({
+	numberVerify: /^-?[0-9]\d*$/,
 	IndicatorAllocationPercent: computed('businessinput.salesTarget', function () {
 		let { totalBusinessIndicators, businessinput } =
 			this.getProperties('totalBusinessIndicators', 'businessinput'),
-			salesTarget = businessinput.get('salesTarget');
+			salesTarget = businessinput.get('salesTarget'),
+			verify = this.numberVerify,
+			illegal = verify.test(salesTarget);
 
-		if (salesTarget === 0 || typeof totalBusinessIndicators === 'undefined') {
-			return 0;
+		if (!illegal && salesTarget !== '') {
+			return {
+				illegal: true,
+				percent: 0
+			};
 		}
-		return (salesTarget / totalBusinessIndicators).toFixed(2) * 100;
-
+		return {
+			illegal: false,
+			percent: isEmpty(totalBusinessIndicators) ? 0 : (salesTarget * 100 / totalBusinessIndicators).toFixed(2)
+		};
 	}),
 	budgetPercent: computed('businessinput.budget', function () {
 		let { totalBudgets, businessinput } =
 			this.getProperties('totalBudgets', 'businessinput'),
-			budget = businessinput.get('budget');
+			budget = businessinput.get('budget'),
+			verify = this.numberVerify,
+			illegal = verify.test(budget);
 
-		if (budget === 0 || isEmpty(totalBudgets)) {
-			return 0;
+		if (!illegal && budget !== '') {
+			return {
+				illegal: true,
+				percent: 0
+			};
 		}
-		return (budget / totalBudgets).toFixed(2) * 100;
+		return {
+			illegal: false,
+			percent: isEmpty(totalBudgets) ? 0 : (budget * 100 / totalBudgets).toFixed(2)
+		};
 	}),
 	// 代表分配时间percent
 	representativesVisitPercent: computed('businessinput.visitTime', 'tmpRc', function () {
 		let resourceConfigs = this.get('model').repConfs,
 			result = A([]),
-			newBusinessinputs = this.get('store').peekAll('businessinput').filter(ele => ele.get('isNew'));
+			newBusinessinputs = this.get('businessInputs');
 
 		result = resourceConfigs.map(ele => {
 
@@ -67,12 +83,11 @@ export default Controller.extend({
 			let businessinput = this.get('businessinput');
 
 			this.set('tmpRc', null);
-
 			businessinput.setProperties({
 				resourceConfigId: '',
 				resourceConfig: null,
 				visitTime: '',
-				meetingPlaces: '',
+				meetingPlaces: 0,
 				salesTarget: '',
 				budget: ''
 			});

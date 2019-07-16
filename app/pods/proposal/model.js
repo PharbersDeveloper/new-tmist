@@ -5,5 +5,6 @@ export default DS.Model.extend({
 	describe: DS.attr('string'),
 	totalPhase: DS.attr('number'),
 	inputIds: DS.attr(),
+	salesReports: DS.hasMany('salesReport'),
 	useableProposal: DS.belongsTo('useableProposal')
 });

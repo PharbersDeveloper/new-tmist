@@ -11,7 +11,12 @@
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
-				{{#bp-button disabled=true classNames="mr-1" }}保存{{/bp-button}}
+				{{#if testBtn}}
+					{{#bp-button classNames="mr-1" onClick=(action 'testResult')}}
+						testResult
+					{{/bp-button}}
+				{{/if}}
+				{{#bp-button classNames="mr-1" onClick=(action 'saveInputs')}}保存{{/bp-button}}
 				{{#bp-button type='primary' onClick=(action 'submit') }}提交执行{{/bp-button}}
 			{{/body.right}}
 		{{/ph.body}}
@@ -48,21 +53,40 @@
 {{#bp-modal
 		open=warning.open 
 		position='center'
-		onSubmit=(action "submit") 
+		onSubmit=(action "confirmSubmit") 
 		onHidden=(action (mut warning.open) false) as |modal|}}
 	{{#modal.header}}
 		<h4 class="modal-title">
-			提交执行
+			{{warning.title}}
 		</h4>
 	{{/modal.header}}
-	{{#modal.body}}
-		<p>
+	{{#modal.body classNames="p-4"}}
+		<p class="desc m-0">
 			{{warning.detail}}
 		</p>
 	{{/modal.body}}
 	{{#modal.footer}}
-		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+		{{#unless confirmSubmit}}
+			{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+		{{else}}
+			{{#bp-button type="primary" onClick=(action modal.submit)}}确定提交{{/bp-button}}
+		{{/unless}}
 		{{!-- {{#bp-button type="danger"}}Delete{{/bp-button}} --}}
 		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
 	{{/modal.footer}}
+{{/bp-modal}}
+{{#bp-modal
+		open=loadingForSubmit
+		position='center'
+		backdropClose=false as |modal|}}
+	{{#modal.header closeButton=false }}
+		<h4 class="modal-title">
+			提交执行
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc m-0">
+			提交执行中，请稍等。。
+		</p>
+	{{/modal.body}}
 {{/bp-modal}}

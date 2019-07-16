@@ -1,0 +1,48 @@
+{{#light-table table 
+	height=height
+	local-class='table'
+	classNames='px-4'
+	as |t|}}
+	{{t.head
+		onColumnClick=(action 'onColumnClick')
+		iconSortable='sort'
+		iconAscending='sort-up'
+		iconDescending='sort-down'
+		iconComponent='sort-icon'
+		local-class='thead'
+		fixed=true
+  }}
+	{{!-- {{#t.head
+	    fixed=true as |columnGroups subColumns|}}
+		<tr>
+			{{#each columnGroups as |column|}}
+				{{light-table/columns/base column
+              table=table
+              sortIcons=sortIcons
+              click=(action 'sortColumn' column)}}
+			{{/each}}
+		</tr>
+		<tr>
+			{{#each subColumns as |column|}}
+				{{component (concat 'light-table/columns/' column.type) column
+					table=table
+					rowspan=1
+					classNames="lt-sub-column"
+					sortIcons=sortIcons
+					click=(action 'sortColumn' column)}}
+			{{/each}}
+		</tr>
+	{{/t.head}} --}}
+	{{#if model}}
+		{{#t.body
+		canSelect=false
+		onScrolledToBottom=(action 'onScrolledToBottom')
+		local-class='tbody'
+		as |body|}}
+		{{/t.body}}
+	{{else}}
+		{{#bp-layout tagName='p' main='center' cross='center' classNames='m-0' local-class='no-data'}}
+			尚未对该代表分配医院
+		{{/bp-layout}}
+	{{/if}}
+{{/light-table}}

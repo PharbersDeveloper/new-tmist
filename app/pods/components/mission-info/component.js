@@ -6,7 +6,7 @@ import { A } from '@ember/array';
 export default Component.extend({
 	classNames: ['mr-4 mb-4 p-4'],
 	localClassNames: 'mission-info',
-	classNameBindings: ['isMultiplePhase:multiple-phase', 'newMissionActive', 'doneMissionActie'],
+	classNameBindings: ['isMultiplePhase:multiple-phase', 'newMissionActive', 'doneMissionActive'],
 	localClassNameBindings: A(['isMultiplePhase:multiple-phase']),
 	bubble: false,
 	isMultiplePhase: computed('useableProposal.proposal.totalPhase', function () {
@@ -18,7 +18,7 @@ export default Component.extend({
 		return false;
 	}),
 	newMissionActive: equal('useableProposalPaper.state', 0),
-	doneMissionActie: equal('useableProposalPaper.state', 3),
+	doneMissionActive: equal('useableProposalPaper.state', 3),
 
 	onClick() { },
 	click(params) {

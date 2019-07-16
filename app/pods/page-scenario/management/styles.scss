@@ -1,18 +1,24 @@
 .management-container {
 	height: calc(100% - 25px);
 
+	h3.title {
+		height: 54px;
+		@extend %header-medium;
+
+	}
+
+	h4.title {
+		margin: 0;
+		line-height: 52px;
+		@extend %header-small;
+	}
+
 	.management-tabs {
 		flex: 0 0 80px;
 	}
 
 	.management-content {
 		flex: 1;
-
-		.title {
-			margin: 0;
-			line-height: 52px;
-			@extend %header-small;
-		}
 
 		.p-primary {
 			@extend %p-primary;
@@ -131,6 +137,10 @@
 
 			.allot-point-content {
 				table {
+					&.point-table {
+						table-layout: fixed;
+					}
+
 					th {
 						@extend %p-small;
 					}
@@ -152,21 +162,20 @@
 				position: relative;
 
 				input {
-					padding-left: 30px;
+					// padding-left: 30px;
+					padding-right: 30px;
 				}
 
 				&::after {
 					content: '%';
 					position: absolute;
-					left: 8px;
+					// left: 8px;
+					right: 8px;
 					top: 50%;
 					transform: translateY(-50%);
 					@extend %p-secondary;
-
 				}
 			}
-
 		}
-
 	}
 }

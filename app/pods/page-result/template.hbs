@@ -1,9 +1,9 @@
 {{#bp-layout direction="col" local-class="page-result" classNames="p-4" }}
-	<p local-class="back-area" class="mb-3">
-		{{#link-to "index"}}
+	{{!-- <p local-class="back-area" class="mb-3">
+		{{#bp-button type="link" onClick=(action 'toIndex')}}
 			返回
-		{{/link-to}}
-	</p>
+		{{/bp-button}}
+	</p> --}}
 	{{#bp-page-header class="mb-4" local-class='result-header' as |ph|}}
 		{{#ph.body as |body|}}
 			{{#body.left as |left|}}
@@ -11,11 +11,13 @@
 					执行结果报告
 				{{/left.item}}
 				{{#left.item }}
-					第一周期*
+					{{model.scenario.name}}
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
-				{{#bp-button type='primary' onClick=(action 'toReport')}}查看经理测评报告{{/bp-button}}
+				{{#bp-button type='primary' onClick=(action 'toReport' model.assessmentReport)}}
+					查看经理测评报告
+				{{/bp-button}}
 			{{/body.right}}
 		{{/ph.body}}
 	{{/bp-page-header}}

@@ -3,9 +3,14 @@ h2.title {
 	@extend %header-medium;
 }
 
+.historical-sales-container {
+	height: 100%;
+}
+
 .nav {
 	flex: 0 0 270px;
 	list-style: none;
+	height: 100%;
 
 	li {
 		height: 4*$spacing;
@@ -24,9 +29,11 @@ h2.title {
 
 .content {
 	flex: 1;
+	overflow-x: auto;
 
 	.report {
 		flex: 1;
+		overflow-x: auto;
 
 		.choose-area {
 			flex: 1;
@@ -42,31 +49,39 @@ h2.title {
 		}
 
 		.table-container {
-			thead {
-				background-color: transparent;
+			// table-layout: fixed;
 
-				th {
-					padding-left: $spacing-2;
-					border: 0;
-					@extend %p-small;
+			overflow-x: auto;
 
-					&:first-child {
-						min-width: 50px;
+			table {
+				thead {
+					background-color: transparent;
+
+					th {
+						border: 0;
+						@extend %p-small;
+						min-width: 100px;
+						text-align: right;
+					}
+				}
+
+				tbody {
+					tr:hover {
+						td {
+							background-color: rgba(0, 0, 0, 0.075);
+						}
+					}
+
+					td {
+						height: 52px;
+						line-height: 52px;
+						@extend %p-primary;
+						border: 0;
+						text-align: right;
 					}
 				}
 			}
 
-			tbody {
-				td {
-					padding: 0;
-					padding-left: $spacing-2;
-
-					height: 52px;
-					line-height: 52px;
-					@extend %p-primary;
-					border: 0;
-				}
-			}
 		}
 	}
 }

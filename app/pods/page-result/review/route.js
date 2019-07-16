@@ -1,40 +1,64 @@
 import Route from '@ember/routing/route';
-import { A } from '@ember/array';
 import RSVP from 'rsvp';
+import { isEmpty } from '@ember/utils';
+import { A } from '@ember/array';
 
 export default Route.extend({
 	model() {
-		let store = this.get('store'),
-			paper = store.peekAll('paper').get('lastObject'),
-			paperinputs = paper.get('paperinputs'),
-			increasePaperinputs = A([]),
-			lastPaperinput = {},
-			managerinput = null,
-			representativeinputs = A([]),
-			businessinputs = A([]);
+		const store = this.get('store'),
+			pageScenarioModel = this.modelFor('page-scenario'),
+			salesConfigs = pageScenarioModel.salesConfigs,
+			lastSeasonHospitalSalesReports = pageScenarioModel.lastSeasonHospitalSalesReports,
+			// paper = pageScenarioModel.paper,
+			scenario = pageScenarioModel.scenario,
+			businessinputs = store.peekAll('businessinput');
 
-		return paperinputs.then(data => {
-			increasePaperinputs = data.sortBy('phase');
-			lastPaperinput = increasePaperinputs.get('lastObject');
-			return lastPaperinput.get('managerinputs');
-		}).then(data => {
-			// 组合 managerinput 的数据
-			managerinput = data.get('lastObject');
-			return lastPaperinput.get('representativeinputs');
-		}).then(data => {
-			// 组合 representativeinputs 的数据
-			representativeinputs = data;
-			return lastPaperinput.get('businessinputs');
-		}).then(data => {
-			// 组合 businessinputs 的数据
-			businessinputs = data;
-			return RSVP.hash({
-				managerinput,
-				businessinputs,
-				representativeinputs,
-				goodsConfigs: store.query('goodsConfig',
-					{ 'scenario-id': '5c7cdf18421aa98e2c382f61' })
+		let tableData = A([
+			{
+				hospitalName: '',
+				potential: '',
+				sales: '',
+				representative: '',
+				visitTime: '',
+				salesTarget: '',
+				budget: '',
+				meetingPlaces: ''
+			}
+		]);
+
+		tableData = businessinputs.map(ele => {
+			let biHospitalId = ele.get('destConfig.hospitalConfig.hospital.id'),
+				potential = 0,
+				sales = 0;
+
+			lastSeasonHospitalSalesReports.forEach(item => {
+				let dataHosopitalId = item.get('destConfig.hospitalConfig.hospital.id');
+
+				if (dataHosopitalId === biHospitalId) {
+					potential = item.potential;
+					sales = item.sales;
+				}
 			});
+
+			return {
+				hospitalName: ele.destConfig.get('hospitalConfig.hospital.name'),
+				potential: potential,
+				sales: sales,
+				representative: isEmpty(ele.resourceConfig.get('representativeConfig.representative.name')) ? '-' : ele.resourceConfig.get('representativeConfig.representative.name'),
+				visitTime: isEmpty(ele.get('visitTime')) ? '-' : ele.get('visitTime'),
+				salesTarget: isEmpty(ele.get('salesTarget')) ? '-' : ele.get('salesTarget'),
+				budget: isEmpty(ele.get('budget')) ? '-' : ele.get('budget'),
+				meetingPlaces: isEmpty(ele.get('meetingPlaces')) ? '-' : ele.get('meetingPlaces')
+			};
+		});
+		return RSVP.hash({
+			tableData,
+			salesConfigs,
+			managerinput: store.peekAll('managerinput').lastObject,
+			businessinputs,
+			representativeinputs: store.peekAll('representativeinput'),
+			goodsConfigs: store.query('goodsConfig',
+				{ 'scenario-id': scenario.id })
 		});
 	}
 });

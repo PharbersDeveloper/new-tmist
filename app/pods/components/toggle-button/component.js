@@ -1,18 +1,21 @@
 import Component from '@ember/component';
 import { A } from '@ember/array';
-import { equal } from '@ember/object/computed';
+import { computed } from '@ember/object';
 
 export default Component.extend({
 	tagName: 'span',
-	classNames: ['px-2', 'text-center'],
+	classNames: ['text-center'],
 	localClassNames: 'toggle-button',
 	localClassNameBindings: A(['choosed']),
-	choosed: equal('state', true),
-	computedStateValue() {
-		let { context, key } = this.getProperties('context', 'key');
+	// choosed: equal('state', true),
+	choosed: computed('state', function () {
+		let state = this.get('state');
 
-		return context.get(key);
-	},
+		if (state === 1 || Boolean(state)) {
+			return true;
+		}
+		return false;
+	}),
 	click() {
 		let action = this.get('changeState'),
 			disabled = this.get('disabled'),
@@ -22,11 +25,6 @@ export default Component.extend({
 		if (!disabled || disabled && Boolean(state)) {
 			action(this.get('context'), this.get('key'));
 		}
-		this.set('state', this.computedStateValue());
 	},
-	changeState() { },
-	didReceiveAttrs() {
-		this._super(...arguments);
-		this.set('state', this.computedStateValue());
-	}
+	changeState() { }
 });

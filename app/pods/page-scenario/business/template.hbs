@@ -6,14 +6,14 @@
 				classNames="m-0 px-4" local-class="title"}}
 				总业务指标
 			{{/bp-layout}}
-			<div class="px-4">
-				<p local-class="m-name" class="mt-2 mb-0">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
-				<p local-class="info" class="mb-4">
-					{{format-number total.usedSalesTarget}} /
-					￥{{format-number model.mConf.managerConfig.totalBusinessIndicators}}
+			<div class="p-4">
+				<p local-class="m-name" class="mb-3 ">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
+				<p local-class="info" class="mb-3">
+					￥{{format-number total.usedSalesTarget}} /
+					￥{{format-number model.resourceConfManager.managerConfig.totalBusinessIndicators}}
 				</p>
-				{{#bp-progress local-class="progress" classNames="mb-4" as |p|}}
-					{{p.bar value=total.usedSalesTarget maxValue=model.mConf.managerConfig.totalBusinessIndicators}}
+				{{#bp-progress local-class="progress" as |p|}}
+					{{p.bar value=total.usedSalesTarget maxValue=model.resourceConfManager.managerConfig.totalBusinessIndicators}}
 				{{/bp-progress}}
 				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
 					{{#bp-layout tagName="span" cross="center"}}
@@ -30,14 +30,14 @@
 				classNames="m-0 px-4" local-class="title"}}
 				总预算
 			{{/bp-layout}}
-			<div class="px-4">
-				<p local-class="m-name" class="mt-2 mb-0">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
-				<p local-class="info" class="mb-4">
-					{{format-number total.usedBudget}} /
-					￥{{format-number model.mConf.managerConfig.totalBudgets}}
+			<div class="p-4">
+				<p local-class="m-name" class="mb-3 ">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
+				<p local-class="info" class="mb-3">
+					￥{{format-number total.usedBudget}} /
+					￥{{format-number model.resourceConfManager.managerConfig.totalBudgets}}
 				</p>
-				{{#bp-progress classNames="mb-4" as |p|}}
-					{{p.bar value=total.usedBudget maxValue=model.mConf.managerConfig.totalBudgets}}
+				{{#bp-progress as |p|}}
+					{{p.bar value=total.usedBudget maxValue=model.resourceConfManager.managerConfig.totalBudgets}}
 				{{/bp-progress}}
 				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
 					{{#bp-layout tagName="span" cross="center"}}
@@ -49,20 +49,43 @@
 				{{/bp-layout}} --}}
 			</div>
 		</div>
+		<div local-class="item" class="mx-2">
+			{{#bp-layout tagName="h2" cross="center" 
+				classNames="m-0 px-4" local-class="title"}}
+				代表剩余时间
+			{{/bp-layout}}
+			{{#bp-layout main='between' wrap=true classNames='p-4'}}
+				{{#each representativesVisitPercent as |rVP|}}
+					<p local-class='rest-time'>
+						<span local-class='keys' class="mr-2">{{rVP.resourceConfig.representativeConfig.representative.name}}</span>
+						<span local-class='values'>{{rVP.restTime}}%</span>
+					</p>
+				{{/each}}
+			{{/bp-layout}}
+			{{!-- <div class="px-4 pt-4">
+				{{#each representativesVisitPercent as |rVP|}}
+					<p local-class='rest-time'>
+						<span>{{rVP.resourceConfig.representativeConfig.representative.name}}</span>
+						<span>{{rVP.restTime}}%</span>
+					</p>
+				{{/each}}
+			</div> --}}
+		</div>
 		<div local-class="item">
 			{{#bp-layout tagName="h2" cross="center" 
 				classNames="m-0 px-4" local-class="title"}}
 				总会议名额
 			{{/bp-layout}}
-			<div class="px-4">
-				<p local-class="m-name" class="mt-2 mb-0">&nbsp;</p>
+			<div class="px-4 pt-4">
+				<p local-class="m-name" class="mb-3 ">&nbsp;</p>
 				<p local-class="info" class="mb-4">
 					{{format-number total.usedMeetingPlaces}} /
-					{{format-number model.mConf.managerConfig.totalMeetingPlaces}}
+					{{format-number model.resourceConfManager.managerConfig.totalMeetingPlaces}}
+					<span local-class='unit'>个</span>
 				</p>
-				{{#bp-progress as |p|}}
-					{{p.bar value=total.usedMeetingPlaces maxValue=model.mConf.managerConfig.totalMeetingPlaces}}
-				{{/bp-progress}}
+				{{!-- {{#bp-progress as |p|}}
+					{{p.bar value=total.usedMeetingPlaces maxValue=model.resourceConfManager.managerConfig.totalMeetingPlaces}}
+				{{/bp-progress}} --}}
 			</div>
 		</div>
 	{{/bp-layout}}
@@ -72,7 +95,7 @@
 				classNames="mr-4 px-4 bg-white"}}
 			{{#bp-layout tagName="h3" cross="center" main="between"
 				local-class="title" classNames="m-0"}}
-				<span>医院</span>
+				<span>目标医院选择（{{overallFilterData.length}}）</span>
 				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
 					{{#dd.button type="link-subtle" }}
 						{{#if currentHospState.name}}
@@ -92,13 +115,14 @@
 					{{/dd.menu}}
 				{{/bp-dropdown}}
 			{{/bp-layout}}
-			{{#each overallFilterData as |dc|}}
-				{{#link-to "page-scenario.business.hospital-config" dc.id
+			{{#each overallFilterData as |destConfig|}}
+				{{#link-to "page-scenario.business.hospital-config" destConfig.id
 						activeClass="current-hospital"}}
 					{{hospital-overall
-							hospitalName=dc.hospitalConfig.hospital.name
+							hospitalName=destConfig.hospitalConfig.hospital.name
 							businessInputs=model.businessInputs
-							overallFilterData=dc}}
+							overallFilterData=destConfig
+							salesConfigs=model.salesConfigs}}
 				{{/link-to}}
 			{{/each}}
 		{{/bp-layout}}
@@ -107,3 +131,24 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
+{{!-- 总业务指标/总预算/总会议名额 超额提醒 --}}
+{{#bp-modal
+		open=warning.open 
+		position='center'
+		onHidden=(action (mut warning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{warning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc m-0">
+			{{warning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+		{{!-- {{#bp-button type="danger"}}Delete{{/bp-button}} --}}
+		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
+	{{/modal.footer}}
+{{/bp-modal}}

@@ -1,22 +1,49 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
+import { inject as service } from '@ember/service';
 
 export default Controller.extend({
 	// 设置一些默认值
-	indicatorValue: 0,
-	budgetValue: 0,
-	meetingValue: 0,
 	hospitalState: A([
 		{ name: '全部', state: 0 },
 		{ name: '待分配', state: 1 },
 		{ name: '已分配', state: 2 }
-
 	]),
-	overallFilterData: computed('currentHospState.state', 'businessInputs.@each.isFinish', function () {
+	verify: service('service-verify'),
+	representativesVisitPercent: computed('model.businessInputs.@each.{visitTime,resourceConfigId}', function () {
+		const model = this.get('model');
+
+		let resourceConfigs = model.resourceConfRep,
+			result = A([]),
+			businessInputs = model.businessInputs;
+
+		result = resourceConfigs.map(ele => {
+
+			let usedTime = 0,
+				totalTime = ele.get('representativeConfig.totalTime');
+
+			businessInputs.map(nbi => {
+				if (ele.get('id') === nbi.get('resourceConfigId')) {
+					usedTime += Number(nbi.get('visitTime'));
+				}
+			});
+			return {
+				id: ele.get('id'),
+				resourceConfig: ele,
+				totalTime,
+				usedTime,
+				restTime: 100 - usedTime
+			};
+		});
+
+		return result;
+
+	}),
+	overallFilterData: computed('currentHospState.state', 'model.businessInputs.@each.isFinish', function () {
 		let currentHospState = this.get('currentHospState').state,
 			destConfigs = this.get('model').destConfigs,
-			businessInputs = this.get('businessInputs'),
+			businessInputs = this.get('model.businessInputs'),
 			tmpDestConfigs = A([]);
 
 		if (currentHospState) {
@@ -33,24 +60,61 @@ export default Controller.extend({
 		}
 		return destConfigs;
 	}),
-	total: computed('businessInputs.@each.{salesTarget,budget,meetingPlaces}', function () {
-		let businessInputs = this.get('businessInputs'),
-			newBusinessInputs = businessInputs.filter(ele => ele.get('isNew')),
-			usedSalesTarget = 0,
-			usedBudget = 0,
-			usedMeetingPlaces = 0;
+	warning: computed('total.{overTotalBusinessIndicators,overTotalBudgets,overTotalMeetingPlaces,illegal,zeroVisitTime,blankMeetingPlaces}', function () {
+		let { overTotalBusinessIndicators, overTotalBudgets,
+				overTotalMeetingPlaces, overVisitTime, illegal,
+				zeroVisitTime } = this.get('total'),
+			warning = { open: false, title: '', detail: '' };
 
-		newBusinessInputs.forEach(bi => {
-			usedSalesTarget += Number(bi.get('salesTarget'));
-			usedBudget += Number(bi.get('budget'));
-			usedMeetingPlaces += Number(bi.get('meetingPlaces'));
-		});
+		switch (true) {
+		case illegal:
+			warning.open = true;
+			warning.title = '非法值警告';
+			warning.detail = '请输入数字！';
+			return warning;
+		case zeroVisitTime.length > 0:
+			warning.open = true;
+			warning.title = '代表拜访时间不能为0';
+			warning.detail = '代表拜访时间不能为0%，请合理分配。';
+			return warning;
+			// case blankMeetingPlaces.length > 0:
+			// 	warning.open = true;
+			// 	warning.title = '会议总名额未填写';
+			// 	warning.detail = `请为“${blankMeetingPlaces.firstObject.destConfig.get('hospitalConfig.hospital.name')}”设定会议名额，若不分配，请输入值“0”`;
+			// 	return warning;
+		case overTotalBusinessIndicators:
+			warning.open = true;
+			warning.title = '总业务指标超额';
+			warning.detail = '您的销售额指标设定总值已超出业务总指标限制，请重新分配。';
+			return warning;
+		case overTotalBudgets:
+			warning.open = true;
+			warning.title = '总预算超额';
+			warning.detail = '您的预算设定总值已超出总预算限制，请重新分配。';
+			return warning;
+		case overTotalMeetingPlaces:
+			warning.open = true;
+			warning.title = '会议总名额超额';
+			warning.detail = '您的会议名额设定已超过总名额限制，请重新分配。';
+			return warning;
+		case overVisitTime.length > 0:
+			warning.open = true;
+			warning.title = '代表拜访时间超额';
+			warning.detail = `该代表(${overVisitTime.firstObject.resourceConfig.get('representativeConfig.representative.name')})的拜访时间已超过总时间限制，请重新分配。`;
+			return warning;
+		default:
+			return warning;
+		}
 
-		return {
-			usedSalesTarget,
-			usedBudget,
-			usedMeetingPlaces
-		};
+	}),
+	total: computed('model.businessInputs.@each.{resourceConfig,visitTime,salesTarget,budget,meetingPlaces}', function () {
+		const verifyService = this.get('verify'),
+			model = this.get('model'),
+			resourceConfRep = model.resourceConfRep,
+			businessInputs = model.businessInputs,
+			resourceConfigManager = model.resourceConfManager;
+
+		return verifyService.verifyInput(resourceConfRep, businessInputs, resourceConfigManager);
 	}),
 	init() {
 		this._super(...arguments);

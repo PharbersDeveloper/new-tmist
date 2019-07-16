@@ -3,43 +3,24 @@ import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 import { A } from '@ember/array';
 import { isEmpty } from '@ember/utils';
+import ENV from 'new-tmist/config/environment';
 
 export default Route.extend({
 	cookies: service(),
 	ajax: service(),
-	'oauth_service': service(),
+	oauthService: service('oauth_service'),
 	clientId: '5cbd9f94f4ce4352ecb082a0',
 	clientSecret: '5c90db71eeefcc082c0823b2',
-	// beforeModel({ targetName }) {
-	// 	const cookies = this.get('cookies');
-
-	// 	let token = cookies.read('access_token'),
-	// 		scope = cookies.read('scope'),
-	// 		hasProject = scope ? scope.includes('NTM') : false,
-	// 		scopeGroup = scope ? !isEmpty(scope.split(':')[1]) : false,
-	// 		isScopeCorrect = hasProject && scopeGroup;
-
-	// 	console.log(targetName);
-	// 	// 初始化 notice 页面的 notcie
-	// 	if (isEmpty(localStorage.getItem('notice'))) {
-	// 		localStorage.setItem('notice', true);
-	// 	}
-	// 	if (isEmpty(token) || !isScopeCorrect) {
-	// 		this.transitionTo('login');
-	// 	}
-	// },
 	beforeModel({ targetName }) {
-		window.console.log('target route:' + targetName);
 		if (targetName === 'oauth-callback') {
 			return;
 		}
+		// 初始化 notice 页面的 notcie
 		if (isEmpty(localStorage.getItem('notice'))) {
 			localStorage.setItem('notice', true);
 		}
-		if (this.oauth_service.judgeAuth()) {
-			if (targetName === 'login') {
-				this.transitionTo('index');
-			}
+		if (this.oauthService.judgeAuth()) {
+			this.transitionTo('index');
 		} else {
 			this.transitionTo('login');
 		}
@@ -66,31 +47,48 @@ export default Route.extend({
 			return RSVP.Promise.all(promiseArray);
 		}).then(data => {
 			let useableProposalIds = data,
-				promiseArray = A([]);
+				promiseArray = A([]),
+				ajax = this.get('ajax');
 
+			// promiseArray = useableProposalIds.map(ele => {
+			// 	return store.query('paper', {
+			// 		'proposal-id': ele.id,
+			// 		'account-id': accountId
+			// 	});
+			// });
 			promiseArray = useableProposalIds.map(ele => {
-				return store.query('paper', {
-					'proposal-id': ele.id,
-					'account-id': accountId
-				});
+				return ajax.request(`/v0/GeneratePaper?proposal-id=${ele.id}
+				&account-id=${cookies.read('account_id')}`, { method: 'POST', data: {} });
 			});
 			return RSVP.Promise.all(promiseArray);
 
 		}).then(data => {
-			papers = data;
+			data.forEach(ele => {
+				store.pushPayload(ele);
+			});
+			papers = store.peekAll('paper');
+
 			return RSVP.hash({
 				papers,
 				useableProposals,
 				detailProposal: useableProposals.get('firstObject'),
-				detailPaper: papers[0].get('firstObject')
+				detailPaper: papers.get('firstObject')
 			});
 		});
 	},
+	// judgeOauth() {
+	// 	let oauthService = this.get('oauthService'),
+	// 		judgeAuth = oauthService.judgeAuth();
+
+	// 	return judgeAuth ? oauthService.redirectUri : null;
+	// },
 	actions: {
 		error(error, transition) {
-			console.log(error);
-			console.log(transition);
-			this.transitionTo('application');
+			window.console.log(error);
+			window.console.log(transition);
+			if (ENV.environment === 'production') {
+				window.location = ENV.redirectUri;
+			}
 		}
 	}
 });

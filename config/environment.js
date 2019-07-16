@@ -7,6 +7,13 @@ module.exports = function (environment) {
 		environment,
 		rootURL: '/',
 		locationType: 'auto',
+		redirectUri: 'http://ntm.pharbers.com',
+		host: 'http://oauth.pharbers.com',
+		fontawesome: {
+			icons: {
+				'free-solid-svg-icons': 'all'
+			}
+		},
 		EmberENV: {
 			FEATURES: {
 				// Here you can enable experimental features on an ember canary build
@@ -30,6 +37,8 @@ module.exports = function (environment) {
 		// ENV.APP.LOG_TRANSITIONS = true;
 		// ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
 		// ENV.APP.LOG_VIEW_LOOKUPS = true;
+		ENV.redirectUri = 'http://ntm.pharbers.com:8081';
+		ENV.host = 'http://192.168.100.174:9096';
 	}
 
 	if (environment === 'test') {
@@ -45,6 +54,8 @@ module.exports = function (environment) {
 	}
 
 	if (environment === 'production') {
+		ENV.redirectUri = 'http://ntm.pharbers.com';
+		ENV.host = 'http://oauth.pharbers.com';
 		// here you can enable a production-specific feature
 	}
 

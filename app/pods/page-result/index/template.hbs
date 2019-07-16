@@ -1,21 +1,31 @@
-{{#bp-layout direction="col" local-class="report-container" }}
-	{{#bp-layout main="center" classNames="py-4" local-class="report-tabs" }}
-		{{#bp-button-group value=groupValue type="radio"
-			onChange=(action (mut groupValue)) as |bg|}}
-			{{#bg.button type="default" value=0}}产品销售报告{{/bg.button}}
-			{{#bg.button type="default" value=1}}代表销售报告{{/bg.button}}
-			{{#bg.button type="default" value=2}}医院销售报告{{/bg.button}}
-		{{/bp-button-group}}
+{{#bp-layout cross="start" local-class="historical-sales-container"}}
+	{{#bp-layout tagName="ul" direction="col" local-class="nav" 
+				classNames="mr-4 p-4 bg-white"}}
+		{{#bp-layout tagName="li" cross="center" 
+					local-class=(if (bp-eq salesGroupValue 0) "active")
+					classNames="px-4"}}
+			<span {{action 'changeSalesValue' 0}}>产品销售报告</span>
+		{{/bp-layout}}
+		{{#bp-layout tagName="li" cross="center" 
+					local-class=(if (bp-eq salesGroupValue 1) "active")
+					classNames="px-4"}}
+			<span {{action 'changeSalesValue' 1}}>代表销售报告</span>
+		{{/bp-layout}}
+		{{#bp-layout tagName="li" cross="center" 
+					local-class=(if (bp-eq salesGroupValue 2) "active")
+					classNames="px-4"}}
+			<span {{action 'changeSalesValue' 2}}>医院销售报告</span>
+		{{/bp-layout}}
 	{{/bp-layout}}
-	{{#bp-layout local-class="report-content" }}
-		{{#if (bp-eq groupValue 0)}}
+	{{#bp-layout local-class="content"}}
+		{{#if (bp-eq salesGroupValue 0)}}
 			<div local-class="report product">
-				{{#bp-layout tagName="h3" cross="center" local-class="title"
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
 				 classNames="m-0 bg-white px-4"}}
 					产品销售报告
 				{{/bp-layout}}
 				{{#bp-layout direction="col"}}
-					{{#bp-layout main="between" local-class="choose-container"
+					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="mb-4 bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" 
@@ -27,13 +37,13 @@
 									{{#if tmpPsr.id}}
 										<p>{{tmpPsr.productName}}</p>
 									{{else}}
-										请选择
+										全部选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
 									{{#menu.option value=totalProduct
-										onClick=(action (mut tmpPsr))}}
+												onClick=(action (mut tmpPsr))}}
 										全部选择
 									{{/menu.option}}
 									{{#each model.productSalesReports as |psrs|}}
@@ -45,47 +55,64 @@
 								{{/dd.menu}}
 							{{/bp-dropdown}}
 						{{/bp-layout}}
-						<div local-class="choose-area"></div>
-					{{/bp-layout}}
-					<table local-class="table-container" class="table">
-						<thead>
-							<th>药品名称 </th>
-							{{#each model.tableHead as |thContent|}}
-								<th>{{thContent}}</th>
-							{{/each}}
-						</thead>
-						<tbody class="bg-white">
-							{{#each model.prodTableBody as |trContent|}}
-								{{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
-									{{#if (bp-eq tmpPsr.productName trContent.name)}}
+						<div local-class="choose-area" class="px-4"></div>
+					{{/bp-layout}} --}}
+					<div local-class="table-container">
+						<table class="table table-hover">
+							<thead>
+								<th>药品名称</th>
+								{{#each model.tableHead as |tcontent|}}
+									<th>{{tcontent}}</th>
+								{{/each}}
+							</thead>
+							<tbody class="bg-white">
+								{{#each model.prodTableBody as |trContent|}}
+									{{#if (bp-eq trContent.goodsConfig.productConfig.productType 0)}}
+										<tr>
+											<td>
+												{{trContent.goodsConfig.productConfig.product.name}}
+											</td>
+											{{#each trContent.tableTr as |tdContent|}}
+												{{!-- <td>￥{{format-number tdContent}}</td> --}}
+												{{#if (type-number tdContent)}}
+													<td>￥{{format-number tdContent 0}}</td>
+												{{else}}
+													<td>{{tdContent}}</td>
+												{{/if}}
+											{{/each}}
+										</tr>
+									{{/if}}
+									{{!-- {{#if (bp-not-eq tmpPsr.productName undefined '全部选择')}}
+										{{#if (bp-eq tmpPsr.productName trContent.name)}}
+											<tr>
+												<td>{{trContent.name}}</td>
+												{{#each trContent.tableTr as |tdContent|}}
+													<td>￥{{format-number tdContent}}</td>
+												{{/each}}
+											</tr>
+										{{/if}}
+									{{else}}
 										<tr>
 											<td>{{trContent.name}}</td>
 											{{#each trContent.tableTr as |tdContent|}}
 												<td>￥{{format-number tdContent}}</td>
 											{{/each}}
 										</tr>
-									{{/if}}
-								{{else}}
-									<tr>
-										<td>{{trContent.name}}</td>
-										{{#each trContent.tableTr as |tdContent|}}
-											<td>￥{{format-number tdContent}}</td>
-										{{/each}}
-									</tr>
-								{{/if}}
-							{{/each}}
-						</tbody>
-					</table>
+									{{/if}} --}}
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
 				{{/bp-layout}}
 			</div>
-		{{else if (bp-eq groupValue 1)}}
+		{{else if (bp-eq salesGroupValue 1)}}
 			<div local-class="report representative" class="bg-white">
-				{{#bp-layout tagName="h3" cross="center" local-class="title"
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
 				 classNames="m-0 bg-white px-4"}}
 					代表销售报告
 				{{/bp-layout}}
-				{{#bp-layout direction="col"}}
-					{{#bp-layout main="between" local-class="choose-container"
+				{{#bp-layout direction="col" local-class="table-container"}}
+					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="mb-4 bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" 
@@ -97,13 +124,13 @@
 									{{#if tmpRsr.id}}
 										<p>{{tmpRsr.representativeName}}</p>
 									{{else}}
-										请选择
+										全部选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
 									{{#menu.option value=totalRepresentatives
-										onClick=(action (mut tmpRsr))}}
+												onClick=(action (mut tmpRsr))}}
 										全部选择
 									{{/menu.option}}
 									{{#each model.representativeSalesReports as |rsrs|}}
@@ -116,8 +143,8 @@
 							{{/bp-dropdown}}
 						{{/bp-layout}}
 						<div local-class="choose-area"></div>
-					{{/bp-layout}}
-					<table local-class="table-container" class="table">
+					{{/bp-layout}} --}}
+					<table class="table table-hover">
 						<thead>
 							<th>代表名称</th>
 							<th>潜力</th>
@@ -127,7 +154,21 @@
 						</thead>
 						<tbody class="bg-white">
 							{{#each model.repTableBody as |trContent|}}
-								{{#if (bp-not-eq tmpRsr.representativeName undefined '全部选择')}}
+								<tr>
+									<td>{{trContent.resourceConfig.representativeConfig.representative.name}}</td>
+									<td>
+										￥{{format-number trContent.potential}}
+									</td>
+									{{#each trContent.tableTr as |tdContent index|}}
+										{{#if (type-number tdContent)}}
+											<td>￥{{format-number tdContent}}</td>
+										{{else}}
+											<td>{{tdContent}}</td>
+										{{/if}}
+										{{!-- <td>￥{{format-number tdContent}}</td> --}}
+									{{/each}}
+								</tr>
+								{{!-- {{#if (bp-not-eq tmpRsr.representativeName undefined '全部选择')}}
 									{{#if (bp-eq tmpRsr.representativeName trContent.name)}}
 										<tr>
 											<td>{{trContent.name}}</td>
@@ -145,7 +186,7 @@
 											<td>￥{{format-number tdContent}}</td>
 										{{/each}}
 									</tr>
-								{{/if}}
+								{{/if}} --}}
 							{{/each}}
 						</tbody>
 					</table>
@@ -153,12 +194,12 @@
 			</div>
 		{{else}}
 			<div local-class="report hospital">
-				{{#bp-layout tagName="h3" cross="center" local-class="title"
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
 				 classNames="m-0 bg-white px-4"}}
 					医院销售报告
 				{{/bp-layout}}
-				{{#bp-layout direction="col"}}
-					{{#bp-layout main="between" local-class="choose-container"
+				{{#bp-layout direction="col" local-class="table-container"}}
+					{{!-- {{#bp-layout main="between" local-class="choose-container"
 						classNames="bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" classNames="px-4"}}
@@ -167,9 +208,9 @@
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
 									{{#if tmpHsr.id}}
-										<p>{{tmpHsr.hospitalName}}</p>
+										<p>{{ .hospitalName}}</p>
 									{{else}}
-										请选择
+										全部选择
 									{{/if}}
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
@@ -210,35 +251,34 @@
 								{{/dd.menu}}
 							{{/bp-dropdown}}
 						{{/bp-layout}}
-					{{/bp-layout}}
-					<table local-class="table-container" class="table">
+					{{/bp-layout}} --}}
+					<table class="table table-hover">
 						<thead>
 							<th>医院名称</th>
-							<th>产品</th>
+							<th>代表</th>
 							<th>潜力</th>
-							{{#each model.tableHead as |thContent|}}
-								<th>{{thContent}}</th>
+							{{#each model.tableHead as |tcontent|}}
+								<th>{{tcontent}}</th>
 							{{/each}}
 						</thead>
 						<tbody class="bg-white">
-							{{!-- 
-							{{#each hospitalData.currentReport as |hospital|}}
-								<tr>
-									<td>{{hospital.destConfig.hospitalConfig.hospital.name}}</td>
-									<td>{{hospital.goodsConfig.productConfig.product.name}}</td>
-									<td>{{hospital.potential}}</td>
-									{{#each hospitalData.historyReport as |history|}}
-										{{#each history as |item|}}
-											{{#if (bp-eq hospital.destConfig.hospitalConfig.hospital.id item.destConfig.hospitalConfig.hospital.id)}}
-												<td>{{item.sales}}</td>
-											{{/if}}
-										{{/each}}
-									{{/each}}
-									<td>{{hospital.sales}}</td>
-								</tr>
-							{{/each}} --}}
 							{{#each model.hospTableBody as |trContent|}}
-								{{#if (bp-not-eq tmpHsr.hospitalName undefined '全部选择')}}
+								<tr>
+									<td>{{trContent.destConfig.hospitalConfig.hospital.name}}</td>
+									<td>
+										{{trContent.resourceConfig.representativeConfig.representative.name}}
+									</td>
+									<td>￥{{format-number trContent.potential}}</td>
+									{{#each trContent.tableTr as |tdContent|}}
+										{{!-- <td>￥{{format-number tdContent}}</td> --}}
+										{{#if (type-number tdContent)}}
+											<td>￥{{format-number tdContent}}</td>
+										{{else}}
+											<td>{{tdContent}}</td>
+										{{/if}}
+									{{/each}}
+								</tr>
+								{{!-- {{#if (bp-not-eq tmpHsr.hospitalName undefined '全部选择')}}
 									{{#if (bp-eq tmpHsr.hospitalName trContent.name)}}
 										<tr>
 											<td>{{trContent.name}}</td>
@@ -258,7 +298,7 @@
 											<td>￥{{format-number tdContent}}</td>
 										{{/each}}
 									</tr>
-								{{/if}}
+								{{/if}} --}}
 							{{/each}}
 						</tbody>
 					</table>

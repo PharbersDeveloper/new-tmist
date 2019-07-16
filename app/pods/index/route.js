@@ -6,20 +6,33 @@ import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	cookies: service(),
-	beforeModel() {
-		const cookies = this.get('cookies');
+	ajax: service(),
+	// beforeModel() {
+	// 	const cookies = this.get('cookies');
 
-		let token = cookies.read('access_token');
+	// 	let token = cookies.read('access_token');
 
-		if (!token) {
-			this.transitionTo('login');
-		}
-	},
+	// 	if (!token) {
+	// 		this.transitionTo('login');
+	// 	}
+	// },
 	activate() {
 		this._super(...arguments);
 		let applicationController = this.controllerFor('application');
 
+		// refresh = localStorage.getItem('refresh');
 		applicationController.set('testProgress', 0);
+		localStorage.removeItem('reDeploy');
+
+		// this.refresh();
+		// 如果 refresh 为 undefined 不刷新,并将refresh 设置为1。
+		// 在下一页面，
+		// if (isEmpty(refresh)) {
+		// 	localStorage.setItem('refresh', 1);
+		// } else {
+		// 	localStorage.removeItem('refresh');
+		// 	window.location.reload(true);
+		// }
 	},
 	model() {
 		let applicationModel = this.modelFor('application'),
@@ -50,24 +63,29 @@ export default Route.extend({
 			return RSVP.Promise.all(promiseArray);
 		}).then(data => {
 			let useableProposalIds = data,
-				promiseArray = A([]);
+				promiseArray = A([]),
+				ajax = this.get('ajax');
 
 			promiseArray = useableProposalIds.map(ele => {
-				return store.query('paper', {
-					'proposal-id': ele.id,
-					'account-id': accountId
+				return ajax.request(`/v0/GeneratePaper?proposal-id=${ele.id}
+				&account-id=${cookies.read('account_id')}`, {
+					method: 'POST',
+					data: {}
 				});
 			});
 			return RSVP.Promise.all(promiseArray);
 
 		}).then(data => {
-			papers = data;
+			data.forEach(ele => {
+				store.pushPayload(ele);
+			});
+			papers = store.peekAll('paper');
 			return RSVP.hash({
 				results: A([]),
 				papers,
 				useableProposals,
 				detailProposal: useableProposals.get('firstObject'),
-				detailPaper: papers[0].get('firstObject')
+				detailPaper: papers.get('firstObject')
 			});
 		});
 	}

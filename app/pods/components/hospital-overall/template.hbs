@@ -5,53 +5,91 @@
 				{{bi.destConfig.hospitalConfig.hospital.name}}
 				{{hospital-state bi.isFinish classNames="ml-1"}}
 			{{/bp-layout}}
-			{{#bp-layout classNames="pb-2 pt-3"}}
-				{{#bp-layout classNames="mr-4"}}
+			{{#bp-layout classNames="pt-3" local-class="infos-container"}}
+				{{#bp-layout local-class="item"}}
 					{{#bp-layout direction="col" 
 							local-class="keys" classNames="mr-2"}}
 						<span class="mb-1">潜力</span>
-						<span>预算</span>
+						{{!-- <span>预算</span> --}}
+						<span>销售指标</span>
 					{{/bp-layout}}
 					{{#bp-layout direction="col" local-class="values"}}
 						<span class="mb-1">
-							{{#if (bp-eq overallFilterData.hospitalConfig.potential '')}}
-								-
+							{{#each salesConfigs.firstObject.salesReport.hospitalSalesReports as |hsr|}}
+								{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id overallFilterData.hospitalConfig.hospital.id)}}
+									￥{{format-number hsr.potential 0}}
+								{{/if}}
+							{{/each}}
+						</span>
+						<span>
+							{{!-- {{#unless (bp-eq bi.budget '')}}
+								￥{{format-number bi.budget 0}}
 							{{else}}
-								￥{{format-number overallFilterData.hospitalConfig.potential}}
+								-
+							{{/unless}} --}}
+							{{#unless (bp-eq bi.salesTarget '')}}
+								￥{{format-number bi.salesTarget}}
+							{{else}}
+								-
+							{{/unless}}
+						</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+				{{#bp-layout local-class="item"}}
+					{{#bp-layout direction="col" 
+							local-class="keys" classNames="mr-2"}}
+						{{!-- <span class="mb-1">指标</span> --}}
+						<span class="mb-1">代表名称</span>
+						{{!-- <span>会议名额(个)</span> --}}
+					{{/bp-layout}}
+					{{#bp-layout direction="col" local-class="values"}}
+						<span class="mb-1">
+							{{!-- {{#unless (bp-eq bi.salesTarget '')}}
+								￥{{format-number bi.salesTarget}}
+							{{else}}
+								-
+							{{/unless}} --}}
+							{{#if bi.resourceConfig.representativeConfig.representative.name}}
+								{{bi.resourceConfig.representativeConfig.representative.name}}
+							{{else}}
+								-
 							{{/if}}
 						</span>
 						<span>
-							{{#unless (bp-eq bi.budget '')}}
-								￥{{format-number bi.budget}}
-							{{else}}
-								-
-							{{/unless}}
-						</span>
-					{{/bp-layout}}
-				{{/bp-layout}}
-				{{#bp-layout}}
-					{{#bp-layout direction="col" 
-							local-class="keys" classNames="mr-2"}}
-						<span class="mb-1">指标</span>
-						<span>会议名额(次)</span>
-					{{/bp-layout}}
-					{{#bp-layout direction="col" local-class="values"}}
-						<span class="mb-1">
-							{{#unless (bp-eq bi.salesTarget '')}}
-								{{format-number bi.salesTarget}}
-							{{else}}
-								-
-							{{/unless}}
-						</span>
-						<span>
-							{{#unless (bp-eq bi.meetingPlaces '')}}
+							{{!-- {{#unless (bp-eq bi.meetingPlaces '')}}
 								{{format-number bi.meetingPlaces}}
 							{{else}}
 								-
-							{{/unless}}
+							{{/unless}} --}}
 						</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
+				{{!-- {{#bp-layout direction="col" local-class="item" classNames="mr-4"}}
+					<p local-class="keys" class="mb-2">潜力</p>
+					<p local-class="keys" class="mb-2">代表</p>
+					<p local-class="keys" class="mb-0">指标</p>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" local-class="item"}}
+					<p local-class="values" class="mb-2">
+						{{#each salesConfigs.firstObject.salesReport.hospitalSalesReports as |hsr|}}
+							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id overallFilterData.hospitalConfig.hospital.id)}}
+								￥{{format-number hsr.potential 0}}
+							{{/if}}
+						{{/each}}</p>
+					<p local-class="values" class="mb-2">
+						{{#if bi.resourceConfig.representativeConfig.representative.name}}
+							{{bi.resourceConfig.representativeConfig.representative.name}}
+						{{else}}
+							-
+						{{/if}}
+					</p>
+					<p local-class="values" class="mb-0">
+						{{#unless (bp-eq bi.salesTarget '')}}
+							￥{{format-number bi.salesTarget}}
+						{{else}}
+							-
+						{{/unless}}</p>
+				{{/bp-layout}} --}}
 			{{/bp-layout}}
 		{{/if}}
 	{{/each}}

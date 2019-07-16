@@ -4,13 +4,14 @@ import { A } from '@ember/array';
 
 export default Route.extend({
 	model() {
-		let totalConfig = this.modelFor('page-scenario.reference'),
-			paper = totalConfig.paper,
-			seasons = A([]),
-			tmpData = A([]),
-			destConfigs = totalConfig.destConfigs;
+		const pageScenarioModel = this.modelFor('page-scenario'),
+			proposal = pageScenarioModel.proposal,
+			destConfigs = pageScenarioModel.destConfigs;
 
-		return paper.get('salesReports')
+		let seasons = A([]),
+			tmpData = A([]);
+
+		return proposal.get('salesReports')
 			.then(data => {
 				// 获取hospitalSalesReport
 				let increaseSalesReports = data.sortBy('time'),
@@ -37,7 +38,7 @@ export default Route.extend({
 					let productNames = this.eachArray(hospitalSalesReports, 'productName'),
 						sales = this.eachArray(hospitalSalesReports, 'sales'),
 						salesQuotas = this.eachArray(hospitalSalesReports, 'salesQuota'),
-						quotaAchievement = this.eachArray(hospitalSalesReports, 'salesQuota'),
+						quotaAchievement = this.eachArray(hospitalSalesReports, 'quotaAchievement'),
 						destConfigIds = this.eachArray(hospitalSalesReports, 'destConfig');
 
 					promiseArray = destConfigIds;
@@ -72,7 +73,7 @@ export default Route.extend({
 						date: seasons,
 						sales: tmpData.map(ele => ele.sales[index]),
 						salesQuotas: tmpData.map(ele => ele.salesQuotas[index]),
-						quotaAchievementes: tmpData.map(ele => ele.quotaAchievement[index])
+						quotaAchievementes: tmpData.map(ele => ele.quotaAchievement[index] * 100)
 					};
 				});
 
@@ -91,8 +92,8 @@ export default Route.extend({
 
 				return hash({
 					barDatum: data,
-					goodsConfigs: totalConfig.goodsConfigs,
-					salesConfigs: totalConfig.salesConfigs,
+					goodsConfigs: pageScenarioModel.goodsConfigs,
+					salesConfigs: pageScenarioModel.salesConfigs,
 					destConfigs
 				});
 			});

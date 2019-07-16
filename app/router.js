@@ -29,6 +29,7 @@ Router.map(function () {
 			this.route('decided');
 		});
 		this.route('decision-review', { path: 'decision' });
+		this.route('reference-loading');
 	});
 	this.route('page-proposal', { path: 'proposals' });
 	this.route('page-result', { path: 'result' }, function () {
@@ -39,6 +40,8 @@ Router.map(function () {
 	this.route('page-overview', { path: 'overview' });
 	this.route('page-notice', { path: 'notice/:proposalId' });
 	this.route('login');
-	this.route('page-report', { path: 'report' });
+	this.route('page-report', { path: 'report/:assessmentReport_id' });
+	this.route('loading');
+	this.route('page-scenario-loading');
 });
 export default Router;

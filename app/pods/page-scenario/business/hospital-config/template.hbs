@@ -3,144 +3,103 @@
 	{{model.destConfig.hospitalConfig.hospital.name}}
 	{{#bp-button onClick=(action 'reInput')}}重置{{/bp-button}}
 {{/bp-layout}}
-{{#bp-layout main="between" local-class="reps-meeting"}}
-	{{#bp-layout direction="col" 
-		local-class="reps" classNames="bg-white mr-2"}}
-		{{#bp-layout tagName="h5" cross="center" 
+{{#bp-layout direction='col' classNames='bg-white'}}
+	{{#bp-layout tagName="h5" cross="center" 
 			local-class="title" classNames="px-4 m-0"}}
-			代表和时间分配
-		{{/bp-layout}}
-		{{#bp-layout classNames="p-4"}}
-			{{#bp-layout direction="col" cross="center" local-class="keys" classNames="mr-3"}}
-				<span class="mb-4">指定代表</span>
-				{{!-- <span class="mb-4">代表时间</span> --}}
-				<span>分配时间</span>
-			{{/bp-layout}}
-			{{#bp-layout direction="col" local-class="operating"}}
-				{{#bp-dropdown widthSize="auto" 
-					local-class="dd-representative" classNames="mb-4" as |dd|}}
-					{{#dd.button}}
-						{{#if tmpRc.id}}
-							<p>{{tmpRc.representativeConfig.representative.name}}</p>
-						{{else}}
-							未分配代表
-						{{/if}}
-						{{bp-icon icon='down'}}
-					{{/dd.button}}
-					{{#dd.menu as |menu|}}
-						{{#each model.repConfs as |rc|}}
-							{{#if (bp-eq rc.resourceType 1)}}
-								{{#menu.option value=rc 
+		代表和时间分配
+	{{/bp-layout}}
+	{{#bp-layout main='between' local-class='representative-time' 
+		classNames='py-4'}}
+		{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
+			<span local-class='keys' class='mr-3'>指定代表</span>
+			{{#bp-dropdown widthSize="auto" 
+					local-class="dd-representative operating" as |dd|}}
+				{{#dd.button}}
+					{{#if tmpRc.id}}
+						<p>{{tmpRc.representativeConfig.representative.name}}</p>
+					{{else}}
+						代表
+					{{/if}}
+					{{bp-icon icon='down'}}
+				{{/dd.button}}
+				{{#dd.menu as |menu|}}
+					{{#each model.repConfs as |rc|}}
+						{{#if (bp-eq rc.resourceType 1)}}
+							{{#menu.option value=rc 
 									onClick=(action 'changedRep')
 									local-class="representative-info"}}
-									{{#bp-layout cross="center"}}
-										<img width="24" src={{rc.representativeConfig.representative.images.firstObject.img}} alt="avatar" class="mr-2">
-										<span local-class="name" class="mr-2">
-											{{rc.representativeConfig.representative.name}}
-										</span>
-										{{#each representativesVisitPercent as |rvp|}}
-											{{#if (bp-eq rvp.id rc.id)}}
-												<span local-class="rest-time">
-													剩余时间 {{rvp.restTime}}%
-												</span>
-											{{/if}}
-										{{/each}}
-									{{/bp-layout}}
-								{{/menu.option}}
-							{{/if}}
-						{{/each}}
-					{{/dd.menu}}
-				{{/bp-dropdown}}
-				{{!-- 记得删除 js逻辑 --}}
-				{{!-- {{#bp-layout cross="center" local-class="progress-container" classNames="mb-4" }}
-					{{#bs-progress local-class="progress"
-						as |p|}}
-						{{p.bar maxValue=tmpRc.representativeConfig.totalTime 
-							local-class="bar" value=model.businessinput.visitTime}}
-					{{/bs-progress}}
-					<span local-class="desc" class="ml-2">
-						{{model.businessinput.visitTime}}/
-						{{#if tmpRc.representativeConfig.totalTime}}
-							{{tmpRc.representativeConfig.totalTime}}
-						{{else}}
-							0
-						{{/if}}</span>
-				{{/bp-layout}} --}}
-				{{bp-input widthSize="auto"
+								{{#bp-layout cross="center"}}
+									<img width="24" src={{rc.representativeConfig.representative.images.firstObject.img}} alt="avatar" class="mr-2">
+									<span local-class="name" class="mr-2">
+										{{rc.representativeConfig.representative.name}}
+									</span>
+									{{#each representativesVisitPercent as |rvp|}}
+										{{#if (bp-eq rvp.id rc.id)}}
+											<span local-class="rest-time">
+												剩余时间 {{rvp.restTime}}%
+											</span>
+										{{/if}}
+									{{/each}}
+								{{/bp-layout}}
+							{{/menu.option}}
+						{{/if}}
+					{{/each}}
+				{{/dd.menu}}
+			{{/bp-dropdown}}
+		{{/bp-layout}}
+		{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
+			<span local-class='keys' class='mr-3'>分配时间</span>
+			{{bp-input widthSize="auto"
 					value=model.businessinput.visitTime
 					disabled=(not tmpRc.id)
-					local-class="input-prepend input-time"}}
-			{{/bp-layout}}
-		{{/bp-layout}}
-	{{/bp-layout}}
-	{{#bp-layout direction="col" 
-		local-class="meeting"  classNames="bg-white"}}
-		{{#bp-layout tagName="h5" cross="center" 
-			local-class="title" classNames="px-4 m-0"}}
-			会议名额分配
-		{{/bp-layout}}
-		{{#bp-layout classNames="p-4"}}
-			{{#bp-layout direction="col" local-class="keys" classNames="mr-3"}}
-				<span>分配会议名额</span>
-			{{/bp-layout}}
-			{{#bp-layout direction="col" local-class="operating"}}
-				{{bp-input widthSize="auto"
-					value=model.businessinput.meetingPlaces
-					disabled=(not tmpRc.id)
-					local-class="input-prepend input-meeting"}}
-			{{/bp-layout}}
+					local-class="input-prepend input-time operating"}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
-{{#bp-layout tagName="h5" cross="center" classNames="mb-4 px-4"}}
+{{#bp-layout tagName="h5" cross="center" local-class=(if tmpRc.id 'title' 'title disabled')
+	classNames="m-0 px-4 bg-white"}}
 	药品相关资源设定
 {{/bp-layout}}
-<table local-class="prod" class="table mb-2">
-	<thead>
+<table local-class={{if tmpRc.id 'prod' 'prod disabled'}} class="table mb-2">
+	<thead class='bg-white'>
 		<tr>
-			<th class="border-0 pb-2 pl-2">产品名称</th>
-			<th class="border-0 pb-2 pl-2">药品潜力</th>
-			<th class="border-0 pb-2 pl-2">上季度销售额</th>
-			<th class="border-0 pb-2 pl-2 text-center">指标分配</th>
-			<th class="border-0 pb-2 pl-2 text-center ">预算分配</th>
+			<th class="border-0 pb-2 pl-4 pr-2 text-left">产品名称</th>
+			<th class="border-0 pb-2 px-2 text-left">药品潜力</th>
+			<th class="border-0 pb-2 px-2 text-left">上季度销售额</th>
+			<th class="border-0 pb-2 px-2 text-right">指标分配</th>
+			<th class="border-0 pb-2 pl-2 pr-4 text-right ">预算分配</th>
 		</tr>
 	</thead>
 	<tbody class="bg-white">
-		{{#each model.salesConfigs as |sc|}}
-			{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
-				<tr class="mx-0">
-					<td class="pl-2 border-0">{{sc.goodsConfig.productConfig.product.name}}</td>
-					<td class="pl-2 border-0">
-						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
-							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
-								{{format-number hsr.potential}}
-							{{/if}}
-						{{/each}}
+		{{#each model.salesReport.hospitalSalesReports as |hSR|}}
+			{{#if (bp-eq hSR.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
+				<tr class="mx-0 px-4">
+					<td class="pl-4 pr-2 border-0 text-left">
+						{{model.salesReport.productSalesReports.firstObject.goodsConfig.productConfig.product.name}}
 					</td>
-					<td class="pl-2 border-0">
-						{{#each sc.salesReport.hospitalSalesReports as |hsr|}}
-							{{#if (bp-eq hsr.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}}
-								{{format-number hsr.sales}}
-							{{/if}}
-						{{/each}}
+					<td class="px-2 border-0 text-left">
+						￥{{format-number hSR.potential}}
 					</td>
-					<td class="pl-2 border-0">
+					<td class="px-2 border-0 text-left">
+						￥{{format-number hSR.sales 0}}
+					</td>
+					<td class="px-2 border-0">
 						{{bp-input block=true widthSize="auto" 
 							value=model.businessinput.salesTarget
 							disabled=(not tmpRc.id)
 							local-class="input-prepend input-money"
 							classNames="mb-2"}}
 						<p class="mt-2 mb-0 text-center" local-class="percent">
-							{{IndicatorAllocationPercent}}%
+							{{IndicatorAllocationPercent.percent}}%
 						</p>
 					</td>
-					<td class="pl-2 border-0">
+					<td class="pl-2 pr-4 border-0">
 						{{bp-input block=true widthSize="auto"
 							value=model.businessinput.budget
 							disabled=(not tmpRc.id)
 							local-class="input-prepend input-money"}}
 						<p class="mt-2 mb-0 text-center" local-class="percent">
-							{{budgetPercent}}%
+							{{budgetPercent.percent}}%
 						</p>
 					</td>
 				</tr>
@@ -148,3 +107,19 @@
 		{{/each}}
 	</tbody>
 </table>
+{{#bp-layout tagName="h5" cross="center" local-class=(if tmpRc.id 'title' 'title disabled')
+	classNames="m-0 px-4 bg-white"}}
+	会议名额分配
+{{/bp-layout}}
+{{#bp-layout main='between' local-class=(if tmpRc.id 'meeting-place' 'meeting-place disabled')
+		classNames='py-4 bg-white'}}
+	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
+		<span local-class={{if tmpRc.id 'keys' 'keys disabled'}} class='mr-3'>分配会议名额</span>
+		{{bp-input widthSize="auto"
+					value=model.businessinput.meetingPlaces
+					disabled=(not tmpRc.id)
+					local-class="input-prepend input-meeting operating"}}
+	{{/bp-layout}}
+	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
+	{{/bp-layout}}
+{{/bp-layout}}

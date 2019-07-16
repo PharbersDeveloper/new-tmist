@@ -10,6 +10,11 @@
 	}
 
 	.values {
-		@extend %p-secondary;
+		@extend %p-small;
+		line-height: 20px;
+	}
+
+	.item {
+		flex: 1;
 	}
 }

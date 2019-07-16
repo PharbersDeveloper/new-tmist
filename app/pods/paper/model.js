@@ -8,7 +8,9 @@ export default DS.Model.extend({
 	startTime: DS.attr('number'),
 	endTime: DS.attr('number'),
 	state: DS.attr('number'),
+	totalPhase: DS.attr('number'),
 	paperinputs: DS.hasMany('paperinput'),
 	salesReports: DS.hasMany('salesReport'),
-	personnelAssessments: DS.hasMany('personnelAssessment')
+	personnelAssessments: DS.hasMany('personnelAssessment'),
+	assessmentReports: DS.hasMany('assessmentReport')
 });

@@ -1,6 +1,6 @@
 {
 	"name": "new-tmist",
-	"version": "0.0.7",
+	"version": "0.2.0",
 	"private": true,
 	"description": "new TMIST project for PHARBERS company.",
 	"repository": "",
@@ -20,6 +20,8 @@
 	"devDependencies": {
 		"@ember/jquery": "^0.5.2",
 		"@ember/optional-features": "^0.6.3",
+		"@fortawesome/ember-fontawesome": "^0.1.13",
+		"@fortawesome/free-solid-svg-icons": "^5.8.2",
 		"bootstrap": "^4.0.0",
 		"broccoli-asset-rev": "^2.7.0",
 		"ember-ajax": "^3.1.0",
@@ -42,14 +44,18 @@
 		"ember-css-modules-sass": "^1.0.1",
 		"ember-data": "~3.4.0",
 		"ember-export-application-global": "^2.0.0",
+		"ember-light-table": "^2.0.0-beta.3",
 		"ember-load-initializers": "^1.1.0",
 		"ember-maybe-import-regenerator": "^0.1.6",
 		"ember-resolver": "^5.0.1",
+		"ember-responsive": "^3.0.0",
 		"ember-source": "~3.4.0",
+		"ember-toastr": "^1.7.2",
 		"eslint-plugin-ember": "^5.2.0",
 		"loader.js": "^4.7.0",
 		"qunit-dom": "^0.7.1",
-		"sass": "^1.17.3"
+		"sass": "^1.17.3",
+		"toastr": "^2.1.4"
 	},
 	"dependencies": {
 		"bp-components": "*",

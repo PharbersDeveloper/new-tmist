@@ -5,13 +5,13 @@ import { isEmpty } from '@ember/utils';
 import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
+	numberVerify: /^-?[0-9]\d*$/,
 	groupValue: 0,
 	col: 'col',
 	center: 'center',
-	circleUsedTime: 0,
-	circleRestTime: 1,
 	ManagerUsedKpi: alias('circlePoint.firstObject.value'),
-	// isOverKpi: gt('ManagerUsedKpi', 'managerTotalKpi'),
+	ManagerUsedTime: alias('circleTime.firstObject.value'),
+
 	isOverKpi: computed('ManagerUsedKpi', 'managerTotalKpi', function () {
 		let { ManagerUsedKpi, managerTotalKpi } =
 			this.getProperties('ManagerUsedKpi', 'managerTotalKpi');
@@ -23,6 +23,7 @@ export default Controller.extend({
 			return true;
 		}
 	}),
+
 	circleTime: computed(`managerInput.totalManagerUsedTime`,
 		`representativeInputs.@each.{assistAccessTime,abilityCoach}`,
 		function () {
@@ -32,6 +33,7 @@ export default Controller.extend({
 				usedTime = 0,
 				restTime = 1;
 
+			representativeInputs = isEmpty(representativeInputs) ? [] : representativeInputs;
 			if (typeof managerTotalTime === 'undefined' || typeof representativeInputs === 'undefined') {
 				return A([
 					{ name: '已分配', value: usedTime },
@@ -43,17 +45,32 @@ export default Controller.extend({
 			//	Number(managerInput.get('clientManagementTime')) +	// 重点目标客户管理
 			//	Number(managerInput.get('kpiAnalysisTime')) +	// 代表及KPI分析
 			//	Number(managerInput.get('teamMeetingTime'));	// 团队例会
-			usedTime = managerInput.get('totalManagerUsedTime');
+			usedTime = isEmpty(managerInput) ? 0 : managerInput.get('totalManagerUsedTime');
+
 			representativeInputs.forEach(ele => {
-
-				usedTime += Number(ele.get('assistAccessTime'));
-				usedTime += Number(ele.get('abilityCoach'));
+				if (isEmpty(ele)) {
+					usedTime += 0;
+				} else {
+					usedTime += Number(ele.get('assistAccessTime'));
+					usedTime += Number(ele.get('abilityCoach'));
+				}
 			});
-
+			if (!this.get('numberVerify').test(usedTime)) {
+				// eslint-disable-next-line ember/no-side-effects
+				this.set('warning', {
+					open: true,
+					title: '非法值警告',
+					detail: '请输入数字！'
+				});
+			}
 			restTime = managerTotalTime - usedTime;
 			if (restTime < 0) {
 				// eslint-disable-next-line ember/no-side-effects
-				this.set('overManagerTotalTime', true);
+				this.set('warning', {
+					open: true,
+					title: '经理时间超额',
+					detail: '经理时间设定已超过限制，请重新分配。'
+				});
 			}
 			return A([
 				{ name: '已分配', value: usedTime },
@@ -66,6 +83,8 @@ export default Controller.extend({
 			usedPoint = 0,
 			restPoint = 1;
 
+		representativeInputs = isEmpty(representativeInputs) ? [] : representativeInputs;
+
 		if (typeof managerTotalKpi === 'undefined') {
 			return A([
 				{ name: '已分配', value: usedPoint },
@@ -74,7 +93,9 @@ export default Controller.extend({
 		}
 
 		representativeInputs.forEach(ele => {
-			usedPoint += Number(ele.get('totalPoint'));
+			let totalPoint = isEmpty(ele) ? 0 : ele.get('totalPoint');
+
+			usedPoint += Number(totalPoint);
 		});
 
 		restPoint = managerTotalKpi - usedPoint;
@@ -95,7 +116,7 @@ export default Controller.extend({
 			return [
 				{
 					value: [0, 0, 0, 0, 0],
-					name: '代表本期初始能力'
+					name: '代表个人能力'
 				},
 				{
 					value: averageAbility,
@@ -123,7 +144,7 @@ export default Controller.extend({
 		return [
 			{
 				value: originalAbility,
-				name: '代表本期初始能力'
+				name: '代表个人能力'
 			},
 			{
 				value: averageAbility,
@@ -133,7 +154,49 @@ export default Controller.extend({
 	}),
 	actions: {
 		changeState(context, key) {
-			context.toggleProperty(key);
+			let isOverKpi = this.get('isOverKpi'),
+				state = Number(context.get(key));
+
+			if (!isOverKpi || state !== 0) {
+				context.toggleProperty(key);
+			} else {
+				this.set('warning', {
+					open: true,
+					title: '经理行动点数超额',
+					detail: '经理无剩余行动点数可供分配。'
+				});
+			}
+		},
+		reInputTime() {
+			let managerInput = this.get('model.managerInput'),
+				representativeInputs = this.get('model.representativeInputs');
+
+			managerInput.setProperties({
+				strategyAnalysisTime: '',
+				adminWorkTime: '',
+				clientManagementTime: '',
+				kpiAnalysisTime: '',
+				teamMeetingTime: ''
+			});
+			representativeInputs.forEach(ele => {
+				ele.setProperties({
+					abilityCoach: '',
+					assistAccessTime: ''
+				});
+			});
+		},
+		reInputPoint() {
+			let representativeInputs = this.get('model.representativeInputs');
+
+			representativeInputs.forEach(ele => {
+				ele.setProperties({
+					productKnowledgeTraining: 0,
+					salesAbilityTraining: 0,
+					regionTraining: 0,
+					performanceTraining: 0,
+					vocationalDevelopment: 0
+				});
+			});
 		}
 	}
 });

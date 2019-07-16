@@ -15,6 +15,10 @@
 
 			.info {
 				@extend %header-large;
+
+				.unit {
+					@extend %p-small;
+				}
 			}
 
 			.m-name {
@@ -47,52 +51,24 @@
 					@extend %p-secondary;
 				}
 			}
-		}
-	}
 
-	.infos {
-		flex: 0 0 314px;
+			.rest-time {
+				margin-bottom: 16px;
 
-		h3.title {
-			flex: 0 0 54px;
-			@extend %header-medium;
+				width: 50%;
+				font-size: 0;
 
-			.dd-hosp {
-				width: 98px;
-			}
-		}
-
-		h4.title {
-			@extend %header-small;
-		}
-
-		.keys {
-			@extend %p-primary;
-		}
-
-		.values {
-			@extend %p-secondary;
-		}
-
-		.hospitals-configs {
-			max-height: 402px;
-			overflow: auto;
-
-			a:hover {
-				text-decoration: none;
-			}
-
-			:global(.current-hospital) {
-				:global(.hospital-box) {
-					background-color: $n040a;
+				.keys {
+					@extend %p-primary;
 				}
-			}
-		}
 
-		.over-all {
-			.values {
-				@extend %p-small;
-				line-height: 20px;
+				.values {
+					@extend %p-secondary;
+				}
+
+				&:last-child {
+					margin: 0;
+				}
 			}
 		}
 	}
@@ -102,7 +78,7 @@
 
 		.hospitals-configs {
 			flex: 0 0 368px;
-			max-height: 400px;
+			max-height: 525px;
 			overflow: auto;
 
 			h3.title {
@@ -118,6 +94,7 @@
 				text-decoration: none;
 			}
 
+
 			:global(.current-hospital) {
 				:global(.hospital-box) {
 					background-color: $n020a;
@@ -129,6 +106,4 @@
 			flex: 1;
 		}
 	}
-
-
 }
