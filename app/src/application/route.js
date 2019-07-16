@@ -4,7 +4,7 @@ import { inject as service } from "@ember/service"
 // import { A } from "@ember/array"
 // import { isEmpty } from "@ember/utils"
 import ENV from "new-tmist/config/environment"
-import Ember from "Ember"
+import Ember from "ember"
 
 export default Route.extend( {
 	intl: service(),
@@ -70,12 +70,6 @@ export default Route.extend( {
 	// 			detailPaper: papers.get( "firstObject" )
 	// 		} )
 	// 	} )
-	// },
-	// judgeOauth() {
-	// 	let oauthService = this.get('oauthService'),
-	// 		judgeAuth = oauthService.judgeAuth();
-
-	// 	return judgeAuth ? oauthService.redirectUri : null;
 	// },
 	actions: {
 		error( error, transition ) {

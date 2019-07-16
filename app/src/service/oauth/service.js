@@ -3,7 +3,7 @@ import { inject as service } from "@ember/service"
 import { isEmpty } from "@ember/utils"
 import { A } from "@ember/array"
 import ENV from "../../../config/environment"
-import Ember from "Ember"
+import Ember from "ember"
 const { keys } = Object
 
 export default Service.extend( {

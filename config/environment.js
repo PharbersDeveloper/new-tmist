@@ -37,7 +37,7 @@ module.exports = function( environment ) {
 			RedirectUri: "",
 			AuthEndpoint: "page.login",
 			RedirectEndpoint: "service.oauth-callback",
-			IndexEndpoint: "page.index"
+			IndexEndpoint: "page.welcome"
 		}
 	}
 

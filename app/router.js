@@ -4,27 +4,19 @@ import config from "./config/environment"
 import Route from "@ember/routing/route"
 
 const Router = EmberRouter.extend( {
-	location: config.locationType,
-	rootURL: config.rootURL
-} )
-
-Route.reopen( {
-	showNav: true,
-	setupController() {
-		this._super( ...arguments )
-		this.controllerFor( "application" ).set( "showNavbar", this.get( "showNav" ) )
-	}
+    location: config.locationType,
+    rootURL: config.rootURL
 } )
 
 Router.map( function() {
-	this.route( "page", function() {
-		this.route( "login" )
-		this.route( "wellcome" )
-	} )
+    this.route( "page", { path: "/" }, function() {
+      this.route( "login" )
+      this.route('welcome', { path: "/" });
+    } )
 
-	this.route( "service", function() {
-		this.route( "oauth-callback" )
-	} )
+    this.route( "service", function() {
+        this.route( "oauth-callback" )
+    } )
 } )
 
 export default Router
