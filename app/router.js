@@ -21,6 +21,10 @@ Router.map( function() {
 		this.route( "login" )
 		this.route( "wellcome" )
 	} )
+
+	this.route( "service", function() {
+		this.route( "oauth-callback" )
+	} )
 } )
 
 export default Router

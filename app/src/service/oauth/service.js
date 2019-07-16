@@ -3,6 +3,7 @@ import { inject as service } from "@ember/service"
 import { isEmpty } from "@ember/utils"
 import { A } from "@ember/array"
 import ENV from "../../../config/environment"
+import Ember from "Ember"
 const { keys } = Object
 
 export default Service.extend( {
@@ -22,36 +23,36 @@ export default Service.extend( {
                     &client_secret=${ ENV.OAuth.ClientSecret }
                     &scope=${ ENV.OAuth.Scope }
                     &status=${ ENV.OAuth.Status }
-                    &redirect_uri=${ ENV.OAuth.RedirectUri }/oauth-callback`.
+                    &redirect_uri=${ ENV.OAuth.RedirectUri }/service/oauth-callback`.
 				replace( /\n/gm, "" ).
 				replace( / /gm, "" ).
 				replace( /\t/gm, "" )
 
 		return ajax.request( [host, version, resource, url].join( "/" ), {
-			dataType: "text/html"
+			dataType: "text"
 		} ).then( response => {
 			return response
 
 		} ).catch( err => {
-			console.error( err )
+			Ember.Logger.error( err )
 		} )
 	},
 
-	oauthCallback( transition ) {
+	oauthCallback( queryParams ) {
 		let version = `${ ENV.API.Version }`,
 			host = `${ ENV.OAuth.Host }`,
 			resource = "GenerateAccessToken",
 			url = "",
 			cookies = this.get( "cookies" )
 
-		const ajax = this.get( "ajax" ),
-			{ queryParams } = transition
+		const ajax = this.get( "ajax" )
+		// { queryParams } = transition
 
 		if ( queryParams.code && queryParams.state ) {
 			url = `?client_id=${ ENV.OAuth.ClientId }
 					&client_secret=${ ENV.OAuth.ClientSecret }
 					&scope=${ ENV.OAuth.Scope }
-					&redirect_uri=${ ENV.OAuth.RedirectUri }/oauth-callback
+					&redirect_uri=${ ENV.OAuth.RedirectUri }/service/oauth-callback
 					&code=${queryParams.code}
 					&state=${queryParams.state}`.
 				replace( /\n/gm, "" ).
@@ -76,17 +77,21 @@ export default Service.extend( {
 					cookies.write( "scope", response.scope, options )
 					cookies.write( "expiry", response.expiry, options )
 
-					this.get( "router" ).transitionTo( "index" )
+					// this.get( "router" ).transitionTo( "index" )
+					Ember.Logger.info( "auth token successful" )
 				} )
 				.catch( () => {
-					this.get( "router" ).transitionTo( "index" )
+					// this.get( "router" ).transitionTo( "index" )
+					Ember.Logger.error( "auth token failed" )
 				} )
 		} else {
-			this.get( "router" ).transitionTo( "index" )
+			// this.get( "router" ).transitionTo( "index" )
+			Ember.Logger.error( "auth token failed" )
 		}
 	},
 
-	judgeAuth() {
+	judgeAuth( targetName ) {
+
 		let tokenFlag = false,
 			scopeFlag = false,
 			token = this.get( "cookies" ).read( "access_token" ),
@@ -118,10 +123,9 @@ export default Service.extend( {
 			} )
 		}
 
-		if ( tokenFlag && scopeFlag ) {
-			return true
+		if ( ( !tokenFlag || !scopeFlag ) && targetName !== ENV.OAuth.RedirectEndpoint ) {
+			this.router.transitionTo( ENV.OAuth.AuthEndpoint )
 		}
-		return false
 	},
 
 	removeAuth() {

@@ -34,7 +34,10 @@ module.exports = function( environment ) {
 			Status: "self",
 			Scope: "APP/NTM",
 			Host: "",
-			RedirectUri: ""
+			RedirectUri: "",
+			AuthEndpoint: "page.login",
+			RedirectEndpoint: "service.oauth-callback",
+			IndexEndpoint: "page.index"
 		}
 	}
 
