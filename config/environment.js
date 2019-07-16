@@ -9,6 +9,7 @@ module.exports = function (environment) {
 		locationType: 'auto',
 		redirectUri: 'http://ntm.pharbers.com',
 		host: 'http://oauth.pharbers.com',
+		clientId: '5cbd9f94f4ce4352ecb082a0',
 		fontawesome: {
 			icons: {
 				'free-solid-svg-icons': 'all'

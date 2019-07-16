@@ -3,19 +3,13 @@ import RSVP from 'rsvp';
 import { A } from '@ember/array';
 import { inject as service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
+// import ENV from 'new-tmist/config/environment';
 
 export default Route.extend({
 	cookies: service(),
 	ajax: service(),
-	// beforeModel() {
-	// 	const cookies = this.get('cookies');
-
-	// 	let token = cookies.read('access_token');
-
-	// 	if (!token) {
-	// 		this.transitionTo('login');
-	// 	}
-	// },
+	// xmpp: service('service-xmpp'),
+	converse: service('serviceConverse'),
 	activate() {
 		this._super(...arguments);
 		let applicationController = this.controllerFor('application');
@@ -33,6 +27,54 @@ export default Route.extend({
 		// 	localStorage.removeItem('refresh');
 		// 	window.location.reload(true);
 		// }
+	},
+	// init() {
+	// 	this._super(...arguments);
+	// 	this.get('xmpp').initialize(ENV);
+	// 	this.get('xmpp').callBack(this.cFuncBack);
+	// 	this.get('xmpp').connect('swang', 'swang');
+	// },
+	// cFuncBack(message) {
+	// 	window.console.info(message);
+	// },
+	setupController(controller) {
+		this._super(...arguments);
+		const converse = this.converse,
+			CONVERSE = window.converse;
+
+		window.console.log(!controller.get('hasPlugin'));
+		if (!controller.get('hasPlugin')) {
+			converse.initialize();
+			try {
+				CONVERSE.plugins.add('chat_plugin', {
+					initialize: function () {
+						this._converse.log('converse plugin initialize');
+						controller.set('hasPlugin', true);
+						this._converse.api.listen.on('message', obj => {
+							let message = isEmpty(obj.stanza.textContent) ? '{}' : obj.stanza.textContent;
+
+							window.console.log(JSON.parse(message).msg);
+							window.console.log(this._converse.api.user.status.get());
+							if (!isEmpty(message)) {
+								window.console.info(JSON.parse(message));
+								controller.set('xmppMessage', JSON.parse(message));
+								return JSON.parse(message);
+							}
+						});
+						// this._converse.api.listen.on('disconnected', () => {
+						// 	window.console.log('disconnected');
+						// 	// converse.initialize();
+						// });
+						// this._converse.api.listen.on('statusChanged', status => {
+						// 	window.console.log('statusChanged');
+						// 	window.console.log('status');
+						// });
+					}
+				});
+			} catch (error) {
+				window.console.warn(error);
+			}
+		}
 	},
 	model() {
 		let applicationModel = this.modelFor('application'),

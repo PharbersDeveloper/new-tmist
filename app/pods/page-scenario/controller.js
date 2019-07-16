@@ -8,6 +8,7 @@ import { inject as service } from '@ember/service';
 export default Controller.extend({
 	ajax: service(),
 	cookies: service(),
+	serviceStatus: service(),
 	verify: service('service-verify'),
 	toast: service(),
 	testBtn: computed(function () {
@@ -238,8 +239,7 @@ export default Controller.extend({
 			store = this.get('store'),
 			model = this.get('model'),
 			paper = model.paper,
-			scenario = model.scenario,
-			that = this;
+			scenario = model.scenario;
 
 		//	正常逻辑
 		let version = `${applicationAdapter.get('namespace')}`,
@@ -294,6 +294,9 @@ export default Controller.extend({
 
 				localStorage.clear();
 				localStorage.setItem('notice', notice);
+				// 不想改动太多逻辑，怕改错了，最简单的方式就是将现在的PaperID存入一个地方在取出来
+				this.get('serviceStatus').set('currentPaperId', paperId);
+				// localStorage.setItem('currentPaperId', paperId);
 				if (state === 1) {
 					// this.set('warning', {
 					// 	open: true,
@@ -313,30 +316,14 @@ export default Controller.extend({
 					method: 'POST',
 					data: JSON.stringify({
 						'proposal-id': this.get('model').proposal.id,
-						'account-id': this.get('cookies').read('account_id')
+						'account-id': this.get('cookies').read('account_id'),
+						'scenario-id': this.model.scenario.get('id')
 					})
-				}).then((response) => {
-					if (response.status === 'Success') {
-						return that.updatePaper(store, paperId, state, that);
-					}
-					return response;
 				}).then(() => {
 				}).catch(err => {
 					window.console.log('error');
 					window.console.log(err);
 				});
-			});
-	},
-	updatePaper(store, paperId, state, context) {
-		store.findRecord('paper', paperId, { reload: true })
-			.then(data => {
-				data.set('state', state);
-				return data.save();
-			}).then(() => {
-				this.set('loadingForSubmit', false);
-
-				context.transitionToRoute('page-result');
-				return null;
 			});
 	},
 	judgeOauth() {

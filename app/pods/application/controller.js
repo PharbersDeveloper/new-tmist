@@ -73,23 +73,6 @@ export default Controller.extend({
 					window.location = this.get('oauthService').redirectUri;
 					return;
 				}
-				return ajax.request(`${version}/CallRCalculate`, {
-					method: 'POST',
-					data: JSON.stringify({
-						'proposal-id': this.get('model').proposal.id,
-						'account-id': this.get('cookies').read('account_id')
-					})
-				}).then((response) => {
-					if (response.status === 'Success') {
-						this.transitionToRoute('page-result');
-						return;
-					}
-
-					return response;
-				}).catch(err => {
-					window.console.log('error');
-					window.console.log(err);
-				});
 			});
 	},
 	judgeOauth() {

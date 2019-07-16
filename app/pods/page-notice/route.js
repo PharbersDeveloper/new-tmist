@@ -5,6 +5,7 @@ import { isEmpty } from '@ember/utils';
 
 export default Route.extend({
 	cookies: service(),
+	serviceStatus: service(),
 	afterModel(model) {
 		let applicationController = this.controllerFor('application');
 
@@ -29,6 +30,9 @@ export default Route.extend({
 			.then(data => {
 				scenario = data.get('firstObject');
 				scenarioId = scenario.get('id');
+				// 不想改动太多逻辑，怕改错了，最简单的方式就是将现在的ScenarioID存入一个地方在取出来
+				this.get('serviceStatus').set('currentScenarioId', scenarioId);
+				// localStorage.setItem('currentScenarioId', scenarioId);
 				let state = detailPaper.get('state'),
 					reDeploy = Number(localStorage.getItem('reDeploy'));
 

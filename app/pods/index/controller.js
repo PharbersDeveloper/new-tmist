@@ -2,26 +2,70 @@ import Controller from '@ember/controller';
 import ENV from 'new-tmist/config/environment';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 
 export default Controller.extend({
 	cookies: service(),
+	converse: service('service-converse'),
+	serviceStatus: service(),
 	testBtn: computed(function () {
 		if (ENV.environment === 'development') {
 			return true;
 		}
 		return false;
 	}),
-	notice: localStorage.getItem('notice') !== 'false',
-	// notice: computed('cookies.notice', function () {
-	// 	let localStorageNotice = localStorage.getItem('notice'),
-	// 		notice = this.cookies.read('notice');
+	xmppResult: observer('xmppMessage.time', function () {
+		let clientId = ENV.clientId,
+			accountId = this.get('cookies').read('account_id'),
+			proposalId = this.get('model').detailProposal.get('proposal.id'),
+			scenarioId = this.get('serviceStatus').get('currentScenarioId'),
+			xmppMessage = this.xmppMessage;
 
-	// 	if (localStorageNotice === 'false' || !isEmpty(notice)) {
-	// 		return false;
-	// 	}
-	// 	return true;
-	// }),
+		// if (ENV.environment === 'development') {
+		if (xmppMessage['type'] === 'calc') {
+
+			if (xmppMessage['client-id'] !== clientId) {
+				if (ENV.environment === 'development') {
+					window.console.log('client-id error');
+				}
+				return;
+			} else if (xmppMessage['account-id'] !== accountId) {
+				if (ENV.environment === 'development') {
+					window.console.log('账户 error');
+				}
+				return;
+			} else if (xmppMessage['proposal-id'] !== proposalId) {
+				if (ENV.environment === 'development') {
+					window.console.log('proposal-id error');
+				}
+				return;
+			} else if (xmppMessage['scenario-id'] !== scenarioId) {
+				if (ENV.environment === 'development') {
+					window.console.log('关卡 error');
+				}
+				return;
+			}
+			if (xmppMessage.status === 'ok') {
+				if (ENV.environment === 'development') {
+					window.console.log('结果已经返回');
+				}
+				this.updatePaper(this.store, this.get('serviceStatus').get('currentPaperId'), this);
+				return;
+			}
+			window.console.log('计算错误');
+
+		}
+	}),
+	updatePaper(store, paperId, context) {
+		store.findRecord('paper', paperId, { reload: true })
+			.then(() => {
+				this.set('loadingForSubmit', false);
+
+				context.transitionToRoute('page-result');
+				return null;
+			});
+	},
+	notice: localStorage.getItem('notice') !== 'false',
 	neverShow: A(['不在显示']),
 	reports: computed('model.detailPaper', function () {
 		let paper = this.get('model.detailPaper'),
