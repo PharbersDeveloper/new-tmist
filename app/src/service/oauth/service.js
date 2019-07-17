@@ -17,7 +17,7 @@ export default Service.extend( {
 		const ajax = this.get( "ajax" )
 
 		let host = `${ ENV.OAuth.Host }`,
-			version = `${ ENV.API.Version }`,
+			version = `${ ENV.OAuth.Version }`,
 			resource = "ThirdParty",
 			url = `?client_id=${ ENV.OAuth.ClientId }
                     &client_secret=${ ENV.OAuth.ClientSecret }
@@ -39,7 +39,7 @@ export default Service.extend( {
 	},
 
 	oauthCallback( queryParams ) {
-		let version = `${ ENV.API.Version }`,
+		let version = `${ ENV.OAuth.Version }`,
 			host = `${ ENV.OAuth.Host }`,
 			resource = "GenerateAccessToken",
 			url = "",
@@ -82,16 +82,22 @@ export default Service.extend( {
 				} )
 				.catch( () => {
 					// this.get( "router" ).transitionTo( "index" )
-					Ember.Logger.error( "auth token failed" )
+					Ember.Logger.error( "auth code 2 token failed" )
+					let reval = this.checkTokens()
+					if ( ( !reval.tokenFlag || !reval.scopeFlag ) ) {
+						window.location = "/login"
+						return 
+					}
 				} )
 		} else {
 			// this.get( "router" ).transitionTo( "index" )
 			Ember.Logger.error( "auth token failed" )
+			this.removeAuth()
+			window.location = "/login"
 		}
 	},
 
-	judgeAuth( targetName ) {
-
+	checkTokens() {
 		let tokenFlag = false,
 			scopeFlag = false,
 			token = this.get( "cookies" ).read( "access_token" ),
@@ -123,7 +129,14 @@ export default Service.extend( {
 			} )
 		}
 
-		if ( ( !tokenFlag || !scopeFlag ) && targetName !== ENV.OAuth.RedirectEndpoint ) {
+		return { "tokenFlag": tokenFlag, "scopeFlag": scopeFlag }
+	},
+
+	judgeAuth( targetName ) {
+
+		let reval = this.checkTokens()
+
+		if ( ( !reval.tokenFlag || !reval.scopeFlag ) && targetName !== ENV.OAuth.RedirectEndpoint ) {
 			this.router.transitionTo( ENV.OAuth.AuthEndpoint )
 		}
 	},

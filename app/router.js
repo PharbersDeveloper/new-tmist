@@ -11,7 +11,7 @@ const Router = EmberRouter.extend( {
 Router.map( function() {
     this.route( "page", { path: "/" }, function() {
       this.route( "login" )
-      this.route('welcome', { path: "/" });
+      this.route('welcome');
     } )
 
     this.route( "service", function() {

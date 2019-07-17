@@ -2,17 +2,18 @@ import DS from "ember-data"
 import { computed } from "@ember/object"
 import { camelize } from "@ember/string"
 import { pluralize } from "ember-inflector"
+import ENV from "new-tmist/config/environment"
 import { inject as service } from "@ember/service"
 
 export default DS.JSONAPIAdapter.extend( {
-	namespace: "v0",
-	scope: "APP/NTM",
+	namespace: ENV.API.Version,
+	// scope: "APP/NTM",
 	cookies: service(),
-	pathForType( type ) {
-		let newType = pluralize( camelize( type ) )
+	// pathForType( type ) {
+		// let newType = pluralize( camelize( type ) )
 
-		return newType
-	},
+		// return newType
+	// },
 	headers: computed( function () {
 		let cookies = this.get( "cookies" )
 

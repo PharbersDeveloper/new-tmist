@@ -37,7 +37,7 @@ export default Route.extend( {
 	model() {
 		debugger
 		return RSVP.hash( {
-			// useableProposals: this.store.findAll("model/usable-proposal")
+			useableProposals: this.store.findAll("model/usable-proposal")
 		} )
 
 		// let applicationModel = this.modelFor( "application" ),

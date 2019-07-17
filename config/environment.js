@@ -24,11 +24,11 @@ module.exports = function( environment ) {
 		},
 
 		API: {
-			Version: "v0"
-
+			Version: ""
 		},
 
 		OAuth: {
+			Version: "v0",
 			ClientId: "5cbd9f94f4ce4352ecb082a0",
 			ClientSecret: "5c90db71eeefcc082c0823b2",
 			Status: "self",
