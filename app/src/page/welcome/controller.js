@@ -33,9 +33,12 @@ export default Controller.extend( {
 		checkReport( assessmentReport ) {
 			this.transitionToRoute( "page-report", assessmentReport.id )
 		},
-		changeDetail( useableProposal, paper ) {
-			this.set( "model.detailProposal", useableProposal )
-			this.set( "model.detailPaper", paper )
+		// changeDetail( useableProposal, paper ) {
+		changeDetail( useableProposal ) {
+			// this.set( "model.detailProposal", useableProposal )
+			// this.set( "model.detailPaper", paper )
+			// TODO: 添加右边展示逻辑
+			this.transitionToRoute("page.project", useableProposal.get("proposal.id"))
 		},
 		startDeploy( proposalId ) {
 			localStorage.setItem( "notice", false )

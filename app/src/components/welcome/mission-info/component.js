@@ -21,9 +21,11 @@ export default Component.extend( {
 	// doneMissionActive: equal( "useableProposalPaper.state", 3 )
 
 	// onClick() { },
-	// click(params) {
-	// 	let action = this.get('onClick');
-	// 	action(params);
-	// 	return this.get('bubble');
-	// }
+	click(params) {
+		// let action = this.get('onClick');
+		// action(params);
+		// return this.get('bubble');
+		// this.onMessageInfoClick(this.get("useableProposal.proposal._id"))
+		this.onClick(this.get("useableProposal.proposal"))
+	}
 } )

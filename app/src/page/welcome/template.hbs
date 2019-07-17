@@ -9,7 +9,8 @@
 					{{welcome/mission-info
 							local-class="choosed"
 							useableProposal=useableProposal
-							onClick=(action "changeDetail" useableProposal paper)}}
+							onClick=(action "changeDetail" useableProposal)}}
+							{{!-- onClick=(action "changeDetail" useableProposal paper)}} --}}
 					{{!-- {{/each}} --}}
 				{{!-- {{/if}} --}}
 			{{!-- {{/each}} --}}
@@ -83,12 +84,12 @@
 				{{/bp-layout}}
 			{{else}}
 				<p class="mt-2">{{t "welcome.task-not-completed"}}</p>
-				{{#if testBtn}}
+				{{!-- {{#if testBtn}}
 					<p>{{#link-to "page.project"}}
 							project page
 						{{/link-to}}
 					</p>
-				{{/if}}
+				{{/if}} --}}
 			{{/each}}
 		{{/bp-layout}}
 	{{/if}}
