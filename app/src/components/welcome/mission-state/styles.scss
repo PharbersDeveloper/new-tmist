@@ -1,0 +1,17 @@
+.state {
+	span {
+		display: inline-block;
+		@extend %p-small-inverse;
+		color: $n000;
+		@extend %defaultRadius;
+		background-color: $b400;
+	}
+
+	&.mission-new span {
+		background-color: $p400;
+	}
+
+	&.mission-done span {
+		background-color: $g400;
+	}
+}

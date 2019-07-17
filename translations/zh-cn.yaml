@@ -22,3 +22,28 @@ nav:
     content: 您当前的决策将被保存，等您继续部署。您确定要结束任务吗？
     confirm-btn: 确定
     cancel-btn: 取消
+welcome:
+  session-1: 关卡1*
+  total: （共
+  peroid: 周期）
+  total-finish: 共完成
+  times: 次
+  s: S
+  grade: 级*
+  no-task: 暂无任务
+  redeployment: 重新部署
+  continue-deployment: 继续部署
+  start-deployment: 开始部署
+  historical-evaluation-report: 历史评测报告
+  examine: 查看
+  task-not-completed: 还没有完成过该任务
+  welcome-model:
+    line-1: 欢迎进入铁马区域管理模拟平台
+    line-2: 铁马以多维科学管理理论，精准算法模型定制真实场景，实现精准培训。 为您深度解读团队能力图谱及挑战，协助您应对复杂多变的医药销售环境。 挑战即将开始…
+    confirm-btn: 开始挑战
+  check-model:
+    desc-content: 重新开始将清空您上次尚未完成的决策记录，是否继续？
+    cancel-btn: 取消
+mission-info:
+  total: 共
+  period: 周期

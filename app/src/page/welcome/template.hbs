@@ -1,25 +1,24 @@
-<h2>abcde</h2>
 {{#bp-layout local-class="page-mission"}}
-	{{#bp-layout wrap=true multi='start' local-class="mission-list" classNames="p-4"}}
+	{{#bp-layout wrap=true multi="start" local-class="mission-list" classNames="p-4"}}
 		{{#each model.useableProposals as |useableProposal uindex|}}
 			{{#each model.papers as |paper pindex|}}
 				{{#if (bp-eq uindex pindex)}}
 					{{!-- {{#each paper as |useableProposalPaper|}} --}}
 					{{mission-info
-							local-class=(if (bp-eq model.detailPaper.id paper.id) 'choosed')
+							local-class=(if (bp-eq model.detailPaper.id paper.id) "choosed")
 							useableProposal=useableProposal
 							useableProposalPaper=paper
-							onClick=(action 'changeDetail' useableProposal paper)}}
+							onClick=(action "changeDetail" useableProposal paper)}}
 					{{!-- {{/each}} --}}
 				{{/if}}
 			{{/each}}
 		{{else}}
-			<p>暂无任务</p>
+			<p>{{t "welcome.no-task"}}</p>
 		{{/each}}
 	{{/bp-layout}}
 	{{#if (bp-eq model.useableProposals.length 0)}}
 		{{#bp-layout direction="col" local-class="mission-desc" classNames="p-4"}}
-			暂无任务
+			{{t "welcome.no-task"}}
 		{{/bp-layout}}
 	{{else}}
 		{{#bp-layout direction="col" local-class="mission-desc" classNames="p-4"}}
@@ -32,57 +31,57 @@
 			</h3>
 			{{#if (bp-not-eq model.detailProposal.proposal.totalPhase 1)}}
 				<p local-class="phase" class="mb-4">
-					<span>关卡1*</span>
-					<span>(共{{model.detailProposal.proposal.totalPhase}}周期)</span>
+					<span>{{t "welcome.session-1"}}</span>
+					<span>{{t "welcome.total"}}{{model.detailProposal.proposal.totalPhase}}{{t "welcome.peroid"}}</span>
 				</p>
 			{{/if}}
 			<p local-class="desc" class="mb-4">
 				{{model.detailProposal.proposal.describe }}
 			</p>
 			{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
-				{{!-- {{#bp-button type="primary" tagName='span' onClick=(action 'startDeploy' model.detailProposal.proposal.id)}}
+				{{!-- {{#bp-button type="primary" tagName="span" onClick=(action "startDeploy" model.detailProposal.proposal.id)}}
 				开始部署
 			{{/bp-button}} --}}
 				{{#if (bp-eq model.detailPaper.state 1)}}
-					{{#bp-button tagName='span' classNames="mr-1" onClick=(action (mut reDeploy) true)}}
-						重新部署
+					{{#bp-button tagName="span" classNames="mr-1" onClick=(action (mut reDeploy) true)}}
+						{{t "welcome.redeployment"}}
 					{{/bp-button}}
-					{{#bp-button type="primary" tagName='span' onClick=(action 'startDeploy' model.detailProposal.proposal.id)}}
-						继续部署
+					{{#bp-button type="primary" tagName="span" onClick=(action "startDeploy" model.detailProposal.proposal.id)}}
+						{{t "welcome.continue-deployment"}}
 					{{/bp-button}}
 				{{else}}
-					{{#bp-button type="primary" tagName='span' 
-					onClick=(action 'startDeploy' model.detailProposal.proposal.id)}}
-						开始部署
+					{{#bp-button type="primary" tagName="span" 
+					onClick=(action "startDeploy" model.detailProposal.proposal.id)}}
+						{{t "welcome.start-deployment"}}
 					{{/bp-button}}
 				{{/if}}
 			{{/bp-layout}}
 			<div class="dropdown-divider mt-3 mb-4"></div>
 			{{#bp-layout tagName="h4" main="between" classNames="m-0"}}
-				<span local-class="title">历史评测报告</span>
+				<span local-class="title">{{t "historical-evaluation-report"}}</span>
 				{{#if (bp-gt model.detailPaper.assessmentReports.length 0)}}
-					<span local-class="times">共完成{{model.detailPaper.assessmentReports.length}}次</span>
+					<span local-class="times">{{t "welcome.total-finish"}}{{model.detailPaper.assessmentReports.length}}{{t "welcome.times"}}</span>
 				{{/if}}
 			{{/bp-layout}}
 			{{#each model.detailPaper.assessmentReports as |assessmentReport index|}}
 				{{#bp-layout tagName="p" main="between" cross="center" 
-				local-class="historp-report" classNames="px-2 py-3 m-0"
+				local-class="historp-report"
 				classNames=(if (bp-eq index 0) "mt-4 mb-0 px-2 py-3" "m-0 px-2 py-3")}}
 					{{#bp-layout tagName="span" local-class="infos"}}
 						<span class="mr-3">{{bp-increment-property index}}</span>
-						<span class="mr-4"> <span local-class="level" class="mr-1">S</span>级*</span>
+						<span class="mr-4"> <span local-class="level" class="mr-1">{{t "welcome.s"}}</span>{{r "welcome.grade"}}</span>
 						<span>{{bp-string-slice assessmentReport.time 0}}</span>
 					{{/bp-layout}}
-					{{!-- {{#bp-button type="linkTo" tagName='span' 
-						onClick=(action 'checkReport' assessmentReport)}}
+					{{!-- {{#bp-button type="linkTo" tagName="span" 
+						onClick=(action "checkReport" assessmentReport)}}
 						查看
 					{{/bp-button}} --}}
 					{{#link-to "page-report" assessmentReport}}
-						查看
+						{{t "welcome.examine"}}
 					{{/link-to}}
 				{{/bp-layout}}
 			{{else}}
-				<p class="mt-2">还没有完成过该任务</p>
+				<p class="mt-2">{{t "welcome.ask-not-completed"}}</p>
 				{{!-- {{#if testBtn}}
 					<p>{{#link-to "page-report"}}
 							还没有完成过该任务
@@ -95,7 +94,7 @@
 {{/bp-layout}}
 {{!-- {{#bp-modal
 		open=notice 
-		position='center'
+		position="center"
 		onSubmit=(action "submit") 
 		onHidden=(action (mut notice) false) as |modal|}}
 	{{#modal.header closeButton=false classNames="p-4"}}
@@ -106,7 +105,7 @@
 	{{/modal.body}}
 	{{#bp-layout main="between" classNames="px-4"}}
 		<p>
-			{{#choose-group type="checkbox" onChange=(action 'chooseItem') as |choose|}}
+			{{#choose-group type="checkbox" onChange=(action "chooseItem") as |choose|}}
 				{{#each neverShow as |radio|}}
 					{{choose.item radio=radio}}
 				{{/each}}
@@ -115,10 +114,10 @@
 		<p>
 			{{#bp-button type="link" onClick=(action modal.close)}}跳过{{/bp-button}}
 			{{#if (bp-eq step 3)}}
-				{{#bp-button onClick=(action 'prevStep')}}上一步{{/bp-button}}
+				{{#bp-button onClick=(action "prevStep")}}上一步{{/bp-button}}
 				{{#bp-button type="primary" onClick=(action modal.close)}}开始{{/bp-button}}
 			{{else if (bp-eq step 2)}}
-				{{#bp-button onClick=(action 'prevStep')}}上一步{{/bp-button}}
+				{{#bp-button onClick=(action "prevStep")}}上一步{{/bp-button}}
 				{{#bp-button type="primary" onClick=(action modal.submit)}}下一步({{step}}/3){{/bp-button}}
 			{{else}}
 				{{#bp-button type="primary" onClick=(action modal.submit)}}下一步({{step}}/3){{/bp-button}}
@@ -128,45 +127,45 @@
 {{/bp-modal}} --}}
 {{#bp-modal
 		open=notice 
-		position='center'
+		position="center"
 		onHidden=(action (mut notice) false) as |modal|}}
 	{{#modal.header closeButton=false classNames="p-4"}}
-		欢迎进入铁马区域管理模拟平台
+		{{t "welcome.welcome-model.line-1"}}
 	{{/modal.header}}
 	{{#modal.body classNames="px-4 pt-0"}}
 		<p class="desc mb-4">
-			铁马以多维科学管理理论，精准算法模型定制真实场景，实现精准培训。 为您深度解读团队能力图谱及挑战，协助您应对复杂多变的医药销售环境。 挑战即将开始…
+			{{t "welcome.welcome-model.line-2"}}
 		</p>
 	{{/modal.body}}
 	{{#bp-layout main="between" classNames="px-4"}}
 		<p>
-			{{#choose-group type="checkbox" onChange=(action 'chooseItem') as |choose|}}
+			{{#choose-group type="checkbox" onChange=(action "chooseItem") as |choose|}}
 				{{#each neverShow as |radio|}}
 					{{choose.item radio=radio}}
 				{{/each}}
 			{{/choose-group}}
 		</p>
 		<p>
-			{{#bp-button type="primary" onClick=(action modal.close)}}开始挑战{{/bp-button}}
+			{{#bp-button type="primary" onClick=(action modal.close)}}{{t "welcome.welcome-model.confirm-btn"}}{{/bp-button}}
 		</p>
 	{{/bp-layout}}
 {{/bp-modal}}
 {{#bp-modal
 		open=reDeploy 
-		position='center'
+		position="center"
 		onHidden=(action (mut reDeploy) false) as |modal|}}
 	{{#modal.header closeButton=false}}
 		<h4 class="modal-title">
-			重新部署
+			{{t "welcome.redeployment"}}
 		</h4>
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
 		<p class="desc">
-			重新开始将清空您上次尚未完成的决策记录，是否继续？
+			{{t "welcome.check-model.desc-content"}}
 		</p>
 	{{/modal.body}}
 	{{#modal.footer}}
-		{{#bp-button type="link" onClick=(action modal.close)}}取消{{/bp-button}}
-		{{#bp-button type="primary" onClick=(action 'reDeploy')}}重新部署{{/bp-button}}
+		{{#bp-button type="link" onClick=(action modal.close)}}{{t "welcome.check-model.cancel-btn"}}{{/bp-button}}
+		{{#bp-button type="primary" onClick=(action "reDeploy")}}{{t "welcome.redeployment"}}{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}
