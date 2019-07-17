@@ -12,7 +12,7 @@ export default Controller.extend( {
 		}
 		return false
 	} ),
-	notice: localStorage.getItem( "notice" ) !== "false",
+	// notice: localStorage.getItem( "notice" ) !== "false",
 	// notice: computed('cookies.notice', function () {
 	// 	let localStorageNotice = localStorage.getItem('notice'),
 	// 		notice = this.cookies.read('notice');
@@ -22,13 +22,13 @@ export default Controller.extend( {
 	// 	}
 	// 	return true;
 	// }),
-	neverShow: A( ["不在显示"] ),
-	reports: computed( "model.detailPaper", function () {
-		let paper = this.get( "model.detailPaper" ),
-			inputs = paper.get( "paperinputs" )
+	// neverShow: A( ["不在显示"] ),
+	// reports: computed( "model.detailPaper", function () {
+	// 	let paper = this.get( "model.detailPaper" ),
+	// 		inputs = paper.get( "paperinputs" )
 
-		return inputs.sortBy( "time" ).reverse()
-	} ),
+	// 	return inputs.sortBy( "time" ).reverse()
+	// } ),
 	actions: {
 		checkReport( assessmentReport ) {
 			this.transitionToRoute( "page-report", assessmentReport.id )
