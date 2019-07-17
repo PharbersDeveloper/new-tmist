@@ -17,8 +17,8 @@ export default Component.extend( {
 		}
 		return false
 	} ),
-	newMissionActive: equal( "useableProposalPaper.state", 0 ),
-	doneMissionActive: equal( "useableProposalPaper.state", 3 )
+	// newMissionActive: equal( "useableProposalPaper.state", 0 ),
+	// doneMissionActive: equal( "useableProposalPaper.state", 3 )
 
 	// onClick() { },
 	// click(params) {

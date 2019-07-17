@@ -1,17 +1,18 @@
 {{#bp-layout local-class="page-mission"}}
 	{{#bp-layout wrap=true multi="start" local-class="mission-list" classNames="p-4"}}
 		{{#each model.useableProposals as |useableProposal uindex|}}
-			{{#each model.papers as |paper pindex|}}
-				{{#if (bp-eq uindex pindex)}}
+			{{!-- {{#each model.papers as |paper pindex|}} --}}
+				{{!-- {{#if (bp-eq uindex pindex)}} --}}
 					{{!-- {{#each paper as |useableProposalPaper|}} --}}
-					{{mission-info
-							local-class=(if (bp-eq model.detailPaper.id paper.id) "choosed")
+							{{!-- local-class=(if (bp-eq model.detailPaper.id paper.id) "choosed") --}}
+							{{!-- useableProposalPaper=paper --}}
+					{{welcome/mission-info
+							local-class="choosed"
 							useableProposal=useableProposal
-							useableProposalPaper=paper
 							onClick=(action "changeDetail" useableProposal paper)}}
 					{{!-- {{/each}} --}}
-				{{/if}}
-			{{/each}}
+				{{!-- {{/if}} --}}
+			{{!-- {{/each}} --}}
 		{{else}}
 			<p>{{t "welcome.no-task"}}</p>
 		{{/each}}
@@ -58,7 +59,7 @@
 			{{/bp-layout}}
 			<div class="dropdown-divider mt-3 mb-4"></div>
 			{{#bp-layout tagName="h4" main="between" classNames="m-0"}}
-				<span local-class="title">{{t "historical-evaluation-report"}}</span>
+				<span local-class="title">{{t "welcome.historical-evaluation-report"}}</span>
 				{{#if (bp-gt model.detailPaper.assessmentReports.length 0)}}
 					<span local-class="times">{{t "welcome.total-finish"}}{{model.detailPaper.assessmentReports.length}}{{t "welcome.times"}}</span>
 				{{/if}}
@@ -81,7 +82,7 @@
 					{{/link-to}}
 				{{/bp-layout}}
 			{{else}}
-				<p class="mt-2">{{t "welcome.ask-not-completed"}}</p>
+				<p class="mt-2">{{t "welcome.task-not-completed"}}</p>
 				{{#if testBtn}}
 					<p>{{#link-to "page.project"}}
 							project page
