@@ -4,7 +4,7 @@ import ENV from "new-tmist/config/environment"
 import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
 import RSVP from "rsvp"
-import Ember from "ember"
+// import Ember from "ember"
 const { keys } = Object
 
 export default Controller.extend( {

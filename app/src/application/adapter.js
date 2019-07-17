@@ -2,8 +2,10 @@ import DS from "ember-data"
 import { computed } from "@ember/object"
 import { dasherize } from "@ember/string"
 import { pluralize } from "ember-inflector"
-import ENV from "new-tmist/config/environment"
 import { inject as service } from "@ember/service"
+// import ENV from "new-tmist/config/environment"
+// import { camelize } from "@ember/string"
+// import { pluralize } from "ember-inflector"
 
 export default DS.JSONAPIAdapter.extend( {
 	// namespace: ENV.API.Version,
@@ -23,16 +25,16 @@ export default DS.JSONAPIAdapter.extend( {
 			"Content-Type": "application/json",
 			"Authorization": `Bearer ${cookies.read( "access_token" )}`
 		}
-	} ),
+	} )
 
-  	// urlForQuery ( query , modelName) {
+	// urlForQuery ( query , modelName) {
 	// 	debugger
 	// 	let baseUrl = this.buildURL(modelName);
-    // 	return `${baseUrl}?filter=${query.filter}`
+	// 	return `${baseUrl}?filter=${query.filter}`
 	// },
 	// urlForQueryRecord({ slug }, modelName) {
 	// 	debugger
-    // 	let baseUrl = this.buildURL();
-    // 	return `${baseUrl}/${slug}`;
-  	// }
+	// 	let baseUrl = this.buildURL();
+	// 	return `${baseUrl}/${slug}`;
+	// }
 } )

@@ -1,8 +1,6 @@
 import Route from "@ember/routing/route"
 import RSVP from "rsvp"
-import { A } from "@ember/array"
 import { inject as service } from "@ember/service"
-import { isEmpty } from "@ember/utils"
 
 export default Route.extend( {
 	cookies: service(),

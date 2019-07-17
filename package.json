@@ -56,8 +56,9 @@
 		"node": "6.* || 8.* || >= 10.*"
 	},
 	"dependencies": {
-		"ember-template-lint": "^1.4.0",
 		"bp-components": "*",
+		"cldr-core": "^35.1.0",
+		"ember-template-lint": "^1.4.0",
 		"eslint": "^6.0.1"
 	}
 }

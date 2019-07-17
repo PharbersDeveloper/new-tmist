@@ -82,6 +82,8 @@ export default Service.extend( {
 				} )
 				.catch( () => {
 					// this.get( "router" ).transitionTo( "index" )
+					// let reval = this.checkTokens()
+
 					Ember.Logger.error( "auth code 2 token failed" )
 					let reval = this.checkTokens()
 
