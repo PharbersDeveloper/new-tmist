@@ -9,8 +9,8 @@ export default DS.JSONAPIAdapter.extend( {
 	// namespace: ENV.API.Version,
 	cookies: service(),
 	pathForType( type ) {
-		var res = type.split("/")
-		let newType = pluralize( dasherize( res[res.length - 1]) )
+		var res = type.split( "/" )
+		let newType = pluralize( dasherize( res[res.length - 1] ) )
 
 		return newType
 	},
@@ -23,5 +23,16 @@ export default DS.JSONAPIAdapter.extend( {
 			"Content-Type": "application/json",
 			"Authorization": `Bearer ${cookies.read( "access_token" )}`
 		}
-	} )
+	} ),
+
+  	// urlForQuery ( query , modelName) {
+	// 	debugger
+	// 	let baseUrl = this.buildURL(modelName);
+    // 	return `${baseUrl}?filter=${query.filter}`
+	// },
+	// urlForQueryRecord({ slug }, modelName) {
+	// 	debugger
+    // 	let baseUrl = this.buildURL();
+    // 	return `${baseUrl}/${slug}`;
+  	// }
 } )

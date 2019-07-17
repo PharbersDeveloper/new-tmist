@@ -35,11 +35,9 @@ export default Route.extend( {
 		// }
 	},
 	model() {
-		debugger
-		// return RSVP.hash( {
-			// useableProposals: this.store.findAll("model/usable-proposal")
-		// } )
-		return this.store.findAll("model/usable-proposal")
+		return RSVP.hash( {
+			useableProposals: this.store.query( "model/usable-proposal", { filter: "(accountId,:eq,`5cd51df9f4ce43ee2495d4dd`)" } )
+		} )
 
 		// let applicationModel = this.modelFor( "application" ),
 		// 	store = this.get( "store" ),

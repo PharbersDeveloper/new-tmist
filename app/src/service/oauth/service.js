@@ -84,9 +84,10 @@ export default Service.extend( {
 					// this.get( "router" ).transitionTo( "index" )
 					Ember.Logger.error( "auth code 2 token failed" )
 					let reval = this.checkTokens()
-					if ( ( !reval.tokenFlag || !reval.scopeFlag ) ) {
+
+					if ( !reval.tokenFlag || !reval.scopeFlag ) {
 						window.location = "/login"
-						return 
+						return
 					}
 				} )
 		} else {
