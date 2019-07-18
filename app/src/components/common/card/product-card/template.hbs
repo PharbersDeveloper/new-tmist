@@ -46,7 +46,7 @@
 				{{/bp-layout}}
 				{{#bp-layout tagName="p" classNames="m-0"}}
 					<span>日使用费用</span>
-					<span>￥{{format-number product.referencePrice}}</span>
+					<span>{{product.priceType}}{{format-number product.price}}</span>
 				{{/bp-layout}}
 				{{!-- {{#bp-layout tagName="p" }}
 					<span>药品特点</span>
