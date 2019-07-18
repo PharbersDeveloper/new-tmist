@@ -1,0 +1,103 @@
+.hospital {
+	h3.title {
+		height: 52px;
+		@extend %header-medium;
+
+		.icon {
+			cursor: pointer;
+		}
+	}
+
+	h4.title {
+		@extend %header-small;
+
+		.subtitle {
+			@extend %p-small;
+		}
+	}
+
+	.content {
+		.infos {
+			flex: 1;
+			// &>div {
+			// 	flex: 1;
+			// }
+
+			.basic {
+				img {
+					flex-shrink: 0;
+					flex-grow: 160px;
+					height: 160px
+				}
+
+				.properties {
+					flex: 1;
+					font-size: 0;
+
+					p span:first-child {
+						@extend %p-primary;
+					}
+
+					p span:last-child {
+						@extend %p-secondary;
+					}
+
+					&.properties:last-child {
+						p span:first-child {
+							min-width: 70px;
+						}
+					}
+				}
+			}
+
+			.medic-access {
+				.keys {
+					margin-bottom: $spacing;
+					@extend %p-small;
+				}
+
+				.values {
+					@extend %p-primary;
+				}
+			}
+
+			.others {
+				&.dynamic {
+					font-size: 0;
+
+					.content {
+						@extend %p-secondary;
+					}
+				}
+			}
+		}
+
+		.sell {
+			flex: 1;
+			// &>div {
+			// 	flex: 1;
+			// }
+
+			// .medic-access {
+			// 	.keys {
+			// 		margin-bottom: $spacing;
+			// 		@extend %p-small;
+			// 	}
+
+			// 	.values {
+			// 		@extend %p-primary;
+			// 	}
+			// }
+			// height: 343px;
+			height: 429px;
+
+
+			.chart {
+				// height: 321px;
+				// height: 343px;
+				height: 429px;
+				// background-color: #A1C6E7;
+			}
+		}
+	}
+}
