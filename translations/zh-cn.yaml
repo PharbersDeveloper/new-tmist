@@ -85,6 +85,21 @@ project:
       team-number: 团队人数
       team-desc: 团队描述
       person: 人
+  business-input:
+    total-business-indicators: 总业务指标
+    total-budget: 总预算
+    represents-remaining-time: 代表剩余时间
+    total-meeting-places: 总会议名额
+    number: 个
+    target-hospital-selection: 目标医院选择（
+    target-hospital-selection-2: ）
+    please-choose: 请选择
+    OK: 好的
+    money: ￥
+    p: %
+
+    
+
 card:
   product-card:
     company-product: 公司产品
@@ -97,4 +112,33 @@ card:
     life-cycle: 市场定位
     reference-price: 日使用费用
     product-feature: 产品特点
+    money: ￥
+  member-card:
+    female: 女
+    male: 男
+    age: 岁
+    experience: 年工作经验
+    entry-time: 入职
+    year: 年
+    advantage: 优势
+    evaluation: 历届经理评价
+    KPI: 代表行为KPI
+    goal-docter: 目标医生
+    people-number: 数量(人)
+    coverage: 覆盖率(%)
+    docter-A: A类医生
+    docter-B: B类医生
+    docter-C: C类医生
+    visit-frequency: 拜访频率(次)
+  hospital-card:
+    category: 医院类型
+    level: 医院等级
+    doctorNumber: 医生数量
+    bedNumber: 病床数量
+    income: 年医药收入
+    medic-access: 药品准入情况
+    medic-name: 药品名
+    access: 准入情况
+    potential-value: 潜力值
+    dynamic: 医院动态
     money: ￥

@@ -1,16 +1,16 @@
 {{#bp-layout direction="col" local-class="business-container" 
 	classNames="pt-4"}}
-	{{#bp-layout main="between" local-class="overviews" classNames='mb-4'}}
+	{{#bp-layout main="between" local-class="overviews" classNames="mb-4"}}
 		<div local-class="item">
 			{{#bp-layout tagName="h2" cross="center" 
 				classNames="m-0 px-4" local-class="title"}}
-				总业务指标
+				{{t "project.business-input.total-business-indicators"}}
 			{{/bp-layout}}
 			<div class="p-4">
 				<p local-class="m-name" class="mb-3 ">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
 				<p local-class="info" class="mb-3">
-					￥{{format-number total.usedSalesTarget}} /
-					￥{{format-number model.resourceConfManager.managerConfig.totalBusinessIndicators}}
+					{{t "project.business-input.money"}}{{format-number total.usedSalesTarget}} /
+					{{t "project.business-input.money"}}{{format-number model.resourceConfManager.managerConfig.totalBusinessIndicators}}
 				</p>
 				{{#bp-progress local-class="progress" as |p|}}
 					{{p.bar value=total.usedSalesTarget maxValue=model.resourceConfManager.managerConfig.totalBusinessIndicators}}
@@ -28,13 +28,13 @@
 		<div local-class="item" class="mx-2">
 			{{#bp-layout tagName="h2" cross="center" 
 				classNames="m-0 px-4" local-class="title"}}
-				总预算
+				{{t "project.business-input.total-budget"}}
 			{{/bp-layout}}
 			<div class="p-4">
 				<p local-class="m-name" class="mb-3 ">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
 				<p local-class="info" class="mb-3">
-					￥{{format-number total.usedBudget}} /
-					￥{{format-number model.resourceConfManager.managerConfig.totalBudgets}}
+					{{t "project.business-input.money"}}{{format-number total.usedBudget}} /
+					{{t "project.business-input.money"}}{{format-number model.resourceConfManager.managerConfig.totalBudgets}}
 				</p>
 				{{#bp-progress as |p|}}
 					{{p.bar value=total.usedBudget maxValue=model.resourceConfManager.managerConfig.totalBudgets}}
@@ -52,19 +52,19 @@
 		<div local-class="item" class="mx-2">
 			{{#bp-layout tagName="h2" cross="center" 
 				classNames="m-0 px-4" local-class="title"}}
-				代表剩余时间
+				{{t "project.business-input.represents-remaining-time"}}
 			{{/bp-layout}}
-			{{#bp-layout main='between' wrap=true classNames='p-4'}}
+			{{#bp-layout main="between" wrap=true classNames="p-4"}}
 				{{#each representativesVisitPercent as |rVP|}}
-					<p local-class='rest-time'>
-						<span local-class='keys' class="mr-2">{{rVP.resourceConfig.representativeConfig.representative.name}}</span>
-						<span local-class='values'>{{rVP.restTime}}%</span>
+					<p local-class="rest-time">
+						<span local-class="keys" class="mr-2">{{rVP.resourceConfig.representativeConfig.representative.name}}</span>
+						<span local-class="values">{{rVP.restTime}}{{t "project.business-input.p"}}</span>
 					</p>
 				{{/each}}
 			{{/bp-layout}}
 			{{!-- <div class="px-4 pt-4">
 				{{#each representativesVisitPercent as |rVP|}}
-					<p local-class='rest-time'>
+					<p local-class="rest-time">
 						<span>{{rVP.resourceConfig.representativeConfig.representative.name}}</span>
 						<span>{{rVP.restTime}}%</span>
 					</p>
@@ -74,14 +74,14 @@
 		<div local-class="item">
 			{{#bp-layout tagName="h2" cross="center" 
 				classNames="m-0 px-4" local-class="title"}}
-				总会议名额
+				{{t "project.business-input.total-meeting-places"}}
 			{{/bp-layout}}
 			<div class="px-4 pt-4">
 				<p local-class="m-name" class="mb-3 ">&nbsp;</p>
 				<p local-class="info" class="mb-4">
 					{{format-number total.usedMeetingPlaces}} /
 					{{format-number model.resourceConfManager.managerConfig.totalMeetingPlaces}}
-					<span local-class='unit'>个</span>
+					<span local-class="unit">{{t "project.business-input.number"}}</span>
 				</p>
 				{{!-- {{#bp-progress as |p|}}
 					{{p.bar value=total.usedMeetingPlaces maxValue=model.resourceConfManager.managerConfig.totalMeetingPlaces}}
@@ -95,15 +95,15 @@
 				classNames="mr-4 px-4 bg-white"}}
 			{{#bp-layout tagName="h3" cross="center" main="between"
 				local-class="title" classNames="m-0"}}
-				<span>目标医院选择（{{overallFilterData.length}}）</span>
+				<span>{{t "project.business-input.target-hospital-selection"}}{{overallFilterData.length}}{{t "project.business-input.target-hospital-selection-2"}}</span>
 				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
 					{{#dd.button type="link-subtle" }}
 						{{#if currentHospState.name}}
 							<p>{{currentHospState.name}}</p>
 						{{else}}
-							请选择
+							{{t "project.business-input.please-choose"}}
 						{{/if}}
-						{{bp-icon icon='down'}}
+						{{bp-icon icon="down"}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
 						{{#each hospitalState as |hs|}}
@@ -127,14 +127,14 @@
 			{{/each}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
-			{{outlet}}
+			{{!-- {{outlet}} --}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
 {{!-- 总业务指标/总预算/总会议名额 超额提醒 --}}
 {{#bp-modal
 		open=warning.open 
-		position='center'
+		position="center"
 		onHidden=(action (mut warning.open) false) as |modal|}}
 	{{#modal.header}}
 		<h4 class="modal-title">
@@ -147,7 +147,7 @@
 		</p>
 	{{/modal.body}}
 	{{#modal.footer}}
-		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}{{t "project.business-input.OK"}}{{/bp-button}}
 		{{!-- {{#bp-button type="danger"}}Delete{{/bp-button}} --}}
 		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
 	{{/modal.footer}}
