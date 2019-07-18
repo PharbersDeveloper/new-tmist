@@ -1,16 +1,20 @@
 {{#bp-layout direction="col" local-class="reference-container" }}
 	{{#bp-layout main="center" classNames="py-4" local-class="reference-tabs" }}
 		{{#bp-button-group value=groupValue type="radio" onChange=(action (mut groupValue)) as |bg|}}
-			{{#bg.button type="default" value='index' 
-				onClick=(action 'linkToRoute' 'index')}}产品竞品信息{{/bg.button}}
-			{{#bg.button type="default" value='hospital' 
-				onClick=(action 'linkToRoute' 'hospital')}}医院基本信息{{/bg.button}}
+			{{#bg.button type="default" value="index"
+				onClick=(action "linkToRoute" "index")}}
+				{{t "project.proposal-info.index"}}{{/bg.button}}
+			{{#bg.button type="default" value="hospital"
+				onClick=(action "linkToRoute" "hospital")}}
+				{{t "project.proposal-info.hospital"}}{{/bg.button}}
 			{{#bg.button type="default" value="member"
-				onClick=(action 'linkToRoute' 'member')}}团队成员信息{{/bg.button}}
+				onClick=(action "linkToRoute" "member")}}
+				{{t "project.proposal-info.member"}}{{/bg.button}}
 			{{#bg.button type="default" value="sold"
-			onClick=(action 'linkToRoute' 'sold')}}历史销售报告{{/bg.button}}
+			onClick=(action "linkToRoute" "sold")}}
+				{{t "project.proposal-info.sold"}}{{/bg.button}}
 			{{!-- {{#bg.button type="default" value="decided"
-			onClick=(action 'linkToRoute' 'decided')}}往期决策回顾{{/bg.button}} --}}
+			onClick=(action "linkToRoute" "decided")}}往期决策回顾{{/bg.button}} --}}
 		{{/bp-button-group}}
 	{{/bp-layout}}
 	<div local-class="reference-content">
