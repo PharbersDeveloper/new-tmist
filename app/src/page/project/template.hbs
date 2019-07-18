@@ -24,34 +24,36 @@
 	{{#bp-tabs local-class="tabs-container" as |tabs|}}
 		{{#tabs.tablist as |list|}}
 			<li class="nav-item">
-				{{!-- {{#list.link-to "page-scenario.business"  --}}
-				{{#list.link-to "page.project" 123
-					classNames="nav-link"  }}
-					{{t "project.scenario-business"}}{{/list.link-to}}
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 0)}}
+					{{t "project.scenario-business"}}
+				{{/bp-button}}
 			</li>
 			<li class="nav-item">
-				{{!-- {{#list.link-to "page-scenario.management"  --}}
-				{{#list.link-to "page.project" 123
-					classNames="nav-link" }}
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 1)}}
 					{{t "project.scenario-management"}}
-				{{/list.link-to}}
+				{{/bp-button}}
 			</li>
 			<li class="nav-item">
-				{{!-- {{#list.link-to "page-scenario.reference"  --}}
-				{{#list.link-to "page.project" 123
-					classNames="nav-link" }}
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 2)}}
 					{{t "project.scenario-reference"}}
-				{{/list.link-to}}
+				{{/bp-button}}
 			</li>
 			<li class="nav-item">
-				{{!-- {{#list.link-to "page-scenario.decision-review"  --}}
-				{{#list.link-to "page.project" 123
-					classNames="nav-link" }}
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 3)}}
 					{{t "project.scenario-decision-review"}}
-				{{/list.link-to}}
+				{{/bp-button}}
 			</li>
 		{{/tabs.tablist}}
-		{{project/proposal-info proposal=model.proposal }}
+		{{#if (bp-eq currentTab 0)}}
+			{{project/business-input }}
+		{{/if}}
+		{{#if (bp-eq currentTab 1)}}
+		{{/if}}
+		{{#if (bp-eq currentTab 2)}}
+			{{project/proposal-info proposal=model.proposal }}
+		{{/if}}
+		{{#if (bp-eq currentTab 3)}}
+		{{/if}}
 	{{/bp-tabs}}
 {{/bp-layout}}
 {{#bp-modal

@@ -12,6 +12,7 @@ export default Controller.extend( {
 	// verify: service('service-verify'),
 	verify: null,
 	toast: service(),
+	currentTab: 0,
 	testBtn: computed( function () {
 		if ( ENV.environment === "development" ) {
 			return true
