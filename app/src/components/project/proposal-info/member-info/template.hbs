@@ -2,12 +2,12 @@
 			classNames="mb-4 bg-white"}}
 	{{#bp-layout direction="col" main="center" local-class="chart"}}
 		{{#bp-layout tagName='h4' local-class="title" classNames="m-0 pt-4 pl-4"}}{{t "project.proposal-info.member-info.team-average-performance"}}{{/bp-layout}}
-		{{bp-radar
+		{{!-- {{bp-radar
 			eid='radarTotal'
 			hasLegend=false 
 			radarData=model.radarData
 			radarColor=model.radarColor
-			maxValue=10}}
+			maxValue=10}} --}}
 	{{/bp-layout}}
 	{{#bp-layout direction="col" local-class="infos"
 				classNames="p-4"}}
