@@ -7,32 +7,57 @@
 		@extend %header-medium;
 		height: 54px;
 		line-height: 54px;
+		font-weight: bold;
 	}
 
 	h4.title {
-		height: 52px;
 		@extend %header-small;
+	  	font-weight: bold;
 	}
-
 	h5.title {
 		@extend %header-small;
+		font-weight: bold;
 	}
-
+	// .title {
+	// 	font-size: 14px;
+	// 	font-weight: bold;
+	// }
 	.performance {
+		// position: relative;
 		.item {
 			flex: 1;
-
+			// height: 441px;
+			.age {
+				// height: 250px;
+				background-color: red;
+			}
 			.content {
-
+				position: relative;
+				height: 250px;
 				.img-container {
-					flex: 0 0 102.4px;
-					height: 115.2px;
-
+					// flex: 0 0 102.4px;
+					// height: 115.2px;
+					width: 42px;
+					height: 64px;
+					font-size: 64px;
+					color: #B3BAC5;
+					// position: absolute;
+					// top: 0;
+					// left: 0;
+					img {
+						height: 72px;
+						width: 64px;
+					}
 				}
 
 				.text {
 					flex: 1;
 					@extend %p-primary;
+					padding-left: 128px;
+					height: 60px;
+					// position: absolute;
+					// top: 0px;
+					// left: 106px;
 				}
 
 				&.score {
@@ -42,9 +67,9 @@
 				}
 
 				&.won-title {
-					img {
-						width: 102px;
-					}
+					// img {
+					// 	width: 102px;
+					// }
 
 					p {
 						@extend %header-small;
@@ -58,13 +83,33 @@
 	}
 
 	.abilities {
+		height: 160px;
 		.score {
 			flex: 1;
+			font-size: 40px;
+			color: #B3BAC5;
 		}
 
 		.point,
 		.evaluation {
 			flex: 2;
+			ul{
+				position: relative;
+				padding: 0;
+				：before {
+					content: '' ;
+					width: 5px;
+					height: 5px;
+					background-color: rgb(240, 23, 23);
+					position: absolute ;
+					top:0px ;
+					right: 0px;
+				}
+				li {
+					list-style: none;
+					line-height: 28px;
+				}
+			}
 		}
 
 		.keys {

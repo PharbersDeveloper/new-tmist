@@ -8,7 +8,7 @@
 				{{/left.item}}
 				{{#left.item }}
 					日期：<span class="mx-2">{{model.time}}</span>
-					用时：<span class="mx-2">50min*</span>
+					{{!-- 用时：<span class="mx-2">50min*</span> --}}
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
@@ -34,17 +34,18 @@
 	{{#bp-layout main="between" local-class="performance"}}
 		{{#bp-layout direction="col" main="between" local-class="item"
 			classNames="mr-2"}}
-			{{#bp-layout direction='col' classNames='p-4 bg-white'}}
+			{{#bp-layout direction='col' classNames='p-4 bg-white age'}}
 				{{#bp-layout tabName='h4' cross='center' local-class="title" 
 					classNames='mb-4'}}
 					能力得分
 				{{/bp-layout}}
 				{{#bp-layout cross='center' local-class='score content' classNames='mb-2'}}
 					{{#bp-layout main='center' cross='center' local-class='img-container'}}
-						<img src={{model.generalPerformanceResult.levelConfig.level.image.img}} alt="">
+						{{model.generalPerformanceResult.levelConfig.level.level}}
+						{{!-- <img src={{model.generalPerformanceResult.levelConfig.level.image.img}} alt=""> --}}
 					{{/bp-layout}}
 					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
-						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
+						等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
@@ -55,11 +56,13 @@
 				{{/bp-layout}}
 				{{#bp-layout cross='center' local-class='won-title content'}}
 					{{#bp-layout direction='col' main='center' local-class='img-container'}}
-						<img src={{model.generalPerformanceResult.levelConfig.title.image.img}} alt="">
-						<p class="m-0 text-center">{{model.generalPerformanceResult.levelConfig.title.value}}</p>
+						{{!-- {{model.generalPerformanceResult.levelConfig.level.level}} --}}
+						<img src={{model.generalPerformanceResult.levelConfig.level.image.img}} alt="">
+						{{!-- <img src={{model.generalPerformanceResult.levelConfig.title.image.img}} alt=""> --}}
+						{{!-- <p class="m-0 text-center">{{model.generalPerformanceResult.levelConfig.title.value}}</p> --}}
 					{{/bp-layout}}
 					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
-						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
+						等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
@@ -89,7 +92,8 @@
 		{{#bp-layout main='between'	local-class='abilities'}}
 			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
 				<p local-class='keys'>能力得分</p>
-				<img width='26' src={{model.regionalDivisionResult.levelConfig.level.image.img}} alt="">
+				{{model.regionalDivisionResult.levelConfig.level.level}}
+				{{!-- <img width='26' src={{model.regionalDivisionResult.levelConfig.level.image.img}} alt=""> --}}
 			{{/bp-layout}}
 			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
 				{{#bp-layout tagName='h5' cross='center' local-class="title" 
@@ -121,7 +125,8 @@
 		{{#bp-layout main='between'	local-class='abilities'}}
 			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
 				<p local-class='keys'>能力得分</p>
-				<img width='26' src={{model.targetAssignsResult.levelConfig.level.image.img}} alt="">
+				{{model.targetAssignsResult.levelConfig.level.level}}
+				{{!-- <img width='26' src={{model.targetAssignsResult.levelConfig.level.image.img}} alt=""> --}}
 			{{/bp-layout}}
 			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
 				{{#bp-layout tagName='h5' cross='center' local-class="title" 
@@ -153,7 +158,8 @@
 		{{#bp-layout main='between'	local-class='abilities'}}
 			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
 				<p local-class='keys'>能力得分</p>
-				<img width='26' src={{model.resourceAssignsResult.levelConfig.level.image.img}} alt="">
+				{{model.resourceAssignsResult.levelConfig.level.level}}
+				{{!-- <img width='26' src={{model.resourceAssignsResult.levelConfig.level.image.img}} alt=""> --}}
 			{{/bp-layout}}
 			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
 				{{#bp-layout tagName='h5' cross='center' local-class="title" 
@@ -185,7 +191,8 @@
 		{{#bp-layout main='between'	local-class='abilities'}}
 			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
 				<p local-class='keys'>能力得分</p>
-				<img width='26' src={{model.manageTimeResult.levelConfig.level.image.img}} alt="">
+				{{model.manageTimeResult.levelConfig.level.level}}
+				{{!-- <img width='26' src={{model.manageTimeResult.levelConfig.level.image.img}} alt=""> --}}
 			{{/bp-layout}}
 			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
 				{{#bp-layout tagName='h5' cross='center' local-class="title" 
@@ -217,7 +224,8 @@
 		{{#bp-layout main='between'	local-class='abilities'}}
 			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
 				<p local-class='keys'>能力得分</p>
-				<img width='26' src={{model.manageTeamResult.levelConfig.level.image.img}} alt="">
+				{{model.manageTeamResult.levelConfig.level.level}}
+				{{!-- <img width='26' src={{model.manageTeamResult.levelConfig.level.image.img}} alt=""> --}}
 			{{/bp-layout}}
 			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
 				{{#bp-layout tagName='h5' cross='center' local-class="title" 
