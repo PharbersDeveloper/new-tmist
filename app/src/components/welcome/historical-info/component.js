@@ -4,7 +4,7 @@ import { A } from "@ember/array"
 // import { equal } from "@ember/object/computed"
 
 export default Component.extend( {
-	positionalParams: ["proposal"],
+	positionalParams: ["project"],
 	classNames: ["mr-4 mb-4 p-4"],
 	localClassNames: "mission-info",
 	classNameBindings: ["isMultiplePhase:multiple-phase", "newMissionActive", "doneMissionActive"],
@@ -27,6 +27,6 @@ export default Component.extend( {
 		// action(params);
 		// return this.get('bubble');
 		// this.onMessageInfoClick(this.get("useableProposal.proposal._id"))
-		this.onClick( this.get( "proposal" ) )
+		this.onClick( this.get( "useableProposal.proposal" ) )
 	}
 } )

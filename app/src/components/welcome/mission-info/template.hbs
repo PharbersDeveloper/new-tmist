@@ -1,7 +1,8 @@
-<h3 class="mb-2">{{useableProposal.proposal.name}}</h3>
+<h3 class="mb-2">{{proposal.name}}</h3>
 <p local-class="phase" class="mb-4">
-	{{#if (bp-gt useableProposal.proposal.totalPhase 2)}}
-		{{t "mission-info.total"}}{{useableProposal.proposal.totalPhase}}{{t "mission-info.period"}}
-	{{/if}}
+		{{log proposal.id}}
+	{{!-- {{#if (bp-gt proposal.totalPhase 2)}} --}}
+		{{t "mission-info.total"}}{{proposal.totalPhase}}{{t "mission-info.period"}}
+	{{!-- {{/if}} --}}
 </p>
 {{!-- {{mission-state useableProposalPaper.state}} --}}

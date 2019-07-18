@@ -1,15 +1,15 @@
 {{#bp-layout local-class="page-mission"}}
 	{{#bp-layout wrap=true multi="start" local-class="mission-list" classNames="p-4"}}
-		{{#each model.useableProposals as |useableProposal|}}
+		{{#each model.usableProposals as |usableProposal|}}
 			{{!-- {{#each model.papers as |paper pindex|}} --}}
 			{{!-- {{#if (bp-eq uindex pindex)}} --}}
 			{{!-- {{#each paper as |useableProposalPaper|}} --}}
 			{{!-- local-class=(if (bp-eq model.detailPaper.id paper.id) "choosed") --}}
 			{{!-- useableProposalPaper=paper --}}
 			{{welcome/mission-info
-							local-class="choosed"
-							useableProposal=useableProposal
-							onClick=(action "changeDetail" useableProposal)}}
+				local-class="choosed"
+				proposal=usableProposal.proposal
+				onClick=(action "changeDetail" useableProposal)}}
 			{{!-- onClick=(action "changeDetail" useableProposal paper)}} --}}
 			{{!-- {{/each}} --}}
 			{{!-- {{/if}} --}}
@@ -18,7 +18,8 @@
 			<p>{{t "welcome.no-task"}}</p>
 		{{/each}}
 	{{/bp-layout}}
-	{{#if (bp-eq model.useableProposals.length 0)}}
+	{{!-- {{#if (bp-eq model.proposals.length 0)}} --}}
+	{{#if true}}
 		{{#bp-layout direction="col" local-class="mission-desc" classNames="p-4"}}
 			{{t "welcome.no-task"}}
 		{{/bp-layout}}

@@ -8,5 +8,6 @@ export default DS.Model.extend( {
 	salesReportIds: DS.attr( ),
 	personnelAssessmentIds: DS.attr( ),
 	products: DS.hasMany( "model/product" ),
-	targets: DS.hasMany( "model/hospital" )
+	targets: DS.hasMany( "model/hospital" ),
+	resources: DS.hasMany( "model/resource")
 } )
