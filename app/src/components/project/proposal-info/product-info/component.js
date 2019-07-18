@@ -4,6 +4,7 @@ import { A } from '@ember/array';
 import RSVP, { hash } from 'rsvp';
 
 export default Component.extend({
+    positionalParams: ['products']
     // model() {
     //     let scenarioModel = this.modelFor('page-scenario'),
     //         salesReports = scenarioModel.salesReports,

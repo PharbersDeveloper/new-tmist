@@ -1,6 +1,7 @@
 import Component from "@ember/component"
 
 export default Component.extend( {
+    positionalParams: ['proposal'],
 	groupValue: "index",
 	salesGroupValue: 0,
 	actions: {

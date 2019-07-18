@@ -1,0 +1,137 @@
+{{#bp-layout tagName="h3" main="between" cross="center" local-class="title" class="px-4" }}
+	<span>
+		<span local-class="icon" {{action 'showContent'}}>{{bp-icon icon=icon }}</span>
+		{{#if (bp-eq product.productType 0)}}
+			<span local-class="type self">公司产品</span>
+		{{else}}
+			<span local-class="type compete">主要竞品</span>
+		{{/if}}
+		{{!-- {{goods.productConfig.product.name}} --}}
+		{{product.name}}
+		{{!-- - {{goods.productConfig.product.generalName}} --}}
+	</span>
+{{/bp-layout}}
+{{#bs-collapse collapsed=showContent}}
+	{{#bp-layout local-class="product-content"
+		classNames="p-4" }}
+		{{#bp-layout main="between" local-class="left" }}
+			{{!-- {{#each goods.productConfig.product.images as |item|}} --}}
+				<img src={{product.avatar}} alt={{product.name}} class="mr-4">
+			{{!-- {{/each}} --}}
+			{{#bp-layout direction="col" local-class="product-infos" }}
+				{{#bp-layout tagName="p" }}
+					<span>治疗领域</span>
+					{{!-- <span>{{goods.productConfig.treatmentArea}}</span> --}}
+					<span>{{product.treatmentArea}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" }}
+					<span>上市时间</span>
+					{{!-- <span>{{bp-string-slice goods.productConfig.launchTime 0 4}}年</span> --}}
+					<span>{{bp-string-slice product.launchTime 0 4}}年</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" }}
+					<span>所属公司</span>
+					{{!-- <span>{{goods.productConfig.product.corpName}}</span> --}}
+					<span>{{product.producer}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" }}
+					<span>药品类型</span>
+					{{!-- <span>{{goods.productConfig.patentDescribe}}</span> --}}
+					<span>{{product.patentDescribe}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" }}
+					<span>市场定位</span>
+					{{!-- <span>{{goods.productConfig.lifeCycle}}</span> --}}
+					<span>{{product.lifeCycle}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" classNames="m-0"}}
+					<span>日使用费用</span>
+					<span>￥{{format-number product.referencePrice}}</span>
+				{{/bp-layout}}
+				{{!-- {{#bp-layout tagName="p" }}
+					<span>药品特点</span>
+					<span>{{goods.productConfig.productFeature}}</span>
+				{{/bp-layout}} --}}
+				{{!-- {{#bp-layout tagName="p" }}
+					<span>治疗领域</span>
+					<span>{{goods.productConfig.treatmentArea}}</span>
+				{{/bp-layout}} --}}
+				{{!-- {{#bp-layout tagName="p" local-class="target-department"}}
+					<span>目标科室</span>
+					<span>
+						{{#each (string-to-array goods.productConfig.targetDepartment '#') as |item|}}
+							<span>
+								{{item}}
+							</span>
+						{{/each}}
+					</span>
+				{{/bp-layout}} --}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{!-- {{#bp-layout direction="col" main="between" local-class="right" }}
+			{{#bp-layout local-class="property prod-property" }}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
+					<span>
+						{{goods.productConfig.costEffective}}
+					</span>
+					<span>性价比</span>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
+					<span>
+						{{goods.productConfig.safety}}
+					</span>
+					<span>安全性</span>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
+					<span>
+						{{goods.productConfig.effectiveness}}
+					</span>
+					<span>有效性</span>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
+					<span>
+						{{goods.productConfig.convenience}}
+					</span>
+					<span>方便性</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout local-class="price prod-property" }}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
+					<span>
+						{{goods.productConfig.priceType}}
+						{{format-number goods.productConfig.referencePrice}}
+					</span>
+					<span>公司考核价</span>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
+					<span>
+						{{goods.productConfig.priceType}}
+						{{format-number goods.productConfig.costPrice}}
+					</span>
+					<span>单位成本价</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout local-class="manufacturer prod-property" }}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
+					<span>
+						{{goods.productConfig.product.medicareCategory}}
+					</span>
+					<span>医保类型</span>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" main="between" local-class="square" }}
+					<span>
+						{{goods.productConfig.product.corpName}}
+					</span>
+					<span>生产厂商</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}} --}}
+		{{#bp-layout direction="col" local-class="right" }}
+			<p local-class="keys" class="mb-2">产品特点</p>
+			<p local-class="values">
+				{{!-- {{goods.productConfig.productFeature}} --}}
+				{{product.feature}}
+			</p>
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bs-collapse}}

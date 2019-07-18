@@ -6,5 +6,6 @@ export default DS.Model.extend( {
 	totalPhase: DS.attr( "number" ),
 	inputIds: DS.attr( ),
 	salesReportIds: DS.attr( ),
-	personnelAssessmentIds: DS.attr( )
+	personnelAssessmentIds: DS.attr( ),
+	products: DS.hasMany("model/product")
 } )
