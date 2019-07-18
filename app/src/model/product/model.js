@@ -1,6 +1,6 @@
-import DS from 'ember-data';
+import DS from "ember-data"
 
-export default DS.Model.extend({
+export default DS.Model.extend( {
 	name: DS.attr( "string" ),
 	general: DS.attr( "string" ),
 	avatar: DS.attr( "string" ),
@@ -23,4 +23,4 @@ export default DS.Model.extend({
 	patentDescribe: DS.attr("string"),
 	costEffective: DS.attr("string"),
 	lifeCycle: DS.attr("string")
-});
+} )

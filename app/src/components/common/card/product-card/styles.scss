@@ -1,8 +1,8 @@
 .product {
 
 	.title {
-		line-height: 52px;
 		@extend %header-small;
+		line-height: 52px;
 
 		button {
 			height: auto;
@@ -13,14 +13,14 @@
 		}
 
 		span.type {
-			margin: 0 12px 0 8px;
-			padding: $spacing-compact 3*$spacing-compact;
 			@extend %defaultRadius;
+			margin: 0 12px 0 8px;
+			padding: $spacing-compact 3 * $spacing-compact;
 
 			&.self {
 				@extend %p-secondary;
-				color: #0049B0;
 				background-color: #B3D4FF;
+				color: #0049B0;
 			}
 
 			&.compete {
@@ -38,47 +38,47 @@
 	.product-content {
 
 		.left {
+			-ms-flex: 1;
 			-webkit-box-flex: 1;
 			-webkit-flex: 1;
-			-ms-flex: 1;
 			flex: 1;
 
 			img {
+				-ms-flex: 0 0 160px;
 				-webkit-box-flex: 0;
 				-webkit-flex: 0 0 160px;
-				-ms-flex: 0 0 160px;
 				flex: 0 0 160px;
 				height: 160px;
 			}
 
 			.product-infos {
+				-ms-flex: 1;
 				-webkit-box-flex: 1;
 				-webkit-flex: 1;
-				-ms-flex: 1;
 				flex: 1;
 				font-size: 0;
 
 				p>span:first-child {
-					flex: 0 0 70px;
-					margin-right: 2*$spacing;
 					@extend %p-primary;
+					flex: 0 0 70px;
+					margin-right: 2 * $spacing;
 				}
 
 				p span:last-child {
+					@extend %p-secondary;
+					-ms-flex: 1;
 					-webkit-box-flex: 1;
 					-webkit-flex: 1;
-					-ms-flex: 1;
 					flex: 1;
-					@extend %p-secondary;
 				}
 
 			}
 		}
 
 		.right {
+			-ms-flex: 1;
 			-webkit-box-flex: 1;
 			-webkit-flex: 1;
-			-ms-flex: 1;
 			flex: 1;
 
 			.keys {

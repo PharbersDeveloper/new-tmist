@@ -1,10 +1,10 @@
 {{#bp-layout tagName="h3" main="between" cross="center" local-class="title" class="px-4" }}
 	<span>
-		<span local-class="icon" {{action 'showContent'}}>{{bp-icon icon=icon }}</span>
+		<span local-class="icon" {{action "showContent"}} role="button">{{bp-icon icon=icon }}</span>
 		{{#if (bp-eq product.productType 0)}}
-			<span local-class="type self">公司产品</span>
+			<span local-class="type self">{{t "card.product-card.company-product"}}</span>
 		{{else}}
-			<span local-class="type compete">主要竞品</span>
+			<span local-class="type compete">{{t "card.product-card.major-competitors"}}</span>
 		{{/if}}
 		{{!-- {{goods.productConfig.product.name}} --}}
 		{{product.name}}
@@ -16,36 +16,36 @@
 		classNames="p-4" }}
 		{{#bp-layout main="between" local-class="left" }}
 			{{!-- {{#each goods.productConfig.product.images as |item|}} --}}
-				<img src={{product.avatar}} alt={{product.name}} class="mr-4">
+			<img src={{product.avatar}} alt={{product.name}} class="mr-4">
 			{{!-- {{/each}} --}}
 			{{#bp-layout direction="col" local-class="product-infos" }}
 				{{#bp-layout tagName="p" }}
-					<span>治疗领域</span>
+					<span>{{t "card.product-card.treatment-area"}}</span>
 					{{!-- <span>{{goods.productConfig.treatmentArea}}</span> --}}
 					<span>{{product.treatmentArea}}</span>
 				{{/bp-layout}}
 				{{#bp-layout tagName="p" }}
-					<span>上市时间</span>
+					<span>{{t "card.product-card.launch-time"}}</span>
 					{{!-- <span>{{bp-string-slice goods.productConfig.launchTime 0 4}}年</span> --}}
-					<span>{{bp-string-slice product.launchTime 0 4}}年</span>
+					<span>{{bp-string-slice product.launchTime 0 4}}{{t "card.product-card.year"}}</span>
 				{{/bp-layout}}
 				{{#bp-layout tagName="p" }}
-					<span>所属公司</span>
+					<span>{{t "card.product-card.producer"}}</span>
 					{{!-- <span>{{goods.productConfig.product.corpName}}</span> --}}
 					<span>{{product.producer}}</span>
 				{{/bp-layout}}
 				{{#bp-layout tagName="p" }}
-					<span>药品类型</span>
+					<span>{{t "card.product-card.patent-describe"}}</span>
 					{{!-- <span>{{goods.productConfig.patentDescribe}}</span> --}}
 					<span>{{product.patentDescribe}}</span>
 				{{/bp-layout}}
 				{{#bp-layout tagName="p" }}
-					<span>市场定位</span>
+					<span>{{t "card.product-card.life-cycle"}}</span>
 					{{!-- <span>{{goods.productConfig.lifeCycle}}</span> --}}
 					<span>{{product.lifeCycle}}</span>
 				{{/bp-layout}}
 				{{#bp-layout tagName="p" classNames="m-0"}}
-					<span>日使用费用</span>
+					<span>{{t "card.product-card.reference-price"}}</span>
 					<span>{{product.priceType}}{{format-number product.price}}</span>
 				{{/bp-layout}}
 				{{!-- {{#bp-layout tagName="p" }}
@@ -59,7 +59,7 @@
 				{{!-- {{#bp-layout tagName="p" local-class="target-department"}}
 					<span>目标科室</span>
 					<span>
-						{{#each (string-to-array goods.productConfig.targetDepartment '#') as |item|}}
+						{{#each (string-to-array goods.productConfig.targetDepartment "#") as |item|}}
 							<span>
 								{{item}}
 							</span>
@@ -127,7 +127,7 @@
 			{{/bp-layout}}
 		{{/bp-layout}} --}}
 		{{#bp-layout direction="col" local-class="right" }}
-			<p local-class="keys" class="mb-2">产品特点</p>
+			<p local-class="keys" class="mb-2">{{t "card.product-card.product-feature"}}</p>
 			<p local-class="values">
 				{{!-- {{goods.productConfig.productFeature}} --}}
 				{{product.feature}}

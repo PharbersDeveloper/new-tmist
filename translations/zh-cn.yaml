@@ -79,4 +79,22 @@ project:
       hospital-name: 医院名称
       hospital-representative: 代表
       money: ￥
+card:
+  product-card:
+    company-product: 公司产品
+    major-competitors: 主要竞品
+    treatment-area: 治疗领域
+    launch-time: 上市时间
+    year: 年
+    producer: 所属公司
+    patent-describe: 药品类型
+    life-cycle: 市场定位
+    reference-price: 日使用费用
+    product-feature: 产品特点
+    money: ￥
+
+
+
+
+
 
