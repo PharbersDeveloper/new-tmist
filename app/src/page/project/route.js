@@ -112,7 +112,7 @@ export default Route.extend( {
 	// },
 	model( params ) {
 		return RSVP.hash( {
-			proposal: this.store.findRecord( "model/proposal", params.proposalId)
+			proposal: this.store.findRecord( "model/proposal", params.proposal_id )
 		} )
 
 		// const store = this.get('store'),

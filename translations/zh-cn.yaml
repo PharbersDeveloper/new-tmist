@@ -64,3 +64,8 @@ project:
   modal-header:
     title: 提交执行
     desc: 提交执行中，请稍等...
+  proposal-info:
+    index: 产品竞品信息
+    hospital: 医院基本信息
+    member: 团队成员信息
+    sold: 历史销售报告

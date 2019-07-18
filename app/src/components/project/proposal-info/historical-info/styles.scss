@@ -1,0 +1,87 @@
+h2.title {
+	height: 54px;
+	@extend %header-medium;
+}
+
+.historical-sales-container {
+	height: 100%;
+}
+
+.nav {
+	flex: 0 0 270px;
+	list-style: none;
+	height: 100%;
+
+	li {
+		height: 4*$spacing;
+		@extend %header-small;
+		cursor: pointer;
+
+		span {
+			flex: 1;
+		}
+
+		&.active {
+			background-color: $n020a;
+		}
+	}
+}
+
+.content {
+	flex: 1;
+	overflow-x: auto;
+
+	.report {
+		flex: 1;
+		overflow-x: auto;
+
+		.choose-area {
+			flex: 1;
+
+			.keys {
+				flex: 0 0 56px;
+				@extend %p-primary;
+			}
+
+			.dd-area {
+				flex: 1;
+			}
+		}
+
+		.table-container {
+			// table-layout: fixed;
+
+			overflow-x: auto;
+
+			table {
+				thead {
+					background-color: transparent;
+
+					th {
+						border: 0;
+						@extend %p-small;
+						min-width: 100px;
+						text-align: right;
+					}
+				}
+
+				tbody {
+					tr:hover {
+						td {
+							background-color: rgba(0, 0, 0, 0.075);
+						}
+					}
+
+					td {
+						height: 52px;
+						line-height: 52px;
+						@extend %p-primary;
+						border: 0;
+						text-align: right;
+					}
+				}
+			}
+
+		}
+	}
+}
