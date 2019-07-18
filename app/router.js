@@ -12,7 +12,7 @@ Router.map( function() {
 	this.route( "page", { path: "/" }, function() {
 		this.route( "login" )
 		this.route( "welcome" )
-		this.route( "project", { path: "/project/:proposalId" } )
+		this.route( "project", { path: "/project/:proposal_id" } )
 	} )
 
 	this.route( "service", function() {
