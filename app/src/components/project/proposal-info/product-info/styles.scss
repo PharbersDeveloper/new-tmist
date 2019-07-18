@@ -1,14 +1,14 @@
 .products-container {
 	.trend {
 		.title {
+			@extend %p-primary;
 			height: 52px;
 			line-height: 52px;
-			@extend %p-primary;
 		}
 
 		.trend-line {
+			background-color: #FFF;
 			height: 400px;
-			background-color: #fff;
 		}
 	}
 }

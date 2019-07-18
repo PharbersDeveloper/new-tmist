@@ -1,6 +1,6 @@
-import Component from '@ember/component';
+import Component from "@ember/component"
 
-export default Component.extend({
+export default Component.extend( {
 	salesGroupValue: 0,
 	// init() {
 	// 	this._super(...arguments);
@@ -13,8 +13,8 @@ export default Component.extend({
 	// 	this.set('tmpHsr', this.get('totalHospitals'));
 	// },
 	actions: {
-		changeSalesValue(value) {
-			this.set('salesGroupValue', value);
+		changeSalesValue( value ) {
+			this.set( "salesGroupValue", value )
 		}
 	}
-});
+} )
