@@ -1,0 +1,26 @@
+.overview {
+	height: 342px;
+
+	h4.title {
+		@extend %header-small;
+	}
+
+	.chart {
+		flex: 1;
+		height: 342px;
+
+	}
+
+	.infos {
+		flex: 1;
+
+		.keys {
+			@extend %p-primary;
+			flex: 0 0 56px;
+		}
+
+		.values {
+			@extend %p-secondary;
+		}
+	}
+}

@@ -1,1 +1,41 @@
-{{yield}}
+{{#bp-layout main="between" local-class="overview" 
+			classNames="mb-4 bg-white"}}
+	{{#bp-layout direction="col" main="center" local-class="chart"}}
+		{{#bp-layout tagName='h4' local-class="title" classNames="m-0 pt-4 pl-4"}}{{t "project.proposal-info.member-info.team-average-performance"}}{{/bp-layout}}
+		{{bp-radar
+			eid='radarTotal'
+			hasLegend=false 
+			radarData=model.radarData
+			radarColor=model.radarColor
+			maxValue=10}}
+	{{/bp-layout}}
+	{{#bp-layout direction="col" local-class="infos"
+				classNames="p-4"}}
+		<h4 local-class="title" class="mb-4">{{t "project.proposal-info.member-info.team-status"}}</h4>
+		{{#bp-layout tagName="p"}}
+			<span local-class="keys" class="mr-3">{{t "project.proposal-info.member-info.team-number"}}</span>
+			<span local-class="values">{{model.resourceConfReps.length}}{{t "project.proposal-info.member-info.person"}}</span>
+		{{/bp-layout}}
+		{{!-- {{#bp-layout tagName="p"}}
+			<span local-class="keys" class="mr-3">业务经验</span>
+			<span local-class="values">
+				{{model.resourceConfManager.managerConfig.teamBusinessExperience}}
+			</span>
+		{{/bp-layout}} --}}
+		{{#bp-layout tagName="p"}}
+			<span local-class="keys" class="mr-3">{{t "project.proposal-info.member-info.team-desc"}}</span>
+			<span local-class="values">
+				{{model.resourceConfManager.managerConfig.teamDescribe}}
+			</span>
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}
+{{#each model.resourceConfReps as |rrcs index|}}
+	{{representative-info
+		resourceRepresentative=rrcs
+		representativeId=rrcs.representativeConfig.representative.id
+		lastPersonnelAssessment=model.lastPersonnelAssessment
+		averageAbility=model.radarData
+		representativeAbilities=model.representativeAbilities
+		index=index}}
+{{/each}}

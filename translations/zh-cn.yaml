@@ -79,6 +79,12 @@ project:
       hospital-name: 医院名称
       hospital-representative: 代表
       money: ￥
+    member-info:
+      team-average-performance: 团队平均能力表现
+      team-status: 团队状况
+      team-number: 团队人数
+      team-desc: 团队描述
+      person: 人
 card:
   product-card:
     company-product: 公司产品
@@ -92,9 +98,3 @@ card:
     reference-price: 日使用费用
     product-feature: 产品特点
     money: ￥
-
-
-
-
-
-
