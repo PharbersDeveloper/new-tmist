@@ -1,0 +1,75 @@
+.representative {
+	h3.title {
+		height: 52px;
+		@extend %header-medium;
+
+		.icon {
+			cursor: pointer;
+		}
+	}
+
+	h4.title {
+		@extend %header-small;
+
+		.subtitle {
+			@extend %p-small;
+		}
+	}
+
+	.content {
+		&>div {
+			flex: 1;
+		}
+
+		img {
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+		}
+
+		.basic-infos {
+			.rep {
+				img {
+					flex: 0 0 80px;
+				}
+
+				.infos {
+					flex: 1;
+					font-size: 0;
+
+					.properties,
+					.values {
+						@extend %p-secondary;
+					}
+
+					.keys {
+						@extend %p-primary;
+					}
+				}
+
+			}
+
+			.kpi-content {
+				.kpis {
+					font-size: 0;
+
+					&>div {
+						flex: 1;
+					}
+
+					.keys-large {
+						@extend %header-large;
+					}
+
+					.values-small {
+						@extend %p-small;
+					}
+				}
+			}
+		}
+
+		.chart {
+			height: 350px;
+		}
+	}
+}

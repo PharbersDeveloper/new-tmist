@@ -1,6 +1,6 @@
-import Component from '@ember/component';
+import Component from "@ember/component"
 
-export default Component.extend({
+export default Component.extend( {
 	positionalParams: ["hospitals"]
 	// model() {
 	// 	const pageScenarioModel = this.modelFor('page-scenario'),
@@ -102,4 +102,4 @@ export default Component.extend({
 	// 		return ele.get(key);
 	// 	});
 	// }
-});
+} )
