@@ -3,21 +3,21 @@ import Component from "@ember/component"
 // import { A } from "@ember/array"
 // import RSVP, { hash } from "rsvp"
 
-export default Component.extend({
-    positionalParams: ['products']
-    // model() {
-    //     let scenarioModel = this.modelFor('page-scenario'),
-    //         salesReports = scenarioModel.salesReports,
-    //         goodsConfigs = scenarioModel.goodsConfigs,
-    //         seasons = A([]),
-    //         tmpData = A([]),
-    //         lineColorTm = A(['#57D9A3', '#79E2F2', '#FFE380', '#8777D9 ']),
-    //         promiseArrayTop = salesReports.map(ele => {
-    //             return ele.get('productSalesReports');
-    //         }),
-    //         seasonsPrimary = salesReports.map(ele => {
-    //             return ele.scenario;
-    //         });
+export default Component.extend( {
+	positionalParams: ["products"]
+	// model() {
+	//     let scenarioModel = this.modelFor('page-scenario'),
+	//         salesReports = scenarioModel.salesReports,
+	//         goodsConfigs = scenarioModel.goodsConfigs,
+	//         seasons = A([]),
+	//         tmpData = A([]),
+	//         lineColorTm = A(['#57D9A3', '#79E2F2', '#FFE380', '#8777D9 ']),
+	//         promiseArrayTop = salesReports.map(ele => {
+	//             return ele.get('productSalesReports');
+	//         }),
+	//         seasonsPrimary = salesReports.map(ele => {
+	//             return ele.scenario;
+	//         });
 
 	//     return hash({
 	//         productSalesReports: RSVP.Promise.all(promiseArrayTop),
