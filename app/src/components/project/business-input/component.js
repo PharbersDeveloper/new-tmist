@@ -1,17 +1,17 @@
-import Component from '@ember/component';
+import Component from "@ember/component"
 import { A } from "@ember/array"
-import { inject as service } from "@ember/service"
-import { computed } from "@ember/object"
+// import { inject as service } from "@ember/service"
+// import { computed } from "@ember/object"
 
-export default Component.extend({
-    	// 设置一些默认值
-	hospitalState: A([
-		{ name: '全部', state: 0 },
-		{ name: '待分配', state: 1 },
-		{ name: '已分配', state: 2 }
-	]),
+export default Component.extend( {
+	// 设置一些默认值
+	hospitalState: A( [
+		{ name: "全部", state: 0 },
+		{ name: "待分配", state: 1 },
+		{ name: "已分配", state: 2 }
+	] ),
 	// verify: service('service-verify'),
-	verify: null,
+	verify: null
 	// representativesVisitPercent: computed('model.businessInputs.@each.{visitTime,resourceConfigId}', function () {
 	// 	const model = this.get('model');
 
@@ -115,8 +115,8 @@ export default Component.extend({
 	// 	// 	businessInputs = model.businessInputs,
 	// 	// 	resourceConfigManager = model.resourceConfManager;
 
-    //     // return verifyService.verifyInput(resourceConfRep, businessInputs, resourceConfigManager);
-    //     return 0
+	//     // return verifyService.verifyInput(resourceConfRep, businessInputs, resourceConfigManager);
+	//     return 0
 	// }),
 	// init() {
 	// 	this._super(...arguments);
@@ -129,4 +129,4 @@ export default Component.extend({
 	// 		this.transitionToRoute('page-scenario.business.hospital-config', id);
 	// 	}
 	// }
-});
+} )

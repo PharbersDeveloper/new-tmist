@@ -1,7 +1,7 @@
 .hospital {
 	h3.title {
-		height: 52px;
 		@extend %header-medium;
+		height: 52px;
 
 		.icon {
 			cursor: pointer;
@@ -25,8 +25,8 @@
 
 			.basic {
 				img {
-					flex-shrink: 0;
 					flex-grow: 160px;
+					flex-shrink: 0;
 					height: 160px
 				}
 
@@ -52,8 +52,8 @@
 
 			.medic-access {
 				.keys {
-					margin-bottom: $spacing;
 					@extend %p-small;
+					margin-bottom: $spacing;
 				}
 
 				.values {
