@@ -1,18 +1,18 @@
 {{#bp-layout local-class="page-mission"}}
 	{{#bp-layout wrap=true multi="start" local-class="mission-list" classNames="p-4"}}
-		{{#each model.useableProposals as |useableProposal uindex|}}
+		{{#each model.useableProposals as |useableProposal|}}
 			{{!-- {{#each model.papers as |paper pindex|}} --}}
-				{{!-- {{#if (bp-eq uindex pindex)}} --}}
-					{{!-- {{#each paper as |useableProposalPaper|}} --}}
-							{{!-- local-class=(if (bp-eq model.detailPaper.id paper.id) "choosed") --}}
-							{{!-- useableProposalPaper=paper --}}
-					{{welcome/mission-info
+			{{!-- {{#if (bp-eq uindex pindex)}} --}}
+			{{!-- {{#each paper as |useableProposalPaper|}} --}}
+			{{!-- local-class=(if (bp-eq model.detailPaper.id paper.id) "choosed") --}}
+			{{!-- useableProposalPaper=paper --}}
+			{{welcome/mission-info
 							local-class="choosed"
 							useableProposal=useableProposal
 							onClick=(action "changeDetail" useableProposal)}}
-							{{!-- onClick=(action "changeDetail" useableProposal paper)}} --}}
-					{{!-- {{/each}} --}}
-				{{!-- {{/if}} --}}
+			{{!-- onClick=(action "changeDetail" useableProposal paper)}} --}}
+			{{!-- {{/each}} --}}
+			{{!-- {{/if}} --}}
 			{{!-- {{/each}} --}}
 		{{else}}
 			<p>{{t "welcome.no-task"}}</p>

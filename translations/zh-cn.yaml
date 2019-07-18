@@ -47,3 +47,20 @@ welcome:
 mission-info:
   total: 共
   period: 周期
+login:
+  title: PHARBERS 数据整合平台
+  desc: 不止于数据，让决策更精彩
+project:
+  test-result: testResult
+  save-btn: 保存
+  submit-btn: 提交执行
+  scenario-business: 业务决策
+  scenario-management: 管理决策
+  scenario-reference: 参考信息
+  scenario-decision-review: 本期决策回顾
+  modal-footer:
+    close-btn: 好的
+    submit-btn: 确认提交
+  modal-header:
+    title: 提交执行
+    desc: 提交执行中，请稍等...

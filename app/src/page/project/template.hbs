@@ -1,6 +1,6 @@
 {{#bp-layout direction="col" local-class="page-scenario" 
 	classNames="p-4"}}
-	{{#bp-page-header class="mb-4" local-class='scenario-header' as |ph|}}
+	{{#bp-page-header class="mb-4" local-class="scenario-header" as |ph|}}
 		{{#ph.body as |body|}}
 			{{#body.left as |left|}}
 				{{#left.item}}
@@ -12,42 +12,42 @@
 			{{/body.left}}
 			{{#body.right}}
 				{{#if testBtn}}
-					{{#bp-button classNames="mr-1" onClick=(action 'testResult')}}
-						testResult
+					{{#bp-button classNames="mr-1" onClick=(action "testResult")}}
+						{{t "project.test-result"}}
 					{{/bp-button}}
 				{{/if}}
-				{{#bp-button classNames="mr-1" onClick=(action 'saveInputs')}}保存{{/bp-button}}
-				{{#bp-button type='primary' onClick=(action 'submit') }}提交执行{{/bp-button}}
+				{{#bp-button classNames="mr-1" onClick=(action "saveInputs")}}{{t "project.save-btn"}}{{/bp-button}}
+				{{#bp-button type="primary" onClick=(action "submit") }}{{t "project.submit-btn"}}{{/bp-button}}
 			{{/body.right}}
 		{{/ph.body}}
 	{{/bp-page-header}}
 	{{#bp-tabs local-class="tabs-container" as |tabs|}}
 		{{#tabs.tablist as |list|}}
 			<li class="nav-item">
-				{{!-- {{#list.link-to 'page-scenario.business'  --}}
-				{{#list.link-to 'page.project' 123
-					classNames='nav-link'  }}
-					业务决策{{/list.link-to}}
+				{{!-- {{#list.link-to "page-scenario.business"  --}}
+				{{#list.link-to "page.project" 123
+					classNames="nav-link"  }}
+					{{t "project.scenario-business"}}{{/list.link-to}}
 			</li>
 			<li class="nav-item">
-				{{!-- {{#list.link-to 'page-scenario.management'  --}}
-				{{#list.link-to 'page.project' 123
-					classNames='nav-link' }}
-					管理决策
+				{{!-- {{#list.link-to "page-scenario.management"  --}}
+				{{#list.link-to "page.project" 123
+					classNames="nav-link" }}
+					{{t "project.scenario-management"}}
 				{{/list.link-to}}
 			</li>
 			<li class="nav-item">
-				{{!-- {{#list.link-to 'page-scenario.reference'  --}}
-				{{#list.link-to 'page.project' 123
-					classNames='nav-link' }}
-					参考信息
+				{{!-- {{#list.link-to "page-scenario.reference"  --}}
+				{{#list.link-to "page.project" 123
+					classNames="nav-link" }}
+					{{t "project.scenario-reference"}}
 				{{/list.link-to}}
 			</li>
 			<li class="nav-item">
-				{{!-- {{#list.link-to 'page-scenario.decision-review'  --}}
-				{{#list.link-to 'page.project' 123
-					classNames='nav-link' }}
-					本期决策回顾
+				{{!-- {{#list.link-to "page-scenario.decision-review"  --}}
+				{{#list.link-to "page.project" 123
+					classNames="nav-link" }}
+					{{t "project.scenario-decision-review"}}
 				{{/list.link-to}}
 			</li>
 		{{/tabs.tablist}}
@@ -56,7 +56,7 @@
 {{/bp-layout}}
 {{#bp-modal
 		open=warning.open 
-		position='center'
+		position="center"
 		onSubmit=(action "confirmSubmit") 
 		onHidden=(action (mut warning.open) false) as |modal|}}
 	{{#modal.header}}
@@ -70,27 +70,28 @@
 		</p>
 	{{/modal.body}}
 	{{#modal.footer}}
-		{{#unless confirmSubmit}}
-			{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+		{{!-- change unless >> if --}}
+		{{#if confirmSubmit}}
+			{{#bp-button type="primary" onClick=(action modal.close)}}{{t "project.modal-footer.close-btn"}}{{/bp-button}}
 		{{else}}
-			{{#bp-button type="primary" onClick=(action modal.submit)}}确定提交{{/bp-button}}
-		{{/unless}}
+			{{#bp-button type="primary" onClick=(action modal.submit)}}{{t "project.modal-footer.submit-btn"}}{{/bp-button}}
+		{{/if}}
 		{{!-- {{#bp-button type="danger"}}Delete{{/bp-button}} --}}
 		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
 	{{/modal.footer}}
 {{/bp-modal}}
 {{#bp-modal
 		open=loadingForSubmit
-		position='center'
+		position="center"
 		backdropClose=false as |modal|}}
 	{{#modal.header closeButton=false }}
 		<h4 class="modal-title">
-			提交执行
+			{{t "project.modal-header.title"}}
 		</h4>
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
 		<p class="desc m-0">
-			提交执行中，请稍等。。
+			{{t "project.modal-header.desc"}}
 		</p>
 	{{/modal.body}}
 {{/bp-modal}}
