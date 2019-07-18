@@ -1,8 +1,8 @@
 import Controller from "@ember/controller"
 import ENV from "new-tmist/config/environment"
 import { inject as service } from "@ember/service"
-import { A } from "@ember/array"
 import { computed } from "@ember/object"
+// import { A } from "@ember/array"
 
 export default Controller.extend( {
 	cookies: service(),
@@ -38,7 +38,7 @@ export default Controller.extend( {
 			// this.set( "model.detailProposal", useableProposal )
 			// this.set( "model.detailPaper", paper )
 			// TODO: 添加右边展示逻辑
-			this.transitionToRoute("page.project", useableProposal.get("proposal.id"))
+			this.transitionToRoute( "page.project", useableProposal.get( "proposal.id" ) )
 		},
 		startDeploy( proposalId ) {
 			localStorage.setItem( "notice", false )

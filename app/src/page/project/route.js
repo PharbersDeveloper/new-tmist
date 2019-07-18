@@ -1,24 +1,24 @@
-import Route from '@ember/routing/route';
-import RSVP, { hash, all } from 'rsvp';
-import { A } from '@ember/array';
-import { inject as service } from '@ember/service';
+import Route from "@ember/routing/route"
+import { A } from "@ember/array"
+import { inject as service } from "@ember/service"
+// import RSVP, { hash, all } from "rsvp"
 
-export default Route.extend({
+export default Route.extend( {
 	cookies: service(),
 	createManagerInput() {
-		return this.get('store').createRecord('managerinput', {
-			strategyAnalysisTime: '',
-			adminWorkTime: '',
-			clientManagementTime: '',
-			kpiAnalysisTime: '',
-			teamMeetingTime: ''
-		});
+		return this.get( "store" ).createRecord( "managerinput", {
+			strategyAnalysisTime: "",
+			adminWorkTime: "",
+			clientManagementTime: "",
+			kpiAnalysisTime: "",
+			teamMeetingTime: ""
+		} )
 	},
-	createRepInputs(resourceConfigs) {
-		let promiseArray = A([]);
+	createRepInputs( resourceConfigs ) {
+		let promiseArray = A( [] )
 
-		promiseArray = resourceConfigs.map(ele => {
-			return this.get('store').createRecord('representativeinput', {
+		promiseArray = resourceConfigs.map( ele => {
+			return this.get( "store" ).createRecord( "representativeinput", {
 				resourceConfigId: ele.id,
 				resourceConfig: ele,
 				productKnowledgeTraining: 0,
@@ -26,67 +26,67 @@ export default Route.extend({
 				regionTraining: 0,
 				performanceTraining: 0,
 				vocationalDevelopment: 0,
-				assistAccessTime: '',
-				teamMeeting: '',
-				abilityCoach: ''
-			});
-		});
-		return promiseArray;
+				assistAccessTime: "",
+				teamMeeting: "",
+				abilityCoach: ""
+			} )
+		} )
+		return promiseArray
 	},
 	//	生成 managerinput
-	generateManagerInput(resourceConfigs) {
+	generateManagerInput( resourceConfigs ) {
 		return {
 			managerInput: this.createManagerInput(),
-			representativeInputs: this.createRepInputs(resourceConfigs)
-		};
+			representativeInputs: this.createRepInputs( resourceConfigs )
+		}
 	},
 	// 判断是否有 managerinput
-	hasManagerInput(paper, resourceConfigs) {
+	hasManagerInput( paper, resourceConfigs ) {
 		// 应该根据 paper 中的 state 属性
-		let state = paper.get('state'),
-			reDeploy = Number(localStorage.getItem('reDeploy')) === 1;
+		let state = paper.get( "state" ),
+			reDeploy = Number( localStorage.getItem( "reDeploy" ) ) === 1
 
-		if (state === 1 && !reDeploy) {
+		if ( state === 1 && !reDeploy ) {
 			return {
-				managerInput: this.get('store').peekAll('managerinput').lastObject,
-				representativeInputs: this.get('store').peekAll('representativeinput')
-			};
+				managerInput: this.get( "store" ).peekAll( "managerinput" ).lastObject,
+				representativeInputs: this.get( "store" ).peekAll( "representativeinput" )
+			}
 		}
-		return this.generateManagerInput(resourceConfigs);
+		return this.generateManagerInput( resourceConfigs )
 	},
 	// 判断是否有 businessinput
-	isHaveBusinessInput(paper, destConfigs, goodsConfig) {
-		let state = paper.get('state'),
-			reDeploy = Number(localStorage.getItem('reDeploy')) === 1;
+	isHaveBusinessInput( paper, destConfigs, goodsConfig ) {
+		let state = paper.get( "state" ),
+			reDeploy = Number( localStorage.getItem( "reDeploy" ) ) === 1
 
 
-		if (state === 1 && !reDeploy) {
-			return this.get('store').peekAll('businessinput');
+		if ( state === 1 && !reDeploy ) {
+			return this.get( "store" ).peekAll( "businessinput" )
 		}
-		return this.generateBusinessInputs(destConfigs, goodsConfig);
+		return this.generateBusinessInputs( destConfigs, goodsConfig )
 	},
 	// normalFlow(newBusinessInputs) {
 	// 	return newBusinessInputs;
 	// },
 	// 生成 businessinputs
-	generateBusinessInputs(destConfigs, goodsConfig) {
-		let promiseArray = A([]);
+	generateBusinessInputs( destConfigs, goodsConfig ) {
+		let promiseArray = A( [] )
 
-		promiseArray = destConfigs.map(ele => {
-			return this.get('store').createRecord('businessinput', {
+		promiseArray = destConfigs.map( ele => {
+			return this.get( "store" ).createRecord( "businessinput", {
 				destConfig: ele,
 				destConfigId: ele.id,
-				representativeId: '',
-				resourceConfigId: '',
+				representativeId: "",
+				resourceConfigId: "",
 				resourceConfig: null,
-				salesTarget: '',
-				budget: '',
+				salesTarget: "",
+				budget: "",
 				goodsConfig,
 				meetingPlaces: 0,
-				visitTime: ''
-			});
-		});
-		return promiseArray;
+				visitTime: ""
+			} )
+		} )
+		return promiseArray
 	},
 	// beforeModel({ params }) {
 	// 	let proposalId = params['page-scenario']['proposal_id'],
@@ -110,7 +110,7 @@ export default Route.extend({
 	// 		}
 	// 	});
 	// },
-	model(params) {
+	model( ) {
 		// const store = this.get('store'),
 		// 	cookies = this.get('cookies'),
 		// 	noticeModel = this.modelFor('page-notice'),
@@ -232,7 +232,7 @@ export default Route.extend({
 		// 				})
 		// 		});
 		// 	});
-	},
+	}
 	// afterModel(model) {
 	// 	let applicationController = this.controllerFor('application');
 
@@ -246,4 +246,4 @@ export default Route.extend({
 	// 	controller.set('representativeInputs', model.representativeInputs);
 	// 	controller.set('businessInputs', model.businessInputs);
 	// }
-});
+} )

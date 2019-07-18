@@ -33,7 +33,8 @@ export default Route.extend( {
 		// }
 	},
 	model() {
-		const accountId = this.cookies.read("account_id")
+		const accountId = this.cookies.read( "account_id" )
+
 		return RSVP.hash( {
 			useableProposals: this.store.query( "model/usable-proposal", { filter: "(accountId,:eq,`" + accountId + "`)" } )
 		} )

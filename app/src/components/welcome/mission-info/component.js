@@ -1,7 +1,7 @@
 import Component from "@ember/component"
 import { computed } from "@ember/object"
-import { equal } from "@ember/object/computed"
 import { A } from "@ember/array"
+// import { equal } from "@ember/object/computed"
 
 export default Component.extend( {
 	classNames: ["mr-4 mb-4 p-4"],
@@ -21,11 +21,11 @@ export default Component.extend( {
 	// doneMissionActive: equal( "useableProposalPaper.state", 3 )
 
 	// onClick() { },
-	click(params) {
+	click( ) {
 		// let action = this.get('onClick');
 		// action(params);
 		// return this.get('bubble');
 		// this.onMessageInfoClick(this.get("useableProposal.proposal._id"))
-		this.onClick(this.get("useableProposal.proposal"))
+		this.onClick( this.get( "useableProposal.proposal" ) )
 	}
 } )

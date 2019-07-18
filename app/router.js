@@ -4,20 +4,20 @@ import config from "./config/environment"
 // import Route from "@ember/routing/route"
 
 const Router = EmberRouter.extend( {
-    location: config.locationType,
-    rootURL: config.rootURL
+	location: config.locationType,
+	rootURL: config.rootURL
 } )
 
 Router.map( function() {
-    this.route( "page", { path: "/" }, function() {
-      this.route( "login" )
-      this.route( "welcome" )
-      this.route('project', { path: '/project/:proposalId' });
-    } )
+	this.route( "page", { path: "/" }, function() {
+		this.route( "login" )
+		this.route( "welcome" )
+		this.route( "project", { path: "/project/:proposal_id" } )
+	} )
 
-    this.route( "service", function() {
-        this.route( "oauth-callback" )
-    } )
+	this.route( "service", function() {
+		this.route( "oauth-callback" )
+	} )
 } )
 
 export default Router
