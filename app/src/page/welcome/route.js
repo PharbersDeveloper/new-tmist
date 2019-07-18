@@ -36,7 +36,9 @@ export default Route.extend( {
 		const accountId = this.cookies.read( "account_id" )
 
 		return RSVP.hash( {
-			usableProposals: this.store.query( "model/usable-proposal", { filter: "(accountId,:eq,`" + accountId + "`)" } )
+			usableProposals: this.store.query( "model/usable-proposal", { filter: "(accountId,:eq,`" + accountId + "`)" } ),
+			currentProjects: this.store.query( "model/project", { filter: "(:and,(accountId,:eq,`" + accountId + "`),(status,:eq,0))" } ),
+			historicalProjects: this.store.query( "model/project", { filter: "(:and,(accountId,:eq,`" + accountId + "`),(status,:eq,1))" } )
 		} )
 
 		// let applicationModel = this.modelFor( "application" ),
