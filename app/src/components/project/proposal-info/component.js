@@ -4,6 +4,7 @@ export default Component.extend( {
 	positionalParams: ["proposal"],
 	groupValue: "index",
 	salesGroupValue: 0,
+	currentPannel: 0,
 	actions: {
 		linkToRoute( routeCode ) {
 			let proposalId = this.get( "proposalId" ),
