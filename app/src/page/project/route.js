@@ -1,7 +1,7 @@
 import Route from "@ember/routing/route"
 import { A } from "@ember/array"
 import { inject as service } from "@ember/service"
-// import RSVP, { hash, all } from "rsvp"
+import RSVP from "rsvp"
 
 export default Route.extend( {
 	cookies: service(),
@@ -110,7 +110,11 @@ export default Route.extend( {
 	// 		}
 	// 	});
 	// },
-	model( ) {
+	model( params ) {
+		return RSVP.hash( {
+			proposal: this.store.findRecord( "model/proposal", params.proposalId)
+		} )
+
 		// const store = this.get('store'),
 		// 	cookies = this.get('cookies'),
 		// 	noticeModel = this.modelFor('page-notice'),
