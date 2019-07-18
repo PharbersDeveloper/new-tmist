@@ -69,3 +69,14 @@ project:
     hospital: 医院基本信息
     member: 团队成员信息
     sold: 历史销售报告
+    product-info:
+      produce-sale-report: 产品销售报告
+      representative-sale-report: 代表销售报告
+      hospital-sale-report: 医院销售报告
+      drug-name: 药品名称
+      representative-name: 代表名称
+      potential: 潜力
+      hospital-name: 医院名称
+      hospital-representative: 代表
+      money: ￥
+

@@ -1,6 +1,6 @@
 h2.title {
-	height: 54px;
 	@extend %header-medium;
+	height: 54px;
 }
 
 .historical-sales-container {
@@ -9,13 +9,13 @@ h2.title {
 
 .nav {
 	flex: 0 0 270px;
-	list-style: none;
 	height: 100%;
+	list-style: none;
 
 	li {
-		height: 4*$spacing;
 		@extend %header-small;
 		cursor: pointer;
+		height: 4 * $spacing;
 
 		span {
 			flex: 1;
@@ -39,8 +39,8 @@ h2.title {
 			flex: 1;
 
 			.keys {
-				flex: 0 0 56px;
 				@extend %p-primary;
+				flex: 0 0 56px;
 			}
 
 			.dd-area {
@@ -58,8 +58,8 @@ h2.title {
 					background-color: transparent;
 
 					th {
-						border: 0;
 						@extend %p-small;
+						border: 0;
 						min-width: 100px;
 						text-align: right;
 					}
@@ -73,10 +73,10 @@ h2.title {
 					}
 
 					td {
-						height: 52px;
-						line-height: 52px;
 						@extend %p-primary;
 						border: 0;
+						height: 52px;
+						line-height: 52px;
 						text-align: right;
 					}
 				}
