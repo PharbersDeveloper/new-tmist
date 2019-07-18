@@ -96,10 +96,7 @@ project:
     please-choose: 请选择
     OK: 好的
     money: ￥
-    p: %
-
-    
-
+    p: "%"
 card:
   product-card:
     company-product: 公司产品
