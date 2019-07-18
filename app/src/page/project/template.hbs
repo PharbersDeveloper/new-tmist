@@ -22,7 +22,7 @@
 		{{/ph.body}}
 	{{/bp-page-header}}
 	{{#bp-tabs local-class="tabs-container" as |tabs|}}
-		{{#tabs.tablist as |list|}}
+		{{#tabs.tablist}}
 			<li class="nav-item">
 				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 0)}}
 					{{t "project.scenario-business"}}

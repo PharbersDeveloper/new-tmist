@@ -1,7 +1,7 @@
-.representative {
+.resource {
 	h3.title {
-		height: 52px;
 		@extend %header-medium;
+		height: 52px;
 
 		.icon {
 			cursor: pointer;
@@ -22,9 +22,9 @@
 		}
 
 		img {
-			width: 80px;
-			height: 80px;
 			border-radius: 50%;
+			height: 80px;
+			width: 80px;
 		}
 
 		.basic-infos {

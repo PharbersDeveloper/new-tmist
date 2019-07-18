@@ -5,12 +5,12 @@
 		flex: 0 0 170px;
 
 		.item {
-			flex: 1;
 			background-color: $n000;
+			flex: 1;
 
 			h2.title {
-				height: 54px;
 				@extend %header-medium;
+				height: 54px;
 			}
 
 			.info {
@@ -41,10 +41,10 @@
 
 			.legend {
 				.circle {
-					width: 8px;
-					height: 8px;
-					border-radius: 50%;
 					background-color: $b200;
+					border-radius: 50%;
+					height: 8px;
+					width: 8px;
 				}
 
 				.values {
@@ -53,10 +53,9 @@
 			}
 
 			.rest-time {
-				margin-bottom: 16px;
-
-				width: 50%;
 				font-size: 0;
+				margin-bottom: 16px;
+				width: 50%;
 
 				.keys {
 					@extend %p-primary;
@@ -82,8 +81,8 @@
 			overflow: auto;
 
 			h3.title {
-				flex: 0 0 54px;
 				@extend %header-medium;
+				flex: 0 0 54px;
 
 				.dd-hosp {
 					width: 98px;
