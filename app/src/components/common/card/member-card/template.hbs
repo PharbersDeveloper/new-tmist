@@ -8,7 +8,7 @@
 	{{#bp-layout local-class="content"}}
 		{{#bp-layout direction="col" local-class="basic-infos" classNames="p-4"}}
 			{{#bp-layout local-class="rep"}}
-				{{#each resource.images as |avatar index|}}
+				{{#each resource.avatar as |avatar index|}}
 					{{#if (bp-eq index 0)}}
 						<img src={{avatar.img}} alt={{resource.name}}>
 					{{/if}}
@@ -42,7 +42,7 @@
 								{{resource.advantage}}
 							</span>
 							<span local-class="values">
-								{{resource.managerEvaluation}}
+								{{resource.evaluation}}
 							</span>
 						{{/bp-layout}}
 					{{/bp-layout}}
@@ -50,60 +50,60 @@
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="kpi-content" classNames="mt-4"}}
 				<h4 local-class="title" class="mb-4">代表行为KPI
-					<span local-class="subtitle" class="ml-2">{{lastPersonnelAssessment.scenario.name}}</span>
+					{{!-- <span local-class="subtitle" class="ml-2">{{lastPersonnelAssessment.scenario.name}}</span> --}}
 				</h4>
 				{{#bp-layout main="between" local-class="kpis"}}
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
-							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
+							{{!-- {{#each lastPersonnelAssessment.actionKpis as |kpi|}}
 								{{#if (bp-eq resource.id kpi.representative.id)}}
 									{{format-number kpi.targetNumber}}
 								{{/if}}
-							{{/each}}
+							{{/each}} --}}
 						</span>
 						<span local-class="values-small">目标医生</span>
 						<span local-class="values-small">数量(人)</span>
 					{{/bp-layout}}
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
-							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
+							{{!-- {{#each lastPersonnelAssessment.actionKpis as |kpi|}}
 								{{#if (bp-eq resource.id kpi.representative.id)}}
 									{{format-number kpi.targetCoverage}}
 								{{/if}}
-							{{/each}}
+							{{/each}} --}}
 						</span>
 						<span local-class="values-small">目标医生</span>
 						<span local-class="values-small">覆盖率(%)</span>
 					{{/bp-layout}}
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
-							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
+							{{!-- {{#each lastPersonnelAssessment.actionKpis as |kpi|}}
 								{{#if (bp-eq resource.id kpi.representative.id)}}
 									{{format-number kpi.highLevelFrequency}}
 								{{/if}}
-							{{/each}}
+							{{/each}} --}}
 						</span>
 						<span local-class="values-small">A类医生</span>
 						<span local-class="values-small">拜访频率(次)</span>
 					{{/bp-layout}}
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
-							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
+							{{!-- {{#each lastPersonnelAssessment.actionKpis as |kpi|}}
 								{{#if (bp-eq resource.id kpi.representative.id)}}
 									{{format-number kpi.middleLevelFrequency}}
 								{{/if}}
-							{{/each}}
+							{{/each}} --}}
 						</span>
 						<span local-class="values-small">B类医生</span>
 						<span local-class="values-small">拜访频率(次)</span>
 					{{/bp-layout}}
 					{{#bp-layout direction="col"}}
 						<span local-class="keys-large" class="mb-2">
-							{{#each lastPersonnelAssessment.actionKpis as |kpi|}}
+							{{!-- {{#each lastPersonnelAssessment.actionKpis as |kpi|}}
 								{{#if (bp-eq resource.id kpi.representative.id)}}
 									{{format-number kpi.lowLevelFrequency}}
 								{{/if}}
-							{{/each}}
+							{{/each}} --}}
 						</span>
 						<span local-class="values-small">C类医生</span>
 						<span local-class="values-small">拜访频率(次)</span>
