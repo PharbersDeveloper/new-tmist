@@ -1,75 +1,75 @@
-.representative {
-	h3.title {
-		height: 52px;
-		@extend %header-medium;
+.resource {
+  h3.title {
+    height: 52px;
+    @extend %header-medium;
 
-		.icon {
-			cursor: pointer;
-		}
-	}
+    .icon {
+      cursor: pointer;
+    }
+  }
 
-	h4.title {
-		@extend %header-small;
+  h4.title {
+    @extend %header-small;
 
-		.subtitle {
-			@extend %p-small;
-		}
-	}
+    .subtitle {
+      @extend %p-small;
+    }
+  }
 
-	.content {
-		&>div {
-			flex: 1;
-		}
+  .content {
+    &>div {
+      flex: 1;
+    }
 
-		img {
-			width: 80px;
-			height: 80px;
-			border-radius: 50%;
-		}
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
 
-		.basic-infos {
-			.rep {
-				img {
-					flex: 0 0 80px;
-				}
+    .basic-infos {
+      .rep {
+        img {
+          flex: 0 0 80px;
+        }
 
-				.infos {
-					flex: 1;
-					font-size: 0;
+        .infos {
+          flex: 1;
+          font-size: 0;
 
-					.properties,
-					.values {
-						@extend %p-secondary;
-					}
+          .properties,
+          .values {
+            @extend %p-secondary;
+          }
 
-					.keys {
-						@extend %p-primary;
-					}
-				}
+          .keys {
+            @extend %p-primary;
+          }
+        }
 
-			}
+      }
 
-			.kpi-content {
-				.kpis {
-					font-size: 0;
+      .kpi-content {
+        .kpis {
+          font-size: 0;
 
-					&>div {
-						flex: 1;
-					}
+          &>div {
+            flex: 1;
+          }
 
-					.keys-large {
-						@extend %header-large;
-					}
+          .keys-large {
+            @extend %header-large;
+          }
 
-					.values-small {
-						@extend %p-small;
-					}
-				}
-			}
-		}
+          .values-small {
+            @extend %p-small;
+          }
+        }
+      }
+    }
 
-		.chart {
-			height: 350px;
-		}
-	}
+    .chart {
+      height: 350px;
+    }
+  }
 }

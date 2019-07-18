@@ -8,11 +8,12 @@
 	{{#bp-layout local-class="content"}}
 		{{#bp-layout direction="col" local-class="basic-infos" classNames="p-4"}}
 			{{#bp-layout local-class="rep"}}
-				{{#each resource.avatar as |avatar index|}}
+				{{!-- {{#each resource.avatar as |avatar index|}}
 					{{#if (bp-eq index 0)}}
 						<img src={{avatar.img}} alt={{resource.name}}>
 					{{/if}}
-				{{/each}}
+				{{/each}} --}}
+										<img src={{resource.avatar.img}} alt={{resource.name}}>
 				{{#bp-layout direction="col" local-class="infos"
 					classNames="ml-4"}}
 					<h4 local-class="title" class="mb-4">
