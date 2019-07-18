@@ -1,14 +1,12 @@
 {{#bp-layout tagName="h3" main="between" cross="center" local-class="title" class="px-4" }}
 	<span>
 		<span local-class="icon" {{action "showContent"}} role="button">{{bp-icon icon=icon }}</span>
-		{{#if (bp-eq product.productType 0)}}
+		{{#if (bp-eq product.productType "0")}}
 			<span local-class="type self">{{t "card.product-card.company-product"}}</span>
 		{{else}}
 			<span local-class="type compete">{{t "card.product-card.major-competitors"}}</span>
 		{{/if}}
-		{{!-- {{goods.productConfig.product.name}} --}}
 		{{product.name}}
-		{{!-- - {{goods.productConfig.product.generalName}} --}}
 	</span>
 {{/bp-layout}}
 {{#bs-collapse collapsed=showContent}}
