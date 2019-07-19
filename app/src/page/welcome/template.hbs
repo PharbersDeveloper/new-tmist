@@ -17,11 +17,6 @@
 			<p>{{t "welcome.no-task"}}</p>
 		{{/each}}
 	{{/bp-layout}}
-	{{!-- {{#if (bp-eq model.proposals.length 0)}} --}}
-	{{!-- {{#bp-layout direction="col" local-class="mission-desc" classNames="p-4"}} --}}
-	{{!-- {{t "welcome.no-task"}} --}}
-	{{!-- {{/bp-layout}} --}}
-	{{!-- {{else}} --}}
 	{{#bp-layout direction="col" local-class="mission-desc" classNames="p-4"}}
 		{{#if (bp-eq lastSelectedCat 0)}}
 			{{#bp-layout main="between" cross="center"  classNames="mb-4"}}
@@ -58,15 +53,15 @@
 				{{currentProject.proposal.describe }}
 			</p>
 		{{/if}}
-		{{!-- test new component --}}
-			{{#bp-button type="subtle"  classNames="mr-3" onClick=(action (mut rules) true)}}
-				规则介绍
-			{{/bp-button}}
-			{{#bp-button type="subtle"  classNames="mr-3" onClick=(action (mut notification) true)}}
-				本期任务通知
-			{{/bp-button}}
-			{{common/rules-introduction-modal rules=rules}}
-			{{common/current-task-notification notification=notification proposal=currentProposal}}
+
+		{{#bp-button type="subtle"  classNames="mr-3" onClick=(action (mut rules) true)}}
+			规则介绍
+		{{/bp-button}}
+		{{#bp-button type="subtle"  classNames="mr-3" onClick=(action (mut notification) true)}}
+			本期任务通知
+		{{/bp-button}}
+		{{common/rules-introduction-modal rules=rules}}
+		{{common/current-task-notification notification=notification proposal=currentProposal}}
 			
 		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
 			{{#if (bp-eq lastSelectedCat 0)}}
@@ -95,59 +90,15 @@
 					<span class="mr-4"> <span local-class="level" class="mr-1">{{t "welcome.s"}}</span>{{t "welcome.grade"}}</span>
 					<span>{{bp-string-slice assessmentReport.time 0}}</span>
 				{{/bp-layout}}
-				{{!-- {{#bp-button type="linkTo" tagName="span" 
-					onClick=(action "checkReport" assessmentReport)}}
-					查看
-				{{/bp-button}} --}}
 				{{#link-to "page-report" assessmentReport}}
 					{{t "welcome.examine"}}
 				{{/link-to}}
 			{{/bp-layout}}
 		{{else}}
 			<p class="mt-2">{{t "welcome.task-not-completed"}}</p>
-			{{!-- {{#if testBtn}}
-				<p>{{#link-to "page.project"}}
-						project page
-					{{/link-to}}
-				</p>
-			{{/if}} --}}
 		{{/each}}
 	{{/bp-layout}}
-	{{!-- {{/if}} --}}
 {{/bp-layout}}
-{{!-- {{#bp-modal
-		open=notice 
-		position="center"
-		onSubmit=(action "submit") 
-		onHidden=(action (mut notice) false) as |modal|}}
-	{{#modal.header closeButton=false classNames="p-4"}}
-		欢迎进入铁马区域管理模拟平台
-	{{/modal.header}}
-	{{#modal.body classNames="px-4 pt-0"}}
-		{{detail}}
-	{{/modal.body}}
-	{{#bp-layout main="between" classNames="px-4"}}
-		<p>
-			{{#choose-group type="checkbox" onChange=(action "chooseItem") as |choose|}}
-				{{#each neverShow as |radio|}}
-					{{choose.item radio=radio}}
-				{{/each}}
-			{{/choose-group}}
-		</p>
-		<p>
-			{{#bp-button type="link" onClick=(action modal.close)}}跳过{{/bp-button}}
-			{{#if (bp-eq step 3)}}
-				{{#bp-button onClick=(action "prevStep")}}上一步{{/bp-button}}
-				{{#bp-button type="primary" onClick=(action modal.close)}}开始{{/bp-button}}
-			{{else if (bp-eq step 2)}}
-				{{#bp-button onClick=(action "prevStep")}}上一步{{/bp-button}}
-				{{#bp-button type="primary" onClick=(action modal.submit)}}下一步({{step}}/3){{/bp-button}}
-			{{else}}
-				{{#bp-button type="primary" onClick=(action modal.submit)}}下一步({{step}}/3){{/bp-button}}
-			{{/if}}
-		</p>
-	{{/bp-layout}}
-{{/bp-modal}} --}}
 {{#bp-modal
 		open=notice 
 		position="center"

@@ -15,8 +15,14 @@ export default Service.extend( {
 		} ).save()
 	},
 	genPeriodWithProject( aProject ) {
-		return this.store.createRecord( "model.period", {
+		let result = this.store.createRecord( "model.period", {
+			name: "alfred test",
 			answers: []
 		} ).save()
+		result.then(x => {
+			aProject.periods.pushObject(x)
+			aProject.save()
+		})
+		return result
 	}
 } )

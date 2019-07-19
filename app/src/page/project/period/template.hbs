@@ -6,15 +6,10 @@
 					{{model.project.proposal.name}}
 				{{/left.item}}
 				{{#left.item}}
-					{{model.scenario.name}}
+					{{model.period.name}}
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
-				{{!-- {{#if testBtn}}
-					{{#bp-button classNames="mr-1" onClick=(action "testResult")}}
-						{{t "project.test-result"}}
-					{{/bp-button}}
-				{{/if}} --}}
 				{{#bp-button classNames="mr-1" onClick=(action "saveInputs")}}{{t "project.save-btn"}}{{/bp-button}}
 				{{#bp-button type="primary" onClick=(action "submit") }}{{t "project.submit-btn"}}{{/bp-button}}
 			{{/body.right}}
