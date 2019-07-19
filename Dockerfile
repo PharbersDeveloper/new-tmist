@@ -20,7 +20,7 @@ WORKDIR /app
 LABEL ntm.version=0.2.1
 
 RUN git clone -b alex https://github.com/PharbersDeveloper/new-tmist.git && \
-	git clone -b frank https://github.com/PharbersDeveloper/BP-Components.git 
+	git clone https://github.com/PharbersDeveloper/BP-Components.git 
 
 WORKDIR /app/BP-Components
 
