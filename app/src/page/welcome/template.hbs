@@ -59,20 +59,13 @@
 			</p>
 		{{/if}}
 		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
-			{{!-- {{#bp-button type="primary" tagName="span" onClick=(action "startDeploy" model.detailProposal.proposal.id)}}
-			开始部署
-		{{/bp-button}} --}}
-			{{#if (bp-eq model.detailPaper.state 1)}}
-				{{#bp-button tagName="span" classNames="mr-1" onClick=(action (mut reDeploy) true)}}
-					{{t "welcome.redeployment"}}
-				{{/bp-button}}
-				{{#bp-button type="primary" tagName="span" onClick=(action "startDeploy" model.detailProposal.proposal.id)}}
-					{{t "welcome.continue-deployment"}}
+			{{#if (bp-eq lastSelectedCat 0)}}
+				{{#bp-button type="primary" tagName="span" onClick=(action "startNewDeploy")}}
+					{{t "welcome.start-deployment"}}
 				{{/bp-button}}
 			{{else}}
-				{{#bp-button type="primary" tagName="span" 
-				onClick=(action "startDeploy" model.detailProposal.proposal.id)}}
-					{{t "welcome.start-deployment"}}
+				{{#bp-button type="primary" tagName="span" onClick=(action "continueDeploy")}}
+					{{t "welcome.continue-deployment"}}
 				{{/bp-button}}
 			{{/if}}
 		{{/bp-layout}}

@@ -39,7 +39,6 @@ export default Controller.extend( {
 			this.transitionToRoute( "page-report", assessmentReport.id )
 		},
 		enterNewProjectWithProposal( proposal ) {
-			// this.transitionToRoute( "page.project", proposal.get( "id" ) )
 			this.set("currentProject", null)
 			this.set("currentProposal", proposal)
 			this.set("lastSelectedCat", 0)
@@ -48,23 +47,24 @@ export default Controller.extend( {
 			this.set("currentProject", project)
 			this.set("currentProposal", null)
 			this.set("lastSelectedCat", 1)
-			// this.transitionToRoute( "page.project", project.get( "proposal.id" ) )
 		},
-		startDeploy( proposalId ) {
-			localStorage.setItem( "notice", false )
-			this.transitionToRoute( "page-notice", proposalId )
+		startNewDeploy() {
+			this.transitionToRoute( "page.project", this.currentProposal.get( "id" ) )
 		},
-		reDeploy() {
-			let proposalId = this.get( "model" ).detailProposal.get( "proposal.id" )
+		continueDeploy() {
+			this.transitionToRoute( "page.project", this.currentProject.get( "proposal.id" ) )
+		},
+		// reDeploy() {
+		// 	let proposalId = this.get( "model" ).detailProposal.get( "proposal.id" )
 
-			this.set( "reDeploy", false )
-			// reDeploy 为 1 的时候，代表用户选择`重新部署`
-			localStorage.setItem( "reDeploy", 1 )
-			this.transitionToRoute( "page-notice", proposalId )
-		},
-		closeNotice() {
-			this.set( "notice", false )
-		},
+		// 	this.set( "reDeploy", false )
+		// 	// reDeploy 为 1 的时候，代表用户选择`重新部署`
+		// 	localStorage.setItem( "reDeploy", 1 )
+		// 	this.transitionToRoute( "page-notice", proposalId )
+		// },
+		// closeNotice() {
+		// 	this.set( "notice", false )
+		// },
 		chooseItem( item ) {
 			if ( item.length > 0 ) {
 				localStorage.setItem( "notice", false )
