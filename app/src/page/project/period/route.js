@@ -1,7 +1,7 @@
 import Route from "@ember/routing/route"
-import { A } from "@ember/array"
 import { inject as service } from "@ember/service"
 import RSVP from "rsvp"
+// import { A } from "@ember/array"
 
 export default Route.extend( {
 	cookies: service(),
@@ -110,9 +110,10 @@ export default Route.extend( {
 	// 		}
 	// 	});
 	// },
-	model( params ) {
-		debugger
-		const project = this.modelFor("page.project")
+	model( ) {
+		// debugger
+		const project = this.modelFor( "page.project" )
+
 		return RSVP.hash( {
 			abcde: "alfred",
 			project: project

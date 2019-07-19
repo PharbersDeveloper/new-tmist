@@ -139,3 +139,39 @@ card:
     potential-value: 潜力值
     dynamic: 医院动态
     money: ￥
+rules-introduction-modal:
+  self-name: 规则介绍
+  line-1: 经理需要彻底利用有限“预算”，达成“药品销售额指标”，
+  line-2: 彻底完成业务决策、管理决策后才能提交任务，一旦提交决策，将不可更改。
+  line-3: 您的决策设定可在“本期决策回顾中”查看。
+  title-1: 业务决策
+  line-4: 1. 业务决策中，优先选择代表，所有医院都需要有代表负责。每一个代表必须充分利用“拜访时间”负责医院药品销售业务，“代表拜访时间”不能为“0”，“代表剩余时间”必须 为“0”。
+  line-5: 2. 所有医院的“药品销售指标”和“预算”都得分配，若不分配，请输入“0”。
+  line-6: 3. 会议名额需要被彻底分配，请为不分配会议名额的医院设定名额值为“0”。
+  title-2: 管理决策
+  line-7: 1. 经理的时间需要全部分配。
+current-task-notification:
+  self-name: 本期任务通知
+  title-1: 经理，您好！
+  title-2: 欢迎进入铁马区域项目管理
+  desc: 在本次案例测试中，您的任务是对您所负责的地区完成新一季度的区域周期计划，周期计划的内容包括业务决策与管理决策，请仔细阅读右侧的任务通知，了解地区概况与您手上的资源后，点击“进入任务”，开始测试。
+  entry-mission: 进入任务
+  goal: 合理分配资源完成业务目标
+  hospital-number: 安排医院数量
+  hospital-number-2: 家
+  representatives-number: 管理代表人数
+  representatives-number-2: 人
+  per-capita-time: 代表人均时间
+  per-capita-time-2: 100%
+  meeting: 分配会议名额
+  meeting-2: 20个
+  team-and-self-management: 团队与自我管理
+  allocate-manager-time: 分配经理时间
+  allocate-manager-time-2: 100%
+  manager-action-points: 经理行动点数
+  manager-action-points-2: '60'
+  seasonable-budget-control: 合理支配预算
+  general-budget: 总预算
+  money: ￥
+  achieve-sales-targets: 完成销售额指标
+

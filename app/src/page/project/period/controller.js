@@ -2,9 +2,9 @@ import Controller from "@ember/controller"
 import ENV from "new-tmist/config/environment"
 import { computed } from "@ember/object"
 import { isEmpty } from "@ember/utils"
-import { A } from "@ember/array"
-import rsvp from "rsvp"
 import { inject as service } from "@ember/service"
+// import rsvp from "rsvp"
+// import { A } from "@ember/array"
 
 export default Controller.extend( {
 	ajax: service(),

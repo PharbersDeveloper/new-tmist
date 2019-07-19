@@ -5,6 +5,7 @@ import { singularize, pluralize } from "ember-inflector"
 export default DS.JSONAPISerializer.extend( {
 	modelNameFromPayloadKey( key ) {
 		const perfix = "model/"
+
 		return perfix + singularize( dasherize( key ) )
 	},
 	payloadKeyFromModelName( modelName ) {
@@ -14,7 +15,7 @@ export default DS.JSONAPISerializer.extend( {
 	},
 	keyForAttribute( key ) {
 		return key
-	},
+	}
 	// keyForRelationship(key, typeClass, method) {
 	// 	debugger
 	// 	const perfix = "model/"

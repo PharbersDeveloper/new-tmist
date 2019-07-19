@@ -59,16 +59,14 @@
 			</p>
 		{{/if}}
 		{{!-- test new component --}}
-			{{#bp-button type="subtle"  classNames="mr-3"
-									onClick=(action (mut rules) true)}}
-				规则介绍
-			{{/bp-button}}
-			{{#bp-button type="subtle"  classNames="mr-3"
-										onClick=(action (mut notification) true)}}
-				本期任务通知
-			{{/bp-button}}
-			{{common/rules-introduction-modal rules=rules}}
-			{{common/current-task-notification notification=notification proposal=currentProposal}}
+		{{#bp-button type="subtle"  classNames="mr-3" onClick=(action (mut rules) true)}}
+			{{t "rules-introduction-modal.self-name"}}
+		{{/bp-button}}
+		{{#bp-button type="subtle"  classNames="mr-3"	onClick=(action (mut notification) true)}}
+			{{t "current-task-notification.self-name"}}
+		{{/bp-button}}
+		{{common/rules-introduction-modal rules=rules}}
+		{{common/current-task-notification notification=notification proposal=currentProposal}}
 			
 		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
 			{{#if (bp-eq lastSelectedCat 0)}}
