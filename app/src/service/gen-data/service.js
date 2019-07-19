@@ -13,5 +13,10 @@ export default Service.extend( {
 			status: 0,
 			lastUpdate: Date.now()
 		} ).save()
+	},
+	genPeriodWithProject( aProject ) {
+		return this.store.createRecord( "model.period", {
+			answers: []
+		} ).save()
 	}
 } )

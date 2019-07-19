@@ -1,21 +1,20 @@
-{{#bp-layout direction="col" local-class="page-scenario" 
-	classNames="p-4"}}
+{{#bp-layout direction="col" local-class="page-scenario" classNames="p-4"}}
 	{{#bp-page-header class="mb-4" local-class="scenario-header" as |ph|}}
 		{{#ph.body as |body|}}
 			{{#body.left as |left|}}
 				{{#left.item}}
-					{{model.proposal.name}}
+					{{model.project.proposal.name}}
 				{{/left.item}}
 				{{#left.item}}
 					{{model.scenario.name}}
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
-				{{#if testBtn}}
+				{{!-- {{#if testBtn}}
 					{{#bp-button classNames="mr-1" onClick=(action "testResult")}}
 						{{t "project.test-result"}}
 					{{/bp-button}}
-				{{/if}}
+				{{/if}} --}}
 				{{#bp-button classNames="mr-1" onClick=(action "saveInputs")}}{{t "project.save-btn"}}{{/bp-button}}
 				{{#bp-button type="primary" onClick=(action "submit") }}{{t "project.submit-btn"}}{{/bp-button}}
 			{{/body.right}}
