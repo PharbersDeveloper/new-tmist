@@ -1,19 +1,21 @@
-{{#bp-layout direction="col" local-class="business-container" 
-	classNames="pt-4"}}
+{{#bp-layout direction="col" local-class="business-container" classNames="pt-4"}}
 	{{#bp-layout main="between" local-class="overviews" classNames="mb-4"}}
 		<div local-class="item">
-			{{#bp-layout tagName="h2" cross="center" 
-				classNames="m-0 px-4" local-class="title"}}
+			{{#bp-layout tagName="h2" cross="center" classNames="m-0 px-4" local-class="title"}}
 				{{t "project.business-input.total-business-indicators"}}
 			{{/bp-layout}}
 			<div class="p-4">
-				<p local-class="m-name" class="mb-3 ">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
+				<p local-class="m-name" class="mb-3 ">	
+					{{currentName}}
+				</p>
 				<p local-class="info" class="mb-3">
-					{{t "project.business-input.money"}}{{format-number total.usedSalesTarget}} /
-					{{t "project.business-input.money"}}{{format-number model.resourceConfManager.managerConfig.totalBusinessIndicators}}
+					{{t "project.business-input.money"}}
+					{{format-number 12345}} /
+					{{t "project.business-input.money"}}
+					{{format-number project.proposal.quota.totalQuotas}}
 				</p>
 				{{#bp-progress local-class="progress" as |p|}}
-					{{p.bar value=total.usedSalesTarget maxValue=model.resourceConfManager.managerConfig.totalBusinessIndicators}}
+					{{p.bar value=12345 maxValue=project.proposal.quota.totalQuotas}}
 				{{/bp-progress}}
 				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
 					{{#bp-layout tagName="span" cross="center"}}
@@ -26,18 +28,19 @@
 			</div>
 		</div>
 		<div local-class="item" class="mx-2">
-			{{#bp-layout tagName="h2" cross="center" 
-				classNames="m-0 px-4" local-class="title"}}
+			{{#bp-layout tagName="h2" cross="center" classNames="m-0 px-4" local-class="title"}}
 				{{t "project.business-input.total-budget"}}
 			{{/bp-layout}}
 			<div class="p-4">
-				<p local-class="m-name" class="mb-3 ">{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}</p>
+				<p local-class="m-name" class="mb-3 ">{{currentName}}</p>
 				<p local-class="info" class="mb-3">
-					{{t "project.business-input.money"}}{{format-number total.usedBudget}} /
-					{{t "project.business-input.money"}}{{format-number model.resourceConfManager.managerConfig.totalBudgets}}
+					{{t "project.business-input.money"}}
+					{{format-number 100000}} /
+					{{t "project.business-input.money"}}
+					{{format-number project.proposal.quota.totalBudget}}
 				</p>
 				{{#bp-progress as |p|}}
-					{{p.bar value=total.usedBudget maxValue=model.resourceConfManager.managerConfig.totalBudgets}}
+					{{p.bar value=100000 maxValue=project.proposal.quota.totalBudget}}
 				{{/bp-progress}}
 				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
 					{{#bp-layout tagName="span" cross="center"}}
@@ -55,10 +58,16 @@
 				{{t "project.business-input.represents-remaining-time"}}
 			{{/bp-layout}}
 			{{#bp-layout main="between" wrap=true classNames="p-4"}}
-				{{#each representativesVisitPercent as |rVP|}}
+				{{#each project.proposal.resources as |rs|}}
 					<p local-class="rest-time">
-						<span local-class="keys" class="mr-2">{{rVP.resourceConfig.representativeConfig.representative.name}}</span>
-						<span local-class="values">{{rVP.restTime}}{{t "project.business-input.p"}}</span>
+						<span local-class="keys" class="mr-2">
+							{{rs.name}}
+						</span>
+						<span local-class="values">
+							{{!-- {{rs.restTime}} --}}
+							{{10}}
+							{{t "project.business-input.p"}}
+						</span>
 					</p>
 				{{/each}}
 			{{/bp-layout}}
@@ -79,51 +88,44 @@
 			<div class="px-4 pt-4">
 				<p local-class="m-name" class="mb-3 ">&nbsp;</p>
 				<p local-class="info" class="mb-4">
-					{{format-number total.usedMeetingPlaces}} /
-					{{format-number model.resourceConfManager.managerConfig.totalMeetingPlaces}}
-					<span local-class="unit">{{t "project.business-input.number"}}</span>
+					{{format-number 2}} /
+					{{format-number project.proposal.quota.meetingPlaces}}
+					<span local-class="unit">
+						{{t "project.business-input.number"}}
+					</span>
 				</p>
-				{{!-- {{#bp-progress as |p|}}
-					{{p.bar value=total.usedMeetingPlaces maxValue=model.resourceConfManager.managerConfig.totalMeetingPlaces}}
-				{{/bp-progress}} --}}
+				{{#bp-progress as |p|}}
+					{{p.bar value=2 maxValue=project.proposal.quota.meetingPlaces}}
+				{{/bp-progress}}
 			</div>
 		</div>
 	{{/bp-layout}}
 	{{#bp-layout local-class="hospitals"}}
-		{{#bp-layout direction="col" 
-				local-class="hospitals-configs" 
-				classNames="mr-4 px-4 bg-white"}}
-			{{#bp-layout tagName="h3" cross="center" main="between"
-				local-class="title" classNames="m-0"}}
-				<span>{{t "project.business-input.target-hospital-selection"}}{{overallFilterData.length}}{{t "project.business-input.target-hospital-selection-2"}}</span>
+		{{#bp-layout direction="col" local-class="hospitals-configs" classNames="mr-4 px-4 bg-white"}}
+			{{#bp-layout tagName="h3" cross="center" main="between"local-class="title" classNames="m-0"}}
+				<span>
+					{{t "project.business-input.target-hospital-selection"}}
+					{{project.proposal.targets.length}}
+					{{t "project.business-input.target-hospital-selection-2"}}
+				</span>
 				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
 					{{#dd.button type="link-subtle" }}
-						{{#if currentHospState.name}}
-							<p>{{currentHospState.name}}</p>
-						{{else}}
-							{{t "project.business-input.please-choose"}}
-						{{/if}}
+						{{t "project.business-input.please-choose"}}
 						{{bp-icon icon="down"}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
 						{{#each hospitalState as |hs|}}
-							{{#menu.option value=hs 
-								onClick=(action (mut currentHospState))}}
-								{{hs.name}}
+							{{#menu.option value=hs onClick=(action (mut currentHospState))}}
+							{{hs.name}}
 							{{/menu.option}}
 						{{/each}}
 					{{/dd.menu}}
 				{{/bp-dropdown}}
 			{{/bp-layout}}
-			{{#each overallFilterData as |destConfig|}}
-				{{#link-to "page-scenario.business.hospital-config" destConfig.id
-						activeClass="current-hospital"}}
-					{{hospital-overall
-							hospitalName=destConfig.hospitalConfig.hospital.name
-							businessInputs=model.businessInputs
-							overallFilterData=destConfig
-							salesConfigs=model.salesConfigs}}
-				{{/link-to}}
+			{{#each project.proposal.targets as |hosp|}}
+				{{!-- {{#link-to "page-scenario.business.hospital-config" destConfig.id activeClass="current-hospital"}} --}}
+					{{project/business-input/hospital-overall hospital=hosp}}
+				{{!-- {{/link-to}} --}}
 			{{/each}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}

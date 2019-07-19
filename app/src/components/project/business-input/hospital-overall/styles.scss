@@ -1,0 +1,20 @@
+.hospital-box {
+	@extend %defaultRadius;
+
+	h4.title {
+		@extend %header-small;
+	}
+
+	.keys {
+		@extend %p-primary;
+	}
+
+	.values {
+		@extend %p-small;
+		line-height: 20px;
+	}
+
+	.item {
+		flex: 1;
+	}
+}

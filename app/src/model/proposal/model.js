@@ -9,5 +9,6 @@ export default DS.Model.extend( {
 	personnelAssessmentIds: DS.attr( ),
 	products: DS.hasMany( "model/product" ),
 	targets: DS.hasMany( "model/hospital" ),
-	resources: DS.hasMany( "model/resource" )
+	resources: DS.hasMany( "model/resource" ),
+	quota: DS.belongsTo("model/requirement")
 } )
