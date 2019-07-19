@@ -1,23 +1,23 @@
 @import "bp-components";
 
 .header {
+	@extend %depth-z200;
+	height: 8 * $spacing;
 	position: relative;
 	z-index: 1;
-	height: 8*$spacing;
-	@extend %depth-z200;
 
 	p {
 		@extend %header-small;
 		cursor: pointer;
 
 		img {
-			width: 7*$spacing;
+			width: 7 * $spacing;
 		}
 	}
 
 	img {
-		width: 18px;
 		height: 18px;
+		width: 18px;
 	}
 }
 
