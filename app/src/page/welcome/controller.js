@@ -35,17 +35,6 @@ export default Controller.extend( {
 				this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get("id"))
 			}
 		},
-		// reDeploy() {
-		// 	let proposalId = this.get( "model" ).detailProposal.get( "proposal.id" )
-
-		// 	this.set( "reDeploy", false )
-		// 	// reDeploy 为 1 的时候，代表用户选择`重新部署`
-		// 	localStorage.setItem( "reDeploy", 1 )
-		// 	this.transitionToRoute( "page-notice", proposalId )
-		// },
-		// closeNotice() {
-		// 	this.set( "notice", false )
-		// },
 		chooseItem( item ) {
 			if ( item.length > 0 ) {
 				localStorage.setItem( "notice", false )

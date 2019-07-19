@@ -39,12 +39,12 @@
 			</li>
 		{{/tabs.tablist}}
 		{{#if (bp-eq currentTab 0)}}
-			{{project/business-input }}
+			{{project/business-input proposal=model.proposal period=model.period}}
 		{{/if}}
 		{{#if (bp-eq currentTab 1)}}
 		{{/if}}
 		{{#if (bp-eq currentTab 2)}}
-			{{project/proposal-info proposal=model.proposal }}
+			{{project/proposal-info proposal=model.project.proposal }}
 		{{/if}}
 		{{#if (bp-eq currentTab 3)}}
 		{{/if}}
