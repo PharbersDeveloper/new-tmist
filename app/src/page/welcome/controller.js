@@ -1,35 +1,8 @@
 import Controller from "@ember/controller"
-// import ENV from "new-tmist/config/environment"
-// import { inject as service } from "@ember/service"
-// import { computed } from "@ember/object"
-// import { A } from "@ember/array"
+import { inject as service } from "@ember/service"
 
 export default Controller.extend( {
-	// cookies: service(),
-	// testBtn: computed( function () {
-	// 	if ( ENV.environment === "development" ) {
-	// 		return true
-	// 	}
-	// 	return false
-	// } ),
-	// notice: localStorage.getItem( "notice" ) !== "false",
-	// notice: computed('cookies.notice', function () {
-	// 	let localStorageNotice = localStorage.getItem('notice'),
-	// 		notice = this.cookies.read('notice');
-
-	// 	if (localStorageNotice === 'false' || !isEmpty(notice)) {
-	// 		return false;
-	// 	}
-	// 	return true;
-	// }),
-	// neverShow: A( ["不在显示"] ),
-	// reports: computed( "model.detailPaper", function () {
-	// 	let paper = this.get( "model.detailPaper" ),
-	// 		inputs = paper.get( "paperinputs" )
-
-	// 	return inputs.sortBy( "time" ).reverse()
-	// } ),
-
+	gen: service("service/gen-data"),
 	lastSelectedCat: 0, // 0 for proposal, 1 for project
 	currentProposal: null,
 	currentProject: null,
@@ -49,7 +22,9 @@ export default Controller.extend( {
 			this.set("lastSelectedCat", 1)
 		},
 		startNewDeploy() {
-			this.transitionToRoute( "page.project", this.currentProposal.get( "id" ) )
+			this.gen.genProjectWithProposal(this.currentProposal).then( x => {
+				this.transitionToRoute( "page.project", x.get( "proposal.id" ) )
+			})
 		},
 		continueDeploy() {
 			this.transitionToRoute( "page.project", this.currentProject.get( "proposal.id" ) )

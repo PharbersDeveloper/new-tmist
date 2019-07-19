@@ -18,8 +18,7 @@ export default DS.JSONAPIAdapter.extend( {
 
 		return {
 			"dataType": "json",
-			"contentType": "application/json",
-			"Content-Type": "application/json",
+			"Content-Type": "application/vnd.api+json",
 			"Authorization": `Bearer ${cookies.read( "access_token" )}`
 		}
 	} )
