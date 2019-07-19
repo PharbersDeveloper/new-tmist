@@ -34,8 +34,8 @@
 	{{#bp-layout main="between" local-class="performance"}}
 		{{#bp-layout direction="col" main="between" local-class="item"
 			classNames="mr-2"}}
-			{{#bp-layout direction='col' classNames='p-4 bg-white age'}}
-				{{#bp-layout tabName='h4' cross='center' local-class="title" 
+			{{#bp-layout direction='col' classNames='p-4 bg-white' local-class="score"}}
+				{{#bp-layout tagName='h4' cross='center' local-class="title" 
 					classNames='mb-4'}}
 					能力得分
 				{{/bp-layout}}
@@ -44,13 +44,13 @@
 						{{model.generalPerformanceResult.levelConfig.level.level}}
 						{{!-- <img src={{model.generalPerformanceResult.levelConfig.level.image.img}} alt=""> --}}
 					{{/bp-layout}}
-					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
+					{{#bp-layout tagName='p' cross='center' local-class="text" classNames='mb-0 ml-4'}}
 						等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout direction='col' classNames='p-4 bg-white'}}
-				{{#bp-layout tabName='h4' cross='center' local-class="title" 
+			{{#bp-layout direction='col' classNames='p-4 bg-white' local-class="honor"}}
+				{{#bp-layout tagName='h4' cross='center' local-class="title" 
 					classNames='mb-4'}}
 					荣获称号
 				{{/bp-layout}}
@@ -61,7 +61,7 @@
 						{{!-- <img src={{model.generalPerformanceResult.levelConfig.title.image.img}} alt=""> --}}
 						{{!-- <p class="m-0 text-center">{{model.generalPerformanceResult.levelConfig.title.value}}</p> --}}
 					{{/bp-layout}}
-					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
+					{{#bp-layout tagName='p' cross='center' local-class="text" classNames='mb-0 ml-4'}}
 						等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。
 					{{/bp-layout}}
 				{{/bp-layout}}
@@ -81,7 +81,7 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout tagName='h3' cross='center' local-class="title" 
-		classNames="m-0 mb-2 px-4 bg-white"}}
+		classNames="m-0 mb-2 mt-4 px-4 bg-white"}}
 		分项表现
 	{{/bp-layout}}
 	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
