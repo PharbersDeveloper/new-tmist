@@ -6,5 +6,6 @@ export default DS.Model.extend( {
 	current: DS.attr( "number" ),
 	pharse: DS.attr( "number" ),
 	status: DS.attr( "number" ),
-	lastUpdate: DS.attr( "number" )
+	lastUpdate: DS.attr( "number" ),
+	periods: DS.hasMany("model/period")
 } )

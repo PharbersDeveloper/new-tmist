@@ -70,11 +70,11 @@
 			
 		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
 			{{#if (bp-eq lastSelectedCat 0)}}
-				{{#bp-button type="primary" tagName="span" onClick=(action "startNewDeploy")}}
+				{{#bp-button type="primary" tagName="span" onClick=(action "startNewDeploy" currentProposal)}}
 					{{t "welcome.start-deployment"}}
 				{{/bp-button}}
 			{{else}}
-				{{#bp-button type="primary" tagName="span" onClick=(action "continueDeploy")}}
+				{{#bp-button type="primary" tagName="span" onClick=(action "continueDeploy" currentProject)}}
 					{{t "welcome.continue-deployment"}}
 				{{/bp-button}}
 			{{/if}}
