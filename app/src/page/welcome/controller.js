@@ -12,14 +12,14 @@ export default Controller.extend( {
 			this.transitionToRoute( "page-report", assessmentReport.id )
 		},
 		enterNewProjectWithProposal( proposal ) {
-			this.set("currentProject", null)
-			this.set("currentProposal", proposal)
-			this.set("lastSelectedCat", 0)
+			this.set( "currentProject", null )
+			this.set( "currentProposal", proposal )
+			this.set( "lastSelectedCat", 0 )
 		},
 		enterNewProjectWithProject( project ) {
-			this.set("currentProject", project)
-			this.set("currentProposal", null)
-			this.set("lastSelectedCat", 1)
+			this.set( "currentProject", project )
+			this.set( "currentProposal", null )
+			this.set( "lastSelectedCat", 1 )
 		},
 		startNewDeploy() {
 			this.gen.genProjectWithProposal(this.currentProposal).then( x => {
