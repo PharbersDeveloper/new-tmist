@@ -53,16 +53,16 @@
 				{{currentProject.proposal.describe }}
 			</p>
 		{{/if}}
-
+		{{!-- test new component --}}
 		{{#bp-button type="subtle"  classNames="mr-3" onClick=(action (mut rules) true)}}
-			规则介绍
+			{{t "rules-introduction-modal.self-name"}}
 		{{/bp-button}}
-		{{#bp-button type="subtle"  classNames="mr-3" onClick=(action (mut notification) true)}}
-			本期任务通知
+		{{#bp-button type="subtle"  classNames="mr-3"	onClick=(action (mut notification) true)}}
+			{{t "current-task-notification.self-name"}}
 		{{/bp-button}}
 		{{common/rules-introduction-modal rules=rules}}
 		{{common/current-task-notification notification=notification proposal=currentProposal}}
-			
+
 		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
 			{{#if (bp-eq lastSelectedCat 0)}}
 				{{#bp-button type="primary" tagName="span" onClick=(action "startNewDeploy" currentProposal)}}
@@ -82,7 +82,7 @@
 			{{/if}}
 		{{/bp-layout}}
 		{{#each model.historicalProjects as |project index|}}
-			{{#bp-layout tagName="p" main="between" cross="center" 
+			{{#bp-layout tagName="p" main="between" cross="center"
 				local-class="historp-report"
 			classNames=(if (bp-eq index 0) "mt-4 mb-0 px-2 py-3" "m-0 px-2 py-3")}}
 				{{#bp-layout tagName="span" local-class="infos"}}
@@ -100,7 +100,7 @@
 	{{/bp-layout}}
 {{/bp-layout}}
 {{#bp-modal
-		open=notice 
+		open=notice
 		position="center"
 		onHidden=(action (mut notice) false) as |modal|}}
 	{{#modal.header closeButton=false classNames="p-4"}}
@@ -125,7 +125,7 @@
 	{{/bp-layout}}
 {{/bp-modal}}
 {{#bp-modal
-		open=reDeploy 
+		open=reDeploy
 		position="center"
 		onHidden=(action (mut reDeploy) false) as |modal|}}
 	{{#modal.header closeButton=false}}

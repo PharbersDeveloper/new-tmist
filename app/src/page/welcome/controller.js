@@ -21,21 +21,18 @@ export default Controller.extend( {
 			this.set( "currentProposal", null )
 			this.set( "lastSelectedCat", 1 )
 		},
-		startNewDeploy( aProposal ) {
-			this.gen.genProjectWithProposal(aProposal).then( x => {
-				// this.transitionToRoute( "page.project.period", x.get( "id" ), "alfred" )
-				this.continueDeploy(x)
-			})
+		startNewDeploy() {
+			this.gen.genProjectWithProposal( this.currentProposal ).then( x => {
+				this.transitionToRoute( "page.project.period", x.get( "id" ), "alfred" )
+			} )
 		},
-		continueDeploy( aProject ) {
-			if (aProject.periods.length === 0) {
-				this.gen.genPeriodWithProject(aProject).then( x => {
-					this.transitionToRoute( "page.project.period", aProject.id, x.id)
-				})
-			} else {
-				this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get("id"))
-			}
+		continueDeploy() {
+			// debugger
+			// let c = this.currentProject.get( "proposal" )
+			//  t = c.get( "id" )
 
+			// console.log( t )
+			this.transitionToRoute( "page.project.period", this.currentProject.id, "alfred" )
 		},
 		// reDeploy() {
 		// 	let proposalId = this.get( "model" ).detailProposal.get( "proposal.id" )

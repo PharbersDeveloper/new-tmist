@@ -2,7 +2,7 @@
 		size="lg"
 		proposal=proposal
 		open=notification
-		position='center'
+		position="center"
 		onHidden=(action (mut notification) false)
 		local-class="bp-modal"}}
 	{{#bp-layout local-class="page-notice"}}
@@ -11,30 +11,26 @@
 			classNames="mr-4"}}
 			{{#bp-layout direction="col" local-class="manager" 
 			classNames="mb-4 p-4"}}
-				<img src="https://i.loli.net/2019/04/12/5cb004ea5f31f.png" alt="manager avatar">
+				<img src="https://i.loli.net/2019/04/12/5cb004ea5f31f.png" alt="manager-avatar">
 				<h2 local-class="title" class="mb-4">
-					经理，您好！<br />
-					欢迎进入铁马区域项目管理
+					{{t "current-task-notification.title-1"}}<br />
+					{{t "current-task-notification.title-2"}}
 				</h2>
-				<p local-class="desc color" class="mb-4">
-					在本次案例测试中，您的任务是对您所负责的地区完成新一季度的区域周期计划，
-					周期计划的内容包括业务决策与管理决策，请仔细阅读右侧的任务通知，
-					了解地区概况与您手上的资源后，点击“进入任务”，开始测试。
+				<p local-class="desc" class="mb-4">
+					{{t "current-task-notification.desc"}}
 				</p>
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="rule" classNames="p-4"}}
-				<h2 local-class="title" class="mb-4">规则介绍</h2>
-				<p>经理需要彻底利用有限“预算”，达成“药品销售额指标”，</p>
-				<p>彻底完成业务决策、管理决策后才能提交任务，一旦提交决策，将不可更改。</p>
-				<p class="mb-4">您的决策设定可在“本期决策回顾中”查看。</p>
-				<h4 local-class='title' class="mt-0 mb-3">业务决策</h4>
-				<p class="mb-4">1. 业务决策中，优先选择代表，所有医院都需要有代表负责。
-					每一个代表必须充分利用“拜访时间”负责医院药品销售业务，
-					“代表拜访时间”不能为“0”，“代表剩余时间”必须 为“0”。</p>
-				<p class="mb-4">2. 所有医院的“药品销售指标”和“预算”都得分配，若不分配，请输入“0”。</p>
-				<p class="mb-4">3. 会议名额需要被彻底分配，请为不分配会议名额的医院设定名额值为“0”。</p>
-				<h4 local-class='title' class="mt-0 mb-3">管理决策</h4>
-				<p>1. 经理的时间需要全部分配。</p>
+				<h2 local-class="title" class="mb-4">{{t "rules-introduction-modal.self-name"}}</h2>
+				<p>{{t "rules-introduction-modal.line-1"}}</p>
+				<p>{{t "rules-introduction-modal.line-2"}}</p>
+				<p class="mb-4">{{t "rules-introduction-modal.line-3"}}</p>
+				<h4 local-class="title" class="mt-0 mb-3">{{t "rules-introduction-modal.title-1"}}</h4>
+				<p class="mb-4">{{t "rules-introduction-modal.line-4"}}</p>
+				<p class="mb-4">{{t "rules-introduction-modal.line-5"}}</p>
+				<p class="mb-4">{{t "rules-introduction-modal.line-6"}}</p>
+				<h4 local-class="title" class="mt-0 mb-3">{{t "rules-introduction-modal.title-2"}}</h4>
+				<p>{{t "rules-introduction-modal.line-7"}}</p>
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="mission-notice item" classNames="mt-4"}}
@@ -42,23 +38,23 @@
 				<span local-class="title" class="mr-3">本期任务通知</span>
 				<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
 			</h1> --}}
-			{{#bp-layout tagName='h1' main='between' cross='center' classNames='mb-3 p-3'}}
+			{{#bp-layout tagName="h1" main="between" cross="center" classNames="mb-3 p-3"}}
 				<p class="m-0">
-					<span local-class="title" class="mr-3">本期任务通知</span>
+					<span local-class="title" class="mr-3">{{t "current-task-notification.self-name"}}</span>
 					<span local-class="time" class="pl-2 border-left">{{model.scenario.name}}</span>
 				</p>
-				{{#bp-button type="primary" onClick=(action 'entryMission' model.detailProposal.proposal.id)}}
-					进入任务
+				{{#bp-button type="primary" onClick=(action "entryMission" model.detailProposal.proposal.id)}}
+					{{t "current-task-notification.entry-mission"}}
 				{{/bp-button}}
 			{{/bp-layout}}
 			<div local-class="resource" class="mb-2 p-3 rounded">
 				{{#bp-layout tagName="h3" cross="center" classNames="mb-3"}}
 					{{bp-icon icon="mission-1"}}
-					<span class="ml-2">合理分配资源完成业务目标</span>
+					<span class="ml-2">{{t "current-task-notification.goal"}}</span>
 				{{/bp-layout}}
 				{{!-- {{#bp-layout direction="col" classNames="px-4 bg-white rounded"}}
 					{{#bp-layout local-class="item-resource" classNames="my-4"}}
-						{{bp-icon size='large' icon='office-building' 
+						{{bp-icon size="large" icon="office-building" 
 							local-class="icon"}}
 						{{#bp-layout direction="col" local-class="main-box"}}
 							{{#bp-layout main="between" classNames="mb-2"}}
@@ -72,7 +68,7 @@
 						<div local-class="blank"></div>
 					{{/bp-layout}}
 					{{#bp-layout local-class="item-resource" classNames="my-4"}}
-						{{bp-icon size='large' icon='people' 
+						{{bp-icon size="large" icon="people" 
 							local-class="icon"}}
 						{{#bp-layout direction="col" local-class="main-box"}}
 							{{#bp-layout main="between" classNames="mb-2"}}
@@ -86,12 +82,12 @@
 						<div local-class="blank"></div>
 					{{/bp-layout}}
 					{{#bp-layout local-class="item-resource" classNames="my-4"}}
-						{{bp-icon size='large' icon='china-money' 
+						{{bp-icon size="large" icon="china-money" 
 							local-class="icon"}}
 						{{#bp-layout direction="col" local-class="main-box"}}
 							{{#bp-layout main="between" classNames="mb-2"}}
 								<h4 class="m-0">分配预算总金额</h4>
-								<span local-class="schedule">￥{{format-number model.resourceConfigManager.managerConfig.totalBudgets}}</span>
+								<span local-class="schedule">{{t "current-task-notification.money"}}{{format-number model.resourceConfigManager.managerConfig.totalBudgets}}</span>
 							{{/bp-layout}}
 							{{#bp-progress as |p|}}
 								{{p.bar value=usedResource.assignedBudgets maxValue=model.resourceConfigManager.managerConfig.totalBudgets}}
@@ -100,7 +96,7 @@
 						<div local-class="blank"></div>
 					{{/bp-layout}}
 					{{#bp-layout local-class="item-resource" classNames="my-4"}}
-						{{bp-icon size='large' icon='pie' 
+						{{bp-icon size="large" icon="pie" 
 							local-class="icon"}}
 						{{#bp-layout cross="center" local-class="main-box"}}
 							<h4 class="m-0">分配经理资源</h4>
@@ -122,35 +118,36 @@
 				{{/bp-layout}} --}}
 				{{#bp-layout main="between" classNames="py-3 bg-white rounded"}}
 					<div local-class="item" class="text-center">
-						{{bp-icon size='large' icon='office-building' 
+						{{bp-icon size="large" icon="office-building" 
 							local-class="icon"}}
-						<p local-class="desc" class="my-2">安排医院数量</p>
+						<p local-class="desc" class="my-2">{{t "current-task-notification.hospital-number"}}</p>
 						<h4 local-class="title" class="m-0">
-							{{proposal.targets.length}}家
+							{{proposal.targets.length}}{{t "current-task-notification.hospital-number-2"}}
 						</h4>
 					</div>
 					<div local-class="item" class="text-center">
-						{{bp-icon size='large' icon='people' 
+						{{bp-icon size="large" icon="people" 
 							local-class="icon"}}
-						<p local-class="desc" class="my-2">管理代表人数</p>
+						<p local-class="desc" class="my-2">{{t "current-task-notification.representatives-number"}}</p>
 						<h4 local-class="title" class="m-0">
-							{{proposal.resources.length}}人
+							{{proposal.resources.length}}{{t "current-task-notification.representatives-number-2"}}
 						</h4>
 					</div>
 					<div local-class="item" class="text-center">
-						{{bp-icon size='large' icon='time' 
+						{{bp-icon size="large" icon="time" 
 							local-class="icon"}}
-						<p local-class="desc" class="my-2">代表人均时间</p>
+						<p local-class="desc" class="my-2">{{t "current-task-notification.per-capita-time"}}</p>
 						<h4 local-class="title" class="m-0">
-							100%
-						</h4>
-					</div>
+							{{t "current-task-notification.per-capita-time-2"}}
+						</h4> 
+					</div> 
 					<div local-class="item" class="text-center">
-						{{bp-icon size='large' icon='raised-hand' 
-							local-class="icon"}}
-						<p local-class="desc" class="my-2">分配会议名额</p>
+						{{bp-icon size="large" icon="raised-hand" local-class="icon"}}
+						<p local-class="desc" class="my-2">
+							{{t "current-task-notification.meeting"}}
+						</p>
 						<h4 local-class="title" class="m-0">
-							20个
+							{{t "current-task-notification.meeting-2"}}
 						</h4>
 					</div>
 				{{/bp-layout}}
@@ -158,23 +155,23 @@
 			<div local-class="resource" class="mb-4 p-3 rounded">
 				{{#bp-layout tagName="h3" cross="center" classNames="mb-3"}}
 					{{bp-icon icon="mission-2"}}
-					<span class="ml-2">团队与自我管理</span>
+					<span class="ml-2">{{t "current-task-notification.team-and-self-management"}}</span>
 				{{/bp-layout}}
 				{{#bp-layout main="between" classNames="py-3 bg-white rounded"}}
 					<div local-class="item" class="text-center">
-						{{bp-icon size='large' icon='pie' 
+						{{bp-icon size="large" icon="pie" 
 							local-class="icon"}}
-						<p local-class="desc" class="my-2">分配经理时间 </p>
+						<p local-class="desc" class="my-2">{{t "current-task-notification.allocate-manager-time"}} </p>
 						<h4 local-class="title" class="m-0">
-							100%
+							{{t "current-task-notification.allocate-manager-time-2"}}
 						</h4>
 					</div>
 					<div local-class="item" class="text-center">
-						{{bp-icon size='large' icon='point' 
+						{{bp-icon size="large" icon="point" 
 							local-class="icon"}}
-						<p local-class="desc" class="my-2">经理行动点数</p>
+						<p local-class="desc" class="my-2">{{t "current-task-notification.manager-action-points"}}</p>
 						<h4 local-class="title" class="m-0">
-							60
+							{{t "current-task-notification.manager-action-points-2"}}
 							{{!-- {{model.resourceConfigManager.managerConfig.managerKpi}} --}}
 						</h4>
 					</div>
@@ -183,18 +180,18 @@
 			<div local-class="resource" class="mb-4 p-3 rounded">
 				{{#bp-layout tagName="h3" cross="center" classNames="mb-3"}}
 					{{bp-icon icon="mission-3"}}
-					<span class="ml-2">合理支配预算</span>
+					<span class="ml-2">{{t "current-task-notification.seasonable-budget-control"}}</span>
 				{{/bp-layout}}
 				{{#bp-layout direction="col"}}
 					{{#bp-layout local-class="item-resource" classNames="p-4 bg-white rounded"}}
-						{{bp-icon size='large' icon='china-money' 
+						{{bp-icon size="large" icon="china-money" 
 							local-class="icon"}}
 						{{#bp-layout direction="col" local-class="main-box" classNames="ml-4"}}
 							{{#bp-layout main="between" classNames="mb-2"}}
-								<h4 class="m-0">总预算</h4>
+								<h4 class="m-0">{{t "current-task-notification.general-budget"}}</h4>
 								<span local-class="schedule">
-									￥{{format-number 0}} /
-									￥{{format-number 1000000}}
+									{{t "current-task-notification.money"}}{{format-number 0}} /
+									{{t "current-task-notification.money"}}{{format-number 1000000}}
 								</span>
 							{{/bp-layout}}
 							{{#bp-progress as |p|}}
@@ -208,11 +205,11 @@
 			<div local-class="resource" class="mb-4 p-3 rounded">
 				{{#bp-layout tagName="h3" cross="center" classNames="mb-3"}}
 					{{bp-icon icon="mission-4"}}
-					<span class="ml-2">完成销售额指标</span>
+					<span class="ml-2">{{t "current-task-notification.achieve-sales-targets"}}</span>
 				{{/bp-layout}}
 				{{#bp-layout direction="col"}}
 					{{#bp-layout local-class="item-resource" classNames="p-4 bg-white rounded"}}
-						{{bp-icon size='large' icon='pill' 
+						{{bp-icon size="large" icon="pill" 
 							local-class="icon"}}
 						{{#bp-layout direction="col" local-class="main-box" classNames="ml-4"}}
 							{{#bp-layout main="between" classNames="mb-2"}}
@@ -222,8 +219,8 @@
 									{{/if}}
 								{{/each}}
 								<span local-class="schedule">
-									￥{{format-number 0}} /
-									￥{{format-number 1000000}}
+									{{t "current-task-notification.money"}}{{format-number 0}} /
+									{{t "current-task-notification.money"}}{{format-number 1000000}}
 								</span>
 							{{/bp-layout}}
 							{{#bp-progress as |p|}}
@@ -235,7 +232,7 @@
 				{{/bp-layout}}
 			</div>
 			{{!-- {{#bp-layout main="end" local-class="entry-mission"}}
-				{{#bp-button type="primary" onClick=(action 'entryMission' model.detailProposal.proposal.id)}}
+				{{#bp-button type="primary" onClick=(action "entryMission" model.detailProposal.proposal.id)}}
 					进入任务
 				{{/bp-button}}
 			{{/bp-layout}} --}}

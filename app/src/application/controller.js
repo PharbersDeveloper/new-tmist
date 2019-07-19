@@ -1,16 +1,16 @@
 import Controller from "@ember/controller"
 import { inject as service } from "@ember/service"
-import ENV from "new-tmist/config/environment"
-import { A } from "@ember/array"
-import { isEmpty } from "@ember/utils"
-import RSVP from "rsvp"
+// import ENV from "new-tmist/config/environment"
+// import { A } from "@ember/array"
+// import { isEmpty } from "@ember/utils"
+// import RSVP from "rsvp"
 // import Ember from "ember"
-const { keys } = Object
+// const { keys } = Object
 
 export default Controller.extend( {
 	cookies: service(),
 	oauthService: service( "service/oauth" ),
-	showNavbar: true,
+	showNavbar: true
 	// 发送input data
 	// sendInput( state ) {
 	// 	const ajax = this.get( "ajax" ),
