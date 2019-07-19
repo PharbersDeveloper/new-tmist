@@ -5,13 +5,13 @@ import { computed } from "@ember/object"
 // import { A } from "@ember/array"
 
 export default Controller.extend( {
-	cookies: service(),
-	testBtn: computed( function () {
-		if ( ENV.environment === "development" ) {
-			return true
-		}
-		return false
-	} ),
+	// cookies: service(),
+	// testBtn: computed( function () {
+	// 	if ( ENV.environment === "development" ) {
+	// 		return true
+	// 	}
+	// 	return false
+	// } ),
 	// notice: localStorage.getItem( "notice" ) !== "false",
 	// notice: computed('cookies.notice', function () {
 	// 	let localStorageNotice = localStorage.getItem('notice'),
@@ -29,6 +29,11 @@ export default Controller.extend( {
 
 	// 	return inputs.sortBy( "time" ).reverse()
 	// } ),
+
+	lastSelectedCat: 0, // 0 for proposal, 1 for project
+	currentProposal: null,
+	currentProject: null,
+
 	actions: {
 		checkReport( assessmentReport ) {
 			this.transitionToRoute( "page-report", assessmentReport.id )

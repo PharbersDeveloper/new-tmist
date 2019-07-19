@@ -4,7 +4,7 @@ import { inject as service } from "@ember/service"
 
 export default Route.extend( {
 	cookies: service(),
-	ajax: service(),
+	// ajax: service(),
 	// beforeModel() {
 	// 	const cookies = this.get('cookies');
 
@@ -14,13 +14,13 @@ export default Route.extend( {
 	// 		this.transitionTo('login');
 	// 	}
 	// },
-	activate() {
-		this._super( ...arguments )
-		let applicationController = this.controllerFor( "application" )
+	// activate() {
+		// this._super( ...arguments )
+		// let applicationController = this.controllerFor( "application" )
 
-		// refresh = localStorage.getItem('refresh');
-		applicationController.set( "testProgress", 0 )
-		localStorage.removeItem( "reDeploy" )
+		// // refresh = localStorage.getItem('refresh');
+		// applicationController.set( "testProgress", 0 )
+		// localStorage.removeItem( "reDeploy" )
 
 		// this.refresh();
 		// 如果 refresh 为 undefined 不刷新,并将refresh 设置为1。
@@ -31,6 +31,10 @@ export default Route.extend( {
 		// 	localStorage.removeItem('refresh');
 		// 	window.location.reload(true);
 		// }
+	// },
+	setupController(controller, model) {
+		this._super(...arguments);
+		this.controller.set("currentProposal", model.usableProposals.firstObject.proposal)
 	},
 	model() {
 		const accountId = this.cookies.read( "account_id" )

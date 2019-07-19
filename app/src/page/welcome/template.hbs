@@ -23,21 +23,28 @@
 	{{!-- {{/bp-layout}} --}}
 	{{!-- {{else}} --}}
 	{{#bp-layout direction="col" local-class="mission-desc" classNames="p-4"}}
-		{{#bp-layout main="between" cross="center"  classNames="mb-4"}}
-			{{welcome/mission-state model.detailPaper.state}}
-			{{welcome/show-endtime model.detailPaper}}
-		{{/bp-layout}}
+		{{#if (bp-eq lastSelectedCat 0)}}
+			{{#bp-layout main="between" cross="center"  classNames="mb-4"}}
+				{{welcome/mission-state 0}}
+				{{!-- {{welcome/show-endtime model.detailPaper}} --}}
+			{{/bp-layout}}
+		{{else}}
+			{{#bp-layout main="between" cross="center"  classNames="mb-4"}}
+				{{welcome/mission-state 3}}
+				{{!-- {{welcome/show-endtime model.detailPaper}} --}}
+			{{/bp-layout}}
+		{{/if}}
 		<h3 class="mt-3 mb-4">
-			{{model.detailProposal.proposal.name}}
+			{{currentProposal.name}}
 		</h3>
-		{{#if (bp-not-eq model.detailProposal.proposal.totalPhase 1)}}
+		{{#if (bp-not-eq currentProposal.totalPhase 1)}}
 			<p local-class="phase" class="mb-4">
 				<span>{{t "welcome.session-1"}}</span>
-				<span>{{t "welcome.total"}}{{model.detailProposal.proposal.totalPhase}}{{t "welcome.peroid"}}</span>
+				<span>{{t "welcome.total"}}{{currentProposal.totalPhase}}{{t "welcome.peroid"}}</span>
 			</p>
 		{{/if}}
 		<p local-class="desc" class="mb-4">
-			{{model.detailProposal.proposal.describe }}
+			{{currentProposal.describe }}
 		</p>
 		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
 			{{!-- {{#bp-button type="primary" tagName="span" onClick=(action "startDeploy" model.detailProposal.proposal.id)}}
