@@ -69,7 +69,7 @@
 				classNames=(if (bp-eq index 0) "mt-4 mb-0 px-2 py-3" "m-0 px-2 py-3")}}
 					{{#bp-layout tagName="span" local-class="infos"}}
 						<span class="mr-3">{{bp-increment-property index}}</span>
-						<span class="mr-4"> <span local-class="level" class="mr-1">S</span>级*</span>
+						{{!-- <span class="mr-4"> <span local-class="level" class="mr-1">S</span>级*</span> --}}
 						<span>{{bp-string-slice assessmentReport.time 0}}</span>
 					{{/bp-layout}}
 					{{!-- {{#bp-button type="linkTo" tagName='span' 
