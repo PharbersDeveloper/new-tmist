@@ -99,49 +99,49 @@ export default Controller.extend( {
 
 	// 	return judgeAuth ? oauthService.redirectUri : null
 	// },
-	actions: {
-		/**
-		 * 退出账号
-		 */
-		logout() {
-			let cookies = this.get( "cookies" ).read(),
-				totalCookies = A( [] )
+	// actions: {
+	// 	/**
+	// 	 * 退出账号
+	// 	 */
+	// 	logout() {
+	// 		let cookies = this.get( "cookies" ).read(),
+	// 			totalCookies = A( [] )
 
-			totalCookies = keys( cookies ).map( ele => ele )
+	// 		totalCookies = keys( cookies ).map( ele => ele )
 
-			new RSVP.Promise( ( resolve ) => {
-				totalCookies.forEach( ele => {
-					this.get( "cookies" ).clear( ele, { domain: "pharbers.com", path: "/" } )
-				} )
-				localStorage.clear()
-				return resolve( true )
-			} ).then( () => {
-				window.location.reload()
-			} )
-		},
-		endMission() {
-			let url = this.get( "oauthService" ).get( "redirectUri" )
+	// 		new RSVP.Promise( ( resolve ) => {
+	// 			totalCookies.forEach( ele => {
+	// 				this.get( "cookies" ).clear( ele, { domain: "pharbers.com", path: "/" } )
+	// 			} )
+	// 			localStorage.clear()
+	// 			return resolve( true )
+	// 		} ).then( () => {
+	// 			window.location.reload()
+	// 		} )
+	// 	},
+	// 	endMission() {
+	// 		let url = this.get( "oauthService" ).get( "redirectUri" )
 
-			window.location = url
-			// this.transitionToRoute('index');
-		},
-		saveInputEndMission() {
-			let judgeAuth = this.judgeOauth()
+	// 		window.location = url
+	// 		// this.transitionToRoute('index');
+	// 	},
+	// 	saveInputEndMission() {
+	// 		let judgeAuth = this.judgeOauth()
 
-			if ( isEmpty( judgeAuth ) ) {
-				window.location = judgeAuth
-				return
-			}
-			this.toggleProperty( "exitMission" )
-		},
-		resultPageEndMission() {
-			window.location = ENV.redirectUri
-		},
-		saveInputs() {
-			this.set( "exitMission", false )
+	// 		if ( isEmpty( judgeAuth ) ) {
+	// 			window.location = judgeAuth
+	// 			return
+	// 		}
+	// 		this.toggleProperty( "exitMission" )
+	// 	},
+	// 	resultPageEndMission() {
+	// 		window.location = ENV.redirectUri
+	// 	},
+	// 	saveInputs() {
+	// 		this.set( "exitMission", false )
 
-			this.sendInput( 1 )
-			// this.transitionToRoute('index');
-		}
-	}
+	// 		this.sendInput( 1 )
+	// 		// this.transitionToRoute('index');
+	// 	}
+	// }
 } )

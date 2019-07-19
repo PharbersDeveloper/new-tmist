@@ -1,0 +1,99 @@
+{{#bp-layout direction="col" local-class="page-scenario" 
+	classNames="p-4"}}
+	{{#bp-page-header class="mb-4" local-class="scenario-header" as |ph|}}
+		{{#ph.body as |body|}}
+			{{#body.left as |left|}}
+				{{#left.item}}
+					{{model.proposal.name}}
+				{{/left.item}}
+				{{#left.item}}
+					{{model.scenario.name}}
+				{{/left.item}}
+			{{/body.left}}
+			{{#body.right}}
+				{{#if testBtn}}
+					{{#bp-button classNames="mr-1" onClick=(action "testResult")}}
+						{{t "project.test-result"}}
+					{{/bp-button}}
+				{{/if}}
+				{{#bp-button classNames="mr-1" onClick=(action "saveInputs")}}{{t "project.save-btn"}}{{/bp-button}}
+				{{#bp-button type="primary" onClick=(action "submit") }}{{t "project.submit-btn"}}{{/bp-button}}
+			{{/body.right}}
+		{{/ph.body}}
+	{{/bp-page-header}}
+	{{#bp-tabs local-class="tabs-container" as |tabs|}}
+		{{#tabs.tablist}}
+			<li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 0)}}
+					{{t "project.scenario-business"}}
+				{{/bp-button}}
+			</li>
+			<li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 1)}}
+					{{t "project.scenario-management"}}
+				{{/bp-button}}
+			</li>
+			<li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 2)}}
+					{{t "project.scenario-reference"}}
+				{{/bp-button}}
+			</li>
+			<li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 3)}}
+					{{t "project.scenario-decision-review"}}
+				{{/bp-button}}
+			</li>
+		{{/tabs.tablist}}
+		{{#if (bp-eq currentTab 0)}}
+			{{project/business-input }}
+		{{/if}}
+		{{#if (bp-eq currentTab 1)}}
+		{{/if}}
+		{{#if (bp-eq currentTab 2)}}
+			{{project/proposal-info proposal=model.proposal }}
+		{{/if}}
+		{{#if (bp-eq currentTab 3)}}
+		{{/if}}
+	{{/bp-tabs}}
+{{/bp-layout}}
+{{#bp-modal
+		open=warning.open 
+		position="center"
+		onSubmit=(action "confirmSubmit") 
+		onHidden=(action (mut warning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{warning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc m-0">
+			{{warning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{!-- change unless >> if --}}
+		{{#if confirmSubmit}}
+			{{#bp-button type="primary" onClick=(action modal.close)}}{{t "project.modal-footer.close-btn"}}{{/bp-button}}
+		{{else}}
+			{{#bp-button type="primary" onClick=(action modal.submit)}}{{t "project.modal-footer.submit-btn"}}{{/bp-button}}
+		{{/if}}
+		{{!-- {{#bp-button type="danger"}}Delete{{/bp-button}} --}}
+		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
+	{{/modal.footer}}
+{{/bp-modal}}
+{{#bp-modal
+		open=loadingForSubmit
+		position="center"
+		backdropClose=false as |modal|}}
+	{{#modal.header closeButton=false }}
+		<h4 class="modal-title">
+			{{t "project.modal-header.title"}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc m-0">
+			{{t "project.modal-header.desc"}}
+		</p>
+	{{/modal.body}}
+{{/bp-modal}}

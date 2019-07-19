@@ -23,11 +23,15 @@ export default Controller.extend( {
 		},
 		startNewDeploy() {
 			this.gen.genProjectWithProposal(this.currentProposal).then( x => {
-				this.transitionToRoute( "page.project", x.get( "proposal.id" ) )
+				this.transitionToRoute( "page.project.period", x.get( "id" ), "alfred" )
 			})
 		},
 		continueDeploy() {
-			this.transitionToRoute( "page.project", this.currentProject.get( "proposal.id" ) )
+			debugger
+			let c = this.currentProject.get("proposal")
+			let t = c.get("id")
+			console.log(t)
+			this.transitionToRoute( "page.project.period", this.currentProject.id, "alfred")
 		},
 		// reDeploy() {
 		// 	let proposalId = this.get( "model" ).detailProposal.get( "proposal.id" )
