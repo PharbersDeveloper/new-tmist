@@ -1,6 +1,6 @@
 import Component from "@ember/component"
 import { computed } from "@ember/object"
-import { isEmpty } from "@ember/utils"
+// import { isEmpty } from "@ember/utils"
 
 export default Component.extend( {
 	tagName: "span",
@@ -8,8 +8,8 @@ export default Component.extend( {
 	endTime: computed( "paper", function () {
 		// debugger
 		// let paper = this.get( "paper" ),
-			// state = isEmpty( paper ) ? 0 : paper.state,
-			// endTime = isEmpty( paper ) ? 0 : paper.endTime
+		// state = isEmpty( paper ) ? 0 : paper.state,
+		// endTime = isEmpty( paper ) ? 0 : paper.endTime
 
 		// if ( isEmpty( paper ) || state === 0 || endTime === 0 ) {
 		// 	return ""
@@ -17,7 +17,7 @@ export default Component.extend( {
 		// 	return `任务中断时间 ${this.formatDate( endTime )}`
 		// }
 		// return `完成时间 ${this.formatDate( endTime )}`
-		return `完成时间 ${this.formatDate( this.get("paper" ))}`
+		return `完成时间 ${this.formatDate( this.get( "paper" ) )}`
 	} ),
 	addZero( number ) {
 		if ( number < 10 ) {
