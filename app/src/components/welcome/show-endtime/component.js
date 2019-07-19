@@ -6,16 +6,18 @@ export default Component.extend( {
 	tagName: "span",
 	localClassNames: "end-time",
 	endTime: computed( "paper", function () {
-		let paper = this.get( "paper" ),
-			state = isEmpty( paper ) ? 0 : paper.state,
-			endTime = isEmpty( paper ) ? 0 : paper.endTime
+		// debugger
+		// let paper = this.get( "paper" ),
+			// state = isEmpty( paper ) ? 0 : paper.state,
+			// endTime = isEmpty( paper ) ? 0 : paper.endTime
 
-		if ( isEmpty( paper ) || state === 0 || endTime === 0 ) {
-			return ""
-		} else if ( state === 1 && endTime !== 0 ) {
-			return `任务中断时间 ${this.formatDate( endTime )}`
-		}
-		return `完成时间 ${this.formatDate( endTime )}`
+		// if ( isEmpty( paper ) || state === 0 || endTime === 0 ) {
+		// 	return ""
+		// } else if ( state === 1 && endTime !== 0 ) {
+		// 	return `任务中断时间 ${this.formatDate( endTime )}`
+		// }
+		// return `完成时间 ${this.formatDate( endTime )}`
+		return `完成时间 ${this.formatDate( this.get("paper" ))}`
 	} ),
 	addZero( number ) {
 		if ( number < 10 ) {

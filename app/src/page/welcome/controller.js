@@ -38,12 +38,17 @@ export default Controller.extend( {
 		checkReport( assessmentReport ) {
 			this.transitionToRoute( "page-report", assessmentReport.id )
 		},
-		// changeDetail( useableProposal, paper ) {
 		enterNewProjectWithProposal( proposal ) {
-			this.transitionToRoute( "page.project", proposal.get( "id" ) )
+			// this.transitionToRoute( "page.project", proposal.get( "id" ) )
+			this.set("currentProject", null)
+			this.set("currentProposal", proposal)
+			this.set("lastSelectedCat", 0)
 		},
 		enterNewProjectWithProject( project ) {
-			this.transitionToRoute( "page.project", project.get( "proposal.id" ) )
+			this.set("currentProject", project)
+			this.set("currentProposal", null)
+			this.set("lastSelectedCat", 1)
+			// this.transitionToRoute( "page.project", project.get( "proposal.id" ) )
 		},
 		startDeploy( proposalId ) {
 			localStorage.setItem( "notice", false )

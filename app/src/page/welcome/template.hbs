@@ -28,24 +28,36 @@
 				{{welcome/mission-state 0}}
 				{{!-- {{welcome/show-endtime model.detailPaper}} --}}
 			{{/bp-layout}}
+			<h3 class="mt-3 mb-4">
+				{{currentProposal.name}}
+			</h3>
+			{{#if (bp-not-eq currentProposal.totalPhase 1)}}
+				<p local-class="phase" class="mb-4">
+					<span>{{t "welcome.session-1"}}</span>
+					<span>{{t "welcome.total"}}{{currentProposal.totalPhase}}{{t "welcome.peroid"}}</span>
+				</p>
+			{{/if}}
+			<p local-class="desc" class="mb-4">
+				{{currentProposal.describe }}
+			</p>
 		{{else}}
 			{{#bp-layout main="between" cross="center"  classNames="mb-4"}}
-				{{welcome/mission-state 3}}
-				{{!-- {{welcome/show-endtime model.detailPaper}} --}}
+				{{welcome/mission-state 2}}
+				{{welcome/show-endtime currentProject.lastUpdate}}
 			{{/bp-layout}}
-		{{/if}}
-		<h3 class="mt-3 mb-4">
-			{{currentProposal.name}}
-		</h3>
-		{{#if (bp-not-eq currentProposal.totalPhase 1)}}
-			<p local-class="phase" class="mb-4">
-				<span>{{t "welcome.session-1"}}</span>
-				<span>{{t "welcome.total"}}{{currentProposal.totalPhase}}{{t "welcome.peroid"}}</span>
+			<h3 class="mt-3 mb-4">
+				{{currentProject.proposal.name}}
+			</h3>
+			{{#if (bp-not-eq currentProject.proposal.totalPhase 1)}}
+				<p local-class="phase" class="mb-4">
+					<span>{{t "welcome.session-1"}}</span>
+					<span>{{t "welcome.total"}}{{currentProject.proposal.totalPhase}}{{t "welcome.peroid"}}</span>
+				</p>
+			{{/if}}
+			<p local-class="desc" class="mb-4">
+				{{currentProject.proposal.describe }}
 			</p>
 		{{/if}}
-		<p local-class="desc" class="mb-4">
-			{{currentProposal.describe }}
-		</p>
 		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
 			{{!-- {{#bp-button type="primary" tagName="span" onClick=(action "startDeploy" model.detailProposal.proposal.id)}}
 			开始部署
