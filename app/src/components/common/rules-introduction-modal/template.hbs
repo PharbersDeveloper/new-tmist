@@ -1,0 +1,22 @@
+{{#bp-modal
+		open=rules 
+		position='center'
+		onHidden=(action (mut rules) false) 
+		local-class="bp-modal" as |modal|}}
+	{{#modal.header classNames='px-4 py-3 border-0'}}
+		规则介绍
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class='secondary mb-0'>经理需要彻底利用有限“预算”，达成“药品销售额指标”，</p>
+		<p class='secondary mb-0'>彻底完成业务决策、管理决策后才能提交任务，一旦提交决策，将不可更改。</p>
+		<p class="secondary mb-4">您的决策设定可在“本期决策回顾中”查看。</p>
+		<h4 class='title' class="mt-0 mb-3">业务决策</h4>
+		<p class="secondary mb-4">1. 业务决策中，优先选择代表，所有医院都需要有代表负责。
+			每一个代表必须充分利用“拜访时间”负责医院药品销售业务，
+			“代表拜访时间”不能为“0”，“代表剩余时间”必须 为“0”。</p>
+		<p class="secondary mb-4">2. 所有医院的“药品销售指标”和“预算”都得分配，若不分配，请输入“0”。</p>
+		<p class="secondary mb-4">3. 会议名额需要被彻底分配，请为不分配会议名额的医院设定名额值为“0”。</p>
+		<h4 class='title' class="mt-0 mb-3">管理决策</h4>
+		<p class="secondary">1. 经理的时间需要全部分配。</p>
+	{{/modal.body}}
+{{/bp-modal}}

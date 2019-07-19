@@ -7,9 +7,10 @@ export default DS.JSONAPISerializer.extend( {
 		const perfix = "model/"
 		return perfix + singularize( dasherize( key ) )
 	},
-	payloadKeyFromModelName(modelName) {
-		const key = modelName.replace(".", "/").split("/")[1]
-		return pluralize( camelize ( key ) )
+	payloadKeyFromModelName( modelName ) {
+		const key = modelName.replace( ".", "/" ).split( "/" )[1]
+
+		return pluralize( camelize( key ) )
 	},
 	keyForAttribute( key ) {
 		return key

@@ -1,0 +1,38 @@
+@import "bp-components";
+
+.header {
+	@extend %depth-z200;
+	height: 8 * $spacing;
+	position: relative;
+	z-index: 1;
+
+	p {
+		@extend %header-small;
+		cursor: pointer;
+
+		img {
+			width: 7 * $spacing;
+		}
+	}
+
+	img {
+		height: 18px;
+		width: 18px;
+	}
+}
+
+.container {
+	height: calc(100% - 64px);
+
+	.content-box {
+		height: 100%;
+	}
+}
+
+.container-height {
+	height: 100%;
+
+	.content-box {
+		height: 100%;
+	}
+}

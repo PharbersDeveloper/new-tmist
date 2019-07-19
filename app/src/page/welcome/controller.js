@@ -2,7 +2,7 @@ import Controller from "@ember/controller"
 import { inject as service } from "@ember/service"
 
 export default Controller.extend( {
-	gen: service("service/gen-data"),
+	gen: service( "service/gen-data" ),
 	lastSelectedCat: 0, // 0 for proposal, 1 for project
 	currentProposal: null,
 	currentProject: null,
