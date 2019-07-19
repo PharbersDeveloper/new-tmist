@@ -17,11 +17,11 @@ RUN npm update && \
 
 WORKDIR /app
 
-LABEL ntm.version=0.2.0
+LABEL ntm.version=0.2.1
 
-RUN git clone https://github.com/PharbersDeveloper/new-tmist.git && \
-	git clone https://github.com/PharbersDeveloper/BP-Components.git 
-	
+RUN git clone -b alex https://github.com/PharbersDeveloper/new-tmist.git && \
+	git clone -b frank https://github.com/PharbersDeveloper/BP-Components.git 
+
 WORKDIR /app/BP-Components
 
 RUN git checkout -b frank origin/frank && \
