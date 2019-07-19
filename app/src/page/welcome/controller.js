@@ -2,7 +2,7 @@ import Controller from "@ember/controller"
 import { inject as service } from "@ember/service"
 
 export default Controller.extend( {
-	gen: service("service/gen-data"),
+	gen: service( "service/gen-data" ),
 	lastSelectedCat: 0, // 0 for proposal, 1 for project
 	currentProposal: null,
 	currentProject: null,
@@ -22,9 +22,9 @@ export default Controller.extend( {
 			this.set( "lastSelectedCat", 1 )
 		},
 		startNewDeploy() {
-			this.gen.genProjectWithProposal(this.currentProposal).then( x => {
+			this.gen.genProjectWithProposal( this.currentProposal ).then( x => {
 				this.transitionToRoute( "page.project", x.get( "proposal.id" ) )
-			})
+			} )
 		},
 		continueDeploy() {
 			this.transitionToRoute( "page.project", this.currentProject.get( "proposal.id" ) )
