@@ -1,7 +1,7 @@
 import Controller from "@ember/controller"
-import ENV from "new-tmist/config/environment"
-import { inject as service } from "@ember/service"
-import { computed } from "@ember/object"
+// import ENV from "new-tmist/config/environment"
+// import { inject as service } from "@ember/service"
+// import { computed } from "@ember/object"
 // import { A } from "@ember/array"
 
 export default Controller.extend( {
@@ -40,14 +40,14 @@ export default Controller.extend( {
 		},
 		enterNewProjectWithProposal( proposal ) {
 			// this.transitionToRoute( "page.project", proposal.get( "id" ) )
-			this.set("currentProject", null)
-			this.set("currentProposal", proposal)
-			this.set("lastSelectedCat", 0)
+			this.set( "currentProject", null )
+			this.set( "currentProposal", proposal )
+			this.set( "lastSelectedCat", 0 )
 		},
 		enterNewProjectWithProject( project ) {
-			this.set("currentProject", project)
-			this.set("currentProposal", null)
-			this.set("lastSelectedCat", 1)
+			this.set( "currentProject", project )
+			this.set( "currentProposal", null )
+			this.set( "lastSelectedCat", 1 )
 			// this.transitionToRoute( "page.project", project.get( "proposal.id" ) )
 		},
 		startDeploy( proposalId ) {
