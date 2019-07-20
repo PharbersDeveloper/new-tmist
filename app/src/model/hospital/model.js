@@ -15,5 +15,5 @@ export default DS.Model.extend( {
 	spaceBelongs: DS.attr( "string" ),
 	abilityToPay: DS.attr( "string" ),
 	policies: DS.hasMany( "model/policy" ),
-	splitRequirement: DS.belongsTo("model/split-requirement")
+	presets: DS.hasMany("model/preset")
 } )

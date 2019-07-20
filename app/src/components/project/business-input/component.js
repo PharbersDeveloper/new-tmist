@@ -6,7 +6,7 @@ export default Component.extend( {
 	positionalParams: ["project", "period"],
 	currentName: computed("project", function() {
 		this.project.proposal.then(x => 
-			x.products.then(y => y.filter(z => z.productType === "0")))
+			x.products.then(y => y.filter(z => z.productType === 0)))
 		.then(f => this.set("currentName", f.firstObject.name))
 	}),
 	// 设置一些默认值

@@ -14,21 +14,20 @@ export default DS.JSONAPISerializer.extend( {
 	keyForAttribute( key ) {
 		return key
 	},
-	modelNameFromPayloadType(payloadType) {
-		debugger
-		return payloadType
-	},
-	keyForRelationship(key, typeClass, method) {
-		if (method === "deserialize") {
-			if (key === "quota") {
-				return key
-			} else if (typeClass === "belongsTo") {
-				return singularize( camelize( key ) )
-			} else if (typeClass === "hasMany") {
-				return pluralize( camelize( key ) )
-			} else {
-				return key
-			}
-		} else return key
-	}
+	// keyForRelationship(key, typeClass, method) {
+	// 	if (method === "deserialize") {
+	// 		if (key === "splitRequirements") { // 这尼玛是Ember的Bug
+	// 			return key
+	// 		}
+	// 		else if (key === "quota") {
+	// 			return key
+	// 		} else if (typeClass === "belongsTo") {
+	// 			return singularize( camelize( key ) )
+	// 		} else if (typeClass === "hasMany") {
+	// 			return pluralize( camelize( key ) )
+	// 		} else {
+	// 			return key
+	// 		}
+	// 	} else return key
+	// }
 } )

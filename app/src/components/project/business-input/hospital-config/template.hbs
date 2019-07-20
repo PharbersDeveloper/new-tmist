@@ -66,18 +66,18 @@
 		</tr>
 	</thead>
 	<tbody class="bg-white">
-        {{log products}}
 		{{#each products as |product|}}
-			{{!-- {{#if (bp-eq hSR.destConfig.hospitalConfig.hospital.id model.destConfig.hospitalConfig.hospital.id)}} --}}
+			{{#if (bp-eq product.productType 0)}}
+						{{#project/business-input/hospital-config/current-quato hospital=hospital product=product as |potential achievements|}}
 				<tr class="mx-0 px-4">
 					<td class="pl-4 pr-2 border-0 text-left">
 						{{product.name}}
 					</td>
 					<td class="px-2 border-0 text-left">
-						￥{{format-number 100}}
+							￥{{format-number potential}}
 					</td>
 					<td class="px-2 border-0 text-left">
-						￥{{format-number 100 0}}
+							￥{{format-number achievements}}
 					</td>
 					<td class="px-2 border-0">
 						{{bp-input block=true widthSize="auto" 
@@ -99,7 +99,8 @@
 						</p>
 					</td>
 				</tr>
-			{{!-- {{/if}} --}}
+						{{/project/business-input/hospital-config/current-quato}}
+			{{/if}}
 		{{/each}}
 	</tbody>
 </table>

@@ -10,7 +10,7 @@ export default DS.Model.extend( {
 	safety: DS.attr( "string" ),
 	effectiveness: DS.attr( "string" ),
 	convenience: DS.attr( "string" ),
-	productType: DS.attr( "string" ),
+	productType: DS.attr( "number" ),
 	priceType: DS.attr( "string" ),
 	price: DS.attr( "number" ),
 	cost: DS.attr( "number" ),
