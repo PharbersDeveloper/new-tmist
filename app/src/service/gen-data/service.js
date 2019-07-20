@@ -15,9 +15,11 @@ export default Service.extend( {
 		} ).save()
 	},
 	genPeriodWithProject( aProject ) {
+		const last = aProject.periods.lastObject ? aProject.periods.lastObject : null
 		let result = this.store.createRecord( "model.period", {
 			name: "alfred test",
-			answers: []
+			answers: [],
+			last: last
 		} ).save()
 		result.then(x => {
 			aProject.periods.pushObject(x)

@@ -8,6 +8,7 @@ export default DS.JSONAPIAdapter.extend( {
 	// namespace: ENV.API.Version,
 	cookies: service(),
 	pathForType( type ) {
+		console.log(type)
 		var res = type.split( "/" )
 		let newType = pluralize( dasherize( res[res.length - 1] ) )
 

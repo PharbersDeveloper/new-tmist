@@ -14,5 +14,6 @@ export default DS.Model.extend( {
 	income: DS.attr( "number" ),
 	spaceBelongs: DS.attr( "string" ),
 	abilityToPay: DS.attr( "string" ),
-	policies: DS.hasMany( "model/policy" )
+	policies: DS.hasMany( "model/policy" ),
+	splitRequirement: DS.belongsTo("model/split-requirement")
 } )

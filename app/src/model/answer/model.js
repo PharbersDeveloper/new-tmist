@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-    AnswerCategory: DS.attr('enum', {
+    category: DS.attr('enum', {
         options: [
             "Business",
             "Management",

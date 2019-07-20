@@ -123,13 +123,16 @@
 				{{/bp-dropdown}}
 			{{/bp-layout}}
 			{{#each project.proposal.targets as |hosp|}}
-				{{!-- {{#link-to "page-scenario.business.hospital-config" destConfig.id activeClass="current-hospital"}} --}}
-					{{project/business-input/hospital-overall hospital=hosp}}
-				{{!-- {{/link-to}} --}}
+				{{project/business-input/hospital-overall hospital=hosp}}
 			{{/each}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
-			{{!-- {{outlet}} --}}
+			{{#each project.proposal.targets as |hosp|}}
+				{{project/business-input/hospital-config 
+					hospital=hosp 
+					products=project.proposal.products 
+					resources=project.proposal.resources}}
+			{{/each}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
