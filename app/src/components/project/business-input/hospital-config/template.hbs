@@ -11,13 +11,7 @@
 			<span local-class='keys' class='mr-3'>指定代表</span>
 			{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
 				{{#dd.button}}
-					{{#if tmpRc.id}}
-						<p>
-                            {{tmpRc.representativeConfig.representative.name}}
-                        </p>
-					{{else}}
-						代表
-					{{/if}}
+					代表
 					{{bp-icon icon='down'}}
 				{{/dd.button}}
 				{{#dd.menu as |menu|}}
@@ -68,7 +62,7 @@
 	<tbody class="bg-white">
 		{{#each products as |product|}}
 			{{#if (bp-eq product.productType 0)}}
-						{{#project/business-input/hospital-config/current-quato hospital=hospital product=product as |potential achievements|}}
+				{{#project/business-input/hospital-config/current-quato hospital=hospital product=product as |potential achievements|}}
 				<tr class="mx-0 px-4">
 					<td class="pl-4 pr-2 border-0 text-left">
 						{{product.name}}
@@ -99,7 +93,7 @@
 						</p>
 					</td>
 				</tr>
-						{{/project/business-input/hospital-config/current-quato}}
+				{{/project/business-input/hospital-config/current-quato}}
 			{{/if}}
 		{{/each}}
 	</tbody>

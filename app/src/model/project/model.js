@@ -7,5 +7,5 @@ export default DS.Model.extend( {
 	pharse: DS.attr( "number" ),
 	status: DS.attr( "number" ),
 	lastUpdate: DS.attr( "number" ),
-	periods: DS.hasMany("model/period")
+	periods: DS.hasMany( "model/period" )
 } )

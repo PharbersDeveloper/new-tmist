@@ -23,16 +23,16 @@ export default Controller.extend( {
 		},
 		startNewDeploy( aProposal ) {
 			this.gen.genProjectWithProposal( aProposal ).then( x => {
-				this.continueDeploy(x)
+				this.continueDeploy( x )
 			} )
 		},
 		continueDeploy( aProject ) {
-			if (aProject.periods.length === 0) {
-				this.gen.genPeriodWithProject(aProject).then( x => {
-					this.transitionToRoute( "page.project.period", aProject.id, x.id)
-				})
+			if ( aProject.periods.length === 0 ) {
+				this.gen.genPeriodWithProject( aProject ).then( x => {
+					this.transitionToRoute( "page.project.period", aProject.id, x.id )
+				} )
 			} else {
-				this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get("id"))
+				this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get( "id" ) )
 			}
 		},
 		chooseItem( item ) {

@@ -14,7 +14,7 @@ module.exports = function( defaults ) {
 		},
 		fingerprint: {
 			enabled: false
-		},
+		}
 	} )
 
 	// app.import('vendor/errorLogin.js');

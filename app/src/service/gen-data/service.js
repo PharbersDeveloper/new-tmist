@@ -21,10 +21,11 @@ export default Service.extend( {
 			answers: [],
 			last: last
 		} ).save()
-		result.then(x => {
-			aProject.periods.pushObject(x)
+
+		result.then( x => {
+			aProject.periods.pushObject( x )
 			aProject.save()
-		})
+		} )
 		return result
 	}
 } )
