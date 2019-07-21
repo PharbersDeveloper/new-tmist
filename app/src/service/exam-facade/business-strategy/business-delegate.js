@@ -21,15 +21,13 @@ export default Object.extend({
                 const ids= x.targets.map(x => x.id)
                 return Promise.all(ids.map(id => 
                     this.store.findRecord("model/hospital", id)))
-                    .then(hospitals => {
-                        return hospitals.map(hospital => {
-                            this.store.createRecord("model/answer", {
-                                category: "Business",
-                                target: hospital
-                            })
-                        })
-                    })
             }
+        }).then(hospitals => {
+            return hospitals.map(hospital => this.store.createRecord("model/answer", {
+                    category: "Business",
+                    target: hospital
+                })
+            )
         })
     }
 })

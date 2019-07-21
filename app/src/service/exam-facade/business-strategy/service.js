@@ -1,8 +1,10 @@
 import Service from '@ember/service';
 import { inject as service } from "@ember/service"
-import { computed } from "@ember/object"
 import businessDelegate from './business-delegate';
 
+/**
+ * copy and swap
+ */
 export default Service.extend({
     init() {
         this._super(...arguments)
@@ -33,9 +35,12 @@ export default Service.extend({
     },
     async answersLoaded() {
         if (this.currentAnswers.length === 0) {
+            let tmp = await this.delegate.genBusinessOperatorAnswer(this.currentAnswers)
             console.log("need create answers")
-            console.log(await this.delegate.genBusinessOperatorAnswer(this.currentAnswers))
-            // console.log(await this.delegate.getBusinessAnswerCount())
+            console.log(tmp)
+            this.set("operationAnswers", tmp)
+        } else {
+            // TODO: query all current answer and clone every answer
         }
     }
 });

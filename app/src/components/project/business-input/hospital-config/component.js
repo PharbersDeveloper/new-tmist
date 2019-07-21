@@ -1,7 +1,9 @@
 import Component from "@ember/component"
+// import { inject as service } from "@ember/service"
 
 export default Component.extend( {
-	positionalParams: ["hospital", "products", "resources"],
+	positionalParams: ["hospital", "products", "resources", "answer"],
+	// exam: service("service/exam-facade"),
 	actions: {
 		changedRep( item ) {
 			// debugger
