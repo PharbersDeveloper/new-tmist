@@ -23,5 +23,5 @@ export default DS.Model.extend( {
 	teamMeetingTime: DS.attr( "number", { defaultValue: -1 } ),
 	resource: DS.belongsTo( "model/resource", { defaultValue: null } ),
 	product: DS.belongsTo( "model/product", { defaultValue: null} ),
-	tartget: DS.belongsTo( "model/hospital", { defaultValue: null } )
+	target: DS.belongsTo( "model/hospital", { defaultValue: null } )
 } )

@@ -127,14 +127,15 @@
 			{{/each}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
-			{{#each project.proposal.targets as |hosp|}}
+			{{#project/business-input/hospital-config/input-mapping proposal=project.proposal exam=facade as |quizs|}}
+			{{#each quizs as |quiz|}}
 				{{project/business-input/hospital-config
 					proposal=project.proposal
-					hospital=hosp 
-					products=project.proposal.products 
-					resources=project.proposal.resources
-					answer=answer}}
+					hospital=quiz.hospital
+					quizs=quiz.quizs
+					resources=project.proposal.resources}}
 			{{/each}}
+			{{/project/business-input/hospital-config/input-mapping}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}

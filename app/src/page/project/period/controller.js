@@ -1,11 +1,13 @@
 import Controller from "@ember/controller"
-import ENV from "new-tmist/config/environment"
-import { computed } from "@ember/object"
+// import ENV from "new-tmist/config/environment"
+// import { computed } from "@ember/object"
 import { isEmpty } from "@ember/utils"
 import { inject as service } from "@ember/service"
+import Ember from "ember"
 
 export default Controller.extend( {
 	toast: service(),
+	exam: service("service/exam-facade"),
 	currentTab: 0,
 	actions: {
 		submit() {
@@ -30,15 +32,10 @@ export default Controller.extend( {
 			this.sendInput( 3 )
 		},
 		saveInputs() {
-			this.set( "confirmSubmit", false )
-
-			let judgeAuth = this.judgeOauth()
-
-			if ( isEmpty( judgeAuth ) ) {
-				window.location = judgeAuth
-				return
-			}
-			this.sendInput( 1 )
+			Ember.Logger.info("save current input")
+			this.exam.bs.saveCurrentBussinessInput( () => {
+				alert("save success")
+			})
 		},
 		testResult() {
 			this.toast.success( "", "保存成功", {

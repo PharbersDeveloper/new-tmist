@@ -1,33 +1,22 @@
 import Component from "@ember/component"
 import { inject as service } from "@ember/service"
+import { computed } from "@ember/object"
 
 export default Component.extend( {
-	positionalParams: ["proposal", "hospital", "products", "resources", "answer"],
+	positionalParams: ["proposal", "hospital", "quizs", "products"],
 	exam: service("service/exam-facade"),
+	// resource: computed("exam.operationAnswers", "hospital", function() {
+		// return this.exam.bs.queryBusinessResources(this.hospital)
+	// } ), 
 	actions: {
-		changedRep( item ) {
-			// debugger
-			// let businessinput = this.get('businessinput');
-
-			// this.set('tmpRc', item);
-			// businessinput.setProperties({
-			// 	resourceConfigId: item.id,
-			// 	resourceConfig: item
-			// });
-			Ember.Logger.info( `change resources ${item.name}` )
+		changedResource( aResource ) {
+			Ember.Logger.info( `change resources ${aResource.name}` )
+			this.exam.bs.resetBusinessResources( this.hospital, aResource )
+			this.set("resource", aResource)
 		},
-		reInput() {
-			let businessinput = this.get( "businessinput" )
-
-			this.set( "tmpRc", null )
-			businessinput.setProperties( {
-				resourceConfigId: "",
-				resourceConfig: null,
-				visitTime: "",
-				meetingPlaces: 0,
-				salesTarget: "",
-				budget: ""
-			} )
-		}
+		resetAnswer() {
+			this.exam.bs.resetBusinessAnswer( this.hospital )
+			this.set("resource", null)
+		},
 	}
 } )

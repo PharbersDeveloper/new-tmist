@@ -14,6 +14,9 @@ export default Component.extend( {
 	didInsertElement() {
 		this.facade.startPeriodBusinessExam(this.project, this.period)
 	},
+	willDestroyElement() {
+		this.facade.bs.clearPeriodBusinessExam()
+	},
 	// 设置一些默认值
 	hospitalState: A( [
 		{ name: "全部", state: 0 },

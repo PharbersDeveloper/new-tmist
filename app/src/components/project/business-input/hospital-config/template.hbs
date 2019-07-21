@@ -1,6 +1,6 @@
 {{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white"}}
 	{{hospital.name}}
-	{{#bp-button onClick=(action 'reInput')}}重置{{/bp-button}}
+	{{#bp-button onClick=(action 'resetAnswer' hospital)}}重置{{/bp-button}}
 {{/bp-layout}}
 {{#bp-layout direction='col' classNames='bg-white'}}
 	{{#bp-layout tagName="h5" cross="center" local-class="title" classNames="px-4 m-0"}}
@@ -11,13 +11,17 @@
 			<span local-class='keys' class='mr-3'>指定代表</span>
 			{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
 				{{#dd.button}}
+					{{#if res}}
+					{{res.name}}
+					{{else}}
 					代表
+					{{/if}}
 					{{bp-icon icon='down'}}
 				{{/dd.button}}
 				{{#dd.menu as |menu|}}
 					{{#each resources as |resource|}}
 						{{!-- {{#if (bp-eq rc.resourceType 1)}} --}}
-							{{#menu.option value=resource onClick=(action 'changedRep') local-class="representative-info"}}
+							{{#menu.option value=resource onClick=(action 'changedResource') local-class="representative-info"}}
 								{{#bp-layout cross="center"}}
 									<img width="24" src={{resource.avatar.img}} alt="avatar" class="mr-2">
 									<span local-class="name" class="mr-2">
@@ -60,43 +64,37 @@
 		</tr>
 	</thead>
 	<tbody class="bg-white">
-		{{#each products as |product|}}
-			{{#if (bp-eq product.productType 0)}}
-				{{#project/business-input/hospital-config/current-quato proposal=proposal hospital=hospital product=product as |potential achievements|}}
-				{{#project/business-input/hospital-config/hospital-answer hospital=hospital product=product exam=exam as |answer|}}
-				<tr class="mx-0 px-4">
-					<td class="pl-4 pr-2 border-0 text-left">
-						{{product.name}}
-					</td>
-					<td class="px-2 border-0 text-left">
-							￥{{format-number potential}}
-					</td>
-					<td class="px-2 border-0 text-left">
-							￥{{format-number achievements}}
-					</td>
-					<td class="px-2 border-0">
-						{{bp-input block=true widthSize="auto" 
-							value=answer.salesTarget
-							disabled=false
-							local-class="input-prepend input-money"
-							classNames="mb-2"}}
-						<p class="mt-2 mb-0 text-center" local-class="percent">
-							{{IndicatorAllocationPercent.percent}}%
-						</p>
-					</td>
-					<td class="pl-2 pr-4 border-0">
-						{{bp-input block=true widthSize="auto"
-							value=answer.budget
-							disabled=false
-							local-class="input-prepend input-money"}}
-						<p class="mt-2 mb-0 text-center" local-class="percent">
-							{{budgetPercent.percent}}%
-						</p>
-					</td>
-				</tr>
-				{{/project/business-input/hospital-config/hospital-answer}}
-				{{/project/business-input/hospital-config/current-quato}}
-			{{/if}}
+		{{#each quizs as |quiz|}}
+			<tr class="mx-0 px-4">
+				<td class="pl-4 pr-2 border-0 text-left">
+					{{quiz.product.name}}
+				</td>
+				<td class="px-2 border-0 text-left">
+						￥{{format-number quiz.preset.potential}}
+				</td>
+				<td class="px-2 border-0 text-left">
+						￥{{format-number quiz.preset.achievements}}
+				</td>
+				<td class="px-2 border-0">
+					{{bp-input block=true widthSize="auto" 
+						value=quiz.answer.salesTarget
+						disabled=false
+						local-class="input-prepend input-money"
+						classNames="mb-2"}}
+					<p class="mt-2 mb-0 text-center" local-class="percent">
+						{{IndicatorAllocationPercent.percent}}%
+					</p>
+				</td>
+				<td class="pl-2 pr-4 border-0">
+					{{bp-input block=true widthSize="auto"
+						value=quiz.answer.budget
+						disabled=false
+						local-class="input-prepend input-money"}}
+					<p class="mt-2 mb-0 text-center" local-class="percent">
+						{{budgetPercent.percent}}%
+					</p>
+				</td>
+			</tr>
 		{{/each}}
 	</tbody>
 </table>

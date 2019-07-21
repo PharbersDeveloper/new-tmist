@@ -8,13 +8,15 @@ export default Object.extend({
         this.set("currentProposal", aProposal)
     },
     async getPresetsWithCurrentPeriod( aPeriod ) {
-        return aPeriod.last.then( x => { 
-                x.presets
-        } ).catch(err => {
+        if (aPeriod.last.content === null) {
             return this.currentProposal.then( x => {
                 return x.presets
             } )
-        } )
+        } else {
+            return aPeriod.last.then( x => { 
+                x.presets
+            }
+        ) }
     },
     async getBusinessAnswerCount(aPeriod) {
         return this.getPresetsWithCurrentPeriod(aPeriod).then(x => {
@@ -22,14 +24,13 @@ export default Object.extend({
         })
     },
     async genBusinessOperatorAnswer(answers, aPeriod) {
-        let count = await this.getBusinessAnswerCount(aPeriod)
-        return await this.getPresetsWithCurrentPeriod(aPeriod).then(lst => {
-            const ids= lst.map(x => x.id)
-            console.log(ids.length)
-            return Promise.all(ids.map(id => 
+        let presets = await this.getPresetsWithCurrentPeriod(aPeriod)
+        let count = presets.length
+        const ids= presets.map(x => x.id)
+        return Promise.all(ids.map(id => 
                     this.store.findRecord("model/preset", id)))
-        }).then(presets=> {
-            if (answers.length === count) {
+            .then(presets=> {
+            if (answers.length !== count) {
                 return presets.map( preset => {
                     return this.store.createRecord("model/answer", {
                         category: "Business",
@@ -38,14 +39,26 @@ export default Object.extend({
                     })
                 } )
             } else {
-                return presets.map( preset => {
-                    return this.store.createRecord("model/answer", {
-                        category: "Business",
-                        target: preset.hospital,
-                        product: preset.product
-                    })
-                } )
+                return this.optAnswersFromCurrentAnswer(answers)
             }
+        })
+    },
+    async optAnswersFromCurrentAnswer(answers) {
+        let ids = answers.map(answer => answer.id)
+        return Promise.all(ids.map(id => {
+            return this.store.findRecord("model/answer", id)
+        })).then(vals => {
+            return vals.map(item => {
+                return this.store.createRecord("model/answer", {
+                    category: item.category,
+                    target: item.target,
+                    product: item.product,
+                    salesTarget: item.salesTarget,
+                    budget: item.budget,
+                    meetingPlaces: item.meetingPlaces,
+                    resource: item.resource
+                })
+            })
         })
     }
 })
