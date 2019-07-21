@@ -14,6 +14,5 @@ export default DS.Model.extend( {
 	income: DS.attr( "number" ),
 	spaceBelongs: DS.attr( "string" ),
 	abilityToPay: DS.attr( "string" ),
-	policies: DS.hasMany( "model/policy" ),
-	presets: DS.hasMany( "model/preset" )
+	policies: DS.hasMany( "model/policy" )
 } )

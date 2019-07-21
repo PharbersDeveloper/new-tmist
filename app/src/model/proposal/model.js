@@ -10,5 +10,6 @@ export default DS.Model.extend( {
 	products: DS.hasMany( "model/product" ),
 	targets: DS.hasMany( "model/hospital" ),
 	resources: DS.hasMany( "model/resource" ),
-	quota: DS.belongsTo( "model/requirement" )
+	quota: DS.belongsTo( "model/requirement" ),
+	presets: DS.hasMany( "model/preset" )
 } )

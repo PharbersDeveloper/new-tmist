@@ -129,7 +129,8 @@
 		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
 			{{#each project.proposal.targets as |hosp|}}
 				{{#project/business-input/hospital-config/hospital-answer hospital=hosp exam=facade as |answer|}}
-				{{project/business-input/hospital-config 
+				{{project/business-input/hospital-config
+					proposal=project.proposal
 					hospital=hosp 
 					products=project.proposal.products 
 					resources=project.proposal.resources

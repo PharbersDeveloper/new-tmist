@@ -62,7 +62,7 @@
 	<tbody class="bg-white">
 		{{#each products as |product|}}
 			{{#if (bp-eq product.productType 0)}}
-				{{#project/business-input/hospital-config/current-quato hospital=hospital product=product as |potential achievements|}}
+				{{#project/business-input/hospital-config/current-quato proposal=proposal hospital=hospital product=product as |potential achievements|}}
 				<tr class="mx-0 px-4">
 					<td class="pl-4 pr-2 border-0 text-left">
 						{{product.name}}
@@ -75,7 +75,7 @@
 					</td>
 					<td class="px-2 border-0">
 						{{bp-input block=true widthSize="auto" 
-							value=model.businessinput.salesTarget
+							value=answer.salesTarget
 							disabled=false
 							local-class="input-prepend input-money"
 							classNames="mb-2"}}
@@ -85,7 +85,7 @@
 					</td>
 					<td class="pl-2 pr-4 border-0">
 						{{bp-input block=true widthSize="auto"
-							value=model.businessinput.budget
+							value=answer.budget
 							disabled=false
 							local-class="input-prepend input-money"}}
 						<p class="mt-2 mb-0 text-center" local-class="percent">
@@ -105,7 +105,7 @@
 	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
 		<span local-class="keys" class='mr-3'>分配会议名额</span>
 		{{bp-input widthSize="auto"
-					value=model.businessinput.meetingPlaces
+					value=answer.meetingPlaces
 					disabled=false
 					local-class="input-prepend input-meeting operating"}}
 	{{/bp-layout}}

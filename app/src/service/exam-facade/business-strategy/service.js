@@ -36,8 +36,6 @@ export default Service.extend({
     async answersLoaded() {
         if (this.currentAnswers.length === 0) {
             let tmp = await this.delegate.genBusinessOperatorAnswer(this.currentAnswers)
-            console.log("need create answers")
-            console.log(tmp)
             this.set("operationAnswers", tmp)
         } else {
             // TODO: query all current answer and clone every answer
