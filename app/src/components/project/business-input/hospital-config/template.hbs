@@ -63,6 +63,7 @@
 		{{#each products as |product|}}
 			{{#if (bp-eq product.productType 0)}}
 				{{#project/business-input/hospital-config/current-quato proposal=proposal hospital=hospital product=product as |potential achievements|}}
+				{{#project/business-input/hospital-config/hospital-answer hospital=hospital product=product exam=exam as |answer|}}
 				<tr class="mx-0 px-4">
 					<td class="pl-4 pr-2 border-0 text-left">
 						{{product.name}}
@@ -93,6 +94,7 @@
 						</p>
 					</td>
 				</tr>
+				{{/project/business-input/hospital-config/hospital-answer}}
 				{{/project/business-input/hospital-config/current-quato}}
 			{{/if}}
 		{{/each}}

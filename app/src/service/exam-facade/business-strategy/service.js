@@ -6,12 +6,9 @@ import businessDelegate from './business-delegate';
  * copy and swap
  */
 export default Service.extend({
-    init() {
-        this._super(...arguments)
-        this.addObserver("currentAnswers", this, this.answersLoaded)
-    },
     currentAnswers: null,
     operationAnswers: null,
+    currentPeriod: null,
     store: service(),
     delegate: null,
     startPeriodBusinessExam(aProject, aPeriod) {
@@ -19,6 +16,7 @@ export default Service.extend({
         Promise.all(ids.map(id => {
             return this.store.find("model/answer", id)
         })).then(answers => {
+            this.set("currentPeriod", aPeriod)
             this.set("delegate", businessDelegate.create(aProject.proposal))
             this.delegate.set("store",this.store)
             this.set("currentAnswers", answers)
@@ -33,12 +31,12 @@ export default Service.extend({
     endCurrentBusinessExam() {
 
     },
-    async answersLoaded() {
-        if (this.currentAnswers.length === 0) {
-            let tmp = await this.delegate.genBusinessOperatorAnswer(this.currentAnswers)
+    answersLoaded: async function() {
+        if (this.currentAnswers !== null && this.currentAnswers.length === 0) {
+            let tmp = await this.delegate.genBusinessOperatorAnswer(this.currentAnswers, this.currentPeriod)
             this.set("operationAnswers", tmp)
         } else {
             // TODO: query all current answer and clone every answer
         }
-    }
+    }.observes("currentAnswers").on("init")
 });

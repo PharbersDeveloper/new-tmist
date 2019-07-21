@@ -13,7 +13,6 @@ export default Component.extend( {
 			const cur = lst.find( item => {
 				const pc = item.get( "product.id" ) === this.get( "product.id")
 				const hc = item.get( "hospital.id" ) === this.get( "hospital.id")
-				console.log(hc)
 				return pc && hc
 			})
 			return cur ? this.set("currentQuato", cur.potential) : 0
