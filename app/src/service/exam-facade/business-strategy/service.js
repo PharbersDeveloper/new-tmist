@@ -62,12 +62,12 @@ export default Service.extend({
 
     // operation logic
     resetBusinessResources( aHospital, aResource ) {
-        this.operationAnswers.filter( x => x.get("target.id") === aHospital.id).forEach(answer => {
+        this.operationAnswers.filter( x => x.get("target.id") === aHospital.get("id")).forEach(answer => {
             answer.set("resource", aResource)
         });
     },
     resetBusinessAnswer( aHospital ) {
-        this.operationAnswers.filter( x => x.get("target.id") === aHospital.id).forEach(answer => {
+        this.operationAnswers.filter( x => x.get("target.id") === aHospital.get("id")).forEach(answer => {
 			answer.set("salesTarget", -1)
 			answer.set("budget", -1)
 			answer.set("meetingPlaces", -1)
