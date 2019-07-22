@@ -37,7 +37,8 @@ export default Component.extend( {
 					return { preset: preset, answer: tmp }
 				} )
 
-				return { hospital: result.firstObject.answer.target, quizs: result }
+				
+				return result ? { hospital: result.firstObject.answer.target, quizs: result } : {}
 			} )
 		} else {
 			return []
