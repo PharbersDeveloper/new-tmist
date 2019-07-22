@@ -7,8 +7,9 @@ export default Component.extend( {
 	positionalParams: ["project", "period"],
 	facade: service( "service/exam-facade" ),
 	store: service(),
-	currentName: computed("products", function() {
-		const cur = this.products.find( x => x.productType === 0)
+	currentName: computed( "products", function() {
+		const cur = this.products.find( x => x.productType === 0 )
+
 		return cur ? cur.name : ""
 	} ),
 	hospitals: computed( "project.proposal", function() {
@@ -25,33 +26,37 @@ export default Component.extend( {
 			} )
 		} )
 		return []
-	}),
-	products: computed("project.proposal", function() {
-		const prs = this.project.belongsTo("proposal")
+	} ),
+	products: computed( "project.proposal", function() {
+		const prs = this.project.belongsTo( "proposal" )
+
 		prs.load().then( x => {
-			const ids = x.hasMany("products").ids()
-			const hids = ids.map( x => {
-				return "`" + `${x}` + "`"
-			} ).join( "," )
-			this.store.query("model/product", { filter: "(id,:in," + "[" + hids + "]" + ")"} ).then( hids => {
-				this.set("products", hids)
+			const ids = x.hasMany( "products" ).ids(),
+				hids = ids.map( x => {
+					return "`" + `${x}` + "`"
+				} ).join( "," )
+
+			this.store.query( "model/product", { filter: "(id,:in," + "[" + hids + "]" + ")"} ).then( hids => {
+				this.set( "products", hids )
 			} )
-		})
+		} )
 		return []
-	}),
-	resources: computed("project.proposal", function() {
-		const prs = this.project.belongsTo("proposal")
+	} ),
+	resources: computed( "project.proposal", function() {
+		const prs = this.project.belongsTo( "proposal" )
+
 		prs.load().then( x => {
-			const ids = x.hasMany("resources").ids()
-			const hids = ids.map( x => {
-				return "`" + `${x}` + "`"
-			} ).join( "," )
-			this.store.query("model/resource", { filter: "(id,:in," + "[" + hids + "]" + ")"} ).then( hids => {
-				this.set("resources", hids)
+			const ids = x.hasMany( "resources" ).ids(),
+				hids = ids.map( x => {
+					return "`" + `${x}` + "`"
+				} ).join( "," )
+
+			this.store.query( "model/resource", { filter: "(id,:in," + "[" + hids + "]" + ")"} ).then( hids => {
+				this.set( "resources", hids )
 			} )
-		})
+		} )
 		return []
-	}),
+	} ),
 
 	didInsertElement() {
 		this.facade.startPeriodBusinessExam( this.project, this.period )
