@@ -26,8 +26,8 @@ export default Component.extend( {
 			return this.p.sortBy( "value" ).map( item => {
 				const result = item.items.map( preset => {
 					const tmp = this.exam.bs.operationAnswers.find( ans => {
-						const ts = ans.get( "target.id" ) === preset.get( "hospital.id" ),
-							ps = ans.get( "product.id" ) === preset.get( "product.id" )
+						const ts = ans.belongsTo( "target" ).id() === preset.belongsTo( "hospital" ).id(),
+							ps = ans.belongsTo( "product" ).id() === preset.belongsTo( "product" ).id()
 
 						return ts && ps
 					} )

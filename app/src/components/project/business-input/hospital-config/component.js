@@ -4,7 +4,7 @@ import Ember from "ember"
 // import { computed } from "@ember/object"
 
 export default Component.extend( {
-	positionalParams: ["proposal", "hospital", "quizs", "products"],
+	positionalParams: ["proposal", "hospital", "quizs", "products", "resources"],
 	exam: service( "service/exam-facade" ),
 	// resource: computed("exam.operationAnswers", "hospital", function() {
 	// return this.exam.bs.queryBusinessResources(this.hospital)

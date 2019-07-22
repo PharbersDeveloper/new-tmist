@@ -7,13 +7,9 @@ export default Component.extend( {
 	positionalParams: ["project", "period"],
 	facade: service( "service/exam-facade" ),
 	store: service(),
-	// currentName: computed( "project", function() {
-	// 	this.project.proposal.then( x =>
-	// 		x.products.then( y => y.filter( z => z.productType === 0 ) ) )
-	// 		.then( f => this.set( "currentName", f.firstObject.name ) )
-	// } ),
-	currentName: computed( function() {
-		this.computeCurrentName()
+	currentName: computed("products", function() {
+		const cur = this.products.find( x => x.productType === 0)
+		return cur ? cur.name : ""
 	} ),
 	hospitals: computed("project.proposal", function() {
 		const prs = this.project.belongsTo("proposal")
@@ -28,11 +24,32 @@ export default Component.extend( {
 		})
 		return []
 	}),
-	async computeCurrentName( ) {
-		return this.project.proposal.then( x =>
-			x.products.then( y => y.filter( z => z.productType === 0 ) ) )
-			.then( f => this.set( "currentName", f.firstObject.name ) )
-	},
+	products: computed("project.proposal", function() {
+		const prs = this.project.belongsTo("proposal")
+		prs.load().then( x => {
+			const ids = x.hasMany("products").ids()
+			const hids = ids.map( x => {
+				return "`" + `${x}` + "`"
+			} ).join( "," )
+			this.store.query("model/product", { filter: "(id,:in," + "[" + hids + "]" + ")"} ).then( hids => {
+				this.set("products", hids)
+			} )
+		})
+		return []
+	}),
+	resources: computed("project.proposal", function() {
+		const prs = this.project.belongsTo("proposal")
+		prs.load().then( x => {
+			const ids = x.hasMany("resources").ids()
+			const hids = ids.map( x => {
+				return "`" + `${x}` + "`"
+			} ).join( "," )
+			this.store.query("model/resource", { filter: "(id,:in," + "[" + hids + "]" + ")"} ).then( hids => {
+				this.set("resources", hids)
+			} )
+		})
+		return []
+	}),
 
 	didInsertElement() {
 		this.facade.startPeriodBusinessExam( this.project, this.period )

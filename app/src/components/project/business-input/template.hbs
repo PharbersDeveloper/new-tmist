@@ -58,7 +58,7 @@
 				{{t "project.business-input.represents-remaining-time"}}
 			{{/bp-layout}}
 			{{#bp-layout main="between" wrap=true classNames="p-4"}}
-				{{#each project.proposal.resources as |rs|}}
+				{{#each resources as |rs|}}
 					<p local-class="rest-time">
 						<span local-class="keys" class="mr-2">
 							{{rs.name}}
@@ -134,7 +134,7 @@
 					proposal=project.proposal
 					hospital=quiz.hospital
 					quizs=quiz.quizs
-					resources=project.proposal.resources}}
+					resources=resources}}
 			{{/each}}
 			{{/project/business-input/hospital-config/input-mapping}}
 		{{/bp-layout}}
