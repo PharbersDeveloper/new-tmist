@@ -58,7 +58,7 @@
 				{{t "project.business-input.represents-remaining-time"}}
 			{{/bp-layout}}
 			{{#bp-layout main="between" wrap=true classNames="p-4"}}
-				{{#each project.proposal.resources as |rs|}}
+				{{#each resources as |rs|}}
 					<p local-class="rest-time">
 						<span local-class="keys" class="mr-2">
 							{{rs.name}}
@@ -105,7 +105,8 @@
 			{{#bp-layout tagName="h3" cross="center" main="between"local-class="title" classNames="m-0"}}
 				<span>
 					{{t "project.business-input.target-hospital-selection"}}
-					{{project.proposal.targets.length}}
+					{{!-- {{project.proposal.targets.length}} --}}
+					{{hospitals.length}}
 					{{t "project.business-input.target-hospital-selection-2"}}
 				</span>
 				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
@@ -122,18 +123,18 @@
 					{{/dd.menu}}
 				{{/bp-dropdown}}
 			{{/bp-layout}}
-			{{#each project.proposal.targets as |hosp|}}
+			{{#each hospitals as |hosp|}}
 				{{project/business-input/hospital-overall hospital=hosp}}
 			{{/each}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
-			{{#project/business-input/hospital-config/input-mapping proposal=project.proposal exam=facade as |quizs|}}
+			{{#project/business-input/hospital-config/input-mapping project=project exam=facade as |quizs|}}
 			{{#each quizs as |quiz|}}
 				{{project/business-input/hospital-config
 					proposal=project.proposal
 					hospital=quiz.hospital
 					quizs=quiz.quizs
-					resources=project.proposal.resources}}
+					resources=resources}}
 			{{/each}}
 			{{/project/business-input/hospital-config/input-mapping}}
 		{{/bp-layout}}
