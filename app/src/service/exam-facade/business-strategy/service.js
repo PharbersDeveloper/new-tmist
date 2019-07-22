@@ -57,31 +57,31 @@ export default Service.extend( {
 	// 		Ember.Logger.info( "need copy and swap" )
 	// 		let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
 
-	// 		console.log( tmp.firstObject.product.get( "id" ) )
+	// 		// console.log( tmp.firstObject.product.get( "id" ) )
 	// 		this.set( "operationAnswers", tmp )
 	// 	} else {
 	// 		// Ember.Logger.info("do nothing")
 	// 	}
 	// }.observes( "currentAnswers" ).on( "init" ),
-	answersLoaded: computed( this.computeAnswersLoaded ).observes( "currentAnswers" ).on( "init" ),
-	computeAnswersLoaded() {
-		return async function( ){
-			if ( this.currentAnswers !== null && this.currentAnswers.length === 0 ) {
-				let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
 
-				this.set( "operationAnswers", tmp )
-			} else if ( this.currentAnswers !== null && this.currentAnswers.length > 0 ) {
-				Ember.Logger.info( "need copy and swap" )
-				let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
+	answersLoaded() {
+		return this.temp.observes( "currentAnswers" ).on( "init" )
+	},
+	async temp() {
+		if ( this.currentAnswers !== null && this.currentAnswers.length === 0 ) {
+			let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
 
-				// console.log( tmp.firstObject.product.get( "id" ) )
-				this.set( "operationAnswers", tmp )
-			} else {
+			this.set( "operationAnswers", tmp )
+		} else if ( this.currentAnswers !== null && this.currentAnswers.length > 0 ) {
+			Ember.Logger.info( "need copy and swap" )
+			let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
+
+			// console.log( tmp.firstObject.product.get( "id" ) )
+			this.set( "operationAnswers", tmp )
+		} else {
 			// Ember.Logger.info("do nothing")
-			}
 		}
 	},
-
 	// operation logic
 	resetBusinessResources( aHospital, aResource ) {
 		this.operationAnswers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) ).forEach( answer => {

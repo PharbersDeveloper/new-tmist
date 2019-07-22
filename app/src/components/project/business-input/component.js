@@ -1,6 +1,6 @@
 import Component from "@ember/component"
 import { A } from "@ember/array"
-// import { computed } from "@ember/object"
+import { computed } from "@ember/object"
 import { inject as service } from "@ember/service"
 // import { async } from "rsvp"
 
@@ -12,12 +12,15 @@ export default Component.extend( {
 	// 		x.products.then( y => y.filter( z => z.productType === 0 ) ) )
 	// 		.then( f => this.set( "currentName", f.firstObject.name ) )
 	// } ),
-	currentName: this.computeCurrentName( this.project ),
-	async computeCurrentName( project ) {
-		return project.proposal.then( x =>
+	currentName: computed( function() {
+		this.computeCurrentName()
+	} ),
+	async computeCurrentName( ) {
+		return this.project.proposal.then( x =>
 			x.products.then( y => y.filter( z => z.productType === 0 ) ) )
 			.then( f => this.set( "currentName", f.firstObject.name ) )
 	},
+
 	didInsertElement() {
 		this.facade.startPeriodBusinessExam( this.project, this.period )
 	},
