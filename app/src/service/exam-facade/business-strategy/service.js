@@ -10,17 +10,17 @@ export default Service.extend({
     currentPeriod: null,
     store: service(),
     delegate: null,
-    startPeriodBusinessExam(aProject, aPeriod) {
-        const ids = aPeriod.answers.map(x => x.id)
-        Promise.all(ids.map(id => {
-            return this.store.find("model/answer", id)
-        })).then(answers => {
-            // this.set("currentProject", aProject)
-            this.set("currentPeriod", aPeriod)
-            this.set("delegate", businessDelegate.create(aProject.proposal))
-            this.delegate.set("store",this.store)
-            this.set("currentAnswers", answers)
-        })
+    async startPeriodBusinessExam(aProject, aPeriod) {
+        const fid = aPeriod.hasMany("answers").ids().map ( x => {
+            return "`" + `${x}` + "`"
+        }).join(",")
+        this.store.query("model/answer", { filter : "(id,:in,"+ "[" + fid + "]" + ")" })
+            .then(answers => {
+                this.set("currentPeriod", aPeriod)
+                this.set("delegate", businessDelegate.create(aProject.belongsTo("proposal")))
+                this.delegate.set("store",this.store)
+                this.set("currentAnswers", answers)
+            })
     },
     clearPeriodBusinessExam() {
         this.set("currentPeriod", null)
@@ -33,15 +33,15 @@ export default Service.extend({
         /**
          * copy and swap
          */
-        Promise.all(this.operationAnswers.map(answer => {
-            return answer.save()
-        })).then( answers => {
-            this.set("currentAnswers", answers)
-            this.currentPeriod.set("answers", this.currentAnswers)
-            return this.currentPeriod.save()
-        }).then(period => {
-            fcallback(period)
-        })
+        // Promise.all(this.operationAnswers.map(answer => {
+        //     return answer.save()
+        // })).then( answers => {
+        //     this.set("currentAnswers", answers)
+        //     this.currentPeriod.set("answers", this.currentAnswers)
+        //     return this.currentPeriod.save()
+        // }).then(period => {
+        //     fcallback(period)
+        // })
     },
     endCurrentBusinessExam() {
 

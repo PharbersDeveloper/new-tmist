@@ -1,34 +1,31 @@
 import Object from "@ember/object"
 
 export default Object.extend({
-    currentProposal: null,
+    currentProposalRef: null,
     store: null,
-    init( aProposal ) {
+    init( aProposalRef ) {
         this._super(...arguments)
-        this.set("currentProposal", aProposal)
+        this.set("currentProposalRef", aProposalRef)
     },
     async getPresetsWithCurrentPeriod( aPeriod ) {
-        if (aPeriod.last.content === null) {
-            return this.currentProposal.then( x => {
-                return x.presets
-            } )
+        const lp = aPeriod.belongsTo("last")
+        if (lp.id() === null) {
+            return this.currentProposalRef.load().then(x => x.hasMany("presets"))
         } else {
-            return aPeriod.last.then( x => { 
-                x.presets
-            }
-        ) }
+            return lp.load().then( x => x.hasMany("presets"))
+        }
     },
     async getBusinessAnswerCount(aPeriod) {
-        return this.getPresetsWithCurrentPeriod(aPeriod).then(x => {
-            return x.length
-        })
+        return this.getPresetsWithCurrentPeriod(aPeriod).length
     },
     async genBusinessOperatorAnswer(answers, aPeriod) {
         let presets = await this.getPresetsWithCurrentPeriod(aPeriod)
-        let count = presets.length
-        const ids= presets.map(x => x.id)
-        return Promise.all(ids.map(id => 
-                    this.store.findRecord("model/preset", id)))
+        const ids = presets.ids()
+        let count = ids.length
+        const fid = ids.map ( x => {
+            return "`" + `${x}` + "`"
+        }).join(",")
+        return this.store.query("model/preset", { filter: "(id,:in,"+ "[" + fid + "]" + ")"})
             .then(presets=> {
             if (answers.length !== count) {
                 return presets.map( preset => {
@@ -44,21 +41,17 @@ export default Object.extend({
         })
     },
     async optAnswersFromCurrentAnswer(answers) {
-        let ids = answers.map(answer => answer.id)
-        return Promise.all(ids.map(id => {
-            return this.store.findRecord("model/answer", id)
-        })).then(vals => {
-            return vals.map(item => {
-                return this.store.createRecord("model/answer", {
-                    category: item.category,
-                    target: item.target,
-                    product: item.product,
-                    salesTarget: item.salesTarget,
-                    budget: item.budget,
-                    meetingPlaces: item.meetingPlaces,
-                    resource: item.resource
-                })
+        return answers.map(item => {
+            return this.store.createRecord("model/answer", {
+                category: item.category,
+                target: item.target,
+                product: item.product,
+                salesTarget: item.salesTarget,
+                budget: item.budget,
+                meetingPlaces: item.meetingPlaces,
+                resource: item.resource
             })
+
         })
     }
 })
