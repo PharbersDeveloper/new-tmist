@@ -26,6 +26,7 @@ export default Object.extend( {
 		const fid = ids.map( x => {
 			return "`" + `${x}` + "`"
 		} ).join( "," )
+
 		return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
 			.then( presets=> {
 				if ( answers.length !== count ) {

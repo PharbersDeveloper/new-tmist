@@ -8,12 +8,14 @@ export default Component.extend( {
 	store: service(),
 	didInsertElement() {
 		const proposal = this.project.belongsTo( "proposal" )
+
 		proposal.load().then( p => {
 			const pts = p.hasMany( "presets" ),
 				ids = pts.ids(),
 				fid = ids.map( x => {
 					return "`" + `${x}` + "`"
 				} ).join( "," )
+
 			this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} ).then( presets => {
 				this.set( "presets", presets )
 			} )

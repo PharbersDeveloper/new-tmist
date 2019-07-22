@@ -11,17 +11,19 @@ export default Component.extend( {
 		const cur = this.products.find( x => x.productType === 0)
 		return cur ? cur.name : ""
 	} ),
-	hospitals: computed("project.proposal", function() {
-		const prs = this.project.belongsTo("proposal")
+	hospitals: computed( "project.proposal", function() {
+		const prs = this.project.belongsTo( "proposal" )
+
 		prs.load().then( x => {
-			const ids = x.hasMany("targets").ids()
-			const hids = ids.map( x => {
-				return "`" + `${x}` + "`"
-			} ).join( "," )
-			this.store.query("model/hospital", { filter: "(id,:in," + "[" + hids + "]" + ")"} ).then( hids => {
-				this.set("hospitals", hids)
+			const ids = x.hasMany( "targets" ).ids(),
+				hids = ids.map( x => {
+					return "`" + `${x}` + "`"
+				} ).join( "," )
+
+			this.store.query( "model/hospital", { filter: "(id,:in," + "[" + hids + "]" + ")"} ).then( hids => {
+				this.set( "hospitals", hids )
 			} )
-		})
+		} )
 		return []
 	}),
 	products: computed("project.proposal", function() {
