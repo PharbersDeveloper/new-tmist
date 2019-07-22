@@ -7,7 +7,7 @@ import Ember from "ember"
 
 export default Controller.extend( {
 	toast: service(),
-	exam: service("service/exam-facade"),
+	exam: service( "service/exam-facade" ),
 	currentTab: 0,
 	actions: {
 		submit() {
@@ -32,10 +32,10 @@ export default Controller.extend( {
 			this.sendInput( 3 )
 		},
 		saveInputs() {
-			Ember.Logger.info("save current input")
+			Ember.Logger.info( "save current input" )
 			this.exam.bs.saveCurrentBussinessInput( () => {
-				alert("save success")
-			})
+				alert( "save success" )
+			} )
 		},
 		testResult() {
 			this.toast.success( "", "保存成功", {

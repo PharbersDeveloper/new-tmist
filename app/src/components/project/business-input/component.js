@@ -5,14 +5,14 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 	positionalParams: ["project", "period"],
-	facade: service("service/exam-facade"),
+	facade: service( "service/exam-facade" ),
 	currentName: computed( "project", function() {
 		this.project.proposal.then( x =>
 			x.products.then( y => y.filter( z => z.productType === 0 ) ) )
 			.then( f => this.set( "currentName", f.firstObject.name ) )
 	} ),
 	didInsertElement() {
-		this.facade.startPeriodBusinessExam(this.project, this.period)
+		this.facade.startPeriodBusinessExam( this.project, this.period )
 	},
 	willDestroyElement() {
 		this.facade.bs.clearPeriodBusinessExam()

@@ -1,11 +1,11 @@
 h4.title {
-	height: 54px;
 	@extend %header-medium;
+	height: 54px;
 }
 
 h5.title {
-	height: 52px;
 	@extend %header-small;
+	height: 52px;
 }
 
 .keys {
@@ -49,10 +49,10 @@ h5.title {
 		tr {
 
 			td {
-				align-self: center;
-				padding: 2*$spacing 0;
-				vertical-align: middle;
 				@extend %p-primary;
+				align-self: center;
+				padding: 2 * $spacing 0;
+				vertical-align: middle;
 
 				.percent {
 					@extend %p-secondary;
@@ -73,8 +73,8 @@ h5.title {
 		}
 
 		.operating {
-			flex: 1;
 			@extend %p-secondary;
+			flex: 1;
 		}
 	}
 
@@ -141,25 +141,25 @@ h5.title {
 	}
 
 	&::after {
+		@extend %p-secondary;
+		left: auto;
 		position: absolute;
 		// left: 8px;
-		left: auto;
 		right: 8px;
 		top: 50%;
 		transform: translateY(-50%);
-		@extend %p-secondary;
 
 	}
 
 	&.input-time {
 		&::after {
-			content: '%';
+			content: "%";
 		}
 	}
 
 	&.input-meeting {
 		&::after {
-			content: '个';
+			content: "个";
 		}
 	}
 
@@ -174,11 +174,11 @@ h5.title {
 		&::after {
 			// left: auto;
 			// right: 8px;
+			content: "￥";
 			left: 8px;
 			right: auto;
 			top: 50%;
 			transform: translateY(-50%);
-			content: '￥';
 		}
 	}
 }
