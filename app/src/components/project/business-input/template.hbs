@@ -105,7 +105,8 @@
 			{{#bp-layout tagName="h3" cross="center" main="between"local-class="title" classNames="m-0"}}
 				<span>
 					{{t "project.business-input.target-hospital-selection"}}
-					{{project.proposal.targets.length}}
+					{{!-- {{project.proposal.targets.length}} --}}
+					{{hospitals.length}}
 					{{t "project.business-input.target-hospital-selection-2"}}
 				</span>
 				{{#bp-dropdown widthSize="auto" local-class="dd-hosp" as |dd|}}
@@ -122,7 +123,7 @@
 					{{/dd.menu}}
 				{{/bp-dropdown}}
 			{{/bp-layout}}
-			{{#each project.proposal.targets as |hosp|}}
+			{{#each hospitals as |hosp|}}
 				{{project/business-input/hospital-overall hospital=hosp}}
 			{{/each}}
 		{{/bp-layout}}
