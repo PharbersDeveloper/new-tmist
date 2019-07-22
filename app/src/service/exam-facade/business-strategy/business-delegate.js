@@ -31,9 +31,9 @@ export default Object.extend( {
 
 		return Promise.all( ids.map( id =>
 			this.store.findRecord( "model/preset", id ) ) )
-			.then( presets=> {
+			.then( presetsP => {
 				if ( answers.length !== count ) {
-					return presets.map( preset => {
+					return presetsP.map( preset => {
 						return this.store.createRecord( "model/answer", {
 							category: "Business",
 							target: preset.hospital,

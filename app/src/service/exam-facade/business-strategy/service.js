@@ -1,6 +1,7 @@
 import Service from "@ember/service"
 import { inject as service } from "@ember/service"
 import businessDelegate from "./business-delegate"
+import { computed } from "@ember/object"
 import Ember from "ember"
 
 export default Service.extend( {
@@ -47,21 +48,39 @@ export default Service.extend( {
 	endCurrentBusinessExam() {
 
 	},
-	answersLoaded: async function() {
-		if ( this.currentAnswers !== null && this.currentAnswers.length === 0 ) {
-			let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
+	// answersLoaded: async function() {
+	// 	if ( this.currentAnswers !== null && this.currentAnswers.length === 0 ) {
+	// 		let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
 
-			this.set( "operationAnswers", tmp )
-		} else if ( this.currentAnswers !== null && this.currentAnswers.length > 0 ) {
-			Ember.Logger.info( "need copy and swap" )
-			let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
+	// 		this.set( "operationAnswers", tmp )
+	// 	} else if ( this.currentAnswers !== null && this.currentAnswers.length > 0 ) {
+	// 		Ember.Logger.info( "need copy and swap" )
+	// 		let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
 
-			console.log( tmp.firstObject.product.get( "id" ) )
-			this.set( "operationAnswers", tmp )
-		} else {
+	// 		console.log( tmp.firstObject.product.get( "id" ) )
+	// 		this.set( "operationAnswers", tmp )
+	// 	} else {
+	// 		// Ember.Logger.info("do nothing")
+	// 	}
+	// }.observes( "currentAnswers" ).on( "init" ),
+	answersLoaded: computed( this.computeAnswersLoaded ).observes( "currentAnswers" ).on( "init" ),
+	computeAnswersLoaded() {
+		return async function( ){
+			if ( this.currentAnswers !== null && this.currentAnswers.length === 0 ) {
+				let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
+
+				this.set( "operationAnswers", tmp )
+			} else if ( this.currentAnswers !== null && this.currentAnswers.length > 0 ) {
+				Ember.Logger.info( "need copy and swap" )
+				let tmp = await this.delegate.genBusinessOperatorAnswer( this.currentAnswers, this.currentPeriod )
+
+				// console.log( tmp.firstObject.product.get( "id" ) )
+				this.set( "operationAnswers", tmp )
+			} else {
 			// Ember.Logger.info("do nothing")
+			}
 		}
-	}.observes( "currentAnswers" ).on( "init" ),
+	},
 
 	// operation logic
 	resetBusinessResources( aHospital, aResource ) {
