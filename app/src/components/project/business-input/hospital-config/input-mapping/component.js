@@ -38,7 +38,7 @@ export default Component.extend( {
 				} )
 
 				
-				return result ? { hospital: result.firstObject.answer.target, quizs: result } : {}
+				return result ? { hospital: result.get("firstObject.answer.target"), quizs: result } : {}
 			} )
 		} else {
 			return []
