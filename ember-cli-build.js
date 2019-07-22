@@ -8,12 +8,6 @@ module.exports = function( defaults ) {
 			"bootstrapVersion": 4,
 			"importBootstrapFont": false,
 			"importBootstrapCSS": false
-		},
-		SRI: {
-		  enabled: false
-		},
-		fingerprint: {
-			enabled: false
 		}
 	} )
 
