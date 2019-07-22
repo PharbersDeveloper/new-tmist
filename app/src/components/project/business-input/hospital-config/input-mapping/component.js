@@ -1,5 +1,5 @@
-import Component from '@ember/component';
-import groupBy from 'ember-group-by';
+import Component from "@ember/component"
+import groupBy from "ember-group-by"
 import { computed } from "@ember/object"
 import { inject as service } from "@ember/service"
 

@@ -1,6 +1,7 @@
-import Service from '@ember/service';
+import Service from "@ember/service"
 import { inject as service } from "@ember/service"
-import businessDelegate from './business-delegate'
+import businessDelegate from "./business-delegate"
+import { computed } from "@ember/object"
 import Ember from "ember"
 
 export default Service.extend({
@@ -45,41 +46,33 @@ export default Service.extend({
     },
     endCurrentBusinessExam() {
 
-    },
-    answersLoaded: async function() {
-        if (this.currentAnswers !== null && this.currentAnswers.length === 0) {
-            let tmp = await this.delegate.genBusinessOperatorAnswer(this.currentAnswers, this.currentPeriod)
-            this.set("operationAnswers", tmp)
-        } else if (this.currentAnswers !== null && this.currentAnswers.length > 0) {
-            Ember.Logger.info("need copy and swap")
-            let tmp = await this.delegate.genBusinessOperatorAnswer(this.currentAnswers, this.currentPeriod)
-            console.log(tmp.firstObject.product.get("id"))
-            this.set("operationAnswers", tmp)
-        } else {
-            // Ember.Logger.info("do nothing")
-        }
-    }.observes("currentAnswers").on("init"),
+			// console.log( tmp.firstObject.product.get( "id" ) )
+			this.set( "operationAnswers", tmp )
+		} else {
+			// Ember.Logger.info("do nothing")
+		}
+	},
+	// operation logic
+	resetBusinessResources( aHospital, aResource ) {
+		this.operationAnswers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) ).forEach( answer => {
+			answer.set( "resource", aResource )
+		} )
+	},
+	resetBusinessAnswer( aHospital ) {
+		this.operationAnswers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) ).forEach( answer => {
+			answer.set( "salesTarget", -1 )
+			answer.set( "budget", -1 )
+			answer.set( "meetingPlaces", -1 )
+			answer.set( "resource", null )
+		} )
+	},
+	queryBusinessResources( aHospital ) {
+		if ( this.operationAnswers ) {
+			const result = this.operationAnswers.find( x => x.get( "target.id" ) === aHospital.id )
 
-    // operation logic
-    resetBusinessResources( aHospital, aResource ) {
-        this.operationAnswers.filter( x => x.get("target.id") === aHospital.get("id")).forEach(answer => {
-            answer.set("resource", aResource)
-        });
-    },
-    resetBusinessAnswer( aHospital ) {
-        this.operationAnswers.filter( x => x.get("target.id") === aHospital.get("id")).forEach(answer => {
-			answer.set("salesTarget", -1)
-			answer.set("budget", -1)
-			answer.set("meetingPlaces", -1)
-			answer.set("resource", null)
-        });
-    },
-	queryBusinessResources(aHospital) {
-        if (this.operationAnswers) {
-            const result = this.operationAnswers.find(x => x.get("target.id") === aHospital.id)
-            return result ? result : null
-        } else {
-            return null
-        }
-    }
-});
+			return result ? result : null
+		} else {
+			return null
+		}
+	}
+} )
