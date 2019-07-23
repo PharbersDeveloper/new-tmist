@@ -77,41 +77,41 @@
 						{{!-- <th class="border-0">总点数</th> --}}
 					</thead>
 					<tbody>
-						{{#each model.rConfs as |rcs|}}
-							{{#each representativeInputs as |resConf|}}
-								{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
+						{{#each quizs as |quiz|}}
+							{{!-- {{#each representativeInputs as |resConf|}} --}}
+								{{!-- {{#if (bp-eq rcs.id resConf.resourceConfigId)}} --}}
 									<tr>
 										<td>
-											{{rcs.representativeConfig.representative.name}}
+											{{quiz.resource.name}}
 										</td>
 										<td>
-											{{toggle-button context=resConf 
+											{{common/toggle-button context=resConf 
 												key='productKnowledgeTraining' 
-												state=resConf.productKnowledgeTraining
+												state=quiz.answer.productKnowledgeTraining
 												changeState=(action 'changeState')}}
 										</td>
 										<td>
-											{{toggle-button context=resConf 
+											{{common/toggle-button context=resConf 
 												key='salesAbilityTraining' 
-												state=resConf.salesAbilityTraining
+												state=quiz.answer.salesAbilityTraining
 												changeState=(action 'changeState')}}
 										</td>
 										<td>
-											{{toggle-button context=resConf 
+											{{common/toggle-button context=resConf 
 												key='regionTraining' 
 												state=resConf.regionTraining
 												changeState=(action 'changeState')}}
 										</td>
 										<td>
-											{{toggle-button context=resConf 
+											{{common/toggle-button context=resConf 
 												key='performanceTraining'
 												state=resConf.performanceTraining
 												changeState=(action 'changeState')}}
 										</td>
 										<td>
-											{{toggle-button context=resConf 
+											{{common/toggle-button context=resConf 
 												key='vocationalDevelopment'
-												state=resConf.vocationalDevelopment
+												state=quiz.answer.vocationalDevelopment
 												changeState=(action 'changeState')}}
 										</td>
 										{{!-- <td>
@@ -120,8 +120,8 @@
 											value=resConf.totalPoint}}
 										</td> --}}
 									</tr>
-								{{/if}}
-							{{/each}}
+								{{!-- {{/if}} --}}
+							{{!-- {{/each}} --}}
 						{{/each}}
 					</tbody>
 				</table>
