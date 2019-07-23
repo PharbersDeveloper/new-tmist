@@ -45,8 +45,9 @@ export default Route.extend( {
 
 		 answers = Promise.all( [period, presets, resources] ).then( results => {
 				const p = results[0],
-				items = results[1],
-				people = results[2]
+					items = results[1],
+					people = results[2]
+
 				return this.facade.queryPeriodAnswers( p, items, people )
 			} )
 

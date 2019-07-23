@@ -3,11 +3,12 @@ import { computed } from "@ember/object"
 
 export default Component.extend( {
 	positionalParams: ["resources", "answers"],
-	quizs: computed("resources", "answers", function() {
+	quizs: computed( "resources", "answers", function() {
 		return this.resources.map( item => {
-			const one = this.answers.find(x => x.get("resource.id") === item.get("id"))
+			const one = this.answers.find( x => x.get( "resource.id" ) === item.get( "id" ) )
+
 			return { resource: item, answer: one }
-		})
+		} )
 	} ),
 	actions: {
 		changeState( context, key ) {

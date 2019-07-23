@@ -45,19 +45,20 @@ export default Object.extend( {
 					 */
 					let result = A( [] )
 					const bsi = presets.map( preset => {
-						return this.store.createRecord( "model/answer", {
-							category:  "Business",
-							target: preset.hospital,
-							product: preset.product
-						} )
-					} )
+							return this.store.createRecord( "model/answer", {
+								category:  "Business",
+								target: preset.hospital,
+								product: preset.product
+							} )
+						} ),
 
-					const rsi = resources.map( resource => {
-						return this.store.createRecord( "model/answer", {
-							category: "Resource",
-							resource: resource,
-						})
-					})
+					 rsi = resources.map( resource => {
+							return this.store.createRecord( "model/answer", {
+								category: "Resource",
+								resource: resource
+							} )
+						} )
+
 					result.addObjects( bsi )
 					result.addObjects( rsi )
 					return result
