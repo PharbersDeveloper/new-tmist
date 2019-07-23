@@ -47,10 +47,10 @@ export default Controller.extend( {
 			// this.transitionToRoute('page-result');
 		},
 		testReport() {
-			this.transitionToRoute('page.project.report')
+			this.transitionToRoute( "page.project.report" )
 		},
 		testResult() {
-			this.transitionToRoute('page.project.result')
+			this.transitionToRoute( "page.project.result" )
 		}
 	}
 } )

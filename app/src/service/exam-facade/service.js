@@ -6,7 +6,7 @@ export default Service.extend( {
 	store: service(),
 	delegate: null,
 
-	startPeriodExam(aProject) {
+	startPeriodExam( aProject ) {
 		this.set( "delegate", examDelegate.create( aProject.belongsTo( "proposal" ) ) )
 		this.delegate.set( "store",this.store )
 	},
@@ -14,7 +14,7 @@ export default Service.extend( {
 		return this.delegate.getCurrentPresetsWithPeriod( aPeriod )
 	},
 	queryPeriodAnswers( aPeriod, presets ) {
-		return this.delegate.answersForPresets(aPeriod, presets)
+		return this.delegate.answersForPresets( aPeriod, presets )
 	},
 	clearPeriodExam() {
 		this.set( "currentPeriod", null )
@@ -46,12 +46,12 @@ export default Service.extend( {
 	 * business operation logic
 	 ****************************************************************/
 	resetBusinessResources( aHospital, aResource ) {
-		this.operationAnswers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get("category") === "Business" ).forEach( answer => {
+		this.operationAnswers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get( "category" ) === "Business" ).forEach( answer => {
 			answer.set( "resource", aResource )
 		} )
 	},
 	resetBusinessAnswer( aHospital ) {
-		this.operationAnswers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get("category") === "Business" ).forEach( answer => {
+		this.operationAnswers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get( "category" ) === "Business" ).forEach( answer => {
 			answer.set( "salesTarget", -1 )
 			answer.set( "budget", -1 )
 			answer.set( "meetingPlaces", -1 )
@@ -60,14 +60,14 @@ export default Service.extend( {
 	},
 	queryBusinessResources( aHospital ) {
 		if ( this.operationAnswers ) {
-			const result = this.operationAnswers.find( x => x.get( "target.id" ) === aHospital.id && x.get("category") === "Business" )
+			const result = this.operationAnswers.find( x => x.get( "target.id" ) === aHospital.id && x.get( "category" ) === "Business" )
 
 			return result ? result : null
 		} else {
 			return null
 		}
 	}
-	
+
 	/*==============================================================*/
 	/*==============================================================*/
 
