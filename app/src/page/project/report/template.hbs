@@ -1,0 +1,39 @@
+{{#bp-layout direction="col" local-class="page-result" classNames="p-4" }}
+	{{!-- <p local-class="back-area" class="mb-3">
+		{{#bp-button type="link" onClick=(action 'toIndex')}}
+			返回
+		{{/bp-button}}
+	</p> --}}
+	{{#bp-page-header class="mb-4" local-class='result-header' as |ph|}}
+		{{#ph.body as |body|}}
+			{{#body.left as |left|}}
+				{{#left.item }}
+					执行结果报告
+				{{/left.item}}
+				{{#left.item }}
+					{{model.scenario.name}}
+				{{/left.item}}
+			{{/body.left}}
+			{{#body.right}}
+				{{#bp-button type='primary' onClick=(action 'toResult')}}
+					查看测试综合表现
+				{{/bp-button}}
+			{{/body.right}}
+		{{/ph.body}}
+	{{/bp-page-header}}
+	{{#bp-tabs local-class="tabs-container" as |tabs|}}
+		{{#tabs.tablist as |list|}}
+			<li class="nav-item">
+				销售结果
+			</li>
+			{{!-- <li class="nav-item">
+				{{#list.link-to 'page-result.review' 
+					classNames='nav-link' }}
+					决策回顾
+				{{/list.link-to}}
+			</li> --}}
+		{{/tabs.tablist}}
+		{{!-- {{outlet}} --}}
+        {{project/proposal-info/historical-info}}
+	{{/bp-tabs}}
+{{/bp-layout}}

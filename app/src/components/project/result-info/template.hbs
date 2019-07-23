@@ -1,0 +1,244 @@
+{{#bp-layout direction="col" local-class="page-report" 
+	classNames="p-4"}}
+	{{#bp-page-header local-class='report-header' class="mb-4 bg-white" as |ph|}}
+		{{#ph.body as |body|}}
+			{{#body.left as |left|}}
+				{{#left.item }}
+					测试综合表现
+				{{/left.item}}
+				{{#left.item }}
+					日期：<span class="mx-2">{{model.time}}</span>
+					用时：<span class="mx-2">50min*</span>
+				{{/left.item}}
+			{{/body.left}}
+			{{#body.right}}
+				{{#bp-button disabled=true onClick=(action 'toResult') classNames="mr-1"}}
+					导出测试数据
+				{{/bp-button}}
+				{{#if fromResult}}
+					{{#bp-button onClick=(action 'toResult')}}
+						返回报告
+					{{/bp-button}}
+				{{else}}
+					{{#bp-button onClick=(action 'toIndex')}}
+						返回关卡
+					{{/bp-button}}
+				{{/if}}
+			{{/body.right}}
+		{{/ph.body}}
+	{{/bp-page-header}}
+	{{#bp-layout tagName='h3' cross='center' local-class="title" 
+		classNames="mb-2 px-4 bg-white"}}
+		综合表现
+	{{/bp-layout}}
+	{{#bp-layout main="between" local-class="performance"}}
+		{{#bp-layout direction="col" main="between" local-class="item"
+			classNames="mr-2"}}
+			{{#bp-layout direction='col' classNames='p-4 bg-white'}}
+				{{#bp-layout tabName='h4' cross='center' local-class="title" 
+					classNames='mb-4'}}
+					能力得分
+				{{/bp-layout}}
+				{{#bp-layout cross='center' local-class='score content' classNames='mb-2'}}
+					{{#bp-layout main='center' cross='center' local-class='img-container'}}
+						<img src={{model.generalPerformanceResult.levelConfig.level.image.img}} alt="">
+					{{/bp-layout}}
+					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
+						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout direction='col' classNames='p-4 bg-white'}}
+				{{#bp-layout tabName='h4' cross='center' local-class="title" 
+					classNames='mb-4'}}
+					荣获称号
+				{{/bp-layout}}
+				{{#bp-layout cross='center' local-class='won-title content'}}
+					{{#bp-layout direction='col' main='center' local-class='img-container'}}
+						<img src={{model.generalPerformanceResult.levelConfig.title.image.img}} alt="">
+						<p class="m-0 text-center">{{model.generalPerformanceResult.levelConfig.title.value}}</p>
+					{{/bp-layout}}
+					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
+						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout direction='col' local-class="item" classNames="bg-white"}}
+			{{#bp-layout cross='center' local-class="title" 
+					classNames='p-4'}}
+				能力分析
+			{{/bp-layout}}
+			{{!-- {{bp-radar-ability
+				eid='radarRepresentative'
+				radarData=radarData
+				hasLegend=false 
+				items=radarItems
+				maxValue=5}} --}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout tagName='h3' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4 bg-white"}}
+		分项表现
+	{{/bp-layout}}
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+		{{#bp-layout tagName='h4' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4"}}
+			区域划分能力
+		{{/bp-layout}}
+		{{#bp-layout main='between'	local-class='abilities'}}
+			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+				<p local-class='keys'>能力得分</p>
+				<img width='26' src={{model.regionalDivisionResult.levelConfig.level.image.img}} alt="">
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					动作点解读
+				{{/bp-layout}}
+				<ul class="m-0">
+					{{#each model.regionalDivisionResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
+				</ul>
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					等级评价
+				{{/bp-layout}}
+				<p local-class='values'>
+					{{model.regionalDivisionResult.levelConfig.text}}
+				</p>
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+		{{#bp-layout tagName='h4' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4"}}
+			指标分配能力
+		{{/bp-layout}}
+		{{#bp-layout main='between'	local-class='abilities'}}
+			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+				<p local-class='keys'>能力得分</p>
+				<img width='26' src={{model.targetAssignsResult.levelConfig.level.image.img}} alt="">
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					动作点解读
+				{{/bp-layout}}
+				<ul class="m-0">
+					{{#each model.targetAssignsResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
+				</ul>
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					等级评价
+				{{/bp-layout}}
+				<p local-class='values'>
+					{{model.targetAssignsResult.levelConfig.text}}
+				</p>
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+		{{#bp-layout tagName='h4' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4"}}
+			资源优化能力
+		{{/bp-layout}}
+		{{#bp-layout main='between'	local-class='abilities'}}
+			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+				<p local-class='keys'>能力得分</p>
+				<img width='26' src={{model.resourceAssignsResult.levelConfig.level.image.img}} alt="">
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					动作点解读
+				{{/bp-layout}}
+				<ul class="m-0">
+					{{#each model.resourceAssignsResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
+				</ul>
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					等级评价
+				{{/bp-layout}}
+				<p local-class='values'>
+					{{model.resourceAssignsResult.levelConfig.text}}
+				</p>
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+		{{#bp-layout tagName='h4' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4"}}
+			自我时间管理能力
+		{{/bp-layout}}
+		{{#bp-layout main='between'	local-class='abilities'}}
+			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+				<p local-class='keys'>能力得分</p>
+				<img width='26' src={{model.manageTimeResult.levelConfig.level.image.img}} alt="">
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					动作点解读
+				{{/bp-layout}}
+				<ul class="m-0">
+					{{#each model.manageTimeResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
+				</ul>
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					等级评价
+				{{/bp-layout}}
+				<p local-class='values'>
+					{{model.manageTimeResult.levelConfig.text}}
+				</p>
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+		{{#bp-layout tagName='h4' cross='center' local-class="title" 
+		classNames="m-0 mb-2 px-4"}}
+			领导力
+		{{/bp-layout}}
+		{{#bp-layout main='between'	local-class='abilities'}}
+			{{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+				<p local-class='keys'>能力得分</p>
+				<img width='26' src={{model.manageTeamResult.levelConfig.level.image.img}} alt="">
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					动作点解读
+				{{/bp-layout}}
+				<ul class="m-0">
+					{{#each model.manageTeamResult.assessmentReportDescribes as |ard|}}
+						<li local-class='values'>{{ard.text}}</li>
+					{{/each}}
+				</ul>
+			{{/bp-layout}}
+			{{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+				{{#bp-layout tagName='h5' cross='center' local-class="title" 
+		classNames="mb-3"}}
+					等级评价
+				{{/bp-layout}}
+				<p local-class='values'>
+					{{model.manageTeamResult.levelConfig.text}}
+				</p>
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}

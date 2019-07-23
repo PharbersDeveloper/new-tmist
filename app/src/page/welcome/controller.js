@@ -7,6 +7,16 @@ export default Controller.extend( {
 	currentProposal: null,
 	currentProject: null,
 
+	deploy( aProject ) {
+		if ( aProject.periods.length === 0 ) {
+			this.gen.genPeriodWithProject( aProject ).then( x => {
+				this.transitionToRoute( "page.project.period", aProject.id, x.id )
+			} )
+		} else {
+			this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get( "id" ) )
+		}
+	},
+
 	actions: {
 		checkReport( assessmentReport ) {
 			this.transitionToRoute( "page-report", assessmentReport.id )
@@ -23,17 +33,11 @@ export default Controller.extend( {
 		},
 		startNewDeploy( aProposal ) {
 			this.gen.genProjectWithProposal( aProposal ).then( x => {
-				this.continueDeploy( x )
+				this.deploy( x )
 			} )
 		},
 		continueDeploy( aProject ) {
-			if ( aProject.periods.length === 0 ) {
-				this.gen.genPeriodWithProject( aProject ).then( x => {
-					this.transitionToRoute( "page.project.period", aProject.id, x.id )
-				} )
-			} else {
-				this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get( "id" ) )
-			}
+			this.deploy( aProject )
 		},
 		chooseItem( item ) {
 			if ( item.length > 0 ) {
