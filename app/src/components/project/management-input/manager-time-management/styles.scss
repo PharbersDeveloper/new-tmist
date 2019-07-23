@@ -1,22 +1,17 @@
-.management-container {
-	height: calc(100% - 25px);
-
-	h3.title {
-		height: 54px;
-		@extend %header-medium;
-
-	}
-
-	h4.title {
-		margin: 0;
-		line-height: 52px;
-		@extend %header-small;
-	}
-
-	.management-tabs {
-		flex: 0 0 80px;
-	}
 .management-content {
+
+  h3.title {
+    height: 54px;
+    @extend %header-medium;
+
+  }
+
+  h4.title {
+    margin: 0;
+    line-height: 52px;
+    @extend %header-small;
+  }
+
   flex: 1;
 
   .p-primary {
@@ -176,5 +171,4 @@
       }
     }
   }
-}
 }
