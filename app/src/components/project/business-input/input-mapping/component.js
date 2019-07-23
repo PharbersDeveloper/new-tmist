@@ -4,7 +4,8 @@ import { computed } from "@ember/object"
 import { inject as service } from "@ember/service"
 
 export default Component.extend( {
-	positionalParams: ["project", "exam"],
+	positionalParams: ["project"],
+	exam: service( "service/exam-facade" ),
 	store: service(),
 	didInsertElement() {
 		const proposal = this.project.belongsTo( "proposal" )
