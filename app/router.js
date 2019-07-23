@@ -15,6 +15,7 @@ Router.map( function() {
       this.route( "project", { path: "/project/:project_id" }, function() {
         this.route( "period", { path: "/period/:period_id" } )
         this.route('result');
+        this.route('report');
       } )
   } )
 

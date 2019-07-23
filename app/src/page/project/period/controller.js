@@ -46,7 +46,10 @@ export default Controller.extend( {
 			} )
 			// this.transitionToRoute('page-result');
 		},
-		test() {
+		testReport() {
+			this.transitionToRoute('page.project.report')
+		},
+		testResult() {
 			this.transitionToRoute('page.project.result')
 		}
 	}
