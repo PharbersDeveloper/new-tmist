@@ -49,7 +49,6 @@
 				resources=model.resources
 				presets=model.presets
 				answers=(filter-category model.answers "Business")}}
-				{{!-- answers=(filter-category model.answers "Business")}} --}}
 		{{/if}}
 		{{#if (bp-eq currentTab 1)}}
 			{{project/management-input 
@@ -57,7 +56,6 @@
 				period=model.period
 				resources=model.resources
 				answers=(filter-category-not model.answers "Business")}}
-				{{!-- answers=(filter-category-not model.answers "Business")}} --}}
 		{{/if}}
 		{{#if (bp-eq currentTab 2)}}
 			{{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}}

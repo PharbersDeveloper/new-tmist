@@ -1,4 +1,5 @@
 import Object from "@ember/object"
+import { A } from "@ember/array"
 
 export default Object.extend( {
 	currentAnswers: null,
@@ -22,10 +23,10 @@ export default Object.extend( {
 	},
 	async getCurrentPresetsWithPeriod( aPeriod ) {
 		let prs = await this.getPresetsRefWithCurrentPeriod( aPeriod )
-		const ids = prs.ids()
-		const fid = ids.map( x => {
-			return "`" + `${x}` + "`"
-		} ).join( "," )
+		const ids = prs.ids(),
+			fid = ids.map( x => {
+				return "`" + `${x}` + "`"
+			} ).join( "," )
 
 		return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
 
@@ -38,15 +39,21 @@ export default Object.extend( {
 		return this.store.query( "model/answer", { filter : "(id,:in," + "[" + fid + "]" + ")" } )
 			.then( answers => {
 				this.set( "currentAnswers", answers )
-				const count = presets.length
-				if ( answers.length !== count ) {
-					return presets.map( preset => {
-						return this.store.createRecord( "model/answer", {
-							category: "Business",
-							target: preset.hospital,
-							product: preset.product
+				if ( answers.length === 0 ) {
+					/**
+				 	 * business input
+					 */
+					let result = A( [] ),
+					 bsi = presets.map( preset => {
+							return this.store.createRecord( "model/answer", {
+								category:  "Business",
+								target: preset.hospital,
+								product: preset.product
+							} )
 						} )
-					} )
+
+					result.addObjects( bsi )
+					return result
 				} else {
 					return this.optAnswersFromCurrentAnswer( answers )
 				}

@@ -1,11 +1,11 @@
 .page-result {
-	height: 100%;
 	background-color: $n010;
+	height: 100%;
 	overflow: auto;
 
 	.back-area {
-		flex: 0 0 32px;
 		@extend %p-small;
+		flex: 0 0 32px;
 	}
 
 	.result-header {
