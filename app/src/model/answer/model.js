@@ -16,6 +16,8 @@ export default DS.Model.extend( {
 	abilityCoach: DS.attr( "number", { defaultValue: -1 } ),
 	productKnowledgeTraining: DS.attr( "number", { defaultValue: -1 } ),
 	vocationalDevelopment: DS.attr( "number", { defaultValue: -1 } ),
+	regionTraining: DS.attr( "number", { defaultValue: -1 } ),
+	performanceTraining: DS.attr( "number", { defaultValue: -1 } ),
 	salesAbilityTraining: DS.attr( "number", { defaultValue: -1 } ),
 	strategAnalysisTime: DS.attr( "number", { defaultValue: -1 } ),
 	adminWorkTime: DS.attr( "number", { defaultValue: -1 } ),

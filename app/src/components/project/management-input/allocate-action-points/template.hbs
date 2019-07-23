@@ -38,10 +38,9 @@
 							{{bp-icon icon='down'}}
 						{{/dd.button}}
 						{{#dd.menu as |menu|}}
-							{{#each model.rConfs as |rcs|}}
-								{{#menu.option value=rcs.representativeConfig 
-										onClick=(action (mut tmpRepConf))}}
-									{{rcs.representativeConfig.representative.name}}
+							{{#each resources as |rcs|}}
+								{{#menu.option value=rcs onClick=(action (mut tmpRepConf))}}
+									{{rcs.name}}
 								{{/menu.option}}
 							{{/each}}
 						{{/dd.menu}}
@@ -78,50 +77,46 @@
 					</thead>
 					<tbody>
 						{{#each quizs as |quiz|}}
-							{{!-- {{#each representativeInputs as |resConf|}} --}}
-								{{!-- {{#if (bp-eq rcs.id resConf.resourceConfigId)}} --}}
-									<tr>
-										<td>
-											{{quiz.resource.name}}
-										</td>
-										<td>
-											{{common/toggle-button context=resConf 
-												key='productKnowledgeTraining' 
-												state=quiz.answer.productKnowledgeTraining
-												changeState=(action 'changeState')}}
-										</td>
-										<td>
-											{{common/toggle-button context=resConf 
-												key='salesAbilityTraining' 
-												state=quiz.answer.salesAbilityTraining
-												changeState=(action 'changeState')}}
-										</td>
-										<td>
-											{{common/toggle-button context=resConf 
-												key='regionTraining' 
-												state=resConf.regionTraining
-												changeState=(action 'changeState')}}
-										</td>
-										<td>
-											{{common/toggle-button context=resConf 
-												key='performanceTraining'
-												state=resConf.performanceTraining
-												changeState=(action 'changeState')}}
-										</td>
-										<td>
-											{{common/toggle-button context=resConf 
-												key='vocationalDevelopment'
-												state=quiz.answer.vocationalDevelopment
-												changeState=(action 'changeState')}}
-										</td>
-										{{!-- <td>
-											{{bp-input widthSize="small"
-											disabled=true 
-											value=resConf.totalPoint}}
-										</td> --}}
-									</tr>
-								{{!-- {{/if}} --}}
-							{{!-- {{/each}} --}}
+							<tr>
+								<td>
+									{{quiz.resource.name}}
+								</td>
+								<td>
+									{{common/toggle-button context=resConf 
+										key='productKnowledgeTraining' 
+										state=quiz.answer.productKnowledgeTraining
+										changeState=(action 'changeState')}}
+								</td>
+								<td>
+									{{common/toggle-button context=resConf 
+										key='salesAbilityTraining' 
+										state=quiz.answer.salesAbilityTraining
+										changeState=(action 'changeState')}}
+								</td>
+								<td>
+									{{common/toggle-button context=resConf 
+										key='regionTraining' 
+										state=quiz.answer.regionTraining
+										changeState=(action 'changeState')}}
+								</td>
+								<td>
+									{{common/toggle-button context=resConf 
+										key='performanceTraining'
+										state=quiz.answer.performanceTraining
+										changeState=(action 'changeState')}}
+								</td>
+								<td>
+									{{common/toggle-button context=resConf 
+										key='vocationalDevelopment'
+										state=quiz.answer.vocationalDevelopment
+										changeState=(action 'changeState')}}
+								</td>
+								{{!-- <td>
+									{{bp-input widthSize="small"
+									disabled=true 
+									value=resConf.totalPoint}}
+								</td> --}}
+							</tr>
 						{{/each}}
 					</tbody>
 				</table>
