@@ -1,181 +1,19 @@
 .management-container {
-  height: calc(100% - 25px);
+	height: calc(100% - 25px);
 
-  h3.title {
-    height: 54px;
-    @extend %header-medium;
+	h3.title {
+		@extend %header-medium;
+		height: 54px;
 
-  }
+	}
 
-  h4.title {
-    margin: 0;
-    line-height: 52px;
-    @extend %header-small;
-  }
+	h4.title {
+		@extend %header-small;
+		line-height: 52px;
+		margin: 0;
+	}
 
-  .management-tabs {
-    flex: 0 0 80px;
-  }
-
-  .management-content {
-    flex: 1;
-
-    .p-primary {
-      @extend %p-primary;
-    }
-
-    .infos {
-      flex: 0 0 368px;
-
-      .manager-infos {
-
-        .pie {
-          height: 192px;
-        }
-      }
-
-      .team-infos {
-        .content {
-          height: 425px;
-
-          .drop-area {
-            span {
-              flex: 0 0 28px;
-              @extend %p-primary;
-            }
-
-            &>div {
-              flex: 1;
-            }
-          }
-
-          .radar-container {
-            height: 340px;
-
-            :global(.chart-container) {
-              display: flex;
-              justify-content: center;
-
-            }
-          }
-        }
-      }
-    }
-
-    .actions {
-      flex: 1;
-
-      .actions-content {
-
-        &.business-time,
-        &.team-time,
-        &.represent-time {
-          .content {
-
-            p {
-              margin: 0;
-              margin-right: $spacing;
-              height: 5*$spacing;
-            }
-
-            .square {
-              /* 新需求去掉 square */
-              display: none;
-              margin-right: $spacing;
-              width: 2*$spacing;
-              height: 2*$spacing;
-              @extend %defaultRadius;
-
-              &.square-1 {
-                background-color: #00875A;
-              }
-
-              &.square-2 {
-                background-color: #36B37E;
-                ;
-              }
-
-              &.square-3 {
-                background-color: #57D9A3;
-                ;
-              }
-
-              &.square-4 {
-                background-color: #79F2C0;
-                ;
-              }
-
-            }
-          }
-        }
-
-        &.team-time {
-          .square-m {
-            background-color: $y300;
-
-          }
-        }
-
-        &.represent-time {
-
-          .inputs p:first-child,
-          .keys p:first-child {
-            height: 20px;
-            @extend %header-small;
-          }
-
-          .square-a {
-            background-color: #5243AA;
-          }
-
-          .square-t {
-            background-color: #998DD9;
-            ;
-          }
-        }
-      }
-
-      .allot-point-content {
-        table {
-          &.point-table {
-            table-layout: fixed;
-          }
-
-          th {
-            @extend %p-small;
-          }
-
-          th:first-child {
-            min-width: 80px;
-
-          }
-
-          td {
-            border: 0;
-            @extend %p-primary;
-            vertical-align: middle;
-          }
-        }
-      }
-
-      .input-prepend {
-        position: relative;
-
-        input {
-          // padding-left: 30px;
-          padding-right: 30px;
-        }
-
-        &::after {
-          content: '%';
-          position: absolute;
-          // left: 8px;
-          right: 8px;
-          top: 50%;
-          transform: translateY(-50%);
-          @extend %p-secondary;
-        }
-      }
-    }
-  }
+	.management-tabs {
+		flex: 0 0 80px;
+	}
 }
