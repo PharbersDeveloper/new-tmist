@@ -12,7 +12,7 @@ export default Component.extend( {
 					const tmp = this.answers.find( ans => {
 						const ts = ans.belongsTo( "target" ).id() === preset.belongsTo( "hospital" ).id(),
 							ps = ans.belongsTo( "product" ).id() === preset.belongsTo( "product" ).id(),
-							bs = ans.get( "category" ).isBusiness
+							bs = ans.get( "category" ) === "Business"
 
 						return ts && ps && bs
 					} )

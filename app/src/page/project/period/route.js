@@ -48,7 +48,7 @@ export default Route.extend( {
 			const items = results[1]
 			return this.facade.queryPeriodAnswers(p, items)
 		})
-		
+
 		return RSVP.hash( {
 			period: period,
 			project: project,

@@ -1,12 +1,13 @@
 import DS from "ember-data"
 
 export default DS.Model.extend( {
-	category: DS.attr( "enum", {
-		options: [
-			"Business",
-			"Management",
-			"Resource"
-		]} ),
+	category: DS.attr( "string", { defaultValue: "Business" }),
+	// category: DS.attr( "enum", {
+	// 	options: [
+	// 		"Business",
+	// 		"Management",
+	// 		"Resource"
+	// 	]} ),
 	salesTarget: DS.attr( "number", { defaultValue: -1 } ),
 	budget: DS.attr( "number", { defaultValue: -1 } ),
 	meetingPlaces: DS.attr( "number", { defaultValue: -1 } ),

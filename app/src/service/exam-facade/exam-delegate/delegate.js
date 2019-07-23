@@ -1,4 +1,5 @@
 import Object from "@ember/object"
+import { A } from "@ember/array"
 
 export default Object.extend( {
 	currentAnswers: null,
@@ -38,15 +39,20 @@ export default Object.extend( {
 		return this.store.query( "model/answer", { filter : "(id,:in," + "[" + fid + "]" + ")" } )
 			.then( answers => {
 				this.set( "currentAnswers", answers )
-				const count = presets.length
-				if ( answers.length !== count ) {
-					return presets.map( preset => {
+				if ( answers.length === 0) {
+					/**
+				 	 * business input
+					 */
+					let result = A([])
+					let bsi = presets.map( preset => {
 						return this.store.createRecord( "model/answer", {
-							category: "Business",
+							category:  "Business",
 							target: preset.hospital,
 							product: preset.product
 						} )
 					} )
+					result.addObjects(bsi)
+					return result
 				} else {
 					return this.optAnswersFromCurrentAnswer( answers )
 				}
