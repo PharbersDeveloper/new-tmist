@@ -10,6 +10,8 @@
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
+				{{#bp-button classNames="mr-1" onClick=(action "testReport")}}test report{{/bp-button}}
+				{{#bp-button classNames="mr-1" onClick=(action "testResult")}}test result{{/bp-button}}
 				{{#bp-button classNames="mr-1" onClick=(action "saveInputs")}}{{t "project.save-btn"}}{{/bp-button}}
 				{{#bp-button type="primary" onClick=(action "submit") }}{{t "project.submit-btn"}}{{/bp-button}}
 			{{/body.right}}
@@ -56,7 +58,7 @@
 				answers=(filter-category-not model.answers "Business")}}
 		{{/if}}
 		{{#if (bp-eq currentTab 2)}}
-			{{project/proposal-info proposal=model.project.proposal }}
+			{{project/proposal-info proposal=model.project.proposal resources=model.resources}}
 		{{/if}}
 		{{#if (bp-eq currentTab 3)}}
 		{{/if}}

@@ -14,12 +14,16 @@ Router.map( function() {
 		this.route( "welcome" )
 		this.route( "project", { path: "/project/:project_id" }, function() {
 			this.route( "period", { path: "/period/:period_id" } )
+			this.route( "result" )
+			this.route( "report" )
 		} )
 	} )
 
 	this.route( "service", function() {
 		this.route( "oauth-callback" )
 	} )
+
+	this.route( "project", function() {} )
 } )
 
 export default Router

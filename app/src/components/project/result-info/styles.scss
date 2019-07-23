@@ -1,0 +1,78 @@
+.page-report {
+	background-color: $n010;
+	height: 100%;
+	overflow: auto;
+
+	h3.title {
+		@extend %header-medium;
+		height: 54px;
+		line-height: 54px;
+	}
+
+	h4.title {
+		@extend %header-small;
+		height: 52px;
+	}
+
+	h5.title {
+		@extend %header-small;
+	}
+
+	.performance {
+		.item {
+			flex: 1;
+
+			.content {
+
+				.img-container {
+					flex: 0 0 102.4px;
+					height: 115.2px;
+
+				}
+
+				.text {
+					@extend %p-primary;
+					flex: 1;
+				}
+
+				&.score {
+					img {
+						width: 60px;
+					}
+				}
+
+				&.won-title {
+					img {
+						width: 102px;
+					}
+
+					p {
+						@extend %header-small;
+					}
+				}
+
+
+			}
+
+		}
+	}
+
+	.abilities {
+		.score {
+			flex: 1;
+		}
+
+		.point,
+		.evaluation {
+			flex: 2;
+		}
+
+		.keys {
+			@extend %p-small;
+		}
+
+		.values {
+			@extend %p-primary;
+		}
+	}
+}

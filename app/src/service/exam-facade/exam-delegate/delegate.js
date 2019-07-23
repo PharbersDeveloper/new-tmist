@@ -23,10 +23,10 @@ export default Object.extend( {
 	},
 	async getCurrentPresetsWithPeriod( aPeriod ) {
 		let prs = await this.getPresetsRefWithCurrentPeriod( aPeriod )
-		const ids = prs.ids()
-		const fid = ids.map( x => {
-			return "`" + `${x}` + "`"
-		} ).join( "," )
+		const ids = prs.ids(),
+			fid = ids.map( x => {
+				return "`" + `${x}` + "`"
+			} ).join( "," )
 
 		return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
 

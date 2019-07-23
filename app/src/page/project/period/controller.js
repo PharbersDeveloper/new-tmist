@@ -45,6 +45,12 @@ export default Controller.extend( {
 				timeOut: "2000"
 			} )
 			// this.transitionToRoute('page-result');
+		},
+		testReport() {
+			this.transitionToRoute( "page.project.report" )
+		},
+		testResult() {
+			this.transitionToRoute( "page.project.result" )
 		}
 	}
 } )
