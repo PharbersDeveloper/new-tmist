@@ -1,13 +1,14 @@
 import Object from "@ember/object"
 
 export default Object.extend( {
-	currentProposalRef: null,
+	currentAnswers: null,
 	store: null,
+	currentProposalRef: null,
 	init( aProposalRef ) {
 		this._super( ...arguments )
 		this.set( "currentProposalRef", aProposalRef )
 	},
-	async getPresetsWithCurrentPeriod( aPeriod ) {
+	async getPresetsRefWithCurrentPeriod( aPeriod ) {
 		const lp = aPeriod.belongsTo( "last" )
 
 		if ( lp.id() === null ) {
@@ -17,18 +18,27 @@ export default Object.extend( {
 		}
 	},
 	async getBusinessAnswerCount( aPeriod ) {
-		return this.getPresetsWithCurrentPeriod( aPeriod ).length
+		return this.getPresetsRefWithCurrentPeriod( aPeriod ).length
 	},
-	async genBusinessOperatorAnswer( answers, aPeriod ) {
-		let prs = await this.getPresetsWithCurrentPeriod( aPeriod )
+	async getCurrentPresetsWithPeriod( aPeriod ) {
+		let prs = await this.getPresetsRefWithCurrentPeriod( aPeriod )
 		const ids = prs.ids()
-		let count = ids.length
 		const fid = ids.map( x => {
 			return "`" + `${x}` + "`"
 		} ).join( "," )
 
 		return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
-			.then( presets=> {
+
+	},
+	async answersForPresets ( period, presets ) {
+		const fid = period.hasMany( "answers" ).ids().map( x => {
+			return "`" + `${x}` + "`"
+		} ).join( "," )
+
+		return this.store.query( "model/answer", { filter : "(id,:in," + "[" + fid + "]" + ")" } )
+			.then( answers => {
+				this.set( "currentAnswers", answers )
+				const count = presets.length
 				if ( answers.length !== count ) {
 					return presets.map( preset => {
 						return this.store.createRecord( "model/answer", {

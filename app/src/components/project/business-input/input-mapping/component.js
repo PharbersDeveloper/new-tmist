@@ -1,34 +1,15 @@
 import Component from "@ember/component"
 import groupBy from "ember-group-by"
 import { computed } from "@ember/object"
-import { inject as service } from "@ember/service"
 
 export default Component.extend( {
-	positionalParams: ["project"],
-	exam: service( "service/exam-facade" ),
-	store: service(),
-	didInsertElement() {
-		const proposal = this.project.belongsTo( "proposal" )
-
-		proposal.load().then( p => {
-			const pts = p.hasMany( "presets" ),
-				ids = pts.ids(),
-				fid = ids.map( x => {
-					return "`" + `${x}` + "`"
-				} ).join( "," )
-
-			this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} ).then( presets => {
-				this.set( "presets", presets )
-			} )
-		} )
-	},
-	presets: null,
+	positionalParams: ["project", "presets", "answers"],
 	p: groupBy( "presets", "hospital.id" ),
-	res: computed( "p", "exam.operationAnswers", function() {
-		if ( this.p && this.exam.operationAnswers ) {
+	res: computed( "p", "answers", function() {
+		if ( this.p && this.answers) {
 			return this.p.sortBy( "value" ).map( item => {
 				const result = item.items.map( preset => {
-					const tmp = this.exam.operationAnswers.find( ans => {
+					const tmp = this.answers.find( ans => {
 						const ts = ans.belongsTo( "target" ).id() === preset.belongsTo( "hospital" ).id(),
 							ps = ans.belongsTo( "product" ).id() === preset.belongsTo( "product" ).id(),
 							bs = ans.get( "category" ).isBusiness

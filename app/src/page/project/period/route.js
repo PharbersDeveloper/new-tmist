@@ -37,19 +37,26 @@ export default Route.extend( {
 		} )
 
 		const period = this.store.findRecord( "model/period", params.period_id )
-		period.then( prd => {
-			this.facade.startPeriodExam(project, prd)
+		this.facade.startPeriodExam(project)
+
+		const presets = period.then( prd => {
+			return this.facade.queryPeriodPresets(prd)
 		})
 
+		const answers = Promise.all([period, presets]).then( results => {
+			const p = results[0]
+			const items = results[1]
+			return this.facade.queryPeriodAnswers(p, items)
+		})
+		
 		return RSVP.hash( {
 			period: period,
 			project: project,
 			hospitals: hospitals,
 			products: products,
-			resources: resources
+			resources: resources,
+			presets: presets,
+			answers: answers 
 		} )
 	},
-	deactivate() {
-		Ember.Logger.info("exist exams")
-	}
 } )
