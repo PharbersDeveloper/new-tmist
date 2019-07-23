@@ -23,15 +23,16 @@ export default Component.extend( {
 	},
 	presets: null,
 	p: groupBy( "presets", "hospital.id" ),
-	res: computed( "p", "exam.bs.operationAnswers", function() {
-		if ( this.p && this.exam.bs.operationAnswers ) {
+	res: computed( "p", "exam.operationAnswers", function() {
+		if ( this.p && this.exam.operationAnswers ) {
 			return this.p.sortBy( "value" ).map( item => {
 				const result = item.items.map( preset => {
-					const tmp = this.exam.bs.operationAnswers.find( ans => {
+					const tmp = this.exam.operationAnswers.find( ans => {
 						const ts = ans.belongsTo( "target" ).id() === preset.belongsTo( "hospital" ).id(),
-							ps = ans.belongsTo( "product" ).id() === preset.belongsTo( "product" ).id()
+							ps = ans.belongsTo( "product" ).id() === preset.belongsTo( "product" ).id(),
+							bs = ans.get( "category" ).isBusiness
 
-						return ts && ps
+						return ts && ps && bs
 					} )
 
 					return { preset: preset, answer: tmp }

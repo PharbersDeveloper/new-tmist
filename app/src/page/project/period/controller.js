@@ -33,7 +33,7 @@ export default Controller.extend( {
 		},
 		saveInputs() {
 			Ember.Logger.info( "save current input" )
-			this.exam.bs.saveCurrentBussinessInput( () => {
+			this.exam.saveCurrentBussinessInput( () => {
 				alert( "save success" )
 			} )
 		},

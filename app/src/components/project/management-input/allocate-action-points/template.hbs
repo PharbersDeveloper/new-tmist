@@ -1,0 +1,120 @@
+{{!-- 经理剩余时间 start --}}
+{{#bp-layout main="between" local-class="management-content" }}
+	<div local-class="infos" class="mr-4 ">
+		<div local-class="manager-infos" class="mb-2 bg-white">
+			<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
+			<div local-class="pie" class="p-4">
+				{{!-- {{bp-circle widthSize="auto"
+					seriesName="经理剩余行动点数"
+					circleData=circlePoint}} --}}
+				{{!-- {{bp-circle
+					eid='managerPoint'
+					seriesName="经理剩余行动点数" 
+					circleData=circlePoint}} --}}
+			</div>
+		</div>
+		<div local-class="team-infos" class="bg-white">
+			<h3 local-class="title" class="px-4">团队及代表能力情况</h3>
+			<div local-class="content" class="p-4">
+				{{#bp-layout main="between" cross=center local-class="drop-area" }}
+					<span class="mr-3">代表</span>
+					{{#bp-dropdown widthSize="auto" as |dd|}}
+						{{#dd.button }}
+							{{#if tmpRepConf.representative.name}}
+								<p>{{tmpRepConf.representative.name}}</p>
+							{{else}}
+								请选择
+							{{/if}}
+							{{bp-icon icon='down'}}
+						{{/dd.button}}
+						{{#dd.menu as |menu|}}
+							{{#each model.rConfs as |rcs|}}
+								{{#menu.option value=rcs.representativeConfig 
+										onClick=(action (mut tmpRepConf))}}
+									{{rcs.representativeConfig.representative.name}}
+								{{/menu.option}}
+							{{/each}}
+						{{/dd.menu}}
+					{{/bp-dropdown}}
+				{{/bp-layout}}
+				<div local-class="radar-container">
+					{{!-- {{bp-radar
+						eid='representativeRadar' 
+						radarData=radarData
+						maxValue=10}} --}}
+				</div>
+			</div>
+		</div>
+	</div>
+		<div local-class="actions allot-point" class="bg-white">
+			<div local-class="allot-point-content" class="bg-white mb-2 px-4">
+				{{!-- <h4 local-class="title">行动点数分配</h4> --}}
+				{{#bp-layout tagName="h3" main="between" cross="center" 
+				local-class="title"}}
+					<span local-class="title">
+						行动点数分配
+					</span>
+					{{#bp-button onClick=(action 'reInputPoint')}}重置{{/bp-button}}
+				{{/bp-layout}}
+				<table class="table text-center" local-class="point-table">
+					<thead>
+						<th class="border-0">代表姓名</th>
+						<th class="border-0">产品知识培训</th>
+						<th class="border-0">销售能力培训</th>
+						<th class="border-0">区域管理培训</th>
+						<th class="border-0">绩效约谈</th>
+						<th class="border-0">职业发展指导</th>
+						{{!-- <th class="border-0">总点数</th> --}}
+					</thead>
+					<tbody>
+						{{#each model.rConfs as |rcs|}}
+							{{#each representativeInputs as |resConf|}}
+								{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
+									<tr>
+										<td>
+											{{rcs.representativeConfig.representative.name}}
+										</td>
+										<td>
+											{{toggle-button context=resConf 
+												key='productKnowledgeTraining' 
+												state=resConf.productKnowledgeTraining
+												changeState=(action 'changeState')}}
+										</td>
+										<td>
+											{{toggle-button context=resConf 
+												key='salesAbilityTraining' 
+												state=resConf.salesAbilityTraining
+												changeState=(action 'changeState')}}
+										</td>
+										<td>
+											{{toggle-button context=resConf 
+												key='regionTraining' 
+												state=resConf.regionTraining
+												changeState=(action 'changeState')}}
+										</td>
+										<td>
+											{{toggle-button context=resConf 
+												key='performanceTraining'
+												state=resConf.performanceTraining
+												changeState=(action 'changeState')}}
+										</td>
+										<td>
+											{{toggle-button context=resConf 
+												key='vocationalDevelopment'
+												state=resConf.vocationalDevelopment
+												changeState=(action 'changeState')}}
+										</td>
+										{{!-- <td>
+											{{bp-input widthSize="small"
+											disabled=true 
+											value=resConf.totalPoint}}
+										</td> --}}
+									</tr>
+								{{/if}}
+							{{/each}}
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+{{/bp-layout}}
