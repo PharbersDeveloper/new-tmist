@@ -1,6 +1,7 @@
 import Component from "@ember/component"
 
 export default Component.extend( {
+	positionalParams: ["resource"],
 	actions: {
 		changeState( context, key ) {
 			let isOverKpi = this.get( "isOverKpi" ),

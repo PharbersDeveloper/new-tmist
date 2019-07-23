@@ -7,11 +7,10 @@
 		{{/bp-button-group}}
 	{{/bp-layout}}
 	{{!-- 经理剩余时间 start --}}
-
 	{{#if (bp-eq groupValue 0)}}
-		{{project/management-input/manager-time-management}}
+		{{project/management-input/manager-time-management resources=resources}}
 	{{else}}
-		{{project/management-input/allocate-action-points}}
+		{{project/management-input/allocate-action-points resources=resources}}
 	{{/if}}
 {{/bp-layout}}
 {{#bp-modal
