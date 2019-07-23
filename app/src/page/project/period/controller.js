@@ -37,15 +37,15 @@ export default Controller.extend( {
 				alert( "save success" )
 			} )
 		},
-		testResult() {
-			this.toast.success( "", "保存成功", {
-				closeButton: false,
-				positionClass: "toast-top-center",
-				progressBar: false,
-				timeOut: "2000"
-			} )
-			// this.transitionToRoute('page-result');
-		},
+		// testResult() {
+		// 	this.toast.success( "", "保存成功", {
+		// 		closeButton: false,
+		// 		positionClass: "toast-top-center",
+		// 		progressBar: false,
+		// 		timeOut: "2000"
+		// 	} )
+		// 	// this.transitionToRoute('page-result');
+		// },
 		testReport() {
 			this.transitionToRoute('page.project.report')
 		},

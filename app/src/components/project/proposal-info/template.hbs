@@ -15,7 +15,7 @@
 				{{t "project.proposal-info.sold"}}{{/bg.button}}
 		{{/bp-button-group}}
 	{{/bp-layout}}
-	{{log period}}
+	{{log project.periods}}
 	<div local-class="reference-content">
 		{{#if (bp-eq currentPannel 0)}}
 			{{project/proposal-info/product-info products=proposal.products }}
@@ -27,7 +27,7 @@
 			{{project/proposal-info/member-info resources=proposal.resources}}
 		{{/if}}
 		{{#if (bp-eq currentPannel 3)}}
-			{{project/proposal-info/historical-info period=period}}
+			{{project/proposal-info/historical-info periods=project.periods}}
 		{{/if}}
 	</div>
 {{/bp-layout}}
