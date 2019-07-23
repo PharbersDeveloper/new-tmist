@@ -39,19 +39,20 @@ export default Object.extend( {
 		return this.store.query( "model/answer", { filter : "(id,:in," + "[" + fid + "]" + ")" } )
 			.then( answers => {
 				this.set( "currentAnswers", answers )
-				if ( answers.length === 0) {
+				if ( answers.length === 0 ) {
 					/**
 				 	 * business input
 					 */
-					let result = A([])
-					let bsi = presets.map( preset => {
-						return this.store.createRecord( "model/answer", {
-							category:  "Business",
-							target: preset.hospital,
-							product: preset.product
+					let result = A( [] ),
+					 bsi = presets.map( preset => {
+							return this.store.createRecord( "model/answer", {
+								category:  "Business",
+								target: preset.hospital,
+								product: preset.product
+							} )
 						} )
-					} )
-					result.addObjects(bsi)
+
+					result.addObjects( bsi )
 					return result
 				} else {
 					return this.optAnswersFromCurrentAnswer( answers )

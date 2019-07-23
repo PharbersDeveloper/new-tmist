@@ -40,14 +40,15 @@ export default Route.extend( {
 		this.facade.startPeriodExam( project )
 
 		const presets = period.then( prd => {
-			return this.facade.queryPeriodPresets(prd)
-		})
+				return this.facade.queryPeriodPresets( prd )
+			} ),
 
-		const answers = Promise.all([period, presets]).then( results => {
-			const p = results[0]
-			const items = results[1]
-			return this.facade.queryPeriodAnswers(p, items)
-		})
+		 answers = Promise.all( [period, presets] ).then( results => {
+				const p = results[0],
+			 items = results[1]
+
+				return this.facade.queryPeriodAnswers( p, items )
+			} )
 
 		return RSVP.hash( {
 			period: period,

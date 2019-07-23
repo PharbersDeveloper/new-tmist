@@ -11,7 +11,7 @@ export function fileterCategory( params/*, hash*/ ) {
 	const lst = params[0],
 		cat = params[1]
 
-	return lst.filter( x => x.get("category") === cat )
+	return lst.filter( x => x.get( "category" ) === cat )
 }
 
 export default helper( fileterCategory )
