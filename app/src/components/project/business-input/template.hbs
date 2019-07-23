@@ -100,6 +100,7 @@
 			</div>
 		</div>
 	{{/bp-layout}}
+	{{#project/business-input/input-mapping project=project presets=presets answers=answers as |quizs|}}
 	{{#bp-layout local-class="hospitals"}}
 		{{#bp-layout direction="col" local-class="hospitals-configs" classNames="mr-4 px-4 bg-white"}}
 			{{#bp-layout tagName="h3" cross="center" main="between"local-class="title" classNames="m-0"}}
@@ -123,12 +124,11 @@
 					{{/dd.menu}}
 				{{/bp-dropdown}}
 			{{/bp-layout}}
-			{{#each hospitals as |hosp|}}
-				{{project/business-input/hospital-overall hospital=hosp}}
+			{{#each quizs as |quiz|}}
+				{{project/business-input/hospital-overall quiz=quiz}}
 			{{/each}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
-			{{#project/business-input/input-mapping project=project presets=presets answers=answers as |quizs|}}
 			{{#each quizs as |quiz|}}
 				{{project/business-input/hospital-config
 					proposal=project.proposal
@@ -136,9 +136,9 @@
 					quizs=quiz.quizs
 					resources=resources}}
 			{{/each}}
-			{{/project/business-input/input-mapping}}
 		{{/bp-layout}}
 	{{/bp-layout}}
+	{{/project/business-input/input-mapping}}
 {{/bp-layout}}
 {{!-- 总业务指标/总预算/总会议名额 超额提醒 --}}
 {{#bp-modal
