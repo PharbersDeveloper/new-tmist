@@ -11,10 +11,10 @@
 			<span local-class='keys' class='mr-3'>指定代表</span>
 			{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
 				{{#dd.button}}
-					{{#if res}}
-					{{res.name}}
+					{{#if quizs.firstObject.answer.resource}}
+						{{quizs.firstObject.answer.resource.name}}
 					{{else}}
-					代表
+						代表
 					{{/if}}
 					{{bp-icon icon='down'}}
 				{{/dd.button}}
@@ -46,7 +46,6 @@
 			{{bp-input widthSize="auto"
 					value=model.businessinput.visitTime
 					local-class="input-prepend input-time operating"}}
-					{{!-- disabled=(not tmpRc.id) --}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
