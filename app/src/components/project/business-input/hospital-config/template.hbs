@@ -20,23 +20,14 @@
 				{{/dd.button}}
 				{{#dd.menu as |menu|}}
 					{{#each resources as |resource|}}
-						{{!-- {{#if (bp-eq rc.resourceType 1)}} --}}
-							{{#menu.option value=resource onClick=(action 'changedResource') local-class="representative-info"}}
-								{{#bp-layout cross="center"}}
-									<img width="24" src={{resource.avatar.img}} alt="avatar" class="mr-2">
-									<span local-class="name" class="mr-2">
-										{{resource.name}}
-									</span>
-									{{!-- {{#each representativesVisitPercent as |rvp|}}
-										{{#if (bp-eq rvp.id rc.id)}}
-											<span local-class="rest-time">
-												剩余时间 {{rvp.restTime}}%
-											</span>
-										{{/if}}
-									{{/each}} --}}
-								{{/bp-layout}}
-							{{/menu.option}}
-						{{!-- {{/if}} --}}
+						{{#menu.option value=resource onClick=(action 'changedResource') local-class="representative-info"}}
+							{{#bp-layout cross="center"}}
+								<img width="24" src={{resource.avatar.img}} alt="avatar" class="mr-2">
+								<span local-class="name" class="mr-2">
+									{{resource.name}}
+								</span>
+							{{/bp-layout}}
+						{{/menu.option}}
 					{{/each}}
 				{{/dd.menu}}
 			{{/bp-dropdown}}
