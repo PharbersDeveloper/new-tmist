@@ -1,7 +1,6 @@
 import Component from "@ember/component"
 import { inject as service } from "@ember/service"
 import Ember from "ember"
-// import { computed } from "@ember/object"
 
 export default Component.extend( {
 	positionalParams: ["proposal", "hospital", "quizs", "products", "resources"],
@@ -9,7 +8,6 @@ export default Component.extend( {
 	actions: {
 		changedResource( aResource ) {
 			Ember.Logger.info( `change resources ${aResource.name}` )
-			// this.exam.bs.resetBusinessResources( this.hospital, aResource )
 			this.exam.resetBusinessResources( this.hospital, aResource )
 			this.set( "resource", aResource )
 		},

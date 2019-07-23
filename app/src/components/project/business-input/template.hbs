@@ -128,7 +128,7 @@
 			{{/each}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
-			{{#project/business-input/input-mapping project=project as |quizs|}}
+			{{#project/business-input/input-mapping project=project presets=presets answers=answers as |quizs|}}
 			{{#each quizs as |quiz|}}
 				{{project/business-input/hospital-config
 					proposal=project.proposal
