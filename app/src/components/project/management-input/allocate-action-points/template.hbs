@@ -2,7 +2,12 @@
 {{#bp-layout main="between" local-class="management-content" }}
 	<div local-class="infos" class="mr-4 ">
 		<div local-class="manager-infos" class="mb-2 bg-white">
-			<h3 local-class="title" class="px-4">经理剩余行动点数</h3>
+			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
+				<span local-class="title">
+					经理剩余行动点数
+				</span>
+			{{/bp-layout}}
+			{{!-- <h3 local-class="title" class="px-4">经理剩余行动点数</h3> --}}
 			<div local-class="pie" class="p-4">
 				{{!-- {{bp-circle widthSize="auto"
 					seriesName="经理剩余行动点数"
@@ -14,7 +19,12 @@
 			</div>
 		</div>
 		<div local-class="team-infos" class="bg-white">
-			<h3 local-class="title" class="px-4">团队及代表能力情况</h3>
+			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
+				<span local-class="title">
+					团队及代表能力情况
+				</span>
+			{{/bp-layout}}
+			{{!-- <h3 local-class="title" class="px-4">团队及代表能力情况</h3> --}}
 			<div local-class="content" class="p-4">
 				{{#bp-layout main="between" cross=center local-class="drop-area" }}
 					<span class="mr-3">代表</span>

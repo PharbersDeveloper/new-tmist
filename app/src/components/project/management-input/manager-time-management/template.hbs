@@ -1,8 +1,13 @@
 {{!-- 经理剩余时间 start --}}
-{{#bp-layout main="between" local-class="management-content" }}
+{{#bp-layout main="between" local-class="management-content"}}
 	<div local-class="infos" class="mr-4 ">
 		<div local-class="manager-infos" class="mb-2 bg-white">
-				<h3 local-class="title" class="px-4">经理剩余时间</h3>
+				{{!-- <h3 local-class="title" class="px-4" >经理剩余时间</h3> --}}
+				{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
+					<span local-class="title">
+						经理剩余时间
+					</span>
+				{{/bp-layout}}
 				{{!-- <div local-class="pie" class="p-4">
 					{{bp-circle widthSize="auto"
 						seriesName="经理剩余时间" 
@@ -16,9 +21,14 @@
 				</div>			
 		</div>
 		<div local-class="team-infos" class="bg-white">
-			<h3 local-class="title" class="px-4">团队及代表能力情况</h3>
+			{{!-- <h3 local-class="title" class="px-4">团队及代表能力情况</h3> --}}
+			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
+				<span local-class="title">
+					团队及代表能力情况
+				</span>
+			{{/bp-layout}}
 			<div local-class="content" class="p-4">
-				{{#bp-layout main="between" cross=center local-class="drop-area" }}
+				{{#bp-layout main="between" cross="center" local-class="drop-area" }}
 					<span class="mr-3">代表</span>
 					{{#bp-dropdown widthSize="auto" as |dd|}}
 						{{#dd.button }}
@@ -60,45 +70,48 @@
 			<h4 local-class="title" class="px-4">业务时间分配</h4>
 			{{#bp-layout local-class="content" main="between" class="p-4" }}
 				{{#bp-layout}}
-					{{#bp-layout direction=col local-class="keys" }}
-						{{#bp-layout tagName="p" cross=center class="mb-4" }}
+					{{#bp-layout direction="col" local-class="keys" }}
+						
+						{{#bp-layout tagName="p" cross="center" class="mb-4" }}
 							<span local-class="square square-1"></span>
 							<span local-class="p-primary">业务数据策略分析</span>
 						{{/bp-layout}}
-						{{#bp-layout tagName="p" cross=center}}
+
+						{{#bp-layout tagName="p" cross="center"}}
 							<span local-class="square square-2"></span>
 							<span local-class="p-primary">重点目标客户管理</span>
 						{{/bp-layout}}
+
 					{{/bp-layout}}
-					{{#bp-layout direction=col local-class="inputs" }}
+					{{#bp-layout direction="col" local-class="inputs" }}
+							{{!-- onChange=(action (mut managerInput.strategyAnalysisTime)) --}}
 						{{bp-input value=managerInput.strategyAnalysisTime
-							size="medium" widthSize="medium" 
-							onChange=(action (mut managerInput.strategyAnalysisTime))
+							size="medium" widthSize="" 
 							classNames="mb-4"
 							local-class="input-prepend"}}
 						{{bp-input value=managerInput.clientManagementTime
-							size="medium" widthSize="medium"
+							size="medium" widthSize=""
 							local-class="input-prepend"}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout}}
-					{{#bp-layout direction=col local-class="keys" }}
-						{{#bp-layout tagName="p" cross=center class="mb-4" }}
+					{{#bp-layout direction="col" local-class="keys" }}
+						{{#bp-layout tagName="p" cross="center" class="mb-4" }}
 							<span local-class="square  square-3"></span>
 							<span local-class="p-primary">行政工作</span>
 						{{/bp-layout}}
-						{{#bp-layout tagName="p" cross=center}}
+						{{#bp-layout tagName="p" cross="center"}}
 							<span local-class="square  square-4"></span>
 							<span local-class="p-primary">代表及KPI分析</span>
 						{{/bp-layout}}
 					{{/bp-layout}}
-					{{#bp-layout direction=col local-class="inputs" }}
+					{{#bp-layout direction="col" local-class="inputs" }}
 						{{bp-input value=managerInput.adminWorkTime
-							size="medium" widthSize="medium"
+							size="medium" widthSize=""
 							classNames="mb-4"
 							local-class="input-prepend"}}
 						{{bp-input value=managerInput.kpiAnalysisTime
-							size="medium" widthSize="medium"
+							size="medium" widthSize=""
 							local-class="input-prepend"}}
 					{{/bp-layout}}
 				{{/bp-layout}}
@@ -107,13 +120,13 @@
 		<div local-class="team-time actions-content" class="bg-white  mb-2">
 			<h4 local-class="title" class="px-4">团队管理时间分配</h4>
 			{{#bp-layout local-class="content" class="p-4" }}
-				{{#bp-layout direction=col local-class="keys" }}
-					{{#bp-layout tagName="p" cross=center }}
+				{{#bp-layout direction="col" local-class="keys" }}
+					{{#bp-layout tagName="p" cross="center" }}
 						<span local-class="square  square-m"></span>
 						<span local-class="p-primary">团队例会</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-				{{#bp-layout direction=col local-class="inputs" }}
+				{{#bp-layout direction="col" local-class="inputs" }}
 					{{bp-input
 						value=managerInput.teamMeetingTime  
 						size="medium"
@@ -124,21 +137,21 @@
 		<div local-class="represent-time actions-content" class="bg-white mb-2">
 			<h4 local-class="title" class="px-4">管理代表时间</h4>
 			{{#bp-layout local-class="content" main="between" class="p-4" }}
-				{{#bp-layout direction=col local-class="keys" }}
+				{{#bp-layout direction="col" local-class="keys" }}
 					<p class="text-center mb-2 mr-0"></p>
-					{{#bp-layout tagName="p" cross=center class="mb-4" }}
+					{{#bp-layout tagName="p" cross="center" class="mb-4" }}
 						<span local-class="square square-a"></span>
 						<span local-class="p-primary">1v1能力辅导</span>
 					{{/bp-layout}}
-					{{#bp-layout tagName="p" cross=center}}
+					{{#bp-layout tagName="p" cross="center"}}
 						<span local-class="square square-t"></span>
 						<span local-class="p-primary">协访时间</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-				{{#each model.rConfs as |rcs|}}
-					{{#bp-layout direction=col local-class="inputs" }}
+				{{#each resources as |resource|}}
+					{{#bp-layout direction="col" local-class="inputs" }}
 						<p class="text-center mb-2 mr-0">
-							{{rcs.representativeConfig.representative.name}}
+							{{resource.name}}
 						</p>
 						{{#each representativeInputs as |resConf|}}
 							{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
