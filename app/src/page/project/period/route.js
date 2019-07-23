@@ -1,7 +1,10 @@
 import Route from "@ember/routing/route"
 import RSVP from "rsvp"
+import { inject as service } from "@ember/service"
+import Ember from "ember"
 
 export default Route.extend( {
+	facade: service( "service/exam-facade" ),
 	model( params ) {
 		const project = this.modelFor( "page.project" )
 		const prs = project.belongsTo( "proposal" )
@@ -33,12 +36,20 @@ export default Route.extend( {
 			return this.store.query( "model/resource", { filter: "(id,:in," + "[" + hids + "]" + ")"} )
 		} )
 
+		const period = this.store.findRecord( "model/period", params.period_id )
+		period.then( prd => {
+			this.facade.startPeriodExam(project, prd)
+		})
+
 		return RSVP.hash( {
-			period: this.store.findRecord( "model/period", params.period_id ),
+			period: period,
 			project: project,
 			hospitals: hospitals,
 			products: products,
 			resources: resources
 		} )
+	},
+	deactivate() {
+		Ember.Logger.info("exist exams")
 	}
 } )

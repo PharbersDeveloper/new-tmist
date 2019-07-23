@@ -53,7 +53,6 @@ export default Object.extend( {
 				meetingPlaces: item.meetingPlaces,
 				resource: item.resource
 			} )
-
 		} )
 	}
 } )
