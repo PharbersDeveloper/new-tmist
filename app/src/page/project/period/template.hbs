@@ -10,6 +10,7 @@
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
+				{{#bp-button classNames="mr-1" onClick=(action "test")}}test{{/bp-button}}
 				{{#bp-button classNames="mr-1" onClick=(action "saveInputs")}}{{t "project.save-btn"}}{{/bp-button}}
 				{{#bp-button type="primary" onClick=(action "submit") }}{{t "project.submit-btn"}}{{/bp-button}}
 			{{/body.right}}
