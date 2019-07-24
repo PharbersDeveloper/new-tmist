@@ -43,11 +43,12 @@ export default Route.extend( {
 				return this.facade.queryPeriodPresets( prd )
 			} ),
 
-		 answers = Promise.all( [period, presets] ).then( results => {
+		 answers = Promise.all( [period, presets, resources] ).then( results => {
 				const p = results[0],
-			 items = results[1]
+					items = results[1],
+					people = results[2]
 
-				return this.facade.queryPeriodAnswers( p, items )
+				return this.facade.queryPeriodAnswers( p, items, people )
 			} )
 
 		return RSVP.hash( {

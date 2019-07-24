@@ -31,7 +31,7 @@ export default Object.extend( {
 		return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
 
 	},
-	async answersForPresets ( period, presets ) {
+	async answersForPresets ( period, presets, resources ) {
 		const fid = period.hasMany( "answers" ).ids().map( x => {
 			return "`" + `${x}` + "`"
 		} ).join( "," )
@@ -43,16 +43,24 @@ export default Object.extend( {
 					/**
 				 	 * business input
 					 */
-					let result = A( [] ),
-					 bsi = presets.map( preset => {
+					let result = A( [] )
+					const bsi = presets.map( preset => {
 							return this.store.createRecord( "model/answer", {
 								category:  "Business",
 								target: preset.hospital,
 								product: preset.product
 							} )
+						} ),
+
+					 rsi = resources.map( resource => {
+							return this.store.createRecord( "model/answer", {
+								category: "Resource",
+								resource: resource
+							} )
 						} )
 
 					result.addObjects( bsi )
+					result.addObjects( rsi )
 					return result
 				} else {
 					return this.optAnswersFromCurrentAnswer( answers )

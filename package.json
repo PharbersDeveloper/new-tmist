@@ -60,6 +60,8 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
+    "@fortawesome/ember-fontawesome": "^0.1.14",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "bp-components": "*",
     "cldr-core": "^35.1.0",
     "ember-template-lint": "^1.4.0",

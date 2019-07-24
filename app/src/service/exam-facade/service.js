@@ -13,8 +13,8 @@ export default Service.extend( {
 	queryPeriodPresets( aPeriod ) {
 		return this.delegate.getCurrentPresetsWithPeriod( aPeriod )
 	},
-	queryPeriodAnswers( aPeriod, presets ) {
-		return this.delegate.answersForPresets( aPeriod, presets )
+	queryPeriodAnswers( aPeriod, presets, resources ) {
+		return this.delegate.answersForPresets( aPeriod, presets, resources )
 	},
 	clearPeriodExam() {
 		this.set( "currentPeriod", null )
