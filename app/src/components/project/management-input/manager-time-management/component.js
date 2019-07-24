@@ -5,12 +5,15 @@ import { isEmpty } from "@ember/utils"
 import { alias } from "@ember/object/computed"
 
 export default Component.extend( {
+	// get validation
 	positionalParams: ["resources", "managerAnswer", "answers"],
 	numberVerify: /^-?[0-9]\d*$/,
 	groupValue: 0,
 	center: "center",
 	ManagerUsedKpi: alias( "circlePoint.firstObject.value" ),
 	ManagerUsedTime: alias( "circleTime.firstObject.value" ),
+	validation: "maxMangerTime#100*maxMangerActionPoint#100",
+	// validation: ["maxMangerTime#100", "maxMangerActionPoint#100"]
 
 	isOverKpi: computed( "ManagerUsedKpi", "managerTotalKpi", function () {
 		let { ManagerUsedKpi, managerTotalKpi } =
@@ -175,6 +178,75 @@ export default Component.extend( {
 				kpiAnalysisTime: 0,
 				teamMeetingTime: 0
 			} )
+		},
+		maxMangerTime: function() {
+			let rules = this.validation.split( "*" ),
+				rule = "",
+				answers = this.get( "answers" )
+
+			rules.forEach( e => {
+				if ( e.startsWith( "maxMangerTime" ) ) {
+					window.console.log( e )
+					rule = e
+				}
+			} )
+			let maxMangerTime = Number( rule.split( "#" )[1] )
+
+			answers.forEach( e => {
+				let abilityCoach = Number( e.abilityCoach ),
+					assistAccessTime = Number( e.assistAccessTime )
+
+				maxMangerTime = maxMangerTime - assistAccessTime - abilityCoach
+
+				if ( isNaN( abilityCoach ) || isNaN( assistAccessTime ) ){
+					this.set( "warning", {
+						open: true,
+						title: "非法值警告",
+						detail: "请输入数字！"
+					} )
+				}
+				if ( maxMangerTime < 0 ) {
+					this.set( "warning", {
+						open: true,
+						title: "经理时间超额",
+						detail: "经理时间设定已超过限制，请重新分配。"
+					} )
+				}
+			} )
+
+			// []指定周期
+			let { strategAnalysisTime, clientManagementTime, adminWorkTime, kpiAnalysisTime, teamMeetingTime } = this.get( "managerAnswer" )
+
+			strategAnalysisTime = Number( strategAnalysisTime )
+			clientManagementTime = Number( clientManagementTime )
+			adminWorkTime = Number( adminWorkTime )
+			kpiAnalysisTime = Number( kpiAnalysisTime )
+			teamMeetingTime = Number( teamMeetingTime )
+
+
+			if ( isNaN( strategAnalysisTime ) ||
+			isNaN( clientManagementTime ) ||
+			isNaN( adminWorkTime ) ||
+			isNaN( kpiAnalysisTime ) ||
+			isNaN( teamMeetingTime ) ) {
+				this.set( "warning", {
+					open: true,
+					title: "非法值警告",
+					detail: "请输入数字！"
+				} )
+			} else {
+				let all = strategAnalysisTime + clientManagementTime + adminWorkTime + kpiAnalysisTime + teamMeetingTime
+
+				window.console.log( strategAnalysisTime )
+				window.console.log( all, maxMangerTime )
+				if ( all > maxMangerTime ) {
+					this.set( "warning", {
+						open: true,
+						title: "经理时间超额",
+						detail: "经理时间设定已超过限制，请重新分配。"
+					} )
+				}
+			}
 		}
 	}
 } )

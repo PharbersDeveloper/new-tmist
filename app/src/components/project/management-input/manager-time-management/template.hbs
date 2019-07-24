@@ -12,6 +12,7 @@
 						eid='managerTime'
 						seriesName="经理剩余时间" 
 						circleData=circleTime}} --}}
+					
 				</div>			
 		</div>
 		<div local-class="team-infos" class="bg-white">
@@ -76,12 +77,13 @@
 
 					{{/bp-layout}}
 					{{#bp-layout direction="col" local-class="inputs" }}
-							{{!-- onChange=(action (mut managerInput.strategyAnalysisTime)) --}}
 						{{bp-input value=managerAnswer.strategAnalysisTime
+							onChange=(action "maxMangerTime" (mut managerAnswer.strategAnalysisTime))
 							size="medium" widthSize="" 
 							classNames="mb-4"
 							local-class="input-prepend"}}
 						{{bp-input value=managerAnswer.clientManagementTime
+						onChange=(action "maxMangerTime" (mut managerAnswer.clientManagementTime))
 							size="medium" widthSize=""
 							local-class="input-prepend"}}
 					{{/bp-layout}}
@@ -99,10 +101,12 @@
 					{{/bp-layout}}
 					{{#bp-layout direction="col" local-class="inputs" }}
 						{{bp-input value=managerAnswer.adminWorkTime
+						onChange=(action "maxMangerTime" (mut managerAnswer.adminWorkTime))
 							size="medium" widthSize=""
 							classNames="mb-4"
 							local-class="input-prepend"}}
 						{{bp-input value=managerAnswer.kpiAnalysisTime
+						onChange=(action "maxMangerTime" (mut managerAnswer.kpiAnalysisTime))
 							size="medium" widthSize=""
 							local-class="input-prepend"}}
 					{{/bp-layout}}
@@ -120,7 +124,8 @@
 				{{/bp-layout}}
 				{{#bp-layout direction="col" local-class="inputs" }}
 					{{bp-input
-						value=managerAnswer.teamMeetingTime  
+						value=managerAnswer.teamMeetingTime
+						onChange=(action "maxMangerTime" (mut managerAnswer.teamMeetingTime))
 						size="medium"
 						local-class="input-prepend"}}
 				{{/bp-layout}}
@@ -148,10 +153,12 @@
 						{{!-- {{#each representativeInputs as |resConf|}} --}}
 							{{!-- {{#if (bp-eq rcs.id resConf.resourceConfigId)}} --}}
 							{{bp-input value=answer.abilityCoach
+							onChange=(action "maxMangerTime" (mut managerAnswer.abilityCoach))
 								size="medium" widthSize="small" 
 								classNames="mb-4"
 								local-class="input-prepend"}}
 							{{bp-input value=answer.assistAccessTime
+							onChange=(action "maxMangerTime" (mut managerAnswer.assistAccessTime))
 								size="medium" 
 								widthSize="small"
 								local-class="input-prepend"}}
@@ -163,3 +170,21 @@
 		</div>
 	</div>
 {{/bp-layout}}
+{{#bp-modal
+		open=warning.open
+		position='center' 
+		onHidden=(action (mut warning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{warning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc">
+			{{warning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}
