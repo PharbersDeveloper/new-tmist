@@ -81,7 +81,19 @@ export default Object.extend( {
 				salesTarget: item.salesTarget,
 				budget: item.budget,
 				meetingPlaces: item.meetingPlaces,
-				resource: item.resource
+				resource: item.resource,
+				productKnowledgeTraining: item.productKnowledgeTraining,
+				vocationalDevelopment: item.vocationalDevelopment,
+				regionTraining: item.regionTraining,
+				performanceTraining: item.performanceTraining,
+				salesAbilityTraining: item.salesAbilityTraining, 
+				assistAccessTime: item.assistAccessTime,
+				abilityCoach: item.abilityCoach,
+				strategAnalysisTime: item.strategAnalysisTime,
+				adminWorkTime: item.adminWorkTime,
+				clientManagementTime: item.clientManagementTime,
+				kpiAnalysisTime: this.clientManagementTime,
+				teamMeetingTime: this.teamMeetingTime
 			} )
 		} )
 	}
