@@ -57,10 +57,15 @@ export default Object.extend( {
 								category: "Resource",
 								resource: resource
 							} )
-						} )
+						} ),
+
+					 msi = this.store.createRecord( "model/answer", {
+							category: "Management",
+					 } )
 
 					result.addObjects( bsi )
 					result.addObjects( rsi )
+					result.addObject( msi )
 					return result
 				} else {
 					return this.optAnswersFromCurrentAnswer( answers )

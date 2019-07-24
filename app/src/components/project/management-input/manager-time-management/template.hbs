@@ -2,17 +2,11 @@
 {{#bp-layout main="between" local-class="management-content"}}
 	<div local-class="infos" class="mr-4 ">
 		<div local-class="manager-infos" class="mb-2 bg-white">
-				{{!-- <h3 local-class="title" class="px-4" >经理剩余时间</h3> --}}
 				{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
 					<span local-class="title">
 						经理剩余时间
 					</span>
 				{{/bp-layout}}
-				{{!-- <div local-class="pie" class="p-4">
-					{{bp-circle widthSize="auto"
-						seriesName="经理剩余时间" 
-						circleData=circleTime}}
-				</div> --}}
 				<div local-class="pie" class="p-4">
 					{{!-- {{bp-circle
 						eid='managerTime'
@@ -21,7 +15,6 @@
 				</div>			
 		</div>
 		<div local-class="team-infos" class="bg-white">
-			{{!-- <h3 local-class="title" class="px-4">团队及代表能力情况</h3> --}}
 			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
 				<span local-class="title">
 					团队及代表能力情况
@@ -32,18 +25,17 @@
 					<span class="mr-3">代表</span>
 					{{#bp-dropdown widthSize="auto" as |dd|}}
 						{{#dd.button }}
-							{{#if tmpRepConf.representative.name}}
-								<p>{{tmpRepConf.representative.name}}</p>
-							{{else}}
+							{{!-- {{#if tmpRepConf.representative.name}} --}}
+								{{!-- <p>{{tmpRepConf.representative.name}}</p> --}}
+							{{!-- {{else}} --}}
 								请选择
-							{{/if}}
+							{{!-- {{/if}} --}}
 							{{bp-icon icon='down'}}
 						{{/dd.button}}
 						{{#dd.menu as |menu|}}
-							{{#each model.rConfs as |rcs|}}
-								{{#menu.option value=rcs.representativeConfig 
-										onClick=(action (mut tmpRepConf))}}
-									{{rcs.representativeConfig.representative.name}}
+							{{#each resources as |rcs|}}
+								{{#menu.option value=rcs onClick=(action (mut tmpRepConf))}}
+									{{rcs.name}}
 								{{/menu.option}}
 							{{/each}}
 						{{/dd.menu}}
@@ -85,11 +77,11 @@
 					{{/bp-layout}}
 					{{#bp-layout direction="col" local-class="inputs" }}
 							{{!-- onChange=(action (mut managerInput.strategyAnalysisTime)) --}}
-						{{bp-input value=managerInput.strategyAnalysisTime
+						{{bp-input value=managerAnswer.strategAnalysisTime
 							size="medium" widthSize="" 
 							classNames="mb-4"
 							local-class="input-prepend"}}
-						{{bp-input value=managerInput.clientManagementTime
+						{{bp-input value=managerAnswer.clientManagementTime
 							size="medium" widthSize=""
 							local-class="input-prepend"}}
 					{{/bp-layout}}
@@ -106,11 +98,11 @@
 						{{/bp-layout}}
 					{{/bp-layout}}
 					{{#bp-layout direction="col" local-class="inputs" }}
-						{{bp-input value=managerInput.adminWorkTime
+						{{bp-input value=managerAnswer.adminWorkTime
 							size="medium" widthSize=""
 							classNames="mb-4"
 							local-class="input-prepend"}}
-						{{bp-input value=managerInput.kpiAnalysisTime
+						{{bp-input value=managerAnswer.kpiAnalysisTime
 							size="medium" widthSize=""
 							local-class="input-prepend"}}
 					{{/bp-layout}}
@@ -128,7 +120,7 @@
 				{{/bp-layout}}
 				{{#bp-layout direction="col" local-class="inputs" }}
 					{{bp-input
-						value=managerInput.teamMeetingTime  
+						value=managerAnswer.teamMeetingTime  
 						size="medium"
 						local-class="input-prepend"}}
 				{{/bp-layout}}
@@ -148,23 +140,23 @@
 						<span local-class="p-primary">协访时间</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-				{{#each resources as |resource|}}
+				{{#each answers as |answer|}}
 					{{#bp-layout direction="col" local-class="inputs" }}
 						<p class="text-center mb-2 mr-0">
-							{{resource.name}}
+							{{answer.resource.name}}
 						</p>
-						{{#each representativeInputs as |resConf|}}
-							{{#if (bp-eq rcs.id resConf.resourceConfigId)}}
-								{{bp-input value=resConf.abilityCoach
+						{{!-- {{#each representativeInputs as |resConf|}} --}}
+							{{!-- {{#if (bp-eq rcs.id resConf.resourceConfigId)}} --}}
+							{{bp-input value=answer.abilityCoach
 								size="medium" widthSize="small" 
 								classNames="mb-4"
 								local-class="input-prepend"}}
-								{{bp-input value=resConf.assistAccessTime
+							{{bp-input value=answer.assistAccessTime
 								size="medium" 
 								widthSize="small"
 								local-class="input-prepend"}}
-							{{/if}}
-						{{/each}}
+							{{!-- {{/if}} --}}
+						{{!-- {{/each}} --}}
 					{{/bp-layout}}
 				{{/each}}
 			{{/bp-layout}}

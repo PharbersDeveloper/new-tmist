@@ -5,7 +5,7 @@ import { isEmpty } from "@ember/utils"
 import { alias } from "@ember/object/computed"
 
 export default Component.extend( {
-	positionalParams: ["resources"],
+	positionalParams: ["resources", "managerAnswer", "answers"],
 	numberVerify: /^-?[0-9]\d*$/,
 	groupValue: 0,
 	center: "center",
