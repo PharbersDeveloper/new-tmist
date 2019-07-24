@@ -25,28 +25,10 @@ export default Component.extend( {
 				} )
 			}
 		},
-		reInputTime() {
-			let managerInput = this.get( "model.managerInput" ),
-				representativeInputs = this.get( "model.representativeInputs" )
-
-			managerInput.setProperties( {
-				strategyAnalysisTime: "",
-				adminWorkTime: "",
-				clientManagementTime: "",
-				kpiAnalysisTime: "",
-				teamMeetingTime: ""
-			} )
-			representativeInputs.forEach( ele => {
-				ele.setProperties( {
-					abilityCoach: "",
-					assistAccessTime: ""
-				} )
-			} )
-		},
 		reInputPoint() {
-			let representativeInputs = this.get( "model.representativeInputs" )
+			let answers = this.get( "answers" )
 
-			representativeInputs.forEach( ele => {
+			answers.forEach( ele => {
 				ele.setProperties( {
 					productKnowledgeTraining: 0,
 					salesAbilityTraining: 0,

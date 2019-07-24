@@ -11,7 +11,8 @@ export default Component.extend( {
 	choosed: computed( "state", function () {
 		let state = this.get( "state" )
 
-		if ( state === 1 || Boolean( state ) ) {
+		// if ( state === 1 || Boolean( state ) ) {
+		if ( state === 1 ) {
 			return true
 		}
 		return false

@@ -23,16 +23,17 @@ export default Service.extend( {
 		} )
 		this.set( "operationAnswers", null )
 	},
-	saveCurrentInput( fcallback ) {
+	saveCurrentInput(period, answers, fcallback ) {
 		/**
          * copy and swap
+		 * TODO: 只写了新建流程
          */
-		Promise.all( this.operationAnswers.map( answer => {
+		Promise.all( answers.map( answer => {
 			return answer.save()
 		} ) ).then( answers => {
-			this.set( "currentAnswers", answers )
-			this.currentPeriod.set( "answers", this.currentAnswers )
-			return this.currentPeriod.save()
+			this.set( "delegate.currentAnswers", answers )
+			period.set( "answers", answers)
+			return period.save()
 		} ).then( period => {
 			fcallback( period )
 		} )
