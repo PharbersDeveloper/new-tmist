@@ -7,10 +7,11 @@ export default DS.Model.extend( {
 	inputIds: DS.attr( ),
 	salesReportIds: DS.attr( ),
 	personnelAssessmentIds: DS.attr( ),
+	quota: DS.belongsTo( "model/requirement" ),
 	products: DS.hasMany( "model/product" ),
 	targets: DS.hasMany( "model/hospital" ),
 	resources: DS.hasMany( "model/resource" ),
-	quota: DS.belongsTo( "model/requirement" ),
 	presets: DS.hasMany( "model/preset" ),
-	validation: DS.belongsTo( "model/validation" )
+	evaluations: DS.hasMany( "model/evaluation" ),
+	validations: DS.hasMany( "model/validation" )
 } )
