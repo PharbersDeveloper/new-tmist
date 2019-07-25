@@ -18,21 +18,3 @@
 			answers=(filter-category answers "Resource")}}
 	{{/if}}
 {{/bp-layout}}
-{{#bp-modal
-		open=warning.open
-		position='center' 
-		onHidden=(action (mut warning.open) false) as |modal|}}
-	{{#modal.header}}
-		<h4 class="modal-title">
-			{{warning.title}}
-		</h4>
-	{{/modal.header}}
-	{{#modal.body classNames="p-4"}}
-		<p class="desc">
-			{{warning.detail}}
-		</p>
-	{{/modal.body}}
-	{{#modal.footer}}
-		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
-	{{/modal.footer}}
-{{/bp-modal}}
