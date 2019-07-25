@@ -1,6 +1,7 @@
 import Component from "@ember/component"
 import { computed } from "@ember/object"
 import { isEmpty } from "@ember/utils"
+import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 	positionalParams: ["resources", "answers"],
@@ -11,6 +12,7 @@ export default Component.extend( {
 			return { resource: item, answer: one }
 		} )
 	} ),
+	exam: service( "service/exam-facade" ),
 	validation: ["maxMangerTime#100*maxMangerActionPoint#5", "timeInputType#Number*actionPointInputType#Boolean"],
 	isOverKpi: computed( "ManagerUsedKpi", "managerTotalKpi", function () {
 		let { ManagerUsedKpi, managerTotalKpi } =
@@ -111,18 +113,18 @@ export default Component.extend( {
 			// }
 		},
 		reInputPoint() {
-			let answers = this.get( "answers" )
-
-			answers.forEach( ele => {
-				ele.setProperties( {
-					productKnowledgeTraining: 0,
-					salesAbilityTraining: 0,
-					regionTraining: 0,
-					performanceTraining: 0,
-					vocationalDevelopment: 0
-				} )
+			this.exam.delegate.currentAnswers.forEach( e => {
+				if ( e.category === "Resource" ) {
+					// window.console.log( this.answers )
+					this.answers.filter( x => x.resource.get( "id" ) === e.resource.get( "id" ) ).forEach( answer => {
+						answer.set( "productKnowledgeTraining", e.productKnowledgeTraining )
+						answer.set( "salesAbilityTraining", e.salesAbilityTraining )
+						answer.set( "regionTraining", e.regionTraining )
+						answer.set( "performanceTraining", e.performanceTraining )
+						answer.set( "vocationalDevelopment", e.vocationalDevelopment )
+					} )
+				}
 			} )
 		}
-
 	}
 } )

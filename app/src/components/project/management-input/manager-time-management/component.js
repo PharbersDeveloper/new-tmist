@@ -1,4 +1,5 @@
 import Component from "@ember/component"
+import { inject as service } from "@ember/service"
 // import { computed } from "@ember/object"
 // import { A } from "@ember/array"
 // import { isEmpty } from "@ember/utils"
@@ -6,8 +7,10 @@ import Component from "@ember/component"
 
 export default Component.extend( {
 	// get validation
-	positionalParams: ["resources", "managerAnswer", "answers"],
+	positionalParams: ["resources", "managerAnswer", "answers", "period"],
 	numberVerify: /^-?[0-9]\d*$/,
+	exam: service( "service/exam-facade" ),
+
 	// groupValue: 0,
 	// validation: "maxMangerTime#100*maxMangerActionPoint#100",
 	validation: ["maxMangerTime#100*maxMangerActionPoint#100", "timeInputType#Number*actionPointInputType#Number"],
@@ -161,10 +164,10 @@ export default Component.extend( {
 		let len = arr.length
 
 		for ( let i = 0; i < len; i++ ) {
-			max -= arr[i]
 			if ( arr[i] === -1 ) {
 				arr[i] = 0
 			}
+			max -= arr[i]
 			if ( max < 0 ) {
 				this.set( "warning", {
 					open: true,
@@ -176,26 +179,20 @@ export default Component.extend( {
 	},
 	actions: {
 		reInputTime() {
-			let answers = this.get( "answers" ),
-				managerAnswer = this.get( "managerAnswer" )
-
-			answers.forEach( ele => {
-				ele.setProperties( {
-					strategyAnalysisTime: 0,
-					adminWorkTime: 0,
-					clientManagementTime: 0,
-					kpiAnalysisTime: 0,
-					teamMeetingTime: 0,
-					abilityCoach: 0,
-					assistAccessTime: 0
-				} )
-			} )
-			managerAnswer.setProperties( {
-				strategAnalysisTime: 0,
-				clientManagementTime: 0,
-				adminWorkTime: 0,
-				kpiAnalysisTime: 0,
-				teamMeetingTime: 0
+			this.exam.delegate.currentAnswers.forEach( e => {
+				if ( e.category === "Management" ) {
+					this.set( "managerAnswer.strategAnalysisTime", e.strategAnalysisTime )
+					this.set( "managerAnswer.clientManagementTime", e.clientManagementTime )
+					this.set( "managerAnswer.adminWorkTime", e.adminWorkTime )
+					this.set( "managerAnswer.kpiAnalysisTime", e.kpiAnalysisTime )
+					this.set( "managerAnswer.teamMeetingTime", e.teamMeetingTime )
+				}
+				if ( e.category === "Resource" ) {
+					this.answers.filter( x => x.resource.get( "id" ) === e.resource.get( "id" ) ).forEach( answer => {
+						answer.set( "abilityCoach", e.abilityCoach )
+						answer.set( "assistAccessTime", e.assistAccessTime )
+					} )
+				}
 			} )
 		},
 		maxMangerTime: function() {
@@ -207,7 +204,6 @@ export default Component.extend( {
 
 			maxValueRules.forEach( e => {
 				if ( e.startsWith( "maxMangerTime" ) ) {
-					window.console.log( e )
 					maxMangerTimeRule = e
 				}
 			} )

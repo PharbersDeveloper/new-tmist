@@ -10,6 +10,7 @@
 	{{#if (bp-eq groupValue 0)}}
 		{{project/management-input/manager-time-management 
 			resources=resources
+			period=period
 			managerAnswer=(find-category answers "Management")
 			answers=(filter-category answers "Resource")}}
 	{{else}}
