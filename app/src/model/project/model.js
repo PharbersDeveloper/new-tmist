@@ -9,5 +9,6 @@ export default DS.Model.extend( {
 	startTime: DS.attr( "number", { defaultValue: new Date().getTime() } ),
 	endTime: DS.attr( "number", { defaultValue: 0 } ),
 	lastUpdate: DS.attr( "number" ),
-	periods: DS.hasMany( "model/period" )
+	periods: DS.hasMany( "model/period" ),
+	results: DS.hasMany( "model/result" )
 } )
