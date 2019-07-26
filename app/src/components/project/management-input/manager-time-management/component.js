@@ -148,16 +148,16 @@ export default Component.extend( {
 
 		if ( type === "Number" ) {
 			for ( let i = 0; i < len; i++ ) {
-				// let temp = Number( arr[i] )
 				if ( isNaN( Number( arr[i] ) ) ) {
-					window.console.log( arr[i] )
 					this.set( "warning", {
 						open: true,
 						title: "非法值警告",
 						detail: "请输入数字！"
 					} )
+					return false
 				}
 			}
+			return true
 		}
 	},
 	checkMaxValue( max, arr ) {
@@ -174,8 +174,10 @@ export default Component.extend( {
 					title: "经理时间超额",
 					detail: "经理时间设定已超过限制，请重新分配。"
 				} )
+				return false
 			}
 		}
+		return true
 	},
 	actions: {
 		reInputTime() {
@@ -195,7 +197,7 @@ export default Component.extend( {
 				}
 			} )
 		},
-		maxMangerTime: function() {
+		maxMangerTime: function( curAnswer , curInput ) {
 			let maxValueRules = this.validation[0].split( "*" ),
 				typeRules = this.validation[1].split( "*" ),
 				maxMangerTimeRule = "",
@@ -227,8 +229,16 @@ export default Component.extend( {
 			managerInput.push( kpiAnalysisTime )
 			managerInput.push( teamMeetingTime )
 
-			this.checkType( managerTimeInputType, managerInput )
-			this.checkMaxValue( maxMangerTime, managerInput )
+			let typeValidation = this.checkType( managerTimeInputType, managerInput ),
+				valueValidation = this.checkMaxValue( maxMangerTime, managerInput )
+
+			if ( !typeValidation || !valueValidation ) {
+				this.exam.delegate.currentAnswers.forEach( e => {
+					if ( e.resource.get( "id" ) === curAnswer.resource.get( "id" ) ) {
+						curAnswer.set( curInput , e.get( curInput ) )
+					}
+				} )
+			}
 		}
 	}
 } )
