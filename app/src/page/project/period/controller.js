@@ -11,19 +11,25 @@ export default Controller.extend( {
 	currentTab: 0,
 	actions: {
 		submit() {
-			let judgeAuth = this.judgeOauth(),
-				store = this.get( "store" ),
-				representatives = store.peekAll( "representative" ),
-				// 验证businessinputs
-				// 在page-scenario.business 获取之后进行的设置.
+			// let judgeAuth = this.judgeOauth(),
+			// 	store = this.get( "store" ),
+			// 	representatives = store.peekAll( "representative" ),
+			// 	// 验证businessinputs
+			// 	// 在page-scenario.business 获取之后进行的设置.
 
-				businessinputs = store.peekAll( "businessinput" )
+			// 	businessinputs = store.peekAll( "businessinput" )
 
-			if ( isEmpty( judgeAuth ) ) {
-				window.location = judgeAuth
-				return
-			}
-			this.verificationBusinessinputs( businessinputs, representatives )
+			// if ( isEmpty( judgeAuth ) ) {
+			// 	window.location = judgeAuth
+			// 	return
+			// }
+			// this.verificationBusinessinputs( businessinputs, representatives )
+			Ember.Logger.info( "save current input" )
+			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+				this.transitionToRoute( "page.project.report" )
+			} )
+
+
 		},
 		confirmSubmit() {
 			this.set( "warning", { open: false } )
@@ -33,7 +39,7 @@ export default Controller.extend( {
 		},
 		saveInputs() {
 			Ember.Logger.info( "save current input" )
-			this.exam.saveCurrentInput(this.model.period, this.model.answers, () => {
+			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 				alert( "save success" )
 			} )
 		},
