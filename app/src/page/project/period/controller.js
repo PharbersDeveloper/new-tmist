@@ -33,19 +33,19 @@ export default Controller.extend( {
 		},
 		saveInputs() {
 			Ember.Logger.info( "save current input" )
-			this.exam.saveCurrentBussinessInput( () => {
+			this.exam.saveCurrentInput(this.model.period, this.model.answers, () => {
 				alert( "save success" )
 			} )
 		},
-		testResult() {
-			this.toast.success( "", "保存成功", {
-				closeButton: false,
-				positionClass: "toast-top-center",
-				progressBar: false,
-				timeOut: "2000"
-			} )
-			// this.transitionToRoute('page-result');
-		},
+		// testResult() {
+		// 	this.toast.success( "", "保存成功", {
+		// 		closeButton: false,
+		// 		positionClass: "toast-top-center",
+		// 		progressBar: false,
+		// 		timeOut: "2000"
+		// 	} )
+		// 	// this.transitionToRoute('page-result');
+		// },
 		testReport() {
 			this.transitionToRoute( "page.project.report" )
 		},

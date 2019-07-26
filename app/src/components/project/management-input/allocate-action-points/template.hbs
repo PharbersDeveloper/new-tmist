@@ -85,31 +85,31 @@
 									{{common/toggle-button context=resConf 
 										key='productKnowledgeTraining' 
 										state=quiz.answer.productKnowledgeTraining
-										changeState=(action 'changeState')}}
+										changeState=(action 'changeState'  )}}
 								</td>
 								<td>
 									{{common/toggle-button context=resConf 
 										key='salesAbilityTraining' 
 										state=quiz.answer.salesAbilityTraining
-										changeState=(action 'changeState')}}
+										changeState=(action 'changeState' )}}
 								</td>
 								<td>
 									{{common/toggle-button context=resConf 
 										key='regionTraining' 
 										state=quiz.answer.regionTraining
-										changeState=(action 'changeState')}}
+										changeState=(action 'changeState' )}}
 								</td>
 								<td>
 									{{common/toggle-button context=resConf 
 										key='performanceTraining'
 										state=quiz.answer.performanceTraining
-										changeState=(action 'changeState')}}
+										changeState=(action 'changeState' )}}
 								</td>
 								<td>
 									{{common/toggle-button context=resConf 
 										key='vocationalDevelopment'
 										state=quiz.answer.vocationalDevelopment
-										changeState=(action 'changeState')}}
+										changeState=(action 'changeState' )}}
 								</td>
 								{{!-- <td>
 									{{bp-input widthSize="small"
@@ -123,3 +123,21 @@
 			</div>
 		</div>
 {{/bp-layout}}
+{{#bp-modal
+		open=warning.open
+		position='center' 
+		onHidden=(action (mut warning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{warning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc">
+			{{warning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}

@@ -8,28 +8,14 @@
 	{{/bp-layout}}
 	{{!-- 经理剩余时间 start --}}
 	{{#if (bp-eq groupValue 0)}}
-		{{project/management-input/manager-time-management resources=resources}}
+		{{project/management-input/manager-time-management 
+			resources=resources
+			period=period
+			managerAnswer=(find-category answers "Management")
+			answers=(filter-category answers "Resource")}}
 	{{else}}
 		{{project/management-input/allocate-action-points 
 			resources=resources
-			answers=answers}}
+			answers=(filter-category answers "Resource")}}
 	{{/if}}
 {{/bp-layout}}
-{{#bp-modal
-		open=warning.open
-		position='center' 
-		onHidden=(action (mut warning.open) false) as |modal|}}
-	{{#modal.header}}
-		<h4 class="modal-title">
-			{{warning.title}}
-		</h4>
-	{{/modal.header}}
-	{{#modal.body classNames="p-4"}}
-		<p class="desc">
-			{{warning.detail}}
-		</p>
-	{{/modal.body}}
-	{{#modal.footer}}
-		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
-	{{/modal.footer}}
-{{/bp-modal}}

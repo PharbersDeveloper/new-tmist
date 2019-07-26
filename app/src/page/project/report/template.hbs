@@ -34,6 +34,7 @@
 			</li> --}}
 		{{/tabs.tablist}}
 		{{!-- {{outlet}} --}}
-        {{project/proposal-info/historical-info}}
+        {{log model.periods}}
+        {{project/proposal-info/historical-info periods=model.periods}}
 	{{/bp-tabs}}
 {{/bp-layout}}
