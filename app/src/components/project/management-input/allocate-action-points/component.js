@@ -4,7 +4,7 @@ import { isEmpty } from "@ember/utils"
 import { inject as service } from "@ember/service"
 
 export default Component.extend( {
-	positionalParams: ["resources", "answers"],
+	positionalParams: ["resources", "answers", "validation"],
 	quizs: computed( "resources", "answers", function() {
 		return this.resources.map( item => {
 			const one = this.answers.find( x => x.get( "resource.id" ) === item.get( "id" ) )
@@ -13,7 +13,6 @@ export default Component.extend( {
 		} )
 	} ),
 	exam: service( "service/exam-facade" ),
-	validation: ["maxMangerTime#100*maxMangerActionPoint#5", "timeInputType#Number*actionPointInputType#Boolean"],
 	isOverKpi: computed( "ManagerUsedKpi", "managerTotalKpi", function () {
 		let { ManagerUsedKpi, managerTotalKpi } =
 			this.getProperties( "ManagerUsedKpi", "managerTotalKpi" )
@@ -64,22 +63,18 @@ export default Component.extend( {
 		return true
 	},
 	isOverMaxMangerActionPoint: function() {
-		let maxValueRules = this.validation[0].split( "*" ),
+		let maxValueRules = this.validation["maxValue"].split( "*" ),
 			// typeRules = this.validation[1].split( "*" ),
 			maxMangerActionPointRule = "",
 			// managerTimeInputRule = "",
 			managerInput = []
 
 		maxValueRules.forEach( e => {
-			if ( e.startsWith( "maxMangerActionPoint" ) ) {
+			if ( e.startsWith( "managementMaxActionPoint" ) ) {
 				maxMangerActionPointRule = e
 			}
 		} )
-		// typeRules.forEach( e => {
-		// 	if ( e.startsWith( "actionPointInputType" ) ) {
-		// 		managerTimeInputRule = e
-		// 	}
-		// } )
+
 		// 1 第一周期
 		let maxMangerActionPoint = Number( maxMangerActionPointRule.split( "#" )[1] )
 		// managerTimeInputType = String( managerTimeInputRule.split( "#" )[1] )

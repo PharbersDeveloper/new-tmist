@@ -35,6 +35,10 @@ export default Route.extend( {
 				return this.store.query( "model/resource", { filter: "(id,:in," + "[" + hids + "]" + ")"} )
 			} ),
 
+			validation = prs.load().then( x => {
+				return x.belongsTo( "validation" ).load()
+			} ),
+
 			period = this.store.findRecord( "model/period", params.period_id )
 
 		this.facade.startPeriodExam( project )
@@ -58,7 +62,8 @@ export default Route.extend( {
 			products: products,
 			resources: resources,
 			presets: presets,
-			answers: answers
+			answers: answers,
+			validation: validation
 		} )
 	}
 } )

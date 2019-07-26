@@ -7,13 +7,17 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 	// get validation
-	positionalParams: ["resources", "managerAnswer", "answers", "period"],
-	numberVerify: /^-?[0-9]\d*$/,
-	exam: service( "service/exam-facade" ),
+	// init() {
+	// 	this._super( ...arguments )
+	// 	window.console.log( document.getElementsByTagName( "input" ) )
+	// 	window.console.log( document.getElementsByTagName( "input" ).length )
 
-	// groupValue: 0,
-	// validation: "maxMangerTime#100*maxMangerActionPoint#100",
-	validation: ["maxMangerTime#100*maxMangerActionPoint#100", "timeInputType#Number*actionPointInputType#Number"],
+	// },
+	positionalParams: ["resources", "managerAnswer", "answers", "period", "validation"],
+	numberVerify: /^[0-9]\d*$/,
+	exam: service( "service/exam-facade" ),
+	groupValue: 0,
+	// validation: ["maxMangerTime#100*maxMangerActionPoint#100", "timeInputType#Number*actionPointInputType#Number"]
 
 	// circleTime: computed( "managerInput.totalManagerUsedTime",
 	// 	"representativeInputs.@each.{assistAccessTime,abilityCoach}",
@@ -197,20 +201,21 @@ export default Component.extend( {
 				}
 			} )
 		},
-		maxMangerTime: function( curAnswer , curInput ) {
-			let maxValueRules = this.validation[0].split( "*" ),
-				typeRules = this.validation[1].split( "*" ),
+		validationMangerTime: function( curAnswer , curInput ) {
+			window.console.log( this.validation )
+			let maxValueRules = this.validation["maxValue"].split( "*" ),
+				typeRules = this.validation["inputType"].split( "*" ),
 				maxMangerTimeRule = "",
 				managerTimeInputRule = "",
 				managerInput = []
 
 			maxValueRules.forEach( e => {
-				if ( e.startsWith( "maxMangerTime" ) ) {
+				if ( e.startsWith( "managementMaxTime" ) ) {
 					maxMangerTimeRule = e
 				}
 			} )
 			typeRules.forEach( e => {
-				if ( e.startsWith( "timeInputType" ) ) {
+				if ( e.startsWith( "managementTimeInputType" ) ) {
 					managerTimeInputRule = e
 				}
 			} )
