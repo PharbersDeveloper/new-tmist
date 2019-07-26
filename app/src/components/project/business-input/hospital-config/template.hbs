@@ -34,8 +34,9 @@
 		{{/bp-layout}}
 		{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
 			<span local-class='keys' class='mr-3'>分配时间</span>
+			{{!-- {{log quizs}} --}}
 			{{bp-input widthSize="auto"
-					value=model.businessinput.visitTime
+					value=quizs.firstObject.answer.visitTime
 					local-class="input-prepend input-time operating"}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -95,7 +96,7 @@
 	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
 		<span local-class="keys" class='mr-3'>分配会议名额</span>
 		{{bp-input widthSize="auto"
-					value=answer.meetingPlaces
+					value=quizs.firstObject.answer.meetingPlaces
 					disabled=false
 					local-class="input-prepend input-meeting operating"}}
 	{{/bp-layout}}

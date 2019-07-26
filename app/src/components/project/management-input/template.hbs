@@ -11,11 +11,13 @@
 		{{project/management-input/manager-time-management 
 			resources=resources
 			period=period
+			validation=validation
 			managerAnswer=(find-category answers "Management")
 			answers=(filter-category answers "Resource")}}
 	{{else}}
 		{{project/management-input/allocate-action-points 
 			resources=resources
+			validation=validation
 			answers=(filter-category answers "Resource")}}
 	{{/if}}
 {{/bp-layout}}
