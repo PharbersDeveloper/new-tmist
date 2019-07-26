@@ -22,15 +22,15 @@ export default Component.extend( {
 		this.results.map( ele => {
 			this.evaluations.map( elem => {
 				if ( ele.category === "Overall" && elem.category === "Overall" ) {
-					if ( ele.abilityLevel === elem.level ) {
-						tmpOverall.abilityLevel = ele.abilityLevel
+					if ( ele.get( "awardLevel.rank" ) === elem.level ) {
+						tmpOverall.abilityLevel = ele.get( "awardLevel.rank" )
 						tmpOverall.abilityDes = elem.abilityDescription
-						tmpOverall.abilityImg = ele.abilityImg
+						tmpOverall.abilityImg = ele.abilityLevel.get( "rankImg" )
 					}
-					if ( ele.awardLevel === elem.level ) {
-						tmpOverall.awardLevel = ele.awardLevel
+					if ( ele.get( "awardLevel.rank" ) === elem.level ) {
+						tmpOverall.awardLevel = ele.get( "awardLevel.rank" )
 						tmpOverall.awardDes = elem.awardDescription
-						tmpOverall.awardImg = ele.awardImg
+						tmpOverall.awardImg = ele.abilityLevel.get( "awardImg" )
 					}
 				}
 			} )

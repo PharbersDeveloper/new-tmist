@@ -1,5 +1,6 @@
 import Route from "@ember/routing/route"
 import RSVP from "rsvp"
+import { A } from "@ember/array"
 
 export default Route.extend( {
 	model( params ) {
@@ -18,6 +19,13 @@ export default Route.extend( {
 
 				return this.store.query( "model/evaluation", { filter: "(id,:in," + "[" + hids + "]" + ")"} )
 			} )
+
+		results.then( data=> {
+			data.map( ele => {
+				ele.belongsTo( "abilityLevel" ).load()
+				ele.belongsTo( "awardLevel" ).load()
+			} )
+		} )
 
 		return RSVP.hash( {
 			project: project,

@@ -17,11 +17,11 @@ export default Component.extend( {
 		this.results.map( ele => {
 			this.evaluations.map( elem => {
 				if ( ele.category === this.cate && elem.category === this.cate ) {
-					if ( ele.abilityLevel === elem.level ) {
-						tmp.abilityLevel = ele.abilityLevel
+					if ( ele.get( "awardLevel.rank" ) === elem.level ) {
+						tmp.abilityLevel = ele.get( "awardLevel.rank" )
 						tmp.levelDes = elem.levelDescription
 						tmp.actionDes = elem.actionDescription
-						tmp.abilityImg = ele.abilityImg
+						tmp.abilityImg = ele.get( "awardLevel.rankImg" )
 					}
 				}
 			} )
