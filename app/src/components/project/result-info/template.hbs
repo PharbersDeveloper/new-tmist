@@ -7,23 +7,20 @@
 					测试综合表现
 				{{/left.item}}
 				{{#left.item }}
-					日期：<span class="mx-2">{{model.time}}</span>
-					用时：<span class="mx-2">50min*</span>
+					完成日期：<span class="mx-2">{{format-date-standard project.endTime}}</span>
+					用时：<span class="mx-2">{{time-difference project.startTime project.endTime}}</span>
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
-				{{#bp-button disabled=true onClick=(action 'toResult') classNames="mr-1"}}
+				{{#bp-button disabled=true onClick=(action 'toReport') classNames="mr-1"}}
 					导出测试数据
 				{{/bp-button}}
-				{{#if fromResult}}
-					{{#bp-button onClick=(action 'toResult')}}
-						返回报告
-					{{/bp-button}}
-				{{else}}
-					{{#bp-button onClick=(action 'toIndex')}}
-						返回关卡
-					{{/bp-button}}
-				{{/if}}
+				{{#bp-button onClick=(action 'toReport')}}
+					返回报告
+				{{/bp-button}}
+				{{#bp-button onClick=(action 'toIndex')}}
+					返回关卡
+				{{/bp-button}}
 			{{/body.right}}
 		{{/ph.body}}
 	{{/bp-page-header}}
@@ -41,9 +38,10 @@
 				{{/bp-layout}}
 				{{#bp-layout cross='center' local-class='score content' classNames='mb-2'}}
 					{{#bp-layout main='center' cross='center' local-class='img-container'}}
-						<img src={{model.generalPerformanceResult.levelConfig.level.image.img}} alt="">
+						<img src={{overallInfo.abilityImg.img}} alt="">
 					{{/bp-layout}}
 					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
+						{{overallInfo.abilityDes}}
 						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
 					{{/bp-layout}}
 				{{/bp-layout}}
@@ -55,10 +53,11 @@
 				{{/bp-layout}}
 				{{#bp-layout cross='center' local-class='won-title content'}}
 					{{#bp-layout direction='col' main='center' local-class='img-container'}}
-						<img src={{model.generalPerformanceResult.levelConfig.title.image.img}} alt="">
-						<p class="m-0 text-center">{{model.generalPerformanceResult.levelConfig.title.value}}</p>
+						<img src={{overallInfo.awardImg.img}} alt="">
+						<p class="m-0 text-center">{{overallInfo.awardLevel}}级</p>
 					{{/bp-layout}}
 					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
+						{{overallInfo.awardDes}}
 						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
 					{{/bp-layout}}
 				{{/bp-layout}}
@@ -81,7 +80,8 @@
 		classNames="m-0 mb-2 px-4 bg-white"}}
 		分项表现
 	{{/bp-layout}}
-	{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+	{{project/result-info/result-block title="区域划分能力" cate="Area" results=results evaluations=evaluations}}
+	{{!-- {{#bp-layout direction='col' classNames='mb-2 bg-white'}}
 		{{#bp-layout tagName='h4' cross='center' local-class="title" 
 		classNames="m-0 mb-2 px-4"}}
 			区域划分能力
@@ -240,5 +240,5 @@
 				</p>
 			{{/bp-layout}}
 		{{/bp-layout}}
-	{{/bp-layout}}
+	{{/bp-layout}} --}}
 {{/bp-layout}}
