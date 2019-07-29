@@ -69,6 +69,7 @@
 				<td class="px-2 border-0">
 					{{bp-input block=true widthSize="auto" 
 						value=quiz.answer.salesTarget
+						onChange=(action "salesTargetValidation" (mut quiz.answer.salesTarget))
 						disabled=false
 						local-class="input-prepend input-money"
 						classNames="mb-2"}}
@@ -79,6 +80,7 @@
 				<td class="pl-2 pr-4 border-0">
 					{{bp-input block=true widthSize="auto"
 						value=quiz.answer.budget
+						onChange=(action "budgetValidation" (mut quiz.answer.budget))
 						disabled=false
 						local-class="input-prepend input-money"}}
 					<p class="mt-2 mb-0 text-center" local-class="percent">
@@ -98,9 +100,11 @@
 		{{bp-input widthSize="auto"
 					value=quizs.firstObject.answer.meetingPlaces
 					disabled=false
+					onChange=(action "meetingPlacesValidation" (mut quizs.firstObject.answer.meetingPlaces))
 					local-class="input-prepend input-meeting operating"}}
 	{{/bp-layout}}
 	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
 	{{/bp-layout}}
 {{/bp-layout}}
+
 {{yeild}}

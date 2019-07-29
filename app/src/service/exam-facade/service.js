@@ -5,7 +5,6 @@ import examDelegate from "./exam-delegate/delegate"
 export default Service.extend( {
 	store: service(),
 	delegate: null,
-
 	startPeriodExam( aProject ) {
 		this.set( "delegate", examDelegate.create( aProject.belongsTo( "proposal" ) ) )
 		this.delegate.set( "store",this.store )
@@ -23,7 +22,7 @@ export default Service.extend( {
 		} )
 		this.set( "operationAnswers", null )
 	},
-	saveCurrentInput(period, answers, fcallback ) {
+	saveCurrentInput( period, answers, fcallback ) {
 		/**
          * copy and swap
 		 * TODO: 只写了新建流程
@@ -32,7 +31,7 @@ export default Service.extend( {
 			return answer.save()
 		} ) ).then( answers => {
 			this.set( "delegate.currentAnswers", answers )
-			period.set( "answers", answers)
+			period.set( "answers", answers )
 			return period.save()
 		} ).then( period => {
 			fcallback( period )
