@@ -1,21 +1,28 @@
 {{#bp-layout local-class="page-mission"}}
-	{{#bp-layout wrap=true multi="start" local-class="mission-list" classNames="p-4"}}
-		{{#each model.usableProposals as |usableProposal|}}
-			{{welcome/mission-info
-				local-class="choosed"
-				proposal=usableProposal.proposal
-				onClick=(action "enterNewProjectWithProposal" usableProposal.proposal)}}
-		{{else}}
-			<p>{{t "welcome.no-task"}}</p>
-		{{/each}}
-		{{#each model.currentProjects as |currentProject|}}
-			{{welcome/historical-info
-				local-class="choosed"
-				project=currentProject
-				onClick=(action "enterNewProjectWithProject" currentProject)}}
-		{{else}}
-			<p>{{t "welcome.no-task"}}</p>
-		{{/each}}
+	{{#bp-layout direction="col" local-class="mission-wrapper"}}
+		<div>proposal</div>
+		{{#bp-layout wrap=true multi="center" local-class="mission-list" classNames="p-4"}}
+			{{#each model.usableProposals as |usableProposal|}}
+				{{welcome/mission-info
+					local-class="choosed"
+					proposal=usableProposal.proposal
+					onClick=(action "enterNewProjectWithProposal" usableProposal.proposal)}}
+			{{else}}
+				<p>{{t "welcome.no-task"}}</p>
+			{{/each}}
+		{{/bp-layout}}
+		<div>=====================================================</div>
+		<div>project</div>
+		{{#bp-layout wrap=true multi="start" local-class="mission-list" classNames="p-4"}}
+			{{#each model.currentProjects as |currentProject|}}
+				{{welcome/historical-info
+					local-class="choosed"
+					project=currentProject
+					onClick=(action "enterNewProjectWithProject" currentProject)}}
+			{{else}}
+				<p>{{t "welcome.no-task"}}</p>
+			{{/each}}
+		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout direction="col" local-class="mission-desc" classNames="p-4"}}
 		{{#if (bp-eq lastSelectedCat 0)}}

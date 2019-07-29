@@ -10,5 +10,11 @@ import { inject as service } from "@ember/service"
 export default Controller.extend( {
 	cookies: service(),
 	oauthService: service( "service/oauth" ),
-	showNavbar: true
+	showNavbar: true,
+
+	actions: {
+		endMission() {
+			this.transitionToRoute( "page.welcome" )
+		}
+	}
 } )
