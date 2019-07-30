@@ -13,5 +13,5 @@ export default DS.Model.extend( {
 	resources: DS.hasMany( "model/resource" ),
 	presets: DS.hasMany( "model/preset" ),
 	evaluations: DS.hasMany( "model/evaluation" ),
-	validations: DS.hasMany( "model/validation" )
+	validation: DS.belongsTo( "model/validation" )
 } )

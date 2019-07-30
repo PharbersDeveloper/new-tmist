@@ -7,13 +7,17 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 	// get validation
-	positionalParams: ["resources", "managerAnswer", "answers", "period"],
-	numberVerify: /^-?[0-9]\d*$/,
-	exam: service( "service/exam-facade" ),
+	// init() {
+	// 	this._super( ...arguments )
+	// 	window.console.log( document.getElementsByTagName( "input" ) )
+	// 	window.console.log( document.getElementsByTagName( "input" ).length )
 
-	// groupValue: 0,
-	// validation: "maxMangerTime#100*maxMangerActionPoint#100",
-	validation: ["maxMangerTime#100*maxMangerActionPoint#100", "timeInputType#Number*actionPointInputType#Number"],
+	// },
+	positionalParams: ["resources", "managerAnswer", "answers", "period", "validation"],
+	numberVerify: /^[0-9]\d*$/,
+	exam: service( "service/exam-facade" ),
+	groupValue: 0,
+	// validation: ["maxMangerTime#100*maxMangerActionPoint#100", "timeInputType#Number*actionPointInputType#Number"]
 
 	// circleTime: computed( "managerInput.totalManagerUsedTime",
 	// 	"representativeInputs.@each.{assistAccessTime,abilityCoach}",
@@ -148,16 +152,16 @@ export default Component.extend( {
 
 		if ( type === "Number" ) {
 			for ( let i = 0; i < len; i++ ) {
-				// let temp = Number( arr[i] )
 				if ( isNaN( Number( arr[i] ) ) ) {
-					window.console.log( arr[i] )
 					this.set( "warning", {
 						open: true,
 						title: "非法值警告",
 						detail: "请输入数字！"
 					} )
+					return false
 				}
 			}
+			return true
 		}
 	},
 	checkMaxValue( max, arr ) {
@@ -174,8 +178,10 @@ export default Component.extend( {
 					title: "经理时间超额",
 					detail: "经理时间设定已超过限制，请重新分配。"
 				} )
+				return false
 			}
 		}
+		return true
 	},
 	actions: {
 		reInputTime() {
@@ -195,20 +201,21 @@ export default Component.extend( {
 				}
 			} )
 		},
-		maxMangerTime: function() {
-			let maxValueRules = this.validation[0].split( "*" ),
-				typeRules = this.validation[1].split( "*" ),
+		validationMangerTime: function( curAnswer , curInput ) {
+			window.console.log( this.validation )
+			let maxValueRules = this.validation["maxValue"].split( "*" ),
+				typeRules = this.validation["inputType"].split( "*" ),
 				maxMangerTimeRule = "",
 				managerTimeInputRule = "",
 				managerInput = []
 
 			maxValueRules.forEach( e => {
-				if ( e.startsWith( "maxMangerTime" ) ) {
+				if ( e.startsWith( "managementMaxTime" ) ) {
 					maxMangerTimeRule = e
 				}
 			} )
 			typeRules.forEach( e => {
-				if ( e.startsWith( "timeInputType" ) ) {
+				if ( e.startsWith( "managementTimeInputType" ) ) {
 					managerTimeInputRule = e
 				}
 			} )
@@ -227,8 +234,16 @@ export default Component.extend( {
 			managerInput.push( kpiAnalysisTime )
 			managerInput.push( teamMeetingTime )
 
-			this.checkType( managerTimeInputType, managerInput )
-			this.checkMaxValue( maxMangerTime, managerInput )
+			let typeValidation = this.checkType( managerTimeInputType, managerInput ),
+				valueValidation = this.checkMaxValue( maxMangerTime, managerInput )
+
+			if ( !typeValidation || !valueValidation ) {
+				this.exam.delegate.currentAnswers.forEach( e => {
+					if ( e.resource.get( "id" ) === curAnswer.resource.get( "id" ) ) {
+						curAnswer.set( curInput , e.get( curInput ) )
+					}
+				} )
+			}
 		}
 	}
 } )

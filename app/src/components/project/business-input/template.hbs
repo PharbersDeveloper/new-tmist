@@ -10,12 +10,12 @@
 				</p>
 				<p local-class="info" class="mb-3">
 					{{t "project.business-input.money"}}
-					{{format-number 12345}} /
+					{{format-number currentSalesTarget}} /
 					{{t "project.business-input.money"}}
 					{{format-number project.proposal.quota.totalQuotas}}
 				</p>
 				{{#bp-progress local-class="progress" as |p|}}
-					{{p.bar value=12345 maxValue=project.proposal.quota.totalQuotas}}
+					{{p.bar value=currentSalesTarget maxValue=project.proposal.quota.totalQuotas}}
 				{{/bp-progress}}
 				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
 					{{#bp-layout tagName="span" cross="center"}}
@@ -35,12 +35,12 @@
 				<p local-class="m-name" class="mb-3 ">{{currentName}}</p>
 				<p local-class="info" class="mb-3">
 					{{t "project.business-input.money"}}
-					{{format-number 100000}} /
+					{{format-number (mut currentBudget)}} /
 					{{t "project.business-input.money"}}
 					{{format-number project.proposal.quota.totalBudget}}
 				</p>
 				{{#bp-progress as |p|}}
-					{{p.bar value=100000 maxValue=project.proposal.quota.totalBudget}}
+					{{p.bar value=currentBudget maxValue=project.proposal.quota.totalBudget}}
 				{{/bp-progress}}
 				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
 					{{#bp-layout tagName="span" cross="center"}}
@@ -88,14 +88,14 @@
 			<div class="px-4 pt-4">
 				<p local-class="m-name" class="mb-3 ">&nbsp;</p>
 				<p local-class="info" class="mb-4">
-					{{format-number 2}} /
+					{{format-number currentMeetingPlaces}} /
 					{{format-number project.proposal.quota.meetingPlaces}}
 					<span local-class="unit">
 						{{t "project.business-input.number"}}
 					</span>
 				</p>
 				{{#bp-progress as |p|}}
-					{{p.bar value=2 maxValue=project.proposal.quota.meetingPlaces}}
+					{{p.bar value=currentMeetingPlaces maxValue=project.proposal.quota.meetingPlaces}}
 				{{/bp-progress}}
 			</div>
 		</div>
@@ -133,8 +133,12 @@
 				{{project/business-input/hospital-config
 					proposal=project.proposal
 					hospital=quiz.hospital
+					validation=validation
 					quizs=quiz.quizs
-					resources=resources}}
+					resources=resources
+					meetingPlacesValidationOuter=(action "meetingPlacesValidationHandle")
+					salesTargetValidationOuter=(action "salesTargetValidationHandle")
+					budgetValidationOuter=(action "budgetValidationHandle")}}
 			{{/each}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -161,4 +165,5 @@
 		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
 	{{/modal.footer}}
 {{/bp-modal}}
+
 {{yield}}

@@ -1,21 +1,28 @@
 {{#bp-layout local-class="page-mission"}}
-	{{#bp-layout wrap=true multi="start" local-class="mission-list" classNames="p-4"}}
-		{{#each model.usableProposals as |usableProposal|}}
-			{{welcome/mission-info
-				local-class="choosed"
-				proposal=usableProposal.proposal
-				onClick=(action "enterNewProjectWithProposal" usableProposal.proposal)}}
-		{{else}}
-			<p>{{t "welcome.no-task"}}</p>
-		{{/each}}
-		{{#each model.currentProjects as |currentProject|}}
-			{{welcome/historical-info
-				local-class="choosed"
-				project=currentProject
-				onClick=(action "enterNewProjectWithProject" currentProject)}}
-		{{else}}
-			<p>{{t "welcome.no-task"}}</p>
-		{{/each}}
+	{{#bp-layout direction="col" local-class="mission-wrapper"}}
+		<div>proposal</div>
+		{{#bp-layout wrap=true multi="center" local-class="mission-list" classNames="p-4"}}
+			{{#each model.usableProposals as |usableProposal|}}
+				{{welcome/mission-info
+					local-class="choosed"
+					proposal=usableProposal.proposal
+					onClick=(action "enterNewProjectWithProposal" usableProposal.proposal)}}
+			{{else}}
+				<p>{{t "welcome.no-task"}}</p>
+			{{/each}}
+		{{/bp-layout}}
+		<div>=====================================================</div>
+		<div>project</div>
+		{{#bp-layout wrap=true multi="start" local-class="mission-list" classNames="p-4"}}
+			{{#each model.currentProjects as |currentProject|}}
+				{{welcome/historical-info
+					local-class="choosed"
+					project=currentProject
+					onClick=(action "enterNewProjectWithProject" currentProject)}}
+			{{else}}
+				<p>{{t "welcome.no-task"}}</p>
+			{{/each}}
+		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout direction="col" local-class="mission-desc" classNames="p-4"}}
 		{{#if (bp-eq lastSelectedCat 0)}}
@@ -53,7 +60,6 @@
 				{{currentProject.proposal.describe }}
 			</p>
 		{{/if}}
-		{{!-- test new component --}}
 		{{#bp-button type="subtle"  classNames="mr-3" onClick=(action (mut rules) true)}}
 			{{t "rules-introduction-modal.self-name"}}
 		{{/bp-button}}
@@ -74,29 +80,31 @@
 				{{/bp-button}}
 			{{/if}}
 		{{/bp-layout}}
-		<div class="dropdown-divider mt-3 mb-4"></div>
-		{{#bp-layout tagName="h4" main="between" classNames="m-0"}}
-			<span local-class="title">{{t "welcome.historical-evaluation-report"}}</span>
-			{{#if (bp-gt model.detailPaper.assessmentReports.length 0)}}
-				<span local-class="times">{{t "welcome.total-finish"}}{{model.detailPaper.assessmentReports.length}}{{t "welcome.times"}}</span>
-			{{/if}}
-		{{/bp-layout}}
-		{{#each model.historicalProjects as |project index|}}
-			{{#bp-layout tagName="p" main="between" cross="center"
-				local-class="historp-report"
-			classNames=(if (bp-eq index 0) "mt-4 mb-0 px-2 py-3" "m-0 px-2 py-3")}}
-				{{#bp-layout tagName="span" local-class="infos"}}
-					<span class="mr-3">{{bp-increment-property index}}</span>
-					<span class="mr-4"> <span local-class="level" class="mr-1">{{t "welcome.s"}}</span>{{t "welcome.grade"}}</span>
-					<span>{{bp-string-slice assessmentReport.time 0}}</span>
-				{{/bp-layout}}
-				{{#link-to "page-report" assessmentReport}}
-					{{t "welcome.examine"}}
-				{{/link-to}}
+		{{#if (bp-eq lastSelectedCat 0)}}
+			<div class="dropdown-divider mt-3 mb-4"></div>
+			{{#bp-layout tagName="h4" main="between" classNames="m-0"}}
+				<span local-class="title">{{t "welcome.historical-evaluation-report"}}</span>
+				{{#if (bp-gt model.detailPaper.assessmentReports.length 0)}}
+					<span local-class="times">{{t "welcome.total-finish"}}{{model.detailPaper.assessmentReports.length}}{{t "welcome.times"}}</span>
+				{{/if}}
 			{{/bp-layout}}
-		{{else}}
-			<p class="mt-2">{{t "welcome.task-not-completed"}}</p>
-		{{/each}}
+			{{#each model.historicalProjects as |project index|}}
+				{{#bp-layout tagName="p" main="between" cross="center"
+					local-class="historp-report"
+				classNames=(if (bp-eq index 0) "mt-4 mb-0 px-2 py-3" "m-0 px-2 py-3")}}
+					{{#bp-layout tagName="span" local-class="infos"}}
+						<span class="mr-3">{{bp-increment-property index}}</span>
+						<span class="mr-4"> <span local-class="level" class="mr-1">{{t "welcome.s"}}</span>{{t "welcome.grade"}}</span>
+						<span>{{bp-string-slice assessmentReport.time 0}}</span>
+					{{/bp-layout}}
+					{{#link-to "page-report" assessmentReport}}
+						{{t "welcome.examine"}}
+					{{/link-to}}
+				{{/bp-layout}}
+			{{else}}
+				<p class="mt-2">{{t "welcome.task-not-completed"}}</p>
+			{{/each}}
+		{{/if}}
 	{{/bp-layout}}
 {{/bp-layout}}
 {{#bp-modal

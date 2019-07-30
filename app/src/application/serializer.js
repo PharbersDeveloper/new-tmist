@@ -15,6 +15,9 @@ export default DS.JSONAPISerializer.extend( {
 	},
 	keyForAttribute( key ) {
 		return key
+	},
+	keyForRelationship( key ) {
+		return key
 	}
 	// keyForRelationship(key, typeClass, method) {
 	// 	if (method === "deserialize") {

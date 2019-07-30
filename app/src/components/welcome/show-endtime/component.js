@@ -17,7 +17,7 @@ export default Component.extend( {
 		// 	return `任务中断时间 ${this.formatDate( endTime )}`
 		// }
 		// return `完成时间 ${this.formatDate( endTime )}`
-		return `完成时间 ${this.formatDate( this.get( "paper" ) )}`
+		return `最后更新时间${this.formatDate( this.get( "paper" ) )}`
 	} ),
 	addZero( number ) {
 		if ( number < 10 ) {

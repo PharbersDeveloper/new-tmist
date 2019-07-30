@@ -78,12 +78,12 @@
 					{{/bp-layout}}
 					{{#bp-layout direction="col" local-class="inputs" }}
 						{{bp-input value=managerAnswer.strategAnalysisTime
-							onChange=(action "maxMangerTime" (mut managerAnswer.strategAnalysisTime))
+							onChange=(action "validationMangerTime" managerAnswer "strategAnalysisTime" (mut managerAnswer.strategAnalysisTime))
 							size="medium" widthSize="" 
 							classNames="mb-4"
 							local-class="input-prepend"}}
 						{{bp-input value=managerAnswer.clientManagementTime
-						onChange=(action "maxMangerTime" (mut managerAnswer.clientManagementTime))
+						onChange=(action "validationMangerTime" managerAnswer "clientManagementTime" (mut managerAnswer.clientManagementTime))
 							size="medium" widthSize=""
 							local-class="input-prepend"}}
 					{{/bp-layout}}
@@ -101,12 +101,12 @@
 					{{/bp-layout}}
 					{{#bp-layout direction="col" local-class="inputs" }}
 						{{bp-input value=managerAnswer.adminWorkTime
-						onChange=(action "maxMangerTime" (mut managerAnswer.adminWorkTime))
+						onChange=(action "validationMangerTime" managerAnswer "adminWorkTime" (mut managerAnswer.adminWorkTime))
 							size="medium" widthSize=""
 							classNames="mb-4"
 							local-class="input-prepend"}}
 						{{bp-input value=managerAnswer.kpiAnalysisTime
-						onChange=(action "maxMangerTime" (mut managerAnswer.kpiAnalysisTime))
+						onChange=(action "validationMangerTime" managerAnswer "kpiAnalysisTime" (mut managerAnswer.kpiAnalysisTime))
 							size="medium" widthSize=""
 							local-class="input-prepend"}}
 					{{/bp-layout}}
@@ -125,7 +125,7 @@
 				{{#bp-layout direction="col" local-class="inputs" }}
 					{{bp-input
 						value=managerAnswer.teamMeetingTime
-						onChange=(action "maxMangerTime" (mut managerAnswer.teamMeetingTime))
+						onChange=(action "validationMangerTime" managerAnswer "teamMeetingTime" (mut managerAnswer.teamMeetingTime))
 						size="medium"
 						local-class="input-prepend"}}
 				{{/bp-layout}}
@@ -153,12 +153,12 @@
 						{{!-- {{#each representativeInputs as |resConf|}} --}}
 							{{!-- {{#if (bp-eq rcs.id resConf.resourceConfigId)}} --}}
 							{{bp-input value=answer.abilityCoach
-							onChange=(action "maxMangerTime" (mut managerAnswer.abilityCoach))
+							onChange=(action "validationMangerTime" answer "abilityCoach" (mut answer.abilityCoach))
 								size="medium" widthSize="small" 
 								classNames="mb-4"
 								local-class="input-prepend"}}
 							{{bp-input value=answer.assistAccessTime
-							onChange=(action "maxMangerTime" (mut managerAnswer.assistAccessTime))
+							onChange=(action "validationMangerTime" answer "assistAccessTime" (mut answer.assistAccessTime))
 								size="medium" 
 								widthSize="small"
 								local-class="input-prepend"}}
