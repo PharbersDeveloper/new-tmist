@@ -37,6 +37,7 @@
 			{{!-- {{log quizs}} --}}
 			{{bp-input widthSize="auto"
 					value=quizs.firstObject.answer.visitTime
+					onChange=(action "visitTimeValidation" quizs.firstObject.answer (mut quizs.firstObject.answer.visitTime))
 					local-class="input-prepend input-time operating"}}
 		{{/bp-layout}}
 	{{/bp-layout}}
