@@ -29,7 +29,32 @@ h2.title {
 
 .circle-left,
 .circle-right {
-    flex: 1;
+	flex: 1;
+}
+
+.circle-left .title {
+    @extend %header-small;
+}
+
+.circle-legend {
+    span {
+        display: inline-block;
+    }
+
+    .point {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+
+    .name {
+        @extend %p-primary;
+    }
+
+    .value {
+        @extend %p-secondary;
+    }
 }
 
 .content {
