@@ -4,7 +4,8 @@ import Component from "@ember/component"
 // import RSVP, { hash } from "rsvp"
 
 export default Component.extend( {
-	positionalParams: ["products"]
+	positionalParams: ["products"],
+	currentProduct: 0
 	// model() {
 	//     let scenarioModel = this.modelFor('page-scenario'),
 	//         salesReports = scenarioModel.salesReports,

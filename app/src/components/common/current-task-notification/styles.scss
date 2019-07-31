@@ -13,8 +13,10 @@
 	}
 
 	h4.title {
-		@extend %header-small;
-		margin-top: 25px;
+		// @extend %header-small;
+		color: #172b4d;
+		// margin-top: 25px;
+		font-size: 16px;
 	}
 
 	.blank {

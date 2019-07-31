@@ -152,9 +152,10 @@ rules-introduction-modal:
   line-7: 1. 经理的时间需要全部分配。
 current-task-notification:
   self-name: 本期任务通知
-  title-1: 经理，您好！
-  title-2: 欢迎进入铁马区域项目管理
-  desc: 在本次案例测试中，您的任务是对您所负责的地区完成新一季度的区域周期计划，周期计划的内容包括业务决策与管理决策，请仔细阅读右侧的任务通知，了解地区概况与您手上的资源后，点击“进入任务”，开始测试。
+  title-1: 经理您好！
+  title-2: 欢迎进入【区域项目管理】
+  desc: 当前公司的发展情况，以及市场环境。背景信息故事。
+  introduction: 本测试是区域管理周期测试
   entry-mission: 进入任务
   goal: 合理分配资源完成业务目标
   hospital-number: 安排医院数量
@@ -169,9 +170,8 @@ current-task-notification:
   allocate-manager-time: 分配经理时间
   allocate-manager-time-2: 100%
   manager-action-points: 经理行动点数
-  manager-action-points-2: '60'
+  manager-action-points-2: "60"
   seasonable-budget-control: 合理支配预算
   general-budget: 总预算
   money: ￥
   achieve-sales-targets: 完成销售额指标
-
