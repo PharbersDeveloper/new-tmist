@@ -1,32 +1,38 @@
 {{#bp-layout direction="col" local-class="reference-container"}}
 	{{#bp-layout main="center" classNames="py-4" local-class="reference-tabs" }}
-		{{#bp-button-group value=groupValue type="radio" onChange=(action (mut groupValue)) as |bg|}}
-			{{#bg.button type="default" value="index"
-				onClick=(action (mut currentPannel) 0)}}
-				{{t "project.proposal-info.index"}}{{/bg.button}}
-			{{#bg.button type="default" value="hospital"
-				onClick=(action (mut currentPannel) 1)}}
-				{{t "project.proposal-info.hospital"}}{{/bg.button}}
-			{{#bg.button type="default" value="member"
-				onClick=(action (mut currentPannel) 2)}}
-				{{t "project.proposal-info.member"}}{{/bg.button}}
-			{{#bg.button type="default" value="sold"
-				onClick=(action (mut currentPannel) 3)}}
-				{{t "project.proposal-info.sold"}}{{/bg.button}}
+		{{#bp-button-group value=groupValue type="radio" local-class="btn-group-info" onChange=(action (mut groupValue)) as |bg| }}
+			{{#bg.button type="default" value="notification" onClick=(action (mut currentPannel) 0) local-class="tab-btn"}}
+				场景信息
+			{{/bg.button}}
+			{{#bg.button type="default" value="index" onClick=(action (mut currentPannel) 1) local-class="tab-btn"}}
+				{{t "project.proposal-info.index"}}
+			{{/bg.button}}
+			{{#bg.button type="default" value="hospital" onClick=(action (mut currentPannel) 2) local-class="tab-btn"}}
+				{{t "project.proposal-info.hospital"}}
+			{{/bg.button}}
+			{{#bg.button type="default" value="member" onClick=(action (mut currentPannel) 3) local-class="tab-btn"}}
+				{{t "project.proposal-info.member"}}
+			{{/bg.button}}
+			{{#bg.button type="default" value="sold"	onClick=(action (mut currentPannel) 4) local-class="tab-btn"}}
+				{{t "project.proposal-info.sold"}}
+			{{/bg.button}}
 		{{/bp-button-group}}
 	{{/bp-layout}}
 	{{log project.periods}}
 	<div local-class="reference-content">
 		{{#if (bp-eq currentPannel 0)}}
-			{{project/proposal-info/product-info products=proposal.products }}
+			{{common/current-task-notification }}
 		{{/if}}
 		{{#if (bp-eq currentPannel 1)}}
-			{{project/proposal-info/hospital-info hospitals=proposal.targets}}
+			{{project/proposal-info/product-info products=proposal.products }}
 		{{/if}}
 		{{#if (bp-eq currentPannel 2)}}
-			{{project/proposal-info/member-info resources=proposal.resources}}
+			{{project/proposal-info/hospital-info hospitals=proposal.targets}}
 		{{/if}}
 		{{#if (bp-eq currentPannel 3)}}
+			{{project/proposal-info/member-info resources=proposal.resources}}
+		{{/if}}
+		{{#if (bp-eq currentPannel 4)}}
 			{{project/proposal-info/historical-info periods=project.periods}}
 		{{/if}}
 	</div>
