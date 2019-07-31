@@ -1,4 +1,4 @@
-{{#bp-layout tagName="h3" main="between" cross="center" local-class="title" class="px-4" }}
+{{!-- {{#bp-layout tagName="h3" main="between" cross="center" local-class="title" class="px-4" }}
 	<span>
 		<span local-class="icon" {{action "showContent"}} role="button">{{bp-icon icon=icon }}</span>
 		{{#if (bp-eq product.productType 0)}}
@@ -8,8 +8,8 @@
 		{{/if}}
 		{{product.name}}
 	</span>
-{{/bp-layout}}
-{{#bs-collapse collapsed=showContent}}
+{{/bp-layout}} --}}
+{{!-- {{#bs-collapse collapsed=showContent}} --}}
 	{{#bp-layout local-class="product-content" classNames="p-4" }}
 		{{#bp-layout main="between" local-class="left" }}
 			{{!-- {{#each goods.productConfig.product.images as |item|}} --}}
@@ -45,84 +45,8 @@
 					<span>{{t "card.product-card.reference-price"}}</span>
 					<span>{{product.priceType}}{{format-number product.price}}</span>
 				{{/bp-layout}}
-				{{!-- {{#bp-layout tagName="p" }}
-					<span>药品特点</span>
-					<span>{{goods.productConfig.productFeature}}</span>
-				{{/bp-layout}} --}}
-				{{!-- {{#bp-layout tagName="p" }}
-					<span>治疗领域</span>
-					<span>{{goods.productConfig.treatmentArea}}</span>
-				{{/bp-layout}} --}}
-				{{!-- {{#bp-layout tagName="p" local-class="target-department"}}
-					<span>目标科室</span>
-					<span>
-						{{#each (string-to-array goods.productConfig.targetDepartment "#") as |item|}}
-							<span>
-								{{item}}
-							</span>
-						{{/each}}
-					</span>
-				{{/bp-layout}} --}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{!-- {{#bp-layout direction="col" main="between" local-class="right" }}
-			{{#bp-layout local-class="property prod-property" }}
-				{{#bp-layout direction="col" main="between" local-class="square" }}
-					<span>
-						{{goods.productConfig.costEffective}}
-					</span>
-					<span>性价比</span>
-				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between" local-class="square" }}
-					<span>
-						{{goods.productConfig.safety}}
-					</span>
-					<span>安全性</span>
-				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between" local-class="square" }}
-					<span>
-						{{goods.productConfig.effectiveness}}
-					</span>
-					<span>有效性</span>
-				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between" local-class="square" }}
-					<span>
-						{{goods.productConfig.convenience}}
-					</span>
-					<span>方便性</span>
-				{{/bp-layout}}
-			{{/bp-layout}}
-			{{#bp-layout local-class="price prod-property" }}
-				{{#bp-layout direction="col" main="between" local-class="square" }}
-					<span>
-						{{goods.productConfig.priceType}}
-						{{format-number goods.productConfig.referencePrice}}
-					</span>
-					<span>公司考核价</span>
-				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between" local-class="square" }}
-					<span>
-						{{goods.productConfig.priceType}}
-						{{format-number goods.productConfig.costPrice}}
-					</span>
-					<span>单位成本价</span>
-				{{/bp-layout}}
-			{{/bp-layout}}
-			{{#bp-layout local-class="manufacturer prod-property" }}
-				{{#bp-layout direction="col" main="between" local-class="square" }}
-					<span>
-						{{goods.productConfig.product.medicareCategory}}
-					</span>
-					<span>医保类型</span>
-				{{/bp-layout}}
-				{{#bp-layout direction="col" main="between" local-class="square" }}
-					<span>
-						{{goods.productConfig.product.corpName}}
-					</span>
-					<span>生产厂商</span>
-				{{/bp-layout}}
-			{{/bp-layout}}
-		{{/bp-layout}} --}}
 		{{#bp-layout direction="col" local-class="right" }}
 			<p local-class="keys" class="mb-2">{{t "card.product-card.product-feature"}}</p>
 			<p local-class="values">
@@ -131,4 +55,4 @@
 			</p>
 		{{/bp-layout}}
 	{{/bp-layout}}
-{{/bs-collapse}}
+{{!-- {{/bs-collapse}} --}}
