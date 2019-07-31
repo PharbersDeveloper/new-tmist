@@ -1,4 +1,4 @@
-{{#bp-layout direction="col" local-class="reference-container"}}	
+{{#bp-layout direction="col" local-class="reference-container"}}
 	{{#bp-layout main="center" classNames="py-4" local-class="reference-tabs" }}
 		{{#bp-button-group value=groupValue type="radio" local-class="btn-group-info" onChange=(action (mut groupValue)) as |bg| }}
 			{{#bg.button type="default" value="notification" onClick=(action (mut currentPannel) 0) local-class="tab-btn"}}
