@@ -1,11 +1,73 @@
-{{#bp-layout direction="col" local-class="business-container" classNames="p-4"}}
-	{{#bp-layout}}
+{{#bp-layout direction="col" local-class="business-container" classNames="p-4" main="center"}}
+	{{#bp-layout local-class="sales-and-budget" direction="row"  classNames="mb-4" main="center"}}
+		{{#bp-layout local-class="sales" classNames="bg-white mr-4" direction="col" }}
+			{{#bp-layout tagName="h4" classNames="py-3 pl-3"}}药品销售额指标{{/bp-layout}}
+			{{#bp-layout}}chart{{/bp-layout}}
+		{{/bp-layout}}
 
+		{{#bp-layout local-class="budget" direction="col" classNames="bg-white"}}
+			{{#bp-layout direction="row" main="between"}}
+				{{#bp-layout tagName="h4" classNames="py-3 pl-3"}}药品预算{{/bp-layout}}
+				{{#bp-layout classNames="py-2"}}
+					{{#bp-button local-class="active"}}产品预算占比{{/bp-button}}
+					{{#bp-button classNames="mr-2"}}代表预算占比{{/bp-button}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout}}chart{{/bp-layout}}
+		{{/bp-layout}}
 	{{/bp-layout}}
 
+	{{#bp-layout local-class="resource-and-hospital" direction="row" main="center"}}
+		{{#bp-layout local-class="resource-list" direction="col" classNames="bg-white mr-4"}}
+			{{#bp-layout tagName="h4" cross="center" classNames="ml-4 mb-0"}}分配代表{{/bp-layout}}
+			{{#bp-layout local-class="resource" direction="col"}}
+				{{#each resources as |rs|}}
+					{{#bp-button classNames="bg-white"}}
+						<img src={{rs.avatar.img}} alt={{rs.name}}>
+						{{rs.name}}
+					{{/bp-button}}
+				{{/each}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout local-class="hospital-list" direction="col"}}
+			{{#bp-layout local-class="hospital-header" direction="row" main="between" classNames="bg-white mb-1" cross="center"}}
+				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}分配医院资源（6/30）{{/bp-layout}}
+				{{#bp-layout}}
+					{{#bp-button classNames="mr-1" local-class="active"}}全部{{/bp-button}}
+					{{#bp-button classNames="mr-1" local-class="mid-btn"}}已分配{{/bp-button}}
+					{{#bp-button classNames="mr-4"}}未分配{{/bp-button}}
+				{{/bp-layout}}
+			{{/bp-layout}}
 
+			{{#bp-layout classNames="" local-class="hospital-config"}}
+				{{#project/business-input/input-mapping project=project presets=presets answers=answers as |quizs|}}
+					{{#bp-layout local-class="hospitals"}}
+						{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
+							{{#each quizs as |quiz|}}
+								{{#bp-layout local-class="line"}}
+									{{project/business-input/hospital-config
+												proposal=project.proposal
+												hospital=quiz.hospital
+												validation=validation
+												quizs=quiz.quizs
+												resources=resources
+												answers=answers
+												visitTimeValidationOuter=(action "visitTimeValidationHandle")
+												meetingPlacesValidationOuter=(action "meetingPlacesValidationHandle")
+												salesTargetValidationOuter=(action "salesTargetValidationHandle")
+												budgetValidationOuter=(action "budgetValidationHandle")}}
+									{{/bp-layout}}
+					{{/each}}
+				{{/bp-layout}}
+				{{/bp-layout}}
+				{{/project/business-input/input-mapping}}
+			{{/bp-layout}}
+		
+		{{/bp-layout}}
+	{{/bp-layout}}
 
-	{{#bp-layout main="between" local-class="overviews" classNames="mb-4"}}
+	{{!-- old part --}}
+	{{!-- {{#bp-layout main="between" local-class="overviews" classNames="mb-4"}}
 		<div local-class="item">
 			{{#bp-layout tagName="h2" cross="center" classNames="m-0 px-4" local-class="title"}}
 				{{t "project.business-input.total-business-indicators"}}
@@ -23,14 +85,6 @@
 				{{#bp-progress local-class="progress" as |p|}}
 					{{p.bar value=currentSalesTarget maxValue=project.proposal.quota.totalQuotas}}
 				{{/bp-progress}}
-				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
-					{{#bp-layout tagName="span" cross="center"}}
-						<span local-class="circle" class="mr-2"></span>
-						<span local-class="values">
-							{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}
-						</span>
-					{{/bp-layout}}
-				{{/bp-layout}} --}}
 			</div>
 		</div>
 		<div local-class="item" class="mx-2">
@@ -48,14 +102,6 @@
 				{{#bp-progress as |p|}}
 					{{p.bar value=currentBudget maxValue=project.proposal.quota.totalBudget}}
 				{{/bp-progress}}
-				{{!-- {{#bp-layout tagName="p" cross="center" local-class="legend" classNames="m-0"}}
-					{{#bp-layout tagName="span" cross="center"}}
-						<span local-class="circle" class="mr-2"></span>
-						<span local-class="values">
-							{{model.salesConfigs.firstObject.goodsConfig.productConfig.product.name}}
-						</span>
-					{{/bp-layout}}
-				{{/bp-layout}} --}}
 			</div>
 		</div>
 		<div local-class="item" class="mx-2">
@@ -70,7 +116,7 @@
 							{{rs.name}}
 						</span>
 						<span local-class="values">
-							{{!-- {{rs.restTime}} --}}
+							
 							{{#each answers as answer}}
 								{{#if (bp-eq answer.resource rs) }}
 									{{action "calculateVisitTime" rs.answer.visitTime}}
@@ -83,14 +129,6 @@
 					</p>
 				{{/each}}
 			{{/bp-layout}}
-			{{!-- <div class="px-4 pt-4">
-				{{#each representativesVisitPercent as |rVP|}}
-					<p local-class="rest-time">
-						<span>{{rVP.resourceConfig.representativeConfig.representative.name}}</span>
-						<span>{{rVP.restTime}}%</span>
-					</p>
-				{{/each}}
-			</div> --}}
 		</div>
 		<div local-class="item">
 			{{#bp-layout tagName="h2" cross="center" 
@@ -111,14 +149,14 @@
 				{{/bp-progress}}
 			</div>
 		</div>
-	{{/bp-layout}}
-	{{#project/business-input/input-mapping project=project presets=presets answers=answers as |quizs|}}
-	{{#bp-layout local-class="hospitals"}}
-		{{#bp-layout direction="col" local-class="hospitals-configs" classNames="mr-4 px-4 bg-white"}}
-			{{#bp-layout tagName="h3" cross="center" main="between"local-class="title" classNames="m-0"}}
+	{{/bp-layout}} --}}
+
+	{{!-- {{#project/business-input/input-mapping project=project presets=presets answers=answers as |quizs|}}
+	{{#bp-layout local-class="hospitals"}} --}}
+		{{!-- {{#bp-layout direction="col" local-class="hospitals-configs" classNames="mr-4 px-4 bg-white"}} --}}
+			{{!-- {{#bp-layout tagName="h3" cross="center" main="between"local-class="title" classNames="m-0"}}
 				<span>
 					{{t "project.business-input.target-hospital-selection"}}
-					{{!-- {{project.proposal.targets.length}} --}}
 					{{hospitals.length}}
 					{{t "project.business-input.target-hospital-selection-2"}}
 				</span>
@@ -135,12 +173,12 @@
 						{{/each}}
 					{{/dd.menu}}
 				{{/bp-dropdown}}
-			{{/bp-layout}}
-			{{#each quizs as |quiz|}}
+			{{/bp-layout}} --}}
+			{{!-- {{#each quizs as |quiz|}}
 				{{project/business-input/hospital-overall quiz=quiz}}
-			{{/each}}
-		{{/bp-layout}}
-		{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
+			{{/each}} --}}
+		{{!-- {{/bp-layout}} --}}
+		{{!-- {{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
 			{{#each quizs as |quiz|}}
 				{{project/business-input/hospital-config
 					proposal=project.proposal
@@ -156,9 +194,9 @@
 			{{/each}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-	{{/project/business-input/input-mapping}}
+	{{/project/business-input/input-mapping}} --}}
 {{/bp-layout}}
-{{!-- 总业务指标/总预算/总会议名额 超额提醒 --}}
+
 {{#bp-modal
 		open=warning.open 
 		position="center"
@@ -175,8 +213,6 @@
 	{{/modal.body}}
 	{{#modal.footer}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}{{t "project.business-input.OK"}}{{/bp-button}}
-		{{!-- {{#bp-button type="danger"}}Delete{{/bp-button}} --}}
-		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
 	{{/modal.footer}}
 {{/bp-modal}}
 

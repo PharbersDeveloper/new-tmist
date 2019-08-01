@@ -7,7 +7,11 @@ export default Component.extend( {
 		"budgetValidationOuter", "salesTargetValidationOuter",
 		"meetingPlacesValidationOuter", "visitTimeValidationOuter"],
 	exam: service( "service/exam-facade" ),
+	showContent: true,
 	actions: {
+		showContent() {
+			this.toggleProperty( "showContent" )
+		},
 		changedResource( aResource ) {
 			Ember.Logger.info( `change resources ${aResource.name}` )
 			this.exam.resetBusinessResources( this.answers,this.hospital, aResource )
