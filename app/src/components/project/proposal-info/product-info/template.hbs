@@ -37,7 +37,7 @@
 		{{#bp-layout direction="col"}}
 			{{#each products as |item index|}}
 				{{#bp-layout local-class="item-name"}}
-					{{#bp-button onClick=(action (mut currentProduct) index) role="button" local-class="product-button" classNames="bg-white"}}
+					{{#bp-button onClick=(action (mut currentProduct) index) role="button" local-class=(if (bp-eq currentProduct index) "active") }}
 						{{item.name}}
 					{{/bp-button}}
 				{{/bp-layout}}

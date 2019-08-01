@@ -75,6 +75,14 @@
 				width: 270px;
 				background-color: #ffffff;
 			}
+
+			button:hover {
+				background-color: #ebecf0;
+			}
+
+			.active {
+				background-color: #ebecf0;
+			}
 		}
 
 		.resource-detail {

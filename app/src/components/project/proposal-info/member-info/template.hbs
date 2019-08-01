@@ -16,7 +16,7 @@
 
 	{{#bp-layout direction="col" local-class="resource-info"}}
 		{{#bp-layout local-class="resource-info-header" classNames="bg-white mt-4 mb-2" cross="center"}}
-			{{#bp-layout tagName="h4" local-class="title" classNames="ml-4"}}
+			{{#bp-layout tagName="h4" local-class="title" classNames="ml-4 mb-0"}}
 				团队成员信息
 			{{/bp-layout}}
 		{{/bp-layout}}
@@ -24,7 +24,7 @@
 		{{#bp-layout direction="row" }}
 			{{#bp-layout direction="col" local-class="resource-name-btn"}}
 				{{#each resources as |item index|}}
-					{{#bp-button onClick=(action (mut currentResource) index)}}{{item.name}}{{/bp-button}}
+					{{#bp-button onClick=(action (mut currentResource) index) local-class=(if (bp-eq currentResource index) "active")}}{{item.name}}{{/bp-button}}
 				{{/each}}
 			{{/bp-layout}}
 			{{#bp-layout direction="col" classNames="ml-2"}}

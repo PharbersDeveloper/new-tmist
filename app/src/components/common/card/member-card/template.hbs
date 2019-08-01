@@ -33,7 +33,7 @@
 	{{/bp-layout}}
 
 
-	{{#bp-layout direction="col" local-class="kpi-content" }}
+	{{#bp-layout direction="col" local-class="kpi-content" classNames="bg-white"}}
 		{{#bp-layout direction="col"}}
 			{{#bp-layout direction="row" main="between" classNames="bg-white"}}
 				{{#bp-layout tagName="h3" cross="center" local-class="title" class="px-4 " }}
@@ -44,8 +44,8 @@
 	
 			{{#bp-layout local-class="kpi-data" direction="row" classNames="bg-white"}}
 				{{#bp-layout local-class="left" direction="col" classNames="mb-1"}}
-					{{#bp-layout direction="row" classNames="mx-4"}}
-						{{#bp-layout local-class="row-1" direction="col"}}
+					{{#bp-layout direction="row" classNames="" local-class="row"}}
+						{{#bp-layout local-class="row-1 " direction="col"}}
 							{{#bp-layout tagName="p" main="center"}} 目标医生人数 {{/bp-layout}}
 							{{#bp-layout tagName="p" main="center"}} 100 <span class="ml-1 mt-3">人</span> {{/bp-layout}}
 						{{/bp-layout}}
@@ -55,7 +55,7 @@
 						{{/bp-layout}}
 					{{/bp-layout}}
 	
-					{{#bp-layout direction="row"}}
+					{{#bp-layout direction="row" local-class="row" classNames="mx-4"}}
 						{{#bp-layout local-class="row-2" direction="col"}}
 							{{#bp-layout tagName="p" main="center"}}A类{{/bp-layout}}
 							{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}

@@ -46,7 +46,7 @@
 	{{#bp-layout direction="row" local-class="hospital-detail"}}
 		{{#bp-layout direction="col" classNames="mr-2"}}
 			{{#each hospitals as |item index|}}
-				{{#bp-button onClick=(action (mut currentHospital) index)}}{{item.name}}{{/bp-button}}
+				{{#bp-button onClick=(action (mut currentHospital) index) local-class=(if (bp-eq currentHospital index) "active")}}{{item.name}}{{/bp-button}}
 			{{/each}}
 		{{/bp-layout}}
 			

@@ -35,16 +35,21 @@
 		font-size: 14px;
 		color: #172b4d;
 		text-align: left;
+
+		button {
+			background: #ffffff;
+			height: 68px;
+			width: 270px;
+			text-align: left;
+		}
+
+		.active {
+			background: #ebecf0;
+		}
 	}
 
 	.product-info {
 		width: 874px;
-	}
-
-	.product-button {
-		height: 68px;
-		width: 270px;
-		text-align: left;
 	}
 
 	.trend {

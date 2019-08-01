@@ -154,21 +154,27 @@
 {{#bp-layout direction="col" classNames="p-4"}}
 	{{#bp-tabs local-class="tabs-container" as |tabs|}}
 		{{#tabs.tablist}}
-			<li class="nav-item" local-class='nav-item'>
-				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 0)}}
+			{{!-- <li > --}}
+			{{#bp-layout tagName="li" local-class='nav-item'}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 0)}}
 					{{t "project.scenario-business"}}
 				{{/bp-button}}
-			</li>
-			<li class="nav-item" local-class='nav-item'>
-				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 1)}}
+			{{/bp-layout}}
+			{{!-- </li> --}}
+			{{!-- <li local-class='nav-item'> --}}
+			{{#bp-layout tagName="li" local-class='nav-item'}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 1)}}
 					{{t "project.scenario-management"}}
 				{{/bp-button}}
-			</li>
-			<li class="nav-item" local-class='nav-item'>
-				{{#bp-button classNames="nav-link chosenButton" role="button" onClick=(action (mut currentTab) 2)}}
+			{{/bp-layout}}
+			{{!-- </li> --}}
+			{{!-- <li local-class=(if (bp-eq currentTab 1) "active")> --}}
+			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 2) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 2) local-class=(if (bp-eq currentTab 2) "active")}}
 					{{t "project.scenario-reference"}}
 				{{/bp-button}}
-			</li>
+			{{/bp-layout}}
+			{{!-- </li> --}}
 			{{!-- <li class="nav-item">
 				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 3)}}
 					{{t "project.scenario-decision-review"}}

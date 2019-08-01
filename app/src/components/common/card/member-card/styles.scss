@@ -74,17 +74,24 @@
 			.kpi-data {
 				height: 356px;
 				width: 874px;
+
 				// background-color: #ffffff;
 				.left {
 					height: 356px;
 					width: 437px;
-					border-right: 2px solid rgba(9, 30, 66, 0.08);
+
+					.row:first-child {
+						border-right: 2px solid rgba(9, 30, 66, 0.08);
+					}
+
+					.row:last-child {
+						border-top: 2px solid rgba(9, 30, 66, 0.08);
+					}
 
 					.row-1 {
 						height: 178px;
 						width: 219px;
 						padding-top: 47px;
-						border-bottom: 2px solid rgba(9, 30, 66, 0.08);
 
 						p:first-child {
 							font-size: 14px;
