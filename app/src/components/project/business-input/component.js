@@ -3,6 +3,7 @@ import { computed } from "@ember/object"
 
 export default Component.extend( {
 	positionalParams: ["project", "period", "hospitals", "products", "resources", "preset", "answers", "validation"],
+	allVisitTime: 100,
 	currentName: computed( "products", function() {
 		const cur = this.get( "products" ).find( x => x.productType === 0 )
 
@@ -30,7 +31,16 @@ export default Component.extend( {
 		return cur
 	},
 	inputMaxValue( all, value, type ) {
-		let sum = 0
+		let sum = 0,
+			showTitle = ""
+
+		if ( value === "budget" ) {
+			showTitle = "预算"
+		} else if ( value === "salesTarget" ) {
+			showTitle = "销售额"
+		} else if ( value === "meetingPlaces" ) {
+			showTitle = "会议名额"
+		}
 
 		this.get( "answers" ).forEach( answer => {
 			let curValue = answer.get( value )
@@ -43,8 +53,8 @@ export default Component.extend( {
 					if ( all < sum ) {
 						this.set( "warning", {
 							open: true,
-							title: "总预算超额",
-							detail: "总预算设定已超过限制，请重新分配。"
+							title: `总${showTitle}超额`,
+							detail: `总${showTitle}设定已超过限制，请重新分配。`
 						} )
 					}
 				}
@@ -59,105 +69,88 @@ export default Component.extend( {
 			this.set( "currentMeetingPlaces", sum )
 		}
 	},
+	getInputType( str ) {
+		let typeRules = this.validation["inputType"].split( "*" ),
+			businessInputTypeRule = ""
+
+		typeRules.forEach( e => {
+			if ( e.startsWith( str ) ) {
+				businessInputTypeRule = e
+			}
+		} )
+		return String( businessInputTypeRule.split( "#" )[1] )
+	},
+	getInputMaxValue( str ) {
+		let maxValueRules = this.validation["maxValue"].split( "*" ),
+			businessInputMaxValueRule = ""
+
+		maxValueRules.forEach( e => {
+			if ( e.startsWith( str ) ) {
+				businessInputMaxValueRule = e
+			}
+		} )
+		// 传入i  取第[i]周期
+		return Number( businessInputMaxValueRule.split( "#" )[1] )
+	},
 	actions: {
+		calculateVisitTime( visitTime ) {
+			this.set( this.allVisitTime, this.allVisitTime - visitTime )
+		},
 		budgetValidationHandle() {
-			// get from validation
-
-			let maxValueRules = this.validation["maxValue"].split( "*" ),
-				typeRules = this.validation["inputType"].split( "*" ),
-				businessMaxBudgetRule = "",
-				businessInputTypeRule = ""
-
-			maxValueRules.forEach( e => {
-				if ( e.startsWith( "businessMaxBudget" ) ) {
-					businessMaxBudgetRule = e
-				}
-			} )
-			typeRules.forEach( e => {
-				if ( e.startsWith( "businessBudgetInputType" ) ) {
-					businessInputTypeRule = e
-				}
-			} )
-			// 1 第一周期
-			let allBudget = Number( businessMaxBudgetRule.split( "#" )[1] ),
-				inputType = String( businessInputTypeRule.split( "#" )[1] )
-
-
-			// let allBudget = 100000, inputType = "Number"
+			let allBudget = this.getInputMaxValue( "businessMaxBudget" ),
+				inputType = this.getInputType( "businessBudgetInputType" )
 
 			this.inputMaxValue( allBudget, "budget", inputType )
 		},
 		salesTargetValidationHandle() {
-			let maxValueRules = this.validation["maxValue"].split( "*" ),
-				typeRules = this.validation["inputType"].split( "*" ),
-				businessMaxSalesTargetRule = "",
-				businessInputTypeRule = ""
-
-			maxValueRules.forEach( e => {
-				if ( e.startsWith( "businessMaxSalesTarget" ) ) {
-					businessMaxSalesTargetRule = e
-				}
-			} )
-			typeRules.forEach( e => {
-				if ( e.startsWith( "businessSalesTargetInputType" ) ) {
-					businessInputTypeRule = e
-				}
-			} )
-			// 1 第一周期
-			let allSalesTarget = Number( businessMaxSalesTargetRule.split( "#" )[1] ),
-				inputType = String( businessInputTypeRule.split( "#" )[1] )
-
-			window.console.log( businessMaxSalesTargetRule )
-			window.console.log( inputType )
 
 			// let allSalesTarget = 100000, inputType = "Number"
+			let allSalesTarget = this.getInputMaxValue( "businessMaxSalesTarget" ),
+				inputType = this.getInputType( "businessSalesTargetInputType" )
 
 			this.inputMaxValue( allSalesTarget, "salesTarget", inputType )
 		},
 		meetingPlacesValidationHandle() {
-			let maxValueRules = this.validation["maxValue"].split( "*" ),
-				typeRules = this.validation["inputType"].split( "*" ),
-				businessMaxMeetingPlacesRule = "",
-				businessInputTypeRule = ""
-
-			maxValueRules.forEach( e => {
-				if ( e.startsWith( "businessMaxMeetingPlaces" ) ) {
-					businessMaxMeetingPlacesRule = e
-				}
-			} )
-			typeRules.forEach( e => {
-				if ( e.startsWith( "businessMeetingPlacesInputType" ) ) {
-					businessInputTypeRule = e
-				}
-			} )
 			// 1 第一周期
-			let allMeetingPlaces = Number( businessMaxMeetingPlacesRule.split( "#" )[1] ),
-				inputType = String( businessInputTypeRule.split( "#" )[1] )
+			let allMeetingPlaces = this.getInputMaxValue( "businessMaxMeetingPlaces" ),
+				inputType = this.getInputType( "businessMeetingPlacesInputType" )
 
-			window.console.log( businessMaxMeetingPlacesRule )
-			window.console.log( allMeetingPlaces )
-
-			// let allMeetingPlaces = 6, inputType = "Number"
-
-			// this.get( "answers" ).forEach( answer => {
-			// 	let curMeetingPlaces = answer.get( "meetingPlaces" )
-
-			// 	if ( inputType === "Number" ) {
-			// 		let checkMeetingPlaces = this.inputTypeNumber( curMeetingPlaces )
-
-			// 		if ( checkMeetingPlaces ) {
-			// 			allMeetingPlaces -= checkMeetingPlaces
-			// 			if ( allMeetingPlaces < 0 ) {
-			// 				this.set( "warning", {
-			// 					open: true,
-			// 					title: "总预算超额",
-			// 					detail: "总预算设定已超过限制，请重新分配。"
-			// 				} )
-			// 			}
-			// 		}
-			// 	}
-			// } )
 			this.inputMaxValue( allMeetingPlaces, "meetingPlaces", inputType )
+		},
+		visitTimeValidationHandle( curAnswer ) {
+			let curInput = curAnswer.get( "visitTime" )
+
+			if ( Number( curInput ) === 0 ) {
+				this.set( "warning", {
+					open: true,
+					title: "设定为0",
+					detail: "代表拜访时间不能为0%，请合理分配。"
+				} )
+			}
+
+			window.console.log( curAnswer.get( "resource" ).get( "id" ) )
+			let resourceAllVisitTime = 0
+
+			this.get( "answers" ).forEach( answer => {
+
+				if ( answer.get( "resource" ).get( "id" ) === curAnswer.get( "resource" ).get( "id" ) ) {
+					let time = Number( answer.get( "visitTime" ) )
+
+					if ( time === -1 ) {
+						time = 0
+					}
+					resourceAllVisitTime += time
+				}
+			} )
+			if ( resourceAllVisitTime > 100 ) {
+				let name = curAnswer.resource.get( "name" )
+
+				this.set( "warning", {
+					open: true,
+					title: "设定超额",
+					detail: name + "的拜访时间已超过总时间限制，请合理分配。"
+				} )
+			}
 		}
 	}
 } )
