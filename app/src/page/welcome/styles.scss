@@ -1,103 +1,65 @@
-// .page-mission {
-// 	height: 100%;
-// 	overflow: auto;
+.page-mission {
+	height: 100%;
+	overflow: auto;
 
-// 	& > div {
-// 		height: 100%;
-// 	}
-
-// 	h3 {
-// 		@extend %header-medium;
-// 	}
-
-// 	.mission-list {
-// 		flex: 1;
-
-// 		.choosed {
-// 			border: 2px solid $b100;
-
-// 			&:global(.new-mission-active) {
-// 				border: 2px solid $p100;
-// 			}
-
-// 			&:global(.done-mission-active) {
-// 				border: 2px solid $g200;
-// 			}
-// 		}
-// 	}
-
-// 	.mission-desc {
-// 		background-color: $n000;
-// 		flex: 0 0 392px;
-
-// 		.phase {
-// 			@extend %p-primary;
-// 		}
-
-// 		.desc {
-// 			@extend %p-secondary;
-// 		}
-
-// 		h4 {
-// 			font-size: 0;
-
-// 			span.title {
-// 				@extend %header-small;
-// 			}
-
-// 			span.times {
-// 				@extend %p-secondary;
-// 			}
-// 		}
-
-// 		p.historp-report {
-// 			// font-size: 0;
-// 			@extend %p-small;
-
-// 			span.infos {
-// 				.level {
-// 					color: #fce2aa;
-// 					font-size: 20px;
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-.tabs-container {
-	background: #ffffff;
-	height: 58px;
-
-	ul:global(.nav-tabs) {
-		border: none;
+	& > div {
+		height: 100%;
 	}
 
-	.active {
-		border-bottom: 2px solid #3172e0;
-		border-radius: 1px;
+	h3 {
+		@extend %header-medium;
 	}
 
-	.nav-item {
-		height: 58px;
-		width: 68px;
-		margin-left: 24px;
+	.mission-list {
+		flex: 1;
 
-		button:global(.nav-link) {
-			// background: #ffffff;
-			color: #172b4d;
-			height: 28px;
-			// margin-top: 26px;
-			width: 68px;
-			font-size: 16px;
+		.choosed {
+			border: 2px solid $b100;
+
+			&:global(.new-mission-active) {
+				border: 2px solid $p100;
+			}
+
+			&:global(.done-mission-active) {
+				border: 2px solid $g200;
+			}
+		}
+	}
+
+	.mission-desc {
+		background-color: $n000;
+		flex: 0 0 392px;
+
+		.phase {
+			@extend %p-primary;
 		}
 
-		.active:global(.nav-link) {
-			color: #3172e0;
-
-			// letter-spacing: 1px;
+		.desc {
+			@extend %p-secondary;
 		}
 
-		.chosenButton:global(.nav-link) {
-			color: #3172e0;
+		h4 {
+			font-size: 0;
+
+			span.title {
+				@extend %header-small;
+			}
+
+			span.times {
+				@extend %p-secondary;
+			}
+		}
+
+		p.historp-report {
+			// font-size: 0;
+			@extend %p-small;
+
+			span.infos {
+				.level {
+					color: #fce2aa;
+					font-size: 20px;
+				}
+			}
 		}
 	}
 }

@@ -1,4 +1,4 @@
-{{#bp-layout direction="col" local-class="page-scenario" classNames="p-4"}}
+{{!-- {{#bp-layout direction="col" local-class="page-scenario" classNames="p-4"}}
 	{{#bp-page-header class="mb-4" local-class="scenario-header" as |ph|}}
 		{{#ph.body as |body|}}
 			{{#body.left as |left|}}
@@ -58,7 +58,7 @@
 				resources=model.resources
 				validation=model.validation
 				answers=(filter-category-not model.answers "Business")}}
-				{{!-- {{log model.validation}} --}}
+				
 		{{/if}}
 		{{#if (bp-eq currentTab 2)}}
 			{{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}}
@@ -83,14 +83,13 @@
 		</p>
 	{{/modal.body}}
 	{{#modal.footer}}
-		{{!-- change unless >> if --}}
+		
 		{{#if confirmSubmit}}
 			{{#bp-button type="primary" onClick=(action modal.close)}}{{t "project.modal-footer.close-btn"}}{{/bp-button}}
 		{{else}}
 			{{#bp-button type="primary" onClick=(action modal.submit)}}{{t "project.modal-footer.submit-btn"}}{{/bp-button}}
 		{{/if}}
-		{{!-- {{#bp-button type="danger"}}Delete{{/bp-button}} --}}
-		{{!-- {{#bp-button type="success" onClick=(action modal.submit)}}Save{{/bp-button}} --}}
+
 	{{/modal.footer}}
 {{/bp-modal}}
 {{#bp-modal
@@ -108,3 +107,89 @@
 		</p>
 	{{/modal.body}}
 {{/bp-modal}}
+{{#bp-modal
+		open=validationWarning.open
+		position='center' 
+		onHidden=(action (mut validationWarning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{validationWarning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc">
+			{{validationWarning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}} --}}
+
+{{#bp-layout direction="col" }}
+	{{#bp-layout direction="row" local-class="submit-header" main="between" classNames="p-3"}}
+		{{#bp-layout direction="row"}}
+			{{#bp-layout tagName="h4" local-class="title"}}优时比区域周期计划测试{{/bp-layout}}
+			{{#bp-button local-class="btn-left"}}2019Q1{{/bp-button}}
+		{{/bp-layout}}
+
+		{{#bp-button local-class="btn-submit" type="primary"}}提交执行{{/bp-button}}
+	{{/bp-layout}}
+
+	{{#bp-tabs classNames="px-0" local-class="tabs-container" as |tabs|}}
+		{{#tabs.tablist}}
+			{{!-- <li > --}}
+			{{#bp-layout tagName="li" local-class='nav-item'}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 0)}}
+					{{t "project.scenario-business"}}
+				{{/bp-button}}
+			{{/bp-layout}}
+			{{!-- </li> --}}
+			{{!-- <li local-class='nav-item'> --}}
+			{{#bp-layout tagName="li" local-class='nav-item'}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 1)}}
+					{{t "project.scenario-management"}}
+				{{/bp-button}}
+			{{/bp-layout}}
+			{{!-- </li> --}}
+			{{!-- <li local-class=(if (bp-eq currentTab 1) "active")> --}}
+			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 2) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 2) local-class=(if (bp-eq currentTab 2) "active")}}
+					{{t "project.scenario-reference"}}
+				{{/bp-button}}
+			{{/bp-layout}}
+			{{!-- </li> --}}
+			{{!-- <li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 3)}}
+					{{t "project.scenario-decision-review"}}
+				{{/bp-button}}
+			</li> --}}
+		{{/tabs.tablist}}
+		{{#if (bp-eq currentTab 0)}}
+			{{project/business-input
+					project=model.project 
+					period=model.period 
+					hospitals=model.hospitals 
+					products=model.products 
+					resources=model.resources
+					presets=model.presets
+					validation=model.validation
+					answers=(filter-category model.answers "Business")}}
+		{{/if}}
+		{{#if (bp-eq currentTab 1)}}
+			{{project/management-input
+					project=model.project 
+					period=model.period
+					resources=model.resources
+					validation=model.validation
+					answers=(filter-category-not model.answers "Business")}}
+			{{!-- {{log model.validation}} --}}
+		{{/if}}
+		{{#if (bp-eq currentTab 2)}}
+			{{!-- {{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}} --}}
+			{{project/proposal-info proposal=model.project.proposal }}
+		{{/if}}
+		{{#if (bp-eq currentTab 3)}}
+		{{/if}}
+	{{/bp-tabs}}
+{{/bp-layout}}
