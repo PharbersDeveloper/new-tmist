@@ -1,4 +1,10 @@
-{{#bp-layout direction="col" local-class="business-container" classNames="pt-4"}}
+{{#bp-layout direction="col" local-class="business-container" classNames="p-4"}}
+	{{#bp-layout}}
+
+	{{/bp-layout}}
+
+
+
 	{{#bp-layout main="between" local-class="overviews" classNames="mb-4"}}
 		<div local-class="item">
 			{{#bp-layout tagName="h2" cross="center" classNames="m-0 px-4" local-class="title"}}
@@ -65,8 +71,14 @@
 						</span>
 						<span local-class="values">
 							{{!-- {{rs.restTime}} --}}
-							{{10}}
+							{{#each answers as answer}}
+								{{#if (bp-eq answer.resource rs) }}
+									{{action "calculateVisitTime" rs.answer.visitTime}}
+								{{/if}}
+							{{/each}}
+							{{format-number allVisitTime}}
 							{{t "project.business-input.p"}}
+							
 						</span>
 					</p>
 				{{/each}}
@@ -136,6 +148,8 @@
 					validation=validation
 					quizs=quiz.quizs
 					resources=resources
+					answers=answers
+					visitTimeValidationOuter=(action "visitTimeValidationHandle")
 					meetingPlacesValidationOuter=(action "meetingPlacesValidationHandle")
 					salesTargetValidationOuter=(action "salesTargetValidationHandle")
 					budgetValidationOuter=(action "budgetValidationHandle")}}

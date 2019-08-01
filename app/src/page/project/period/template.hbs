@@ -139,15 +139,15 @@
 	{{#bp-tabs classNames="px-0" local-class="tabs-container" as |tabs|}}
 		{{#tabs.tablist}}
 			{{!-- <li > --}}
-			{{#bp-layout tagName="li" local-class='nav-item'}}
-				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 0)}}
+			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 0) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 0) local-class=(if (bp-eq currentTab 0) "active")}}
 					{{t "project.scenario-business"}}
 				{{/bp-button}}
 			{{/bp-layout}}
 			{{!-- </li> --}}
 			{{!-- <li local-class='nav-item'> --}}
-			{{#bp-layout tagName="li" local-class='nav-item'}}
-				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 1)}}
+			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 1) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 1) local-class=(if (bp-eq currentTab 1) "active")}}
 					{{t "project.scenario-management"}}
 				{{/bp-button}}
 			{{/bp-layout}}
