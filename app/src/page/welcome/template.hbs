@@ -1,4 +1,4 @@
-{{!-- {{#bp-layout local-class="page-mission"}}
+{{#bp-layout local-class="page-mission"}}
 	{{#bp-layout direction="col" local-class="mission-wrapper"}}
 		<div>proposal</div>
 		{{#bp-layout wrap=true multi="center" local-class="mission-list" classNames="p-4"}}
@@ -67,7 +67,7 @@
 			{{t "current-task-notification.self-name"}}
 		{{/bp-button}}
 		{{common/rules-introduction-modal rules=rules}}
-		{{common/current-task-notification notification=notification proposal=currentProposal}}
+		{{!-- {{common/current-task-notification notification=notification proposal=currentProposal}} --}}
 
 		{{#bp-layout main="end" local-class="start" classNames="mb-4"}}
 			{{#if (bp-eq lastSelectedCat 0)}}
@@ -150,56 +150,4 @@
 		{{#bp-button type="link" onClick=(action modal.close)}}{{t "welcome.check-model.cancel-btn"}}{{/bp-button}}
 		{{#bp-button type="primary" onClick=(action "reDeploy")}}{{t "welcome.redeployment"}}{{/bp-button}}
 	{{/modal.footer}}
-{{/bp-modal}} --}}
-{{#bp-layout direction="col" classNames="p-4"}}
-	{{#bp-tabs local-class="tabs-container" as |tabs|}}
-		{{#tabs.tablist}}
-			<li class="nav-item" local-class='nav-item'>
-				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 0)}}
-					{{t "project.scenario-business"}}
-				{{/bp-button}}
-			</li>
-			<li class="nav-item" local-class='nav-item'>
-				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 1)}}
-					{{t "project.scenario-management"}}
-				{{/bp-button}}
-			</li>
-			<li class="nav-item" local-class='nav-item'>
-				{{#bp-button classNames="nav-link chosenButton" role="button" onClick=(action (mut currentTab) 2)}}
-					{{t "project.scenario-reference"}}
-				{{/bp-button}}
-			</li>
-			{{!-- <li class="nav-item">
-				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 3)}}
-					{{t "project.scenario-decision-review"}}
-				{{/bp-button}}
-			</li> --}}
-		{{/tabs.tablist}}
-		{{#if (bp-eq currentTab 0)}}
-			{{project/business-input
-					project=model.project 
-					period=model.period 
-					hospitals=model.hospitals 
-					products=model.products 
-					resources=model.resources
-					presets=model.presets
-					validation=model.validation
-					answers=(filter-category model.answers "Business")}}
-		{{/if}}
-		{{#if (bp-eq currentTab 1)}}
-			{{project/management-input
-					project=model.project 
-					period=model.period
-					resources=model.resources
-					validation=model.validation
-					answers=(filter-category-not model.answers "Business")}}
-			{{!-- {{log model.validation}} --}}
-		{{/if}}
-		{{#if (bp-eq currentTab 2)}}
-			{{!-- {{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}} --}}
-			{{project/proposal-info  proposal=model.usableProposals.firstObject.proposal }}
-		{{/if}}
-		{{#if (bp-eq currentTab 3)}}
-		{{/if}}
-	{{/bp-tabs}}
-{{/bp-layout}}
+{{/bp-modal}}

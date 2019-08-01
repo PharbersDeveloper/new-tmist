@@ -8,7 +8,6 @@
 	.chart {
 		flex: 1;
 		height: 342px;
-
 	}
 
 	.infos {
@@ -21,6 +20,73 @@
 
 		.values {
 			@extend %p-secondary;
+		}
+	}
+}
+
+.resource-container {
+	.resource-header {
+		.resource-title {
+			width: 1152px;
+			height: 54px;
+
+			h4.title {
+				font-size: 16px;
+				color: #172b4d;
+			}
+		}
+
+		.resource-header-info {
+			width: 1152px;
+
+			.left {
+				color: #172b4d;
+				font-size: 29px;
+				height: 89px;
+				width: 576px;
+			}
+
+			.right {
+				height: 89px;
+				width: 576px;
+
+				p {
+					font-size: 14px;
+					color: #7a869a;
+				}
+			}
+		}
+	}
+
+	.resource-info {
+		.resource-info-header {
+			height: 54px;
+			width: 1152px;
+
+			h4.title {
+				font-size: 16px;
+				color: #172b4d;
+			}
+		}
+
+		.resource-name-btn {
+			button {
+				height: 68px;
+				width: 270px;
+				background-color: #ffffff;
+			}
+
+			button:hover {
+				background-color: #ebecf0;
+			}
+
+			.active {
+				background-color: #ebecf0;
+			}
+		}
+
+		.resource-detail {
+			width: 874px;
 		}
 	}
 }
