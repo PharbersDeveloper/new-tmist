@@ -93,6 +93,9 @@ export default Component.extend( {
 		return Number( businessInputMaxValueRule.split( "#" )[1] )
 	},
 	actions: {
+		selectResource( rs ) {
+			this.set( "curResource", rs )
+		},
 		calculateVisitTime( visitTime ) {
 			this.set( this.allVisitTime, this.allVisitTime - visitTime )
 		},

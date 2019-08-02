@@ -18,14 +18,32 @@
 	{{/bp-layout}}
 
 	{{#bp-layout local-class="resource-and-hospital" direction="row" main="center"}}
-		{{#bp-layout local-class="resource-list" direction="col" classNames="bg-white mr-4"}}
+		{{#bp-layout local-class="resource-list-outer" direction="col" classNames="bg-white mr-4"}}
 			{{#bp-layout tagName="h4" cross="center" classNames="ml-4 mb-0"}}分配代表{{/bp-layout}}
-			{{#bp-layout local-class="resource" direction="col"}}
+			{{#bp-layout local-class="resource-list" direction="col" classNames=""}}
 				{{#each resources as |rs|}}
-					{{#bp-button classNames="bg-white"}}
-						<img src={{rs.avatar.img}} alt={{rs.name}}>
-						{{rs.name}}
-					{{/bp-button}}
+					{{#if (bp-eq curResource.id rs.id)}}
+						{{#bp-layout local-class="resource-item active" direction="row" main="between" cross="center" classNames="p-4" click=(action "selectResource" rs)}}
+							{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
+								<img src={{rs.avatar.img}} alt={{rs.name}}>
+								{{rs.name}}
+							{{/bp-layout}}
+							{{#bp-layout local-class="item-right" direction="row" main="end"}}
+								<img src={{rs.avatar.img}} alt={{rs.name}}>
+							{{/bp-layout}}
+						{{/bp-layout}}
+					{{else}}
+						{{#bp-layout local-class="resource-item" direction="row" main="between" cross="center" classNames="p-4" click=(action "selectResource" rs)}}
+							{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
+								<img src={{rs.avatar.img}} alt={{rs.name}}>
+								{{rs.name}}
+							{{/bp-layout}}
+							{{#bp-layout local-class="item-right" direction="row" main="end"}}
+								<img src={{rs.avatar.img}} alt={{rs.name}}>
+							{{/bp-layout}}
+						{{/bp-layout}}
+					{{/if}}
+					
 				{{/each}}
 			{{/bp-layout}}
 		{{/bp-layout}}

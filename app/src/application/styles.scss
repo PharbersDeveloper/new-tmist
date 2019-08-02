@@ -21,6 +21,12 @@
 	}
 }
 
+:global(.p-btn) {
+	&:focus {
+		outline: none;
+	}
+}
+
 .container {
 	height: calc(100% - 64px);
 
