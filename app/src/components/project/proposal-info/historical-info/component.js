@@ -116,55 +116,57 @@ export default Component.extend( {
 		 */
 		changeCondition() {
 			this.set( "tmRepBarLineCondition", [{
-				"_source": [
-					"date",
-					"sales",
-					"target",
-					"targetRate",
-					"product",
-					"rep"
-				],
-				"query": {
-					"bool": {
-						"must": [
-							{
-								"match": {
-									"rep": "段坤"
+				data: {
+					"_source": [
+						"date",
+						"sales",
+						"target",
+						"targetRate",
+						"product",
+						"rep"
+					],
+					"query": {
+						"bool": {
+							"must": [
+								{
+									"match": {
+										"rep": "段坤"
+									}
+								},
+								{
+									"match": {
+										"product": "all"
+									}
+								},
+								{
+									"match": {
+										"region": "all"
+									}
+								},
+								{
+									"match": {
+										"hosp_level": "all"
+									}
+								},
+								{
+									"match": {
+										"hosp_name": "all"
+									}
 								}
-							},
-							{
-								"match": {
-									"product": "all"
+							],
+							"must_not": [
+								{
+									"match": {
+										"date": "all"
+									}
 								}
-							},
-							{
-								"match": {
-									"region": "all"
-								}
-							},
-							{
-								"match": {
-									"hosp_level": "all"
-								}
-							},
-							{
-								"match": {
-									"hosp_name": "all"
-								}
-							}
-						],
-						"must_not": [
-							{
-								"match": {
-									"date": "all"
-								}
-							}
-						]
-					}
-				},
-				"sort": [
-					{ "date": "asc" }
-				]
+							]
+						}
+					},
+					"sort": [
+						{ "date": "asc" }
+					]
+				}
 			}] )
 		},
 		/**
@@ -178,55 +180,57 @@ export default Component.extend( {
 		 */
 		changeConditionBack() {
 			this.set( "tmRepBarLineCondition", [{
-				"_source": [
-					"date",
-					"sales",
-					"target",
-					"targetRate",
-					"product",
-					"rep"
-				],
-				"query": {
-					"bool": {
-						"must": [
-							{
-								"match": {
-									"rep": "clockq"
+				data: {
+					"_source": [
+						"date",
+						"sales",
+						"target",
+						"targetRate",
+						"product",
+						"rep"
+					],
+					"query": {
+						"bool": {
+							"must": [
+								{
+									"match": {
+										"rep": "clockq"
+									}
+								},
+								{
+									"match": {
+										"product": "all"
+									}
+								},
+								{
+									"match": {
+										"region": "all"
+									}
+								},
+								{
+									"match": {
+										"hosp_level": "all"
+									}
+								},
+								{
+									"match": {
+										"hosp_name": "all"
+									}
 								}
-							},
-							{
-								"match": {
-									"product": "all"
+							],
+							"must_not": [
+								{
+									"match": {
+										"date": "all"
+									}
 								}
-							},
-							{
-								"match": {
-									"region": "all"
-								}
-							},
-							{
-								"match": {
-									"hosp_level": "all"
-								}
-							},
-							{
-								"match": {
-									"hosp_name": "all"
-								}
-							}
-						],
-						"must_not": [
-							{
-								"match": {
-									"date": "all"
-								}
-							}
-						]
-					}
-				},
-				"sort": [
-					{ "date": "asc" }
-				]
+							]
+						}
+					},
+					"sort": [
+						{ "date": "asc" }
+					]
+				}
 			}] )
 		}
 	},
@@ -306,48 +310,50 @@ export default Component.extend( {
 						]
 					},
 					tmProductCircleCondition = [{
-						"_source": [
-							"product",
-							"sales",
-							"date",
-							"salesRate"
-						],
-						"query": {
-							"bool": {
-								"must": [
-									{
-										"match": {
-											"date": "2018Q1"
+						data: {
+							"_source": [
+								"product",
+								"sales",
+								"date",
+								"salesRate"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"date": "2018Q1"
+											}
+										},
+										{
+											"match": {
+												"rep": "all"
+											}
+										},
+										{
+											"match": {
+												"region": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_level": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_name": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"rep": "all"
+									],
+									"must_not": [
+										{
+											"match": {
+												"product": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"region": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_level": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_name": "all"
-										}
-									}
-								],
-								"must_not": [
-									{
-										"match": {
-											"product": "all"
-										}
-									}
-								]
+									]
+								}
 							}
 						}
 					}],
@@ -553,54 +559,56 @@ export default Component.extend( {
 						] )
 					},
 					tmProductBarLineCondition = [{
-						"_source": [
-							"date",
-							"sales",
-							"target",
-							"targetRate",
-							"product"
-						],
-						"query": {
-							"bool": {
-								"must": [
-									{
-										"match": {
-											"product": "all"
+						data: {
+							"_source": [
+								"date",
+								"sales",
+								"target",
+								"targetRate",
+								"product"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"product": "all"
+											}
+										},
+										{
+											"match": {
+												"rep": "all"
+											}
+										},
+										{
+											"match": {
+												"region": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_level": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_name": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"rep": "all"
+									],
+									"must_not": [
+										{
+											"match": {
+												"date": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"region": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_level": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_name": "all"
-										}
-									}
-								],
-								"must_not": [
-									{
-										"match": {
-											"date": "all"
-										}
-									}
-								]
-							}
-						},
-						"sort": [
-							{ "date": "asc" }
-						]
+									]
+								}
+							},
+							"sort": [
+								{ "date": "asc" }
+							]
+						}
 					}],
 					tmRepCircle0 = {
 						id: "representativeCircleContainer0",
@@ -722,53 +730,55 @@ export default Component.extend( {
 						] )
 					},
 					tmRepCircleCondition = [{
-						"_source": [
-							"rep",
-							"sales",
-							"date",
-							"salesRate"
-						],
-						"query": {
-							"bool": {
-								"must": [
-									{
-										"match": {
-											"date": "2018Q1"
+						data: {
+							"_source": [
+								"rep",
+								"sales",
+								"date",
+								"salesRate"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"date": "2018Q1"
+											}
+										},
+										{
+											"match": {
+												"product": "all"
+											}
+										},
+										{
+											"match": {
+												"region": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_level": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_name": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"product": "all"
+									],
+									"must_not": [
+										{
+											"match": {
+												"rep": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"region": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_level": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_name": "all"
-										}
-									}
-								],
-								"must_not": [
-									{
-										"match": {
-											"rep": "all"
-										}
-									}
-								]
-							}
-						},
-						"sort": [
-							{ "rep": "asc" }
-						]
+									]
+								}
+							},
+							"sort": [
+								{ "rep": "asc" }
+							]
+						}
 					}],
 					tmRepBarLine0 = {
 						id: "tmRepresentativeBarLineContainer",
@@ -923,55 +933,57 @@ export default Component.extend( {
 						] )
 					},
 					tmRepBarLineCondition = [{
-						"_source": [
-							"date",
-							"sales",
-							"target",
-							"targetRate",
-							"product",
-							"rep"
-						],
-						"query": {
-							"bool": {
-								"must": [
-									{
-										"match": {
-											"rep": "clockq"
+						data: {
+							"_source": [
+								"date",
+								"sales",
+								"target",
+								"targetRate",
+								"product",
+								"rep"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"rep": "clockq"
+											}
+										},
+										{
+											"match": {
+												"product": "all"
+											}
+										},
+										{
+											"match": {
+												"region": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_level": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_name": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"product": "all"
+									],
+									"must_not": [
+										{
+											"match": {
+												"date": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"region": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_level": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_name": "all"
-										}
-									}
-								],
-								"must_not": [
-									{
-										"match": {
-											"date": "all"
-										}
-									}
-								]
-							}
-						},
-						"sort": [
-							{ "date": "asc" }
-						]
+									]
+								}
+							},
+							"sort": [
+								{ "date": "asc" }
+							]
+						}
 					}],
 					tmHosCircle0 = {
 						id: "hospitalCircleContainer0",
@@ -1044,48 +1056,50 @@ export default Component.extend( {
 						] )
 					},
 					tmHosCircleCondition = [{
-						"_source": [
-							"hosp_level",
-							"sales",
-							"date",
-							"salesRate"
-						],
-						"query": {
-							"bool": {
-								"must": [
-									{
-										"match": {
-											"date": "2018Q1"
+						data: {
+							"_source": [
+								"hosp_level",
+								"sales",
+								"date",
+								"salesRate"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"date": "2018Q1"
+											}
+										},
+										{
+											"match": {
+												"product": "all"
+											}
+										},
+										{
+											"match": {
+												"region": "all"
+											}
+										},
+										{
+											"match": {
+												"rep": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_name": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"product": "all"
+									],
+									"must_not": [
+										{
+											"match": {
+												"hosp_level": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"region": "all"
-										}
-									},
-									{
-										"match": {
-											"rep": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_name": "all"
-										}
-									}
-								],
-								"must_not": [
-									{
-										"match": {
-											"hosp_level": "all"
-										}
-									}
-								]
+									]
+								}
 							}
 						}
 					}],
@@ -1239,50 +1253,52 @@ export default Component.extend( {
 						] )
 					},
 					tmHosBarLineCondition = [{
-						"_source": [
-							"date",
-							"sales",
-							"target",
-							"targetRate",
-							"product",
-							"hosp_name"
-						],
-						"query": {
-							"bool": {
-								"must": [
-									{
-										"match": {
-											"hosp_name": "北京协和医院"
+						data: {
+							"_source": [
+								"date",
+								"sales",
+								"target",
+								"targetRate",
+								"product",
+								"hosp_name"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"hosp_name": "北京协和医院"
+											}
+										},
+										{
+											"match": {
+												"product": "all"
+											}
+										},
+										{
+											"match": {
+												"rep": "all"
+											}
+										},
+										{
+											"match": {
+												"region": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_level": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"product": "all"
+									],
+									"must_not": [
+										{
+											"match": {
+												"date": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"rep": "all"
-										}
-									},
-									{
-										"match": {
-											"region": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_level": "all"
-										}
-									}
-								],
-								"must_not": [
-									{
-										"match": {
-											"date": "all"
-										}
-									}
-								]
+									]
+								}
 							}
 						}
 					}],
@@ -1356,55 +1372,55 @@ export default Component.extend( {
 						] )
 					},
 					tmRegCircleCondition = [{
-
-						"_source": [
-							"region",
-							"sales",
-							"date",
-							"salesRate"
-						],
-						"query": {
-							"bool": {
-								"must": [
-									{
-										"match": {
-											"date": "2018Q1"
+						data: {
+							"_source": [
+								"region",
+								"sales",
+								"date",
+								"salesRate"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"date": "2018Q1"
+											}
+										},
+										{
+											"match": {
+												"product": "all"
+											}
+										},
+										{
+											"match": {
+												"rep": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_level": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_name": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"product": "all"
+									],
+									"must_not": [
+										{
+											"match": {
+												"region": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"rep": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_level": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_name": "all"
-										}
-									}
-								],
-								"must_not": [
-									{
-										"match": {
-											"region": "all"
-										}
-									}
-								]
-							}
-						},
-						"sort": [
-							{ "region": "asc" }
-						]
-
+									]
+								}
+							},
+							"sort": [
+								{ "region": "asc" }
+							]
+						}
 					}],
 					tmRegBarLine0 = {
 						id: "tmRegionBarLineContainer",
@@ -1558,55 +1574,57 @@ export default Component.extend( {
 						] )
 					},
 					tmRegBarLineCondition = [{
-						"_source": [
-							"date",
-							"sales",
-							"target",
-							"targetRate",
-							"product",
-							"region"
-						],
-						"query": {
-							"bool": {
-								"must": [
-									{
-										"match": {
-											"product": "all"
+						data: {
+							"_source": [
+								"date",
+								"sales",
+								"target",
+								"targetRate",
+								"product",
+								"region"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"product": "all"
+											}
+										},
+										{
+											"match": {
+												"rep": "all"
+											}
+										},
+										{
+											"match": {
+												"region": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_level": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_name": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"rep": "all"
+									],
+									"must_not": [
+										{
+											"match": {
+												"date": "all"
+											}
 										}
-									},
-									{
-										"match": {
-											"region": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_level": "all"
-										}
-									},
-									{
-										"match": {
-											"hosp_name": "all"
-										}
-									}
-								],
-								"must_not": [
-									{
-										"match": {
-											"date": "all"
-										}
-									}
-								]
-							}
-						},
-						"sort": [
-							{ "date": "asc" }
-						]
+									]
+								}
+							},
+							"sort": [
+								{ "date": "asc" }
+							]
+						}
 					}]
 
 				resolve( {
