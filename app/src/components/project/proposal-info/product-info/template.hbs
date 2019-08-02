@@ -1,16 +1,57 @@
-<div local-class="products-container reference-content">
-	{{!-- <div local-class="trend" class="mb-4 py-3 px-4 bg-white">
-		<div local-class="trend-line">
-			{{bp-line/tm
-				title="产品份额竞争趋势"
-				subText='整个地区'
-				eid='lineNational'
-				lineData=model.lineDataTm
-				yAsixName='%'
-				lineColor=model.lineColorTm}}
-		</div>
-	</div> --}}
-	{{#each products as |item|}}
-		{{common/card/product-card product=item}}
-	{{/each}}
-</div>
+{{#bp-layout direction="col" local-class="products-container" cross="center"}}
+	{{#bp-layout local-class="products-chart" classNames="bg-white mb-4" direction="col"}}
+		{{#bp-layout main='between' direction="row"}}
+			{{#bp-layout tagName="h4"  local-class="title" classNames="mt-3 bg-white px-4"}}
+				药品份额竞争趋势
+			{{/bp-layout}}
+			{{#bp-layout classNames="m-0 bg-white px-4"}}
+				{{#bp-layout main='between' local-class='item' classNames='px-4'}}
+					<span local-class='title' class='mt-3 mr-3'>治疗领域</span>
+					{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
+						{{#dd.button classNames='mt-2 mb-1' local-class="product-list-btn"}}
+							<span local-class="product-name">产品</span>
+							{{bp-icon icon='down'}}
+						{{/dd.button}}
+						{{#dd.menu as |menu|}}
+							{{#each products as |product|}}
+								{{#menu.option value=products  local-class="representative-info"}}
+									{{#bp-layout cross="center"}}
+										{{!-- <img width="24" src={{products.avatar.img}} alt="avatar" class="mr-2"> --}}
+										<span local-class="name" class="mr-2">
+											{{products.name}}
+										</span>
+									{{/bp-layout}}
+								{{/menu.option}}
+							{{/each}}
+						{{/dd.menu}}
+					{{/bp-dropdown}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+
+	{{#bp-layout  tagName="h4" local-class="title info-header" classNames="mt-3 bg-white px-4 py-4"}}
+			药品详细信息
+	{{/bp-layout}}
+	{{#bp-layout direction="row"}}
+		{{#bp-layout direction="col"}}
+			{{#each products as |item index|}}
+				{{#bp-layout local-class="item-name"}}
+					{{#bp-button onClick=(action (mut currentProduct) index) role="button" local-class=(if (bp-eq currentProduct index) "active") }}
+						{{item.name}}
+					{{/bp-button}}
+				{{/bp-layout}}
+			{{/each}}
+		{{/bp-layout}}
+		{{#bp-layout}}
+			<div local-class="products-container reference-content product-info" class="ml-2">
+				{{#each products as |item index|}}
+					{{#if (bp-eq currentProduct index)}}
+						{{common/card/product-card product=item}}
+					{{/if}}
+				{{/each}}
+			</div>
+		{{/bp-layout}}
+	{{/bp-layout}}
+	
+{{/bp-layout}}

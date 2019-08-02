@@ -3,12 +3,18 @@ import { inject as service } from "@ember/service"
 import Ember from "ember"
 
 export default Component.extend( {
-	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "budgetValidationOuter", "salesTargetValidationOuter", "meetingPlacesValidationOuter"],
+	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers",
+		"budgetValidationOuter", "salesTargetValidationOuter",
+		"meetingPlacesValidationOuter", "visitTimeValidationOuter"],
 	exam: service( "service/exam-facade" ),
+	showContent: true,
 	actions: {
+		showContent() {
+			this.toggleProperty( "showContent" )
+		},
 		changedResource( aResource ) {
 			Ember.Logger.info( `change resources ${aResource.name}` )
-			this.exam.resetBusinessResources( this.hospital, aResource )
+			this.exam.resetBusinessResources( this.answers,this.hospital, aResource )
 			this.set( "resource", aResource )
 		},
 		resetAnswer() {
@@ -17,26 +23,15 @@ export default Component.extend( {
 		},
 		budgetValidation() {
 			this.budgetValidationOuter()
-			// get from validation
-			// let allBudget = 100000
-
-			// window.console.log( this.quizs )
-			// this.quizs.forEach( quiz => {
-			// 	allBudget -= quiz.answer.bugget
-			// 	if ( allBudget < 0 ) {
-			// 		this.set( "warning", {
-			// 			open: true,
-			// 			title: "经理时间超额",
-			// 			detail: "经理时间设定已超过限制，请重新分配。"
-			// 		} )
-			// 	}
-			// } )
 		},
 		salesTargetValidation() {
 			this.salesTargetValidationOuter()
 		},
 		meetingPlacesValidation() {
 			this.meetingPlacesValidationOuter()
+		},
+		visitTimeValidation( curAnswer ) {
+			this.visitTimeValidationOuter( curAnswer )
 		}
 	}
 } )

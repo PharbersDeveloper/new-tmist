@@ -1,186 +1,89 @@
 {{#bp-layout tagName="h3" cross="center" local-class="title" class="px-4" }}
-	<span class="mr-2" local-class="icon" {{action "showContent"}} role="button">
-		{{bp-icon icon=icon}}
-	</span>
 	{{hospital.name}}
 {{/bp-layout}}
-{{#bs-collapse collapsed=showContent}}
-	{{#bp-layout main="between" local-class="content" }}
-		{{#bp-layout direction="col" local-class="infos"}}
-			{{#bp-layout main="between" local-class="basic" 
-				classNames="p-4"}}
-				{{!-- {{#each destConfig.hospitalConfig.hospital.images as |imgRcs index|}} --}}
-				{{!-- {{#if (bp-eq index 0)}} --}}
-				<img src={{hospital.avatar.img}} alt={{hospital.name}} class="mr-4">
-				{{!-- {{/if}} --}}
-				{{!-- {{/each}} --}}
-				<div local-class="properties">
-					{{#bp-layout tagName="p" }}
-						<span class="mr-3">{{t "card.hospital-card.category"}}</span>
-						<span>
-							{{hospital.category}}
-						</span>
-					{{/bp-layout}}
-					{{#bp-layout tagName="p" }}
-						<span class="mr-3">{{t "card.hospital-card.level"}}</span>
-						<span>
-							{{hospital.level}}
-						</span>
-					{{/bp-layout}}
-					{{#bp-layout tagName="p" }}
-						<span class="mr-3">{{t "card.hospital-card.doctorNumber"}}</span>
-						<span>{{format-number hostpital.doctorNumber}}</span>
-					{{/bp-layout}}
-					{{#bp-layout tagName="p" }}
-						<span class="mr-3">{{t "card.hospital-card.bedNumber"}}</span>
-						<span>{{format-number hostpital.bedNumber}}</span>
-					{{/bp-layout}}
-					{{#bp-layout tagName="p" }}
-						<span class="mr-3">{{t "card.hospital-card.income"}}</span>
-						<span>{{t "card.hospital-card.money"}}{{format-number hospital.income}}</span>
-					{{/bp-layout}}
-					{{!-- {{#bp-layout tagName="p" }}
-						<span class="mr-3">成立时间</span>
-						<span>
-							{{destConfig.hospitalConfig.hospital.regtime}}
-						</span>
-					{{/bp-layout}}
-					{{#bp-layout tagName="p" }}
-						<span class="mr-3">空间所属</span>
-						<span>{{destConfig.hospitalConfig.spaceBelongs}}</span>
-					{{/bp-layout}} --}}
-				</div>
-				{{!-- <div local-class="properties">
-					{{#bp-layout tagName="p" }}
-						<span class="mr-3">患者支付力</span>
-						<span>
-							{{destConfig.hospitalConfig.abilityToPay}}
-						</span>
-					{{/bp-layout}}
-				</div> --}}
+
+{{#bp-layout main="between" local-class="content" direction="row"}}
+
+	{{#bp-layout local-class="infos"}}
+		{{!-- left --}}
+		{{#bp-layout main="between" local-class="left-info" classNames="p-4" direction="col"}}
+			
+			{{#bp-layout classNames="mb-4"}}
+				<img alt={{hospital.name}} class="mr-4">
 			{{/bp-layout}}
-			{{#bp-layout direction="col" local-class="medic-access"
-				classNames="px-4"}}
-				<h4 local-class="title" class="mb-3">{{t "card.hospital-card.medic-acess"}}</h4>
-				{{#bp-layout}}
-					{{#bp-layout direction="col" classNames="mr-5"}}
-						<p local-class="keys">{{t "card.hospital-card.medic-name"}}</p>
-						<p local-class="values">
-							{{!-- {{#each salesConfigs as |sc|}}
-								{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
-									{{#each sc.salesReport.hospitalSalesReports as |item|}}
-										{{#if (bp-eq item.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
-											{{sc.goodsConfig.productConfig.product.name}}
-										{{/if}}
-									{{/each}}
-								{{/if}}
-							{{/each}} --}}
-						</p>
-					{{/bp-layout}}
-					{{#bp-layout direction="col"  classNames="mr-5"}}
-						<p local-class="keys">{{t "card.hospital-card.access"}}</p>
-						<p local-class="values">
-							{{!-- {{#each salesConfigs as |sc|}}
-								{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
-									{{#each sc.salesReport.hospitalSalesReports as |item|}}
-										{{#if (bp-eq item.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
-											{{sc.accessStatus}}
-										{{/if}}
-									{{/each}}
-								{{/if}}
-							{{/each}} --}}
-						</p>
-					{{/bp-layout}}
-					{{#bp-layout direction="col"}}
-						<p local-class="keys">{{t "card.hospital-card.potential-value"}}</p>
-						<p local-class="values">
-							{{!-- {{#each salesConfigs as |sc|}}
-								{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
-									{{#each sc.salesReport.hospitalSalesReports as |item|}}
-										{{#if (bp-eq item.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
-											￥{{format-number item.potential}}
-										{{/if}}
-									{{/each}}
-								{{/if}}
-							{{/each}} --}}
-						</p>
-					{{/bp-layout}}
+
+			{{!-- {{#bp-layout tagName="div" local-class="properties"}} --}}
+				
+			<div local-class="properties">
+				{{#bp-layout tagName="p" }}
+					<span class="mr-3">{{t "card.hospital-card.category"}}</span>
+					<span>{{hospital.category}} </span>
 				{{/bp-layout}}
-			{{/bp-layout}}
-			<div local-class="dynamic others" class="p-4">
-				<h4 local-class="title" class="mb-2">{{t "card.hospital-card.dynamic"}}</h4>
-				{{#each hospital.policies as |policy|}}
-					<p local-class="content" class="mb-2">
-						{{policy.describe}}
-					</p>
-				{{/each}}
+
+				{{#bp-layout tagName="p" }}
+					<span class="mr-3">{{t "card.hospital-card.level"}}</span>
+					<span>{{hospital.level}}</span>
+				{{/bp-layout}}
+
+				{{#bp-layout direction="row"}}
+					
+					{{#bp-layout tagName="p" direction="col"}}
+						{{#bp-layout}}<span class="mr-3">{{t "card.hospital-card.doctorNumber"}}</span>{{/bp-layout}}
+						{{#bp-layout}}<span local-class="span-last">{{format-number hostpital.doctorNumber}}</span>{{/bp-layout}}
+					{{/bp-layout}}
+
+					{{#bp-layout tagName="p" direction="col"}}
+						{{#bp-layout}}<span class="mr-3">{{t "card.hospital-card.bedNumber"}}</span>{{/bp-layout}}
+						{{#bp-layout}}<span local-class="span-last">{{format-number hostpital.bedNumber}}</span>{{/bp-layout}}
+					{{/bp-layout}}
+
+					{{#bp-layout tagName="p" direction="col"}}
+						{{#bp-layout}}<span class="mr-3">自费病人比例</span>{{/bp-layout}}
+						{{#bp-layout classNames="mt-2"}}<span local-class="span-last">{{t "card.hospital-card.money"}}{{format-number hospital.income}}</span>{{/bp-layout}}
+					{{/bp-layout}}
+
+				{{/bp-layout}}
 			</div>
-		{{/bp-layout}}
-		{{#bp-layout main="between" local-class="sell" classNames="pb-4"}}
-			{{!-- {{#bp-layout direction="col" local-class="medic-access"
-				classNames="p-4"}}
-				<h4 local-class="title" class="mb-3">药品准入情况</h4>
-				{{#bp-layout}}
-					{{#bp-layout direction="col" classNames="mr-5"}}
-						<p local-class="keys">药品通用名-药品名</p>
-						<p local-class="values">
-							{{#each salesConfigs as |sc|}}
-								{{#if (bp-eq sc.destConfig.id destConfig.id)}}
-									{{sc.goodsConfig.productConfig.product.name}}
-									-
-									{{sc.goodsConfig.productConfig.product.generalName}}
-								{{/if}}
-							{{/each}}
-						</p>
-					{{/bp-layout}}
-					{{#bp-layout direction="col"  classNames="mr-5"}}
-						<p local-class="keys">状态</p>
-						<p local-class="values">
-							{{#each salesConfigs as |sc|}}
-								{{#if (bp-eq sc.destConfig.id destConfig.id)}}
-									{{sc.accessStatus}}
-								{{/if}}
-							{{/each}}
-						</p>
-					{{/bp-layout}}
-					{{#bp-layout direction="col"}}
-						<p local-class="keys">潜力值</p>
-						<p local-class="values">
-							{{#each salesConfigs as |sc|}}
-								{{#if (bp-eq sc.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
-									{{#each sc.salesReport.hospitalSalesReports as |item|}}
-										{{#if (bp-eq item.destConfig.hospitalConfig.hospital.id destConfig.hospitalConfig.hospital.id)}}
-											{{format-number item.potential}}
-										{{/if}}
-									{{/each}}
-								{{/if}}
-							{{/each}}
-						</p>
-					{{/bp-layout}}
-				{{/bp-layout}}
-			{{/bp-layout}} --}}
-			{{!-- {{#bp-layout direction="col" local-class="chart" 
-			classNames="p-4"}} --}}
-			{{!-- <div local-class="content"> --}}
-			{{!-- {{#each salesConfigs as |sc|}}
-						{{#if (bp-eq sc.destConfig.id destConfig.id)}}
-							{{bp-bar/tm
-								barData=barData
-								title="药品销售额情况" 
-								subText=sc.goodsConfig.productConfig.product.generalName}}
-						{{/if}}
-					{{/each}} --}}
-			{{!-- {{#each barDatum as |barData index|}}
-				{{#if (bp-eq barData.hospitalId destConfig.hospitalConfig.hospital.id)}}
-					{{bp-bar/tm
-						eid=(string-concat index "barMedicineSales")
-						barData=barData
-						title="药品销售额情况" 
-						subText=sc.goodsConfig.productConfig.product.generalName}}
-				{{/if}}
-			{{/each}} --}}
-			{{!-- </div> --}}
 			{{!-- {{/bp-layout}} --}}
 		{{/bp-layout}}
+		{{!-- left end --}}
+
+		{{!-- right --}}
+		{{#bp-layout local-class="right-info" direction="col"}}
+			{{#bp-layout local-class="medic-access"	classNames="px-4" }}
+				<h4 local-class="title" class="mb-3">药品准入情况</h4>
+			{{/bp-layout}}
+			
+			{{#bp-layout tagName="table" direction="col" classNames="ml-4"}}
+				{{#bp-layout tagName="thead" main="between" }}
+					{{#bp-layout tagName="th"}}药品名{{/bp-layout}}
+					{{#bp-layout tagName="th"}}治疗领域{{/bp-layout}}
+					{{#bp-layout tagName="th"}}药品准入状态{{/bp-layout}}
+					{{#bp-layout tagName="th"}}患者数量{{/bp-layout}}
+				{{/bp-layout}}
+				{{#bp-layout tagName="tbody" }}
+					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
+						{{#bp-layout tagName="td"}}开拓来{{/bp-layout}}
+						{{#bp-layout tagName="td"}}癫痫{{/bp-layout}}
+						{{#bp-layout tagName="td"}}已开发{{/bp-layout}}
+						{{#bp-layout tagName="td"}}{{format-number 900000}}{{/bp-layout}}
+					
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+
+			{{#bp-layout}}
+				<div local-class="dynamic others" class="p-4">
+					<h4 local-class="title" class="mb-2">{{t "card.hospital-card.dynamic"}}</h4>
+					{{#each hospital.policies as |policy|}}
+						<p local-class="content" class="mb-2">
+							{{policy.describe}}
+						</p>
+					{{/each}}
+				</div>
+			{{/bp-layout}}
+		{{/bp-layout}}
 	{{/bp-layout}}
-{{/bs-collapse}}
+	{{#bp-layout main="between" local-class="sell" classNames="pb-1"}}{{/bp-layout}}
+
+{{/bp-layout}} 

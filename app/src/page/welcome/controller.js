@@ -6,6 +6,7 @@ export default Controller.extend( {
 	lastSelectedCat: 0, // 0 for proposal, 1 for project
 	currentProposal: null,
 	currentProject: null,
+	currentTab: 2,
 
 	deploy( aProject ) {
 		if ( aProject.periods.length === 0 ) {

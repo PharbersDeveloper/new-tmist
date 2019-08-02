@@ -7,6 +7,23 @@
 
 	.reference-tabs {
 		flex: 0 0 80px;
+
+		.btn-group-info {
+			// width: 132px;
+			height: 69px;
+		}
+
+		.tab-btn {
+			height: 69px;
+			width: 132px;
+			margin-left: 2px;
+		}
+
+		.active {
+			background: #505f79;
+			font-size: 14px;
+			color: #ffffff;
+		}
 	}
 
 	.reference-content {
@@ -70,6 +87,5 @@
 		// 		flex: 1;
 		// 	}
 		// }
-
 	}
 }

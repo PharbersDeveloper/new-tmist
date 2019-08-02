@@ -15,13 +15,13 @@ export default Service.extend( {
 	queryPeriodAnswers( aPeriod, presets, resources ) {
 		return this.delegate.answersForPresets( aPeriod, presets, resources )
 	},
-	clearPeriodExam() {
-		this.set( "currentPeriod", null )
-		this.operationAnswers.forEach( answer => {
-			this.store.unloadRecord( answer )
-		} )
-		this.set( "operationAnswers", null )
-	},
+	// clearPeriodExam() {
+	// 	this.set( "currentPeriod", null )
+	// 	this.operationAnswers.forEach( answer => {
+	// 		this.store.unloadRecord( answer )
+	// 	} )
+	// 	this.set( "operationAnswers", null )
+	// },
 	saveCurrentInput( period, answers, fcallback ) {
 		/**
          * copy and swap
@@ -45,9 +45,17 @@ export default Service.extend( {
 	 * Business Exam
 	 * business operation logic
 	 ****************************************************************/
-	resetBusinessResources( aHospital, aResource ) {
-		this.operationAnswers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get( "category" ) === "Business" ).forEach( answer => {
+	resetBusinessResources( answers, aHospital, aResource ) {
+		window.console.log( answers.length )
+		answers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get( "category" ) === "Business" ).forEach( answer => {
+			// this.store.peekRecord( "resource", aResource.id )
 			answer.set( "resource", aResource )
+			// answer.resource = aResource
+			window.console.log( "====" )
+			window.console.log( aResource )
+			window.console.log( answer )
+			window.console.log( answer.resource )
+			window.console.log( new Date().getTime() )
 		} )
 	},
 	resetBusinessAnswer( aHospital ) {

@@ -10,3 +10,62 @@
 		flex: 1;
 	}
 }
+
+.submit-header {
+	h4.title {
+		font-size: 16px;
+		color: #172b4d;
+	}
+
+	.btn-left {
+		font-size: 14px;
+		color: #344563;
+		text-align: center;
+		line-height: 20px;
+		height: 20px;
+		width: 51px;
+	}
+
+	.btn-submit {
+		font-size: 14px;
+		color: #ffffff;
+		letter-spacing: 0;
+		text-align: center;
+		line-height: 32px;
+		height: 32px;
+		width: 80px;
+	}
+}
+
+.tabs-container {
+	background: #ffffff;
+	height: 58px;
+
+	ul:global(.nav-tabs) {
+		border: none;
+	}
+
+	.active {
+		border-bottom: 2px solid #3172e0;
+		border-radius: 1px;
+	}
+
+	.nav-item {
+		height: 58px;
+		width: 68px;
+		margin-left: 24px;
+
+		button:global(.nav-link) {
+			color: #172b4d;
+			height: 28px;
+			width: 68px;
+			font-size: 16px;
+		}
+
+		.active:global(.nav-link) {
+			color: #3172e0;
+
+			// letter-spacing: 1px;
+		}
+	}
+}

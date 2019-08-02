@@ -2,9 +2,9 @@ import Component from "@ember/component"
 
 export default Component.extend( {
 	positionalParams: ["proposal"],
-	groupValue: "index",
+	groupValue: "",
 	salesGroupValue: 0,
-	currentPannel: 0,
+	currentPannel: 3,
 	actions: {
 		linkToRoute( routeCode ) {
 			let proposalId = this.get( "proposalId" ),

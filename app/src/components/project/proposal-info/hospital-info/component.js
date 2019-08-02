@@ -1,7 +1,8 @@
 import Component from "@ember/component"
 
 export default Component.extend( {
-	positionalParams: ["hospitals"]
+	positionalParams: ["hospitals"],
+	currentHospital: 0
 	// model() {
 	// 	const pageScenarioModel = this.modelFor('page-scenario'),
 	// 		proposal = pageScenarioModel.proposal,

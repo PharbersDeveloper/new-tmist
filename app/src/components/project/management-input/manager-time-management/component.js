@@ -147,19 +147,16 @@ export default Component.extend( {
 	// 		}
 	// 	]
 	// } ),
-	checkType( type, arr ) {
-		let len = arr.length
+	checkType( type, value ) {
 
 		if ( type === "Number" ) {
-			for ( let i = 0; i < len; i++ ) {
-				if ( isNaN( Number( arr[i] ) ) ) {
-					this.set( "warning", {
-						open: true,
-						title: "非法值警告",
-						detail: "请输入数字！"
-					} )
-					return false
-				}
+			if ( isNaN( Number( value ) ) ) {
+				this.set( "warning", {
+					open: true,
+					title: "非法值警告",
+					detail: "请输入数字！"
+				} )
+				return false
 			}
 			return true
 		}
@@ -178,10 +175,8 @@ export default Component.extend( {
 					title: "经理时间超额",
 					detail: "经理时间设定已超过限制，请重新分配。"
 				} )
-				return false
 			}
 		}
-		return true
 	},
 	actions: {
 		reInputTime() {
@@ -201,7 +196,7 @@ export default Component.extend( {
 				}
 			} )
 		},
-		validationMangerTime: function( curAnswer , curInput ) {
+		validationMangerTime( curAnswer , curInput ) {
 			window.console.log( this.validation )
 			let maxValueRules = this.validation["maxValue"].split( "*" ),
 				typeRules = this.validation["inputType"].split( "*" ),
@@ -233,11 +228,10 @@ export default Component.extend( {
 			managerInput.push( adminWorkTime )
 			managerInput.push( kpiAnalysisTime )
 			managerInput.push( teamMeetingTime )
+			this.checkMaxValue( maxMangerTime, managerInput )
+			let typeValidation = this.checkType( managerTimeInputType, curAnswer.get( curInput ) )
 
-			let typeValidation = this.checkType( managerTimeInputType, managerInput ),
-				valueValidation = this.checkMaxValue( maxMangerTime, managerInput )
-
-			if ( !typeValidation || !valueValidation ) {
+			if ( !typeValidation ) {
 				this.exam.delegate.currentAnswers.forEach( e => {
 					if ( e.resource.get( "id" ) === curAnswer.resource.get( "id" ) ) {
 						curAnswer.set( curInput , e.get( curInput ) )

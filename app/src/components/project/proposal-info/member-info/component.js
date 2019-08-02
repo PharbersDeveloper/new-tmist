@@ -1,5 +1,6 @@
 import Component from "@ember/component"
 
 export default Component.extend( {
-	positionalParams: ["resources"]
+	positionalParams: ["resources"],
+	currentResource: 0
 } )

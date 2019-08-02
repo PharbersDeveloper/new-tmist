@@ -3,7 +3,9 @@
 	overflow: auto;
 
 	h2.title {
-		@extend %header-large;
+		// @extend %header-large;
+		font-size: 29px;
+		color: #172b4d;
 	}
 
 	h3 {
@@ -11,7 +13,10 @@
 	}
 
 	h4.title {
-		@extend %header-small;
+		// @extend %header-small;
+		color: #172b4d;
+		// margin-top: 25px;
+		font-size: 16px;
 	}
 
 	.blank {
@@ -24,8 +29,10 @@
 		.manager {
 			@extend %depth-z200;
 			@extend %defaultRadius;
-			margin-top: 90px;
-			position: relative;
+			margin-top: 40px;
+			width: 564px;
+			height: 157px;
+			// position: relative;
 
 			img {
 				border-radius: 50%;
@@ -36,17 +43,33 @@
 			}
 
 			h2.title {
-				margin-top: 78px;
+				font-size: 29px;
+				color: #172b4d;
 			}
 
-			p.desc {
+			p {
 				@extend %p-secondary;
+				margin: 0;
 			}
 		}
 
-		.rule {
+		.desc {
 			@extend %depth-z200;
 			@extend %defaultRadius;
+			width: 564px;
+			height: 333px;
+
+			p {
+				@extend %p-secondary;
+				margin: 0;
+			}
+		}
+
+		.matters-attention {
+			@extend %depth-z200;
+			@extend %defaultRadius;
+			width: 564px;
+			height: 158px;
 
 			p {
 				@extend %p-secondary;
@@ -149,7 +172,7 @@
 
 			.entry-mission {
 				a {
-					color: #FFF;
+					color: #fff;
 
 					&:hover {
 						text-decoration: none;

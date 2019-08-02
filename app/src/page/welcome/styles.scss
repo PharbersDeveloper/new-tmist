@@ -2,7 +2,7 @@
 	height: 100%;
 	overflow: auto;
 
-	&>div {
+	& > div {
 		height: 100%;
 	}
 
@@ -48,7 +48,6 @@
 			span.times {
 				@extend %p-secondary;
 			}
-
 		}
 
 		p.historp-report {
@@ -57,7 +56,7 @@
 
 			span.infos {
 				.level {
-					color: #FCE2AA;
+					color: #fce2aa;
 					font-size: 20px;
 				}
 			}

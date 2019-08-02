@@ -5,7 +5,7 @@ import { isEmpty } from "@ember/utils"
 
 export default Component.extend( {
 	positionalParams: ["resource"],
-	classNames: ["mb-4", "bg-white"],
+	classNames: ["mb-4"],
 	localClassNames: "resource",
 	showContent: false,
 	icon: computed( "showContent", function () {
