@@ -5,7 +5,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 	positionalParams: ["resources", "answers", "validation"],
-	quizs: computed( "resources", "answers", function() {
+	quizs: computed( "resources", "answers", function () {
 		return this.resources.map( item => {
 			const one = this.answers.find( x => x.get( "resource.id" ) === item.get( "id" ) )
 
@@ -24,23 +24,6 @@ export default Component.extend( {
 			return true
 		}
 	} ),
-	// checkType( type, arr ) {
-	// 	let len = arr.length
-
-	// 	if ( type === "Number" ) {
-	// 		for ( let i = 0; i < len; i++ ) {
-	// 			// let temp = Number( arr[i] )
-	// 			if ( isNaN( Number( arr[i] ) ) ) {
-	// 				window.console.log( arr[i] )
-	// 				this.set( "warning", {
-	// 					open: true,
-	// 					title: "非法值警告",
-	// 					detail: "请输入数字！"
-	// 				} )
-	// 			}
-	// 		}
-	// 	}
-	// },
 	checkMaxValue( max, arr ) {
 		let len = arr.length
 
@@ -62,7 +45,7 @@ export default Component.extend( {
 		window.console.log( "ok" )
 		return true
 	},
-	isOverMaxMangerActionPoint: function() {
+	isOverMaxMangerActionPoint: function () {
 		let maxValueRules = this.validation["maxValue"].split( "*" ),
 			// typeRules = this.validation[1].split( "*" ),
 			maxMangerActionPointRule = "",
@@ -93,7 +76,7 @@ export default Component.extend( {
 	},
 
 	actions: {
-		changeState( ) {
+		changeState() {
 			return this.isOverMaxMangerActionPoint()
 			// state = Number( context.get( key ) )
 

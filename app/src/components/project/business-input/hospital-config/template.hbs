@@ -1,9 +1,9 @@
 {{#bp-layout local-class="header"}}
-	{{#bp-layout tagName="h4" main='between' cross="center"  local-class="title" classNames="px-4  bg-white mb-0" }}
+	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
 		{{bp-icon icon="check-cicle"}}
 		{{hospital.name}}
-		{{#bp-layout}}
-			{{#bp-button onClick=(action 'showContent')}}{{bp-icon icon='data'}}{{/bp-button}}
+		{{#bp-layout }}
+			{{#bp-button local-class="icon-btn" onClick=(action 'showContent')}}{{bp-icon icon='data'}}{{/bp-button}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
@@ -50,21 +50,21 @@
 {{#bp-layout tagName="h5" cross="center" local-class="title" classNames="m-0 px-4 bg-white"}}
 	药品相关资源设定
 {{/bp-layout}}
-{{#bp-layout local-class="hospital-resource"}}
+{{#bp-layout local-class="hospital-resource" class="p-4 bg-white"}}
 	<table local-class="prod" class="table mb-2">
 		<thead class='bg-white px-2'>
 			<tr>
-				<th class="border-0 pb-2 pl-4 pr-2 text-left">产品名称</th>
+				<th class="border-0 pb-2 pr-2 text-left">产品名称</th>
 				<th class="border-0 pb-2 px-2 text-left">药品潜力</th>
 				<th class="border-0 pb-2 px-2 text-left">上季度销售额</th>
-				<th class="border-0 pb-2 px-2 text-right">销售指标分配</th>
-				<th class="border-0 pb-2 pl-2 pr-4 text-right ">预算分配</th>
+				<th class="border-0 pb-2 px-2 text-center">销售指标分配</th>
+				<th class="border-0 pb-2 pl-2 text-center ">预算分配</th>
 			</tr>
 		</thead>
 		<tbody class="bg-white">
 			{{#each quizs as |quiz|}}
 				<tr class="mx-0 mx-4">
-					<td class="pl-4 pr-2 border-0 text-left">
+					<td class="pr-2 border-0 text-left">
 						{{quiz.preset.product.name}}
 					</td>
 					<td class="px-2 border-0 text-left">
@@ -84,7 +84,7 @@
 							{{IndicatorAllocationPercent.percent}}56%
 						</span>
 					</td>
-					<td class=" pr-4 border-0">
+					<td class="border-0">
 						{{bp-input block=true 
 							value=quiz.answer.budget
 							onChange=(action "budgetValidation" (mut quiz.answer.budget))

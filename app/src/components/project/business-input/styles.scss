@@ -49,24 +49,34 @@
 			height: 54px;
 		}
 
-		.resource-list {
+		.resource-list-outer {
 			width: 368px;
+			height: fit-content;
 
-			button {
+			.resource-item {
 				height: 88px;
 				font-size: 14px;
 				color: #172b4d;
 				text-align: left;
 				border-bottom: 1px solid rgba(9, 30, 66, 0.04);
 				border-radius: 0;
+				cursor: pointer;
 
-				button:last-child {
+				&:last-child {
 					border-bottom: none;
+				}
+
+				&.active {
+					background-color: #EBECF0;
 				}
 
 				img {
 					height: 40px;
 					height: 40px;
+				}
+
+				.item-right {
+					
 				}
 			}
 		}
