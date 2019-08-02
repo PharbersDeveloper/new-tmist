@@ -2,6 +2,7 @@ import Component from "@ember/component"
 
 export default Component.extend( {
 	positionalParams: ["proposal"],
+
 	groupValue: "",
 	salesGroupValue: 0,
 	currentPannel: 3,
