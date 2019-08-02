@@ -1,9 +1,9 @@
 {{#bp-layout local-class="header"}}
-	{{#bp-layout tagName="h4" main='between' cross="center"  local-class="title" classNames="px-4  bg-white mb-0" }}
+	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
 		{{bp-icon icon="check-cicle"}}
 		{{hospital.name}}
-		{{#bp-layout}}
-			{{#bp-button onClick=(action 'showContent')}}{{bp-icon icon='data'}}{{/bp-button}}
+		{{#bp-layout }}
+			{{#bp-button local-class="icon-btn" onClick=(action 'showContent')}}{{bp-icon icon='data'}}{{/bp-button}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}

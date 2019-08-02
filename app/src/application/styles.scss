@@ -21,6 +21,11 @@
 	}
 }
 
+p {
+	margin: 0;
+	padding: 0;
+}
+
 :global(.p-btn) {
 	&:focus {
 		outline: none;

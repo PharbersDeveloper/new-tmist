@@ -176,6 +176,9 @@ export default Controller.extend( {
 		}
 	},
 	actions: {
+		toIndex() {
+			this.transitionToRoute( "page.welcome" )
+		},
 		submit() {
 			// let judgeAuth = this.judgeOauth(),
 			// 	store = this.get( "store" ),
