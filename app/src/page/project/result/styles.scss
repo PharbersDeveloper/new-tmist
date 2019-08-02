@@ -1,3 +1,20 @@
 .page-result {
+	.header {
+		height: 64px;
+		width: 100%;
+	}
 
+	h4.title {
+		font-size: 16px;
+		color: #172b4d;
+	}
+
+	.btn-next {
+		font-size: 14px;
+		color: #ffffff;
+		text-align: center;
+		line-height: 20px;
+		height: 32px;
+		width: 108px;
+	}
 }

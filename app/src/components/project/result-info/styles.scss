@@ -18,16 +18,142 @@
 		@extend %header-small;
 	}
 
+	.report-header {
+		width: 1152px;
+	}
+
+	.key-indicator {
+		width: 1152px;
+
+		span {
+			font-size: 14px;
+			color: #344563;
+		}
+
+		button {
+			height: 33px;
+			width: 97px;
+			border-radius: 4px;
+		}
+	}
+
+	.indicators {
+		.left {
+			width: 572px;
+
+			.sales {
+				height: 137px;
+
+				.col {
+					width: 286px;
+				}
+
+				.row-1 {
+					font-size: 14px;
+					color: #344563;
+				}
+
+				.row-2 {
+					font-size: 29px;
+					color: #172b4d;
+				}
+			}
+
+			.growth-rate {
+				height: 115px;
+
+				.col {
+					width: 286px;
+				}
+
+				.row-1 {
+					font-size: 14px;
+					color: #344563;
+				}
+
+				.row-2 {
+					font-size: 16px;
+					color: #172b4d;
+				}
+
+				.row-2-2 {
+					font-size: 12px;
+					color: #7a869a;
+					margin-top: 4px;
+				}
+			}
+
+			.hospital-rio-people {
+				height: 103px;
+
+				.col {
+					width: 190px;
+				}
+
+				.row-1 {
+					font-size: 12px;
+					color: #7a869a;
+				}
+
+				.row-2 {
+					font-size: 16px;
+					color: #172b4d;
+				}
+			}
+		}
+
+		.right {
+			width: 572px;
+
+			h4.title {
+				font-size: 14px;
+				color: #172b4d;
+			}
+
+			.right-header {
+				height: 52px;
+
+				.right-btn {
+					button {
+						height: 24px;
+						width: 80px;
+					}
+
+					button:first-child {
+						border-radius: 4px 0 0 4px;
+					}
+
+					button:last-child {
+						border-radius: 0 4px 4px 0;
+					}
+				}
+			}
+		}
+	}
+
+	.sales-report {
+		font-size: 16px;
+		color: #172b4d;
+		height: 54px;
+		width: 1152px;
+	}
+
+	.report-info {
+		width: 1152px;
+
+		div:first-child {
+			width: 100%;
+		}
+	}
+
 	.performance {
 		.item {
 			flex: 1;
 
 			.content {
-
 				.img-container {
 					flex: 0 0 102.4px;
 					height: 115.2px;
-
 				}
 
 				.text {
@@ -50,10 +176,7 @@
 						@extend %header-small;
 					}
 				}
-
-
 			}
-
 		}
 	}
 

@@ -8,6 +8,7 @@ import { later } from "@ember/runloop"
 export default Component.extend( {
 	positionalParams: ["periods"],
 	salesGroupValue: 0,
+	classNames: ["report-wrapper"],
 	// init() {
 	// 	this._super(...arguments);
 	// 	// 初始化 全部选择 的一些数据

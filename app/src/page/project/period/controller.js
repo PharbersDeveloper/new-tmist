@@ -192,15 +192,13 @@ export default Controller.extend( {
 			// this.verificationBusinessinputs( businessinputs, representatives )
 
 			// validation
-
-			this.validation()
+			// this.validation()
 
 			// Ember.Logger.info( "save current input" )
 			// this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 			// 	this.transitionToRoute( "page.project.report" )
 			// } )
-
-
+			this.transitionToRoute( "page.project.result" )
 		},
 		confirmSubmit() {
 			this.set( "warning", { open: false } )

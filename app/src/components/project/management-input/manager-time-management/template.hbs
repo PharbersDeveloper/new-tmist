@@ -2,18 +2,17 @@
 {{#bp-layout main="between" local-class="management-content"}}
 	<div local-class="infos" class="mr-4 ">
 		<div local-class="manager-infos" class="mb-2 bg-white">
-				{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
-					<span local-class="title">
-						经理剩余时间
-					</span>
-				{{/bp-layout}}
-				<div local-class="pie" class="p-4">
-					{{!-- {{bp-circle
+			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
+				<span local-class="title">
+					经理剩余时间
+				</span>
+			{{/bp-layout}}
+			<div local-class="pie" class="p-4">
+				{{!-- {{bp-circle
 						eid='managerTime'
 						seriesName="经理剩余时间" 
 						circleData=circleTime}} --}}
-					
-				</div>			
+			</div>
 		</div>
 		<div local-class="team-infos" class="bg-white">
 			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
@@ -27,9 +26,9 @@
 					{{#bp-dropdown widthSize="auto" as |dd|}}
 						{{#dd.button }}
 							{{!-- {{#if tmpRepConf.representative.name}} --}}
-								{{!-- <p>{{tmpRepConf.representative.name}}</p> --}}
+							{{!-- <p>{{tmpRepConf.representative.name}}</p> --}}
 							{{!-- {{else}} --}}
-								请选择
+							请选择
 							{{!-- {{/if}} --}}
 							{{bp-icon icon='down'}}
 						{{/dd.button}}
@@ -43,6 +42,7 @@
 					{{/bp-dropdown}}
 				{{/bp-layout}}
 				<div local-class="radar-container">
+					{{bp-row direction='col' rowModel=tmRadar conditions=tmRadarCondition}}
 					{{!-- {{bp-radar
 						eid='representativeRadar' 
 						radarData=radarData
@@ -64,17 +64,14 @@
 			{{#bp-layout local-class="content" main="between" class="p-4" }}
 				{{#bp-layout}}
 					{{#bp-layout direction="col" local-class="keys" }}
-						
 						{{#bp-layout tagName="p" cross="center" class="mb-4" }}
 							<span local-class="square square-1"></span>
 							<span local-class="p-primary">业务数据策略分析</span>
 						{{/bp-layout}}
-
 						{{#bp-layout tagName="p" cross="center"}}
 							<span local-class="square square-2"></span>
 							<span local-class="p-primary">重点目标客户管理</span>
 						{{/bp-layout}}
-
 					{{/bp-layout}}
 					{{#bp-layout direction="col" local-class="inputs" }}
 						{{bp-input value=managerAnswer.strategAnalysisTime
@@ -151,18 +148,18 @@
 							{{answer.resource.name}}
 						</p>
 						{{!-- {{#each representativeInputs as |resConf|}} --}}
-							{{!-- {{#if (bp-eq rcs.id resConf.resourceConfigId)}} --}}
-							{{bp-input value=answer.abilityCoach
+						{{!-- {{#if (bp-eq rcs.id resConf.resourceConfigId)}} --}}
+						{{bp-input value=answer.abilityCoach
 							onChange=(action "validationMangerTime" answer "abilityCoach" (mut answer.abilityCoach))
 								size="medium" widthSize="small" 
 								classNames="mb-4"
 								local-class="input-prepend"}}
-							{{bp-input value=answer.assistAccessTime
+						{{bp-input value=answer.assistAccessTime
 							onChange=(action "validationMangerTime" answer "assistAccessTime" (mut answer.assistAccessTime))
 								size="medium" 
 								widthSize="small"
 								local-class="input-prepend"}}
-							{{!-- {{/if}} --}}
+						{{!-- {{/if}} --}}
 						{{!-- {{/each}} --}}
 					{{/bp-layout}}
 				{{/each}}

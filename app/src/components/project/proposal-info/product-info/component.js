@@ -1,87 +1,162 @@
 import Component from "@ember/component"
-// import Route from "@ember/routing/route"
-// import { A } from "@ember/array"
-// import RSVP, { hash } from "rsvp"
+import { later } from "@ember/runloop"
 
 export default Component.extend( {
 	positionalParams: ["products"],
-	currentProduct: 0
-	// model() {
-	//     let scenarioModel = this.modelFor('page-scenario'),
-	//         salesReports = scenarioModel.salesReports,
-	//         goodsConfigs = scenarioModel.goodsConfigs,
-	//         seasons = A([]),
-	//         tmpData = A([]),
-	//         lineColorTm = A(['#57D9A3', '#79E2F2', '#FFE380', '#8777D9 ']),
-	//         promiseArrayTop = salesReports.map(ele => {
-	//             return ele.get('productSalesReports');
-	//         }),
-	//         seasonsPrimary = salesReports.map(ele => {
-	//             return ele.scenario;
-	//         });
+	currentProduct: 0,
+	init() {
+		this._super( ...arguments )
 
-	//     return hash({
-	//         productSalesReports: RSVP.Promise.all(promiseArrayTop),
-	//         seasons: RSVP.Promise.all(seasonsPrimary)
-	//     }).then(result => {
-	//         let promiseArray = A([]),
-	//             data = result.productSalesReports;
+		new Promise( function ( resolve ) {
+			later( function () {
+				let tmProdsLines = {
+						id: "tmProdsLinesContainer",
+						height: 305,
+						panels: [{
+							id: "demoline1",
+							color: ["#57D9A3", "#79E2F2", "#FFE380", "#8777D9"],
+							xAxis: {
+								show: true,
+								type: "category",
+								name: "",
+								axisTick: {
+									show: true,
+									alignWithLabel: true
+								},
+								axisLine: {
+									show: true,
+									lineStyle: {
+										type: "dotted",
+										color: "#DFE1E6"
+									}
+								},
+								axisLabel: {
+									show: true,
+									color: "#7A869A",
+									fontSize: 14,
+									lineHeight: 20
+								}
+							},
+							yAxis: {
+								show: true,
+								type: "value",
+								axisLine: {
+									show: false
+								},
+								axisTick: {
+									show: false
+								},
+								axisLabel: {
+									show: true,
+									color: "#7A869A"
+								// formatter: function (value) {
+								// 	return value * 100 + axisConfig.unit;
+								// }
+								},
+								splitLine: {
+									show: true,
+									lineStyle: {
+										type: "dotted",
+										color: "#DFE1E6"
+									}
+								}
+							},
+							tooltip: {
+								show: true,
+								trigger: "axis",
+								axisPointer: { // 坐标轴指示器，坐标轴触发有效
+									type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+								},
+								backgroundColor: "rgba(9,30,66,0.54)"
+							},
+							legend: {
+								show: true,
+								x: "center",
+								y: "top",
+								orient: "horizontal",
+								textStyle: {
+									fontSize: 14,
+									color: "#7A869A"
+								}
+							},
+							series: [{
+								type: "line"
+							}, {
+								type: "line"
+							}, {
+								type: "line"
+							}, {
+								type: "line"
+							}]
+						}]
 
-	//         seasons = result.seasons.map(ele => ele.name);
+					},
+					tmProdsLinesCondition = [{
+						queryAddress: {
+							host: "http://192.168.100.157",
+							port: 9000,
+							sheet: "tmchart",
+							rule: "pivot"
+						},
+						data: {
 
-	//         // 获取基于周期的数据
-	//         tmpData = data.map((productSalesReports, index) => {
-	//             let shareData = this.eachArray(productSalesReports, 'share'),
-	//                 // goodsConfigIds = this.eachArray(productSalesReports, 'goodsConfig.id'),
-	//                 goodsConfigIds = productSalesReports.map(ele => ele.get('goodsConfig')),
-	//                 productNames = this.eachArray(productSalesReports, 'productName');
+							"_source": [
+								"date",
+								"product",
+								"salesRate"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"rep": "all"
+											}
+										},
+										{
+											"match": {
+												"region": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_level": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_name": "all"
+											}
+										}
+									],
+									"must_not": [
+										{
+											"match": {
+												"product": "all"
+											}
+										},
+										{
+											"match": {
+												"date": "all"
+											}
+										}
+									]
+								}
+							},
+							"sort": [
+								{ "date": "asc" },
+								{ "product": "asc" }
+							]
+						}
+					}]
 
-	//             // promiseArray = goodsConfigIds.map(ele => ele.get('go'));
-	//             promiseArray = goodsConfigIds;
-
-	//             return {
-	//                 date: seasons[index],
-	//                 shareData,
-	//                 goodsConfigIds,
-	//                 productNames
-	//             };
-	//         });
-
-	//         return RSVP.Promise.all(promiseArray);
-	//     }).then(data => {
-	//         let promiseArray = data.map(ele => {
-	//             return ele.get('productConfig');
-	//         });
-
-	//         return RSVP.Promise.all(promiseArray);
-	//     }).then(data => {
-
-	//         let promiseArray = data.map(ele => {
-	//             return ele.get('product');
-	//         });
-
-	//         return RSVP.Promise.all(promiseArray);
-	//     }).then(data => {
-	//         // 拼装基于产品的数据
-	//         let lineData = data.map((gc, index) => {
-
-	//             return {
-	//                 name: data[index].name,
-	//                 date: seasons,
-	//                 data: tmpData.map(item => (item.shareData[index] * 100).toFixed(0))
-	//             };
-	//         });
-
-	//         return hash({
-	//             goodsConfigs,
-	//             lineDataTm: lineData,
-	//             lineColorTm
-	//         });
-	//     });
-	// },
-	// eachArray(array, key) {
-	//     return array.map(ele => {
-	//         return ele.get(key);
-	//     });
-	// }
+				resolve( {
+					tmProdsLines, tmProdsLinesCondition
+				} )
+			}, 400 )
+		} ).then( data => {
+			this.set( "tmProdsLines", data.tmProdsLines )
+			this.set( "tmProdsLinesCondition", data.tmProdsLinesCondition )
+		} )
+	}
 } )
