@@ -81,16 +81,12 @@ export default Component.extend( {
 							},
 							series: [{
 								type: "line"
-							// 	seriesLayoutBy: 'row'
 							}, {
 								type: "line"
-							// 	seriesLayoutBy: 'row'
 							}, {
 								type: "line"
-							// 	seriesLayoutBy: 'row'
 							}, {
 								type: "line"
-							// 	seriesLayoutBy: 'row'
 							}]
 						}]
 

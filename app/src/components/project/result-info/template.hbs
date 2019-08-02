@@ -46,7 +46,6 @@
 			{{/bp-dropdown}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-
 	{{#bp-layout direction="row" local-class="indicators" classNames="mb-4"}}
 		{{#bp-layout direction="col" local-class="left" classNames="mr-1"}}
 			{{#bp-layout local-class="sales" classNames="bg-white mb-1" direction="row" main="between"}}
@@ -58,7 +57,6 @@
 						<span local-class="row-2">¥ 90,000,000</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col"}}
 					{{#bp-layout}}
 						<span local-class="row-1">总指标达成率</span>
@@ -68,9 +66,7 @@
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-
 			{{#bp-layout local-class="growth-rate" classNames="bg-white mb-1"}}
-
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout classNames="mb-4"}}
 						<span local-class="row-1">产品销售增长率</span>
@@ -80,7 +76,6 @@
 						<span local-class="row-2-2">同比</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-				
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col"}}
 					{{#bp-layout classNames="mb-4"}}
 						<span local-class="row-1">产品销售增长率</span>
@@ -91,9 +86,7 @@
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-			
 			{{#bp-layout local-class="hospital-rio-people" classNames="bg-white"}}
-			
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout classNames="mb-3"}}
 						<span local-class="row-1">产品销售增常率</span>
@@ -102,7 +95,6 @@
 						<span local-class="row-2">30</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-				
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col"}}
 					{{#bp-layout classNames="mb-3"}}
 						<span local-class="row-1">RIO投入产出比</span>
@@ -111,7 +103,6 @@
 						<span local-class="row-2">30%</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout classNames="mb-3"}}
 						<span local-class="row-1">人效</span>
@@ -120,34 +111,29 @@
 						<span local-class="row-2">¥ 4000,000</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-			
 			{{/bp-layout}}
 		{{/bp-layout}}
-
 		{{#bp-layout local-class="right" classNames="bg-white" direction="col"}}
-				{{#bp-layout direction="row" main="between" local-class="right-header" cross="center"}}
-					{{#bp-layout tagName="h4" local-class="title" cross="center" classNames="ml-4"}}我司产品份额{{/bp-layout}}
-					{{#bp-layout local-class="right-btn" classNames="mr-4"}}
-						{{#bp-button classNames="mr-1"}}帕金森{{/bp-button}}
-						{{#bp-button}}癫痫{{/bp-button}}
-					{{/bp-layout}}
+			{{#bp-layout direction="row" main="between" local-class="right-header" cross="center"}}
+				{{#bp-layout tagName="h4" local-class="title" cross="center" classNames="ml-4"}}我司产品份额{{/bp-layout}}
+				{{#bp-layout local-class="right-btn" classNames="mr-4"}}
+					{{#bp-button classNames="mr-1"}}帕金森{{/bp-button}}
+					{{#bp-button}}癫痫{{/bp-button}}
 				{{/bp-layout}}
-
-				{{#bp-layout}}
-					chart
-				{{/bp-layout}}
+			{{/bp-layout}}
+			{{bp-row direction='col' rowModel=tmResultProductCircle conditions=tmResultProductCircleCondition}}
+			{{!-- {{#bp-layout}}
+					charta
+				{{/bp-layout}} --}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-
 	{{#bp-layout local-class="sales-report" tagName="h4" classNames="bg-white pl-4 mb-1" cross="center"}}
 		销售报告
 	{{/bp-layout}}
-
 	{{#bp-layout local-class="report-info"}}
 		{{project/proposal-info/historical-info }}
 	{{/bp-layout}}
-
-{{!-- 
+	{{!-- 
 	{{#bp-layout main="between" local-class="performance"}}
 		{{#bp-layout direction="col" main="between" local-class="item"
 			classNames="mr-2"}}
@@ -162,8 +148,8 @@
 					{{/bp-layout}}
 					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
 						{{overallInfo.abilityDes}} --}}
-						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
-					{{!-- {{/bp-layout}}
+	{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
+	{{!-- {{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout direction='col' classNames='p-4 bg-white'}}
@@ -178,8 +164,8 @@
 					{{/bp-layout}}
 					{{#bp-layout cross='center' local-class="text" classNames='ml-4'}}
 						{{overallInfo.awardDes}} --}}
-						{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
-					{{!-- {{/bp-layout}}
+	{{!-- 等级描述，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。 --}}
+	{{!-- {{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
@@ -188,13 +174,13 @@
 					classNames='p-4'}}
 				能力分析
 			{{/bp-layout}} --}}
-			{{!-- {{bp-radar-ability
+	{{!-- {{bp-radar-ability
 				eid='radarRepresentative'
 				radarData=radarData
 				hasLegend=false 
 				items=radarItems
 				maxValue=5}} --}}
-		{{!-- {{/bp-layout}}
+	{{!-- {{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout tagName='h3' cross='center' local-class="title" 
 		classNames="m-0 mb-2 px-4 bg-white"}}

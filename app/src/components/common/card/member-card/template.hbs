@@ -7,7 +7,8 @@
 			{{#bp-layout}}<img src={{resource.avatar.img}} alt={{resource.name}}>{{/bp-layout}}
 			{{#bp-layout direction="col"}}
 				{{#bp-layout local-class="name"}} {{resource.name}} {{/bp-layout}}
-				{{#bp-layout local-class="experience"}} 入职{{resource.entryTime}}年/{{resource.experience}}年工作经验{{/bp-layout}}
+				{{#bp-layout local-class="experience"}}
+					入职{{resource.entryTime}}年/{{resource.experience}}年工作经验{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="right"}}
@@ -31,8 +32,6 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-
-
 	{{#bp-layout direction="col" local-class="kpi-content" classNames="bg-white"}}
 		{{#bp-layout direction="col"}}
 			{{#bp-layout direction="row" main="between" classNames="bg-white"}}
@@ -41,7 +40,6 @@
 				{{/bp-layout}}
 				{{#bp-button classNames="px-4 mr-4 mt-2"}}2019Q1{{/bp-button}}
 			{{/bp-layout}}
-	
 			{{#bp-layout local-class="kpi-data" direction="row" classNames="bg-white"}}
 				{{#bp-layout local-class="left" direction="col" classNames="mb-1"}}
 					{{#bp-layout direction="row" classNames="" local-class="row"}}
@@ -54,47 +52,38 @@
 							{{#bp-layout tagName="p" main="center"}} 100 <span class="ml-1 mt-3">%</span> {{/bp-layout}}
 						{{/bp-layout}}
 					{{/bp-layout}}
-	
 					{{#bp-layout direction="row" local-class="row" classNames="mx-4"}}
 						{{#bp-layout local-class="row-2" direction="col"}}
 							{{#bp-layout tagName="p" main="center"}}A类{{/bp-layout}}
 							{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
 							{{#bp-layout tagName="p" main="center"}}80 <span class="ml-1 mt-3">次</span> {{/bp-layout}}
 						{{/bp-layout}}
-
 						{{#bp-layout local-class="row-2" direction="col"}}
 							{{#bp-layout tagName="p" main="center"}}B类{{/bp-layout}}
 							{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
 							{{#bp-layout tagName="p" main="center"}}80 <span class="ml-1 mt-3">次</span> {{/bp-layout}}
 						{{/bp-layout}}
-
 						{{#bp-layout local-class="row-2" direction="col"}}
 							{{#bp-layout tagName="p" main="center"}}C类{{/bp-layout}}
 							{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
 							{{#bp-layout tagName="p" main="center"}}80 <span class="ml-1 mt-3">次</span> {{/bp-layout}}
 						{{/bp-layout}}
-
 					{{/bp-layout}}
 				{{/bp-layout}}
-	
-				{{#bp-layout local-class="right"}}
+				{{bp-row direction='col' local-class="right" rowModel=tmRadar conditions=tmRadarCondition}}
+				{{!-- {{#bp-layout local-class="right"}}
 					charts
-				{{/bp-layout}}
+				{{/bp-layout}} --}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-	
 	{{/bp-layout}}
 {{/bp-layout}}
-
-
-
-
-	{{#bp-layout main="center" local-class="chart"}}
-		{{!-- {{bp-radar
+{{#bp-layout main="center" local-class="chart"}}
+	{{!-- {{bp-radar
 			eid=(string-concat "radarRepresentative" index)
 			radarData=radarData
 			maxValue=10}} --}}
-		{{!-- {{bp-radar
+	{{!-- {{bp-radar
 			radarData=radarData}} --}}
-	{{/bp-layout}}
+{{/bp-layout}}
 {{!-- {{/bp-layout}} --}}
