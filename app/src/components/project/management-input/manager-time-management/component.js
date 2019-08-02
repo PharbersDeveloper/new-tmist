@@ -4,6 +4,7 @@ import { inject as service } from "@ember/service"
 // import { A } from "@ember/array"
 // import { isEmpty } from "@ember/utils"
 // import { alias } from "@ember/object/computed"
+import { later } from "@ember/runloop"
 
 export default Component.extend( {
 	// get validation
@@ -17,6 +18,139 @@ export default Component.extend( {
 	numberVerify: /^[0-9]\d*$/,
 	exam: service( "service/exam-facade" ),
 	groupValue: 0,
+	init() {
+		this._super( ...arguments )
+
+		new Promise( function ( resolve ) {
+			later( function () {
+				let tmRadar = {
+						id: "tmRadarContainer",
+						height: 356,
+						panels: [{
+							name: "member ability",
+							id: "tmRadaro1",
+							tooltip: {
+								show: true,
+								trigger: "item"
+							},
+							color: ["#3172E0", "#979797"],
+							legend: {
+								show: true,
+								x: "center",
+								y: "bottom",
+								orient: "vertical"
+							},
+							radar: {
+								radius: "65%",
+								name: {
+									textStyle: {
+										color: "#7A869A",
+										borderRadius: 3,
+										padding: [0, 0]
+									}
+								},
+								indicator: [
+									{ text: "产品知识", max: 10 },
+									{ text: "工作积极性", max: 10 },
+									{ text: "行为有效性", max: 10 },
+									{ text: "区域管理能力", max: 10 },
+									{ text: "销售知识", max: 10 }
+								],
+								splitNumber: 5, //default
+								axisLine: {
+									lineStyle: {
+										color: "#DFE1E6"
+									}
+								},
+								splitLine: {
+									lineStyle: {
+										color: "#DFE1E6"
+									}
+								},
+								splitArea: {
+									areaStyle: {
+										color: ["#fff", "#fff"]
+									}
+								}
+							},
+							series: [{
+								name: "",
+								type: "radar",
+
+								areaStyle: {
+									opacity: 0.3
+								},
+								encode: {
+									itemName: 0,
+									value: 0
+								}
+							}]
+
+						}]
+					},
+					tmRadarCondition = [{
+						data: {
+							"_source": [
+								"rep",
+								"product_knowledge",
+								"sales_skills",
+								"territory_management_ability",
+								"work_motivation",
+								"behavior_efficiency"
+							],
+							"query": {
+								"bool": {
+									"must": [
+										{
+											"match": {
+												"date": "2018Q1"
+											}
+										},
+										{
+											"match": {
+												"product": "all"
+											}
+										},
+										{
+											"match": {
+												"region": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_level": "all"
+											}
+										},
+										{
+											"match": {
+												"hosp_name": "all"
+											}
+										}
+									],
+									"must_not": [
+										{
+											"match": {
+												"rep": "all"
+											}
+										}
+									]
+								}
+							},
+							"sort": [
+								{ "rep": "asc" }
+							]
+						}
+					}]
+
+				resolve( {
+					tmRadar, tmRadarCondition
+				} )
+			}, 400 )
+		} ).then( data => {
+			this.set( "tmRadar", data.tmRadar )
+			this.set( "tmRadarCondition", data.tmRadarCondition )
+		} )
+	},
 	// validation: ["maxMangerTime#100*maxMangerActionPoint#100", "timeInputType#Number*actionPointInputType#Number"]
 
 	// circleTime: computed( "managerInput.totalManagerUsedTime",
@@ -196,7 +330,7 @@ export default Component.extend( {
 				}
 			} )
 		},
-		validationMangerTime( curAnswer , curInput ) {
+		validationMangerTime( curAnswer, curInput ) {
 			window.console.log( this.validation )
 			let maxValueRules = this.validation["maxValue"].split( "*" ),
 				typeRules = this.validation["inputType"].split( "*" ),
@@ -234,7 +368,7 @@ export default Component.extend( {
 			if ( !typeValidation ) {
 				this.exam.delegate.currentAnswers.forEach( e => {
 					if ( e.resource.get( "id" ) === curAnswer.resource.get( "id" ) ) {
-						curAnswer.set( curInput , e.get( curInput ) )
+						curAnswer.set( curInput, e.get( curInput ) )
 					}
 				} )
 			}

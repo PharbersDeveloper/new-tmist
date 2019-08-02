@@ -55,73 +55,73 @@
 			</div>
 		</div>
 	</div>
-		<div local-class="actions allot-point" class="bg-white">
-			<div local-class="allot-point-content" class="bg-white mb-2 px-4">
-				{{!-- <h4 local-class="title">行动点数分配</h4> --}}
-				{{#bp-layout tagName="h3" main="between" cross="center" 
+	<div local-class="actions allot-point" class="bg-white">
+		<div local-class="allot-point-content" class="bg-white mb-2 px-4">
+			{{!-- <h4 local-class="title">行动点数分配</h4> --}}
+			{{#bp-layout tagName="h3" main="between" cross="center" 
 				local-class="title"}}
-					<span local-class="title">
-						行动点数分配
-					</span>
-					{{#bp-button onClick=(action 'reInputPoint')}}重置{{/bp-button}}
-				{{/bp-layout}}
-				<table class="table text-center" local-class="point-table">
-					<thead>
-						<th class="border-0">代表姓名</th>
-						<th class="border-0">产品知识培训</th>
-						<th class="border-0">销售能力培训</th>
-						<th class="border-0">区域管理培训</th>
-						<th class="border-0">绩效约谈</th>
-						<th class="border-0">职业发展指导</th>
-						{{!-- <th class="border-0">总点数</th> --}}
-					</thead>
-					<tbody>
-						{{#each quizs as |quiz|}}
-							<tr>
-								<td>
-									{{quiz.resource.name}}
-								</td>
-								<td>
-									{{common/toggle-button context=resConf 
+				<span local-class="title">
+					行动点数分配
+				</span>
+				{{#bp-button onClick=(action 'reInputPoint')}}重置{{/bp-button}}
+			{{/bp-layout}}
+			<table class="table text-center" local-class="point-table">
+				<thead>
+					<th class="border-0">代表姓名</th>
+					<th class="border-0">产品知识培训</th>
+					<th class="border-0">销售能力培训</th>
+					<th class="border-0">区域管理培训</th>
+					<th class="border-0">绩效约谈</th>
+					<th class="border-0">职业发展指导</th>
+					{{!-- <th class="border-0">总点数</th> --}}
+				</thead>
+				<tbody>
+					{{#each quizs as |quiz|}}
+						<tr>
+							<td>
+								{{quiz.resource.name}}
+							</td>
+							<td>
+								{{common/toggle-button context=resConf 
 										key='productKnowledgeTraining' 
 										state=quiz.answer.productKnowledgeTraining
 										changeState=(action 'changeState'  )}}
-								</td>
-								<td>
-									{{common/toggle-button context=resConf 
+							</td>
+							<td>
+								{{common/toggle-button context=resConf 
 										key='salesAbilityTraining' 
 										state=quiz.answer.salesAbilityTraining
 										changeState=(action 'changeState' )}}
-								</td>
-								<td>
-									{{common/toggle-button context=resConf 
+							</td>
+							<td>
+								{{common/toggle-button context=resConf 
 										key='regionTraining' 
 										state=quiz.answer.regionTraining
 										changeState=(action 'changeState' )}}
-								</td>
-								<td>
-									{{common/toggle-button context=resConf 
+							</td>
+							<td>
+								{{common/toggle-button context=resConf 
 										key='performanceTraining'
 										state=quiz.answer.performanceTraining
 										changeState=(action 'changeState' )}}
-								</td>
-								<td>
-									{{common/toggle-button context=resConf 
+							</td>
+							<td>
+								{{common/toggle-button context=resConf 
 										key='vocationalDevelopment'
 										state=quiz.answer.vocationalDevelopment
 										changeState=(action 'changeState' )}}
-								</td>
-								{{!-- <td>
+							</td>
+							{{!-- <td>
 									{{bp-input widthSize="small"
 									disabled=true 
 									value=resConf.totalPoint}}
 								</td> --}}
-							</tr>
-						{{/each}}
-					</tbody>
-				</table>
-			</div>
+						</tr>
+					{{/each}}
+				</tbody>
+			</table>
 		</div>
+	</div>
 {{/bp-layout}}
 {{#bp-modal
 		open=warning.open
