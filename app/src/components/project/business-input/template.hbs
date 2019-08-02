@@ -1,19 +1,49 @@
 {{#bp-layout direction="col" local-class="business-container" classNames="p-4" main="center"}}
 	{{#bp-layout local-class="sales-and-budget" direction="row"  classNames="mb-4" main="center"}}
 		{{#bp-layout local-class="sales" classNames="bg-white mr-4" direction="col" }}
-			{{#bp-layout tagName="h4" classNames="py-3 pl-3"}}药品销售额指标{{/bp-layout}}
-			{{#bp-layout}}chart{{/bp-layout}}
+			{{#bp-layout tagName="h4" classNames="py-3 pl-3" cross="center" local-class="icon sales-header"}}
+				{{bp-icon icon="target"}}
+				药品销售额指标
+			{{/bp-layout}}
+			{{#bp-layout direction="col"}}
+
+				{{#bp-layout main="between" direction="row"}}
+					{{#bp-layout classNames="ml-4" local-class="product-icon"}}
+						{{bp-icon icon="product"}}开拓来
+					{{/bp-layout}}
+					{{#bp-layout cross="center" classNames="ml-4"}}
+						{{#bp-progress as |p|}}
+							{{p.bar value=2400000 maxValue=2400000}}
+						{{/bp-progress}}
+					{{/bp-layout}}
+					{{#bp-layout classNames="mx-5"}}¥2,400,000/¥2,400,000{{/bp-layout}}
+				{{/bp-layout}}
+			
+			{{/bp-layout}}
 		{{/bp-layout}}
 
 		{{#bp-layout local-class="budget" direction="col" classNames="bg-white"}}
-			{{#bp-layout direction="row" main="between"}}
-				{{#bp-layout tagName="h4" classNames="py-3 pl-3"}}药品预算{{/bp-layout}}
-				{{#bp-layout classNames="py-2"}}
+			{{#bp-layout direction="row" main="between" local-class="budget-header"}}
+				{{#bp-layout tagName="h4" classNames="py-3 pl-3 mb-0" local-class="icon" cross="center"}}
+					{{bp-icon icon="target"}}
+					药品预算
+				{{/bp-layout}}
+				{{#bp-layout classNames="py-2" cross="center"}}
 					{{#bp-button local-class="active"}}产品预算占比{{/bp-button}}
 					{{#bp-button classNames="mr-2"}}代表预算占比{{/bp-button}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout}}chart{{/bp-layout}}
+			{{#bp-layout direction="row" main="center" cross="center"}}
+				{{#bp-layout tagName="div" style="width: 128px;height: 128px" }}
+					{{!-- {{bp-circle eid="cricleDoubleOne"}} --}}
+					{{bp-circle eid="cricleBudget" circleData=circleData circleColor=circleColor}}
+				{{/bp-layout}}
+				{{!-- {{#bp-layout direction="col" classNames="ml-4"}} 
+					{{#bp-layout}}开拓来{{/bp-layout}}
+					{{#bp-layout}}威芃可{{/bp-layout}}
+					{{#bp-layout}}优派西{{/bp-layout}}
+				{{/bp-layout}} --}}
+			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 
