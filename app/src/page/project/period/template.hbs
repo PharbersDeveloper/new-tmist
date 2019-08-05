@@ -127,10 +127,11 @@
 {{/bp-modal}} --}}
 
 {{#bp-layout direction="col" }}
-	{{#bp-layout direction="row" local-class="submit-header" main="between" classNames="p-3"}}
-		{{#bp-layout direction="row"}}
-			{{#bp-layout tagName="h4" local-class="title"}}优时比区域周期计划测试{{/bp-layout}}
-			{{#bp-button local-class="btn-left"}}2019Q1{{/bp-button}}
+	{{#bp-layout direction="row" local-class="submit-header" main="between" cross="center" classNames="px-4 py-3"}}
+		{{#bp-layout direction="row" cross="center"}}
+			{{#bp-button local-class="exit-btn" onClick=(action "toIndex")}}{{bp-icon icon="data"}}{{/bp-button}}
+			{{#bp-layout tagName="h4" local-class="title" class="ml-2"}}优时比区域周期计划测试{{/bp-layout}}
+			<p local-class="sub-title" class="ml-2 px-1">2019Q1</p>
 		{{/bp-layout}}
 
 		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}

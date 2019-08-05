@@ -9,11 +9,49 @@
 			height: 52px;
 		}
 
+		.icon {
+			svg {
+				path {
+					fill: #6b778c;
+				}
+			}
+		}
+
 		.sales {
 			width: 564px;
 			height: 228px;
 			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
 			border-radius: 8px;
+
+			.sales-header {
+				border-bottom: 1px solid #f4f5f7;
+			}
+
+			:global(.bp-progress) {
+				height: $spacing;
+				width: 167px;
+
+				:global(.bp-progress-bar) {
+					background-color: $b200;
+				}
+			}
+
+			.progress {
+				&:global(.bp-progress .bp-progress-bar) {
+					background-color: $n500;
+				}
+			}
+
+			.product-icon {
+				svg {
+					path {
+						fill: #ffab00;
+					}
+
+					height: 24px;
+					width: 20px;
+				}
+			}
 		}
 
 		.budget {
@@ -21,6 +59,10 @@
 			height: 228px;
 			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
 			border-radius: 8px;
+
+			.budget-header {
+				border-bottom: 1px solid #f4f5f7;
+			}
 
 			button {
 				height: 24px;
@@ -49,24 +91,34 @@
 			height: 54px;
 		}
 
-		.resource-list {
+		.resource-list-outer {
 			width: 368px;
+			height: fit-content;
 
-			button {
+			.resource-item {
 				height: 88px;
 				font-size: 14px;
 				color: #172b4d;
 				text-align: left;
 				border-bottom: 1px solid rgba(9, 30, 66, 0.04);
 				border-radius: 0;
+				cursor: pointer;
 
-				button:last-child {
+				&:last-child {
 					border-bottom: none;
+				}
+
+				&.active {
+					background-color: #EBECF0;
 				}
 
 				img {
 					height: 40px;
 					height: 40px;
+				}
+
+				.item-right {
+					
 				}
 			}
 		}

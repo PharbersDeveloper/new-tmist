@@ -1,5 +1,6 @@
 import Component from "@ember/component"
 import { computed } from "@ember/object"
+import { A } from "@ember/array"
 
 export default Component.extend( {
 	positionalParams: ["project", "period", "hospitals", "products", "resources", "preset", "answers", "validation"],
@@ -12,6 +13,8 @@ export default Component.extend( {
 	currentBudget: 0,
 	currentSalesTarget: 0,
 	currentMeetingPlaces: 0,
+	circleData: A( [{ value: 30, name: "开拓来" }, { value: 30, name: "威芃可" },		{ value: 40, name: "优派西" }] ),
+	circleColor: A( ["#8777D9", "#57D9A3", "#FFC400"] ),
 	inputTypeNumber( input ) {
 		let cur = Number( input )
 
@@ -93,6 +96,9 @@ export default Component.extend( {
 		return Number( businessInputMaxValueRule.split( "#" )[1] )
 	},
 	actions: {
+		selectResource( rs ) {
+			this.set( "curResource", rs )
+		},
 		calculateVisitTime( visitTime ) {
 			this.set( this.allVisitTime, this.allVisitTime - visitTime )
 		},
