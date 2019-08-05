@@ -47,14 +47,23 @@
 	.hospital-detail {
 		width: 1152px;
 
-		button {
+		.hospital-item {
 			height: 68px;
 			width: 270px;
-			background: #ffffff;
-		}
+			font-size: 14px;
+			color: #172b4d;
+			text-align: left;
+			border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+			border-radius: 0;
+			cursor: pointer;
 
-		.active {
-			background: #ebecf0;
+			&:last-child {
+				border-bottom: none;
+			}
+
+			&.active {
+				background: #ebecf0;
+			}
 		}
 
 		.hospital-detail-info {
