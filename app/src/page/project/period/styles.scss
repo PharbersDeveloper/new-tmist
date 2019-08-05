@@ -62,6 +62,18 @@
 	background: #ffffff;
 	height: 58px;
 
+	.tab-content-outer {
+		// width: 1200px;
+
+		& > div {
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+			width: 1200px;
+		}
+	}
+
 	ul:global(.nav-tabs) {
 		border: none;
 	}
