@@ -69,18 +69,21 @@
 			}
 		}
 
-		.resource-name-btn {
-			button {
-				height: 68px;
-				width: 270px;
-				background-color: #ffffff;
+		.resource-item {
+			width: 270px;
+			height: 68px;
+			font-size: 14px;
+			color: #172b4d;
+			text-align: left;
+			border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+			border-radius: 0;
+			cursor: pointer;
+
+			&:last-child {
+				border-bottom: none;
 			}
 
-			button:hover {
-				background-color: #ebecf0;
-			}
-
-			.active {
+			&.active {
 				background-color: #ebecf0;
 			}
 		}

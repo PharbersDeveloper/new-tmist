@@ -22,9 +22,14 @@
 		{{/bp-layout}}
 
 		{{#bp-layout direction="row" }}
-			{{#bp-layout direction="col" local-class="resource-name-btn"}}
+			{{#bp-layout direction="col" classNames="bg-white"}}
 				{{#each resources as |item index|}}
-					{{#bp-button onClick=(action (mut currentResource) index) local-class=(if (bp-eq currentResource index) "active")}}{{item.name}}{{/bp-button}}
+					{{!-- {{#bp-button onClick=(action (mut currentResource) index) local-class=(if (bp-eq currentResource index) "active")}}{{item.name}}{{/bp-button}} --}}
+					{{#bp-layout click=(action (mut currentResource) index ) 
+					local-class=(if (bp-eq currentResource index) "active resource-item" "resource-item")
+					classNames="py-4 pl-4"}}
+						{{item.name}}
+					{{/bp-layout}}
 				{{/each}}
 			{{/bp-layout}}
 			{{#bp-layout direction="col" classNames="ml-2"}}
