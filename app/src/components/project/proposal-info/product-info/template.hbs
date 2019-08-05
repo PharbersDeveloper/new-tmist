@@ -41,7 +41,11 @@
 						classNames="py-4 pl-4"
 						local-class=(if (bp-eq currentProduct index) "active product-item" "product-item") }}
 						{{#bp-layout }}{{item.name}}{{/bp-layout}}
-						{{#bp-badge pill=false type='secondary' local-class="badge" classNames="ml-2"}}产品{{/bp-badge}}
+						{{#if (bp-eq item.productType 0)}}
+							{{#bp-badge pill=false type='secondary' local-class="badge" classNames="ml-2"}}产品{{/bp-badge}}
+						{{else}}
+							{{#bp-badge pill=false type='secondary' local-class="badge badge-yellow" classNames="ml-2"}}竞品{{/bp-badge}}
+						{{/if}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/each}}

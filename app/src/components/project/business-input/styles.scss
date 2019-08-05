@@ -175,6 +175,24 @@
 				}
 
 				.item-right {
+					.badge {
+						background-color: #c2daff;
+						color: #3880f8;
+						font-size: 14px;
+						font-weight: 400;
+						margin-left: 4px;
+						height: 20px;
+						border-radius: 4px;
+
+						svg {
+							font-size: 18px;
+							padding-bottom: 2px;
+
+							path {
+								fill: #3880f8;
+							}
+						}
+					}
 				}
 			}
 		}

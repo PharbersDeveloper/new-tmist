@@ -1,6 +1,10 @@
 .page-notice {
 	height: 100%;
 	overflow: auto;
+	background-image: url('/images/img_info-story_bg.png');
+	background-size: 100%;
+	background-repeat:no-repeat;
+	width: 1200px;
 
 	h2.title {
 		// @extend %header-large;

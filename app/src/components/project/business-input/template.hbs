@@ -109,8 +109,7 @@
 								{{rs.name}}
 							{{/bp-layout}}
 							{{#bp-layout local-class="item-right" direction="row" main="end"}}
-								<img src={{rs.avatar.img}} alt={{rs.name}}>
-								
+								<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}1</span>
 							{{/bp-layout}}
 						{{/bp-layout}}
 					{{else}}
@@ -120,7 +119,7 @@
 								{{rs.name}}
 							{{/bp-layout}}
 							{{#bp-layout local-class="item-right" direction="row" main="end"}}
-								<img src={{rs.avatar.img}} alt={{rs.name}}>
+								<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}1</span>
 							{{/bp-layout}}
 						{{/bp-layout}}
 					{{/if}}
