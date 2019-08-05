@@ -43,10 +43,14 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 
-	{{#bp-layout direction="row" local-class="hospital-detail"}}
-		{{#bp-layout direction="col" classNames="mr-2"}}
+	{{#bp-layout direction="row" local-class="hospital-detail" }}
+		{{#bp-layout direction="col"  classNames="bg-white mr-2"}}
 			{{#each hospitals as |item index|}}
-				{{#bp-button onClick=(action (mut currentHospital) index) local-class=(if (bp-eq currentHospital index) "active")}}{{item.name}}{{/bp-button}}
+				{{#bp-layout click=(action (mut currentHospital) index) 
+				classNames="py-4 pl-4"
+				local-class=(if (bp-eq currentHospital index) "active hospital-item" "hospital-item")}}
+					{{item.name}}
+				{{/bp-layout}}
 			{{/each}}
 		{{/bp-layout}}
 			

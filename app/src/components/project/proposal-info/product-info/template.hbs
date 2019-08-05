@@ -36,10 +36,13 @@
 	{{#bp-layout direction="row"}}
 		{{#bp-layout direction="col"}}
 			{{#each products as |item index|}}
-				{{#bp-layout local-class="item-name"}}
-					{{#bp-button onClick=(action (mut currentProduct) index) role="button" local-class=(if (bp-eq currentProduct index) "active") }}
-						{{item.name}}
-					{{/bp-button}}
+				{{#bp-layout direction="row"}}
+					{{#bp-layout click=(action (mut currentProduct) index)
+						classNames="py-4 pl-4"
+						local-class=(if (bp-eq currentProduct index) "active product-item" "product-item") }}
+						{{#bp-layout }}{{item.name}}{{/bp-layout}}
+						{{#bp-badge pill=false type='secondary' local-class="badge"}}产品{{/bp-badge}}
+					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/each}}
 		{{/bp-layout}}
