@@ -23,6 +23,21 @@
 			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
 			border-radius: 8px;
 
+			.product-name {
+				font-size: 16px;
+				color: #172b4d;
+			}
+
+			.sales-money {
+				color: #172b4d;
+
+				span:last-child {
+					font-size: 14px;
+					color: #7a869a;
+					text-align: right;
+				}
+			}
+
 			.sales-header {
 				border-bottom: 1px solid #f4f5f7;
 			}
@@ -30,6 +45,8 @@
 			:global(.bp-progress) {
 				height: $spacing;
 				width: 167px;
+				margin-top: 33px;
+				margin-bottom: 9px;
 
 				:global(.bp-progress-bar) {
 					background-color: $b200;
@@ -59,6 +76,46 @@
 			height: 228px;
 			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
 			border-radius: 8px;
+
+			.circle-part {
+				height: 176px;
+			}
+
+			.legend {
+				.legend-dot {
+					height: 8px;
+					width: 8px;
+					background: #ffc400;
+					border-radius: 50%;
+				}
+
+				.legend-dot-default {
+					height: 8px;
+					width: 8px;
+					background: #dfe1e6;
+					border-radius: 50%;
+				}
+
+				.name {
+					font-size: 14px;
+					color: #344563;
+					width: 42px;
+				}
+
+				.percent {
+					font-size: 14px;
+					color: #7a869a;
+					text-align: right;
+					width: 42px;
+				}
+
+				.number {
+					font-size: 14px;
+					color: #7a869a;
+					text-align: right;
+					width: 80px;
+				}
+			}
 
 			.budget-header {
 				border-bottom: 1px solid #f4f5f7;
@@ -109,7 +166,7 @@
 				}
 
 				&.active {
-					background-color: #EBECF0;
+					background-color: #ebecf0;
 				}
 
 				img {
@@ -118,7 +175,24 @@
 				}
 
 				.item-right {
-					
+					.badge {
+						background-color: #c2daff;
+						color: #3880f8;
+						font-size: 14px;
+						font-weight: 400;
+						margin-left: 4px;
+						height: 20px;
+						border-radius: 4px;
+
+						svg {
+							font-size: 18px;
+							padding-bottom: 2px;
+
+							path {
+								fill: #3880f8;
+							}
+						}
+					}
 				}
 			}
 		}

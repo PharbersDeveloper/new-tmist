@@ -13,8 +13,9 @@ export default Component.extend( {
 	currentBudget: 0,
 	currentSalesTarget: 0,
 	currentMeetingPlaces: 0,
-	circleData: A( [{ value: 30, name: "开拓来" }, { value: 30, name: "威芃可" }, { value: 40, name: "优派西" }] ),
-	circleColor: A( ["#8777D9", "#57D9A3", "#FFC400"] ),
+	circleData: A( [{ value: 40, name: "大扶康" }, { value: 20, name: "美素" }, { value: 40, name: "未分配" }] ),
+	circleColor: A( ["#8777D9", "#FFC400", "#DFE1E6"] ),
+	circleSize: A( ["70%", "95%"] ),
 	inputTypeNumber( input ) {
 		let cur = Number( input )
 

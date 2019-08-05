@@ -1,24 +1,58 @@
-{{#bp-layout direction="col" local-class="business-container" classNames="p-4" main="center"}}
+{{#bp-layout direction="col" local-class="business-container" classNames="" main="center"}}
 	{{#bp-layout local-class="sales-and-budget" direction="row"  classNames="mb-4" main="center"}}
 		{{#bp-layout local-class="sales" classNames="bg-white mr-4" direction="col" }}
 			{{#bp-layout tagName="h4" classNames="py-3 pl-3" cross="center" local-class="icon sales-header"}}
 				{{bp-icon icon="target"}}
 				药品销售额指标
 			{{/bp-layout}}
-			{{#bp-layout direction="col"}}
-
-				{{#bp-layout main="between" direction="row"}}
-					{{#bp-layout classNames="ml-4" local-class="product-icon"}}
-						{{bp-icon icon="product"}}开拓来
-					{{/bp-layout}}
-					{{#bp-layout cross="center" classNames="ml-4"}}
-						{{#bp-progress as |p|}}
-							{{p.bar value=2400000 maxValue=2400000}}
-						{{/bp-progress}}
-					{{/bp-layout}}
-					{{#bp-layout classNames="mx-5"}}¥2,400,000/¥2,400,000{{/bp-layout}}
+			{{#bp-layout direction="row"}}
+				{{#bp-layout local-class="product-icon" direction="col" classNames="ml-4"}}
+					{{#each products as |product|}}
+						{{#if (bp-eq product.productType 0)}}
+							{{#bp-layout classNames="mt-4" local-class="product-name"}}
+								{{bp-icon icon="product"}} {{product.name}}
+							{{/bp-layout}}
+						{{/if}}
+					{{/each}}
 				{{/bp-layout}}
-			
+
+				{{#bp-layout cross="center" classNames="ml-4" direction="col"}}
+					{{#each products as |product|}}
+						{{#if (bp-eq product.productType 0)}}
+							{{#bp-layout classNames="" local-class="progress"}}
+								{{#bp-progress as |p|}}
+									{{p.bar value=2400000 maxValue=2400000}}
+								{{/bp-progress}}
+							{{/bp-layout}}
+						{{/if}}
+					{{/each}}
+				{{/bp-layout}}
+
+				{{#bp-layout classNames="mx-4" local-class="sales-money" direction="col"}}
+					{{#each products as |product|}}
+						{{#if (bp-eq product.productType 0)}}
+							{{#bp-layout classNames="mt-4"}}
+									<span>¥2,400,000</span>
+									<span>/¥2,400,000</span>
+							{{/bp-layout}}
+						{{/if}}
+					{{/each}}
+				{{/bp-layout}}
+				{{!-- {{#each products as |product|}}
+					{{#if (bp-eq product.productType 0)}}
+						{{#bp-layout main="between" direction="row" classNames="mx-4"}}
+							{{#bp-layout local-class="product-icon"}}
+								{{bp-icon icon="product"}} {{product.name}}
+							{{/bp-layout}}
+							{{#bp-layout cross="center" classNames="ml-4"}}
+								{{#bp-progress as |p|}}
+									{{p.bar value=2400000 maxValue=2400000}}
+								{{/bp-progress}}
+							{{/bp-layout}}
+							{{#bp-layout classNames="mx-4"}}¥2,400,000/¥2,400,000{{/bp-layout}}
+						{{/bp-layout}}
+					{{/if}}
+				{{/each}}		 --}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 
@@ -33,16 +67,32 @@
 					{{#bp-button classNames="mr-2"}}代表预算占比{{/bp-button}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout direction="row" main="center" cross="center"}}
+			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-part"}}
 				{{#bp-layout tagName="div" style="width: 128px;height: 128px" }}
 					{{!-- {{bp-circle eid="cricleDoubleOne"}} --}}
-					{{bp-circle eid="cricleBudget" circleData=circleData circleColor=circleColor}}
+					{{bp-circle eid="cricleBudget" circleData=circleData circleColor=circleColor circleSize=circleSize}}
 				{{/bp-layout}}
-				{{!-- {{#bp-layout direction="col" classNames="ml-4"}} 
-					{{#bp-layout}}开拓来{{/bp-layout}}
-					{{#bp-layout}}威芃可{{/bp-layout}}
-					{{#bp-layout}}优派西{{/bp-layout}}
-				{{/bp-layout}} --}}
+				{{#bp-layout direction="col" classNames="ml-4" local-class="legend"}} 
+					{{#bp-layout direction="row" classNames="mb-2"}}
+						<span local-class="legend-dot" class="mt-2 mr-2"></span>
+						<span local-class="name">大扶康</span>
+						<span local-class="percent" class="ml-4 mr-3">40%</span>
+						<span local-class="number">¥304,911</span>
+					{{/bp-layout}}
+					{{#bp-layout direction="row" classNames="mb-2"}}
+						<span local-class="legend-dot" class="mt-2 mr-2"></span>
+						<span local-class="name">美素</span>
+						<span local-class="percent" class="ml-4 mr-3">20%</span>
+						<span local-class="number">¥287,296</span>
+					
+					{{/bp-layout}}
+					{{#bp-layout direction="row" classNames="mb-2"}}
+						<span local-class="legend-dot-default" class="mt-2 mr-2"></span>
+						<span local-class="name">未分配</span>
+						<span local-class="percent" class="ml-4 mr-3">40%</span>
+						<span local-class="number">¥304,911</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -59,8 +109,7 @@
 								{{rs.name}}
 							{{/bp-layout}}
 							{{#bp-layout local-class="item-right" direction="row" main="end"}}
-								<img src={{rs.avatar.img}} alt={{rs.name}}>
-								
+								<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}1</span>
 							{{/bp-layout}}
 						{{/bp-layout}}
 					{{else}}
@@ -70,7 +119,7 @@
 								{{rs.name}}
 							{{/bp-layout}}
 							{{#bp-layout local-class="item-right" direction="row" main="end"}}
-								<img src={{rs.avatar.img}} alt={{rs.name}}>
+								<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}1</span>
 							{{/bp-layout}}
 						{{/bp-layout}}
 					{{/if}}
@@ -80,12 +129,12 @@
 		{{/bp-layout}}
 		{{#bp-layout local-class="hospital-list" direction="col"}}
 			{{#bp-layout local-class="hospital-header" direction="row" main="between" classNames="bg-white mb-1" cross="center"}}
-				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}分配医院资源（6/30）{{/bp-layout}}
-				{{#bp-layout}}
+				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}分配医院资源{{/bp-layout}}
+				{{!-- {{#bp-layout}}
 					{{#bp-button classNames="mr-1" local-class="active"}}全部{{/bp-button}}
 					{{#bp-button classNames="mr-1" local-class="mid-btn"}}已分配{{/bp-button}}
 					{{#bp-button classNames="mr-4"}}未分配{{/bp-button}}
-				{{/bp-layout}}
+				{{/bp-layout}} --}}
 			{{/bp-layout}}
 
 			{{#bp-layout classNames="" local-class="hospital-config"}}

@@ -55,6 +55,11 @@
 			margin-left: 4px;
 			padding: 4px;
 			height: 20px;
+
+			&.badge-yellow {
+				background-color: #fce380;
+				color: #172B4D;
+			}
 		}
 	}
 

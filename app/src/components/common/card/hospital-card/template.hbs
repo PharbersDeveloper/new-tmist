@@ -26,15 +26,14 @@
 				{{/bp-layout}}
 
 				{{#bp-layout direction="row"}}
-					
 					{{#bp-layout tagName="p" direction="col"}}
 						{{#bp-layout}}<span class="mr-3">{{t "card.hospital-card.doctorNumber"}}</span>{{/bp-layout}}
-						{{#bp-layout}}<span local-class="span-last">{{format-number hostpital.doctorNumber}}</span>{{/bp-layout}}
+						{{#bp-layout}}<span local-class="span-last">{{format-number hospital.doctorNumber}}</span>{{/bp-layout}}
 					{{/bp-layout}}
 
 					{{#bp-layout tagName="p" direction="col"}}
 						{{#bp-layout}}<span class="mr-3">{{t "card.hospital-card.bedNumber"}}</span>{{/bp-layout}}
-						{{#bp-layout}}<span local-class="span-last">{{format-number hostpital.bedNumber}}</span>{{/bp-layout}}
+						{{#bp-layout}}<span local-class="span-last">{{format-number hospital.bedNumber}}</span>{{/bp-layout}}
 					{{/bp-layout}}
 
 					{{#bp-layout tagName="p" direction="col"}}
