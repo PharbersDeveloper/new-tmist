@@ -7,43 +7,31 @@
 			{{/bp-layout}}
 			{{#bp-layout direction="row"}}
 				{{#bp-layout local-class="product-icon" direction="col" classNames="ml-4"}}
-					{{#each products as |product|}}
-						{{#if (bp-eq product.productType 0)}}
-							{{#bp-layout direction="row" classNames="mt-4"}}
-								{{#bp-layout}}{{bp-icon icon="product"}}{{/bp-layout}}
-								{{#bp-layout local-class="product-name"}}{{product.name}}{{/bp-layout}}
-							{{/bp-layout}}
-						{{/if}}
+					{{#each allProductSales as |product|}}
+						{{#bp-layout direction="row" classNames="mt-4"}}
+							{{#bp-layout}}{{bp-icon icon="product"}}{{/bp-layout}}
+							{{#bp-layout local-class="product-name"}}{{product.name}}{{/bp-layout}}
+						{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}
 
 				{{#bp-layout cross="center" classNames="ml-4" direction="col"}}
-					{{#each products as |product|}}
-						{{#if (bp-eq product.productType 0)}}
+					{{#each allProductSales as |productSales|}}
 							{{#bp-layout classNames="" local-class="progress"}}
 								{{#bp-progress as |p|}}
-									{{p.bar value=2400000 maxValue=2400000}}
+									{{p.bar value=productSales.curSales maxValue=productSales.allSales}}
 								{{/bp-progress}}
 							{{/bp-layout}}
-						{{/if}}
 					{{/each}}
 				{{/bp-layout}}
 
 				{{#bp-layout classNames="mx-4" local-class="sales-money" direction="col"}}
-					{{#each products as |product|}}
-						{{#if (bp-eq product.productType 0)}}
-							{{#bp-layout classNames="mt-4"}}
-									<span>¥2,400,000</span>
-									{{!-- {{#each presets as |preset|}}
-										{{#if (bp-eq preset.product.id product.id)}} --}}
-											{{!-- <span>/{{preset.salesQuota}}</span>
-											{{action "calculateProductSales" preset.salesQuota}}
-										{{/if}}
-									{{/each}}
-									<span>/{{currentProductSales}}</span> --}}
-									<span>/¥2,400,000</span>
-							{{/bp-layout}}
-						{{/if}}
+					{{#each allProductSales as |productSales|}}
+						{{#bp-layout classNames="mt-4"}}
+								<span>¥{{format-number productSales.curSales}}</span>
+								<span>/{{format-number productSales.allSales}}</span>
+								{{!-- <span>/¥2,400,000</span> --}}
+						{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}
 				{{!-- {{#each products as |product|}}
@@ -110,7 +98,11 @@
 			{{/bp-layout}}
 			{{#bp-layout local-class="meeting-circle" cross="center" main="center"}}
 				{{#bp-layout tagName="div" style="width: 88px;height: 88px"}}
-					{{bp-circle eid="cricleMeetingPlaces" circleData=circleMeetingData circleColor=circleMeetingColor circleSize=circleMeetingSize}}
+					{{bp-circle eid="cricleMeetingPlaces" 
+						circleData=circleMeetingData 
+						circleColor=circleMeetingColor 
+						circleSize=circleMeetingSize
+						labelEmphasis=labelEmphasis}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
