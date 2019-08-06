@@ -18,13 +18,15 @@
 		}
 
 		.sales {
-			width: 564px;
+			width: 466px;
 			height: 228px;
 			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
 			border-radius: 8px;
 
 			.product-name {
-				font-size: 16px;
+				width: 42px;
+				height: 20px;
+				font-size: 14px;
 				color: #172b4d;
 			}
 
@@ -40,11 +42,13 @@
 
 			.sales-header {
 				border-bottom: 1px solid #f4f5f7;
+				height: 52px;
 			}
 
 			:global(.bp-progress) {
 				height: $spacing;
-				width: 167px;
+				width: 146px;
+				height: 4px;
 				margin-top: 33px;
 				margin-bottom: 9px;
 
@@ -65,14 +69,14 @@
 						fill: #ffab00;
 					}
 
-					height: 24px;
-					width: 20px;
+					height: 20px;
+					width: 14px;
 				}
 			}
 		}
 
 		.budget {
-			width: 564px;
+			width: 368px;
 			height: 228px;
 			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
 			border-radius: 8px;
@@ -108,16 +112,10 @@
 					text-align: right;
 					width: 42px;
 				}
-
-				.number {
-					font-size: 14px;
-					color: #7a869a;
-					text-align: right;
-					width: 80px;
-				}
 			}
 
 			.budget-header {
+				height: 52px;
 				border-bottom: 1px solid #f4f5f7;
 			}
 
@@ -137,6 +135,23 @@
 			.active {
 				background: #505f79;
 				color: #ffffff;
+			}
+		}
+
+		.meeting {
+			width: 270px;
+			height: 228px;
+			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
+			border-radius: 8px;
+
+			.meeting-header {
+				border-bottom: 1px solid #f4f5f7;
+				height: 52px;
+			}
+
+			.meeting-circle {
+				height: 176px;
+				width: 270px;
 			}
 		}
 	}
