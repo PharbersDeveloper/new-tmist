@@ -48,36 +48,37 @@
 					业务及团队管理用时
 				{{/bp-layout}}
 				{{#bp-layout local-class="input-time" direction="col" main="center" cross="center"}}
-					{{#bp-layout local-class="text"}}
+					{{#bp-layout local-class="input" cross="center"}}
 						{{#bp-layout cross="center" tagName="span" classNames="mr-4"}}业务数据策略分析{{/bp-layout}}
-						{{#bp-input}}{{/bp-input}}
+						{{#bp-input widthSize="small" local-class="per"}}{{/bp-input}}
 					{{/bp-layout}}
-					{{#bp-layout local-class="text"}}
+					{{#bp-layout local-class="input" cross="center"}}
 						{{#bp-layout cross="center" tagName="span" classNames="mr-4"}}重点目标客户管理{{/bp-layout}}
-						{{#bp-input}}{{/bp-input}}
+						{{#bp-input widthSize="small" local-class="per"}}{{/bp-input}}
 					{{/bp-layout}}
-					{{#bp-layout local-class="text"}}
+					{{#bp-layout local-class="input" cross="center"}}
 						{{#bp-layout cross="center" tagName="span" classNames="mr-4"}}代表及KPI分析{{/bp-layout}}
-						{{#bp-input}}{{/bp-input}}
+						{{#bp-input widthSize="small" local-class="per"}}{{/bp-input}}
 					{{/bp-layout}}
-					{{#bp-layout local-class="text"}}
+					{{#bp-layout local-class="input" cross="center"}}
 						{{#bp-layout cross="center" tagName="span" classNames="mr-4"}}行政工作{{/bp-layout}}
-						{{#bp-input}}{{/bp-input}}
+						{{#bp-input widthSize="small" local-class="per"}}{{/bp-input}}
 					{{/bp-layout}}
-					{{#bp-layout local-class="text"}}
+					{{#bp-layout local-class="input" cross="center"}}
 						{{#bp-layout cross="center" tagName="span" classNames="mr-4"}}团队例会{{/bp-layout}}
-						{{#bp-input}}{{/bp-input}}
+						{{#bp-input widthSize="small" local-class="per"}}{{/bp-input}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 
 			{{#bp-layout local-class="used-time" direction="col" classNames="bg-white"}}
-				{{#bp-layout tagName="p" classNames="pl-4"}}代表能力培养用时{{/bp-layout}}
+				{{#bp-layout tagName="p" classNames="pl-4" local-class="header"}}代表能力培养用时{{/bp-layout}}
 				{{#bp-layout direction="col"}}
-					{{#bp-layout}}
-						1V1能力辅导能力协访
+					{{#bp-layout direction="row" local-class="coach-info" cross="center" main="center"}}
+						{{#bp-layout local-class="text" classNames="mr-4"}}1V1能力辅导能力协访{{/bp-layout}}
+						{{#bp-layout tagName="p" classNames="primary mb-0" local-class="percent"}}30%{{/bp-layout}}
 					{{/bp-layout}}
-					{{#bp-layout}}
+					{{#bp-layout local-class="circle-table"}}
 						table
 					{{/bp-layout}}
 				{{/bp-layout}}
@@ -85,11 +86,33 @@
 		{{/bp-layout}}
 
 		{{#bp-layout local-class="points-operation" direction="col" classNames="bg-white"}}
-			{{#bp-layout tagName="h4" local-class="header" classNames="pl-4" cross="center"}}
+			{{#bp-layout tagName="h4" local-class="header" classNames="pl-4 mb-0" cross="center"}}
 				分配经理行动点数
 			{{/bp-layout}}
-			{{#bp-layout}}
-				组件
+			{{#bp-layout local-class="resouse-wrapper" direction="row"}}
+				{{#bp-layout local-class="resource-list" direction="col"}}
+					{{#each resources as |resource index|}}
+						{{#bp-layout direction="row" cross="center" classNames="pl-4"
+							local-class=(if (bp-eq currentResource index) "resource active" "resource")
+							click=(action (mut currentResource) index )}}
+							<img src={{resource.avatar.img}} alt={{resource.name}}>
+							{{#bp-layout classNames="ml-3" cross="center" tagName="span"}}{{resource.name}}{{/bp-layout}}
+						{{/bp-layout}}
+					{{/each}}
+				{{/bp-layout}}
+				{{#bp-layout local-class="action-point" direction="col"}}
+					{{#each quizs as |quiz index|}}
+						{{#if (bp-eq currentResource index)}}
+							{{#bp-layout}}
+								{{project/management-input/allocate-action-points
+											resources=resources
+											validation=validation
+											quiz=quiz
+											answers=(filter-category answers "Resource")}}
+							{{/bp-layout}}
+						{{/if}}
+					{{/each}}
+				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
