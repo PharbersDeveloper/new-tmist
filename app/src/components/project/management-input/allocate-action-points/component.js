@@ -4,7 +4,8 @@ import { isEmpty } from "@ember/utils"
 import { inject as service } from "@ember/service"
 
 export default Component.extend( {
-	positionalParams: ["resources", "answers", "validation"],
+	positionalParams: ["resources", "answers", "validation", "quiz", "answer",
+		"validationInputMangerTime", "validationManagerActionPoints"],
 	quizs: computed( "resources", "answers", function () {
 		return this.resources.map( item => {
 			const one = this.answers.find( x => x.get( "resource.id" ) === item.get( "id" ) )
@@ -13,71 +14,72 @@ export default Component.extend( {
 		} )
 	} ),
 	exam: service( "service/exam-facade" ),
-	isOverKpi: computed( "ManagerUsedKpi", "managerTotalKpi", function () {
-		let { ManagerUsedKpi, managerTotalKpi } =
-			this.getProperties( "ManagerUsedKpi", "managerTotalKpi" )
+	// isOverKpi: computed( "ManagerUsedKpi", "managerTotalKpi", function () {
+	// 	let { ManagerUsedKpi, managerTotalKpi } =
+	// 		this.getProperties( "ManagerUsedKpi", "managerTotalKpi" )
 
-		if ( isEmpty( managerTotalKpi ) ) {
-			return false
-		}
-		if ( ManagerUsedKpi >= managerTotalKpi ) {
-			return true
-		}
-	} ),
-	checkMaxValue( max, arr ) {
-		let len = arr.length
+	// 	if ( isEmpty( managerTotalKpi ) ) {
+	// 		return false
+	// 	}
+	// 	if ( ManagerUsedKpi >= managerTotalKpi ) {
+	// 		return true
+	// 	}
+	// } ),
+	// checkMaxValue( max, arr ) {
+	// 	let len = arr.length
 
-		for ( let i = 0; i < len; i++ ) {
-			if ( arr[i] === -1 ) {
-				arr[i] = 0
-			}
-			max -= arr[i]
-			if ( max < 0 ) {
-				window.console.log( "out of" )
-				this.set( "warning", {
-					open: true,
-					title: "经理时间超额",
-					detail: "经理时间设定已超过限制，请重新分配。"
-				} )
-				return false
-			}
-		}
-		window.console.log( "ok" )
-		return true
-	},
-	isOverMaxMangerActionPoint: function () {
-		let maxValueRules = this.validation["maxValue"].split( "*" ),
-			// typeRules = this.validation[1].split( "*" ),
-			maxMangerActionPointRule = "",
-			// managerTimeInputRule = "",
-			managerInput = []
+	// 	for ( let i = 0; i < len; i++ ) {
+	// 		if ( arr[i] === -1 ) {
+	// 			arr[i] = 0
+	// 		}
+	// 		max -= arr[i]
+	// 		if ( max < 0 ) {
+	// 			window.console.log( "out of" )
+	// 			this.set( "warning", {
+	// 				open: true,
+	// 				title: "经理时间超额",
+	// 				detail: "经理时间设定已超过限制，请重新分配。"
+	// 			} )
+	// 			return false
+	// 		}
+	// 	}
+	// 	window.console.log( "ok" )
+	// 	return true
+	// },
+	// isOverMaxMangerActionPoint: function () {
+	// 	let maxValueRules = this.validation["maxValue"].split( "*" ),
+	// 		// typeRules = this.validation[1].split( "*" ),
+	// 		maxMangerActionPointRule = "",
+	// 		// managerTimeInputRule = "",
+	// 		managerInput = []
 
-		maxValueRules.forEach( e => {
-			if ( e.startsWith( "managementMaxActionPoint" ) ) {
-				maxMangerActionPointRule = e
-			}
-		} )
+	// 	maxValueRules.forEach( e => {
+	// 		if ( e.startsWith( "managementMaxActionPoint" ) ) {
+	// 			maxMangerActionPointRule = e
+	// 		}
+	// 	} )
 
-		// 1 第一周期
-		let maxMangerActionPoint = Number( maxMangerActionPointRule.split( "#" )[1] )
-		// managerTimeInputType = String( managerTimeInputRule.split( "#" )[1] )
+	// 	// 1 第一周期
+	// 	let maxMangerActionPoint = Number( maxMangerActionPointRule.split( "#" )[1] )
+	// 	// managerTimeInputType = String( managerTimeInputRule.split( "#" )[1] )
 
-		this.get( "answers" ).forEach( e => {
-			// window.console.log( e.productKnowledgeTraining )
-			managerInput.push( e.productKnowledgeTraining )
-			managerInput.push( e.salesAbilityTraining )
-			managerInput.push( e.regionTraining )
-			managerInput.push( e.performanceTraining )
-			managerInput.push( e.vocationalDevelopment )
-		} )
+	// 	this.get( "answers" ).forEach( e => {
+	// 		// window.console.log( e.productKnowledgeTraining )
+	// 		managerInput.push( e.productKnowledgeTraining )
+	// 		managerInput.push( e.salesAbilityTraining )
+	// 		managerInput.push( e.regionTraining )
+	// 		managerInput.push( e.performanceTraining )
+	// 		managerInput.push( e.vocationalDevelopment )
+	// 	} )
 
-		// this.checkType( managerTimeInputType, managerInput )
-		return this.checkMaxValue( maxMangerActionPoint, managerInput )
-	},
+	// 	// this.checkType( managerTimeInputType, managerInput )
+	// 	return this.checkMaxValue( maxMangerActionPoint, managerInput )
+	// },
 
 	actions: {
 		changeState() {
-			return this.isOverMaxMangerActionPoint()
+			// return this.isOverMaxMangerActionPoint()
+			return this.validationManagerActionPoints()
 			// state = Number( context.get( key ) )
 
 			// if ( !isOverKpi || state !== 0 ) {
@@ -103,6 +105,9 @@ export default Component.extend( {
 					} )
 				}
 			} )
+		},
+		validationInputMangerTimeIn( obj, value ) {
+			this.validationInputMangerTime( obj, value )
 		}
 	}
 } )

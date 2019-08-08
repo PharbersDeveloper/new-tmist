@@ -122,11 +122,16 @@
 		{{#bp-layout local-class="header"}}代表能力培养用时{{/bp-layout}}
 		{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
 			{{#bp-layout local-class="text" classNames="mr-4"}}1V1能力辅导{{/bp-layout}}
-			{{bp-input widthSize="small" local-class="per"}}
+			
+			{{bp-input widthSize="small" local-class="per"
+				value=quiz.answer.abilityCoach
+				onChange=(action "validationInputMangerTimeIn" quiz.answer "abilityCoach" (mut quiz.answer.abilityCoach))}}
 		{{/bp-layout}}
 		{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
 			{{#bp-layout local-class="text" classNames="mr-4"}}协防时间{{/bp-layout}}
-			{{bp-input widthSize="small" local-class="per"}}
+			{{bp-input widthSize="small" local-class="per"
+				value=quiz.answer.assistAccessTime
+				onChange=(action "validationInputMangerTimeIn" quiz.answer "assistAccessTime" (mut quiz.answer.assistAccessTime))}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout local-class="line" classNames="mx-4 mb-4"}}{{/bp-layout}}

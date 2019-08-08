@@ -184,7 +184,9 @@
 						period=model.period
 						resources=model.resources
 						validation=model.validation
-						answers=(filter-category-not model.answers "Business")}}
+						quota=model.quota
+						managerAnswer=(find-category model.answers "Management")
+						answers=(filter-category model.answers "Resource")}}
 				{{!-- {{log model.validation}} --}}
 			{{/if}}
 			{{#if (bp-eq currentTab 2)}}
