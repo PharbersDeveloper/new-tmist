@@ -39,6 +39,10 @@ export default Route.extend( {
 				return x.belongsTo( "validation" ).load()
 			} ),
 
+			quota = prs.load().then( x => {
+				return x.belongsTo( "quota" ).load()
+			} ),
+
 			period = this.store.findRecord( "model/period", params.period_id )
 
 		this.facade.startPeriodExam( project )
@@ -63,7 +67,8 @@ export default Route.extend( {
 			resources: resources,
 			presets: presets,
 			answers: answers,
-			validation: validation
+			validation: validation,
+			quota: quota
 		} )
 	}
 } )

@@ -3,7 +3,7 @@ import { computed } from "@ember/object"
 import { A } from "@ember/array"
 
 export default Component.extend( {
-	positionalParams: ["project", "period", "hospitals", "products", "resources", "preset", "answers", "validation"],
+	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "validation"],
 	allVisitTime: 100,
 	currentName: computed( "products", function() {
 		const cur = this.get( "products" ).find( x => x.productType === 0 )
@@ -16,6 +16,35 @@ export default Component.extend( {
 	circleData: A( [{ value: 40, name: "大扶康" }, { value: 20, name: "美素" }, { value: 40, name: "未分配" }] ),
 	circleColor: A( ["#8777D9", "#FFC400", "#DFE1E6"] ),
 	circleSize: A( ["70%", "95%"] ),
+	circleMeetingData: A( [{ value: 15, name: "已分配" }, { value: 5, name: "未分配" }] ),
+	circleMeetingColor: A( ["#3172E0", "#DFE1E6"] ),
+	circleMeetingSize: A( ["70%", "85%"] ),
+	allProductSales: computed( "products", "presets", "answers",function() {
+		let arr = []
+
+		this.get( "products" ).forEach( product => {
+			if ( product.productType === 0 ) {
+				let obj = {}
+
+				obj.name = product.name
+				obj.allSales = 0
+				obj.curSales = 0
+				this.get( "presets" ).forEach( preset => {
+					if ( preset.get( "product.id" ) === product.id ) {
+						obj.allSales += Number( preset.salesQuota )
+					}
+				} )
+				this.get( "answers" ).forEach( answer => {
+					if ( answer.get( "product.id" ) === product.id ) {
+						obj.curSales = Number( answer.get( "salesTarget" ) ) === -1 ? obj.curSales : obj.curSales + Number( answer.get( "salesTarget" ) )
+					}
+				} )
+				arr.push( obj )
+			}
+		} )
+		return A( arr )
+	} ),
+	labelEmphasis: false,
 	inputTypeNumber( input ) {
 		let cur = Number( input )
 

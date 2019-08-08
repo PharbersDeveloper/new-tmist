@@ -1,14 +1,14 @@
 {{!-- 经理剩余时间 start --}}
-{{#bp-layout main="between" local-class="management-content" }}
-	<div local-class="infos" class="mr-4 ">
-		<div local-class="manager-infos" class="mb-2 bg-white">
-			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
+{{!-- {{#bp-layout main="between" local-class="management-content" }} --}}
+	{{!-- <div local-class="infos" class="mr-4 ">
+		<div local-class="manager-infos" class="mb-2 bg-white"> --}}
+			{{!-- {{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
 				<span local-class="title">
 					经理剩余行动点数
 				</span>
-			{{/bp-layout}}
+			{{/bp-layout}} --}}
 			{{!-- <h3 local-class="title" class="px-4">经理剩余行动点数</h3> --}}
-			<div local-class="pie" class="p-4">
+			{{!-- <div local-class="pie" class="p-4"> --}}
 				{{!-- {{bp-circle widthSize="auto"
 					seriesName="经理剩余行动点数"
 					circleData=circlePoint}} --}}
@@ -16,16 +16,16 @@
 					eid='managerPoint'
 					seriesName="经理剩余行动点数" 
 					circleData=circlePoint}} --}}
-			</div>
+			{{!-- </div>
 		</div>
-		<div local-class="team-infos" class="bg-white">
-			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
+		<div local-class="team-infos" class="bg-white"> --}}
+			{{!-- {{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
 				<span local-class="title">
 					团队及代表能力情况
 				</span>
-			{{/bp-layout}}
+			{{/bp-layout}} --}}
 			{{!-- <h3 local-class="title" class="px-4">团队及代表能力情况</h3> --}}
-			<div local-class="content" class="p-4">
+			{{!-- <div local-class="content" class="p-4">
 				{{#bp-layout main="between" cross=center local-class="drop-area" }}
 					<span class="mr-3">代表</span>
 					{{#bp-dropdown widthSize="auto" as |dd|}}
@@ -46,18 +46,18 @@
 						{{/dd.menu}}
 					{{/bp-dropdown}}
 				{{/bp-layout}}
-				<div local-class="radar-container">
+				<div local-class="radar-container"> --}}
 					{{!-- {{bp-radar
 						eid='representativeRadar' 
 						radarData=radarData
 						maxValue=10}} --}}
-				</div>
+				{{!-- </div>
 			</div>
 		</div>
-	</div>
-	<div local-class="actions allot-point" class="bg-white">
+	</div> --}}
+	{{!-- <div local-class="actions allot-point" class="bg-white">
 		<div local-class="allot-point-content" class="bg-white mb-2 px-4">
-			{{!-- <h4 local-class="title">行动点数分配</h4> --}}
+			<h4 local-class="title">行动点数分配</h4>
 			{{#bp-layout tagName="h3" main="between" cross="center" 
 				local-class="title"}}
 				<span local-class="title">
@@ -73,7 +73,6 @@
 					<th class="border-0">区域管理培训</th>
 					<th class="border-0">绩效约谈</th>
 					<th class="border-0">职业发展指导</th>
-					{{!-- <th class="border-0">总点数</th> --}}
 				</thead>
 				<tbody>
 					{{#each quizs as |quiz|}}
@@ -111,18 +110,83 @@
 										state=quiz.answer.vocationalDevelopment
 										changeState=(action 'changeState' )}}
 							</td>
-							{{!-- <td>
-									{{bp-input widthSize="small"
-									disabled=true 
-									value=resConf.totalPoint}}
-								</td> --}}
 						</tr>
 					{{/each}}
 				</tbody>
 			</table>
 		</div>
-	</div>
+	</div> --}}
+{{!-- {{/bp-layout}} --}}
+{{#bp-layout direction="col" local-class="action"}}
+	{{#bp-layout local-class="ability-training" direction="col" classNames="my-4"}}
+		{{#bp-layout local-class="header"}}代表能力培养用时{{/bp-layout}}
+		{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
+			{{#bp-layout local-class="text" classNames="mr-4"}}1V1能力辅导{{/bp-layout}}
+			
+			{{bp-input widthSize="small" local-class="per"
+				value=quiz.answer.abilityCoach
+				onChange=(action "validationInputMangerTimeIn" quiz.answer "abilityCoach" (mut quiz.answer.abilityCoach))}}
+		{{/bp-layout}}
+		{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
+			{{#bp-layout local-class="text" classNames="mr-4"}}协防时间{{/bp-layout}}
+			{{bp-input widthSize="small" local-class="per"
+				value=quiz.answer.assistAccessTime
+				onChange=(action "validationInputMangerTimeIn" quiz.answer "assistAccessTime" (mut quiz.answer.assistAccessTime))}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout local-class="line" classNames="mx-4 mb-4"}}{{/bp-layout}}
+	{{#bp-layout local-class="action-point" direction="col"}}
+		{{#bp-layout local-class="header"}}行动点数{{/bp-layout}}
+		{{#bp-layout direction="col"}}
+			{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
+				{{#bp-layout local-class="text" classNames="mr-4"}}产品知识培训{{/bp-layout}}
+				{{#bp-layout}}
+					{{common/toggle-button context=resConf 
+							key='productKnowledgeTraining' 
+							state=quiz.answer.productKnowledgeTraining
+							changeState=(action 'changeState'  )}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
+				{{#bp-layout local-class="text" classNames="mr-4"}}销售能力培训{{/bp-layout}}
+				{{#bp-layout}}
+						{{common/toggle-button context=resConf 
+								key='salesAbilityTraining' 
+								state=quiz.answer.salesAbilityTraining
+								changeState=(action 'changeState' )}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
+				{{#bp-layout local-class="text" classNames="mr-4"}}区域管理培训{{/bp-layout}}
+				{{#bp-layout}}
+					{{common/toggle-button context=resConf 
+							key='regionTraining' 
+							state=quiz.answer.regionTraining
+							changeState=(action 'changeState' )}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
+				{{#bp-layout local-class="text" classNames="mr-4"}}绩效约谈{{/bp-layout}}
+				{{#bp-layout}}
+					{{common/toggle-button context=resConf 
+							key='performanceTraining'
+							state=quiz.answer.performanceTraining
+							changeState=(action 'changeState' )}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
+				{{#bp-layout local-class="text" classNames="mr-4"}}职业发展指导{{/bp-layout}}
+				{{#bp-layout}}
+					{{common/toggle-button context=resConf 
+							key='vocationalDevelopment'
+							state=quiz.answer.vocationalDevelopment
+							changeState=(action 'changeState' )}}
+				{{/bp-layout}}
+				{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
 {{/bp-layout}}
+
 {{#bp-modal
 		open=warning.open
 		position='center' 
