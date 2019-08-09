@@ -1,0 +1,56 @@
+{{#bp-layout direction="row"  main='between'}}
+	{{#bp-layout main='between' cross="center" classNames="bg-white mb-0" local-class="resource-list-outer"}}
+		{{!-- {{#if (bp-eq curResource.id resource.id)}} --}}
+		{{#if (bp-eq showContent false)}}
+			{{#bp-layout local-class="resource-item active" direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
+				{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
+					<img src={{resource.avatar.img}} alt={{resource.name}}>
+					{{resource.name}}
+				{{/bp-layout}}
+				{{#bp-layout local-class="item-right" direction="row" main="end"}}
+					<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}40%</span>
+					<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}1</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{else}}
+			{{#bp-layout local-class="resource-item" direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
+				{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
+					<img src={{resource.avatar.img}} alt={{resource.name}}>
+					{{resource.name}}
+				{{/bp-layout}}
+				{{#bp-layout local-class="item-right" direction="row" main="end"}}
+				  <span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}40%</span>
+					<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}1</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/if}}
+	{{/bp-layout}}
+{{/bp-layout}}
+{{#bs-collapse collapsed=showContent local-class="wrapper"}}
+	{{#bp-layout direction="col" local-class="representative-info" classNames="bg-white ml-2 mb-2 px-3"}}
+		{{#bp-layout local-class="remain-time" direction="col" }}
+			{{#bp-layout direction="row" main="between"}}
+				{{#bp-layout local-class="time"}}剩余时间{{/bp-layout}}
+				{{#bp-layout local-class="percent"}}
+					<span>100%</span>
+					<span class="mt-1">/100%</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout direction="row"}} 
+				{{#bp-progress as |p|}}
+					{{p.bar value=2400000 maxValue=2400000}}
+				{{/bp-progress}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout local-class="resource-hospital" direction="col"}}
+			{{#bp-layout direction="row" cross="center" classNames="mt-3"}}
+				{{#bp-layout local-class="hospital-name"}}朝阳医院{{/bp-layout}}
+				{{#bp-input widthSize="small"}}{{/bp-input}}
+			{{/bp-layout}}
+			{{#bp-layout direction="row" cross="center" classNames="mt-3"}}
+				{{#bp-layout local-class="hospital-name" }}积水潭医院{{/bp-layout}}
+				{{#bp-input widthSize="small"}}{{/bp-input}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bs-collapse}}
