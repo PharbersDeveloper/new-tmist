@@ -100,6 +100,10 @@ export default Component.extend( {
 						productInfo[titleArray[i]] = ele[i]
 					}
 					productInfo.color = htmlSafe( `background-color:${color[index]}` )
+					productInfo.product = productInfo["product.keyword"]
+					productInfo.salesRate = productInfo["rate(sum(sales))"]
+					productInfo.sales = productInfo["sum(sales)"]
+
 					return productInfo
 				} )
 
@@ -117,54 +121,60 @@ export default Component.extend( {
 		changeCondition() {
 			this.set( "tmRepBarLineCondition", [{
 				data: {
-					"_source": [
-						"date",
-						"sales",
-						"target",
-						"targetRate",
-						"product",
-						"rep"
-					],
+					"model": "oldtm",
 					"query": {
-						"bool": {
-							"must": [
-								{
-									"match": {
-										"rep": "段坤"
+						"search": {
+							"and": [
+								["eq", "representative.keyword", "小白"]
+							]
+						},
+						"aggs": [
+							{
+								"groupBy": "date.keyword",
+								"aggs": [
+									{
+										"agg": "sum",
+										"field": "sales"
+									},
+									{
+										"agg": "sum",
+										"field": "p_quota"
 									}
+								]
+							}
+						]
+					},
+					"format": [
+						{
+							"class": "calcRate",
+							"args": [
+								"sum(p_quota)"
+							]
+						},
+						{
+							"class": "addCol",
+							"args": [
+								{
+									"name": "product",
+									"value": "all"
 								},
 								{
-									"match": {
-										"product": "all"
-									}
-								},
-								{
-									"match": {
-										"region": "all"
-									}
-								},
-								{
-									"match": {
-										"hosp_level": "all"
-									}
-								},
-								{
-									"match": {
-										"hosp_name": "all"
-									}
-								}
-							],
-							"must_not": [
-								{
-									"match": {
-										"date": "all"
-									}
+									"name": "representative",
+									"value": "小兰"
 								}
 							]
+						},
+						{
+							"class": "cut2DArray",
+							"args": [
+								"date.keyword",
+								"sum(sales)",
+								"sum(p_quota)",
+								"rate(sum(p_quota))",
+								"product",
+								"representative"
+							]
 						}
-					},
-					"sort": [
-						{ "date": "asc" }
 					]
 				}
 			}] )
@@ -181,54 +191,60 @@ export default Component.extend( {
 		changeConditionBack() {
 			this.set( "tmRepBarLineCondition", [{
 				data: {
-					"_source": [
-						"date",
-						"sales",
-						"target",
-						"targetRate",
-						"product",
-						"rep"
-					],
+					"model": "oldtm",
 					"query": {
-						"bool": {
-							"must": [
-								{
-									"match": {
-										"rep": "clockq"
+						"search": {
+							"and": [
+								["eq", "representative.keyword", "小兰"]
+							]
+						},
+						"aggs": [
+							{
+								"groupBy": "date.keyword",
+								"aggs": [
+									{
+										"agg": "sum",
+										"field": "sales"
+									},
+									{
+										"agg": "sum",
+										"field": "p_quota"
 									}
+								]
+							}
+						]
+					},
+					"format": [
+						{
+							"class": "calcRate",
+							"args": [
+								"sum(p_quota)"
+							]
+						},
+						{
+							"class": "addCol",
+							"args": [
+								{
+									"name": "product",
+									"value": "all"
 								},
 								{
-									"match": {
-										"product": "all"
-									}
-								},
-								{
-									"match": {
-										"region": "all"
-									}
-								},
-								{
-									"match": {
-										"hosp_level": "all"
-									}
-								},
-								{
-									"match": {
-										"hosp_name": "all"
-									}
-								}
-							],
-							"must_not": [
-								{
-									"match": {
-										"date": "all"
-									}
+									"name": "representative",
+									"value": "小兰"
 								}
 							]
+						},
+						{
+							"class": "cut2DArray",
+							"args": [
+								"date.keyword",
+								"sum(sales)",
+								"sum(p_quota)",
+								"rate(sum(p_quota))",
+								"product",
+								"representative"
+							]
 						}
-					},
-					"sort": [
-						{ "date": "asc" }
 					]
 				}
 			}] )
@@ -311,50 +327,49 @@ export default Component.extend( {
 					},
 					tmProductCircleCondition = [{
 						data: {
-							"_source": [
-								"product",
-								"sales",
-								"date",
-								"salesRate"
-							],
+							"model": "oldtm",
 							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"date": "2018Q1"
+								"search": {
+									"and": [
+										[
+											"eq",
+											"date.keyword",
+											"2018Q1"
+										]
+									]
+								},
+								"aggs": [
+									{
+										"groupBy": "date.keyword",
+										"aggs": [
+											{
+												"groupBy": "product.keyword",
+												"aggs": [
+													{
+														"agg": "sum",
+														"field": "sales"
+													}
+												]
 											}
-										},
-										{
-											"match": {
-												"rep": "all"
-											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"product": "all"
-											}
-										}
+										]
+									}
+								]
+							},
+							"format": [
+								{
+									"class": "calcRate",
+									"args": ["sum(sales)"]
+								},
+								{
+									"class": "cut2DArray",
+									"args": [
+										"product.keyword",
+										"sum(sales)",
+										"date.keyword",
+										"rate(sum(sales))"
 									]
 								}
-							}
+							]
 						}
 					}],
 					tmProductBarLine0 = {
@@ -363,56 +378,6 @@ export default Component.extend( {
 						panels: A( [
 							{
 								id: "bartmProductBarLine0",
-								condition: {
-									"_source": [
-										"date",
-										"sales",
-										"target",
-										"targetRate",
-										"product"
-									],
-									"query": {
-										"bool": {
-											"must": [
-												{
-													"match": {
-														"product": "all"
-													}
-												},
-												{
-													"match": {
-														"rep": "all"
-													}
-												},
-												{
-													"match": {
-														"region": "all"
-													}
-												},
-												{
-													"match": {
-														"hosp_level": "all"
-													}
-												},
-												{
-													"match": {
-														"hosp_name": "all"
-													}
-												}
-											],
-											"must_not": [
-												{
-													"match": {
-														"date": "all"
-													}
-												}
-											]
-										}
-									},
-									"sort": [
-										{ "date": "asc" }
-									]
-								},
 								color: ["#579AFF ", "#C2DAFF", "#FFAB00"],
 								xAxis: {
 									show: true,
@@ -522,7 +487,7 @@ export default Component.extend( {
 										barBorderRadius: [0, 0, 0, 0]
 									},
 									encode: {
-										y: "sales"
+										y: [1]
 									}
 								}, {
 									type: "bar",
@@ -533,14 +498,14 @@ export default Component.extend( {
 										barBorderRadius: [0, 0, 0, 0]
 									},
 									encode: {
-										y: "target"
+										y: [2]
 									}
 								}, {
 									type: "line",
 									name: "指标达成率",
 									yAxisIndex: 1,
 									encode: {
-										y: "targetRate"
+										y: [3]
 									},
 									itemStyle: {
 										normal: {
@@ -560,53 +525,55 @@ export default Component.extend( {
 					},
 					tmProductBarLineCondition = [{
 						data: {
-							"_source": [
-								"date",
-								"sales",
-								"target",
-								"targetRate",
-								"product"
-							],
+							"model": "oldtm",
 							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"product": "all"
+								"search": {
+									"and": [
+										["eq", "product.keyword", "大扶康"]
+									]
+								},
+								"aggs": [
+									{
+										"groupBy": "date.keyword",
+										"aggs": [
+											{
+												"agg": "sum",
+												"field": "sales"
+											},
+											{
+												"agg": "sum",
+												"field": "p_quota"
 											}
-										},
+										]
+									}
+								]
+							},
+							"format": [
+								{
+									"class": "calcRate",
+									"args": [
+										"sum(p_quota)"
+									]
+								},
+								{
+									"class": "addCol",
+									"args": [
 										{
-											"match": {
-												"rep": "all"
-											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"date": "all"
-											}
+											"name": "product",
+											"value": "大扶康"
 										}
 									]
+								},
+								{
+									"class": "cut2DArray",
+									"args": [
+										"date.keyword",
+										"sum(sales)",
+										"sum(p_quota)",
+										"rate(sum(p_quota))",
+										"product"
+									]
 								}
-							},
-							"sort": [
-								{ "date": "asc" }
 							]
 						}
 					}],
@@ -731,52 +698,54 @@ export default Component.extend( {
 					},
 					tmRepCircleCondition = [{
 						data: {
-							"_source": [
-								"rep",
-								"sales",
-								"date",
-								"salesRate"
-							],
+							"model": "oldtm",
 							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"date": "2018Q1"
+								"search": {
+									"and": [
+										["eq", "date.keyword", "2018Q1"]
+									]
+								},
+								"aggs": [
+									{
+										"groupBy": "representative.keyword",
+										"aggs": [
+											{
+												"agg": "sum",
+												"field": "sales"
+											},
+											{
+												"agg": "sum",
+												"field": "p_quota"
 											}
-										},
+										]
+									}
+								]
+							},
+							"format": [
+								{
+									"class": "calcRate",
+									"args": [
+										"sum(sales)"
+									]
+								},
+								{
+									"class": "addCol",
+									"args": [
 										{
-											"match": {
-												"product": "all"
-											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"rep": "all"
-											}
+											"name": "date",
+											"value": "2018Q1"
 										}
 									]
+								},
+								{
+									"class": "cut2DArray",
+									"args": [
+										"representative.keyword",
+										"sum(sales)",
+										"date",
+										"rate(sum(sales))"
+									]
 								}
-							},
-							"sort": [
-								{ "rep": "asc" }
 							]
 						}
 					}],
@@ -896,7 +865,7 @@ export default Component.extend( {
 										barBorderRadius: [0, 0, 0, 0]
 									},
 									encode: {
-										y: "sales"
+										y: [1]
 									}
 								}, {
 									type: "bar",
@@ -907,14 +876,14 @@ export default Component.extend( {
 										barBorderRadius: [0, 0, 0, 0]
 									},
 									encode: {
-										y: "target"
+										y: [2]
 									}
 								}, {
 									type: "line",
 									name: "指标达成率",
 									yAxisIndex: 1,
 									encode: {
-										y: "targetRate"
+										y: [3]
 									},
 									itemStyle: {
 										normal: {
@@ -934,54 +903,60 @@ export default Component.extend( {
 					},
 					tmRepBarLineCondition = [{
 						data: {
-							"_source": [
-								"date",
-								"sales",
-								"target",
-								"targetRate",
-								"product",
-								"rep"
-							],
+							"model": "oldtm",
 							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"rep": "clockq"
+								"search": {
+									"and": [
+										["eq", "representative.keyword", "小兰"]
+									]
+								},
+								"aggs": [
+									{
+										"groupBy": "date.keyword",
+										"aggs": [
+											{
+												"agg": "sum",
+												"field": "sales"
+											},
+											{
+												"agg": "sum",
+												"field": "p_quota"
 											}
+										]
+									}
+								]
+							},
+							"format": [
+								{
+									"class": "calcRate",
+									"args": [
+										"sum(p_quota)"
+									]
+								},
+								{
+									"class": "addCol",
+									"args": [
+										{
+											"name": "product",
+											"value": "all"
 										},
 										{
-											"match": {
-												"product": "all"
-											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"date": "all"
-											}
+											"name": "representative",
+											"value": "小兰"
 										}
 									]
+								},
+								{
+									"class": "cut2DArray",
+									"args": [
+										"date.keyword",
+										"sum(sales)",
+										"sum(p_quota)",
+										"rate(sum(p_quota))",
+										"product",
+										"representative"
+									]
 								}
-							},
-							"sort": [
-								{ "date": "asc" }
 							]
 						}
 					}],
@@ -1057,50 +1032,51 @@ export default Component.extend( {
 					},
 					tmHosCircleCondition = [{
 						data: {
-							"_source": [
-								"hosp_level",
-								"sales",
-								"date",
-								"salesRate"
-							],
+							"model": "oldtm",
 							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"date": "2018Q1"
+								"search": {
+									"and": [
+										["eq", "date.keyword", "2018Q1"]
+									]
+								},
+								"aggs": [
+									{
+										"groupBy": "hospital_level.keyword",
+										"aggs": [
+											{
+												"agg": "sum",
+												"field": "sales"
 											}
-										},
+										]
+									}
+								]
+							},
+							"format": [
+								{
+									"class": "calcRate",
+									"args": [
+										"sum(sales)"
+									]
+								},
+								{
+									"class": "addCol",
+									"args": [
 										{
-											"match": {
-												"product": "all"
-											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"rep": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"hosp_level": "all"
-											}
+											"name": "date",
+											"value": "2018Q1"
 										}
 									]
+								},
+								{
+									"class": "cut2DArray",
+									"args": [
+										"hospital_level.keyword",
+										"sum(sales)",
+										"date",
+										"rate(sum(sales))"
+									]
 								}
-							}
+							]
 						}
 					}],
 					tmHosBarLine0 = {
@@ -1219,7 +1195,7 @@ export default Component.extend( {
 										barBorderRadius: [0, 0, 0, 0]
 									},
 									encode: {
-										y: "sales"
+										y: [1]
 									}
 								}, {
 									type: "bar",
@@ -1230,14 +1206,14 @@ export default Component.extend( {
 										barBorderRadius: [0, 0, 0, 0]
 									},
 									encode: {
-										y: "target"
+										y: [2]
 									}
 								}, {
 									type: "line",
 									name: "指标达成率",
 									yAxisIndex: 1,
 									encode: {
-										y: "targetRate"
+										y: [3]
 									},
 									itemStyle: {
 										normal: {
@@ -1254,52 +1230,61 @@ export default Component.extend( {
 					},
 					tmHosBarLineCondition = [{
 						data: {
-							"_source": [
-								"date",
-								"sales",
-								"target",
-								"targetRate",
-								"product",
-								"hosp_name"
-							],
+							"model": "oldtm",
 							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"hosp_name": "北京协和医院"
+								"search": {
+									"and": [
+										["eq", "hospital.keyword", "海港医院"]
+									]
+								},
+								"aggs": [
+									{
+										"groupBy": "date.keyword",
+										"aggs": [
+											{
+												"agg": "sum",
+												"field": "sales"
+											},
+											{
+												"agg": "sum",
+												"field": "p_quota"
 											}
+										]
+									}
+								]
+							},
+							"format": [
+								{
+									"class": "calcRate",
+									"args": [
+										"sum(p_quota)"
+									]
+								},
+								{
+									"class": "addCol",
+									"args": [
+										{
+											"name": "product",
+											"value": "all"
 										},
 										{
-											"match": {
-												"product": "all"
-											}
-										},
-										{
-											"match": {
-												"rep": "all"
-											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"date": "all"
-											}
+											"name": "hospital",
+											"value": "海港医院"
 										}
 									]
+								},
+								{
+									"class": "cut2DArray",
+									"args": [
+										"date.keyword",
+										"sum(sales)",
+										"sum(p_quota)",
+										"rate(sum(p_quota))",
+										"product",
+										"hospital"
+									]
 								}
-							}
+							]
 						}
 					}],
 					tmRegCircle0 = {
@@ -1373,52 +1358,50 @@ export default Component.extend( {
 					},
 					tmRegCircleCondition = [{
 						data: {
-							"_source": [
-								"region",
-								"sales",
-								"date",
-								"salesRate"
-							],
+							"model": "oldtm",
 							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"date": "2018Q1"
+								"search": {
+									"and": [
+										["eq", "date.keyword", "2018Q1"]
+									]
+								},
+								"aggs": [
+									{
+										"groupBy": "hospital.keyword",
+										"aggs": [
+											{
+												"agg": "sum",
+												"field": "sales"
 											}
-										},
+										]
+									}
+								]
+							},
+							"format": [
+								{
+									"class": "calcRate",
+									"args": [
+										"sum(sales)"
+									]
+								},
+								{
+									"class": "addCol",
+									"args": [
 										{
-											"match": {
-												"product": "all"
-											}
-										},
-										{
-											"match": {
-												"rep": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"region": "all"
-											}
+											"name": "date",
+											"value": "2018Q1"
 										}
 									]
+								},
+								{
+									"class": "cut2DArray",
+									"args": [
+										"hospital.keyword",
+										"sum(sales)",
+										"date",
+										"rate(sum(sales))"
+									]
 								}
-							},
-							"sort": [
-								{ "region": "asc" }
 							]
 						}
 					}],
@@ -1537,7 +1520,7 @@ export default Component.extend( {
 										barBorderRadius: [0, 0, 0, 0]
 									},
 									encode: {
-										y: "sales"
+										y: [1]
 									}
 								}, {
 									type: "bar",
@@ -1548,14 +1531,14 @@ export default Component.extend( {
 										barBorderRadius: [0, 0, 0, 0]
 									},
 									encode: {
-										y: "target"
+										y: [2]
 									}
 								}, {
 									type: "line",
 									name: "指标达成率",
 									yAxisIndex: 1,
 									encode: {
-										y: "targetRate"
+										y: [3]
 									},
 									itemStyle: {
 										normal: {
@@ -1575,54 +1558,61 @@ export default Component.extend( {
 					},
 					tmRegBarLineCondition = [{
 						data: {
-							"_source": [
-								"date",
-								"sales",
-								"target",
-								"targetRate",
-								"product",
-								"region"
-							],
+							"model": "oldtm",
 							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"product": "all"
+								"search": {
+									"and": [
+										["eq", "product.keyword", "大扶康"],
+										["eq", "hospital.keyword", "西河医院"]
+									]
+								},
+								"aggs": [
+									{
+										"groupBy": "date.keyword",
+										"aggs": [
+											{
+												"agg": "sum",
+												"field": "sales"
+											},
+											{
+												"agg": "sum",
+												"field": "p_quota"
 											}
+										]
+									}
+								]
+							},
+							"format": [
+								{
+									"class": "calcRate",
+									"args": [
+										"sum(p_quota)"
+									]
+								},
+								{
+									"class": "addCol",
+									"args": [
+										{
+											"name": "product",
+											"value": "大扶康"
 										},
 										{
-											"match": {
-												"rep": "all"
-											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"date": "all"
-											}
+											"name": "hospital",
+											"value": "西河医院"
 										}
 									]
+								},
+								{
+									"class": "cut2DArray",
+									"args": [
+										"date.keyword",
+										"sum(sales)",
+										"sum(p_quota)",
+										"rate(sum(p_quota))",
+										"product",
+										"hospital"
+									]
 								}
-							},
-							"sort": [
-								{ "date": "asc" }
 							]
 						}
 					}]
