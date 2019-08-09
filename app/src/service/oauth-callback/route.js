@@ -10,7 +10,7 @@ export default Route.extend( {
 	actions: {
 		didTransition() {
 			this.oauthService.oauthCallback( this.queryParams )
-			window.location = "/welcome"
+			window.location = "/home"
 		}
 	}
 } )
