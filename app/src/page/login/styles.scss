@@ -1,31 +1,77 @@
 .login {
 	height: 100%;
+	background-image: url("/images/img_login_bg.png");
+	background-size: cover;
+	flex: 1;
 
-	div.input {
-		flex: 1;
-		position: relative;
+	// div.input {
+	// 	flex: 1;
+	// 	position: relative;
 
-		.area {
-			left: 50%;
-			position: absolute;
-			top: 50%;
-			transform: translate(-50%, -50%);
+	// 	.area {
+	// 		left: 50%;
+	// 		position: absolute;
+	// 		top: 50%;
+	// 		transform: translate(-50%, -50%);
+
+	// 		.title {
+	// 			@extend %title;
+	// 		}
+
+	// 		.desc {
+	// 			@extend %p-secondary;
+	// 			margin-bottom: 54px;
+	// 		}
+	// 	}
+	// }
+
+	// div.img {
+	// 	background-image: url("https://i.loli.net/2019/04/22/5cbd9393f20db.png");
+	// 	background-size: cover;
+	// 	flex: 1;
+	// }
+	.login-content {
+		width: 960px;
+		height: 425px;
+		background: #FFFFFF;
+		box-shadow: 0 12px 24px -6px rgba(9,30,66,0.25);
+		border-radius: 12px;
+
+		.content-left {
+			width: 480px;
+			padding: 80px;
 
 			.title {
-				@extend %title;
+				font-size: 24px;
 			}
 
-			.desc {
-				@extend %p-secondary;
-				margin-bottom: 54px;
+			.login-options {
+				width: 100%;
+				font-size: 14px;
+				color: #5E6C84;
+
+				.forget-pwd {
+					cursor: pointer;
+				}
+
+				.offcial-web {
+					cursor: pointer;
+					
+					.logo {
+						width: 14px;
+						height: 14px;
+					}
+				}
+			}
+
+			& > div {
+				width: 100%;	
 			}
 		}
-	}
 
-	div.img {
-		background-image: url("https://i.loli.net/2019/04/22/5cbd9393f20db.png");
-		background-size: cover;
-		flex: 1;
+		.login-img {
+			width: 480px;
+			height: 425px;
+		}
 	}
-
 }

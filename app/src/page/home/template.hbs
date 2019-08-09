@@ -1,0 +1,55 @@
+{{#bp-layout direction="col" main="center" cross="center" local-class="home"}}
+    {{#bp-layout direction="row" main="between" cross="center" local-class="card-area" classNames="p-4"}}
+        {{#bp-layout direction="col" main="start" cross="start" local-class="card-wrapper apm" classNames="p-3"}}
+            {{#bp-layout direction="row" main="start" cross="center" local-class="title-wrapper"}}
+                <p local-class="title">X</p>
+                <p local-class="title">训练</p>
+            {{/bp-layout}}
+            {{#bp-layout direction="col" main="start" cross="start" local-class="card-inner" classNames="p-4 bg-white"}}
+                {{#bp-layout direction="col" main="start" cross="start" local-class="card-top"}}
+                    <p local-class="title" class="mb-2">APM模拟练习</p>
+                    <p local-class="subtitle">区域周期管理课程辅助培训工具</p>
+                {{/bp-layout}}
+                {{#bp-layout direction="row" main="end" cross="start" local-class="card-bottom"}}
+                    {{#bp-button type="default"}}
+                        开始练习
+                    {{/bp-button}}
+                {{/bp-layout}}
+            {{/bp-layout}}
+        {{/bp-layout}}
+        {{#bp-layout direction="col" main="start" cross="start" local-class="card-wrapper ntm" classNames="p-3"}}
+            {{#bp-layout direction="row" main="start" cross="center" local-class="title-wrapper"}}
+                <p local-class="title">X</p>
+                <p local-class="title">模拟</p>
+            {{/bp-layout}}
+            {{#bp-layout direction="col" main="start" cross="start" local-class="card-inner" classNames="p-4 bg-white" click=(action "toPrepare")}}
+                {{#bp-layout direction="col" main="start" cross="start" local-class="card-top"}}
+                    {{#bp-layout direction="row" main="between" cross="center" local-class="card-top-inner" class="mb-2"}}
+                        <p local-class="title">新铁马TMIST测试</p>
+                        <p local-class="des">共1周期</p>
+                    {{/bp-layout}}
+                    <p local-class="subtitle">区域周期计划测试</p>
+                {{/bp-layout}}
+                {{#bp-layout direction="row" main="start" cross="start" local-class="card-bottom"}}
+                    {{!-- <p local-class="subtitle">区域周期计划测试</p> --}}
+                    <p local-class="des">上次中断时间 balabala</p>
+                {{/bp-layout}}
+            {{/bp-layout}}
+        {{/bp-layout}}
+        {{#bp-layout direction="col" main="start" cross="start" local-class="card-wrapper ucb" classNames="p-3"}}
+            {{#bp-layout direction="row" main="start" cross="center" local-class="title-wrapper"}}
+                <p local-class="title">X</p>
+                <p local-class="title">案例</p>
+            {{/bp-layout}}
+            {{#bp-layout direction="col" main="start" local-class="card" click=(action "toPrepare")}}
+                <img src="/images/img_home_card-bg_apm@2x.png" alt="UCB" local-class="card-pic" class="">
+                {{#bp-layout direction="col" main="start" cross="start" local-class="card-inner" classNames="p-4 bg-white"}}
+                    {{#bp-layout direction="col" main="start" cross="start" local-class="card-top"}}
+                        <p local-class="title" class="mb-2">UCB</p>
+                        <p local-class="subtitle">项目描述</p>
+                    {{/bp-layout}}
+                {{/bp-layout}}
+            {{/bp-layout}}
+        {{/bp-layout}}
+    {{/bp-layout}}
+{{/bp-layout}}

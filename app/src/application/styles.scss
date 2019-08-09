@@ -21,10 +21,7 @@
 	}
 }
 
-p {
-	margin: 0;
-	padding: 0;
-}
+
 
 :global(.p-btn) {
 	&:focus {
@@ -33,7 +30,13 @@ p {
 }
 
 .container {
-	height: calc(100% - 64px);
+	// height: calc(100% - 64px);
+	height: 100%;
+
+	:global(p) {
+		margin: 0;
+		padding: 0;
+	}
 
 	.content-box {
 		height: 100%;
