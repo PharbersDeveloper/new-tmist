@@ -95,57 +95,38 @@ export default Component.extend( {
 						queryAddress: {
 							host: "http://192.168.100.157",
 							port: 9000,
-							sheet: "tmchart",
-							rule: "pivot"
+							version: "v1.0",
+							db: "DL"
 						},
 						data: {
-
-							"_source": [
-								"date",
-								"product",
-								"salesRate"
-							],
+							"model": "oldtm",
 							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"rep": "all"
+								"aggs": [
+									{
+										"groupBy": "date.keyword",
+										"aggs": [
+											{
+												"groupBy": "product.keyword",
+												"aggs": [
+													{
+														"agg": "sum",
+														"field": "sales"
+													}
+												]
 											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"product": "all"
-											}
-										},
-										{
-											"match": {
-												"date": "all"
-											}
-										}
-									]
-								}
+										]
+									}
+								]
 							},
-							"sort": [
-								{ "date": "asc" },
-								{ "product": "asc" }
+							"format": [
+								{
+									"class": "pivot",
+									"args": {
+										"yAxis": "date.keyword",
+										"xAxis": "product.keyword",
+										"value": "sum(sales)"
+									}
+								}
 							]
 						}
 					}]
