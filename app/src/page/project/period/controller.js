@@ -53,6 +53,10 @@ export default Controller.extend( {
 					hospitalWithoutMeetingPlaces.push( answer.get( "target.name" ) )
 				}
 
+				if ( answer.get( "budget" === -1 || answer.get( "salesTarget" ) === -1 ) ) {
+					hospitalWithoutBudgetOrSales.push( answer )
+				}
+
 				if ( !answer.get( "resource" ) ) {
 					hospitalWithoutResource.push( answer.get( "target.name" ) )
 				}
@@ -64,10 +68,10 @@ export default Controller.extend( {
 					salesTarget = Number( answer.get( "salesTarget" ) ),
 					meetingPlaces = Number( answer.get( "meetingPlaces" ) )
 
-				aResources[answer.resource.get( "id" )] = visitTime === -1 ? aResources[answer.resource.get( "id" )] : aResources[answer.resource.get( "id" )] + visitTime
-				aResources[answer.resource.get( "id" )] = budget === -1 ? aResources[answer.resource.get( "id" )] : aResources[answer.resource.get( "id" )] + budget
-				aResources[answer.resource.get( "id" )] = salesTarget === -1 ? aResources[answer.resource.get( "id" )] : aResources[answer.resource.get( "id" )] + salesTarget
-				aResources[answer.resource.get( "id" )] = meetingPlaces === -1 ? aResources[answer.resource.get( "id" )] : aResources[answer.resource.get( "id" )] + meetingPlaces
+				aResources[answer.resource.get( "id" )] += visitTime
+				aResources[answer.resource.get( "id" )] += budget
+				aResources[answer.resource.get( "id" )] += salesTarget
+				aResources[answer.resource.get( "id" )] += meetingPlaces
 
 			}
 		} )
@@ -146,6 +150,12 @@ export default Controller.extend( {
 				open: true,
 				title: "有医院未分配代表",
 				detail: `尚未对${hospitalWithoutResource[0]}进行代表分配，请为其分配代表`
+			} )
+		} else if ( hospitalWithoutBudgetOrSales.length > 0 ) {
+			this.set( "validationWarning", {
+				open: true,
+				title: "有医院未分配资源",
+				detail: `尚未对${hospitalWithoutBudgetOrSales[0]}进行资源分配，请为其分配资源`
 			} )
 		} else if ( freeResource.length ) {
 			// 有代表未被分配

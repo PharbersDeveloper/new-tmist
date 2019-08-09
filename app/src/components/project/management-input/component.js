@@ -20,16 +20,21 @@ export default Component.extend( {
 		return this.quota.get( "managerKpi" )
 	} ),
 	curManagerTime: computed( "answers", "managerAnswer", function () {
-		let cur = 0
+		let cur = 0,
+			resourceTime = 0
 
 		cur += this.transNumber( this.managerAnswer.get( "strategAnalysisTime" ) )
 		cur += this.transNumber( this.managerAnswer.get( "clientManagementTime" ) )
 		cur += this.transNumber( this.managerAnswer.get( "adminWorkTime" ) )
 		cur += this.transNumber( this.managerAnswer.get( "kpiAnalysisTime" ) )
 		this.answers.forEach( answer => {
+			resourceTime += this.transNumber( answer.get( "abilityCoach" ) )
+			resourceTime += this.transNumber( answer.get( "assistAccessTime" ) )
+
 			cur += this.transNumber( answer.get( "abilityCoach" ) )
 			cur += this.transNumber( answer.get( "assistAccessTime" ) )
 		} )
+		set( this, "curResourceTime", resourceTime )
 		return cur
 	} ),
 	curManagerActionPoints: computed( "answers", function () {
@@ -44,6 +49,7 @@ export default Component.extend( {
 		} )
 		return cur
 	} ),
+	curResourceTime: 0,
 	transNumber( value ) {
 		let number = Number( value )
 
@@ -70,18 +76,23 @@ export default Component.extend( {
 				value = this.transNumber( obj.get( inputValue ) )
 
 			if ( isNumber ) {
-				if ( value + this.curManagerTime <= this.maxManagerTime ) {
-					let cur = 0
+				let cur = 0,
+					resourceTime = 0
 
-					cur += this.transNumber( this.managerAnswer.get( "strategAnalysisTime" ) )
-					cur += this.transNumber( this.managerAnswer.get( "clientManagementTime" ) )
-					cur += this.transNumber( this.managerAnswer.get( "adminWorkTime" ) )
-					cur += this.transNumber( this.managerAnswer.get( "kpiAnalysisTime" ) )
-					this.answers.forEach( answer => {
-						cur += this.transNumber( answer.get( "abilityCoach" ) )
-						cur += this.transNumber( answer.get( "assistAccessTime" ) )
-					} )
+				cur += this.transNumber( this.managerAnswer.get( "strategAnalysisTime" ) )
+				cur += this.transNumber( this.managerAnswer.get( "clientManagementTime" ) )
+				cur += this.transNumber( this.managerAnswer.get( "adminWorkTime" ) )
+				cur += this.transNumber( this.managerAnswer.get( "kpiAnalysisTime" ) )
+				this.answers.forEach( answer => {
+					resourceTime += this.transNumber( answer.get( "abilityCoach" ) )
+					resourceTime += this.transNumber( answer.get( "assistAccessTime" ) )
 
+					cur += this.transNumber( answer.get( "abilityCoach" ) )
+					cur += this.transNumber( answer.get( "assistAccessTime" ) )
+				} )
+				if ( value <= this.maxManagerTime ) {
+
+					set( this, "curResourceTime", resourceTime )
 					set( this , "curManagerTime", cur )
 					// this.curManagerTime += value
 					window.console.log( this.curManagerTime, value )
