@@ -51,15 +51,17 @@ export default Service.extend( {
 			// this.store.peekRecord( "resource", aResource.id )
 			answer.set( "resource", aResource )
 			// answer.resource = aResource
-			window.console.log( "====" )
-			window.console.log( aResource )
-			window.console.log( answer )
-			window.console.log( answer.resource )
-			window.console.log( new Date().getTime() )
 		} )
 	},
-	resetBusinessAnswer( aHospital ) {
-		this.operationAnswers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get( "category" ) === "Business" ).forEach( answer => {
+	cancelBusinessResource( answers, aHospital ) {
+		answers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get( "category" ) === "Business" ).forEach( answer => {
+			// this.store.peekRecord( "resource", aResource.id )
+			answer.set( "resource", null )
+			// answer.resource = aResource
+		} )
+	},
+	resetBusinessAnswer( answers, aHospital ) {
+		answers.filter( x => x.get( "target.id" ) === aHospital && x.get( "category" ) === "Business" ).forEach( answer => {
 			answer.set( "salesTarget", -1 )
 			answer.set( "budget", -1 )
 			answer.set( "meetingPlaces", -1 )

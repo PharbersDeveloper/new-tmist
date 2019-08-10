@@ -20,7 +20,7 @@ h5.title {
 		flex: 1;
 
 		.keys {
-			flex: 0 0 56px;
+			flex: 0 0 60px;
 		}
 
 		.operating {
@@ -156,6 +156,10 @@ h5.title {
 		&::after {
 			content: "个";
 		}
+
+		.input-default {
+			width: 122px;
+		}
 	}
 
 	&.input-money {
@@ -223,8 +227,37 @@ h5.title {
 		background: #e1ecff;
 	}
 
+	.icon-active {
+		svg {
+			path {
+				fill: #3172e0;
+			}
+		}
+	}
+
 	.icon-btn {
 		padding: 0;
+	}
+
+	.item-right {
+		.badge {
+			background-color: #c2daff;
+			color: #3880f8;
+			font-size: 14px;
+			font-weight: 400;
+			margin-left: 4px;
+			height: 20px;
+			border-radius: 4px;
+
+			svg {
+				font-size: 18px;
+				padding-bottom: 2px;
+
+				path {
+					fill: #3880f8;
+				}
+			}
+		}
 	}
 }
 
