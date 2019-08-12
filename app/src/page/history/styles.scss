@@ -22,5 +22,67 @@
 				color: #172B4D;
 			}
 		}
+
+		.history-table-outer {
+
+			.history-table {
+
+				thead {
+
+					th {
+						font-size: 12px;
+						color: #7A869A;
+					}
+				}
+
+				tbody {
+
+					td {
+						height: 88px;
+
+						.level {
+
+							.level-img {
+								width: 32px;
+								height: 32px;
+							}
+
+							.des {
+								font-size: 12px;
+								color: #6B778C;
+							}
+						}
+
+						.total-percent {
+
+							.num {
+								font-size: 24px;
+								color: #172B4D;
+							}
+
+							.unit {
+								font-size: 12px;
+								color: #7A869A;
+							}
+						}
+
+						&:nth-child(3) {
+							font-size: 16px;
+							color: #172B4D;
+						}
+
+						&:nth-child(5) {
+							font-size: 14px;
+							color: #7A869A;
+						}
+
+						&:nth-child(6) {
+							font-size: 12px;
+							color: #7A869A;
+						}
+					}
+				}
+			}
+		}
 	}
 }
