@@ -119,7 +119,9 @@ export default Component.extend( {
 
 	} ),
 	labelEmphasis: false,
-	curResource: null,
+	curResource: computed( function() {
+		return this.resources.get( "firstObject" )
+	} ),
 	curAnswerToReset: null,
 	resourceHospital: false,
 	getResourceHospital() {

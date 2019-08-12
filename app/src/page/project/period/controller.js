@@ -1,7 +1,9 @@
 import Controller from "@ember/controller"
 // import ENV from "new-tmist/config/environment"
 // import { computed } from "@ember/object"
-import { isEmpty } from "@ember/utils"
+// import { isEmpty } from "@ember/utils"
+import { A } from "@ember/array"
+import { computed, set } from "@ember/object"
 import { inject as service } from "@ember/service"
 import Ember from "ember"
 // import { threadId } from "worker_threads"
@@ -10,6 +12,36 @@ export default Controller.extend( {
 	toast: service(),
 	exam: service( "service/exam-facade" ),
 	currentTab: 0,
+	allProductInfo: computed( function() {
+		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
+		let arr = []
+
+		this.model.products.forEach( product => {
+			if ( product.productType === 0 ) {
+				let obj = {}
+
+				obj.name = product.name
+				obj.productId = product.id
+				obj.allSales = 0
+				obj.curSales = 0
+
+				this.model.presets.forEach( preset => {
+					if ( preset.get( "product.id" ) === product.id ) {
+						obj.allSales += this.transNumber( preset.salesQuota )
+					}
+				} )
+
+				this.model.answers.forEach( answer => {
+					if ( answer.get( "product.id" ) === product.id ) {
+						obj.curSales += this.transNumber( answer.get( "salesTarget" ) )
+					}
+				} )
+
+				arr.push( obj )
+			}
+		} )
+		return A( arr )
+	} ),
 	transNumber( input ) {
 		let number = Number( input )
 
@@ -21,7 +53,7 @@ export default Controller.extend( {
 	},
 	validation() {
 		let curerntBudget = 0,
-			currentSalesTarget = 0,
+			isOverSalesTarget = 0,
 			currentMeetingPlaces = 0,
 			currentManagementTime = 0,
 			resourceWithLeftTime = [],
@@ -33,9 +65,21 @@ export default Controller.extend( {
 			// hospitalWithoutBudgetOrSales = [],
 			// allManagementPoint = this.model.project.proposal.get( "quota.managerKpi" )
 			allBudget = this.model.project.proposal.get( "quota.totalBudget" ),
-			allSalesTarget = this.model.project.proposal.get( "quota.totalQuotas" ),
+			// allSalesTarget = this.model.project.proposal.get( "quota.totalQuotas" ),
 			allMeetingPlaces = this.model.project.proposal.get( "quota.meetingPlaces" ),
 			allManagementTime = this.model.project.proposal.get( "quota.mangementHours" )
+
+
+		this.allProductInfo.forEach( p => {
+			if ( p.curSales > p.allSales ) {
+				// 1 over
+				set( this, isOverSalesTarget, 1 )
+			} else if ( p.curSales < p.allSales ) {
+				// 2 is not enough
+				set( this, isOverSalesTarget, 2 )
+
+			}
+		} )
 
 		//budget validation
 		this.model.answers.forEach( answer => {
@@ -68,7 +112,7 @@ export default Controller.extend( {
 				// }
 				currentMeetingPlaces += this.transNumber( answer.get( "meetingPlaces" ) )
 				curerntBudget += this.transNumber( answer.get( "budget" ) )
-				currentSalesTarget += this.transNumber( answer.get( "salesTarget" ) )
+				// currentSalesTarget += this.transNumber( answer.get( "salesTarget" ) )
 				// 不同药品销售额可能分开？
 
 				if ( answer.resource.get( "id" ) ) {
@@ -136,7 +180,7 @@ export default Controller.extend( {
 				detail: "您的预算设定总值已超出总预算限制，请合理分配。"
 			} )
 			return false
-		} else if ( currentSalesTarget < allSalesTarget ) {
+		} else if ( isOverSalesTarget === 2 ) {
 			// 销售额未达标
 			this.set( "validationWarning", {
 				open: true,
@@ -144,7 +188,7 @@ export default Controller.extend( {
 				detail: "您的业务销售额指标尚未完成，请完成指标。"
 			} )
 			return false
-		} else if ( curerntBudget > allSalesTarget ) {
+		} else if ( isOverSalesTarget === 1 ) {
 			// 销售额超标
 			this.set( "validationWarning", {
 				open: true,
@@ -228,7 +272,7 @@ export default Controller.extend( {
 				alert( "ok" )
 				Ember.Logger.info( "save current input" )
 				this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-
+					alert( "save success" )
 					// this.transitionToRoute( "page.project.result" )
 				} )
 			}
