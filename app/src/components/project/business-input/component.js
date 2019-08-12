@@ -44,8 +44,9 @@ export default Component.extend( {
 						obj.curBudget += this.transNumber( answer.get( "budget" ) )
 					}
 				} )
-				obj.curBudgetPercent = ( obj.curBudget / this.allBudget ).toFixed( 1 )
-				this.currentBudgetPercent = 100 - obj.curBudgetPercent
+				obj.curBudgetPercent = ( obj.curBudget / this.allBudget * 100 ).toFixed( 1 )
+				this.curBudgetPercent -= obj.curBudgetPercent
+				this.curBudgetPercent = this.curBudgetPercent.toFixed( 1 )
 				arr.push( obj )
 			}
 		} )
@@ -342,7 +343,8 @@ export default Component.extend( {
 					set( this, "circleData", arr )
 
 
-					window.console.log( budgetArr )
+					let budgetArr = this.getResourceBudgetData()
+
 					set( this, "circleBudgetData", budgetArr )
 
 

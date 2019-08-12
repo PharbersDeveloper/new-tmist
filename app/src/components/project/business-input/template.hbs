@@ -132,7 +132,11 @@
 						circleSize=circleMeetingSize
 						labelEmphasis=labelEmphasis}}
 				{{/bp-layout}}
-				{{#bp-layout tagName="p"}} 已分配名额{{/bp-layout}}
+				{{#bp-layout tagName="p" local-class="desc"}} 已分配名额{{/bp-layout}}
+				{{#bp-layout tagName="p" local-class="number-desc"}} 
+					<span>{{curMeetingPlaces}}</span>
+					<span>/{{allMeetingPlaces}}</span>
+				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -164,7 +168,9 @@
 						{{/bp-layout}}
 					{{/if}} --}}
 					{{project/business-input/resource-config 
-						resource=rs answers=answers
+						resource=rs 
+						answers=answers
+						curResource=curResource
 						resourceHospital=resourceHospital
 						selectResource=(action "selectResource")}}
 				{{/each}}

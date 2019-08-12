@@ -2,8 +2,14 @@ import Component from "@ember/component"
 import { computed, set } from "@ember/object"
 
 export default Component.extend( {
-	positionalParams: ["resource", "answers", "selectResource", "resourceHospital"],
-	showContent: true,
+	positionalParams: ["resource", "answers", "selectResource", "resourceHospital", "curResource"],
+	showContent: computed( "curResource", function() {
+		if ( !this.curResource ) {
+			return true
+		} else if ( this.curResource.get( "id" ) === this.resource.get( "id" ) ) {
+			return false
+		}
+	} ),
 	hospitalList: computed( "resourceHospital", function() {
 		// let hospitals = []
 		return this.answers.filter( a => a.get( "resource.id" ) === this.resource.id ).uniqBy( "target.id" )
@@ -12,7 +18,16 @@ export default Component.extend( {
 		// let hospitals = []
 		return this.hospitalList.length
 	} ),
-	leftTime: 100,
+	leftTime: computed( "resourceHospital", function() {
+		let all = 0
+
+
+		this.answers.filter( a => a.get( "resource.id" ) === this.resource.id ).forEach( a => {
+			all += this.transNumber( a.get( "visitTime" ) )
+		} )
+
+		return 100 - all
+	} ),
 	transNumber( input ) {
 		let number = Number( input )
 
@@ -24,7 +39,7 @@ export default Component.extend( {
 	},
 	actions: {
 		showContent( rs ) {
-			this.toggleProperty( "showContent" )
+			// this.toggleProperty( "showContent" )
 			// this.set( "curResource", rs )
 			this.selectResource( rs )
 		},
@@ -32,7 +47,7 @@ export default Component.extend( {
 			let all = 0,
 				name = this.resource.get( "name" )
 
-			this.hospitalList.forEach( a => {
+			this.answers.filter( a => a.get( "resource.id" ) === this.resource.id ).forEach( a => {
 				all += this.transNumber( a.get( "visitTime" ) )
 			} )
 
@@ -46,6 +61,8 @@ export default Component.extend( {
 			} else {
 				set( this, "leftTime", 100 - all )
 			}
+			// this.resource.get("totalTiem")
+			// set( this.resource, "totalTime", this.leftTime )
 		}
 	}
 } )

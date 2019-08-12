@@ -199,3 +199,22 @@
 		{{/bp-layout}}
 	{{/bp-tabs}}
 {{/bp-layout}}
+
+{{#bp-modal
+		open=validationWarning.open
+		position='center' 
+		onHidden=(action (mut validationWarning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{validationWarning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc">
+			{{validationWarning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}
