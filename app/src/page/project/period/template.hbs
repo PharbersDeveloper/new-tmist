@@ -152,10 +152,15 @@
 					{{t "project.scenario-management"}}
 				{{/bp-button}}
 			{{/bp-layout}}
-			{{!-- </li> --}}
-			{{!-- <li local-class=(if (bp-eq currentTab 1) "active")> --}}
 			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 2) "active nav-item" "nav-item")}}
 				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 2) local-class=(if (bp-eq currentTab 2) "active")}}
+					决策回顾
+				{{/bp-button}}
+			{{/bp-layout}}
+			{{!-- </li> --}}
+			{{!-- <li local-class=(if (bp-eq currentTab 1) "active")> --}}
+			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 3) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 3) local-class=(if (bp-eq currentTab 3) "active")}}
 					{{t "project.scenario-reference"}}
 				{{/bp-button}}
 			{{/bp-layout}}
@@ -192,9 +197,10 @@
 			{{/if}}
 			{{#if (bp-eq currentTab 2)}}
 				{{!-- {{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}} --}}
-				{{project/proposal-info proposal=model.project.proposal }}
+				{{project/decision-review proposal=model.project.proposal }}
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}
+				{{project/proposal-info proposal=model.project.proposal }}
 			{{/if}}
 		{{/bp-layout}}
 	{{/bp-tabs}}
