@@ -1,0 +1,17 @@
+{{#bp-layout direction="col" main="start" cross="center" local-class="history" classNames="p-4"}}
+    {{#bp-layout direction="col" main="start" cross="start" local-class="list-wrapper" classNames="p-4 bg-white"}}
+        {{#bp-layout direction="row" main="start" cross="center" local-class="title-wrapper" classNames="mb-4"}}
+            <span local-class="badge">
+                {{#if (bp-eq runtimeConfig.projectType 2)}}
+                    TMIST
+                {{else if (bp-eq runtimeConfig.projectType 3)}}
+                    UCB
+                {{else}}
+                    undefined
+                {{/if}}
+            </span>
+            <p local-class="title" class="ml-2">历史成果</p>
+        {{/bp-layout}}
+
+    {{/bp-layout}}
+{{/bp-layout}}

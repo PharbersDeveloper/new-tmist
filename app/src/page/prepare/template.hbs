@@ -1,1 +1,29 @@
-{{outlet}}
+{{#bp-layout direction="col" main="center" cross="center" local-class="prepare"}}
+    {{#bp-layout direction="row" main="center" cross="center" local-class="card-area" classNames="p-4"}}
+
+        {{#bp-layout direction="col" main="between" cross="start" local-class="card" classNames="bg-white"}}
+            <p local-class="title">您好！欢迎进入优时比区域周期计划测试</p>
+            {{#bp-layout direction="row" main="start" cross="start" local-class="status-area"}}
+                <span local-class="badge">进行中</span>
+                <p local-class="des" class="ml-2">您好！欢迎进入优时比区域周期计划测试</p>
+            {{/bp-layout}}
+            {{#bp-layout direction="row" main="between" cross="end" local-class="card-bottom"}}
+                <p local-class="link" {{action "toHistory"}}>查看历史成果</p>
+                    
+                {{!-- {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}
+                    {{#bp-button type="primary"}}
+                        开始部署
+                    {{/bp-button}}
+                {{/bp-layout}} --}}
+                {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}
+                    {{#bp-button type="default"}}
+                        重新部署
+                    {{/bp-button}}
+                    {{#bp-button type="primary" classNames="ml-2"}}
+                        继续部署
+                    {{/bp-button}}
+                {{/bp-layout}}
+            {{/bp-layout}}
+        {{/bp-layout}}
+    {{/bp-layout}}
+{{/bp-layout}}

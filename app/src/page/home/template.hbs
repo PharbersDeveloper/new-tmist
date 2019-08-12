@@ -11,7 +11,7 @@
                     <p local-class="subtitle">区域周期管理课程辅助培训工具</p>
                 {{/bp-layout}}
                 {{#bp-layout direction="row" main="end" cross="start" local-class="card-bottom"}}
-                    {{#bp-button type="default"}}
+                    {{#bp-button type="default" click=(action "toPrepare" 1)}}
                         开始练习
                     {{/bp-button}}
                 {{/bp-layout}}
@@ -22,7 +22,7 @@
                 <p local-class="title">X</p>
                 <p local-class="title">模拟</p>
             {{/bp-layout}}
-            {{#bp-layout direction="col" main="start" cross="start" local-class="card-inner" classNames="p-4 bg-white" click=(action "toPrepare")}}
+            {{#bp-layout direction="col" main="start" cross="start" local-class="card-inner" classNames="p-4 bg-white" click=(action "toPrepare" 1)}}
                 {{#bp-layout direction="col" main="start" cross="start" local-class="card-top"}}
                     {{#bp-layout direction="row" main="between" cross="center" local-class="card-top-inner" class="mb-2"}}
                         <p local-class="title">新铁马TMIST测试</p>
@@ -41,7 +41,7 @@
                 <p local-class="title">X</p>
                 <p local-class="title">案例</p>
             {{/bp-layout}}
-            {{#bp-layout direction="col" main="start" local-class="card" click=(action "toPrepare")}}
+            {{#bp-layout direction="col" main="start" local-class="card" click=(action "toPrepare" 2)}}
                 <img src="/images/img_home_card-bg_apm@2x.png" alt="UCB" local-class="card-pic" class="">
                 {{#bp-layout direction="col" main="start" cross="start" local-class="card-inner" classNames="p-4 bg-white"}}
                     {{#bp-layout direction="col" main="start" cross="start" local-class="card-top"}}

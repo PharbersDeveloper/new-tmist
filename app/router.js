@@ -19,6 +19,7 @@ Router.map( function() {
     } )
     this.route('home');
     this.route('prepare');
+    this.route('history');
   } )
 
   this.route( "service", function() {

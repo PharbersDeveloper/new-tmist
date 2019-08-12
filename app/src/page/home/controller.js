@@ -1,8 +1,11 @@
 import Controller from "@ember/controller"
+import { inject as service } from "@ember/service"
 
 export default Controller.extend( {
+	runtimeConfig: service( "service/runtime-config" ),
 	actions: {
-		toPrepare() {
+		toPrepare( type ) {
+			this.get( "runtimeConfig" ).set( "projectType", type )
 			this.transitionToRoute( "page.prepare" )
 		}
 	}
