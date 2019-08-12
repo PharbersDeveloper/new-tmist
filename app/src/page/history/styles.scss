@@ -24,6 +24,7 @@
 		}
 
 		.history-table-outer {
+			width: 100%;
 
 			.history-table {
 
@@ -38,6 +39,7 @@
 				tbody {
 
 					td {
+						vertical-align: middle;
 						height: 88px;
 
 						.level {
