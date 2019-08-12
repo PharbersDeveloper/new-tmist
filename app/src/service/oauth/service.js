@@ -61,6 +61,7 @@ export default Service.extend( {
 
 			ajax.request( [host, version, resource, url].join( "/" ) )
 				.then( response => {
+					debugger
 					this.removeAuth()
 					let expiry = new Date( response.expiry ),
 						options = {
@@ -77,7 +78,7 @@ export default Service.extend( {
 					cookies.write( "scope", response.scope, options )
 					cookies.write( "expiry", response.expiry, options )
 
-					// this.get( "router" ).transitionTo( "index" )
+					this.get( "router" ).transitionTo( "page.home" )
 					Ember.Logger.info( "auth token successful" )
 				} )
 				.catch( () => {
