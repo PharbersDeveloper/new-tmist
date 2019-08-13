@@ -59,8 +59,8 @@
 					药品预算
 				{{/bp-layout}}
 				{{#bp-layout classNames="py-2" cross="center"}}
-					{{#bp-button local-class="active" onClick=(action (mut curCircle) 0)}}产品预算占比{{/bp-button}}
-					{{#bp-button classNames="mr-2" onClick=(action (mut curCircle) 1)}}代表预算占比{{/bp-button}}
+					{{#bp-button local-class=(if (bp-eq curCircle 0) "active") onClick=(action (mut curCircle) 0)}}产品预算占比{{/bp-button}}
+					{{#bp-button classNames="mr-2" local-class=(if (bp-eq curCircle 1) "active") onClick=(action (mut curCircle) 1)}}代表预算占比{{/bp-button}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-part"}}
@@ -91,7 +91,7 @@
 					{{/bp-layout}} --}}
 					{{#if (bp-eq curCircle 0)}}
 
-					{{#bp-layout local-class=(if needScroll "scroll-legend") direction="col"}}
+					{{#bp-layout local-class=(if needScrollProduct  "scroll-legend") direction="col"}}
 						{{#each allProductInfo as |product|}}
 							{{#bp-layout direction="row" classNames="mb-2"}}
 								<span local-class="legend-dot-default" class="mt-2 mr-2"></span>
@@ -107,7 +107,7 @@
 						{{/bp-layout}}
 					{{/bp-layout}}
 					{{else}}
-					{{#bp-layout local-class=(if needScroll "scroll-legend") direction="col"}}
+					{{#bp-layout local-class=(if needScrollRepresentative "scroll-legend") direction="col"}}
 						{{#each circleBudgetData as |resBudget|}}
 							{{#bp-layout direction="row" classNames="mb-2"}}
 								<span local-class="legend-dot-default" class="mt-2 mr-2"></span>

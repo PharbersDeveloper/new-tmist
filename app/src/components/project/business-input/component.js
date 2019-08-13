@@ -124,8 +124,15 @@ export default Component.extend( {
 	} ),
 	curAnswerToReset: null,
 	resourceHospital: false,
-	needScroll: computed( "resourceHospital", function() {
-		if ( this.circleBudgetData.length > 4 ) {
+	needScrollRepresentative: computed( function() {
+		if ( this.circleBudgetData.length > 5 ) {
+			return true
+		} else {
+			return false
+		}
+	} ),
+	needScrollProduct: computed( function() {
+		if ( this.circleProductData.length > 4 ) {
 			return true
 		} else {
 			return false
