@@ -1,5 +1,5 @@
 .prepare {
-	height: 100%;
+	height: calc(100% - 64px);
 
 	.card-area {
 		width: 1200px;
@@ -38,6 +38,12 @@
 
 			.card-bottom {
 				width: 100%;
+
+				.link {
+					font-size: 14px;
+					color: #3172E0;
+					cursor: pointer;
+				}
 			}
 		}
 	}

@@ -26,6 +26,7 @@
 			.card-pic {
 				width: 100%;
 				height: 152px;
+				border-radius: 4px 4px 0 0;
 			}
 
 			.card-inner {
@@ -74,6 +75,17 @@
 				.card-inner {
 					cursor: pointer;
 
+					.badge {
+						font-size: 12px;
+						color: #FFFFFF;
+						background-color: #55b37e;
+						line-height: 16px;
+						border-radius: 4px;
+						padding-left: 4px;
+						padding-right: 4px;
+						
+					}
+
 					.des {
 						font-size: 12px;
 						color: #7A869A;
@@ -88,10 +100,6 @@
 				.card {
 					width: 100%;
 					cursor: pointer;
-				}
-				
-				.card-img {
-					border-radius: 4px 4px 0 0;
 				}
 
 				.card-inner {

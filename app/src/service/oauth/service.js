@@ -61,7 +61,6 @@ export default Service.extend( {
 
 			ajax.request( [host, version, resource, url].join( "/" ) )
 				.then( response => {
-					debugger
 					this.removeAuth()
 					let expiry = new Date( response.expiry ),
 						options = {
