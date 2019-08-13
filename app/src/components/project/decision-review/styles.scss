@@ -1,0 +1,45 @@
+.review {
+	width: 1152px;
+
+	.review-header {
+		height: 109px;
+		width: 100%;
+
+		h2.title {
+			font-size: 24px;
+			color: #172b4d;
+		}
+
+		.time-info {
+			font-size: 14px;
+			color: #7a869a;
+		}
+
+		.export-btn {
+			height: 32px;
+			width: 80px;
+		}
+	}
+
+	.btn-group-sytle {
+		margin-top: 40px;
+
+		button {
+			font-size: 14px;
+			color: #505f79;
+			text-align: center;
+			line-height: 32px;
+
+			&:first-child {
+				border-radius: 4px 0 0 4px;
+				background: rgba(9, 30, 66, 0.04);
+				margin-right: 2px;
+			}
+
+			&:last-child {
+				border-radius: 0 4px 4px 0;
+				background: rgba(9, 30, 66, 0.04);
+			}
+		}
+	}
+}

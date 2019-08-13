@@ -1,0 +1,82 @@
+{{#bp-layout local-class="business-review" direction="col" classNames="bg-white"}}
+	{{#bp-layout local-class="select-part" direction="row" main="between" cross="center"}}
+		{{#bp-layout direction="row" local-class="part" classNames="pl-4" cross="center"}}
+			{{#bp-layout classNames="mr-3"}}选择季度{{/bp-layout}}
+			{{#bp-layout}}
+				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+					{{#dd.button }}						
+						请选择
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{!-- {{#each resources as |rcs|}}
+							{{#menu.option value=rcs onClick=(action (mut tmpRepConf))}}
+								{{rcs.name}}
+							{{/menu.option}}
+						{{/each}} --}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout direction="row" local-class="part" cross="center"}}
+			{{#bp-layout classNames="mr-3"}}选择药品{{/bp-layout}}
+			{{#bp-layout}}
+				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+					{{#dd.button }}
+						请选择
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{!-- {{#each resources as |rcs|}}
+										{{#menu.option value=rcs onClick=(action (mut tmpRepConf))}}
+											{{rcs.name}}
+										{{/menu.option}}
+									{{/each}} --}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout direction="row" local-class="part" cross="center"}}
+			{{#bp-layout classNames="mr-3"}}选择季度{{/bp-layout}}
+			{{#bp-layout}}
+				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+					{{#dd.button }}
+						请选择
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{!-- {{#each resources as |rcs|}}
+										{{#menu.option value=rcs onClick=(action (mut tmpRepConf))}}
+											{{rcs.name}}
+										{{/menu.option}}
+									{{/each}} --}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout local-class="table"}}
+		{{#bp-layout tagName="table" direction="col" classNames="ml-4"}}
+			{{#bp-layout tagName="thead" main="between" }}
+				{{#bp-layout tagName="th"}}医院名称{{/bp-layout}}
+				{{#bp-layout tagName="th"}}潜力{{/bp-layout}}
+				{{#bp-layout tagName="th"}}代表{{/bp-layout}}
+				{{#bp-layout tagName="th"}}分配时间{{/bp-layout}}
+				{{#bp-layout tagName="th"}}销售目标设定{{/bp-layout}}
+				{{#bp-layout tagName="th"}}预算费用{{/bp-layout}}
+				{{#bp-layout tagName="th"}}会议名额{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout tagName="tbody" }}
+				{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
+					{{#bp-layout tagName="td"}}安贞医院{{/bp-layout}}
+					{{#bp-layout tagName="td"}}¥999{{/bp-layout}}
+					{{#bp-layout tagName="td"}}¥ 444,444{{/bp-layout}}
+					{{#bp-layout tagName="td"}}46%{{/bp-layout}}
+					{{#bp-layout tagName="td"}}¥ 1,000,000,000{{/bp-layout}}
+					{{#bp-layout tagName="td"}}¥ 1,000,000,000{{/bp-layout}}
+					{{#bp-layout tagName="td"}}4{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}

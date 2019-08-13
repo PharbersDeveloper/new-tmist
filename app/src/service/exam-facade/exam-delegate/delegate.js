@@ -60,7 +60,7 @@ export default Object.extend( {
 						} ),
 
 					 msi = this.store.createRecord( "model/answer", {
-							category: "Management",
+							category: "Management"
 					 } )
 
 					result.addObjects( bsi )
@@ -82,11 +82,13 @@ export default Object.extend( {
 				budget: item.budget,
 				meetingPlaces: item.meetingPlaces,
 				resource: item.resource,
+				// add row
+				visitTime: item.visitTime,
 				productKnowledgeTraining: item.productKnowledgeTraining,
 				vocationalDevelopment: item.vocationalDevelopment,
 				regionTraining: item.regionTraining,
 				performanceTraining: item.performanceTraining,
-				salesAbilityTraining: item.salesAbilityTraining, 
+				salesAbilityTraining: item.salesAbilityTraining,
 				assistAccessTime: item.assistAccessTime,
 				abilityCoach: item.abilityCoach,
 				strategAnalysisTime: item.strategAnalysisTime,

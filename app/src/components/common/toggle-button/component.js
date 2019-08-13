@@ -29,6 +29,7 @@ export default Component.extend( {
 
 			if ( state === 1 ) {
 				this.set( "state", -1 )
+				action()
 			} else {
 				this.set( "state", 1 )
 				let changedOK = action()
