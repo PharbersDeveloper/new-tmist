@@ -1,7 +1,7 @@
 
 {{#bp-layout direction="row" local-class="submit-header" main="between" cross="center" classNames="px-4 py-3"}}
     {{#bp-layout direction="row" cross="center"}}
-        {{#bp-button local-class="exit-btn" onClick=(action "toIndex")}}{{bp-icon icon="data"}}{{/bp-button}}
+        {{#bp-button local-class="exit-btn" onClick=(action "toIndex")}}{{bp-icon icon="sign-out"}}{{/bp-button}}
         
         {{#bp-layout tagName="h4" local-class="title" class="ml-2"}}
             {{#if (bp-eq projectType 1)}}
