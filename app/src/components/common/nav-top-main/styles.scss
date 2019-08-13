@@ -1,0 +1,27 @@
+.nav-top {
+	height: 64px;
+	background: #FFFFFF;
+	box-shadow: 0 1px 2px 0 rgba(23,43,77,0.12);
+
+	.nav-left {
+
+		.logo {
+			widows: 56px;
+			height: 32px;
+		}
+	}
+
+	.nav-right {
+		svg {
+			margin-left: 40px;
+		}
+
+		.btn-list {
+
+			:global(.dropdown-menu) {
+				width: 80px;
+				min-width: 80px;
+			}
+		}
+	}
+}
