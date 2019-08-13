@@ -124,6 +124,13 @@ export default Component.extend( {
 	} ),
 	curAnswerToReset: null,
 	resourceHospital: false,
+	needScroll: computed( "resourceHospital", function() {
+		if ( this.circleBudgetData.length > 4 ) {
+			return true
+		} else {
+			return false
+		}
+	} ),
 	getResourceHospital() {
 		let obj = {}
 

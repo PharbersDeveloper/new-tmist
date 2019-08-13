@@ -1,376 +1,384 @@
 .business-container {
-	height: calc(100% - 25px);
-
-	.sales-and-budget {
-		h4 {
-			font-size: 12px;
-			color: #6b778c;
-			text-align: left;
-			height: 52px;
-		}
-
-		.icon {
-			svg {
-				path {
-					fill: #6b778c;
-				}
-			}
-		}
-
-		.sales {
-			width: 466px;
-			height: 228px;
-			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
-			border-radius: 8px;
-
-			.product-name {
-				width: 42px;
-				height: 20px;
-				font-size: 14px;
-				color: #172b4d;
-			}
-
-			.sales-money {
-				color: #172b4d;
-
-				span:last-child {
-					font-size: 14px;
-					color: #7a869a;
-					text-align: right;
-				}
-			}
-
-			.sales-header {
-				border-bottom: 1px solid #f4f5f7;
-				height: 52px;
-			}
-
-			:global(.bp-progress) {
-				height: $spacing;
-				width: 146px;
-				height: 4px;
-				margin-top: 33px;
-				margin-bottom: 9px;
-
-				:global(.bp-progress-bar) {
-					background-color: $b200;
-				}
-			}
-
-			.progress {
-				&:global(.bp-progress .bp-progress-bar) {
-					background-color: $n500;
-				}
-			}
-
-			.product-icon {
-				svg {
-					path {
-						fill: #ffab00;
-					}
-
-					height: 20px;
-					width: 14px;
-				}
-			}
-		}
-
-		.budget {
-			width: 368px;
-			height: 228px;
-			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
-			border-radius: 8px;
-
-			.circle-part {
-				height: 176px;
-			}
-
-			.legend {
-				.legend-dot {
-					height: 8px;
-					width: 8px;
-					background: #ffc400;
-					border-radius: 50%;
-				}
-
-				.legend-dot-default {
-					height: 8px;
-					width: 8px;
-					background: #dfe1e6;
-					border-radius: 50%;
-				}
-
-				.name {
-					font-size: 14px;
-					color: #344563;
-					width: 42px;
-				}
-
-				.percent {
-					font-size: 14px;
-					color: #7a869a;
-					text-align: right;
-					width: 42px;
-				}
-			}
-
-			.budget-header {
-				height: 52px;
-				border-bottom: 1px solid #f4f5f7;
-			}
-
-			button {
-				height: 24px;
-				width: 108px;
-			}
-
-			button:first-child {
-				border-radius: 4px 0 0 4px;
-			}
-
-			button:last-child {
-				border-radius: 0 4px 4px 0;
-			}
-
-			.active {
-				background: #505f79;
-				color: #ffffff;
-			}
-		}
-
-		.meeting {
-			width: 270px;
-			height: 228px;
-			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
-			border-radius: 8px;
-
-			.meeting-header {
-				border-bottom: 1px solid #f4f5f7;
-				height: 52px;
-			}
-
-			.meeting-circle {
-				height: 176px;
-				width: 270px;
-
-				.desc {
-					font-size: 14px;
-					color: #7a869a;
-				}
-
-				.number-desc {
-					position: absolute;
-
-					span:first-child {
-						font-size: 29px;
-						color: #172b4d;
-						margin-top: -20px;
-					}
-
-					span:last-child {
-						font-size: 12px;
-						color: #7a869a;
-						margin-top: -6px;
-					}
-				}
-			}
-		}
-	}
-
-	.resource-and-hospital {
-		h4 {
-			font-size: 16px;
-			color: #172b4d;
-			height: 54px;
-		}
-
-		.resource-list-outer {
-			width: 368px;
-			height: fit-content;
-
-			.resource-item {
-				height: 88px;
-				font-size: 14px;
-				color: #172b4d;
-				text-align: left;
-				border-bottom: 1px solid rgba(9, 30, 66, 0.04);
-				border-radius: 0;
-				cursor: pointer;
-
-				&:last-child {
-					border-bottom: none;
-				}
-
-				&.active {
-					background-color: #ebecf0;
-				}
-
-				img {
-					height: 40px;
-					height: 40px;
-				}
-
-				.item-right {
-					.badge {
-						background-color: #c2daff;
-						color: #3880f8;
-						font-size: 14px;
-						font-weight: 400;
-						margin-left: 4px;
-						height: 20px;
-						border-radius: 4px;
-
-						svg {
-							font-size: 18px;
-							padding-bottom: 2px;
-
-							path {
-								fill: #3880f8;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		.hospital-list {
-			width: 760px;
-
-			.hospital-header {
-				.mid-btn {
-					border-radius: 0;
-				}
-
-				.active {
-					background: #505f79;
-					color: #ffffff;
-				}
-
-				button {
-					height: 24px;
-					width: 80px;
-				}
-
-				button:first-child {
-					border-radius: 4px 0 0 4px;
-				}
-
-				button:last-child {
-					border-radius: 0 4px 4px 0;
-				}
-			}
-
-			.hospital-config {
-				width: 760px;
-
-				.line {
-					border-bottom: 1px solid rgba(9, 30, 66, 0.04);
-				}
-			}
-		}
-	}
-
-	.overviews {
-		flex: 0 0 170px;
-
-		.item {
-			background-color: $n000;
-			flex: 1;
-
-			h2.title {
-				@extend %header-medium;
-				height: 54px;
-			}
-
-			.info {
-				@extend %header-large;
-
-				.unit {
-					@extend %p-small;
-				}
-			}
-
-			.m-name {
-				@extend %p-small;
-			}
-
-			:global(.bp-progress) {
-				height: $spacing;
-
-				:global(.bp-progress-bar) {
-					background-color: $b200;
-				}
-			}
-
-			.progress {
-				&:global(.bp-progress .bp-progress-bar) {
-					background-color: $n500;
-				}
-			}
-
-			.legend {
-				.circle {
-					background-color: $b200;
-					border-radius: 50%;
-					height: 8px;
-					width: 8px;
-				}
-
-				.values {
-					@extend %p-secondary;
-				}
-			}
-
-			.rest-time {
-				font-size: 0;
-				margin-bottom: 16px;
-				width: 50%;
-
-				.keys {
-					@extend %p-primary;
-				}
-
-				.values {
-					@extend %p-secondary;
-				}
-
-				&:last-child {
-					margin: 0;
-				}
-			}
-		}
-	}
-
-	.hospitals {
-		flex: 1;
-
-		.hospitals-configs {
-			flex: 0 0 368px;
-			max-height: 525px;
-			overflow: auto;
-
-			h3.title {
-				@extend %header-medium;
-				flex: 0 0 54px;
-
-				.dd-hosp {
-					width: 98px;
-				}
-			}
-
-			a:hover {
-				text-decoration: none;
-			}
-
-			:global(.current-hospital) {
-				:global(.hospital-box) {
-					background-color: $n020a;
-				}
-			}
-		}
-
-		.hospital {
-			flex: 1;
-		}
-	}
+  height: calc(100% - 25px);
+
+  .sales-and-budget {
+    h4 {
+      font-size: 12px;
+      color: #6b778c;
+      text-align: left;
+      height: 52px;
+    }
+
+    .icon {
+      svg {
+        path {
+          fill: #6b778c;
+        }
+      }
+    }
+
+    .sales {
+      width: 466px;
+      height: 228px;
+      box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
+      border-radius: 8px;
+
+      .product-name {
+        width: 42px;
+        height: 20px;
+        font-size: 14px;
+        color: #172b4d;
+      }
+
+      .sales-money {
+        color: #172b4d;
+
+        span:last-child {
+          font-size: 14px;
+          color: #7a869a;
+          text-align: right;
+        }
+      }
+
+      .sales-header {
+        border-bottom: 1px solid #f4f5f7;
+        height: 52px;
+      }
+
+      :global(.bp-progress) {
+        height: $spacing;
+        width: 146px;
+        height: 4px;
+        margin-top: 33px;
+        margin-bottom: 9px;
+
+        :global(.bp-progress-bar) {
+          background-color: $b200;
+        }
+      }
+
+      .progress {
+        &:global(.bp-progress .bp-progress-bar) {
+          background-color: $n500;
+        }
+      }
+
+      .product-icon {
+        svg {
+          path {
+            fill: #ffab00;
+          }
+
+          height: 20px;
+          width: 14px;
+        }
+      }
+    }
+
+    .budget {
+      width: 368px;
+      height: 228px;
+      box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
+      border-radius: 8px;
+
+      .circle-part {
+        height: 176px;
+      }
+
+      .legend {
+        .scroll-legend {
+          overflow-y: scroll;
+          height: 140px;
+        }
+
+        .legend-dot {
+          height: 8px;
+          width: 8px;
+          background: #ffc400;
+          border-radius: 50%;
+        }
+
+        .legend-dot-default {
+          height: 8px;
+          width: 8px;
+          background: #dfe1e6;
+          border-radius: 50%;
+        }
+
+        .name {
+          font-size: 14px;
+          color: #344563;
+          width: 42px;
+        }
+
+        .percent {
+          font-size: 14px;
+          color: #7a869a;
+          text-align: right;
+          width: 42px;
+        }
+      }
+
+      .budget-header {
+        height: 52px;
+        border-bottom: 1px solid #f4f5f7;
+      }
+
+      button {
+        height: 24px;
+        width: 108px;
+      }
+
+      button:first-child {
+        border-radius: 4px 0 0 4px;
+      }
+
+      button:last-child {
+        border-radius: 0 4px 4px 0;
+      }
+
+      .active {
+        background: #505f79;
+        color: #ffffff;
+      }
+    }
+
+    .meeting {
+      width: 270px;
+      height: 228px;
+      box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
+      border-radius: 8px;
+
+      .meeting-header {
+        border-bottom: 1px solid #f4f5f7;
+        height: 52px;
+      }
+
+      .meeting-circle {
+        height: 176px;
+        width: 270px;
+
+        .desc {
+          font-size: 14px;
+          color: #7a869a;
+        }
+
+        .number-desc {
+          position: absolute;
+
+          span:first-child {
+            font-size: 29px;
+            color: #172b4d;
+            margin-top: -20px;
+          }
+
+          span:last-child {
+            font-size: 12px;
+            color: #7a869a;
+            margin-top: -6px;
+          }
+        }
+      }
+    }
+  }
+
+  .resource-and-hospital {
+    h4 {
+      font-size: 16px;
+      color: #172b4d;
+      height: 54px;
+    }
+
+    .resource-list-outer {
+      width: 368px;
+      height: fit-content;
+
+      .resource-item {
+        height: 88px;
+        font-size: 14px;
+        color: #172b4d;
+        text-align: left;
+        border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+        border-radius: 0;
+        cursor: pointer;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &.active {
+          background-color: #ebecf0;
+        }
+
+        img {
+          height: 40px;
+          height: 40px;
+        }
+
+        .item-right {
+          .badge {
+            background-color: #c2daff;
+            color: #3880f8;
+            font-size: 14px;
+            font-weight: 400;
+            margin-left: 4px;
+            height: 20px;
+            border-radius: 4px;
+
+            svg {
+              font-size: 18px;
+              padding-bottom: 2px;
+
+              path {
+                fill: #3880f8;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .hospital-list {
+      width: 760px;
+
+      .hospital-header {
+        .mid-btn {
+          border-radius: 0;
+        }
+
+        .active {
+          background: #505f79;
+          color: #ffffff;
+        }
+
+        button {
+          height: 24px;
+          width: 80px;
+        }
+
+        button:first-child {
+          border-radius: 4px 0 0 4px;
+        }
+
+        button:last-child {
+          border-radius: 0 4px 4px 0;
+        }
+      }
+
+      .hospital-config {
+        width: 760px;
+
+        .line {
+          border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+        }
+      }
+    }
+  }
+
+  .overviews {
+    flex: 0 0 170px;
+
+    .item {
+      background-color: $n000;
+      flex: 1;
+
+      h2.title {
+        @extend %header-medium;
+        height: 54px;
+      }
+
+      .info {
+        @extend %header-large;
+
+        .unit {
+          @extend %p-small;
+        }
+      }
+
+      .m-name {
+        @extend %p-small;
+      }
+
+      :global(.bp-progress) {
+        height: $spacing;
+
+        :global(.bp-progress-bar) {
+          background-color: $b200;
+        }
+      }
+
+      .progress {
+        &:global(.bp-progress .bp-progress-bar) {
+          background-color: $n500;
+        }
+      }
+
+      .legend {
+        overflow-y: scroll;
+        // height: 140px;
+
+        .circle {
+          background-color: $b200;
+          border-radius: 50%;
+          height: 8px;
+          width: 8px;
+        }
+
+        .values {
+          @extend %p-secondary;
+        }
+      }
+
+      .rest-time {
+        font-size: 0;
+        margin-bottom: 16px;
+        width: 50%;
+
+        .keys {
+          @extend %p-primary;
+        }
+
+        .values {
+          @extend %p-secondary;
+        }
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .hospitals {
+    flex: 1;
+
+    .hospitals-configs {
+      flex: 0 0 368px;
+      max-height: 525px;
+      overflow: auto;
+
+      h3.title {
+        @extend %header-medium;
+        flex: 0 0 54px;
+
+        .dd-hosp {
+          width: 98px;
+        }
+      }
+
+      a:hover {
+        text-decoration: none;
+      }
+
+      :global(.current-hospital) {
+        :global(.hospital-box) {
+          background-color: $n020a;
+        }
+      }
+    }
+
+    .hospital {
+      flex: 1;
+    }
+  }
 }
