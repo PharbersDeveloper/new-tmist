@@ -1,0 +1,156 @@
+div:global(.management-review-wrapper) {
+	width: 100%;
+}
+
+.manager-review {
+	width: 100%;
+
+	.select-quarter {
+		height: 64px;
+		width: 100%;
+		font-size: 14px;
+		color: #42526e;
+
+		.btn-select-quarter {
+			.btn-list {
+				height: 32px;
+				width: 456px;
+
+				button.dropdown-button {
+					height: 32px;
+				}
+			}
+		}
+	}
+
+	.manager-time {
+		height: 54px;
+		width: 100%;
+
+		h4.title {
+			font-size: 16px;
+			color: #172b4d;
+		}
+	}
+
+	.time-detail {
+		.business-team {
+			height: 374px;
+			width: 572px;
+
+			h4.title {
+				height: 52px;
+				width: 100%;
+				font-size: 14px;
+				color: #172b4d;
+			}
+
+			.circle {
+				height: 322px;
+				width: 100%;
+			}
+		}
+
+		.representative-bility {
+			height: 374px;
+			width: 572px;
+
+			h4.title {
+				height: 52px;
+				width: 100%;
+				font-size: 14px;
+				color: #172b4d;
+			}
+
+			.table {
+				table {
+					width: 100%;
+
+					thead {
+						border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+						width: 100%;
+						font-size: 12px;
+						color: #7a869a;
+					}
+
+					tbody {
+						width: 100%;
+						font-size: 14px;
+						color: #344563;
+
+						tr {
+							width: 100%;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.action-points {
+		height: 372px;
+		width: 100%;
+
+		h4.title {
+			height: 54px;
+			width: 100%;
+			font-size: 16px;
+			color: #172b4d;
+		}
+
+		.table {
+			height: 318px;
+			width: 100%;
+
+			.action-attr {
+				height: 318px;
+				width: 157px;
+
+				.blank {
+					height: 34px;
+					width: 157px;
+					border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+				}
+
+				div {
+					height: 52px;
+					width: 157px;
+					font-size: 12px;
+					color: #7a869a;
+				}
+			}
+
+			.resources {
+				flex: 1;
+
+				.resource {
+					// border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+					// width: 157px;
+					// height: 34px;
+					// font-size: 14px;
+					// color: #172b4d;
+
+					.name {
+						border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+						width: 157px;
+						height: 34px;
+						font-size: 14px;
+						color: #172b4d;
+					}
+
+					.block {
+						height: 52px;
+						width: 157px;
+
+						span {
+							height: 16px;
+							width: 16px;
+							background: #579aff;
+							border-radius: 50%;
+						}
+					}
+				}
+			}
+		}
+	}
+}

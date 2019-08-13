@@ -1,7 +1,7 @@
 import Component from "@ember/component"
 import { inject as service } from "@ember/service"
 import { computed, set } from "@ember/object"
-import Ember from "ember"
+// import Ember from "ember"
 
 export default Component.extend( {
 
@@ -11,7 +11,12 @@ export default Component.extend( {
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives"],
 	exam: service( "service/exam-facade" ),
 	showContent: true,
-	checked: false,
+	checked:  computed( function() {
+		if ( this.quizs.get( "firstObject.answer.resource.id" ) ){
+			return true
+		}
+		return false
+	} ),
 	hasResource: computed( "resourceHospital", function() {
 		if ( this.quizs.get( "firstObject.answer.resource.id" ) ){
 			return true
@@ -21,7 +26,7 @@ export default Component.extend( {
 	givenMeetingPlaces: computed( "resourceHospital", function() {
 		let cur = this.transNumber( this.quizs.get( "firstObject.answer.meetingPlaces" ) )
 
-		window.console.log( this.quizs.get( "firstObject.answer.meetingPlaces" ) , "meetingPlaces")
+		window.console.log( this.quizs.get( "firstObject.answer.meetingPlaces" ) , "meetingPlaces" )
 
 		return cur
 	} ),

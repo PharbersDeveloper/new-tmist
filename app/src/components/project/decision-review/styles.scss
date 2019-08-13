@@ -24,6 +24,11 @@
 	.btn-group-sytle {
 		margin-top: 40px;
 
+		.active {
+			background-color: #505f79;
+			color: #ffffff;
+		}
+
 		button {
 			font-size: 14px;
 			color: #505f79;
@@ -32,14 +37,18 @@
 
 			&:first-child {
 				border-radius: 4px 0 0 4px;
-				background: rgba(9, 30, 66, 0.04);
+				// background: rgba(9, 30, 66, 0.04);
 				margin-right: 2px;
 			}
 
 			&:last-child {
 				border-radius: 0 4px 4px 0;
-				background: rgba(9, 30, 66, 0.04);
+				// background: rgba(9, 30, 66, 0.04);
 			}
 		}
+	}
+
+	.content {
+		width: 1152px;
 	}
 }
