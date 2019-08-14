@@ -15,9 +15,10 @@
 				width: 264px;
 
 				// border-radius: 4px;
-				button:global(.btn-list) {
+				:global(.dropdown-button) {
 					height: 32px;
 					width: 264px;
+					border-radius: 5px;
 				}
 			}
 		}

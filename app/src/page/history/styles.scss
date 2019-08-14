@@ -1,25 +1,43 @@
+.return {
+	font-size: 12px;
+	line-height: 16px;
+
+	a {
+		color: #6b778c;
+	}
+
+	a:hover {
+		color: #3172e0;
+		text-decoration: none;
+	}
+}
+
 .history {
 	height: 100%;
 
 	.list-wrapper {
 		width: 100%;
 
-		.title-wrapper {
+		.no-task {
+			font-size: 14px;
+			color: #344563;
+			width: 100%;
+		}
 
+		.title-wrapper {
 			.badge {
 				font-size: 12px;
-				color: #FFFFFF;
-				background-color: #EBECF0;
+				color: #ffffff;
+				background-color: #ebecf0;
 				line-height: 16px;
 				border-radius: 4px;
 				padding-left: 4px;
 				padding-right: 4px;
-				
 			}
 
 			.title {
 				font-size: 24px;
-				color: #172B4D;
+				color: #172b4d;
 			}
 		}
 
@@ -27,23 +45,58 @@
 			width: 100%;
 
 			.history-table {
-
 				thead {
+					border-bottom: 2px solid rgba(9, 30, 66, 0.08);
 
 					th {
 						font-size: 12px;
-						color: #7A869A;
+						color: #7a869a;
 					}
 				}
 
 				tbody {
-
 					td {
 						vertical-align: middle;
 						height: 88px;
 
-						.level {
+						.quarter-sales-reached {
+							.info {
+								span:first-child {
+									font-size: 12px;
+									color: #7a869a;
+									text-align: center;
+								}
 
+								span:last-child {
+									font-size: 14px;
+									color: #344563;
+								}
+							}
+						}
+
+						.btn-list {
+							:global(.dropdown-button) {
+								height: 32px;
+								width: 112px;
+								border-radius: 5px;
+							}
+						}
+
+						a:hover {
+							color: #3172e0;
+							text-decoration: none;
+						}
+
+						.icon {
+							height: 18px;
+							width: 18px;
+
+							path {
+								fill: #505f79;
+							}
+						}
+
+						.level {
 							.level-img {
 								width: 32px;
 								height: 32px;
@@ -51,37 +104,49 @@
 
 							.des {
 								font-size: 12px;
-								color: #6B778C;
+								color: #6b778c;
 							}
 						}
 
 						.total-percent {
-
 							.num {
 								font-size: 24px;
-								color: #172B4D;
+								color: #172b4d;
 							}
 
 							.unit {
 								font-size: 12px;
-								color: #7A869A;
+								color: #7a869a;
 							}
 						}
 
 						&:nth-child(3) {
 							font-size: 16px;
-							color: #172B4D;
+							color: #172b4d;
 						}
 
 						&:nth-child(5) {
 							font-size: 14px;
-							color: #7A869A;
+							color: #7a869a;
 						}
 
 						&:nth-child(6) {
 							font-size: 12px;
-							color: #7A869A;
+							color: #7a869a;
 						}
+
+						// &:nth-child(5) {
+						// 	font-size: 14px;
+						// 	color: #3172e0;
+						// 	cursor: pointer;
+						// }
+
+						// &:nth-child(6) {
+						// 	font-size: 14px;
+						// 	color: #505f79;
+						// 	line-height: 32px;
+						// 	cursor: pointer;
+						// }
 					}
 				}
 			}

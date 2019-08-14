@@ -16,8 +16,10 @@ div:global(.management-review-wrapper) {
 				height: 32px;
 				width: 456px;
 
-				button.dropdown-button {
+				:global(.dropdown-button) {
 					height: 32px;
+					width: 456px;
+					border-radius: 5px;
 				}
 			}
 		}
