@@ -1,0 +1,51 @@
+.business-review {
+	width: 1152px;
+
+	.select-part {
+		height: 64px;
+		width: 100%;
+
+		.part {
+			width: 384px;
+			font-size: 14px;
+			color: #344563;
+
+			.btn-list {
+				height: 32px;
+				width: 264px;
+
+				// border-radius: 4px;
+				:global(.dropdown-button) {
+					height: 32px;
+					width: 264px;
+					border-radius: 5px;
+				}
+			}
+		}
+	}
+
+	.table {
+		width: 100%;
+
+		table {
+			width: 100%;
+			table-layout: fixed;
+
+			thead {
+				font-size: 12px;
+				color: #7a869a;
+				border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+			}
+
+			tbody {
+				font-size: 14px;
+				color: #344563;
+
+				// text-align: right;
+				tr {
+					width: 100%;
+				}
+			}
+		}
+	}
+}

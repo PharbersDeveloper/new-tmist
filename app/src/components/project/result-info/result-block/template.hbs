@@ -1,0 +1,30 @@
+{{#bp-layout direction='col' classNames='mb-2 bg-white'}}
+    {{#bp-layout tagName='h4' cross='center' local-class="title" 
+    classNames="m-0 mb-2 px-4"}}
+        {{title}}
+    {{/bp-layout}}
+    {{#bp-layout main='between'	local-class='abilities'}}
+        {{#bp-layout direction='col' main='center' cross='center' local-class='item score'}}
+            <p local-class='keys'>能力得分</p>
+            <img width='26' src={{detailInfo.abilityImg.img}} alt="">
+        {{/bp-layout}}
+        {{#bp-layout direction='col' local-class='item point' classNames='p-4'}}
+            {{#bp-layout tagName='h5' cross='center' local-class="title" 
+    classNames="mb-3"}}
+                动作点解读
+            {{/bp-layout}}
+            <ul class="m-0">
+                <li local-class='values'>{{detailInfo.actionDes}}</li>
+            </ul>
+        {{/bp-layout}}
+        {{#bp-layout direction='col' local-class='item evaluation' classNames='p-4'}}
+            {{#bp-layout tagName='h5' cross='center' local-class="title" 
+    classNames="mb-3"}}
+                等级评价
+            {{/bp-layout}}
+            <p local-class='values'>
+                {{detailInfo.levelDes}}
+            </p>
+        {{/bp-layout}}
+    {{/bp-layout}}
+{{/bp-layout}}

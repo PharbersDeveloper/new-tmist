@@ -1,0 +1,120 @@
+div:global(.performance-wrapper) {
+	width: 100%;
+	// margin-top: 12px;
+}
+
+.performance {
+	width: 100%;
+
+	.performance-header {
+		height: 109px;
+		width: 100%;
+
+		h2.title {
+			font-size: 24px;
+			color: #172b4d;
+		}
+
+		.time-info {
+			font-size: 14px;
+			color: #7a869a;
+		}
+	}
+
+	.award-title {
+		width: 282px;
+		min-height: 432px;
+
+		h4.title {
+			height: 54px;
+			width: 100%;
+			font-size: 16px;
+			color: #172b4d;
+		}
+
+		.level {
+			height: 378px;
+			width: 100%;
+
+			.image {
+				height: 100px;
+				width: 86px;
+				background-color: #7a869a;
+			}
+
+			.name {
+				font-size: 14px;
+				color: #344563;
+				margin-top: 11px;
+			}
+
+			.desc {
+				font-size: 14px;
+				color: #7a869a;
+				text-align: center;
+				margin-top: 32px;
+			}
+		}
+	}
+
+	.ability-analysis {
+		flex: 1;
+
+		h4.title {
+			font-size: 16px;
+			color: #172b4d;
+			height: 54px;
+		}
+
+		.chart {
+			height: 379px;
+			width: 50%;
+		}
+
+		.desc {
+			min-height: 380px;
+			width: 50%;
+
+			.level {
+				border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+				font-size: 14px;
+				width: 100%;
+				color: #505f79;
+				margin-bottom: 30px;
+
+				span {
+					font-size: 20px;
+					color: #579aff;
+				}
+			}
+
+			.action-point {
+				font-size: 14px;
+				color: #172b4d;
+				text-align: left;
+
+				p {
+					font-size: 14px;
+					color: #7a869a;
+				}
+
+				p::before {
+					content: "· ";
+					margin-bottom: 8px;
+				}
+			}
+
+			.level-evaluation {
+				font-size: 14px;
+				color: #172b4d;
+				text-align: left;
+
+				p {
+					font-size: 14px;
+					color: #7a869a;
+					letter-spacing: 1px;
+				}
+			}
+		}
+	}
+}

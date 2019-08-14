@@ -1,0 +1,229 @@
+{{!-- {{#bp-layout direction="col" local-class="page-scenario" classNames="p-4"}}
+	{{#bp-page-header class="mb-4" local-class="scenario-header" as |ph|}}
+		{{#ph.body as |body|}}
+			{{#body.left as |left|}}
+				{{#left.item}}
+					{{model.project.proposal.name}}
+				{{/left.item}}
+				{{#left.item}}
+					{{model.period.name}}
+				{{/left.item}}
+			{{/body.left}}
+			{{#body.right}}
+				{{#bp-button classNames="mr-1" onClick=(action "testReport")}}test report{{/bp-button}}
+				{{#bp-button classNames="mr-1" onClick=(action "testResult")}}test result{{/bp-button}}
+				{{#bp-button classNames="mr-1" onClick=(action "saveInputs")}}{{t "project.save-btn"}}{{/bp-button}}
+				{{#bp-button type="primary" onClick=(action "submit") }}{{t "project.submit-btn"}}{{/bp-button}}
+			{{/body.right}}
+		{{/ph.body}}
+	{{/bp-page-header}}
+	{{#bp-tabs local-class="tabs-container" as |tabs|}}
+		{{#tabs.tablist}}
+			<li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 0)}}
+					{{t "project.scenario-business"}}
+				{{/bp-button}}
+			</li>
+			<li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 1)}}
+					{{t "project.scenario-management"}}
+				{{/bp-button}}
+			</li>
+			<li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 2)}}
+					{{t "project.scenario-reference"}}
+				{{/bp-button}}
+			</li>
+			<li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 3)}}
+					{{t "project.scenario-decision-review"}}
+				{{/bp-button}}
+			</li>
+		{{/tabs.tablist}}
+		{{#if (bp-eq currentTab 0)}}
+			{{project/business-input 
+				project=model.project 
+				period=model.period 
+				hospitals=model.hospitals 
+				products=model.products 
+				resources=model.resources
+				presets=model.presets
+				validation=model.validation
+				answers=(filter-category model.answers "Business")}}
+		{{/if}}
+		{{#if (bp-eq currentTab 1)}}
+			{{project/management-input 
+				project=model.project 
+				period=model.period
+				resources=model.resources
+				validation=model.validation
+				answers=(filter-category-not model.answers "Business")}}
+				
+		{{/if}}
+		{{#if (bp-eq currentTab 2)}}
+			{{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}}
+		{{/if}}
+		{{#if (bp-eq currentTab 3)}}
+		{{/if}}
+	{{/bp-tabs}}
+{{/bp-layout}}
+{{#bp-modal
+		open=warning.open 
+		position="center"
+		onSubmit=(action "confirmSubmit") 
+		onHidden=(action (mut warning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{warning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc m-0">
+			{{warning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		
+		{{#if confirmSubmit}}
+			{{#bp-button type="primary" onClick=(action modal.close)}}{{t "project.modal-footer.close-btn"}}{{/bp-button}}
+		{{else}}
+			{{#bp-button type="primary" onClick=(action modal.submit)}}{{t "project.modal-footer.submit-btn"}}{{/bp-button}}
+		{{/if}}
+
+	{{/modal.footer}}
+{{/bp-modal}}
+{{#bp-modal
+		open=loadingForSubmit
+		position="center"
+		backdropClose=false as |modal|}}
+	{{#modal.header closeButton=false }}
+		<h4 class="modal-title">
+			{{t "project.modal-header.title"}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc m-0">
+			{{t "project.modal-header.desc"}}
+		</p>
+	{{/modal.body}}
+{{/bp-modal}}
+{{#bp-modal
+		open=validationWarning.open
+		position='center' 
+		onHidden=(action (mut validationWarning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{validationWarning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc">
+			{{validationWarning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}} --}}
+
+{{#bp-layout direction="col" }}
+	{{!-- {{#bp-layout direction="row" local-class="submit-header" main="between" cross="center" classNames="px-4 py-3"}}
+		{{#bp-layout direction="row" cross="center"}}
+			{{#bp-button local-class="exit-btn" onClick=(action "toIndex")}}{{bp-icon icon="data"}}{{/bp-button}}
+			{{#bp-layout tagName="h4" local-class="title" class="ml-2"}}优时比区域周期计划测试{{/bp-layout}}
+			<p local-class="sub-title" class="ml-2 px-1">2019Q1</p>
+		{{/bp-layout}}
+
+		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
+	{{/bp-layout}} --}}
+	{{#common/nav-top-project periodName="2019Q1"}}
+		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
+	{{/common/nav-top-project}}
+
+	{{#bp-tabs classNames="px-0" local-class="tabs-container" as |tabs|}}
+		{{#tabs.tablist}}
+			{{!-- <li > --}}
+			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 0) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 0) local-class=(if (bp-eq currentTab 0) "active")}}
+					{{t "project.scenario-business"}}
+				{{/bp-button}}
+			{{/bp-layout}}
+			{{!-- </li> --}}
+			{{!-- <li local-class='nav-item'> --}}
+			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 1) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 1) local-class=(if (bp-eq currentTab 1) "active")}}
+					{{t "project.scenario-management"}}
+				{{/bp-button}}
+			{{/bp-layout}}
+			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 2) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 2) local-class=(if (bp-eq currentTab 2) "active")}}
+					决策回顾
+				{{/bp-button}}
+			{{/bp-layout}}
+			{{!-- </li> --}}
+			{{!-- <li local-class=(if (bp-eq currentTab 1) "active")> --}}
+			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 3) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 3) local-class=(if (bp-eq currentTab 3) "active")}}
+					{{t "project.scenario-reference"}}
+				{{/bp-button}}
+			{{/bp-layout}}
+			{{!-- </li> --}}
+			{{!-- <li class="nav-item">
+				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 3)}}
+					{{t "project.scenario-decision-review"}}
+				{{/bp-button}}
+			</li> --}}
+		{{/tabs.tablist}}
+		{{#bp-layout direction="col" main="start" cross="center" classNames="p-4" local-class="tab-content-outer"}}
+			{{#if (bp-eq currentTab 0)}}
+				{{project/business-input
+						project=model.project
+						period=model.period
+						hospitals=model.hospitals
+						products=model.products
+						resources=model.resources
+						presets=model.presets
+						quota=model.quota
+						validation=model.validation
+						answers=(filter-category model.answers "Business")}}
+			{{/if}}
+			{{#if (bp-eq currentTab 1)}}
+				{{project/management-input
+						project=model.project
+						period=model.period
+						resources=model.resources
+						validation=model.validation
+						quota=model.quota
+						managerAnswer=(find-category model.answers "Management")
+						answers=(filter-category model.answers "Resource")}}
+				{{!-- {{log model.validation}} --}}
+			{{/if}}
+			{{#if (bp-eq currentTab 2)}}
+				{{!-- {{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}} --}}
+				{{project/decision-review proposal=model.project.proposal }}
+			{{/if}}
+			{{#if (bp-eq currentTab 3)}}
+				{{project/proposal-info proposal=model.project.proposal }}
+			{{/if}}
+		{{/bp-layout}}
+	{{/bp-tabs}}
+{{/bp-layout}}
+
+{{#bp-modal
+		open=validationWarning.open
+		position='center' 
+		onHidden=(action (mut validationWarning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{validationWarning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc">
+			{{validationWarning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}

@@ -1,0 +1,141 @@
+{{#bp-layout local-class="header"}}
+	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
+		{{#bp-layout direction="row" main="start"}}
+			{{#bp-layout click=(action "changedResource" quizs.firstObject.answer) local-class=(if hasResource "icon-active")}}{{bp-icon icon="check-circle" }}{{/bp-layout}}
+			{{hospital.name}}
+		{{/bp-layout}}
+		{{#bp-layout direction="row" cross="center"}}
+			{{#if hasResource}}
+				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
+					{{#bp-layout local-class="badge" class="px-1"}}
+						{{bp-icon icon="representative"}}
+						{{quizs.firstObject.answer.resource.name}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/if}}
+			
+			{{log quizs.firstObject.answer.meetingPlaces}}
+			{{#if (bp-not-eq quizs.firstObject.answer.meetingPlaces -1 "" "0")}}
+				
+				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-4"}}
+					{{#bp-layout local-class="badge" class="px-1"}}
+						{{bp-icon icon="meeting-quota"}}
+						{{quizs.firstObject.answer.meetingPlaces}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+				
+			{{/if}}
+			{{#bp-button local-class="icon-btn" onClick=(action 'showContent')}}{{bp-icon icon='data'}}{{/bp-button}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}
+{{#bs-collapse collapsed=showContent}}
+{{!-- {{#bp-layout direction='col' classNames='bg-white mb-2'}}
+	{{#bp-layout tagName="h5" cross="center" local-class="title" classNames="px-4 m-0"}}
+		代表和时间分配
+	{{/bp-layout}}
+	{{#bp-layout main='between' local-class='representative-time' classNames='py-4'}}
+		{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
+			<span local-class='keys' class='mr-3'>指定代表</span>
+			{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
+				{{#dd.button}}
+					{{#if quizs.firstObject.answer.resource}}
+						{{quizs.firstObject.answer.resource.name}}
+					{{else}}
+						代表
+					{{/if}}
+					{{bp-icon icon='down'}}
+				{{/dd.button}}
+				{{#dd.menu as |menu|}}
+					{{#each resources as |resource|}}
+						{{#menu.option value=resource onClick=(action 'changedResource') local-class="representative-info"}}
+							{{#bp-layout cross="center"}}
+								<img width="24" src={{resource.avatar.img}} alt="avatar" class="mr-2">
+								<span local-class="name" class="mr-2">
+									{{resource.name}}
+								</span>
+							{{/bp-layout}}
+						{{/menu.option}}
+					{{/each}}
+				{{/dd.menu}}
+			{{/bp-dropdown}}
+		{{/bp-layout}}
+		{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
+			<span local-class='keys' class='mr-3'>分配时间</span>
+			{{bp-input widthSize="auto"
+					value=quizs.firstObject.answer.visitTime
+					onChange=(action "visitTimeValidation" quizs.firstObject.answer (mut quizs.firstObject.answer.visitTime))
+					local-class="input-prepend input-time operating"}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}} --}}
+{{#bp-layout tagName="h5" cross="center" local-class="title" classNames="m-0 px-4 bg-white"}}
+	药品相关资源设定
+{{/bp-layout}}
+{{#bp-layout local-class="hospital-resource" class="p-4 bg-white"}}
+	<table local-class="prod" class="table mb-2">
+		<thead class='bg-white px-2'>
+			<tr>
+				<th class="border-0 pb-2 pr-2 pl-0 text-left">产品名称</th>
+				<th class="border-0 pb-2 px-2 text-left">药品潜力</th>
+				<th class="border-0 pb-2 px-2 text-left">上季度销售额</th>
+				<th class="border-0 pb-2 px-2 text-center">销售指标分配</th>
+				<th class="border-0 pb-2 pl-2 text-center ">预算分配</th>
+			</tr>
+		</thead>
+		<tbody class="bg-white">
+			{{#each quizs as |quiz|}}
+				<tr class="mx-0 mx-4">
+					<td class="pr-2 border-0 text-left">
+						{{quiz.preset.product.name}}
+					</td>
+					<td class="px-2 border-0 text-left">
+						￥{{format-number quiz.preset.potential}}
+					</td>
+					<td class="px-2 border-0 text-left">
+						￥{{format-number quiz.preset.achievements}}
+					</td>
+					<td class="border-0">
+						{{bp-input block=true  
+							value=quiz.answer.salesTarget
+							onChange=(action "salesTargetValidation" quiz.answer "salesTarget" (mut quiz.answer.salesTarget))
+							disabled=false
+							local-class="input-prepend input-money sales-input"
+							classNames="mb-2 px-0"}}
+						<span class="mt-2 mb-0 text-center" local-class="percent">
+							{{IndicatorAllocationPercent.percent}}56%
+						</span>
+					</td>
+					<td class="border-0">
+						{{bp-input block=true 
+							value=quiz.answer.budget
+							onChange=(action "budgetValidation" quiz.answer "budget" (mut quiz.answer.budget))
+							disabled=false
+							classNames="px-0 mb-2"
+							local-class="input-prepend input-money budget-input"}}
+						<span class="mt-2 mb-0 text-center" local-class="percent">
+							{{budgetPercent.percent}}56%
+						</span>
+					</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+{{/bp-layout}}
+
+{{#bp-layout main='between' local-class="meeting-place" classNames='py-4 bg-white'}}
+	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
+		<span local-class="keys" class='mr-3'>分配会议名额</span>
+		{{bp-input
+					value=quizs.firstObject.answer.meetingPlaces
+					disabled=false
+					onChange=(action "meetingPlacesValidation" quizs.firstObject.answer "meetingPlaces" (mut quizs.firstObject.answer.meetingPlaces))
+					local-class="input-prepend input-meeting operating"}}
+	{{/bp-layout}}
+	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
+	{{/bp-layout}}
+	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
+	{{/bp-layout}}
+{{/bp-layout}}
+{{/bs-collapse}}
+{{yeild}}

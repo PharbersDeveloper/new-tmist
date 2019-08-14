@@ -1,0 +1,52 @@
+@import "bp-components";
+
+.header {
+	@extend %depth-z200;
+	height: 8 * $spacing;
+	position: relative;
+	z-index: 1;
+
+	p {
+		@extend %header-small;
+		cursor: pointer;
+
+		img {
+			width: 7 * $spacing;
+		}
+	}
+
+	img {
+		height: 18px;
+		width: 18px;
+	}
+}
+
+
+
+:global(.p-btn) {
+	&:focus {
+		outline: none;
+	}
+}
+
+.container {
+	// height: calc(100% - 64px);
+	height: 100%;
+
+	:global(p) {
+		margin: 0;
+		padding: 0;
+	}
+
+	.content-box {
+		height: 100%;
+	}
+}
+
+.container-height {
+	height: 100%;
+
+	.content-box {
+		height: 100%;
+	}
+}

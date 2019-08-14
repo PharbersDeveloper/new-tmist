@@ -1,0 +1,10 @@
+{{#bp-layout direction="row" local-class="page-result" main="between" }}
+	{{#bp-layout direction="row" local-class="header" cross="center" main="between"}}
+		{{#bp-layout tagName="h4" local-class="title" classNames="pl-4"}}优时比区域周期计划测试{{/bp-layout}}
+		{{#bp-button local-class="btn-next" type="primary" classNames="mr-4"}}进行下个季度{{/bp-button}}
+	{{/bp-layout}}
+{{/bp-layout}}
+{{project/result-info project=model.project results=model.results evaluations=model.evaluations transitionToReport=(action "toReport")}}
+{{log model.project}}
+{{log model.results}}
+{{log model.evaluations}}

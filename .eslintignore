@@ -2,9 +2,6 @@
 /blueprints/*/files/
 /vendor/
 
-# route.js
-/app/router.js
-
 # compiled output
 /dist/
 /tmp/
@@ -19,4 +16,4 @@
 /.node_modules.ember-try/
 
 # test
-/tests/
+/testem.js

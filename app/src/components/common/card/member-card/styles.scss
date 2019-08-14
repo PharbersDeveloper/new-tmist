@@ -1,0 +1,162 @@
+.resource {
+	h3.title {
+		@extend %header-medium;
+		height: 52px;
+		font-size: 14px;
+		color: #172b4d;
+
+		.icon {
+			cursor: pointer;
+		}
+	}
+
+	.content {
+		& > div {
+			flex: 1;
+		}
+
+		img {
+			border-radius: 50%;
+			height: 80px;
+			width: 80px;
+		}
+
+		.basic-infos {
+			.left {
+				height: 124px;
+				width: 437px;
+
+				.name {
+					font-size: 20px;
+					color: #172b4d;
+				}
+
+				.experience {
+					font-size: 14px;
+					color: #7a869a;
+				}
+			}
+
+			.right {
+				min-height: 124px;
+				width: 437px;
+
+				p span:last-child {
+					font-size: 14px;
+					color: #7a869a;
+				}
+			}
+
+			.rep {
+				img {
+					flex: 0 0 80px;
+				}
+
+				.infos {
+					flex: 1;
+					font-size: 0;
+
+					.properties,
+					.values {
+						@extend %p-secondary;
+					}
+
+					.keys {
+						@extend %p-primary;
+					}
+				}
+			}
+		}
+
+		.kpi-content {
+			height: 874px;
+
+			.kpi-data {
+				height: 356px;
+				width: 874px;
+
+				// background-color: #ffffff;
+				.left {
+					height: 356px;
+					width: 437px;
+
+					.row:first-child {
+						border-right: 2px solid rgba(9, 30, 66, 0.08);
+					}
+
+					.row:last-child {
+						border-top: 2px solid rgba(9, 30, 66, 0.08);
+					}
+
+					.row-1 {
+						height: 178px;
+						width: 219px;
+						padding-top: 47px;
+
+						p:first-child {
+							font-size: 14px;
+							color: #7a869a;
+						}
+
+						p:last-child {
+							font-size: 29px;
+							color: #172b4d;
+
+							span {
+								font-size: 14px;
+								color: #7a869a;
+							}
+						}
+					}
+
+					.row-2 {
+						height: 178px;
+						width: 146px;
+						padding-top: 37px;
+
+						p {
+							font-size: 14px;
+							color: #7a869a;
+							margin-bottom: 0;
+						}
+
+						p:last-child {
+							font-size: 29px;
+							color: #172b4d;
+
+							span {
+								font-size: 14px;
+								color: #7a869a;
+							}
+						}
+					}
+				}
+
+				.right {
+					height: 356px;
+					width: 437px;
+				}
+			}
+
+			.kpis {
+				font-size: 0;
+
+				& > div {
+					flex: 1;
+				}
+
+				.keys-large {
+					@extend %header-large;
+				}
+
+				.values-small {
+					@extend %p-small;
+				}
+			}
+		}
+
+		.chart {
+			height: 350px;
+		}
+	}
+}

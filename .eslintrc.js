@@ -15,7 +15,6 @@ module.exports = {
 		browser: true
 	},
 	rules: {
-
 		"no-alert": 1,//禁止使用alert confirm prompt
 		"no-array-constructor": 2,//禁止使用数组构造器
 		"no-bitwise": 0,//禁止使用按位运算符
@@ -34,7 +33,7 @@ module.exports = {
 		"no-dupe-keys": 2,//在创建对象字面量时不允许键重复 {a:1,a:1}
 		"no-dupe-args": 2,//函数参数不能重复
 		"no-duplicate-case": 2,//switch中的case标签不能重复
-		"no-else-return": 2,//如果if语句里面有return,后面不能跟else语句
+		"no-else-return": 0,//如果if语句里面有return,后面不能跟else语句
 		"no-empty": 2,//块语句中的内容不能为空
 		"no-empty-character-class": 2,//正则表达式中的[]内容不能为空
 		"no-empty-label": 0,//禁止使用空label
@@ -65,9 +64,9 @@ module.exports = {
 		"no-mixed-requires": [0, false],//声明时不能混用声明类型
 		"no-mixed-spaces-and-tabs": [2, false],//禁止混用tab和空格
 		"linebreak-style": [0, "windows"],//换行风格
-		"no-multi-spaces": 1,//不能用多余的空格
+		"no-multi-spaces": 2,//不能用多余的空格
 		"no-multi-str": 2,//字符串不能用\换行
-		"no-multiple-empty-lines": [1, { "max": 2 }],//空行最多不能超过2行
+		"no-multiple-empty-lines": [2, { "max": 2 }],//空行最多不能超过2行
 		"no-native-reassign": 2,//不能重写native对象
 		"no-negated-in-lhs": 2,//in 操作符的左边不能有!
 		"no-nested-ternary": 0,//禁止使用嵌套的三目运算
@@ -101,7 +100,7 @@ module.exports = {
 		"no-trailing-spaces": 1,//一行结束后面不要有空格
 		"no-this-before-super": 0,//在调用super()之前不能使用this或super
 		"no-throw-literal": 2,//禁止抛出字面量错误 throw "error";
-		"no-undef": 1,//不能有未定义的变量
+		"no-undef": 2,//不能有未定义的变量
 		"no-undef-init": 2,//变量初始化时不能直接给它赋值为undefined
 		"no-undefined": 2,//不能使用undefined
 		"no-unexpected-multiline": 2,//避免多行表达式
@@ -159,26 +158,26 @@ module.exports = {
 		"newline-after-var": 2,//变量声明后是否需要空一行
 		"object-curly-spacing": [0, "never"],//大括号内是否允许不必要的空格
 		"object-shorthand": 0,//强制对象字面量缩写语法
-		"one-var": ["error", "always"],//连续声明
+		"one-var": [1, "always"],//连续声明
 		"operator-assignment": [0, "always"],//赋值运算符 += -=什么的
 		"operator-linebreak": [2, "after"],//换行时运算符在行尾还是行首
 		"padded-blocks": 0,//块语句内行首行尾是否要空行
 		"prefer-const": 0,//首选const
 		"prefer-spread": 0,//首选展开运算
 		"prefer-reflect": 0,//首选Reflect的方法
-		"quotes": ["warn", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],//引号类型 `` "" ''
+		"quotes": [2, "double", { "avoidEscape": false, "allowTemplateLiterals": false }],//引号类型, 必须双引号
 		// "quote-props": ["error", "consistent", { "keywords": true }],//对象字面量中的属性名是否强制双引号
 		"radix": 2,//parseInt必须指定第二个参数
 		"id-match": 0,//命名检测
 		"require-yield": 0,//生成器函数必须有yield
-		"semi": [2, "always"],//语句强制分号结尾
+		"semi": ["error", "never", { "beforeStatementContinuationChars": "never" } ],//语句强制分号结尾
 		"semi-spacing": [0, { "before": false, "after": true }],//分号前后空格
 		"sort-vars": 0,//变量声明时排序
 		"space-after-keywords": [0, "always"],//关键字后面是否要空一格
 		"space-before-blocks": [0, "always"],//不以新行开始的块{前面要不要有空格
 		"space-before-function-paren": [0, "always"],//函数定义时括号前面要不要有空格
-		"space-in-parens": [0, "never"],//小括号里面要不要有空格
-		"space-infix-ops": 0,//中缀操作符周围要不要有空格
+		"space-in-parens": [2, "always"],//小括号里面要不要有空格
+		"space-infix-ops": 2,//中缀操作符周围要不要有空格
 		"keyword-spacing": 2,//return throw case后面要不要加空格
 		"space-unary-ops": [0, { "words": true, "nonwords": false }],//一元运算符的前/后要不要加空格
 		"spaced-comment": 0,//注释风格要不要有空格什么的
@@ -189,35 +188,28 @@ module.exports = {
 		"vars-on-top": 2,//var必须放在作用域顶部
 		"wrap-iife": [2, "inside"],//立即执行函数表达式的小括号风格
 		"wrap-regex": 0,//正则表达式字面量用小括号包起来
-		"yoda": [2, "never"]//禁止尤达条件
+		"yoda": [2, "never"],//禁止尤达条件
 
+		"allowIndentationTabs": 0
 	},
 	overrides: [
 		// node files
 		{
-			files: [
-				'testem.js',
-				'ember-cli-build.js',
-				'config/**/*.js',
-				'lib/*/index.js'
-			],
-			parserOptions: {
-				sourceType: 'script',
-				ecmaVersion: 2015
-			},
-			env: {
-				browser: false,
-				node: true
-			}
+		files: [
+			'ember-cli-build.js',
+			'testem.js',
+			'blueprints/*/index.js',
+			'config/**/*.js',
+			'lib/*/index.js'
+		],
+		parserOptions: {
+			sourceType: 'script',
+			ecmaVersion: 2015
 		},
-
-		// test files
-		{
-			files: ['tests/**/*.js'],
-			excludedFiles: ['tests/dummy/**/*.js'],
-			env: {
-				embertest: true
-			}
+		env: {
+			browser: false,
+			node: true
+		}
 		}
 	]
 };

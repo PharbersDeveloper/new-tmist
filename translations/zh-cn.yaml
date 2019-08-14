@@ -1,0 +1,177 @@
+price_banner: The {product} costs {price, number, USD}
+nav:
+  name: 铁马
+  logo: TMIST LOGO
+  actions:
+    rules-description: 规则介绍
+    profile-config: 账号设置
+    end-mission: 结束任务
+    logout: 退出账号
+  modal:
+    line-01: 经理需要彻底利用有限“预算”，达成“药品销售额指标”
+    line-02: 彻底完成业务决策、管理决策后才能提交任务，一旦提交决策，将不可更改。
+    line-03: 您的决策设定可在“本期决策回顾中”查看。
+    line-04: 业务决策
+    line-05: 1. 业务决策中，优先选择代表，所有医院都需要有代表负责。\\n每一个代表必须充分利用“拜访时间”负责医院药品销售业务，\\n“代表拜访时间”不能为“0”，“代表剩余时间”必须 为“0”。
+    line-06: 2. 所有医院的“药品销售指标”和“预算”都得分配，若不分配，请输入“0”。
+    line-07: 3. 会议名额需要被彻底分配，请为不分配会议名额的医院设定名额值为“0”。
+    line-08: 管理决策
+    line-09: 1. 经理的时间需要全部分配。
+  hits:
+    title: 提示
+    content: 您当前的决策将被保存，等您继续部署。您确定要结束任务吗？
+    confirm-btn: 确定
+    cancel-btn: 取消
+welcome:
+  session-1: 关卡1*
+  total: （共
+  peroid: 周期）
+  total-finish: 共完成
+  times: 次
+  s: S
+  grade: 级*
+  no-task: 暂无任务
+  redeployment: 重新部署
+  continue-deployment: 继续部署
+  start-deployment: 开始部署
+  historical-evaluation-report: 历史评测报告
+  examine: 查看
+  task-not-completed: 还没有完成过该任务
+  welcome-model:
+    line-1: 欢迎进入铁马区域管理模拟平台
+    line-2: 铁马以多维科学管理理论，精准算法模型定制真实场景，实现精准培训。 为您深度解读团队能力图谱及挑战，协助您应对复杂多变的医药销售环境。 挑战即将开始…
+    confirm-btn: 开始挑战
+  check-model:
+    desc-content: 重新开始将清空您上次尚未完成的决策记录，是否继续？
+    cancel-btn: 取消
+mission-info:
+  total: 共
+  period: 周期
+login:
+  title: PHARBERS 数据整合平台
+  desc: 不止于数据，让决策更精彩
+project:
+  test-result: testResult
+  save-btn: 保存
+  submit-btn: 提交执行
+  scenario-business: 业务决策
+  scenario-management: 管理决策
+  scenario-reference: 参考信息
+  scenario-decision-review: 本期决策回顾
+  modal-footer:
+    close-btn: 好的
+    submit-btn: 确认提交
+  modal-header:
+    title: 提交执行
+    desc: 提交执行中，请稍等...
+  proposal-info:
+    index: 产品竞品信息
+    hospital: 医院基本信息
+    member: 团队成员信息
+    sold: 历史销售报告
+    product-info:
+      produce-sale-report: 产品销售报告
+      representative-sale-report: 代表销售报告
+      hospital-sale-report: 医院销售报告
+      drug-name: 药品名称
+      representative-name: 代表名称
+      potential: 潜力
+      hospital-name: 医院名称
+      hospital-representative: 代表
+      money: ￥
+    member-info:
+      team-average-performance: 团队平均能力表现
+      team-status: 团队状况
+      team-number: 团队人数
+      team-desc: 团队描述
+      person: 人
+  business-input:
+    total-business-indicators: 总业务指标
+    total-budget: 总预算
+    represents-remaining-time: 代表剩余时间
+    total-meeting-places: 总会议名额
+    number: 个
+    target-hospital-selection: 目标医院选择（
+    target-hospital-selection-2: ）
+    please-choose: 请选择
+    OK: 好的
+    money: ￥
+    p: "%"
+card:
+  product-card:
+    company-product: 公司产品
+    major-competitors: 主要竞品
+    treatment-area: 治疗领域
+    launch-time: 上市时间
+    year: 年
+    producer: 所属公司
+    patent-describe: 药品类型
+    life-cycle: 市场定位
+    reference-price: 日使用费用
+    product-feature: 产品特点
+    money: ￥
+  member-card:
+    female: 女
+    male: 男
+    age: 岁
+    experience: 年工作经验
+    entry-time: 入职
+    year: 年
+    advantage: 优势
+    evaluation: 历届经理评价
+    KPI: 代表行为KPI
+    goal-docter: 目标医生
+    people-number: 数量(人)
+    coverage: 覆盖率(%)
+    docter-A: A类医生
+    docter-B: B类医生
+    docter-C: C类医生
+    visit-frequency: 拜访频率(次)
+  hospital-card:
+    category: 医院类型
+    level: 医院等级
+    doctorNumber: 医生数量
+    bedNumber: 病床数量
+    income: 年医药收入
+    medic-access: 药品准入情况
+    medic-name: 药品名
+    access: 准入情况
+    potential-value: 潜力值
+    dynamic: 医院动态
+    money: ￥
+rules-introduction-modal:
+  self-name: 规则介绍
+  line-1: 经理需要彻底利用有限“预算”，达成“药品销售额指标”，
+  line-2: 彻底完成业务决策、管理决策后才能提交任务，一旦提交决策，将不可更改。
+  line-3: 您的决策设定可在“本期决策回顾中”查看。
+  title-1: 业务决策
+  line-4: 1. 业务决策中，优先选择代表，所有医院都需要有代表负责。每一个代表必须充分利用“拜访时间”负责医院药品销售业务，“代表拜访时间”不能为“0”，“代表剩余时间”必须 为“0”。
+  line-5: 2. 所有医院的“药品销售指标”和“预算”都得分配，若不分配，请输入“0”。
+  line-6: 3. 会议名额需要被彻底分配，请为不分配会议名额的医院设定名额值为“0”。
+  title-2: 管理决策
+  line-7: 1. 经理的时间需要全部分配。
+current-task-notification:
+  self-name: 本期任务通知
+  title-1: 经理您好！
+  title-2: 欢迎进入【区域项目管理】
+  desc: 当前公司的发展情况，以及市场环境。背景信息故事。
+  introduction: 本测试是区域管理周期测试
+  entry-mission: 进入任务
+  goal: 合理分配资源完成业务目标
+  hospital-number: 安排医院数量
+  hospital-number-2: 家
+  representatives-number: 管理代表人数
+  representatives-number-2: 人
+  per-capita-time: 代表人均时间
+  per-capita-time-2: 100%
+  meeting: 分配会议名额
+  meeting-2: 20个
+  team-and-self-management: 团队与自我管理
+  allocate-manager-time: 分配经理时间
+  allocate-manager-time-2: 100%
+  manager-action-points: 经理行动点数
+  manager-action-points-2: "60"
+  seasonable-budget-control: 合理支配预算
+  general-budget: 总预算
+  money: ￥
+  achieve-sales-targets: 完成销售额指标

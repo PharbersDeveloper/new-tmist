@@ -1,0 +1,187 @@
+{{!-- 经理剩余时间 start --}}
+{{#bp-layout main="between" local-class="management-content"}}
+	<div local-class="infos" class="mr-4 ">
+		<div local-class="manager-infos" class="mb-2 bg-white">
+			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
+				<span local-class="title">
+					经理剩余时间
+				</span>
+			{{/bp-layout}}
+			<div local-class="pie" class="p-4">
+				{{!-- {{bp-circle
+						eid='managerTime'
+						seriesName="经理剩余时间" 
+						circleData=circleTime}} --}}
+			</div>
+		</div>
+		<div local-class="team-infos" class="bg-white">
+			{{#bp-layout tagName="h3"  cross="center" local-class="title" classNames="px-4 bg-white"}}
+				<span local-class="title">
+					团队及代表能力情况
+				</span>
+			{{/bp-layout}}
+			<div local-class="content" class="p-4">
+				{{#bp-layout main="between" cross="center" local-class="drop-area" }}
+					<span class="mr-3">代表</span>
+					{{#bp-dropdown widthSize="auto" as |dd|}}
+						{{#dd.button }}
+							{{!-- {{#if tmpRepConf.representative.name}} --}}
+							{{!-- <p>{{tmpRepConf.representative.name}}</p> --}}
+							{{!-- {{else}} --}}
+							请选择
+							{{!-- {{/if}} --}}
+							{{bp-icon icon='down'}}
+						{{/dd.button}}
+						{{#dd.menu as |menu|}}
+							{{#each resources as |rcs|}}
+								{{#menu.option value=rcs onClick=(action (mut tmpRepConf))}}
+									{{rcs.name}}
+								{{/menu.option}}
+							{{/each}}
+						{{/dd.menu}}
+					{{/bp-dropdown}}
+				{{/bp-layout}}
+				<div local-class="radar-container">
+					{{bp-row direction='col' rowModel=tmRadar conditions=tmRadarCondition}}
+					{{!-- {{bp-radar
+						eid='representativeRadar' 
+						radarData=radarData
+						maxValue=10}} --}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div local-class="actions manage">
+		{{#bp-layout tagName="h3" main="between" cross="center" 
+			local-class="title" classNames="px-4 bg-white"}}
+			<span local-class="title">
+				经理剩余时间
+			</span>
+			{{#bp-button onClick=(action 'reInputTime')}}重置{{/bp-button}}
+		{{/bp-layout}}
+		<div local-class="business-time actions-content" class="bg-white mb-2">
+			<h4 local-class="title" class="px-4">业务时间分配</h4>
+			{{#bp-layout local-class="content" main="between" class="p-4" }}
+				{{#bp-layout}}
+					{{#bp-layout direction="col" local-class="keys" }}
+						{{#bp-layout tagName="p" cross="center" class="mb-4" }}
+							<span local-class="square square-1"></span>
+							<span local-class="p-primary">业务数据策略分析</span>
+						{{/bp-layout}}
+						{{#bp-layout tagName="p" cross="center"}}
+							<span local-class="square square-2"></span>
+							<span local-class="p-primary">重点目标客户管理</span>
+						{{/bp-layout}}
+					{{/bp-layout}}
+					{{#bp-layout direction="col" local-class="inputs" }}
+						{{bp-input value=managerAnswer.strategAnalysisTime
+							onChange=(action "validationMangerTime" managerAnswer "strategAnalysisTime" (mut managerAnswer.strategAnalysisTime))
+							size="medium" widthSize="" 
+							classNames="mb-4"
+							local-class="input-prepend"}}
+						{{bp-input value=managerAnswer.clientManagementTime
+						onChange=(action "validationMangerTime" managerAnswer "clientManagementTime" (mut managerAnswer.clientManagementTime))
+							size="medium" widthSize=""
+							local-class="input-prepend"}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+				{{#bp-layout}}
+					{{#bp-layout direction="col" local-class="keys" }}
+						{{#bp-layout tagName="p" cross="center" class="mb-4" }}
+							<span local-class="square  square-3"></span>
+							<span local-class="p-primary">行政工作</span>
+						{{/bp-layout}}
+						{{#bp-layout tagName="p" cross="center"}}
+							<span local-class="square  square-4"></span>
+							<span local-class="p-primary">代表及KPI分析</span>
+						{{/bp-layout}}
+					{{/bp-layout}}
+					{{#bp-layout direction="col" local-class="inputs" }}
+						{{bp-input value=managerAnswer.adminWorkTime
+						onChange=(action "validationMangerTime" managerAnswer "adminWorkTime" (mut managerAnswer.adminWorkTime))
+							size="medium" widthSize=""
+							classNames="mb-4"
+							local-class="input-prepend"}}
+						{{bp-input value=managerAnswer.kpiAnalysisTime
+						onChange=(action "validationMangerTime" managerAnswer "kpiAnalysisTime" (mut managerAnswer.kpiAnalysisTime))
+							size="medium" widthSize=""
+							local-class="input-prepend"}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		</div>
+		<div local-class="team-time actions-content" class="bg-white  mb-2">
+			<h4 local-class="title" class="px-4">团队管理时间分配</h4>
+			{{#bp-layout local-class="content" class="p-4" }}
+				{{#bp-layout direction="col" local-class="keys" }}
+					{{#bp-layout tagName="p" cross="center" }}
+						<span local-class="square  square-m"></span>
+						<span local-class="p-primary">团队例会</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+				{{#bp-layout direction="col" local-class="inputs" }}
+					{{bp-input
+						value=managerAnswer.teamMeetingTime
+						onChange=(action "validationMangerTime" managerAnswer "teamMeetingTime" (mut managerAnswer.teamMeetingTime))
+						size="medium"
+						local-class="input-prepend"}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		</div>
+		<div local-class="represent-time actions-content" class="bg-white mb-2">
+			<h4 local-class="title" class="px-4">管理代表时间</h4>
+			{{#bp-layout local-class="content" main="between" class="p-4" }}
+				{{#bp-layout direction="col" local-class="keys" }}
+					<p class="text-center mb-2 mr-0"></p>
+					{{#bp-layout tagName="p" cross="center" class="mb-4" }}
+						<span local-class="square square-a"></span>
+						<span local-class="p-primary">1v1能力辅导</span>
+					{{/bp-layout}}
+					{{#bp-layout tagName="p" cross="center"}}
+						<span local-class="square square-t"></span>
+						<span local-class="p-primary">协访时间</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+				{{#each answers as |answer|}}
+					{{#bp-layout direction="col" local-class="inputs" }}
+						<p class="text-center mb-2 mr-0">
+							{{answer.resource.name}}
+						</p>
+						{{!-- {{#each representativeInputs as |resConf|}} --}}
+						{{!-- {{#if (bp-eq rcs.id resConf.resourceConfigId)}} --}}
+						{{bp-input value=answer.abilityCoach
+							onChange=(action "validationMangerTime" answer "abilityCoach" (mut answer.abilityCoach))
+								size="medium" widthSize="small" 
+								classNames="mb-4"
+								local-class="input-prepend"}}
+						{{bp-input value=answer.assistAccessTime
+							onChange=(action "validationMangerTime" answer "assistAccessTime" (mut answer.assistAccessTime))
+								size="medium" 
+								widthSize="small"
+								local-class="input-prepend"}}
+						{{!-- {{/if}} --}}
+						{{!-- {{/each}} --}}
+					{{/bp-layout}}
+				{{/each}}
+			{{/bp-layout}}
+		</div>
+	</div>
+{{/bp-layout}}
+{{#bp-modal
+		open=warning.open
+		position='center' 
+		onHidden=(action (mut warning.open) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{warning.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc">
+			{{warning.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}

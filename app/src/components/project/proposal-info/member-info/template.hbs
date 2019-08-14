@@ -1,0 +1,49 @@
+{{#bp-layout direction="col" local-class="resource-container" cross="center"}}
+	{{#bp-layout classNames="bg-white" local-class="resource-header" direction="col"}}
+		{{#bp-layout cross="center" local-class="resource-title"}}
+			{{#bp-layout tagName="h4" local-class="title" classNames="ml-4" }}
+				团队成员概况
+			{{/bp-layout}}
+		{{/bp-layout}}
+
+		{{#bp-layout local-class="resource-header-info" direction="row"}}
+			{{#bp-layout local-class="left" cross="center" main="center"}}{{resources.length}}人{{/bp-layout}}
+			{{#bp-layout local-class="right" cross="center" main="center"}} 
+				<p class="py-4 pl-5 pr-2">销售水平参差不齐，有老代表也有新代表，刚开始负责铁马市的10家目标医院，还未与医院中的KOL打过交道。</p> 
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+
+	{{#bp-layout direction="col" local-class="resource-info"}}
+		{{#bp-layout local-class="resource-info-header" classNames="bg-white mt-4 mb-2" cross="center"}}
+			{{#bp-layout tagName="h4" local-class="title" classNames="ml-4 mb-0"}}
+				团队成员信息
+			{{/bp-layout}}
+		{{/bp-layout}}
+
+		{{#bp-layout direction="row" }}
+			{{#bp-layout direction="col" classNames="bg-white"}}
+				{{#each resources as |item index|}}
+					{{!-- {{#bp-button onClick=(action (mut currentResource) index) local-class=(if (bp-eq currentResource index) "active")}}{{item.name}}{{/bp-button}} --}}
+					{{#bp-layout click=(action (mut currentResource) index ) 
+					local-class=(if (bp-eq currentResource index) "active resource-item" "resource-item")
+					classNames="py-4 pl-4"}}
+						{{item.name}}
+					{{/bp-layout}}
+				{{/each}}
+			{{/bp-layout}}
+			{{#bp-layout direction="col" classNames="ml-2"}}
+				{{#bp-layout local-class="resource-detail" direction="col"}}
+					{{#each resources as |item index|}}
+						{{#if (bp-eq currentResource index)}}
+							{{common/card/member-card resource=item }}
+						{{/if}}
+					{{/each}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+
+	{{/bp-layout}}
+{{/bp-layout}}
+
+
