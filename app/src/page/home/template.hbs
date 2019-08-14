@@ -33,8 +33,11 @@
                 {{/bp-layout}}
                 {{#bp-layout direction="row" main="start" cross="start" local-class="card-bottom"}}
                     {{!-- <p local-class="subtitle">区域周期计划测试</p> --}}
-                    <span local-class="badge">进行中</span>
-                    <p local-class="des" class="ml-2">上次中断时间 balabala</p>
+                    {{#if model.currentUCBProjects}}
+                        <span local-class="badge">进行中</span>
+                        <p local-class="des" class="ml-2">上次中断时间 {{model.currentUCBProjects.lastObject.lastUpdate}}</p>
+                    {{/if}}
+                   
                 {{/bp-layout}}
             {{/bp-layout}}
         {{/bp-layout}}

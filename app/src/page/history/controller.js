@@ -3,6 +3,13 @@ import Controller from "@ember/controller"
 
 export default Controller.extend( {
 	// runtimeConfig: service( "service/runtime-config" )
-	projectType: Number( localStorage.getItem( "projectType" ) )
+	projectType: Number( localStorage.getItem( "projectType" ) ),
+	actions: {
+		performance() {
+			this.set( "performance", {
+				open: true
+			} )
+		}
+	}
 
 } )
