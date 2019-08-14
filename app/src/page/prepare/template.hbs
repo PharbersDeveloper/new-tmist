@@ -17,10 +17,10 @@
                     
                 {{#if model.provious}}
                     {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}
-                        {{#bp-button type="default"}}
+                        {{#bp-button type="default" onClick=(action "startDeploy" model.proposal)}}
                             重新部署
                         {{/bp-button}}
-                        {{#bp-button type="primary" classNames="ml-2" onClick=(action "continueDeploy" model.currentUCBProjects.lastObject)}}
+                        {{#bp-button type="primary" classNames="ml-2" onClick=(action "continueDeploy" model.provious.lastObject)}}
                             继续部署
                         {{/bp-button}}
                     {{/bp-layout}}
