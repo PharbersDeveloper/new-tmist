@@ -6,7 +6,7 @@
             {{!-- <p local-class="title">您好！欢迎进入优时比区域周期计划测试</p> --}}
             <p local-class="title">您好！欢迎进入{{model.proposal.name}}测试</p>
             {{#bp-layout direction="row" main="start" cross="start" local-class="status-area"}}
-                {{#if model.currentUCBProjects}}
+                {{#if model.provious}}
                     <span local-class="badge">进行中</span>
                 {{/if}}
                 
@@ -15,7 +15,7 @@
             {{#bp-layout direction="row" main="between" cross="center" local-class="card-bottom"}}
                 <p local-class="link" {{action "toHistory"}}>查看历史成果</p>
                     
-                {{#if model.currentUCBProjects}}
+                {{#if model.provious}}
                     {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}
                         {{#bp-button type="default"}}
                             重新部署
