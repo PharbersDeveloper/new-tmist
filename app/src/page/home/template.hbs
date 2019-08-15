@@ -1,7 +1,7 @@
 {{common/nav-top-main}}
 {{#bp-layout direction="col" main="center" cross="center" local-class="home"}}
     {{#bp-layout direction="row" main="between" cross="center" local-class="card-area" classNames="p-4"}}
-        {{#each model.apm as |item| }}
+        {{!-- {{#each model.apm as |item| }} --}}
         {{#bp-layout direction="col" main="start" cross="start" local-class="card-wrapper apm" classNames="p-3"}}
             {{#bp-layout direction="row" main="start" cross="center" local-class="title-wrapper"}}
                 {{bp-icon icon="training"}}
@@ -13,13 +13,13 @@
                     <p local-class="subtitle">区域周期管理课程辅助培训工具</p>
                 {{/bp-layout}}
                 {{#bp-layout direction="row" main="end" cross="start" local-class="card-bottom"}}
-                    {{#bp-button type="default" click=(action "toPrepare" item.id)}}
+                    {{#bp-button type="default" click=(action "toPrepare" "none")}}
                         开始练习
                     {{/bp-button}}
                 {{/bp-layout}}
             {{/bp-layout}}
         {{/bp-layout}}
-        {{/each}}
+        {{!-- {{/each}} --}}
         {{#each model.tmist as |item| }}
         {{#bp-layout direction="col" main="start" cross="start" local-class="card-wrapper ntm" classNames="p-3"}}
             {{#bp-layout direction="row" main="start" cross="center" local-class="title-wrapper"}}
@@ -51,12 +51,12 @@
                 {{bp-icon icon="case"}}
                 <p local-class="title" class="ml-2">案例</p>
             {{/bp-layout}}
-            {{#bp-layout direction="col" main="start" local-class="card" click=(action "toPrepare" itme.id)}}
+            {{#bp-layout direction="col" main="start" local-class="card" click=(action "toPrepare" item.id)}}
                 <img src="/images/img_case-ucb.jpg" alt="UCB" local-class="card-pic" class="">
                 {{#bp-layout direction="col" main="start" cross="start" local-class="card-inner" classNames="p-4 bg-white"}}
                     {{#bp-layout direction="col" main="start" cross="start" local-class="card-top"}}
-                        <p local-class="title" class="mb-2">UCB</p>
-                        <p local-class="subtitle">项目描述</p>
+                        <p local-class="title" class="mb-2">{{item.name}}</p>
+                        <p local-class="subtitle">{{item.describe}}</p>
                     {{/bp-layout}}
                 {{/bp-layout}}
             {{/bp-layout}}
