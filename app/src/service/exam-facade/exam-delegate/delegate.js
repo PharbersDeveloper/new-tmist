@@ -21,14 +21,16 @@ export default Object.extend( {
 	async getBusinessAnswerCount( aPeriod ) {
 		return this.getPresetsRefWithCurrentPeriod( aPeriod ).length
 	},
-	async getCurrentPresetsWithPeriod( aPeriod ) {
-		let prs = await this.getPresetsRefWithCurrentPeriod( aPeriod )
-		const ids = prs.ids(),
-			fid = ids.map( x => {
-				return "`" + `${x}` + "`"
-			} ).join( "," )
+	async getCurrentPresetsWithPeriod( aPeriod, aProposal ) {
+		// let prs = await this.getPresetsRefWithCurrentPeriod( aPeriod )
+		// const ids = prs.ids(),
+		// 	fid = ids.map( x => {
+		// 		return "`" + `${x}` + "`"
+		// 	} ).join( "," )
 
-		return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
+		// return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
+		
+		return this.store.query("model/preset", { filter: "(proposalId,:eq,`" + aProposal.value().get("id") + "`)" } )
 
 	},
 	async answersForPresets ( period, presets, resources ) {
