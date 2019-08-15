@@ -9,13 +9,13 @@ import Ember from "ember"
 // import { threadId } from "worker_threads"
 
 export default Controller.extend( {
+	ajax: service(),
 	toast: service(),
 	exam: service( "service/exam-facade" ),
 	em: service( "emitter" ),
 	client: computed( function () {
 		return this.em.GetInstance()
 	} ),
-
 	currentTab: 0,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
@@ -287,16 +287,18 @@ export default Controller.extend( {
 			this.transitionToRoute( "page.welcome" )
 		},
 		submit() {
-			let state = this.validation()
+			// let state = this.validation()
 
-			if ( state ) {
-				alert( "ok" )
-				Ember.Logger.info( "save current input" )
-				this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-					alert( "save success" )
-					// this.transitionToRoute( "page.project.result" )
-				} )
-			}
+			// if ( state ) {
+			// 	alert( "ok" )
+			// 	Ember.Logger.info( "save current input" )
+			// 	this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+			// 		alert( "save success" )
+			// 		// this.transitionToRoute( "page.project.result" )
+			// 	} )
+			// }
+			this.transitionToRoute( "page.project.result" )
+
 			// let judgeAuth = this.judgeOauth(),
 			// 	store = this.get( "store" ),
 			// 	representatives = store.peekAll( "representative" ),
@@ -319,6 +321,23 @@ export default Controller.extend( {
 			// 	this.transitionToRoute( "page.project.report" )
 			// } )
 			// this.transitionToRoute( "page.project.result" )
+		},
+		testR() {
+			let proposalId = this.model.project.get( "proposal.id" ),
+				projectId = this.model.project.get( "id" ),
+				periodId = this.model.period.get( "id" ),
+				type = this.model.project.get( "proposal.case" )
+
+			this.get( "ajax" ).post( "/callR", {
+				data: {
+					type: type,
+					proposalId: proposalId,
+					projectId: projectId,
+					periodId: periodId
+				}
+			} ).then( res => {
+				window.console.log( res )
+			} )
 		},
 		confirmSubmit() {
 			this.set( "warning", { open: false } )
