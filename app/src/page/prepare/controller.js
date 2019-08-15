@@ -9,8 +9,8 @@ export default Controller.extend( {
 		} )
 	},
 	actions: {
-		toHistory() {
-			this.transitionToRoute( "page.history" )
+		toHistory( pid ) {
+			this.transitionToRoute( "page.history" , pid )
 		},
 		startDeploy( proposal ) {
 			this.gen.genProjectWithProposal( proposal ).then( x => {

@@ -1,15 +1,8 @@
 .return {
 	font-size: 12px;
 	line-height: 16px;
-
-	a {
-		color: #6b778c;
-	}
-
-	a:hover {
-		color: #3172e0;
-		text-decoration: none;
-	}
+	color: #6b778c;
+	cursor: pointer;
 }
 
 .history {
