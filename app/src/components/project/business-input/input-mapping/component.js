@@ -6,7 +6,6 @@ export default Component.extend( {
 	positionalParams: ["project", "presets", "answers"],
 	p: groupBy( "presets", "hospital.id" ),
 	res: computed( "p", "answers", function() {
-		debugger
 		if ( this.p && this.answers ) {
 			return this.p.sortBy( "value" ).map( item => {
 				const result = item.items.map( preset => {
