@@ -105,7 +105,7 @@ export default Component.extend( {
 					} )
 				}
 			} else {
-				obj.set( inputValue, -1 )
+				obj.set( inputValue, 0 )
 			}
 
 		},

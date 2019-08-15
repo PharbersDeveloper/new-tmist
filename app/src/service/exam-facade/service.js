@@ -56,19 +56,19 @@ export default Service.extend( {
 	cancelBusinessResource( answers, aHospital ) {
 		answers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get( "category" ) === "Business" ).forEach( answer => {
 			// this.store.peekRecord( "resource", aResource.id )
-			answer.set( "visitTime", -1 )
-			answer.set( "salesTarget", -1 )
-			answer.set( "budget", -1 )
-			answer.set( "meetingPlaces", -1 )
+			answer.set( "visitTime", 0 )
+			answer.set( "salesTarget", 0 )
+			answer.set( "budget", 0 )
+			answer.set( "meetingPlaces", 0 )
 			answer.set( "resource", null )
 			// answer.resource = aResource
 		} )
 	},
 	resetBusinessAnswer( answers, aHospital ) {
 		answers.filter( x => x.get( "target.id" ) === aHospital && x.get( "category" ) === "Business" ).forEach( answer => {
-			answer.set( "salesTarget", -1 )
-			answer.set( "budget", -1 )
-			answer.set( "meetingPlaces", -1 )
+			answer.set( "salesTarget", 0 )
+			answer.set( "budget", 0 )
+			answer.set( "meetingPlaces", 0 )
 			answer.set( "resource", null )
 		} )
 	},

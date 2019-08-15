@@ -5,17 +5,15 @@ import { inject as service } from "@ember/service"
 export default Route.extend( {
 	cookies: service(),
 	model() {
-		const accountId = this.cookies.read( "account_id" )
-
-
-		const tmp = this.store.query( "model/proposal", { filter: "(case,:eq,`tm`)" } )
-		const ucb = this.store.query( "model/proposal", { filter: "(case,:eq,`ucb`)" } )
-		const apm = this.store.query( "model/proposal", { filter: "(case,:eq,`apm`)" } )
+		const accountId = this.cookies.read( "account_id" ),
+			tmp = this.store.query( "model/proposal", { filter: "(case,:eq,`tm`)" } ),
+			ucb = this.store.query( "model/proposal", { filter: "(case,:eq,`ucb`)" } ),
+			apm = this.store.query( "model/proposal", { filter: "(case,:eq,`apm`)" } )
 
 		return RSVP.hash( {
 			tmist: tmp,
 			ucb: ucb,
-			apm: apm,
+			apm: apm
 		} )
 		// return this.store.query( "model/usable-proposal", { filter: "(accountId,:eq,`" + accountId + "`)" } ).then( res => {
 		// 	let ucbProposal = res.filterBy( "id", "5cc5353beeefcc04515c46a3" ).get( "firstObject" ),
