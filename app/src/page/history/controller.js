@@ -9,6 +9,12 @@ export default Controller.extend( {
 			this.set( "performance", {
 				open: true
 			} )
+		},
+		returnPrepare( pid ) {
+			this.transitionToRoute( "page.prepare", pid )
+		},
+		review( pid ) {
+			this.transitionToRoute( "page.project.review", pid )
 		}
 	}
 

@@ -1,31 +1,34 @@
 {{#bp-layout direction="col" local-class="manager-review"}}
 	{{#bp-layout local-class="select-quarter" direction="row" classNames="bg-white pl-4 mb-4" cross="center"}}
-		{{#bp-layout classNames="mr-4"}}选择季度{{/bp-layout}}
-		{{#bp-layout local-class="btn-select-quarter"}}
-			{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
-				{{#dd.button }}
-					请选择
-					{{bp-icon icon='down'}}
-				{{/dd.button}}
-				{{#dd.menu as |menu|}}
-					{{!-- {{#each resources as |rcs|}}
-										{{#menu.option value=rcs onClick=(action (mut tmpRepConf))}}
-											{{rcs.name}}
-										{{/menu.option}}
-									{{/each}} --}}
-				{{/dd.menu}}
-			{{/bp-dropdown}}
+		{{#bp-layout local-class="half" cross="center"}}
+			{{#bp-layout classNames="mr-4"}}选择季度{{/bp-layout}}
+			{{#bp-layout local-class="btn-select-quarter"}}
+				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+					{{#dd.button }}
+						请选择
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{!-- {{#each resources as |rcs|}}
+													{{#menu.option value=rcs onClick=(action (mut tmpRepConf))}}
+														{{rcs.name}}
+													{{/menu.option}}
+												{{/each}} --}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
 		{{/bp-layout}}
+
 	{{/bp-layout}}
 
-	{{#bp-layout local-class="manager-time" direction="row" classNames="pl-4 bg-white mb-1" cross="center"}}
+	{{#bp-layout local-class="manager-time" direction="row" classNames="pl-4 bg-white mb-2" cross="center"}}
 		{{#bp-layout tagName="h4" local-class="title" classNames="m-0"}}
 			经理时间分配
 		{{/bp-layout}}
 	{{/bp-layout}}
 
 	{{#bp-layout direction="row" local-class="time-detail" classNames="mb-4"}}
-		{{#bp-layout local-class="business-team" direction="col" classNames="bg-white mr-1"}}
+		{{#bp-layout local-class="business-team" direction="col" classNames="bg-white mr-2"}}
 			{{#bp-layout tagName="h4" classNames="m-0 pl-4" cross="center" local-class="title"}}
 				业务及团队
 			{{/bp-layout}}

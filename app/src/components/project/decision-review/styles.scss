@@ -1,5 +1,9 @@
+:global(.review-wrapper) {
+	width: 100%;
+}
+
 .review {
-	width: 1152px;
+	width: 100%;
 
 	.review-header {
 		height: 109px;
@@ -49,6 +53,7 @@
 	}
 
 	.content {
-		width: 1152px;
+		// width: 1152px;
+		width: 100%;
 	}
 }

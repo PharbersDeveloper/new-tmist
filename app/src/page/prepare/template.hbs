@@ -13,7 +13,8 @@
                 <p local-class="des" class="ml-2">{{model.proposal.describe}}</p>
             {{/bp-layout}}
             {{#bp-layout direction="row" main="between" cross="center" local-class="card-bottom"}}
-                <p local-class="link" {{action "toHistory"}}>查看历史成果</p>
+                <p local-class="link" {{action "toHistory" model.proposal.id}}>查看历史成果</p>
+                {{!-- {{log model.proposal.id}} --}}
                     
                 {{#if model.provious}}
                     {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}

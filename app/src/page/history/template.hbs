@@ -1,6 +1,6 @@
 {{common/nav-top-project}}
-{{#bp-layout tagName="span" local-class="return" classNames="ml-4 mt-4 mb-3" main="start" cross="start"}}
-    {{#link-to "page.prepare"}}返回{{/link-to}}
+{{#bp-layout tagName="span"  classNames="ml-4 mt-4 mb-3" main="start" cross="start"}}
+    {{#bp-layout local-class="return" click=(action "returnPrepare" model.proposal.id)}}返回{{/bp-layout}}
 {{/bp-layout}}
 {{#bp-layout direction="col" main="start" cross="center" local-class="history" classNames="px-4 pb-4"}}
     {{#bp-layout direction="col" main="start" cross="start" local-class="list-wrapper" classNames="p-4 bg-white"}}
@@ -86,8 +86,8 @@
                                         {{/dd.button}}
                                         {{#dd.menu as |menu|}}
                                             {{#menu.option click=(action "performance")}}测试综合表现{{/menu.option}}
-                                            {{#menu.option}}周期销售结果{{/menu.option}}
-                                            {{#menu.option}}决策回顾{{/menu.option}}
+                                            {{#menu.option }}周期销售结果{{/menu.option}}
+                                            {{#menu.option click=(action "review" model.provious.lastObject.id)}}决策回顾{{/menu.option}}
                                         {{/dd.menu}}
                                     {{/bp-dropdown}}
                                 {{/bp-layout}}
