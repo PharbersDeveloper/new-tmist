@@ -11,6 +11,11 @@ import Ember from "ember"
 export default Controller.extend( {
 	toast: service(),
 	exam: service( "service/exam-facade" ),
+	em: service( "emitter" ),
+	client: computed( function () {
+		return this.em.GetInstance()
+	} ),
+
 	currentTab: 0,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
@@ -42,6 +47,18 @@ export default Controller.extend( {
 		} )
 		return A( arr )
 	} ),
+	onMessage( msg ) {
+		window.console.info( "Emitter Controller" )
+		window.console.info( msg.channel + " => " + msg.asString() )
+	},
+	Subscribe() {
+		window.console.info( "emitter" )
+		// 获取Client Instance
+		// let client = this.em.GetInstance()
+		// API: 参照https://emitter.io/develop/javascript/
+		// 订阅  参数：channel key，channel name，消息类型（message, error, disconnect），MessageHandel
+		this.client.Subscribe( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "message", this.onMessage )
+	},
 	transNumber( input ) {
 		let number = Number( input )
 
@@ -262,6 +279,9 @@ export default Controller.extend( {
 
 	},
 	actions: {
+		publish() {
+			this.client.Publish( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "Hello" )
+		},
 		toIndex() {
 			this.transitionToRoute( "page.welcome" )
 		},

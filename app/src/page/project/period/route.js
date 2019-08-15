@@ -70,5 +70,9 @@ export default Route.extend( {
 			validation: validation,
 			quota: quota
 		} )
+	},
+	setupController( controller , model ) {
+		this._super( controller , model )
+		this.controllerFor( "page.project.period" ).Subscribe()
 	}
 } )
