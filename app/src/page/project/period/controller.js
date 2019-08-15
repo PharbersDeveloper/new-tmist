@@ -71,6 +71,7 @@ export default Controller.extend( {
 	validation() {
 		let curerntBudget = 0,
 			isOverSalesTarget = 0,
+			overSalesTargetName = "",
 			currentMeetingPlaces = 0,
 			currentManagementTime = 0,
 			resourceWithLeftTime = [],
@@ -94,7 +95,7 @@ export default Controller.extend( {
 			} else if ( p.curSales < p.allSales ) {
 				// 2 is not enough
 				set( this, isOverSalesTarget, 2 )
-
+				overSalesTargetName = p.name
 			}
 		} )
 
@@ -186,7 +187,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定未达标",
-				detail: "您还有总预算剩余，请分配完毕。"
+				detail: "总预算尚未完成分配，请分配完毕."
 			} )
 			return false
 		} else if ( curerntBudget > allBudget ) {
@@ -202,7 +203,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定未达标",
-				detail: "您的业务销售额指标尚未完成，请完成指标。"
+				detail: `${overSalesTargetName}销售指标尚未完成分配，请完成指标分配。`
 			} )
 			return false
 		} else if ( isOverSalesTarget === 1 ) {
@@ -210,7 +211,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的销售额指标设定已超额，请合理分配。"
+				detail: "您的销售指标设定总值已超出业务总指标限制，请合理分配。"
 			} )
 			return false
 		} else if ( currentMeetingPlaces < allMeetingPlaces ) {

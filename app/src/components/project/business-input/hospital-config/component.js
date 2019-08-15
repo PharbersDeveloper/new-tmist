@@ -8,9 +8,18 @@ export default Component.extend( {
 	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers",
 		"budgetValidationOuter", "salesTargetValidationOuter",
 		"meetingPlacesValidationOuter", "visitTimeValidationOuter",
-		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives"],
+		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
+		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
-	showContent: true,
+	// showContent: true,
+	showContent: computed( "curHospitalId", function() {
+		if ( !this.curHospitalId ) {
+			return true
+		} else if ( this.curHospitalId === this.hospital.get( "id" ) ) {
+			return false
+			// this.toggleProperty( "showContent" )
+		}
+	} ),
 	checked:  computed( function() {
 		if ( this.quizs.get( "firstObject.answer.resource.id" ) ){
 			return true
@@ -42,6 +51,9 @@ export default Component.extend( {
 	actions: {
 		showContent() {
 			this.toggleProperty( "showContent" )
+		},
+		selectCurHospital( hid ) {
+			this.selectHospital( hid )
 		},
 		changedResource( answer ) {
 			this.toggleProperty( "checked" )
