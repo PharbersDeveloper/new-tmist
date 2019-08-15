@@ -11,6 +11,11 @@ import Ember from "ember"
 export default Controller.extend( {
 	toast: service(),
 	exam: service( "service/exam-facade" ),
+	em: service( "emitter" ),
+	client: computed( function () {
+		return this.em.GetInstance()
+	} ),
+
 	currentTab: 0,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
@@ -42,6 +47,18 @@ export default Controller.extend( {
 		} )
 		return A( arr )
 	} ),
+	onMessage( msg ) {
+		window.console.info( "Emitter Controller" )
+		window.console.info( msg.channel + " => " + msg.asString() )
+	},
+	Subscribe() {
+		window.console.info( "emitter" )
+		// 获取Client Instance
+		// let client = this.em.GetInstance()
+		// API: 参照https://emitter.io/develop/javascript/
+		// 订阅  参数：channel key，channel name，消息类型（message, error, disconnect），MessageHandel
+		this.client.Subscribe( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "message", this.onMessage )
+	},
 	transNumber( input ) {
 		let number = Number( input )
 
@@ -54,6 +71,7 @@ export default Controller.extend( {
 	validation() {
 		let curerntBudget = 0,
 			isOverSalesTarget = 0,
+			overSalesTargetName = "",
 			currentMeetingPlaces = 0,
 			currentManagementTime = 0,
 			resourceWithLeftTime = [],
@@ -77,7 +95,7 @@ export default Controller.extend( {
 			} else if ( p.curSales < p.allSales ) {
 				// 2 is not enough
 				set( this, isOverSalesTarget, 2 )
-
+				overSalesTargetName = p.name
 			}
 		} )
 
@@ -169,7 +187,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定未达标",
-				detail: "您还有总预算剩余，请分配完毕。"
+				detail: "总预算尚未完成分配，请分配完毕."
 			} )
 			return false
 		} else if ( curerntBudget > allBudget ) {
@@ -185,7 +203,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定未达标",
-				detail: "您的业务销售额指标尚未完成，请完成指标。"
+				detail: `${overSalesTargetName}销售指标尚未完成分配，请完成指标分配。`
 			} )
 			return false
 		} else if ( isOverSalesTarget === 1 ) {
@@ -193,7 +211,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的销售额指标设定已超额，请合理分配。"
+				detail: "您的销售指标设定总值已超出业务总指标限制，请合理分配。"
 			} )
 			return false
 		} else if ( currentMeetingPlaces < allMeetingPlaces ) {
@@ -262,6 +280,9 @@ export default Controller.extend( {
 
 	},
 	actions: {
+		publish() {
+			this.client.Publish( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "Hello" )
+		},
 		toIndex() {
 			this.transitionToRoute( "page.welcome" )
 		},

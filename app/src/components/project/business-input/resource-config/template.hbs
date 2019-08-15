@@ -8,7 +8,11 @@
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
-					<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}{{leftTime}}%</span>
+					{{#if (bp-not-eq leftTime 0 "0")}}
+						<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}{{leftTime}}%</span>
+					{{else}}
+						<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+					{{/if}}
 					{{#if hospitalNumber}}
 						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
 					{{/if}}
@@ -21,7 +25,11 @@
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
-				  <span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}{{leftTime}}%</span>
+				{{#if (bp-not-eq leftTime 0 "0")}}
+				  <span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}{{leftTime}}%</span>
+				{{else}}
+					<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+				{{/if}}
 					{{#if hospitalNumber}}
 						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
 					{{/if}}
