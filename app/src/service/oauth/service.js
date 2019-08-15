@@ -77,7 +77,7 @@ export default Service.extend( {
 					cookies.write( "scope", response.scope, options )
 					cookies.write( "expiry", response.expiry, options )
 
-					this.get( "router" ).transitionTo( "page.home" )
+					this.get( "router" ).transitionTo( "page.index" )
 					Ember.Logger.info( "auth token successful" )
 				} )
 				.catch( () => {
