@@ -51,12 +51,12 @@
                 {{bp-icon icon="case"}}
                 <p local-class="title" class="ml-2">案例</p>
             {{/bp-layout}}
-            {{#bp-layout direction="col" main="start" local-class="card" click=(action "toPrepare" itme.id)}}
+            {{#bp-layout direction="col" main="start" local-class="card" click=(action "toPrepare" item.id)}}
                 <img src="/images/img_case-ucb.jpg" alt="UCB" local-class="card-pic" class="">
                 {{#bp-layout direction="col" main="start" cross="start" local-class="card-inner" classNames="p-4 bg-white"}}
                     {{#bp-layout direction="col" main="start" cross="start" local-class="card-top"}}
-                        <p local-class="title" class="mb-2">UCB</p>
-                        <p local-class="subtitle">项目描述</p>
+                        <p local-class="title" class="mb-2">{{item.name}}</p>
+                        <p local-class="subtitle">{{item.describe}}</p>
                     {{/bp-layout}}
                 {{/bp-layout}}
             {{/bp-layout}}
