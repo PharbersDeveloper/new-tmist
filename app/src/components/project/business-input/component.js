@@ -97,6 +97,7 @@ export default Component.extend( {
 	curResource: computed( function() {
 		return this.resources.get( "firstObject" )
 	} ),
+	curHospitalId: null,
 	curAnswerToReset: null,
 	resourceHospital: false,
 	needScrollRepresentative: computed( function() {
@@ -245,7 +246,10 @@ export default Component.extend( {
 			set( this,"curResource", rs )
 			window.console.log( "当前代表" , this.curResource.get( "name" ) )
 		},
-		allocateRepresentatives( answer ) {
+		selectHospital( hid ) {
+			set( this,"curHospitalId", hid )
+		},
+ 		allocateRepresentatives( answer ) {
 			// if this.curResource is null  : error 未选择代表
 
 			if ( answer.get( "resource.id" ) && answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {

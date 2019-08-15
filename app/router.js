@@ -16,6 +16,7 @@ Router.map( function() {
 			this.route( "period", { path: "/period/:period_id" } )
 			this.route( "result" )
 			this.route( "report" )
+			this.route( "review" )
 		} )
 		this.route( "home" )
 		this.route( "prepare", { path: "/prepare/:proposal_id" } )
