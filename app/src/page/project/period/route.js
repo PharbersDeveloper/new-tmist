@@ -46,7 +46,7 @@ export default Route.extend( {
 			period = this.store.findRecord( "model/period", params.period_id )
 
 		this.facade.startPeriodExam( project )
-debugger
+
 		const presets = period.then( prd => {
 				return this.facade.queryPeriodPresets( prd, prs )
 			} ),
