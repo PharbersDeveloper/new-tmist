@@ -198,6 +198,7 @@
 						{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
 							{{#each quizs as |quiz|}}
 								{{#bp-layout local-class="line"}}
+									{{log quiz}}
 									{{project/business-input/hospital-config
 												proposal=project.proposal
 												hospital=quiz.hospital
