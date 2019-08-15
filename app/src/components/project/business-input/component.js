@@ -91,32 +91,7 @@ export default Component.extend( {
 		return A( arr )
 	} ),
 	circleBudgetData: computed( function() {
-		let obj = {}, arr = [], all = 0
-
-		this.answers.forEach( answer => {
-			let resource = answer.get( "resource.id" )
-
-			if ( obj[resource] ) {
-				obj[resource].value += this.transNumber( answer.get( "visitedTime" ) )
-
-			} else if ( answer.get( "resource.name" ) ) {
-				obj[resource] = {
-					name: answer.get( "resource.name" ),
-					value: this.transNumber( answer.get( "visitedTime" ) )
-				}
-			}
-		} )
-		for ( let key in obj ) {
-			arr.push( obj[key] )
-			all += obj[key].value
-		}
-
-		arr.push( {value: this.allBudget - all, name: "未分配"} )
-
-		window.console.log( arr )
-
-		return A( arr )
-
+		return this.getResourceBudgetData()
 	} ),
 	labelEmphasis: false,
 	curResource: computed( function() {
@@ -138,22 +113,19 @@ export default Component.extend( {
 			return false
 		}
 	} ),
+	resourceHospitalNumebr: computed( "resourceHospital", function() {
+		return this.getResourceHospital()
+	} ),
 	getResourceHospital() {
-		let obj = {}
+		let num = 0
 
-		this.get( "resources" ).forEach( resource => {
-			obj[resource.id] = []
+		this.get( "answers" ).forEach( answer => {
+			if ( answer.get( "resource" ) ) {
+				num += 1
+			}
 		} )
-		// this.get( "answers" ).forEach( answer => {
-		// 	if ( answer.get( "resource" ) ) {
-		// 		window.console.log( answer.get( "resource" ) )
-		// 		obj[answer.get( "resource.id" )].push( answer.get( "target" ) )
-		// 	}
-		// } )
-		window.console.log( "!!!!!!!!" )
-		window.console.log( obj )
-		set( this, "resourceHospital", obj )
-		// return obj
+
+		return num
 	},
 	transNumber( input ) {
 		let number = Number( input )
@@ -296,7 +268,7 @@ export default Component.extend( {
 				this.set( "cancelWarning", {
 					open: true,
 					title: "代表取消选择医院",
-					detail: "确定要取消分配代表分配至该医院吗？我们将重置您在该医院下的资源配置。"
+					detail: "确定要取消该医院的代表分配吗？我们将同时重置该医院的其他分配输入。"
 				} )
 				set( this, "curAnswerToReset", answer )
 			} else {
@@ -373,7 +345,7 @@ export default Component.extend( {
 				}
 
 			} else {
-				answer.set( input, -1 )
+				answer.set( input, 0 )
 			}
 		},
 		salesTargetValidationHandle( answer, input ) {
@@ -405,12 +377,12 @@ export default Component.extend( {
 					this.set( "warning", {
 						open: true,
 						title: "设定超额",
-						detail: "您的销售额指标设定已超额，请合理分配。"
+						detail: "您的指标设定已超额，请合理分配。"
 					} )
 				}
 
 			} else {
-				answer.set( input, -1 )
+				answer.set( input, 0 )
 			}
 		},
 		meetingPlacesValidationHandle( answer, input ) {
@@ -438,7 +410,7 @@ export default Component.extend( {
 					} )
 				}
 			} else {
-				answer.set( input, -1 )
+				answer.set( input, 0 )
 			}
 		},
 		visitTimeValidationHandle( curAnswer ) {
