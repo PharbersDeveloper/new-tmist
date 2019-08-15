@@ -142,7 +142,7 @@ export default Component.extend( {
 			this.transitionToReport()
 		},
 		toIndex() {
-			window.location = "/home"
+			window.location = "/"
 		}
 	}
 } )
