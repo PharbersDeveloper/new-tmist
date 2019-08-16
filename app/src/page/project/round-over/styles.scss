@@ -1,0 +1,98 @@
+.round-over {
+	.congratulations {
+		.icon {
+			height: 32px;
+			width: 32px;
+
+			path {
+				height: 32px;
+				width: 32px;
+				fill: #57d9a3;
+			}
+		}
+
+		.text {
+			font-size: 20px;
+			color: #172b4d;
+		}
+	}
+
+	.info {
+		width: 100%;
+		height: 173px;
+		border-top: 4px solid #57d9a3;
+		margin-top: 40px;
+
+		.block {
+			flex: 1;
+			font-size: 14px;
+			color: #344563;
+
+			.header-text {
+				font-size: 12px;
+				color: #6b778c;
+				margin-top: 20px;
+				margin-bottom: 15px;
+			}
+		}
+
+		.name {
+			.img {
+				height: 64px;
+				width: 55px;
+				background: #6b778c;
+			}
+		}
+
+		.goal {
+			margin-right: 67px;
+
+			.precent {
+				span:first-child {
+					font-size: 29px;
+					color: #172b4d;
+				}
+
+				span:last-child {
+					font-size: 12px;
+					color: #7a869a;
+					margin-top: 12px;
+					margin-left: 4px;
+				}
+			}
+
+			.period {
+				font-size: 12px;
+				color: #7a869a;
+			}
+		}
+
+		.sales {
+			font-size: 20px;
+			color: #172b4d;
+		}
+
+		.time {
+			font-size: 14px;
+			color: #7a869a;
+		}
+
+		.examine-export {
+			:global(.dropdown-button) {
+				width: 112px;
+				height: 32px;
+			}
+		}
+	}
+
+	.history {
+		height: fit-content;
+		width: 100%;
+
+		.history-header {
+			height: 52px;
+			font-size: 14px;
+			color: #172b4d;
+		}
+	}
+}
