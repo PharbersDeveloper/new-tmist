@@ -123,6 +123,7 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 
+		{{#if (bp-eq project.proposal.case "tm")}}
 		{{#bp-layout direction="col" classNames="bg-white ml-4" local-class="meeting"}}
 			{{#bp-layout local-class="meeting-header" direction="row" cross="center"}}
 				{{#bp-layout direction="row" tagName="h4" local-class="icon" cross="center" classNames="py-3 pl-3 mb-0"}}
@@ -145,6 +146,7 @@
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
+		{{/if}}
 	{{/bp-layout}}
 
 	{{#bp-layout local-class="resource-and-hospital" direction="row" main="center"}}
