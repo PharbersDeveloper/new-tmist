@@ -4,7 +4,10 @@ import RSVP from "rsvp"
 
 export default Route.extend( {
 	model( params ) {
-		const project = this.modelFor( "page.project" )
+		const project = this.modelFor( "page.project" ),
+			provious = this.store.query( "model/project", {
+				filter: "(:and," + "(proposal,:eq,`" + params.proposal_id + "`)," + "(accountId,:eq,`" + accountId + "`)," + "(status,:eq,0))" } )
+
 		// ids = project.hasMany( "periods" ).ids(),
 		// hids = ids.map( x => {
 		// 	return "`" + `${x}` + "`"
@@ -13,7 +16,8 @@ export default Route.extend( {
 
 		return RSVP.hash( {
 			// periods: periods,
-			project: project
+			project: project,
+			provious: provious
 		} )
 	}
 } )

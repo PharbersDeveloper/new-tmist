@@ -64,7 +64,8 @@
 							{{#dd.menu as |menu|}}
 								{{#menu.option click=(action "performance")}}测试综合表现{{/menu.option}}
 								{{#menu.option }}周期销售结果{{/menu.option}}
-								{{#menu.option click=(action "review" model.provious.lastObject.id)}}决策回顾{{/menu.option}}
+								{{!-- {{#menu.option click=(action "review" provious.lastObject.id)}}决策回顾{{/menu.option}} --}}
+								{{#menu.option }}决策回顾{{/menu.option}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 					{{/bp-layout}}
@@ -91,3 +92,18 @@
 		</tbody>
 	</table>
 {{/bp-layout}}
+{{#bp-modal
+        local-class="modal"
+        size="lg"
+		open=performance.open 
+		position="center"
+		onHidden=(action (mut performance.open) false) as |modal|}}
+	{{#modal.header classNames="pb-0"}}
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		{{project/comprehensive-performance}}
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}确定{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}

@@ -1,4 +1,4 @@
-{{common/nav-top-project}}
+{{common/nav-top-project proposalName=model.proposal.name}}
 {{#bp-layout tagName="span"  classNames="ml-4 mt-4 mb-3" main="start" cross="start"}}
     {{#bp-layout local-class="return" click=(action "returnPrepare" model.proposal.id)}}返回{{/bp-layout}}
 {{/bp-layout}}
@@ -21,22 +21,8 @@
             还没有完成过该任务
         {{/bp-layout}} --}}
 
-        {{project/history-info}}
+        {{project/history-info provious=model.provious}}
+        
     {{/bp-layout}}
 {{/bp-layout}}
 
-{{#bp-modal
-        local-class="modal"
-        size="lg"
-		open=performance.open 
-		position="center"
-		onHidden=(action (mut performance.open) false) as |modal|}}
-    {{#modal.header classNames="pb-0"}}
-    {{/modal.header}}
-    {{#modal.body classNames="p-4"}}   
-        {{project/comprehensive-performance}}
-    {{/modal.body}}
-    {{#modal.footer}}
-        {{#bp-button type="primary" onClick=(action modal.close)}}确定{{/bp-button}}
-    {{/modal.footer}}
-{{/bp-modal}}
