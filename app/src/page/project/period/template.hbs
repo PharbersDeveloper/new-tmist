@@ -186,7 +186,9 @@
 						presets=model.presets
 						quota=model.quota
 						validation=model.validation
-						answers=(filter-category model.answers "Business")}}
+						answers=(filter-category model.answers "Business")
+						productQuotas=model.productQuotas
+				}}
 			{{/if}}
 			{{#if (bp-eq currentTab 1)}}
 				{{project/management-input

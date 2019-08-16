@@ -17,6 +17,7 @@ Router.map( function() {
 			this.route( "result" )
 			this.route( "report" )
 			this.route( "review" )
+			this.route( "round-over" )
 		} )
 		this.route( "prepare", { path: "/prepare/:proposal_id" } )
 		this.route( "history", { path: "/history/:proposal_id" } )

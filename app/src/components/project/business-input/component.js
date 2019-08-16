@@ -6,7 +6,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 
-	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation"],
+	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas"],
 	exam: service( "service/exam-facade" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function() {
@@ -19,6 +19,7 @@ export default Component.extend( {
 	// currentMeetingPlaces: 0,
 	curCircle: 0,
 	curBudgetPercent: 100,
+	// TODO: 暂时留着，以后可能去掉
 	allProductInfo: computed( "products", "presets", "answers",function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
@@ -341,11 +342,12 @@ export default Component.extend( {
 
 
 				} else {
-					this.set( "warning", {
-						open: true,
-						title: "设定超额",
-						detail: "您的预算指标设定已超额，请合理分配。"
-					} )
+					// TODO: 所有的validation都要重做
+					// this.set( "warning", {
+					// 	open: true,
+					// 	title: "设定超额",
+					// 	detail: "您的预算指标设定已超额，请合理分配。"
+					// } )
 				}
 
 			} else {
@@ -378,11 +380,11 @@ export default Component.extend( {
 
 					set( curProductInfo.firstObject, "curSales", cur )
 				} else {
-					this.set( "warning", {
-						open: true,
-						title: "设定超额",
-						detail: "您的指标设定已超额，请合理分配。"
-					} )
+					// this.set( "warning", {
+					// 	open: true,
+					// 	title: "设定超额",
+					// 	detail: "您的指标设定已超额，请合理分配。"
+					// } )
 				}
 
 			} else {
