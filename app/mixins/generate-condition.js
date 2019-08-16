@@ -3,7 +3,7 @@ import { isEmpty } from "@ember/utils"
 import ENV from "new-tmist/config/environment"
 export default Mixin.create( {
 	queryAddress: ENV.QueryAddress,
-	jobId: "a466abd2-9010-4e93-b946-a279ee8f01cf",
+	jobId: "d9bfc406-ab6f-4155-9670-d2067272ce4e",
 	generateProductCircleCondition( phase ) {
 		return [{
 			queryAddress: this.queryAddress,
@@ -164,17 +164,28 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateRepBarLineCondition( repName ) {
+	generateRepBarLineCondition( repName ,prodName ) {
+		let searchRuls = []
+
+		if ( isEmpty( prodName ) ) {
+			searchRuls = [
+				["eq", "category", "Resource"],
+				["eq", "representative.keyword", repName]
+			]
+		} else {
+			searchRuls = [
+				["eq", "category", "Resource"],
+				["eq", "product", prodName],
+				["eq", "representative.keyword", repName]
+			]
+		}
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
 				"model": "tmrs",
 				"query": {
 					"search": {
-						"and": [
-							["eq", "category", "Resource"],
-							["eq", "representative.keyword", repName]
-						]
+						"and": searchRuls
 					},
 					"aggs": [
 						{
@@ -277,16 +288,26 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateHospBarLineCondition( hospName ) {
+	generateHospBarLineCondition( hospName,prodName ) {
+		let searchRuls = []
+
+		if ( isEmpty( prodName ) ) {
+			searchRuls = [
+				["eq", "hospital.keyword", hospName]
+			]
+		} else {
+			searchRuls = [
+				["eq", "product", prodName],
+				["eq", "hospital.keyword", hospName]
+			]
+		}
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
 				"model": "tmrs",
 				"query": {
 					"search": {
-						"and": [
-							["eq", "hospital.keyword", hospName]
-						]
+						"and": searchRuls
 					},
 					"aggs": [
 						{

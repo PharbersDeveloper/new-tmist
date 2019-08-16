@@ -31,10 +31,10 @@
 			{{project/proposal-info/product-info products=proposal.products }}
 		{{/if}}
 		{{#if (bp-eq currentPannel 2)}}
-			{{project/proposal-info/hospital-info hospitals=proposal.targets reports=reports}}
+			{{project/proposal-info/hospital-info hospitals=proposal.targets reports=reports proposal=proposal}}
 		{{/if}}
 		{{#if (bp-eq currentPannel 3)}}
-			{{project/proposal-info/member-info resources=proposal.resources}}
+			{{project/proposal-info/member-info resources=proposal.resources proposal=proposal kpis=kpis}}
 		{{/if}}
 		{{#if (bp-eq currentPannel 4)}}
 			{{project/proposal-info/historical-info periods=project.periods}}
