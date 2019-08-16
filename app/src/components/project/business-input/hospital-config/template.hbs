@@ -96,26 +96,30 @@
 						￥{{format-number quiz.preset.sales}}
 					</td>
 					<td class="border-0">
-						{{bp-input block=true  
-							value=quiz.answer.salesTarget
-							onChange=(action "salesTargetValidation" quiz.answer "salesTarget" (mut quiz.answer.salesTarget))
-							disabled=false
-							local-class="input-prepend input-money sales-input"
-							classNames="mb-2 px-0"}}
-						<span class="mt-2 mb-0 text-center" local-class="percent">
+						{{#bp-layout main="center" direction="row"}}
+							{{bp-input block=true  
+									value=quiz.answer.salesTarget
+									onChange=(action "salesTargetValidation" quiz.answer "salesTarget" (mut quiz.answer.salesTarget))
+									disabled=false
+									local-class="input-prepend input-money sales-input"
+									classNames="mb-2 px-0"}}
+						{{/bp-layout}}
+						{{!-- <span class="mt-2 mb-0 text-center" local-class="percent">
 							{{IndicatorAllocationPercent.percent}}56%
-						</span>
+						</span> --}}
 					</td>
 					<td class="border-0">
+						{{#bp-layout main="center" direction="row"}}
 						{{bp-input block=true 
 							value=quiz.answer.budget
 							onChange=(action "budgetValidation" quiz.answer "budget" (mut quiz.answer.budget))
 							disabled=false
 							classNames="px-0 mb-2"
 							local-class="input-prepend input-money budget-input"}}
-						<span class="mt-2 mb-0 text-center" local-class="percent">
+							{{/bp-layout}}
+						{{!-- <span class="mt-2 mb-0 text-center" local-class="percent">
 							{{budgetPercent.percent}}56%
-						</span>
+						</span> --}}
 					</td>
 				</tr>
 			{{/each}}
