@@ -1,6 +1,7 @@
 import DS from "ember-data"
 
 export default DS.Model.extend( {
+
 	name: DS.attr( "string" ),
 	describe: DS.attr( "string" ),
 	regtime: DS.attr( "string" ),
@@ -14,5 +15,9 @@ export default DS.Model.extend( {
 	income: DS.attr( "number" ),
 	spaceBelongs: DS.attr( "string" ),
 	abilityToPay: DS.attr( "string" ),
-	policies: DS.hasMany( "model/policy" )
+	selfPayPercentage: DS.attr("number"),
+	patientNum: DS.attr("number"),
+	patientNumA: DS.attr("number"),
+	patientNumB: DS.attr("number")
+	// policies: DS.hasMany( "model/policy" )
 } )

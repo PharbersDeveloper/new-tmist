@@ -8,6 +8,7 @@ export default DS.Model.extend( {
 			"Resource",
 			"Sales"
 		]} ),
+	phase: DS.attr("number"),
 	potential: DS.attr( "number", { defaultValue: 0 } ),
 	sales: DS.attr( "number", { defaultValue: 0 } ),
 	salesQuota: DS.attr( "number", { defaultValue: 0 } ),
