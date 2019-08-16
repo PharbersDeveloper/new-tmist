@@ -1,11 +1,14 @@
 import Component from "@ember/component"
 import { later } from "@ember/runloop"
+import GenerateCondition from "new-tmist/mixins/generate-condition"
 
-export default Component.extend( {
+export default Component.extend( GenerateCondition, {
 	positionalParams: ["products"],
 	currentProduct: 0,
 	init() {
 		this._super( ...arguments )
+
+		const that = this
 
 		new Promise( function ( resolve ) {
 			later( function () {
@@ -91,45 +94,7 @@ export default Component.extend( {
 						}]
 
 					},
-					tmProdsLinesCondition = [{
-						queryAddress: {
-							host: "http://192.168.100.157",
-							port: 9000,
-							version: "v1.0",
-							db: "DL"
-						},
-						data: {
-							"model": "oldtm",
-							"query": {
-								"aggs": [
-									{
-										"groupBy": "date.keyword",
-										"aggs": [
-											{
-												"groupBy": "product.keyword",
-												"aggs": [
-													{
-														"agg": "sum",
-														"field": "sales"
-													}
-												]
-											}
-										]
-									}
-								]
-							},
-							"format": [
-								{
-									"class": "pivot",
-									"args": {
-										"yAxis": "date.keyword",
-										"xAxis": "product.keyword",
-										"value": "sum(sales)"
-									}
-								}
-							]
-						}
-					}]
+					tmProdsLinesCondition = that.generateProdCompLinesCondition()
 
 				resolve( {
 					tmProdsLines, tmProdsLinesCondition

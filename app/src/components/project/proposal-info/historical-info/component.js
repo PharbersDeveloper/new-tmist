@@ -4,11 +4,18 @@ import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
 import { htmlSafe } from "@ember/template"
 import { later } from "@ember/runloop"
+import GenerateCondition from "new-tmist/mixins/generate-condition"
 
-export default Component.extend( {
+export default Component.extend( GenerateCondition, {
 	positionalParams: ["periods"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
+	products: A( [
+		{productName: "美素",id: 1},
+		{productName: "普纳林",id: 2},
+		{productName: "西泰来",id:3}
+
+	] ),
 	// init() {
 	// 	this._super(...arguments);
 	// 	// 初始化 全部选择 的一些数据
@@ -69,45 +76,62 @@ export default Component.extend( {
 
 		return tableHead
 	} ),
+	/**
+	 * @author Frank Wang
+	 * @method
+	 * @name dealData
+	 * @description 创建饼图的图例数据
+	 * @param data 组件中请求回的数据
+	 * @param config 图表组件中的配置信息
+	 * @return {void}
+	 * @example 创建例子。
+	 * @private
+	 */
+	dealData( data, config, property ) {
+		// this._super( ...arguments )
+		// do something with chart data and config
+		// example
+		let products = data.slice( 1 ),
+			color = config.color,
+			productsData = products.map( ( ele, index ) => {
+				let productInfo = {},
+					titleArray = data[0],
+					len = titleArray.length
 
+				for ( let i = 0; i < len; i++ ) {
+					productInfo[titleArray[i]] = ele[i]
+				}
+				productInfo.color = htmlSafe( `background-color:${color[index]}` )
+				productInfo.product = productInfo["product.keyword"]
+				productInfo.salesRate = productInfo["rate(sum(sales))"]
+				productInfo.sales = productInfo["sum(sales)"]
+
+				return productInfo
+			} )
+
+		this.set( property, productsData )
+	},
 	actions: {
 		changeSalesValue( value ) {
 			this.set( "salesGroupValue", value )
 		},
-		/**
-		 * @author Frank Wang
-		 * @method
-		 * @name dealData
-		 * @description 创建饼图的图例数据
-		 * @param data 组件中请求回的数据
-		 * @param config 图表组件中的配置信息
-		 * @return {void}
-		 * @example 创建例子。
-		 * @private
-		 */
-		dealData( data, config ) {
-			this._super( ...arguments )
+
+		dealProd0Data( data, config ) {
+			// this._super( ...arguments )
 			// do something with chart data and config
 			// example
-			let products = data.slice( 1 ),
-				color = config.color,
-				productsData = products.map( ( ele, index ) => {
-					let productInfo = {},
-						titleArray = data[0],
-						len = titleArray.length
-
-					for ( let i = 0; i < len; i++ ) {
-						productInfo[titleArray[i]] = ele[i]
-					}
-					productInfo.color = htmlSafe( `background-color:${color[index]}` )
-					productInfo.product = productInfo["product.keyword"]
-					productInfo.salesRate = productInfo["rate(sum(sales))"]
-					productInfo.sales = productInfo["sum(sales)"]
-
-					return productInfo
-				} )
-
-			this.set( "product0Legend", productsData )
+			this.dealData( data,config,"product0Legend" )
+		},
+		dealProd1Data( data, config ) {
+			// this._super( ...arguments )
+			// do something with chart data and config
+			// example
+			this.dealData( data,config,"product1Legend" )
+		},
+		chooseProd( prod ) {
+			console.log( prod )
+			this.set( "tmpPsr",prod )
+			this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.productName ) )
 		},
 		/**
 		 * @author Frank Wang
@@ -120,12 +144,15 @@ export default Component.extend( {
 		 */
 		changeCondition() {
 			this.set( "tmRepBarLineCondition", [{
+				queryAddress: this.get( "queryAddress" ),
 				data: {
-					"model": "oldtm",
+					"model": "tmrs",
 					"query": {
 						"search": {
 							"and": [
-								["eq", "representative.keyword", "小白"]
+								["eq", "representative.keyword", "小白"],
+								["eq", "job_id.keyword", this.get( "jobId" )]
+
 							]
 						},
 						"aggs": [
@@ -190,12 +217,15 @@ export default Component.extend( {
 		 */
 		changeConditionBack() {
 			this.set( "tmRepBarLineCondition", [{
+				queryAddress: this.get( "queryAddress" ),
 				data: {
-					"model": "oldtm",
+					"model": "tmrs",
 					"query": {
 						"search": {
 							"and": [
-								["eq", "representative.keyword", "小兰"]
+								["eq", "representative.keyword", "小兰"],
+								["eq", "job_id.keyword", this.get( "jobId" )]
+
 							]
 						},
 						"aggs": [
@@ -252,6 +282,8 @@ export default Component.extend( {
 	},
 	init() {
 		this._super( ...arguments )
+
+		const that = this
 
 		new Promise( function ( resolve ) {
 			later( function () {
@@ -325,53 +357,8 @@ export default Component.extend( {
 							}
 						]
 					},
-					tmProductCircleCondition = [{
-						data: {
-							"model": "oldtm",
-							"query": {
-								"search": {
-									"and": [
-										[
-											"eq",
-											"date.keyword",
-											"2018Q1"
-										]
-									]
-								},
-								"aggs": [
-									{
-										"groupBy": "date.keyword",
-										"aggs": [
-											{
-												"groupBy": "product.keyword",
-												"aggs": [
-													{
-														"agg": "sum",
-														"field": "sales"
-													}
-												]
-											}
-										]
-									}
-								]
-							},
-							"format": [
-								{
-									"class": "calcRate",
-									"args": ["sum(sales)"]
-								},
-								{
-									"class": "cut2DArray",
-									"args": [
-										"product.keyword",
-										"sum(sales)",
-										"date.keyword",
-										"rate(sum(sales))"
-									]
-								}
-							]
-						}
-					}],
+					tmProductCircleCondition = that.generateProductCircleCondition( -1 ),
+
 					tmProductBarLine0 = {
 						id: "tmProductBarLineContainer",
 						height: 305,
@@ -523,60 +510,7 @@ export default Component.extend( {
 							}
 						] )
 					},
-					tmProductBarLineCondition = [{
-						data: {
-							"model": "oldtm",
-							"query": {
-								"search": {
-									"and": [
-										["eq", "product.keyword", "大扶康"]
-									]
-								},
-								"aggs": [
-									{
-										"groupBy": "date.keyword",
-										"aggs": [
-											{
-												"agg": "sum",
-												"field": "sales"
-											},
-											{
-												"agg": "sum",
-												"field": "p_quota"
-											}
-										]
-									}
-								]
-							},
-							"format": [
-								{
-									"class": "calcRate",
-									"args": [
-										"sum(p_quota)"
-									]
-								},
-								{
-									"class": "addCol",
-									"args": [
-										{
-											"name": "product",
-											"value": "大扶康"
-										}
-									]
-								},
-								{
-									"class": "cut2DArray",
-									"args": [
-										"date.keyword",
-										"sum(sales)",
-										"sum(p_quota)",
-										"rate(sum(p_quota))",
-										"product"
-									]
-								}
-							]
-						}
-					}],
+					tmProductBarLineCondition = that.generateProdBarLineCondition( "美素" ),
 					tmRepCircle0 = {
 						id: "representativeCircleContainer0",
 						height: 168,
@@ -696,59 +630,7 @@ export default Component.extend( {
 							}
 						] )
 					},
-					tmRepCircleCondition = [{
-						data: {
-							"model": "oldtm",
-							"query": {
-								"search": {
-									"and": [
-										["eq", "date.keyword", "2018Q1"]
-									]
-								},
-								"aggs": [
-									{
-										"groupBy": "representative.keyword",
-										"aggs": [
-											{
-												"agg": "sum",
-												"field": "sales"
-											},
-											{
-												"agg": "sum",
-												"field": "p_quota"
-											}
-										]
-									}
-								]
-							},
-							"format": [
-								{
-									"class": "calcRate",
-									"args": [
-										"sum(sales)"
-									]
-								},
-								{
-									"class": "addCol",
-									"args": [
-										{
-											"name": "date",
-											"value": "2018Q1"
-										}
-									]
-								},
-								{
-									"class": "cut2DArray",
-									"args": [
-										"representative.keyword",
-										"sum(sales)",
-										"date",
-										"rate(sum(sales))"
-									]
-								}
-							]
-						}
-					}],
+					tmRepCircleCondition = that.generateRepCircleCondition( -1 ),
 					tmRepBarLine0 = {
 						id: "tmRepresentativeBarLineContainer",
 						height: 305,
@@ -901,65 +783,7 @@ export default Component.extend( {
 							}
 						] )
 					},
-					tmRepBarLineCondition = [{
-						data: {
-							"model": "oldtm",
-							"query": {
-								"search": {
-									"and": [
-										["eq", "representative.keyword", "小兰"]
-									]
-								},
-								"aggs": [
-									{
-										"groupBy": "date.keyword",
-										"aggs": [
-											{
-												"agg": "sum",
-												"field": "sales"
-											},
-											{
-												"agg": "sum",
-												"field": "p_quota"
-											}
-										]
-									}
-								]
-							},
-							"format": [
-								{
-									"class": "calcRate",
-									"args": [
-										"sum(p_quota)"
-									]
-								},
-								{
-									"class": "addCol",
-									"args": [
-										{
-											"name": "product",
-											"value": "all"
-										},
-										{
-											"name": "representative",
-											"value": "小兰"
-										}
-									]
-								},
-								{
-									"class": "cut2DArray",
-									"args": [
-										"date.keyword",
-										"sum(sales)",
-										"sum(p_quota)",
-										"rate(sum(p_quota))",
-										"product",
-										"representative"
-									]
-								}
-							]
-						}
-					}],
+					tmRepBarLineCondition = that.generateRepBarLineCondition( "小兰" ),
 					tmHosCircle0 = {
 						id: "hospitalCircleContainer0",
 						height: 168,
@@ -1030,55 +854,7 @@ export default Component.extend( {
 							}
 						] )
 					},
-					tmHosCircleCondition = [{
-						data: {
-							"model": "oldtm",
-							"query": {
-								"search": {
-									"and": [
-										["eq", "date.keyword", "2018Q1"]
-									]
-								},
-								"aggs": [
-									{
-										"groupBy": "hospital_level.keyword",
-										"aggs": [
-											{
-												"agg": "sum",
-												"field": "sales"
-											}
-										]
-									}
-								]
-							},
-							"format": [
-								{
-									"class": "calcRate",
-									"args": [
-										"sum(sales)"
-									]
-								},
-								{
-									"class": "addCol",
-									"args": [
-										{
-											"name": "date",
-											"value": "2018Q1"
-										}
-									]
-								},
-								{
-									"class": "cut2DArray",
-									"args": [
-										"hospital_level.keyword",
-										"sum(sales)",
-										"date",
-										"rate(sum(sales))"
-									]
-								}
-							]
-						}
-					}],
+					tmHosCircleCondition = that.generateHospCircleCondition( -1 ),
 					tmHosBarLine0 = {
 						id: "tmHospitalBarLineContainer",
 						height: 305,
@@ -1228,65 +1004,7 @@ export default Component.extend( {
 							}
 						] )
 					},
-					tmHosBarLineCondition = [{
-						data: {
-							"model": "oldtm",
-							"query": {
-								"search": {
-									"and": [
-										["eq", "hospital.keyword", "海港医院"]
-									]
-								},
-								"aggs": [
-									{
-										"groupBy": "date.keyword",
-										"aggs": [
-											{
-												"agg": "sum",
-												"field": "sales"
-											},
-											{
-												"agg": "sum",
-												"field": "p_quota"
-											}
-										]
-									}
-								]
-							},
-							"format": [
-								{
-									"class": "calcRate",
-									"args": [
-										"sum(p_quota)"
-									]
-								},
-								{
-									"class": "addCol",
-									"args": [
-										{
-											"name": "product",
-											"value": "all"
-										},
-										{
-											"name": "hospital",
-											"value": "海港医院"
-										}
-									]
-								},
-								{
-									"class": "cut2DArray",
-									"args": [
-										"date.keyword",
-										"sum(sales)",
-										"sum(p_quota)",
-										"rate(sum(p_quota))",
-										"product",
-										"hospital"
-									]
-								}
-							]
-						}
-					}],
+					tmHosBarLineCondition = that.generateHospBarLineCondition( "海港医院" ),
 					tmRegCircle0 = {
 						id: "regionCircleContainer0",
 						height: 168,
@@ -1356,55 +1074,9 @@ export default Component.extend( {
 							}
 						] )
 					},
-					tmRegCircleCondition = [{
-						data: {
-							"model": "oldtm",
-							"query": {
-								"search": {
-									"and": [
-										["eq", "date.keyword", "2018Q1"]
-									]
-								},
-								"aggs": [
-									{
-										"groupBy": "hospital.keyword",
-										"aggs": [
-											{
-												"agg": "sum",
-												"field": "sales"
-											}
-										]
-									}
-								]
-							},
-							"format": [
-								{
-									"class": "calcRate",
-									"args": [
-										"sum(sales)"
-									]
-								},
-								{
-									"class": "addCol",
-									"args": [
-										{
-											"name": "date",
-											"value": "2018Q1"
-										}
-									]
-								},
-								{
-									"class": "cut2DArray",
-									"args": [
-										"hospital.keyword",
-										"sum(sales)",
-										"date",
-										"rate(sum(sales))"
-									]
-								}
-							]
-						}
-					}],
+					tmRegCircleCondition = that.generateRegionCircleCondition( -1 ),
+
+
 					tmRegBarLine0 = {
 						id: "tmRegionBarLineContainer",
 						height: 305,
@@ -1556,66 +1228,8 @@ export default Component.extend( {
 							}
 						] )
 					},
-					tmRegBarLineCondition = [{
-						data: {
-							"model": "oldtm",
-							"query": {
-								"search": {
-									"and": [
-										["eq", "product.keyword", "大扶康"],
-										["eq", "hospital.keyword", "西河医院"]
-									]
-								},
-								"aggs": [
-									{
-										"groupBy": "date.keyword",
-										"aggs": [
-											{
-												"agg": "sum",
-												"field": "sales"
-											},
-											{
-												"agg": "sum",
-												"field": "p_quota"
-											}
-										]
-									}
-								]
-							},
-							"format": [
-								{
-									"class": "calcRate",
-									"args": [
-										"sum(p_quota)"
-									]
-								},
-								{
-									"class": "addCol",
-									"args": [
-										{
-											"name": "product",
-											"value": "大扶康"
-										},
-										{
-											"name": "hospital",
-											"value": "西河医院"
-										}
-									]
-								},
-								{
-									"class": "cut2DArray",
-									"args": [
-										"date.keyword",
-										"sum(sales)",
-										"sum(p_quota)",
-										"rate(sum(p_quota))",
-										"product",
-										"hospital"
-									]
-								}
-							]
-						}
-					}]
+					tmRegBarLineCondition = that.generateRegionBarLineCondition( "美素", "西河医院" )
+
 
 				resolve( {
 					tmProductCircle0, tmProductCircle1, tmProductCircleCondition, tmProductBarLine0, tmProductBarLineCondition,
