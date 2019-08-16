@@ -300,6 +300,7 @@ export default Controller.extend( {
 			}
 		} ).then( res => {
 			window.console.log( res )
+			window.console.log( "callR Success!" )
 		} )
 	},
 	actions: {
