@@ -37,11 +37,11 @@ h2.title {
 .circle-left,
 .circle-right {
 	flex: 1;
+	.title {
+		@extend %header-small;
+	}
 }
 
-.circle-left .title {
-	@extend %header-small;
-}
 
 .circle-legend {
 	span {

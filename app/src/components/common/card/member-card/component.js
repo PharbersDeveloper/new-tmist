@@ -3,8 +3,9 @@ import { computed } from "@ember/object"
 // import { A } from "@ember/array"
 // import { isEmpty } from "@ember/utils"
 import { later } from "@ember/runloop"
+import GenerateCondition from "new-tmist/mixins/generate-condition"
 
-export default Component.extend( {
+export default Component.extend( GenerateCondition, {
 	positionalParams: ["resource"],
 	classNames: ["mb-4"],
 	localClassNames: "resource",
@@ -14,6 +15,8 @@ export default Component.extend( {
 
 		return showContent ? "right" : "down"
 	} ),
+	// jobId: "a466abd2-9010-4e93-b946-a279ee8f01cf",
+
 	// radarData: computed( "resourceId", function () {
 	// 	let averageAbilityObject =
 	// 		this.get( "averageAbility" ).get( "firstObject" ),
@@ -60,6 +63,8 @@ export default Component.extend( {
 	// }),
 	init() {
 		this._super( ...arguments )
+
+		const that = this
 
 		new Promise( function ( resolve ) {
 			later( function () {
@@ -128,59 +133,7 @@ export default Component.extend( {
 
 						}]
 					},
-					tmRadarCondition = [{
-						data: {
-							"_source": [
-								"rep",
-								"product_knowledge",
-								"sales_skills",
-								"territory_management_ability",
-								"work_motivation",
-								"behavior_efficiency"
-							],
-							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"date": "2018Q1"
-											}
-										},
-										{
-											"match": {
-												"product": "all"
-											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"rep": "all"
-											}
-										}
-									]
-								}
-							},
-							"sort": [
-								{ "rep": "asc" }
-							]
-						}
-					}]
+					tmRadarCondition = that.generateRepRadarCondition( "小兰",-3 )
 
 				resolve( {
 					tmRadar, tmRadarCondition
