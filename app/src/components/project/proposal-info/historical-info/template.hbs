@@ -40,9 +40,9 @@
 				{{#bp-layout direction='row'}}
 					<div local-class='circle-left' class="bg-white pb-4">
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
-							{{product0Legend.firstObject.date}}
+							{{product0Legend.firstObject.phase}}
 						{{/bp-layout}}
-						{{bp-row direction='col' rowModel=tmProductCircle0 conditions=tmProductCircleCondition onQueryReady=(action 'dealData')}}
+						{{bp-row direction='col' rowModel=tmProductCircle0 conditions=tmProductCircleCondition onQueryReady=(action 'dealProd0Data')}}
 						{{#bp-layout direction="row" main='center'}}
 							<div>
 								{{#each product0Legend as |prod|}}
@@ -68,13 +68,39 @@
 							</div>
 						{{/bp-layout}}
 					</div>
-					<div local-class='circle-right'>
-						{{bp-row direction='col' rowModel=tmProductCircle1 conditions=tmProductCircleCondition}}
+					<div local-class='circle-right' class="bg-white pb-4">
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{product1Legend.firstObject.phase}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmProductCircle1 conditions=tmProductCircleCondition onQueryReady=(action 'dealProd1Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each product1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.product}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each product1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each product1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
 					</div>
 				{{/bp-layout}}
-				{{bp-row direction='col' rowModel=tmProductBarLine0  conditions=tmProductBarLineCondition}}
 				{{#bp-layout direction="col"}}
-					{{!-- {{#bp-layout main="between" local-class="choose-container"
+					{{#bp-layout main="between" local-class="choose-container"
 						classNames="mb-4 bg-white"}}
 						{{#bp-layout main="between" cross="center"
 							local-class="choose-area" 
@@ -92,12 +118,12 @@
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
 									{{#menu.option value=totalProduct
-												onClick=(action (mut tmpPsr))}}
+												onClick=(action 'chooseProd' '')}}
 										全部选择
 									{{/menu.option}}
-									{{#each model.productSalesReports as |psrs|}}
+									{{#each products as |psrs|}}
 										{{#menu.option value=psrs
-												onClick=(action (mut tmpPsr))}}
+												onClick=(action 'chooseProd' psrs)}}
 											{{psrs.productName}}
 										{{/menu.option}}
 									{{/each}}
@@ -105,7 +131,9 @@
 							{{/bp-dropdown}}
 						{{/bp-layout}}
 						<div local-class="choose-area" class="px-4"></div>
-					{{/bp-layout}} --}}
+					{{/bp-layout}}
+					{{bp-row direction='col' classNames='bg-white' rowModel=tmProductBarLine0  conditions=tmProductBarLineCondition}}
+
 					<div local-class="table-container">
 						<table class="table">
 							<thead>

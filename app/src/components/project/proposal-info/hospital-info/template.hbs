@@ -57,7 +57,7 @@
 		{{#bp-layout direction="col" local-class="hospital-detail-info"}}
 			{{#each hospitals as |item index|}}
 				{{#if (bp-eq currentHospital index)}}
-					{{common/card/hospital-card hospital=item }}
+					{{common/card/hospital-card hospital=item reports=reports}}
 				{{/if}}
 			{{/each}}
 		{{/bp-layout}}

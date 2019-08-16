@@ -53,10 +53,18 @@ export default Route.extend( {
 
 		 answers = Promise.all( [period, presets, resources] ).then( results => {
 				const p = results[0],
-					items = results[1].filter(x => (x.category == 8) && (x.phase == 0)),
+					items = results[1].filter( x => x.category == 8 && x.phase == 0 ),
 					people = results[2]
 
-				return this.facade.queryPeriodAnswers( p, items, people ) 
+				return this.facade.queryPeriodAnswers( p, items, people )
+			} )
+
+			const dragInfo = 
+			prs.load().then( x => {
+				const condi01 = "(proposalId,:eq,`" + x.id + "`)"
+				const condi02 = "(phase,:eq,-1)"
+				const condi = "(:and," + condi01 + "," + condi02 + ")"
+				return this.set("reports", this.store.query("model/report", { filter: condi} ))
 			} )
 
 		return RSVP.hash( {
@@ -65,11 +73,12 @@ export default Route.extend( {
 			hospitals: hospitals,
 			products: products,
 			resources: resources,
-			presets: presets.then(x=> x.filter(it => (it.category == 8) && (it.phase == 0))),
-			productQuotas: presets.then(x=> x.filter(it => (it.category == 4) && (it.phase == 0))),
+			presets: presets.then( x=> x.filter( it => it.category == 8 && it.phase == 0 ) ),
+			productQuotas: presets.then( x=> x.filter( it => it.category == 4 && it.phase == 0 ) ),
 			answers: answers,
 			validation: validation,
-			quota: quota
+			quota: quota,
+			dragInfo: dragInfo
 		} )
 	},
 	setupController( controller , model ) {

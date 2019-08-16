@@ -146,13 +146,3 @@
 		}
 	}
 }
-
-.modal {
-	:global(.modal-content) {
-		background-color: rgba(250, 251, 252, 1);
-	}
-
-	:global(.modal-lg) {
-		max-width: 1200px;
-	}
-}

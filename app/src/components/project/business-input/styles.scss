@@ -17,6 +17,10 @@
       }
     }
 
+    .flex-1 {
+      flex: 1;
+    }
+
     .sales {
       width: 466px;
       height: 228px;
@@ -39,6 +43,8 @@
           text-align: right;
         }
       }
+
+
 
       .sales-header {
         border-bottom: 1px solid #f4f5f7;

@@ -476,24 +476,29 @@ export default Controller.extend( {
 		toIndex() {
 			this.transitionToRoute( "page.welcome" )
 		},
-		submit() {
-			this.set( "loadingForSubmit", true )
+		validation( proposalCase ) {
+			if ( proposalCase === "ucb" ) {
+				return this.ucbValidation()
+			} else if ( proposalCase === "tm" ) {
+				return this.tmValidation()
+			}
+		},
+		submit( proposalCase ) {
+			// this.set( "loadingForSubmit", true )
 			// this.actions.saveInputs()
 			// this.callR()
 
+			// 使用这部分代码
+			// let status = this.actions.validation( proposalCase )
 
-			// let state = this.validation()
-
-			// if ( state ) {
-			// 	alert( "ok" )
+			// if ( status ) {
 			// 	Ember.Logger.info( "save current input" )
 			// 	this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 			// 		alert( "save success" )
-			// 		// this.transitionToRoute( "page.project.result" )
+			// 		this.callR()
 			// 	} )
 			// }
-			// this.callR()
-			// this.transitionToRoute( "page.project.result" )
+			// 使用结束
 
 			// let judgeAuth = this.judgeOauth(),
 			// 	store = this.get( "store" ),
@@ -508,16 +513,6 @@ export default Controller.extend( {
 			// 	return
 			// }
 			// this.verificationBusinessinputs( businessinputs, representatives )
-
-			// validation
-			// this.validation()
-
-			// Ember.Logger.info( "save current input" )
-			// this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-			// 	this.transitionToRoute( "page.project.report" )
-			// } )
-
-
 		},
 		confirmSubmit() {
 			this.set( "warning", { open: false } )
