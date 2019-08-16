@@ -20,6 +20,15 @@
 
 	.report-header {
 		width: 1152px;
+
+		.badge {
+			height: 20px;
+			width: 65px;
+			background: #ebecf0;
+			border-radius: 4px;
+			color: #344563;
+			font-size: 14px;
+		}
 	}
 
 	.key-indicator {

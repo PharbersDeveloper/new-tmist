@@ -3,12 +3,13 @@
 		{{#ph.body as |body|}}
 			{{#body.left as |left|}}
 				{{#left.item }}
-					执行结果报告
+					周期销售报告
 				{{/left.item}}
 				{{#left.item }}
 					{{!-- 完成日期：<span class="mx-2">{{format-date-standard project.endTime}}</span>
 					用时：<span class="mx-2">{{time-difference project.startTime project.endTime}}</span> --}}
-					<span>2019Q1</span>
+					<span local-class="badge">2019Q1</span>
+					<span local-class="badge">最后周期</span>
 				{{/left.item}}
 			{{/body.left}}
 			{{!-- {{#body.right}}

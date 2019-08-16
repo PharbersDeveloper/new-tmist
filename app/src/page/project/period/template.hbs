@@ -137,8 +137,11 @@
 		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
 	{{/bp-layout}} --}}
 	{{#common/nav-top-project periodName="2019Q1"}}
-		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
-		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}}
+		{{#bp-layout direction="row"}}
+				{{#bp-button local-class="btn-submit" onClick=(action "saveInputs") classNames="mr-1"}}保存{{/bp-button}}
+				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
+		{{/bp-layout}}
+		{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
 	{{/common/nav-top-project}}
 
 	{{#bp-tabs classNames="px-0" local-class="tabs-container" as |tabs|}}
@@ -151,11 +154,13 @@
 			{{/bp-layout}}
 			{{!-- </li> --}}
 			{{!-- <li local-class='nav-item'> --}}
+			{{#if (bp-eq model.project.proposal.case "tm")}}
 			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 1) "active nav-item" "nav-item")}}
 				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 1) local-class=(if (bp-eq currentTab 1) "active")}}
 					{{t "project.scenario-management"}}
 				{{/bp-button}}
 			{{/bp-layout}}
+			{{/if}}
 			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 2) "active nav-item" "nav-item")}}
 				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 2) local-class=(if (bp-eq currentTab 2) "active")}}
 					决策回顾
