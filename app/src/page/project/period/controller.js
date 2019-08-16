@@ -477,12 +477,12 @@ export default Controller.extend( {
 			// let state = this.validation()
 
 			// if ( state ) {
-			// 	alert( "ok" )
-			// 	Ember.Logger.info( "save current input" )
-			// 	this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-			// 		alert( "save success" )
-			// 		// this.transitionToRoute( "page.project.result" )
-			// 	} )
+				alert( "ok" )
+				Ember.Logger.info( "save current input" )
+				this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+					alert( "save success" )
+					// this.transitionToRoute( "page.project.result" )
+				} )
 			// }
 			this.callR()
 			// this.transitionToRoute( "page.project.result" )

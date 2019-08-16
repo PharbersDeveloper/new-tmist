@@ -38,6 +38,7 @@
 		{{/if}}
 	{{/bp-layout}}
 {{/bp-layout}}
+{{#if (bp-eq project.proposal.case "tm")}}
 {{#bs-collapse collapsed=showContent local-class="wrapper"}}
 	{{#bp-layout direction="col" local-class="representative-info" classNames="bg-white ml-2 mb-2 px-3"}}
 		{{#bp-layout local-class="remain-time" direction="col" classNames="pb-3"}}
@@ -70,6 +71,7 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bs-collapse}}
+{{/if}}
 
 {{#bp-modal
 		open=warning.open 
