@@ -127,6 +127,7 @@
 	</table>
 {{/bp-layout}}
 
+{{#if (bp-eq proposal.case "tm")}}
 {{#bp-layout main='between' local-class="meeting-place" classNames='py-4 bg-white'}}
 	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
 		<span local-class="keys" class='mr-3'>分配会议名额</span>
@@ -141,5 +142,6 @@
 	{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
 	{{/bp-layout}}
 {{/bp-layout}}
+{{/if}}
 {{/bs-collapse}}
 {{yeild}}

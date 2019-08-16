@@ -29,8 +29,13 @@ export default Object.extend( {
 		// 	} ).join( "," )
 
 		// return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
-		
-		return this.store.query("model/preset", { filter: "(proposalId,:eq,`" + aProposal.value().get("id") + "`)" } )
+		const condi01 = "(proposalId,:eq,`" + aProposal.value().get("id") + "`)"
+		const condi02 = "(category,:eq,`8`)"
+		const condi03 = "(category,:eq,`4`)"
+		const condior = "(:or," + condi02 + "," + condi03 + ")"
+		const fc = "(:and," + condi01 + "," + condior + ")"
+		// return this.store.query("model/preset", { filter: "(proposalId,:eq,`" + aProposal.value().get("id") + "`)" } )
+		return this.store.query("model/preset", { filter: fc } )
 
 	},
 	async answersForPresets ( period, presets, resources ) {

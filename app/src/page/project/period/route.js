@@ -66,6 +66,7 @@ export default Route.extend( {
 			products: products,
 			resources: resources,
 			presets: presets.then(x=> x.filter(it => (it.category == 8) && (it.phase == 0))),
+			productQuotas: presets.then(x=> x.filter(it => (it.category == 4) && (it.phase == 0))),
 			answers: answers,
 			validation: validation,
 			quota: quota
