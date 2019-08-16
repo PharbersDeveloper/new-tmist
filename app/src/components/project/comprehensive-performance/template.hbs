@@ -25,11 +25,15 @@
 				{{#bp-layout tagName="h4" local-class="title" classNames="mb-0 pl-4" cross="center" direction="row"}}能力分析{{/bp-layout}}
 			
 				{{#bp-layout direction="row"}}
-					{{#bp-layout local-class="chart"}}chart{{/bp-layout}}
+					{{#bp-layout local-class="chart"}}
+						{{bp-radar-ability
+								eid="radarSecond22"
+								onClick=(action "changeRadar")}}
+					{{/bp-layout}}
 					{{#bp-layout local-class="desc" direction="col" classNames="px-4"}}
 						{{#bp-layout local-class="level" classNames="pb-3" cross="center"}}
 							<span class="mr-2">S</span>
-							区域能力划分
+							{{axisName}}
 						{{/bp-layout}}
 						{{#bp-layout local-class="action-point" direction="col" classNames="mb-3"}}
 							{{#bp-layout classNames="mb-3"}}动作点解读{{/bp-layout}}

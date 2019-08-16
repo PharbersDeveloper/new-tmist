@@ -102,3 +102,17 @@
 		}
 	}
 }
+
+.modal-loading {
+    background-color: rgba(9, 30, 66, 0.54);
+
+    :global(.modal-content) {
+        background-color: transparent;
+        border: none;
+	}
+	
+    .loading-img {
+		width: 128px;
+		height: 128px;
+	}
+}

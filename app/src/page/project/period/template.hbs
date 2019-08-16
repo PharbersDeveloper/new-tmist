@@ -136,10 +136,10 @@
 
 		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
 	{{/bp-layout}} --}}
-	{{#common/nav-top-project periodName="2019Q1"}}
+	{{#common/nav-top-project proposalName=model.project.proposal.name  periodName="2019Q1"}}
 		{{#bp-layout direction="row"}}
 				{{#bp-button local-class="btn-submit" onClick=(action "saveInputs") classNames="mr-1"}}保存{{/bp-button}}
-				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
+				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit" model.project.proposal.case)}}提交执行{{/bp-button}}
 		{{/bp-layout}}
 		{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
 	{{/common/nav-top-project}}
@@ -211,7 +211,7 @@
 				{{project/decision-review proposal=model.project.proposal }}
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}
-				{{project/proposal-info proposal=model.project.proposal }}
+				{{project/proposal-info proposal=model.project.proposal reports=model.dragInfo}}
 			{{/if}}
 		{{/bp-layout}}
 	{{/bp-tabs}}
@@ -234,4 +234,17 @@
 	{{#modal.footer}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
 	{{/modal.footer}}
+{{/bp-modal}}
+
+{{#bp-modal
+	open=loadingForSubmit 
+	position='center'
+	local-class='modal-loading'
+	backdropClose=false
+	onHidden=(action (mut loading) false) as |modal|}}
+	{{#modal.body classNames="p-4"}}
+		{{#bp-layout direction="row" main="center" cross="center"}}
+			<img src="/images/loading.gif" alt="" local-class="loading-img">
+		{{/bp-layout}}
+	{{/modal.body}}
 {{/bp-modal}}

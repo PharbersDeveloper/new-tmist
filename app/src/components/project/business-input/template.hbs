@@ -1,6 +1,6 @@
 {{#bp-layout direction="col" local-class="business-container" classNames="" main="center"}}
 	{{#bp-layout local-class="sales-and-budget" direction="row"  classNames="mb-4" main="center"}}
-		{{#bp-layout local-class="sales" classNames="bg-white mr-4" direction="col" }}
+		{{#bp-layout local-class=(if (bp-eq project.proposal.case "ucb") "flex-1 sales" "sales") classNames="bg-white mr-4" direction="col" }}
 			{{#bp-layout tagName="h4" classNames="py-3 pl-3" cross="center" local-class="icon sales-header"}}
 				{{bp-icon icon="target"}}
 				药品销售额指标
@@ -52,7 +52,7 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 
-		{{#bp-layout local-class="budget" direction="col" classNames="bg-white"}}
+		{{#bp-layout local-class=(if (bp-eq project.proposal.case "ucb") "flex-1 budget" "budget")    direction="col" classNames="bg-white"}}
 			{{#bp-layout direction="row" main="between" local-class="budget-header"}}
 				{{#bp-layout tagName="h4" classNames="py-3 pl-3 mb-0" local-class="icon" cross="center"}}
 					{{bp-icon icon="target"}}
@@ -117,8 +117,6 @@
 						{{/each}}
 					{{/bp-layout}}
 					{{/if}}
-					
-					
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
@@ -191,11 +189,13 @@
 				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}分配医院资源
 					({{resourceHospitalNumebr}}/{{hospitals.length}})
 				{{/bp-layout}}
-				{{!-- {{#bp-layout}}
+				{{#if (bp-eq project.proposal.case "ucb")}}
+				{{#bp-layout}}
 					{{#bp-button classNames="mr-1" local-class="active"}}全部{{/bp-button}}
 					{{#bp-button classNames="mr-1" local-class="mid-btn"}}已分配{{/bp-button}}
 					{{#bp-button classNames="mr-4"}}未分配{{/bp-button}}
-				{{/bp-layout}} --}}
+				{{/bp-layout}}
+				{{/if}}
 			{{/bp-layout}}
 
 			{{#bp-layout classNames="" local-class="hospital-config"}}

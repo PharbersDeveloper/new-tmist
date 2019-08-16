@@ -18,6 +18,7 @@ export default Controller.extend( {
 		return this.em.GetInstance()
 	} ),
 	currentTab: 0,
+	loadingForSubmit: 0,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
@@ -51,6 +52,8 @@ export default Controller.extend( {
 	onMessage( msg ) {
 		window.console.info( "Emitter Controller" )
 		window.console.info( msg.channel + " => " + msg.asString() )
+		this.set( "loadingForSubmit", false )
+		this.transitionToRoute( "page.project.result" )
 	},
 	Subscribe() {
 		window.console.info( "emitter" )
@@ -473,19 +476,29 @@ export default Controller.extend( {
 		toIndex() {
 			this.transitionToRoute( "page.welcome" )
 		},
-		submit() {
-			// let state = this.validation()
+		validation( proposalCase ) {
+			if ( proposalCase === "ucb" ) {
+				return this.ucbValidation()
+			} else if ( proposalCase === "tm" ) {
+				return this.tmValidation()
+			}
+		},
+		submit( proposalCase ) {
+			// this.set( "loadingForSubmit", true )
+			// this.actions.saveInputs()
+			// this.callR()
 
-			// if ( state ) {
-				alert( "ok" )
-				Ember.Logger.info( "save current input" )
-				this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-					alert( "save success" )
-					// this.transitionToRoute( "page.project.result" )
-				} )
+			// 使用这部分代码
+			// let status = this.actions.validation( proposalCase )
+
+			// if ( status ) {
+			// 	Ember.Logger.info( "save current input" )
+			// 	this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+			// 		alert( "save success" )
+			// 		this.callR()
+			// 	} )
 			// }
-			this.callR()
-			// this.transitionToRoute( "page.project.result" )
+			// 使用结束
 
 			// let judgeAuth = this.judgeOauth(),
 			// 	store = this.get( "store" ),
@@ -500,15 +513,6 @@ export default Controller.extend( {
 			// 	return
 			// }
 			// this.verificationBusinessinputs( businessinputs, representatives )
-
-			// validation
-			// this.validation()
-
-			// Ember.Logger.info( "save current input" )
-			// this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-			// 	this.transitionToRoute( "page.project.report" )
-			// } )
-			// this.transitionToRoute( "page.project.round-over" )
 		},
 		confirmSubmit() {
 			this.set( "warning", { open: false } )
