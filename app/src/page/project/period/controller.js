@@ -280,6 +280,28 @@ export default Controller.extend( {
 		// }
 
 	},
+	callR() {
+		let proposalId = this.model.project.get( "proposal.id" ),
+			projectId = this.model.project.get( "id" ),
+			periodId = this.model.period.get( "id" ),
+			type = this.model.project.get( "proposal.case" )
+
+		this.get( "ajax" ).post( "/callR", {
+			headers: {
+				"dataType": "json",
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
+			},
+			data: {
+				type: type,
+				proposalId: proposalId,
+				projectId: projectId,
+				periodId: periodId
+			}
+		} ).then( res => {
+			window.console.log( res )
+		} )
+	},
 	actions: {
 		publish() {
 			this.client.Publish( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "Hello" )
@@ -298,7 +320,8 @@ export default Controller.extend( {
 			// 		// this.transitionToRoute( "page.project.result" )
 			// 	} )
 			// }
-			this.transitionToRoute( "page.project.result" )
+			this.callR()
+			// this.transitionToRoute( "page.project.result" )
 
 			// let judgeAuth = this.judgeOauth(),
 			// 	store = this.get( "store" ),
@@ -322,28 +345,6 @@ export default Controller.extend( {
 			// 	this.transitionToRoute( "page.project.report" )
 			// } )
 			// this.transitionToRoute( "page.project.result" )
-		},
-		testR() {
-			let proposalId = this.model.project.get( "proposal.id" ),
-				projectId = this.model.project.get( "id" ),
-				periodId = this.model.period.get( "id" ),
-				type = this.model.project.get( "proposal.case" )
-
-			this.get( "ajax" ).post( "/callR", {
-				headers: {
-					"dataType": "json",
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
-				},
-				data: {
-					type: type,
-					proposalId: proposalId,
-					projectId: projectId,
-					periodId: periodId
-				}
-			} ).then( res => {
-				window.console.log( res )
-			} )
 		},
 		confirmSubmit() {
 			this.set( "warning", { open: false } )
