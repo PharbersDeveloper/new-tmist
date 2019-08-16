@@ -235,3 +235,16 @@
 		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}
+
+{{#bp-modal
+	open=loadingForSubmit 
+	position='center'
+	local-class='modal-loading'
+	backdropClose=false
+	onHidden=(action (mut loading) false) as |modal|}}
+	{{#modal.body classNames="p-4"}}
+		{{#bp-layout direction="row" main="center" cross="center"}}
+			<img src="/images/loading.gif" alt="" local-class="loading-img">
+		{{/bp-layout}}
+	{{/modal.body}}
+{{/bp-modal}}
