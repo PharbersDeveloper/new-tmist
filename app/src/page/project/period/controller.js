@@ -9,6 +9,7 @@ import Ember from "ember"
 // import { threadId } from "worker_threads"
 
 export default Controller.extend( {
+	cookies: service(),
 	ajax: service(),
 	toast: service(),
 	exam: service( "service/exam-facade" ),
@@ -329,6 +330,11 @@ export default Controller.extend( {
 				type = this.model.project.get( "proposal.case" )
 
 			this.get( "ajax" ).post( "/callR", {
+				headers: {
+					"dataType": "json",
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
+				},
 				data: {
 					type: type,
 					proposalId: proposalId,
