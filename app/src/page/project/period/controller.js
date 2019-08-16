@@ -18,6 +18,7 @@ export default Controller.extend( {
 		return this.em.GetInstance()
 	} ),
 	currentTab: 0,
+	loadingForSubmit: 0,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
@@ -51,6 +52,8 @@ export default Controller.extend( {
 	onMessage( msg ) {
 		window.console.info( "Emitter Controller" )
 		window.console.info( msg.channel + " => " + msg.asString() )
+		this.set( "loadingForSubmit", false )
+		this.transitionToRoute( "page.project.result" )
 	},
 	Subscribe() {
 		window.console.info( "emitter" )
@@ -474,6 +477,11 @@ export default Controller.extend( {
 			this.transitionToRoute( "page.welcome" )
 		},
 		submit() {
+			this.set( "loadingForSubmit", true )
+			// this.actions.saveInputs()
+			// this.callR()
+
+
 			// let state = this.validation()
 
 			// if ( state ) {
@@ -485,7 +493,7 @@ export default Controller.extend( {
 			// 	} )
 			// }
 			// this.callR()
-			this.transitionToRoute( "page.project.result" )
+			// this.transitionToRoute( "page.project.result" )
 
 			// let judgeAuth = this.judgeOauth(),
 			// 	store = this.get( "store" ),
