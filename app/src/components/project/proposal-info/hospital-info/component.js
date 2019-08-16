@@ -5,11 +5,10 @@ import { A } from "@ember/array"
 
 export default Component.extend( {
 	positionalParams: ["hospitals", "reports", "proposal"],
-
+	currentGroupIndex: 0,
 	currentHospital: 0,
 	regions: groupBy( "hospitals", "position" ),
 	table: computed("regions", function(){
-
 		if (this.regions.length > 1) {
 			return this.regions.map ( rg => {
 				const name = rg.value
@@ -30,6 +29,9 @@ export default Component.extend( {
 		else return this.regions.items
 
 	}),
+	currentGroup: computed("regions", "currentGroupIndex", function() {
+		return this.regions[this.currentGroupIndex].items
+	} ),
 	cities: A([
 		{
 			name: "会东市",
@@ -54,5 +56,5 @@ export default Component.extend( {
 			local: 0.58,
 			outter: 0.42
 		},
-	])
+	]),
 } )

@@ -40,23 +40,24 @@
 		{{/bp-layout}}
 	{{/if}}
 
-	
 	{{#if (bp-eq proposal.case "ucb") }}
 	{{#bp-layout direction="col" local-class="hospital-info" classNames="bg-white mb-2"}}
 		{{#bp-layout tagName="h4"  local-class="title" classNames="ml-4 mb-0" cross="center"}}
 			城市医院详情
 		{{/bp-layout}}
 		{{#bp-layout classNames="ml-4" cross="center" local-class="city-hospital"}}
-			{{#bp-button classNames="mr-3"}}会西市{{/bp-button}}
-			{{#bp-button classNames="mr-3"}}会东市{{/bp-button}}
-			{{#bp-button classNames="mr-3"}}会南市{{/bp-button}}
+			{{#each regions as |item index|}}
+			{{#bp-button classNames="mr-3" onClick=(action (mut currentGroupIndex) index) }}
+				{{item.value}}
+			{{/bp-button}}
+			{{/each}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{/if}}
 
 	{{#bp-layout direction="row" local-class="hospital-detail" }}
 		{{#bp-layout direction="col"  classNames="bg-white mr-2"}}
-			{{#each hospitals as |item index|}}
+			{{#each currentGroup as |item index|}}
 				{{#bp-layout click=(action (mut currentHospital) index) 
 				classNames="py-4 pl-4"
 				local-class=(if (bp-eq currentHospital index) "active hospital-item" "hospital-item")}}
@@ -66,7 +67,7 @@
 		{{/bp-layout}}
 			
 		{{#bp-layout direction="col" local-class="hospital-detail-info"}}
-			{{#each hospitals as |item index|}}
+			{{#each currentGroup as |item index|}}
 				{{#if (bp-eq currentHospital index)}}
 					{{common/card/hospital-card hospital=item reports=reports proposal=proposal}}
 				{{/if}}
