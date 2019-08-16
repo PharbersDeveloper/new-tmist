@@ -6,30 +6,30 @@
 		{{/bp-layout}}
 		{{#bp-layout direction="row"}}
 			{{#bp-layout tagName="table" local-class="hispital-table" direction="col"}}
-				{{#bp-layout tagName="thead" main="between" classNames="px-4"}}
-					{{#bp-layout tagName="th"}}城市{{/bp-layout}}
-					{{#bp-layout tagName="th"}}城市类型{{/bp-layout}}
-					{{#bp-layout tagName="th"}}城市战略定位{{/bp-layout}}
-					{{#bp-layout tagName="th"}}本地患者占比{{/bp-layout}}
-					{{#bp-layout tagName="th"}}三级{{/bp-layout}}
-					{{#bp-layout tagName="th"}}二级{{/bp-layout}}
-					{{#bp-layout tagName="th"}}一级{{/bp-layout}}
-					{{#bp-layout tagName="th"}}医院总数{{/bp-layout}}
+				{{#bp-layout tagName="thead" main="center" classNames="px-4"}}
+					{{#bp-layout tagName="th" main="center"}}城市{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}城市类型{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}城市战略定位{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}本地患者占比{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}三级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}二级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}一级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}医院总数{{/bp-layout}}
 				{{/bp-layout}}
-				{{#bp-layout tagName="tbody" }}
-					{{#bp-layout tagName="tr" main="between" classNames="px-4 py-2"}}
+				{{#bp-layout tagName="tbody" direction="col"}}
 					{{#each table as |item|}}
-						{{#bp-layout tagName="td"}}{{item.name}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.level}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.type}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.local}}{{/bp-layout}}
-						{{!-- {{#bp-layout tagName="td"}}40%{{/bp-layout}} --}}
-						{{#bp-layout tagName="td"}}{{item.t3}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.t2}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.t1}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.count}}{{/bp-layout}}
-					{{/each}}
+					{{#bp-layout tagName="tr" main="center" classNames="px-4 py-2"}}
+							{{#bp-layout tagName="td" main="center"}}{{item.name}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.level}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.type}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.local}}{{/bp-layout}}
+							{{!-- {{#bp-layout tagName="td"}}40%{{/bp-layout}} --}}
+							{{#bp-layout tagName="td" main="center"}}{{item.t3}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.t2}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.t1}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.count}}{{/bp-layout}}
 					{{/bp-layout}}
+					{{/each}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
