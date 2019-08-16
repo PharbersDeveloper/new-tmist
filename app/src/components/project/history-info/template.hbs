@@ -1,0 +1,93 @@
+{{#bp-layout local-class="history-table-outer"}}
+	<table local-class="history-table" class="table mb-2">
+		<thead class='px-2'>
+			<tr>
+				<th class="border-0 pb-2 pr-2 pl-0 text-left">获得称号</th>
+				<th class="border-0 pb-2 px-2 text-center">总指标达成率</th>
+				<th class="border-0 pb-2 px-2 text-center">总销售额</th>
+				<th class="border-0 pb-2 px-2 text-center">分季度销售指标达成率</th>
+				<th class="border-0 pb-2 pl-2 text-center ">用时</th>
+				<th class="border-0 pb-2 pl-2 text-center ">完成时间</th>
+			</tr>
+		</thead>
+		<tbody class="">
+			{{!-- {{#each quizs as |quiz|}} --}}
+			<tr class="mx-0 mx-4">
+				<td class="pl-0 border-0 text-left">
+					{{#bp-layout direction="row" main="start" cross="center" local-class="level"}}
+						<img src="/images/img_placeholder.png" alt="level" local-class="level-img">
+						<p local-class="des">黄金</p>
+					{{/bp-layout}}
+				</td>
+				<td class="px-2 border-0 text-center">
+					{{#bp-layout direction="row" main="center" cross="center" local-class="total-percent"}}
+						<p local-class="num">90</p>
+						<p local-class="unit">%</p>
+					{{/bp-layout}}
+				</td>
+				<td class="px-2 border-0 text-center">
+					¥100，000
+				</td>
+				<td class="border-0 text-center">
+					{{#bp-layout direction="row" local-class="quarter-sales-reached" main="between"}}
+						{{#bp-layout direction="col" local-class="info"}}
+							<span>2019Q1</span>
+							<span>60%</span>
+						{{/bp-layout}}
+
+						{{#bp-layout direction="col" local-class="info"}}
+							<span>2019Q1</span>
+							<span>60%</span>
+						{{/bp-layout}}
+
+						{{#bp-layout direction="col" local-class="info"}}
+							<span>2019Q1</span>
+							<span>60%</span>
+						{{/bp-layout}}
+					{{/bp-layout}}
+				</td>
+				<td class="border-0 text-center">
+					1小时30分钟
+				</td>
+				<td class="border-0 text-center">
+					2019-04-08 18:40
+				</td>
+
+				<td class="px-2 border-0 text-center">
+					{{!-- {{#link-to "page.prepare"}}执行结果报告{{/link-to}} --}}
+					{{#bp-layout direction="row" main="end"}}
+						{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+							{{#dd.button }}
+								查看
+								{{bp-icon icon='down'}}
+							{{/dd.button}}
+							{{#dd.menu as |menu|}}
+								{{#menu.option click=(action "performance")}}测试综合表现{{/menu.option}}
+								{{#menu.option }}周期销售结果{{/menu.option}}
+								{{#menu.option click=(action "review" model.provious.lastObject.id)}}决策回顾{{/menu.option}}
+							{{/dd.menu}}
+						{{/bp-dropdown}}
+					{{/bp-layout}}
+				</td>
+				<td class="px-2 border-0 text-center">
+					{{!-- {{bp-icon icon="export" local-class="icon"}}
+                                导出数据 --}}
+					{{#bp-layout direction="row" main="end"}}
+						{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+							{{#dd.button }}
+								导出
+								{{bp-icon icon='down'}}
+							{{/dd.button}}
+							{{#dd.menu as |menu|}}
+								{{#menu.option}}测试综合表现{{/menu.option}}
+								{{#menu.option}}周期销售结果{{/menu.option}}
+								{{#menu.option}}决策回顾{{/menu.option}}
+							{{/dd.menu}}
+						{{/bp-dropdown}}
+					{{/bp-layout}}
+				</td>
+			</tr>
+			{{!-- {{/each}} --}}
+		</tbody>
+	</table>
+{{/bp-layout}}
