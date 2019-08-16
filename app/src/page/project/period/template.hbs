@@ -211,7 +211,7 @@
 				{{project/decision-review proposal=model.project.proposal }}
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}
-				{{project/proposal-info proposal=model.project.proposal reports=model.dragInfo}}
+				{{project/proposal-info proposal=model.project.proposal reports=model.dragInfo kpis=model.kpiInfo}}
 			{{/if}}
 		{{/bp-layout}}
 	{{/bp-tabs}}
