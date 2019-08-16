@@ -9,21 +9,26 @@ export default Component.extend( {
 	currentHospital: 0,
 	regions: groupBy( "hospitals", "position" ),
 	table: computed("regions", function(){
-		return this.regions.map ( rg => {
-			const name = rg.value
-			const ct = this.cities.find(x => x.name === name)
-			return {
-				name: ct.name,
-				level: ct.level,
-				type: ct.type,
-				local: ct.local,
-				outter: ct.outter,
-				t3: rg.items.filter(x => x.get("level") === "三级").length,
-				t2: rg.items.filter(x => x.get("level") === "二级").length,
-				t1: rg.items.filter(x => x.get("level") === "一级").length,
-				count: rg.items.length
-			}
-		})
+
+		if (this.regions.length > 1) {
+			return this.regions.map ( rg => {
+				const name = rg.value
+				const ct = this.cities.find(x => x.name === name)
+				return {
+					name: ct.name,
+					level: ct.level,
+					type: ct.type,
+					local: ct.local,
+					outter: ct.outter,
+					t3: rg.items.filter(x => x.get("level") === "三级").length,
+					t2: rg.items.filter(x => x.get("level") === "二级").length,
+					t1: rg.items.filter(x => x.get("level") === "一级").length,
+					count: rg.items.length
+				}
+			})
+		}
+		else return this.regions.items
+
 	}),
 	cities: A([
 		{
