@@ -92,5 +92,6 @@ export default Route.extend( {
 	setupController( controller , model ) {
 		this._super( controller , model )
 		this.controllerFor( "page.project.period" ).Subscribe()
+		this.controllerFor( "page.project.period" ).callE()
 	}
 } )
