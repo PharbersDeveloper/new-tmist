@@ -4,7 +4,7 @@
         {{#bp-button local-class="exit-btn" onClick=(action "toIndex")}}{{bp-icon icon="sign-out"}}{{/bp-button}}
         
         {{#bp-layout tagName="h4" local-class="title" class="ml-2"}}
-            {{#if (bp-eq projectType 1)}}
+            {{!-- {{#if (bp-eq projectType 1)}}
                 APM
             {{else if (bp-eq projectType 2)}}
                 区域项目管理计划模拟测试
@@ -12,6 +12,9 @@
                 优时比区域周期计划测试
             {{else}}
                 undefined
+            {{/if}} --}}
+            {{#if proposalName}}
+                {{proposalName}}
             {{/if}}
         {{/bp-layout}}
         {{#if periodName}}

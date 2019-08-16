@@ -1,6 +1,6 @@
 
 
-	{{#common/nav-top-project}}
+	{{#common/nav-top-project proposalName=model.project.proposal.name}}
 		{{#bp-layout direction="row"}}
 			{{#if (bp-eq model.project.proposal.case "tm")}}
 				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toCongratulation")}}完成任务{{/bp-button}}
