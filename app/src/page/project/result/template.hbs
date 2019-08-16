@@ -1,9 +1,15 @@
-{{#bp-layout direction="row" local-class="page-result" main="between" }}
-	{{#bp-layout direction="row" local-class="header" cross="center" main="between"}}
-		{{#bp-layout tagName="h4" local-class="title" classNames="pl-4"}}优时比区域周期计划测试{{/bp-layout}}
-		{{#bp-button local-class="btn-next" type="primary" classNames="mr-4"}}进行下个季度{{/bp-button}}
-	{{/bp-layout}}
-{{/bp-layout}}
+
+
+	{{#common/nav-top-project}}
+		{{#bp-layout direction="row"}}
+			{{#if (bp-eq model.project.proposal.case "tm")}}
+				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toCongratulation")}}完成任务{{/bp-button}}
+			{{else if (bp-eq model.project.proposal.case "ucb")}}
+				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toNext")}}进行下个周期{{/bp-button}}
+			{{/if}}
+		{{/bp-layout}}
+		{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
+	{{/common/nav-top-project}}
 {{project/result-info project=model.project results=model.results evaluations=model.evaluations transitionToReport=(action "toReport")}}
 {{log model.project}}
 {{log model.results}}

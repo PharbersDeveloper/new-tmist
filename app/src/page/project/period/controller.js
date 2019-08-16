@@ -477,15 +477,15 @@ export default Controller.extend( {
 			// let state = this.validation()
 
 			// if ( state ) {
-				alert( "ok" )
-				Ember.Logger.info( "save current input" )
-				this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-					alert( "save success" )
-					// this.transitionToRoute( "page.project.result" )
-				} )
+			// 	alert( "ok" )
+			// 	Ember.Logger.info( "save current input" )
+			// 	this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+			// 		alert( "save success" )
+			// 		// this.transitionToRoute( "page.project.result" )
+			// 	} )
 			// }
-			this.callR()
-			// this.transitionToRoute( "page.project.result" )
+			// this.callR()
+			this.transitionToRoute( "page.project.result" )
 
 			// let judgeAuth = this.judgeOauth(),
 			// 	store = this.get( "store" ),
@@ -508,7 +508,8 @@ export default Controller.extend( {
 			// this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 			// 	this.transitionToRoute( "page.project.report" )
 			// } )
-			// this.transitionToRoute( "page.project.round-over" )
+
+
 		},
 		confirmSubmit() {
 			this.set( "warning", { open: false } )
