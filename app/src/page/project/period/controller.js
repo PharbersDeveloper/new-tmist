@@ -18,6 +18,7 @@ export default Controller.extend( {
 		return this.em.GetInstance()
 	} ),
 	currentTab: 0,
+	loadingForSubmit: 0,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
@@ -51,6 +52,8 @@ export default Controller.extend( {
 	onMessage( msg ) {
 		window.console.info( "Emitter Controller" )
 		window.console.info( msg.channel + " => " + msg.asString() )
+		this.set( "loadingForSubmit", false )
+		this.transitionToRoute( "page.project.result" )
 	},
 	Subscribe() {
 		window.console.info( "emitter" )
@@ -474,17 +477,22 @@ export default Controller.extend( {
 			this.transitionToRoute( "page.welcome" )
 		},
 		submit() {
+			this.set( "loadingForSubmit", true )
+			// this.actions.saveInputs()
+			// this.callR()
+
+
 			// let state = this.validation()
 
 			// if ( state ) {
-				alert( "ok" )
-				Ember.Logger.info( "save current input" )
-				this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-					alert( "save success" )
-					// this.transitionToRoute( "page.project.result" )
-				} )
+			// 	alert( "ok" )
+			// 	Ember.Logger.info( "save current input" )
+			// 	this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+			// 		alert( "save success" )
+			// 		// this.transitionToRoute( "page.project.result" )
+			// 	} )
 			// }
-			this.callR()
+			// this.callR()
 			// this.transitionToRoute( "page.project.result" )
 
 			// let judgeAuth = this.judgeOauth(),
@@ -508,7 +516,8 @@ export default Controller.extend( {
 			// this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 			// 	this.transitionToRoute( "page.project.report" )
 			// } )
-			// this.transitionToRoute( "page.project.round-over" )
+
+
 		},
 		confirmSubmit() {
 			this.set( "warning", { open: false } )

@@ -83,6 +83,7 @@ export default Component.extend( {
 				cur += this.transNumber( this.managerAnswer.get( "clientManagementTime" ) )
 				cur += this.transNumber( this.managerAnswer.get( "adminWorkTime" ) )
 				cur += this.transNumber( this.managerAnswer.get( "kpiAnalysisTime" ) )
+				cur += this.transNumber( this.managerAnswer.get( "teamMeetingTime" ) )
 				this.answers.forEach( answer => {
 					resourceTime += this.transNumber( answer.get( "abilityCoach" ) )
 					resourceTime += this.transNumber( answer.get( "assistAccessTime" ) )
