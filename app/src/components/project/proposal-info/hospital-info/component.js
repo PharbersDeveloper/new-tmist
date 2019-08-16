@@ -5,6 +5,7 @@ import { A } from "@ember/array"
 
 export default Component.extend( {
 	positionalParams: ["hospitals", "reports", "proposal"],
+
 	currentHospital: 0,
 	regions: groupBy( "hospitals", "position" ),
 	table: computed("regions", function(){
@@ -48,5 +49,8 @@ export default Component.extend( {
 			local: 0.58,
 			outter: 0.42
 		},
-	])
+	])，
+
+	currentHospital: 0
+
 } )

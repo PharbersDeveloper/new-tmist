@@ -484,6 +484,7 @@ export default Controller.extend( {
 			}
 		},
 		submit( proposalCase ) {
+			this.transitionToRoute( "page.project.result" )
 			// this.set( "loadingForSubmit", true )
 			// this.actions.saveInputs()
 			// this.callR()
