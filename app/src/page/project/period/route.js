@@ -59,6 +59,14 @@ export default Route.extend( {
 				return this.facade.queryPeriodAnswers( p, items, people ) 
 			} )
 
+			const dragInfo = 
+			prs.load().then( x => {
+				const condi01 = "(proposalId,:eq,`" + x.id + "`)"
+				const condi02 = "(phase,:eq,-1)"
+				const condi = "(:and," + condi01 + "," + condi02 + ")"
+				return this.set("reports", this.store.query("model/report", { filter: condi} ))
+			} )
+
 		return RSVP.hash( {
 			period: period,
 			project: project,
@@ -69,7 +77,8 @@ export default Route.extend( {
 			productQuotas: presets.then(x=> x.filter(it => (it.category == 4) && (it.phase == 0))),
 			answers: answers,
 			validation: validation,
-			quota: quota
+			quota: quota,
+			dragInfo: dragInfo
 		} )
 	},
 	setupController( controller , model ) {
