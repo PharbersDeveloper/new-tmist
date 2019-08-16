@@ -1,6 +1,7 @@
 import DS from "ember-data"
 
 export default DS.Model.extend( {
+
 	hospital: DS.belongsTo( "model/hospital" ),
 	product: DS.belongsTo( "model/product" ),
 	resource: DS.belongsTo( "model/resource" ),
@@ -19,5 +20,6 @@ export default DS.Model.extend( {
 	targetDoctorCoverage: DS.attr( "number" ),
 	highTarget: DS.attr( "number" ),
 	middleTarget: DS.attr( "number" ),
-	lowTarget: DS.attr( "number" )
+	lowTarget: DS.attr( "number" ),
+	phase: DS.attr("number")
 } )

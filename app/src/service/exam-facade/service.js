@@ -9,8 +9,8 @@ export default Service.extend( {
 		this.set( "delegate", examDelegate.create( aProject.belongsTo( "proposal" ) ) )
 		this.delegate.set( "store",this.store )
 	},
-	queryPeriodPresets( aPeriod, aProposal ) {
-		return this.delegate.getCurrentPresetsWithPeriod( aPeriod, aProposal )
+	queryPeriodPresets( aPeriod, aProposal, phase ) {
+		return this.delegate.getCurrentPresetsWithPeriod( aPeriod, aProposal, phase )
 	},
 	queryPeriodAnswers( aPeriod, presets, resources ) {
 		return this.delegate.answersForPresets( aPeriod, presets, resources )

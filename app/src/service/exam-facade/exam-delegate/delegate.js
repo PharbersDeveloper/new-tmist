@@ -21,7 +21,7 @@ export default Object.extend( {
 	async getBusinessAnswerCount( aPeriod ) {
 		return this.getPresetsRefWithCurrentPeriod( aPeriod ).length
 	},
-	async getCurrentPresetsWithPeriod( aPeriod, aProposal ) {
+	async getCurrentPresetsWithPeriod( aPeriod, aProposal, phase ) {
 		// let prs = await this.getPresetsRefWithCurrentPeriod( aPeriod )
 		// const ids = prs.ids(),
 		// 	fid = ids.map( x => {

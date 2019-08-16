@@ -48,12 +48,12 @@ export default Route.extend( {
 		this.facade.startPeriodExam( project )
 
 		const presets = period.then( prd => {
-				return this.facade.queryPeriodPresets( prd, prs )
+				return this.facade.queryPeriodPresets( prd, prs, 0 )
 			} ),
 
 		 answers = Promise.all( [period, presets, resources] ).then( results => {
 				const p = results[0],
-					items = results[1].filter(x => x.category & 1),
+					items = results[1].filter(x => (x.category == 8) && (x.phase == 0)),
 					people = results[2]
 
 				return this.facade.queryPeriodAnswers( p, items, people ) 
@@ -65,7 +65,7 @@ export default Route.extend( {
 			hospitals: hospitals,
 			products: products,
 			resources: resources,
-			presets: presets.then(x=> x.filter(it => it.category & 1)),
+			presets: presets.then(x=> x.filter(it => (it.category == 8) && (it.phase == 0))),
 			answers: answers,
 			validation: validation,
 			quota: quota
