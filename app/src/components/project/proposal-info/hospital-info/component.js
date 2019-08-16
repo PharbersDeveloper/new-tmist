@@ -49,8 +49,5 @@ export default Component.extend( {
 			local: 0.58,
 			outter: 0.42
 		},
-	])，
-
-	currentHospital: 0
-
+	])
 } )
