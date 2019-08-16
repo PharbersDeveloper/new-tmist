@@ -5,7 +5,7 @@
 			{{#if (bp-eq model.project.proposal.case "tm")}}
 				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toCongratulation")}}完成任务{{/bp-button}}
 			{{else if (bp-eq model.project.proposal.case "ucb")}}
-				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toNext")}}进行下个周期{{/bp-button}}
+				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toNext" model.project.proposal)}}进行下个周期{{/bp-button}}
 			{{/if}}
 		{{/bp-layout}}
 		{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
