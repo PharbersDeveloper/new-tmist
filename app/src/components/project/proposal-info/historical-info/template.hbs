@@ -48,7 +48,7 @@
 								{{#each product0Legend as |prod|}}
 									<p local-class='circle-legend' class="mb-1">
 										<span local-class='point' style={{prod.color}}></span>
-										<span local-class='name' class="mr-3">{{prod.product}}</span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
 									</p>
 								{{/each}}
 							</div>
@@ -78,7 +78,7 @@
 								{{#each product1Legend as |prod|}}
 									<p local-class='circle-legend' class="mb-1">
 										<span local-class='point' style={{prod.color}}></span>
-										<span local-class='name' class="mr-3">{{prod.product}}</span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
 									</p>
 								{{/each}}
 							</div>
@@ -189,15 +189,125 @@
 				 classNames="m-0 bg-white px-4"}}
 					{{t "project.proposal-info.product-info.representative-sale-report"}}
 				{{/bp-layout}}
-				{{#bp-button onClick=(action 'changeCondition')}} changeCondition example{{/bp-button}}
-				{{#bp-button onClick=(action 'changeConditionBack')}} changeConditionback example{{/bp-button}}
 				{{#bp-layout}}
 					<div local-class='circle-left'>
-						{{bp-row direction='col' rowModel=tmRepCircle0 conditions=tmRepCircleCondition}}
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{rep0Legend.firstObject.phase}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmRepCircle0 conditions=tmRepCircleCondition  onQueryReady=(action 'dealRep0Data')}}
+
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each rep0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each rep0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each rep0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
 					</div>
 					<div local-class='circle-right'>
-						{{bp-row direction='col'  rowModel=tmRepCircle1 conditions=tmRepCircleCondition}}
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{rep0Legend.firstObject.phase}}
+						{{/bp-layout}}
+						{{bp-row direction='col'  rowModel=tmRepCircle1 conditions=tmRepCircleCondition  onQueryReady=(action 'dealRep1Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each rep0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each rep0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each rep0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
 					</div>
+				{{/bp-layout}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames="mb-4 bg-white"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">代表</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpRep.id}}
+										<p>{{tmpRep.name}}</p>
+									{{else}}
+										全部选择
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each representatives as |rep|}}
+										{{#menu.option value=rep
+												onClick=(action 'chooseRep' rep)}}
+											{{rep.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">产品</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpProdRep.id}}
+										<p>{{tmpProdRep.productName}}</p>
+									{{else}}
+										全部选择
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#menu.option value=totalProduct
+												onClick=(action 'chooseProd' '')}}
+										全部选择
+									{{/menu.option}}
+									{{#each products as |psrs|}}
+										{{#menu.option value=psrs
+												onClick=(action 'chooseProd' psrs)}}
+											{{psrs.productName}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
 				{{/bp-layout}}
 				{{bp-row direction='col' rowModel=tmRepBarLine0  conditions=tmRepBarLineCondition}}
 				{{#bp-layout direction="col" local-class="table-container" classNames="bg-white"}}
@@ -239,11 +349,122 @@
 				{{/bp-layout}}
 				{{#bp-layout}}
 					<div local-class='circle-left'>
-						{{bp-row direction='col' rowModel=tmHosCircle0 conditions=tmHosCircleCondition}}
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{Hosp0Legend.firstObject.phase}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmHosCircle0 conditions=tmHosCircleCondition onQueryReady=(action 'dealHosp0Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each Hosp0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Hosp0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Hosp0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
 					</div>
 					<div local-class='circle-right'>
-						{{bp-row direction='col'  rowModel=tmHosCircle1 conditions=tmHosCircleCondition}}
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{Hosp1Legend.firstObject.phase}}
+						{{/bp-layout}}
+						{{bp-row direction='col'  rowModel=tmHosCircle1 conditions=tmHosCircleCondition  onQueryReady=(action 'dealHosp1Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each Hosp1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Hosp1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Hosp1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
 					</div>
+				{{/bp-layout}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout main="between" local-class="choose-container"
+						classNames="mb-4 bg-white"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">医院</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpHosp.id}}
+										<p>{{tmpHosp.name}}</p>
+									{{else}}
+										全部选择
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each hospitals as |hospital|}}
+										{{#menu.option value=hospital
+												onClick=(action 'chooseHosp' hospital)}}
+											{{hospital.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">产品</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpProdHosp.id}}
+										<p>{{tmpProdHosp.productName}}</p>
+									{{else}}
+										全部选择
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#menu.option value=''
+												onClick=(action 'chooseProd' '')}}
+										全部选择
+									{{/menu.option}}
+									{{#each products as |prod|}}
+										{{#menu.option value=prod
+												onClick=(action 'chooseProd' prod)}}
+											{{prod.productName}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
 				{{/bp-layout}}
 				{{bp-row direction='col' rowModel=tmHosBarLine0 conditions=tmHosBarLineCondition}}
 				{{#bp-layout direction="col" local-class="table-container" classNames="bg-white"}}
@@ -289,10 +510,64 @@
 				{{/bp-layout}}
 				{{#bp-layout}}
 					<div local-class='circle-left'>
-						{{bp-row direction='col' rowModel=tmRegCircle0 conditions=tmRegCircleCondition}}
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{Reg0Legend.firstObject.phase}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmRegCircle0 conditions=tmRegCircleCondition  onQueryReady=(action 'dealReg0Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each Reg0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Reg0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Reg0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
 					</div>
 					<div local-class='circle-right'>
-						{{bp-row direction='col'  rowModel=tmRegCircle1 conditions=tmRegCircleCondition}}
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{Reg1Legend.firstObject.phase}}
+						{{/bp-layout}}
+						{{bp-row direction='col'  rowModel=tmRegCircle1 conditions=tmRegCircleCondition onQueryReady=(action 'dealReg1Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each Reg1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Reg1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Reg1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
 					</div>
 				{{/bp-layout}}
 				{{bp-row direction='col' rowModel=tmRegBarLine0 conditions=tmRegBarLineCondition}}

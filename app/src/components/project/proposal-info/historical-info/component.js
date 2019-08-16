@@ -10,11 +10,22 @@ export default Component.extend( GenerateCondition, {
 	positionalParams: ["periods"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
+	// TODO; 产品应该传入来
 	products: A( [
 		{productName: "美素",id: 1},
 		{productName: "普纳林",id: 2},
 		{productName: "西泰来",id:3}
 
+	] ),
+	representatives: A( [
+		{name: "小兰",id: 1},
+		{name: "小宋",id: 2},
+		{name: "小木",id: 3}
+	] ),
+	hospitals: A( [
+		{name: "中日医院",id: 1},
+		{name: "人民医院",id: 2},
+		{name: "光华医院",id: 3}
 	] ),
 	// init() {
 	// 	this._super(...arguments);
@@ -87,7 +98,7 @@ export default Component.extend( GenerateCondition, {
 	 * @example 创建例子。
 	 * @private
 	 */
-	dealData( data, config, property ) {
+	dealData( data, config, name,property ) {
 		// this._super( ...arguments )
 		// do something with chart data and config
 		// example
@@ -102,7 +113,7 @@ export default Component.extend( GenerateCondition, {
 					productInfo[titleArray[i]] = ele[i]
 				}
 				productInfo.color = htmlSafe( `background-color:${color[index]}` )
-				productInfo.product = productInfo["product.keyword"]
+				productInfo.name = productInfo[ `${name}.keyword`]
 				productInfo.salesRate = productInfo["rate(sum(sales))"]
 				productInfo.sales = productInfo["sum(sales)"]
 
@@ -115,173 +126,71 @@ export default Component.extend( GenerateCondition, {
 		changeSalesValue( value ) {
 			this.set( "salesGroupValue", value )
 		},
-
 		dealProd0Data( data, config ) {
 			// this._super( ...arguments )
 			// do something with chart data and config
 			// example
-			this.dealData( data,config,"product0Legend" )
+			this.dealData( data,config,"product","product0Legend" )
 		},
 		dealProd1Data( data, config ) {
 			// this._super( ...arguments )
 			// do something with chart data and config
 			// example
-			this.dealData( data,config,"product1Legend" )
+			this.dealData( data,config,"product","product1Legend" )
 		},
 		chooseProd( prod ) {
-			console.log( prod )
-			this.set( "tmpPsr",prod )
-			this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.productName ) )
-		},
-		/**
-		 * @author Frank Wang
-		 * @method
-		 * @name changeCondition
-		 * @description 模拟修改请求条件
-		 * @return {void}
-		 * @example 创建例子。
-		 * @private
-		 */
-		changeCondition() {
-			this.set( "tmRepBarLineCondition", [{
-				queryAddress: this.get( "queryAddress" ),
-				data: {
-					"model": "tmrs",
-					"query": {
-						"search": {
-							"and": [
-								["eq", "representative.keyword", "小白"],
-								["eq", "job_id.keyword", this.get( "jobId" )]
+			let salesGroupValue = this.salesGroupValue
 
-							]
-						},
-						"aggs": [
-							{
-								"groupBy": "date.keyword",
-								"aggs": [
-									{
-										"agg": "sum",
-										"field": "sales"
-									},
-									{
-										"agg": "sum",
-										"field": "p_quota"
-									}
-								]
-							}
-						]
-					},
-					"format": [
-						{
-							"class": "calcRate",
-							"args": [
-								"sum(p_quota)"
-							]
-						},
-						{
-							"class": "addCol",
-							"args": [
-								{
-									"name": "product",
-									"value": "all"
-								},
-								{
-									"name": "representative",
-									"value": "小兰"
-								}
-							]
-						},
-						{
-							"class": "cut2DArray",
-							"args": [
-								"date.keyword",
-								"sum(sales)",
-								"sum(p_quota)",
-								"rate(sum(p_quota))",
-								"product",
-								"representative"
-							]
-						}
-					]
-				}
-			}] )
+			if ( salesGroupValue === 0 ) {
+				this.set( "tmpPsr",prod )
+				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.productName ) )
+			} else if ( salesGroupValue === 1 ) {
+				this.set( "tmpProdRep",prod )
+				this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.productName ) )
+			} else if ( salesGroupValue === 2 ) {
+				this.set( "tmpProdHosp",prod )
+				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.productName ) )
+			}
 		},
-		/**
-		 * @author Frank Wang
-		 * @method
-		 * @name changeConditionBack
-		 * @description 模拟修改请求条件
-		 * @return {void}
-		 * @example 创建例子。
-		 * @private
-		 */
-		changeConditionBack() {
-			this.set( "tmRepBarLineCondition", [{
-				queryAddress: this.get( "queryAddress" ),
-				data: {
-					"model": "tmrs",
-					"query": {
-						"search": {
-							"and": [
-								["eq", "representative.keyword", "小兰"],
-								["eq", "job_id.keyword", this.get( "jobId" )]
 
-							]
-						},
-						"aggs": [
-							{
-								"groupBy": "date.keyword",
-								"aggs": [
-									{
-										"agg": "sum",
-										"field": "sales"
-									},
-									{
-										"agg": "sum",
-										"field": "p_quota"
-									}
-								]
-							}
-						]
-					},
-					"format": [
-						{
-							"class": "calcRate",
-							"args": [
-								"sum(p_quota)"
-							]
-						},
-						{
-							"class": "addCol",
-							"args": [
-								{
-									"name": "product",
-									"value": "all"
-								},
-								{
-									"name": "representative",
-									"value": "小兰"
-								}
-							]
-						},
-						{
-							"class": "cut2DArray",
-							"args": [
-								"date.keyword",
-								"sum(sales)",
-								"sum(p_quota)",
-								"rate(sum(p_quota))",
-								"product",
-								"representative"
-							]
-						}
-					]
-				}
-			}] )
+		chooseRep( rep ) {
+			let prodName = this.tmpProdRep && this.tmpProdRep.productName
+
+			this.set( "tmpRep",rep )
+			this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( rep.name,prodName ) )
+		},
+		chooseHosp( hosp ) {
+			let prodName = this.tmpProdHosp && this.tmpProdHosp.productName
+
+			this.set( "tmpHosp",hosp )
+			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name,prodName ) )
+		},
+		dealRep0Data( data,config ) {
+			this.dealData( data,config,"representative","rep0Legend" )
+
+		},
+		dealRep1Data( data,config ) {
+			this.dealData( data,config,"representative","rep1Legend" )
+		},
+		dealHosp0Data( data,config ) {
+			this.dealData( data,config,"hospital_level","Hosp0Legend" )
+
+		},
+		dealHosp1Data( data,config ) {
+			this.dealData( data,config,"hospital_level","Hosp1Legend" )
+		},
+		dealReg0Data( data,config ) {
+			this.dealData( data,config,"hospital","Reg0Legend" )
+		},
+		dealReg1Data( data,config ) {
+			this.dealData( data,config,"hospital","Reg1Legend" )
 		}
 	},
 	init() {
 		this._super( ...arguments )
+
+		this.set( "tmpRep",this.representatives.firstObject )
+		this.set( "tmpHosp",this.hospitals.firstObject )
 
 		const that = this
 
