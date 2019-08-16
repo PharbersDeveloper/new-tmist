@@ -20,36 +20,35 @@ export default Component.extend( {
 	curCircle: 0,
 	curBudgetPercent: 100,
 	// TODO: 暂时留着，以后可能去掉
-	allProductInfo: computed( "products", "presets", "answers",function() {
+	allProductInfo: computed( "productQuotas",function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
 
-		this.get( "products" ).forEach( product => {
-			if ( product.productType === 0 ) {
-				let obj = {}
+		this.get( "productQuotas" ).forEach( p => {
+			let obj = {}
 
-				obj.name = product.name
-				obj.productId = product.id
-				obj.allSales = 0
-				obj.curSales = 0
-				obj.curBudget = 0
+			obj.name = p.get( "product.name" )
+			obj.allSales = p.salesQuota
+			obj.productId = p.get( "product.id" )
+			obj.curSales = 0
+			obj.curBudget = 0
 
-				this.get( "presets" ).forEach( preset => {
-					if ( preset.get( "product.id" ) === product.id ) {
-						obj.allSales += this.transNumber( preset.salesQuota )
-					}
-				} )
-				this.get( "answers" ).forEach( answer => {
-					if ( answer.get( "product.id" ) === product.id ) {
-						obj.curSales += this.transNumber( answer.get( "salesTarget" ) )
-						obj.curBudget += this.transNumber( answer.get( "budget" ) )
-					}
-				} )
-				obj.curBudgetPercent = ( obj.curBudget / this.allBudget * 100 ).toFixed( 1 )
-				this.curBudgetPercent -= obj.curBudgetPercent
-				this.curBudgetPercent = this.curBudgetPercent.toFixed( 1 )
-				arr.push( obj )
-			}
+			// this.get( "presets" ).forEach( preset => {
+			// 	if ( preset.get( "product.id" ) === product.id ) {
+			// 		obj.allSales += this.transNumber( preset.salesQuota )
+			// 	}
+			// } )
+			this.get( "answers" ).forEach( answer => {
+				if ( answer.get( "product.id" ) === obj.productId ) {
+					obj.curSales += this.transNumber( answer.get( "salesTarget" ) )
+					obj.curBudget += this.transNumber( answer.get( "budget" ) )
+				}
+			} )
+			obj.curBudgetPercent = ( obj.curBudget / this.allBudget * 100 ).toFixed( 1 )
+			this.curBudgetPercent -= obj.curBudgetPercent
+			this.curBudgetPercent = this.curBudgetPercent.toFixed( 1 )
+			arr.push( obj )
+
 		} )
 		return A( arr )
 	} ),
@@ -74,7 +73,7 @@ export default Component.extend( {
 			{ value: this.allMeetingPlaces - this.curMeetingPlaces, name: "未分配" }] )
 	} ),
 	circleSize: A( ["70%", "95%"] ),
-	circleProductColor: A( ["#8777D9", "#FFC400", "#DFE1E6"] ),
+	circleProductColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
 	circleProductData: computed( function() {
 		let arr = [], all = 0
 
@@ -333,7 +332,7 @@ export default Component.extend( {
 					let leftBudget = {value: this.allBudget - all, name: "未分配"}
 
 					arr.push( leftBudget )
-					set( this, "circleData", arr )
+					set( this, "circleProductData", arr )
 
 
 					let budgetArr = this.getResourceBudgetData()
