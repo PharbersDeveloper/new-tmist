@@ -15,15 +15,24 @@
 			local-class=(if (bp-eq curDecisionReview 0) "active")}}
 			业务决策回顾
 		{{/bp-button}}
+		{{#if (bp-eq proposal.case "tm")}}
 		{{#bp-button onClick=(action (mut curDecisionReview) 1)
 			local-class=(if (bp-eq curDecisionReview 1) "active")}}
 			管理决策回顾
 		{{/bp-button}}
+		{{/if}}
 	{{/bp-layout}}
 
 	{{#bp-layout local-class="content"}}
 		{{#if (bp-eq curDecisionReview 0)}}
-			{{project/decision-review/business-review}}
+			{{project/decision-review/business-review 
+				proposal=proposal 
+				project=project 
+				hospitals=hospitals
+				products=products
+				resources=resources
+				answers=answers
+				}}
 		{{else}}
 			{{project/decision-review/management-review}}
 		{{/if}}
