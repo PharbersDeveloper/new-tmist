@@ -1,11 +1,16 @@
 .hispital-container {
 	.hispital-header {
-		height: 290px;
+		height: fit-content;
 		width: 1152px;
 
 		h4.title {
 			font-size: 16px;
 			height: 54px;
+		}
+
+		p.desc {
+			font-size: 14px;
+			color: #344563;
 		}
 	}
 
