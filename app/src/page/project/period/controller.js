@@ -20,6 +20,7 @@ export default Controller.extend( {
 	} ),
 	currentTab: 0,
 	loadingForSubmit: true,
+	calcDone: false,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
@@ -56,12 +57,15 @@ export default Controller.extend( {
 
 		let msgObj = msg.asObject()
 		let subMsg = JSON.parse( msgObj.msg )
-		console.log( subMsg )
-		console.log(subMsg.type.charAt( subMsg.type.length - 1 ) )
+
+
 		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
-			debugger
 			this.runtimeConfig.set( "jobId", subMsg.jobId )
 			this.set( "loadingForSubmit", false )
+			if ( this.calcDone === true ) {
+				// this.transitionToRoute( "page.project.result" )
+				document.getElementById( "submit-btn" ).click()
+			}
 		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" ) {
 			let proposalId = this.model.project.get( "proposal.id" ),
 				projectId = this.model.project.get( "id" ),
@@ -84,8 +88,7 @@ export default Controller.extend( {
 			} ).then( res => {
 				window.console.log( res )
 				window.console.log( "callBackend Success!" )
-				this.set( "loadingForSubmit", false )
-				this.transitionToRoute( "page.project.result" )
+				this.set( "calcDone", true )
 			} )
 		}
 	},
@@ -535,28 +538,28 @@ export default Controller.extend( {
 		toIndex() {
 			this.transitionToRoute( "page.welcome" )
 		},
-		validation( proposalCase ) {
+		validation( that, proposalCase ) {
 			if ( proposalCase === "ucb" ) {
-				return this.ucbValidation()
+				return that.ucbValidation()
 			} else if ( proposalCase === "tm" ) {
-				return this.tmValidation()
+				return that.tmValidation()
 			}
 		},
-		submit( proposalCase ) {
-			this.transitionToRoute( "page.project.result" )
-			// this.set( "loadingForSubmit", true )
+		submit() {
+			// this.transitionToRoute( "page.project.result" )
 			// this.actions.saveInputs()
 			// this.callR()
 
 			// 使用这部分代码
-			// let status = this.actions.validation( proposalCase )
+			// let status = this.actions.validation( this, proposalCase )
 
 			// if ( status ) {
-			// 	Ember.Logger.info( "save current input" )
-			// 	this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-			// 		alert( "save success" )
-			// 		this.callR()
-			// 	} )
+			this.set( "calcDone", false )
+			this.set( "loadingForSubmit", true )
+			Ember.Logger.info( "save current input" )
+			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+				this.callR()
+			} )
 			// }
 			// 使用结束
 

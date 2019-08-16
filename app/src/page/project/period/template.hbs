@@ -139,7 +139,7 @@
 	{{#common/nav-top-project proposalName=model.project.proposal.name  periodName="2019Q1"}}
 		{{#bp-layout direction="row"}}
 				{{#bp-button local-class="btn-submit" onClick=(action "saveInputs") classNames="mr-1"}}保存{{/bp-button}}
-				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit" model.project.proposal.case)}}提交执行{{/bp-button}}
+				{{#bp-button id="submit-btn" local-class="btn-submit" type="primary" onClick=(action "submit" model.project.proposal.case)}}提交执行{{/bp-button}}
 		{{/bp-layout}}
 		{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
 	{{/common/nav-top-project}}
