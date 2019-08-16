@@ -7,8 +7,7 @@ export default Component.extend( {
 	localClassNames: "hospital",
 	showContent: false,
 	cur: computed( "reports", function() {
-		debugger
-		return this.reports.filter(x => x.hospital.id == this.hospital.id)
+		return this.reports.filter(x => x.hospital.get("id") == this.hospital.id )
 	} ),
 	icon: computed( "showContent", function () {
 		let showContent = this.get( "showContent" )

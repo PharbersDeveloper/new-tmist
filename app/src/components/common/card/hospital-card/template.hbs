@@ -65,23 +65,16 @@
 					{{#bp-layout tagName="th"}}药品准入状态{{/bp-layout}}
 					{{#bp-layout tagName="th"}}患者数量{{/bp-layout}}
 				{{/bp-layout}}
+				{{#each cur as |item|}}
 				{{#bp-layout tagName="tbody" main="between"}}
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
-						{{#bp-layout tagName="td"}}开拓来{{/bp-layout}}
-						{{#bp-layout tagName="td"}}癫痫{{/bp-layout}}
-						{{#bp-layout tagName="td"}}已开发{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{format-number 900000}}{{/bp-layout}}
+						{{#bp-layout tagName="td"}}{{item.product.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td"}}{{item.product.treatmentArea}}{{/bp-layout}}
+						{{#bp-layout tagName="td"}}{{item.drugEntrance}}{{/bp-layout}}
+						{{#bp-layout tagName="td"}}{{item.patientNum}}{{/bp-layout}}
 					{{/bp-layout}}
-					{{#each cur as |item|}}
-					{{log item}}
-					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
-						{{#bp-layout tagName="td"}}开拓来{{/bp-layout}}
-						{{#bp-layout tagName="td"}}癫痫{{/bp-layout}}
-						{{#bp-layout tagName="td"}}已开发{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{format-number 900000}}{{/bp-layout}}
-					{{/bp-layout}}
-					{{/each}}
 				{{/bp-layout}}
+				{{/each}}
 			{{/bp-layout}}
 
 			{{#bp-layout}}
