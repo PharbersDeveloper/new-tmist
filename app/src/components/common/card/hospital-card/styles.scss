@@ -47,15 +47,23 @@
 						@extend %p-primary;
 					}
 
-					&.properties:last-child {
-						p span:first-child {
-							min-width: 70px;
-						}
-					}
+					// &.properties:last-child {
+					// 	p span:first-child {
+					// 		min-width: 70px;
+					// 	}
+					// }
 
 					p div:last-child {
 						span {
 							@extend %p-primary;
+						}
+					}
+
+					.bottom {
+						margin-top: 40px;
+
+						p {
+							margin-right: 40px;
 						}
 					}
 				}
