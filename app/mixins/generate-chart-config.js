@@ -1,17 +1,17 @@
 import Mixin from "@ember/object/mixin"
+import {A} from "@ember/array"
 
 //TODO chart config应该放入线上数据库，现在没人放，先在本地生成
 export default Mixin.create( {
-	chartId: "dddd",
 	generateCircleChart( rowId, chartId ) {
 		return {
 			id: rowId,
 			height: 168,
-			panels: [
+			panels: A( [
 				{
 					name: "tmcircleproduct0",
 					id: chartId,
-					color: ["#73ABFF", "#FFC400", "#57D9A3"],
+					color: ["#73ABFF", "#79E2F2","#57D9A3","#FFC400","#FF8F73"," #998DD9"],
 					tooltip: {
 						show: true,
 						trigger: "item"
@@ -36,7 +36,163 @@ export default Mixin.create( {
 						}
 					}]
 				}
-			]
+			] )
+		}
+	},
+	generateBarLineConfig( rowId,chartId ) {
+		return {
+			id: rowId,
+			height: 305,
+			panels: A( [
+				{
+					id: chartId,
+					color: ["#579AFF ", "#C2DAFF", "#FFAB00"],
+					grid: {
+						top: 32
+					},
+					xAxis: {
+						show: true,
+						type: "category",
+						name: "",
+						axisTick: {
+							show: true,
+							alignWithLabel: true
+						},
+						axisLine: {
+							show: true,
+							lineStyle: {
+								type: "dotted",
+								color: "#DFE1E6"
+							}
+						},
+						axisLabel: {
+							show: true,
+							color: "#7A869A",
+							fontSize: 14,
+							lineHeight: 20
+						}
+					},
+					yAxis: [
+						{
+							type: "value",
+							show: true,
+							min: 0,
+							axisLabel: {
+								color: "#7A869A"
+								// formatter: '¥ {value}'
+							},
+							axisTick: {
+								show: false,
+								alignWithLabel: true
+							},
+							axisLine: {
+								show: false,
+								lineStyle: {
+									type: "solid",
+									color: "#EBECF0"
+								}
+							},
+							splitLine: {
+								show: true,
+								lineStyle: {
+									color: "#D2D4D9",
+									width: 1,
+									type: "dashed"
+								}
+							}
+						},
+						{
+							type: "value",
+							name: "",
+							axisTick: {
+								show: false,
+								alignWithLabel: true
+							},
+							axisLabel: {
+								color: "#7A869A",
+								formatType:"formatRate"
+							},
+							axisLine: {
+								show: false,
+								type: "solid",
+								lineStyle: {
+									type: "solid",
+									color: "#EBECF0"
+								}
+							},
+							splitLine: {
+								show: false,
+								lineStyle: {
+									color: "#D2D4D9",
+									width: 1,
+									type: "dashed"
+								}
+							}
+						}
+					],
+					tooltip: {
+						show: true,
+						trigger: "axis",
+						axisPointer: { // 坐标轴指示器，坐标轴触发有效
+							type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+						},
+						backgroundColor: "rgba(9,30,66,0.54)"
+					},
+					legend: {
+						icon: "circle",
+						show: true,
+						x: "center",
+						y: "bottom",
+						orient: "horizontal",
+						textStyle: {
+							fontSize: 14,
+							color: "#7A869A"
+						}
+					},
+					series: [{
+						type: "bar",
+						name: "销售额",
+						yAxisIndex: 0,
+						barWidth: "12px",
+						itemStyle: {
+							barBorderRadius: [0, 0, 0, 0]
+						},
+						encode: {
+							y: [1]
+						}
+					}, {
+						type: "bar",
+						name: "指标",
+						yAxisIndex: 0,
+						barWidth: "12px",
+						itemStyle: {
+							barBorderRadius: [0, 0, 0, 0]
+						},
+						encode: {
+							y: [2]
+						}
+					}, {
+						type: "line",
+						name: "指标达成率",
+						yAxisIndex: 1,
+						encode: {
+							y: [3]
+						},
+						itemStyle: {
+							normal: {
+								label: {
+									show: true,
+									position: "top"
+									// 			formatter: function (params) {
+									// 				return `${params.value} ${rateUnit}`;
+									// 			}
+								}
+							}
+						}
+
+					}]
+				}
+			] )
 		}
 	}
 } )

@@ -36,12 +36,17 @@
 
       .sales-money {
         color: #172b4d;
+        flex:1;
 
         span:last-child {
           font-size: 14px;
           color: #7a869a;
           text-align: right;
         }
+      }
+
+      .progress-block {
+        flex: 1;
       }
 
 
@@ -70,14 +75,80 @@
       }
 
       .product-icon {
-        svg {
-          path {
-            fill: #ffab00;
+        font-size: 14px;
+        color: #172B4D;
+
+        .icon-name {
+          &:nth-child(1) {
+            svg {
+              path {
+                fill: #FFC400;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
           }
 
-          height: 20px;
-          width: 14px;
+          &:nth-child(2) {
+            svg {
+              path {
+                fill: #73ABFF;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(3) {
+            svg {
+              path {
+                fill: #FF8F73;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(4) {
+            svg {
+              path {
+                fill: #79E2F2;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(5) {
+            svg {
+              path {
+                fill: #998DD9;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(6) {
+            svg {
+              path {
+                fill: #57D9A3;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
         }
+
+
+
       }
     }
 
@@ -93,8 +164,9 @@
 
       .legend {
         .scroll-legend {
-          overflow-y: scroll;
-          height: 140px;
+          overflow: auto;
+          // overflow-y: scroll;
+          height: 120px;
         }
 
         .legend-dot {

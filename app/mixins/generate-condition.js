@@ -1,10 +1,25 @@
 import Mixin from "@ember/object/mixin"
 import { isEmpty } from "@ember/utils"
+import { inject as service } from "@ember/service"
 import ENV from "new-tmist/config/environment"
+
 export default Mixin.create( {
+	runtimeConfig: service( "service/runtime-config" ),
 	queryAddress: ENV.QueryAddress,
-	jobId: "d9bfc406-ab6f-4155-9670-d2067272ce4e",
+	jobId: "1c49bb4e-8d8d-4db0-af13-a4aaa4fa64ad",
+	getJobId() {
+		let jobId = ""
+
+		if ( ENV.environment === "development" ) {
+			jobId = this.jobId
+		} else {
+			jobId = this.runtimeConfig.jobId
+		}
+		return jobId
+	},
 	generateProductCircleCondition( phase ) {
+		let jobId = this.getJobId()
+
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
@@ -14,7 +29,7 @@ export default Mixin.create( {
 						"and": [
 							["eq", "category", "Product"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword", this.jobId]
+							["eq", "job_id.keyword",jobId]
 						]
 					},
 					"aggs": [
@@ -53,16 +68,45 @@ export default Mixin.create( {
 		}]
 	},
 	generateProdBarLineCondition( productName ) {
-		let searchRuls = []
+		let searchRuls = [],
+			agg = {},
+			jobId = this.getJobId()
 
 		if ( isEmpty( productName ) ) {
 			searchRuls = [
-				["eq", "category", "Product"]
+				["eq", "category", "Product"],
+				["eq", "job_id.keyword",jobId]
+			]
+			agg = [
+				{
+					"agg": "sum",
+					"field": "sales"
+				},
+				{
+					"agg": "sum",
+					"field": "quota"
+				}
 			]
 		} else {
 			searchRuls = [
 				["eq", "category", "Product"],
-				["eq", "product.keyword", productName]
+				["eq", "product.keyword", productName],
+				["eq", "job_id.keyword",jobId]
+			]
+			agg = [
+				{
+					"groupBy": "product.keyword",
+					"aggs": [
+						{
+							"agg": "sum",
+							"field": "sales"
+						},
+						{
+							"agg": "sum",
+							"field": "quota"
+						}
+					]
+				}
 			]
 		}
 		return [{
@@ -76,21 +120,7 @@ export default Mixin.create( {
 					"aggs": [
 						{
 							"groupBy": "phase",
-							"aggs": [
-								{
-									"groupBy": "product.keyword",
-									"aggs": [
-										{
-											"agg": "sum",
-											"field": "sales"
-										},
-										{
-											"agg": "sum",
-											"field": "quota"
-										}
-									]
-								}
-							]
+							"aggs": agg
 						}
 					]
 				},
@@ -116,6 +146,8 @@ export default Mixin.create( {
 		}]
 	},
 	generateRepCircleCondition( phase ) {
+		let jobId = this.getJobId()
+
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
@@ -124,7 +156,8 @@ export default Mixin.create( {
 					"search": {
 						"and": [
 							["eq", "category", "Resource"],
-							["eq", "phase", phase]
+							["eq", "phase", phase],
+							["eq", "job_id.keyword",jobId]
 						]
 					},
 					"aggs": [
@@ -165,18 +198,21 @@ export default Mixin.create( {
 		}]
 	},
 	generateRepBarLineCondition( repName ,prodName ) {
-		let searchRuls = []
+		let searchRuls = [],
+			jobId = this.getJobId()
 
 		if ( isEmpty( prodName ) ) {
 			searchRuls = [
 				["eq", "category", "Resource"],
-				["eq", "representative.keyword", repName]
+				["eq", "representative.keyword", repName],
+				["eq", "job_id.keyword",jobId]
 			]
 		} else {
 			searchRuls = [
 				["eq", "category", "Resource"],
 				["eq", "product", prodName],
-				["eq", "representative.keyword", repName]
+				["eq", "representative.keyword", repName],
+				["eq", "job_id.keyword",jobId]
 			]
 		}
 		return [{
@@ -240,6 +276,8 @@ export default Mixin.create( {
 		}]
 	},
 	generateHospCircleCondition( phase ) {
+		let jobId = this.getJobId()
+
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
@@ -248,7 +286,8 @@ export default Mixin.create( {
 					"search": {
 						"and": [
 							["eq", "category", "Hospital"],
-							["eq", "phase", phase]
+							["eq", "phase", phase],
+							["eq", "job_id.keyword",jobId]
 						]
 					},
 					"aggs": [
@@ -289,16 +328,19 @@ export default Mixin.create( {
 		}]
 	},
 	generateHospBarLineCondition( hospName,prodName ) {
-		let searchRuls = []
+		let searchRuls = [],
+			jobId = this.getJobId()
 
 		if ( isEmpty( prodName ) ) {
 			searchRuls = [
-				["eq", "hospital.keyword", hospName]
+				["eq", "hospital.keyword", hospName],
+				["eq", "job_id.keyword",jobId]
 			]
 		} else {
 			searchRuls = [
 				["eq", "product", prodName],
-				["eq", "hospital.keyword", hospName]
+				["eq", "hospital.keyword", hospName],
+				["eq", "job_id.keyword",jobId]
 			]
 		}
 		return [{
@@ -362,6 +404,8 @@ export default Mixin.create( {
 		}]
 	},
 	generateRegionCircleCondition( phase ) {
+		let jobId = this.getJobId()
+
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
@@ -370,7 +414,8 @@ export default Mixin.create( {
 					"search": {
 						"and": [
 							["eq", "category", "Hospital"],
-							["eq", "phase", phase]
+							["eq", "phase", phase],
+							["eq", "job_id.keyword",jobId]
 						]
 					},
 					"aggs": [
@@ -411,6 +456,8 @@ export default Mixin.create( {
 		}]
 	},
 	generateRegionBarLineCondition( productName, hospName ) {
+		let jobId = this.getJobId()
+
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
@@ -419,7 +466,8 @@ export default Mixin.create( {
 					"search": {
 						"and": [
 							["eq", "product.keyword", productName],
-							["eq", "hospital.keyword", hospName]
+							["eq", "hospital.keyword", hospName],
+							["eq", "job_id.keyword",jobId]
 						]
 					},
 					"aggs": [
@@ -471,6 +519,8 @@ export default Mixin.create( {
 		}]
 	},
 	generateRepRadarCondition( repName, phase ) {
+		let jobId = this.getJobId()
+
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
@@ -479,7 +529,8 @@ export default Mixin.create( {
 					"search": {
 						"and": [
 							["eq", "category", "Resource"],
-							["eq", "phase", phase]
+							["eq", "phase", phase],
+							["eq", "job_id.keyword",jobId]
 						]
 					},
 					"aggs": [
@@ -540,6 +591,8 @@ export default Mixin.create( {
 		}]
 	},
 	generateProdCompLinesCondition() {
+		let jobId = this.getJobId()
+
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
@@ -548,7 +601,7 @@ export default Mixin.create( {
 					"search": {
 						"and": [
 							["eq", "category", "Product"],
-							["eq", "job_id.keyword", this.jobId]
+							["eq", "job_id.keyword",jobId]
 						]
 					},
 					"aggs": [

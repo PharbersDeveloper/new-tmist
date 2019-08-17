@@ -37,14 +37,29 @@
 				业务及团队
 			{{/bp-layout}}
 
-			{{#bp-layout local-class="circle"}}
-				{{#bp-layout direction="col"}}
-					{{#bp-layout tagName="div"}}业务策略分析: {{managerAnswers.strategAnalysisTime}} {{/bp-layout}}
-					{{#bp-layout tagName="div"}}重点目标客户管理: {{managerAnswers.clientManagementTime}}{{/bp-layout}}
-					{{#bp-layout tagName="div"}}代表及KPI分析: {{managerAnswers.kpiAnalysisTime}}{{/bp-layout}}
-					{{#bp-layout tagName="div"}}行政工作: {{managerAnswers.adminWorkTime}}{{/bp-layout}}
-					{{#bp-layout tagName="div"}}团队例会: {{managerAnswers.teamMeetingTime}}{{/bp-layout}}
-					{{#bp-layout tagName="div"}}代表能力培养: {{totalTime}}{{/bp-layout}}
+			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-table"}}
+				{{#bp-layout local-class="circle" style="width: 128px;height: 128px" direction="row"}}
+					{{bp-circle eid="cricleTime" circleData=circleData circleColor=circleColor circleSize=circleSize}}
+					
+					{{!-- {{#bp-layout direction="col"}}
+						{{#bp-layout tagName="div"}}业务策略分析: {{managerAnswers.strategAnalysisTime}} {{/bp-layout}}
+						{{#bp-layout tagName="div"}}重点目标客户管理: {{managerAnswers.clientManagementTime}}{{/bp-layout}}
+						{{#bp-layout tagName="div"}}代表及KPI分析: {{managerAnswers.kpiAnalysisTime}}{{/bp-layout}}
+						{{#bp-layout tagName="div"}}行政工作: {{managerAnswers.adminWorkTime}}{{/bp-layout}}
+						{{#bp-layout tagName="div"}}团队例会: {{managerAnswers.teamMeetingTime}}{{/bp-layout}}
+						{{#bp-layout tagName="div"}}代表能力培养: {{totalTime}}{{/bp-layout}}
+					{{/bp-layout}} --}}
+				{{/bp-layout}}
+				{{#bp-layout direction="col" local-class="circle-legend" classNames="ml-4"}}
+					{{#each circleData as |item index|}}
+						{{#bp-layout direction="row" cross="center" classNames="mb-3" main="between" local-class="legend"}}
+							{{#bp-layout direction="row" cross="center"}}
+								<span style="background: {{get circleColor index}};"></span>
+								{{#bp-layout tagName="p" classNames="ml-1"}} {{item.name}} {{/bp-layout}}
+							{{/bp-layout}}
+							{{#bp-layout tagName="p"}} {{item.value}} %{{/bp-layout}}
+						{{/bp-layout}}
+					{{/each}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
