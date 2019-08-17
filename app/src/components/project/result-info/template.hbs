@@ -55,7 +55,7 @@
 						<span local-class="row-1">总体销售额</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">¥ 90,000,000</span>
+						<span local-class="row-2">{{salesReport.sales}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col"}}
@@ -63,7 +63,7 @@
 						<span local-class="row-1">总指标达成率</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">80%</span>
+						<span local-class="row-2">{{salesReport.sales}}/{{salesReport.salesQuota}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}

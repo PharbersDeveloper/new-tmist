@@ -1,5 +1,3 @@
-
-
 	{{#common/nav-top-project proposalName=model.project.proposal.name}}
 		{{#bp-layout direction="row"}}
 			{{#if (bp-eq model.project.proposal.case "tm")}}
@@ -10,7 +8,4 @@
 		{{/bp-layout}}
 		{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
 	{{/common/nav-top-project}}
-{{project/result-info project=model.project results=model.results evaluations=model.evaluations transitionToReport=(action "toReport")}}
-{{log model.project}}
-{{log model.results}}
-{{log model.evaluations}}
+{{project/result-info project=model.project reports=model.reports evaluations=model.evaluations transitionToReport=(action "toReport")}}
