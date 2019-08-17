@@ -1,10 +1,26 @@
 import Component from "@ember/component"
 import { later } from "@ember/runloop"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
+import { A } from "@ember/array"
 
 export default Component.extend( GenerateCondition, {
 	positionalParams: ["products"],
 	currentProduct: 0,
+	curTreatmentArea: "",
+	treatmentAreaArr: A( [] ),
+	didReceiveAttrs() {
+		this._super( ...arguments )
+
+		let tmpArr = A( [] )
+
+		this.products.forEach( ele => {
+			window.console.log( ele )
+			tmpArr.push( ele.treatmentArea )
+		} )
+		this.treatmentAreaArr = Array.from( new Set( tmpArr ) )
+		this.set( "curTreatmentArea", this.treatmentAreaArr[0] )
+		window.console.log( this.treatmentAreaArr )
+	},
 	init() {
 		this._super( ...arguments )
 

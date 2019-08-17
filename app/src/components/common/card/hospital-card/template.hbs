@@ -20,32 +20,32 @@
 					<span>{{hospital.category}} </span>
 				{{/bp-layout}}
 
-				{{#bp-layout tagName="p" }}
+				{{#bp-layout tagName="p" classNames="mt-2"}}
 					<span class="mr-3">{{t "card.hospital-card.level"}}</span>
 					<span>{{hospital.level}}</span>
 				{{/bp-layout}}
 
-				{{#bp-layout direction="row"}}
+				{{#bp-layout direction="row" local-class="bottom"}}
 					{{#bp-layout tagName="p" direction="col"}}
 						{{#bp-layout}}<span class="mr-3">{{t "card.hospital-card.doctorNumber"}}</span>{{/bp-layout}}
-						{{#bp-layout}}<span local-class="span-last">{{format-number hospital.doctorNumber}}</span>{{/bp-layout}}
+						{{#bp-layout classNames="mt-2"}}<span local-class="span-last">{{format-number hospital.doctorNumber}}</span>{{/bp-layout}}
 					{{/bp-layout}}
 
 					{{#bp-layout tagName="p" direction="col"}}
 						{{#bp-layout}}<span class="mr-3">{{t "card.hospital-card.bedNumber"}}</span>{{/bp-layout}}
-						{{#bp-layout}}<span local-class="span-last">{{format-number hospital.bedNumber}}</span>{{/bp-layout}}
+						{{#bp-layout classNames="mt-2"}}<span local-class="span-last">{{format-number hospital.bedNumber}}</span>{{/bp-layout}}
 					{{/bp-layout}}
 
 					{{#if (bp-eq proposal.case "ucb")}}
-					{{#bp-layout tagName="p" direction="col"}}
-						{{#bp-layout}}<span class="mr-3">自费病人比例</span>{{/bp-layout}}
-						{{#bp-layout classNames="mt-2"}}
-							<span local-class="span-last">
-								{{!-- {{t "card.hospital-card.money"}} --}}
-								{{format-number hospital.selfPayPercentage}}
-							</span>
+						{{#bp-layout tagName="p" direction="col"}}
+							{{#bp-layout}}<span class="mr-3">自费病人比例</span>{{/bp-layout}}
+							{{#bp-layout classNames="mt-2"}}
+								<span local-class="span-last">
+									{{!-- {{t "card.hospital-card.money"}} --}}
+									{{format-number hospital.selfPayPercentage}}
+								</span>
+							{{/bp-layout}}
 						{{/bp-layout}}
-					{{/bp-layout}}
 					{{/if}}
 
 				{{/bp-layout}}
