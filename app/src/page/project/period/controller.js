@@ -98,7 +98,7 @@ export default Controller.extend( {
 		// let client = this.em.GetInstance()
 		// API: 参照https://emitter.io/develop/javascript/
 		// 订阅  参数：channel key，channel name，消息类型（message, error, disconnect），MessageHandel
-		this.client.Subscribe( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "message", this.onMessage.bind( this ) )
+		// this.client.Subscribe( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "message", this.onMessage.bind( this ) )
 	},
 	transNumber( input ) {
 		let number = Number( input )
