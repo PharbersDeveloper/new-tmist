@@ -1,5 +1,6 @@
 import Component from "@ember/component"
 import { computed, set } from "@ember/object"
+import { A } from "@ember/array"
 
 export default Component.extend( {
 	positionalParams: ["project", "period", "resources", "answers", "quota", "managerAnswer"],
@@ -51,6 +52,11 @@ export default Component.extend( {
 		return cur
 	} ),
 	curResourceTime: 0,
+	circleResourceTime: computed( function() {
+		return this.getResourceTimeData()
+	} ),
+	circleSize: A( ["70%", "95%"] ),
+	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
 	transNumber( value ) {
 		let number = Number( value )
 
@@ -70,6 +76,19 @@ export default Component.extend( {
 			return false
 		}
 		return true
+	},
+	getResourceTimeData() {
+		let arr = []
+
+		this.answers.filter( rs => rs.get( "category" ) === "Resource" ).forEach( r => {
+			let obj = {}
+
+			obj.name = r.get( "resource.name" )
+			obj.value = this.transNumber( r.get( "abilityCoach" ) ) + this.transNumber( r.get( "assistAccessTime" ) )
+			arr.push( obj )
+		} )
+
+		return A( arr )
 	},
 	actions: {
 		validationInputMangerTime( obj, inputValue ) {
@@ -93,11 +112,13 @@ export default Component.extend( {
 					cur += this.transNumber( answer.get( "assistAccessTime" ) )
 				} )
 				if ( value <= this.maxManagerTime ) {
+					let timeArr = this.getResourceTimeData()
 
 					set( this, "curResourceTime", resourceTime )
 					set( this , "curManagerTime", cur )
+					set( this , "circleResourceTime", timeArr )
 					// this.curManagerTime += value
-					window.console.log( this.curManagerTime, value )
+					// window.console.log( this.curManagerTime, value )
 				} else {
 					window.console.log()
 					this.set( "warning", {

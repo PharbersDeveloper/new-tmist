@@ -16,6 +16,7 @@ div:global(.management-review-wrapper) {
 
 			.btn-select-quarter {
 				flex: 1;
+
 				.btn-list {
 					height: 32px;
 					width: 100%;
@@ -53,9 +54,32 @@ div:global(.management-review-wrapper) {
 				color: #172b4d;
 			}
 
-			.circle {
-				height: 322px;
-				width: 100%;
+			.circle-table {
+				height: 100%;
+
+				.circle {
+					height: 322px;
+					width: 100%;
+				}
+
+				.circle-legend {
+					font-size: 14px;
+					color: #344563;
+					width: 192px;
+
+					span {
+						height: 8px;
+						width: 8px;
+						border-radius: 50%;
+					}
+
+					.legend {
+						&:last-child {
+							padding-top: 8px;
+							border-top: 2px solid rgba(9, 30, 66, 0.08);
+						}
+					}
+				}
 			}
 		}
 
