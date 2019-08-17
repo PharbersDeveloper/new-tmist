@@ -6,7 +6,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 
-	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation"],
+	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas"],
 	exam: service( "service/exam-facade" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function() {
@@ -19,36 +19,36 @@ export default Component.extend( {
 	// currentMeetingPlaces: 0,
 	curCircle: 0,
 	curBudgetPercent: 100,
-	allProductInfo: computed( "products", "presets", "answers",function() {
+	// TODO: 暂时留着，以后可能去掉
+	allProductInfo: computed( "productQuotas",function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
 
-		this.get( "products" ).forEach( product => {
-			if ( product.productType === 0 ) {
-				let obj = {}
+		this.get( "productQuotas" ).forEach( p => {
+			let obj = {}
 
-				obj.name = product.name
-				obj.productId = product.id
-				obj.allSales = 0
-				obj.curSales = 0
-				obj.curBudget = 0
+			obj.name = p.get( "product.name" )
+			obj.allSales = p.lastQuota
+			obj.productId = p.get( "product.id" )
+			obj.curSales = 0
+			obj.curBudget = 0
 
-				this.get( "presets" ).forEach( preset => {
-					if ( preset.get( "product.id" ) === product.id ) {
-						obj.allSales += this.transNumber( preset.salesQuota )
-					}
-				} )
-				this.get( "answers" ).forEach( answer => {
-					if ( answer.get( "product.id" ) === product.id ) {
-						obj.curSales += this.transNumber( answer.get( "salesTarget" ) )
-						obj.curBudget += this.transNumber( answer.get( "budget" ) )
-					}
-				} )
-				obj.curBudgetPercent = ( obj.curBudget / this.allBudget * 100 ).toFixed( 1 )
-				this.curBudgetPercent -= obj.curBudgetPercent
-				this.curBudgetPercent = this.curBudgetPercent.toFixed( 1 )
-				arr.push( obj )
-			}
+			// this.get( "presets" ).forEach( preset => {
+			// 	if ( preset.get( "product.id" ) === product.id ) {
+			// 		obj.allSales += this.transNumber( preset.salesQuota )
+			// 	}
+			// } )
+			this.get( "answers" ).forEach( answer => {
+				if ( answer.get( "product.id" ) === obj.productId ) {
+					obj.curSales += this.transNumber( answer.get( "salesTarget" ) )
+					obj.curBudget += this.transNumber( answer.get( "budget" ) )
+				}
+			} )
+			obj.curBudgetPercent = ( obj.curBudget / this.allBudget * 100 ).toFixed( 1 )
+			this.curBudgetPercent -= obj.curBudgetPercent
+			this.curBudgetPercent = this.curBudgetPercent.toFixed( 1 )
+			arr.push( obj )
+
 		} )
 		return A( arr )
 	} ),
@@ -73,87 +73,39 @@ export default Component.extend( {
 			{ value: this.allMeetingPlaces - this.curMeetingPlaces, name: "未分配" }] )
 	} ),
 	circleSize: A( ["70%", "95%"] ),
-	circleProductColor: A( ["#8777D9", "#FFC400", "#DFE1E6"] ),
+	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
+	circleProductColor: computed( function() {
+		return this.getProductCircleColor()
+	} ),
+	circleBudgetColor: computed( function() {
+		return this.getBudgetCircleColor()
+	} ),
 	circleProductData: computed( function() {
-		let arr = [], all = 0
-
-		this.allProductInfo.forEach( product => {
-			let obj = {}
-
-			obj.name = product.name
-			obj.value = product.curBudget
-			all += product.curBudget
-			arr.push( obj )
-		} )
-		let leftBudget = {value: this.allBudget - all, name: "未分配"}
-
-		arr.push( leftBudget )
-		return A( arr )
+		return this.getProductBudgetData()
 	} ),
 	circleBudgetData: computed( function() {
-		let obj = {}, arr = [], all = 0
-
-		this.answers.forEach( answer => {
-			let resource = answer.get( "resource.id" )
-
-			if ( obj[resource] ) {
-				obj[resource].value += this.transNumber( answer.get( "visitedTime" ) )
-
-			} else if ( answer.get( "resource.name" ) ) {
-				obj[resource] = {
-					name: answer.get( "resource.name" ),
-					value: this.transNumber( answer.get( "visitedTime" ) )
-				}
-			}
-		} )
-		for ( let key in obj ) {
-			arr.push( obj[key] )
-			all += obj[key].value
-		}
-
-		arr.push( {value: this.allBudget - all, name: "未分配"} )
-
-		window.console.log( arr )
-
-		return A( arr )
-
+		return this.getResourceBudgetData()
 	} ),
 	labelEmphasis: false,
 	curResource: computed( function() {
 		return this.resources.get( "firstObject" )
 	} ),
+	curHospitalId: null,
 	curAnswerToReset: null,
 	resourceHospital: false,
-	needScrollRepresentative: computed( function() {
-		if ( this.circleBudgetData.length > 5 ) {
-			return true
-		} else {
-			return false
-		}
-	} ),
-	needScrollProduct: computed( function() {
-		if ( this.circleProductData.length > 4 ) {
-			return true
-		} else {
-			return false
-		}
+	resourceHospitalNumebr: computed( "resourceHospital", function() {
+		return this.getResourceHospital()
 	} ),
 	getResourceHospital() {
-		let obj = {}
+		let num = 0
 
-		this.get( "resources" ).forEach( resource => {
-			obj[resource.id] = []
+		this.get( "answers" ).forEach( answer => {
+			if ( answer.get( "resource" ) ) {
+				num += 1
+			}
 		} )
-		// this.get( "answers" ).forEach( answer => {
-		// 	if ( answer.get( "resource" ) ) {
-		// 		window.console.log( answer.get( "resource" ) )
-		// 		obj[answer.get( "resource.id" )].push( answer.get( "target" ) )
-		// 	}
-		// } )
-		window.console.log( "!!!!!!!!" )
-		window.console.log( obj )
-		set( this, "resourceHospital", obj )
-		// return obj
+
+		return num
 	},
 	transNumber( input ) {
 		let number = Number( input )
@@ -176,6 +128,40 @@ export default Component.extend( {
 			return false
 		}
 		return true
+	},
+	getProductCircleColor() {
+		let num = this.circleProductData.length,
+			arr = []
+
+		for ( let i = 0; i < num; i++ ) {
+			if ( i === num - 1 ) {
+				arr.push( "#dfe1e6" )
+			}
+
+			if ( i > this.circleColor.length - 1 ) {
+				i = 0
+			}
+			arr.push( this.circleColor[i] )
+		}
+		return A( arr )
+	},
+	getBudgetCircleColor() {
+		let num = this.circleBudgetData.length,
+			arr = []
+
+		for ( let i = 0; i < num; i++ ) {
+
+			if ( i === num - 1 ) {
+				arr.push( "#dfe1e6" )
+			} else {
+				if ( i > this.circleColor.length - 1 ) {
+					i = 0
+				}
+				arr.push( this.circleColor[i] )
+			}
+
+		}
+		return A( arr )
 	},
 	getResourceBudgetData() {
 		let obj = {}, budgetArr = [], allResourceBudget = 0
@@ -205,6 +191,25 @@ export default Component.extend( {
 		budgetArr.push( {value: remain, name: "未分配", per: ( remain / this.allBudget * 100 ).toFixed( 1 ) } )
 
 		return budgetArr
+	},
+	getProductBudgetData() {
+		let arr = [], all = 0
+
+		this.allProductInfo.forEach( product => {
+			let obj = {}
+
+			obj.name = product.name
+			obj.value = product.curBudget
+			obj.curBudgetPercent = product.curBudgetPercent
+			all += product.curBudget
+			arr.push( obj )
+		} )
+
+		let remain = this.allBudget - all
+
+		arr.push( {value: remain, name: "未分配", curBudgetPercent: ( remain / this.allBudget * 100 ).toFixed( 1 )}
+		)
+		return A( arr )
 	},
 	// inputMaxValue( all, value, type ) {
 	// 	let sum = 0,
@@ -269,11 +274,17 @@ export default Component.extend( {
 	// 	return Number( businessInputMaxValueRule.split( "#" )[1] )
 	// },
 	actions: {
+		getColor( index ) {
+			return this.circleProductColor.objectAt( index )
+		},
 		selectResource( rs ) {
 			set( this,"curResource", rs )
 			window.console.log( "当前代表" , this.curResource.get( "name" ) )
 		},
-		allocateRepresentatives( answer ) {
+		selectHospital( hid ) {
+			set( this,"curHospitalId", hid )
+		},
+ 		allocateRepresentatives( answer ) {
 			// if this.curResource is null  : error 未选择代表
 
 			if ( answer.get( "resource.id" ) && answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {
@@ -296,7 +307,7 @@ export default Component.extend( {
 				this.set( "cancelWarning", {
 					open: true,
 					title: "代表取消选择医院",
-					detail: "确定要取消分配代表分配至该医院吗？我们将重置您在该医院下的资源配置。"
+					detail: "确定要取消该医院的代表分配吗？我们将同时重置该医院的其他分配输入。"
 				} )
 				set( this, "curAnswerToReset", answer )
 			} else {
@@ -334,46 +345,44 @@ export default Component.extend( {
 				} )
 
 				curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
-				window.console.log( cur, curProductInfo )
+
 				if ( cur <= this.allBudget ) {
 					set( curProductInfo.firstObject, "curBudget", cur )
 					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
 
 
-					let arr = [], all = 0
+					// let arr = [], all = 0
 
-					this.allProductInfo.forEach( product => {
-						let obj = {}
+					// this.allProductInfo.forEach( product => {
+					// 	let obj = {}
+					// 	obj.name = product.name
+					// 	obj.value = product.curBudget
+					// 	all += product.curBudget
+					// 	arr.push( obj )
+					// } )
+					// set( this, "curBudgetPercent", ( ( this.allBudget - all ) / this.allBudget * 100 ).toFixed( 1 ) )
+					// let leftBudget = {value: this.allBudget - all, name: "未分配"}
+					// arr.push( leftBudget )
+					let productDataArr = this.getProductBudgetData(),
+						budgetArr = this.getResourceBudgetData(),
+						budgetColor = this.getBudgetCircleColor()
 
-
-						obj.name = product.name
-						obj.value = product.curBudget
-						all += product.curBudget
-						arr.push( obj )
-					} )
-
-					set( this, "curBudgetPercent", ( ( this.allBudget - all ) / this.allBudget * 100 ).toFixed( 1 ) )
-					let leftBudget = {value: this.allBudget - all, name: "未分配"}
-
-					arr.push( leftBudget )
-					set( this, "circleData", arr )
-
-
-					let budgetArr = this.getResourceBudgetData()
-
+					set( this, "circleProductData", productDataArr )
 					set( this, "circleBudgetData", budgetArr )
+					set( this, "circleBudgetColor", budgetColor )
 
 
 				} else {
-					this.set( "warning", {
-						open: true,
-						title: "设定超额",
-						detail: "您的预算指标设定已超额，请合理分配。"
-					} )
+					// TODO: 所有的validation都要重做
+					// this.set( "warning", {
+					// 	open: true,
+					// 	title: "设定超额",
+					// 	detail: "您的预算指标设定已超额，请合理分配。"
+					// } )
 				}
 
 			} else {
-				answer.set( input, -1 )
+				answer.set( input, 0 )
 			}
 		},
 		salesTargetValidationHandle( answer, input ) {
@@ -402,15 +411,15 @@ export default Component.extend( {
 
 					set( curProductInfo.firstObject, "curSales", cur )
 				} else {
-					this.set( "warning", {
-						open: true,
-						title: "设定超额",
-						detail: "您的销售额指标设定已超额，请合理分配。"
-					} )
+					// this.set( "warning", {
+					// 	open: true,
+					// 	title: "设定超额",
+					// 	detail: "您的指标设定已超额，请合理分配。"
+					// } )
 				}
 
 			} else {
-				answer.set( input, -1 )
+				answer.set( input, 0 )
 			}
 		},
 		meetingPlacesValidationHandle( answer, input ) {
@@ -438,7 +447,7 @@ export default Component.extend( {
 					} )
 				}
 			} else {
-				answer.set( input, -1 )
+				answer.set( input, 0 )
 			}
 		},
 		visitTimeValidationHandle( curAnswer ) {

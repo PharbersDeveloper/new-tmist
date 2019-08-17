@@ -1,35 +1,35 @@
 {{#bp-layout direction="col" local-class="business-container" classNames="" main="center"}}
 	{{#bp-layout local-class="sales-and-budget" direction="row"  classNames="mb-4" main="center"}}
-		{{#bp-layout local-class="sales" classNames="bg-white mr-4" direction="col" }}
+		{{#bp-layout local-class=(if (bp-eq project.proposal.case "ucb") "flex-1 sales" "sales") classNames="bg-white mr-4" direction="col" }}
 			{{#bp-layout tagName="h4" classNames="py-3 pl-3" cross="center" local-class="icon sales-header"}}
 				{{bp-icon icon="target"}}
 				药品销售额指标
 			{{/bp-layout}}
 			{{#bp-layout direction="row"}}
-				{{#bp-layout local-class="product-icon" direction="col" classNames="ml-4"}}
-					{{#each allProductInfo as |product|}}
-						{{#bp-layout direction="row" classNames="mt-4"}}
-							{{#bp-layout}}{{bp-icon icon="product"}}{{/bp-layout}}
-							{{#bp-layout local-class="product-name"}}{{product.name}}{{/bp-layout}}
+				{{#bp-layout local-class="product-icon" direction="col" classNames="ml-4" }}
+					{{#each allProductInfo as |item|}}
+						{{#bp-layout direction="row" classNames="mt-4" local-class="icon-name"}}
+							{{bp-icon icon="product"}}{{item.name}}
+							{{!-- {{#bp-layout local-class="product-name"}}{{item.name}}{{/bp-layout}} --}}
 						{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}
 
-				{{#bp-layout cross="center" classNames="ml-4" direction="col"}}
-					{{#each allProductInfo as |productSales|}}
+				{{#bp-layout cross="center" classNames="ml-4" direction="col" local-class="progress-block"}}
+					{{#each allProductInfo as |item|}}
 							{{#bp-layout classNames="" local-class="progress"}}
 								{{#bp-progress as |p|}}
-									{{p.bar value=productSales.curSales maxValue=productSales.allSales}}
+									{{p.bar value=item.curSales maxValue=item.allSales}}
 								{{/bp-progress}}
 							{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}
 
 				{{#bp-layout classNames="mx-4" local-class="sales-money" direction="col"}}
-					{{#each allProductInfo as |productSales|}}
+					{{#each allProductInfo as |item|}}
 						{{#bp-layout classNames="mt-4"}}
-								<span>¥{{format-number productSales.curSales}}</span>
-								<span>/{{format-number productSales.allSales}}</span>
+								<span>¥{{format-number item.curSales}}</span>
+								<span>/{{format-number item.allSales}}</span>
 								{{!-- <span>/¥2,400,000</span> --}}
 						{{/bp-layout}}
 					{{/each}}
@@ -52,7 +52,7 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 
-		{{#bp-layout local-class="budget" direction="col" classNames="bg-white"}}
+		{{#bp-layout local-class=(if (bp-eq project.proposal.case "ucb") "flex-1 budget" "budget")    direction="col" classNames="bg-white"}}
 			{{#bp-layout direction="row" main="between" local-class="budget-header"}}
 				{{#bp-layout tagName="h4" classNames="py-3 pl-3 mb-0" local-class="icon" cross="center"}}
 					{{bp-icon icon="target"}}
@@ -65,64 +65,40 @@
 			{{/bp-layout}}
 			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-part"}}
 				{{#bp-layout tagName="div" style="width: 128px;height: 128px" }}
-					{{!-- {{bp-circle eid="cricleDoubleOne"}} --}}
 					{{#if (bp-eq curCircle 0)}}
 						{{bp-circle eid="cricleBudget" circleData=circleProductData circleColor=circleProductColor circleSize=circleSize}}
 					{{else}}
-						{{!-- {{bp-circle eid="cricleB" 
-												circleData=circleMeetingData 
-												circleColor=circleMeetingColor 
-												circleSize=circleMeetingSize
-												labelEmphasis=labelEmphasis}} --}}
-						{{bp-circle eid="cricleB" circleData=circleBudgetData circleColor=circleProductColor circleSize=circleSize}}
+						{{bp-circle eid="cricleB" circleData=circleBudgetData circleColor=circleBudgetColor circleSize=circleSize}}
 					{{/if}}
 				{{/bp-layout}}
-				{{#bp-layout direction="col" classNames="ml-4" local-class="legend" cross="center"}} 
-					{{!-- {{#bp-layout direction="row" classNames="mb-2"}}
-						<span local-class="legend-dot" class="mt-2 mr-2"></span>
-						<span local-class="name">大扶康</span>
-						<span local-class="percent" class="ml-4 mr-3">40%</span>
-					{{/bp-layout}}
-					{{#bp-layout direction="row" classNames="mb-2"}}
-						<span local-class="legend-dot" class="mt-2 mr-2"></span>
-						<span local-class="name">美素</span>
-						<span local-class="percent" class="ml-4 mr-3">20%</span>
-					
-					{{/bp-layout}} --}}
+				{{#bp-layout direction="col" classNames="ml-4" local-class="legend" main="center" cross="center"}} 
 					{{#if (bp-eq curCircle 0)}}
-
-					{{#bp-layout local-class=(if needScrollProduct  "scroll-legend") direction="col"}}
-						{{#each allProductInfo as |product|}}
-							{{#bp-layout direction="row" classNames="mb-2"}}
-								<span local-class="legend-dot-default" class="mt-2 mr-2"></span>
-								<span local-class="name">{{product.name}}</span>
-								<span local-class="percent" class="ml-4 mr-3">{{product.curBudgetPercent}}%</span>
-							{{/bp-layout}}
-						{{/each}}
-
-						{{#bp-layout direction="row" classNames="mb-2"}}
-							<span local-class="legend-dot-default" class="mt-2 mr-2"></span>
-							<span local-class="name">未分配</span>
-							<span local-class="percent" class="ml-4 mr-3">{{curBudgetPercent}}%</span>
+						{{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}}
+							{{#each circleProductData as |product index|}}
+								{{#bp-layout direction="row" classNames="mb-2"}}
+									<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleProductColor index}};"></span>
+									<span local-class="name">{{product.name}}</span>
+									<span local-class="percent" class="ml-4 mr-3">{{product.curBudgetPercent}}%</span>
+								{{/bp-layout}}
+							{{/each}}
 						{{/bp-layout}}
-					{{/bp-layout}}
 					{{else}}
-					{{#bp-layout local-class=(if needScrollRepresentative "scroll-legend") direction="col"}}
-						{{#each circleBudgetData as |resBudget|}}
-							{{#bp-layout direction="row" classNames="mb-2"}}
-								<span local-class="legend-dot-default" class="mt-2 mr-2"></span>
-								<span local-class="name">{{resBudget.name}}</span>
-								<span local-class="percent" class="ml-4 mr-3">{{resBudget.per}}%</span>
-							{{/bp-layout}}
-						{{/each}}
-					{{/bp-layout}}
+						{{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}}
+							{{#each circleBudgetData as |resBudget index|}}
+								{{#bp-layout direction="row" classNames="mb-2"}}
+									<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleBudgetColor index}};"></span>
+									{{!-- <span local-class="legend-dot" class="mt-2 mr-2"></span> --}}
+									<span local-class="name">{{resBudget.name}}</span>
+									<span local-class="percent" class="ml-4 mr-3">{{resBudget.per}}%</span>
+								{{/bp-layout}}
+							{{/each}}
+						{{/bp-layout}}
 					{{/if}}
-					
-					
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 
+		{{#if (bp-eq project.proposal.case "tm")}}
 		{{#bp-layout direction="col" classNames="bg-white ml-4" local-class="meeting"}}
 			{{#bp-layout local-class="meeting-header" direction="row" cross="center"}}
 				{{#bp-layout direction="row" tagName="h4" local-class="icon" cross="center" classNames="py-3 pl-3 mb-0"}}
@@ -145,6 +121,7 @@
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
+		{{/if}}
 	{{/bp-layout}}
 
 	{{#bp-layout local-class="resource-and-hospital" direction="row" main="center"}}
@@ -178,18 +155,24 @@
 						answers=answers
 						curResource=curResource
 						resourceHospital=resourceHospital
-						selectResource=(action "selectResource")}}
+						selectResource=(action "selectResource")
+						project=project
+					}}
 				{{/each}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout local-class="hospital-list" direction="col"}}
 			{{#bp-layout local-class="hospital-header" direction="row" main="between" classNames="bg-white mb-1" cross="center"}}
-				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}分配医院资源{{/bp-layout}}
-				{{!-- {{#bp-layout}}
+				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}分配医院资源
+					({{resourceHospitalNumebr}}/{{hospitals.length}})
+				{{/bp-layout}}
+				{{#if (bp-eq project.proposal.case "ucb")}}
+				{{#bp-layout}}
 					{{#bp-button classNames="mr-1" local-class="active"}}全部{{/bp-button}}
 					{{#bp-button classNames="mr-1" local-class="mid-btn"}}已分配{{/bp-button}}
 					{{#bp-button classNames="mr-4"}}未分配{{/bp-button}}
-				{{/bp-layout}} --}}
+				{{/bp-layout}}
+				{{/if}}
 			{{/bp-layout}}
 
 			{{#bp-layout classNames="" local-class="hospital-config"}}
@@ -206,6 +189,8 @@
 												resources=resources
 												answers=answers
 												resourceHospital=resourceHospital
+												curHospitalId=curHospitalId
+												selectHospital=(action "selectHospital")
 												cancelRepresentatives=(action "cancelRepresentatives")
 												allocateRepresentatives=(action "allocateRepresentatives")
 												visitTimeValidationOuter=(action "visitTimeValidationHandle")

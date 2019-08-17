@@ -6,7 +6,7 @@ div:global(.report-wrapper) {
 
 h2.title {
 	@extend %header-medium;
-	height: 54px;
+	height: 52px;
 }
 
 .historical-sales-container {
@@ -37,11 +37,11 @@ h2.title {
 .circle-left,
 .circle-right {
 	flex: 1;
+	.title {
+		@extend %header-small;
+	}
 }
 
-.circle-left .title {
-	@extend %header-small;
-}
 
 .circle-legend {
 	span {
@@ -71,13 +71,18 @@ h2.title {
 	.report {
 		flex: 1;
 		overflow-x: auto;
-
+		&.representative .choose-container {
+			height: 64px;
+		}
+		.choose-container h2.title {
+			flex: 1;
+		}
 		.choose-area {
 			flex: 1;
 
 			.keys {
 				@extend %p-primary;
-				flex: 0 0 56px;
+				flex: 0 0 28px;
 			}
 
 			.dd-area {

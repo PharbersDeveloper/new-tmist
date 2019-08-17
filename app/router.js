@@ -16,11 +16,13 @@ Router.map( function() {
 			this.route( "period", { path: "/period/:period_id" } )
 			this.route( "result" )
 			this.route( "report" )
+			this.route( "review" )
+			this.route( "round-over" )
 		} )
-		this.route( "home" )
-		this.route( "prepare" )
-		this.route( "history" )
+		this.route( "prepare", { path: "/prepare/:proposal_id" } )
+		this.route( "history", { path: "/history/:proposal_id" } )
 	} )
+
 
 	this.route( "service", function() {
 		this.route( "oauth-callback" )

@@ -1,5 +1,7 @@
 import Component from "@ember/component"
 
 export default Component.extend( {
-	curDecisionReview: 0
+	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers"],
+	curDecisionReview: 0,
+	classNames: ["review-wrapper"]
 } )

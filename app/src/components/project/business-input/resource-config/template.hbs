@@ -8,7 +8,13 @@
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
-					<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}{{leftTime}}%</span>
+					{{#if (bp-eq project.proposal.case "tm")}}
+						{{#if (bp-not-eq leftTime 0 "0")}}
+							<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}剩余{{leftTime}}%</span>
+						{{else}}
+							<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+						{{/if}}
+					{{/if}}
 					{{#if hospitalNumber}}
 						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
 					{{/if}}
@@ -21,7 +27,13 @@
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
-				  <span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}{{leftTime}}%</span>
+				{{#if (bp-eq project.proposal.case "tm")}}
+					{{#if (bp-not-eq leftTime 0 "0")}}
+						<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}剩余{{leftTime}}%</span>
+					{{else}}
+						<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+					{{/if}}
+				{{/if}}
 					{{#if hospitalNumber}}
 						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
 					{{/if}}
@@ -30,6 +42,7 @@
 		{{/if}}
 	{{/bp-layout}}
 {{/bp-layout}}
+{{#if (bp-eq project.proposal.case "tm")}}
 {{#bs-collapse collapsed=showContent local-class="wrapper"}}
 	{{#bp-layout direction="col" local-class="representative-info" classNames="bg-white ml-2 mb-2 px-3"}}
 		{{#bp-layout local-class="remain-time" direction="col" classNames="pb-3"}}
@@ -48,7 +61,7 @@
 		{{/bp-layout}}
 		{{#bp-layout local-class="resource-hospital" direction="col"}}
 			{{#each hospitalList as |hospital|}}
-				{{#bp-layout direction="row" cross="center" classNames="mb-3"}}
+				{{#bp-layout direction="row" cross="center" classNames="mb-3" local-class="hospital-time"}}
 					{{#bp-layout local-class="hospital-name"}}{{hospital.target.name}}{{/bp-layout}}
 					{{#bp-input widthSize="small" value=hospital.visitTime 
 					onChange=(action "inputVisitTime" (mut hospital.visitTime))}}{{/bp-input}}
@@ -62,6 +75,7 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bs-collapse}}
+{{/if}}
 
 {{#bp-modal
 		open=warning.open 

@@ -1,0 +1,97 @@
+{{common/nav-top-project proposalName=model.project.proposal.name}}
+{{#bp-layout direction="col" classNames="p-4" local-class="round-over"}}
+	{{#bp-layout local-class="congratulations" direction="row" main="between"}}
+		{{#bp-layout direction="row" cross="center"}}
+			{{bp-icon icon="check-circle" local-class="icon"}}
+			{{#bp-layout classNames="ml-3" local-class="text"}}恭喜你，完成本轮测试！{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout}}
+			{{#bp-button type="primary" onClick=(action "toIndex")}}返回主页{{/bp-button}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+
+	{{#bp-layout local-class="info" direction="row" classNames="bg-white px-4"}}
+		{{#bp-layout direction="col" local-class="name block"}}
+			{{#bp-layout local-class="header-text"}}获得称号{{/bp-layout}}
+			{{#bp-layout local-class="img"}}{{/bp-layout}}
+			{{#bp-layout}}黄金{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout local-class="goal block" direction="col"}}
+			{{#bp-layout local-class="header-text"}}总指标达成率{{/bp-layout}}
+			{{#bp-layout direction="row" local-class="precent"}}
+				<span>90</span>
+				<span>%</span>
+			{{/bp-layout}}
+			{{#bp-layout direction="row" main="between"}}
+				{{#bp-layout direction="col" }}
+					{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
+					{{#bp-layout}}60%{{/bp-layout}}
+				{{/bp-layout}}
+
+				{{#bp-layout direction="col"}}
+					{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
+					{{#bp-layout}}60%{{/bp-layout}}
+				{{/bp-layout}}
+
+				{{#bp-layout direction="col"}}
+					{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
+					{{#bp-layout}}60%{{/bp-layout}}
+				{{/bp-layout}}
+
+			{{/bp-layout}}
+		{{/bp-layout}}
+
+		{{#bp-layout local-class="sales block" direction="col"}}
+			{{#bp-layout local-class="header-text"}}总销售额{{/bp-layout}}
+			{{#bp-layout}}¥2,400,000{{/bp-layout}}
+		{{/bp-layout}}
+
+		{{#bp-layout direction="col" local-class="time block"}}
+			{{#bp-layout local-class="header-text"}}完成用时{{/bp-layout}}
+			{{#bp-layout}}1小时30分钟{{/bp-layout}}
+			{{#bp-layout local-class="header-text"}}完成时间{{/bp-layout}}
+			{{#bp-layout}}2019-04-08 18:40{{/bp-layout}}
+		{{/bp-layout}}
+
+		{{#bp-layout local-class="block"}}
+		{{/bp-layout}}
+		
+		{{#bp-layout local-class="examine-export block" cross="center" direction="row"}}
+				{{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
+					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+						{{#dd.button }}
+							查看
+							{{bp-icon icon='down'}}
+						{{/dd.button}}
+						{{#dd.menu as |menu|}}
+							{{#menu.option}}测试综合表现{{/menu.option}}
+							{{#menu.option}}周期销售结果{{/menu.option}}
+							{{#menu.option}}决策回顾{{/menu.option}}
+						{{/dd.menu}}
+					{{/bp-dropdown}}
+				{{/bp-layout}}
+				{{#bp-layout local-class="export" direction="row"}}
+					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+						{{#dd.button }}
+							导出
+							{{bp-icon icon='down'}}
+						{{/dd.button}}
+						{{#dd.menu as |menu|}}
+							{{#menu.option}}测试综合表现{{/menu.option}}
+							{{#menu.option}}周期销售结果{{/menu.option}}
+							{{#menu.option}}决策回顾{{/menu.option}}
+						{{/dd.menu}}
+					{{/bp-dropdown}}
+				{{/bp-layout}}
+				
+		{{/bp-layout}}
+	{{/bp-layout}}
+	
+	{{#bp-layout local-class="history" classNames="bg-white mt-4 px-4" direction="col"}}
+		{{#bp-layout tagName="h4" local-class="history-header" cross="center" classNames="mb-0"}}
+			历史成果
+		{{/bp-layout}}
+	{{project/history-info provious=model.provious}}
+	{{/bp-layout}}
+
+{{/bp-layout}}

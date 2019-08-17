@@ -9,8 +9,8 @@ export default Service.extend( {
 		this.set( "delegate", examDelegate.create( aProject.belongsTo( "proposal" ) ) )
 		this.delegate.set( "store",this.store )
 	},
-	queryPeriodPresets( aPeriod ) {
-		return this.delegate.getCurrentPresetsWithPeriod( aPeriod )
+	queryPeriodPresets( aPeriod, aProposal, phase ) {
+		return this.delegate.getCurrentPresetsWithPeriod( aPeriod, aProposal, phase )
 	},
 	queryPeriodAnswers( aPeriod, presets, resources ) {
 		return this.delegate.answersForPresets( aPeriod, presets, resources )
@@ -56,19 +56,19 @@ export default Service.extend( {
 	cancelBusinessResource( answers, aHospital ) {
 		answers.filter( x => x.get( "target.id" ) === aHospital.get( "id" ) && x.get( "category" ) === "Business" ).forEach( answer => {
 			// this.store.peekRecord( "resource", aResource.id )
-			answer.set( "visitTime", -1 )
-			answer.set( "salesTarget", -1 )
-			answer.set( "budget", -1 )
-			answer.set( "meetingPlaces", -1 )
+			answer.set( "visitTime", 0 )
+			answer.set( "salesTarget", 0 )
+			answer.set( "budget", 0 )
+			answer.set( "meetingPlaces", 0 )
 			answer.set( "resource", null )
 			// answer.resource = aResource
 		} )
 	},
 	resetBusinessAnswer( answers, aHospital ) {
 		answers.filter( x => x.get( "target.id" ) === aHospital && x.get( "category" ) === "Business" ).forEach( answer => {
-			answer.set( "salesTarget", -1 )
-			answer.set( "budget", -1 )
-			answer.set( "meetingPlaces", -1 )
+			answer.set( "salesTarget", 0 )
+			answer.set( "budget", 0 )
+			answer.set( "meetingPlaces", 0 )
 			answer.set( "resource", null )
 		} )
 	},

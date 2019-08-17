@@ -1,8 +1,12 @@
 import Component from "@ember/component"
-import { later } from "@ember/runloop"
+import { computed } from "@ember/object"
 
 export default Component.extend( {
-	positionalParams: ["resources"],
-	currentResource: 0
+	positionalParams: ["resources", "proposal", "kpis", "period"],
+	currentResource: 0,
+	lastPeriod: computed( function() {
+		window.console.log( this.period.get( "last" ), this.period )
+		return this.period.get( "last" )
+	} )
 
 } )

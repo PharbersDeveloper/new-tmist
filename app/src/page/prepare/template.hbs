@@ -1,32 +1,34 @@
-{{common/nav-top-project}}
+{{!-- {{common/nav-top-project}} --}}
+{{common/nav-top-project proposalName=model.proposal.name}}
 {{#bp-layout direction="col" main="center" cross="center" local-class="prepare"}}
     {{#bp-layout direction="row" main="center" cross="center" local-class="card-area" classNames="p-4"}}
 
         {{#bp-layout direction="col" main="between" cross="start" local-class="card" classNames="bg-white"}}
-            <p local-class="title">您好！欢迎进入优时比区域周期计划测试</p>
+            {{!-- <p local-class="title">您好！欢迎进入优时比区域周期计划测试</p> --}}
+            <p local-class="title">您好！欢迎进入{{model.proposal.name}}测试</p>
             {{#bp-layout direction="row" main="start" cross="start" local-class="status-area"}}
-                {{#if model.currentUCBProjects}}
+                {{#if model.provious}}
                     <span local-class="badge">进行中</span>
                 {{/if}}
                 
-                <p local-class="des" class="ml-2">您好！欢迎进入优时比区域周期计划测试</p>
+                <p local-class="des" class="ml-2">{{model.proposal.describe}}</p>
             {{/bp-layout}}
             {{#bp-layout direction="row" main="between" cross="center" local-class="card-bottom"}}
-                <p local-class="link" {{action "toHistory"}}>查看历史成果</p>
+                <p local-class="link" {{action "toHistory" model.proposal.id}}>查看历史成果</p>
+                {{!-- {{log model.proposal.id}} --}}
                     
-                {{log model.currentUCBProjects}}
-                {{#if model.currentUCBProjects}}
+                {{#if model.provious}}
                     {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}
-                        {{#bp-button type="default"}}
+                        {{#bp-button type="default" onClick=(action "startDeploy" model.proposal)}}
                             重新部署
                         {{/bp-button}}
-                        {{#bp-button type="primary" classNames="ml-2" onClick=(action "continueDeploy" model.currentUCBProjects.lastObject)}}
+                        {{#bp-button type="primary" classNames="ml-2" onClick=(action "continueDeploy" model.provious.lastObject)}}
                             继续部署
                         {{/bp-button}}
                     {{/bp-layout}}
                 {{else}}
                     {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}
-                        {{#bp-button type="primary" onClick=(action "startDeploy" model.ucbProposal.proposal)}}
+                        {{#bp-button type="primary" onClick=(action "startDeploy" model.proposal)}}
                             开始部署
                         {{/bp-button}}
                     {{/bp-layout}}

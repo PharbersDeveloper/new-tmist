@@ -21,14 +21,22 @@ export default Object.extend( {
 	async getBusinessAnswerCount( aPeriod ) {
 		return this.getPresetsRefWithCurrentPeriod( aPeriod ).length
 	},
-	async getCurrentPresetsWithPeriod( aPeriod ) {
-		let prs = await this.getPresetsRefWithCurrentPeriod( aPeriod )
-		const ids = prs.ids(),
-			fid = ids.map( x => {
-				return "`" + `${x}` + "`"
-			} ).join( "," )
+	async getCurrentPresetsWithPeriod( aPeriod, aProposal, phase ) {
+		// let prs = await this.getPresetsRefWithCurrentPeriod( aPeriod )
+		// const ids = prs.ids(),
+		// 	fid = ids.map( x => {
+		// 		return "`" + `${x}` + "`"
+		// 	} ).join( "," )
 
-		return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
+		// return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
+		const condi01 = "(proposalId,:eq,`" + aProposal.value().get( "id" ) + "`)",
+		 condi02 = "(category,:eq,`8`)",
+		 condi03 = "(category,:eq,`4`)",
+		 condior = "(:or," + condi02 + "," + condi03 + ")",
+		 fc = "(:and," + condi01 + "," + condior + ")"
+		// return this.store.query("model/preset", { filter: "(proposalId,:eq,`" + aProposal.value().get("id") + "`)" } )
+
+		return this.store.query( "model/preset", { filter: fc } )
 
 	},
 	async answersForPresets ( period, presets, resources ) {
@@ -94,8 +102,8 @@ export default Object.extend( {
 				strategAnalysisTime: item.strategAnalysisTime,
 				adminWorkTime: item.adminWorkTime,
 				clientManagementTime: item.clientManagementTime,
-				kpiAnalysisTime: this.clientManagementTime,
-				teamMeetingTime: this.teamMeetingTime
+				kpiAnalysisTime: item.kpiAnalysisTime,
+				teamMeetingTime: item.teamMeetingTime
 			} )
 		} )
 	}

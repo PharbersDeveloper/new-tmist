@@ -9,7 +9,7 @@
 		{{#bp-layout main="between" local-class="left-info" classNames="p-4" direction="col"}}
 			
 			{{#bp-layout classNames="mb-4"}}
-				<img alt={{hospital.name}} class="mr-4">
+				<img alt={{hospital.name}} src="{{hospital.avatar.img}}" class="mr-4">
 			{{/bp-layout}}
 
 			{{!-- {{#bp-layout tagName="div" local-class="properties"}} --}}
@@ -36,10 +36,17 @@
 						{{#bp-layout}}<span local-class="span-last">{{format-number hospital.bedNumber}}</span>{{/bp-layout}}
 					{{/bp-layout}}
 
+					{{#if (bp-eq proposal.case "ucb")}}
 					{{#bp-layout tagName="p" direction="col"}}
 						{{#bp-layout}}<span class="mr-3">自费病人比例</span>{{/bp-layout}}
-						{{#bp-layout classNames="mt-2"}}<span local-class="span-last">{{t "card.hospital-card.money"}}{{format-number hospital.income}}</span>{{/bp-layout}}
+						{{#bp-layout classNames="mt-2"}}
+							<span local-class="span-last">
+								{{!-- {{t "card.hospital-card.money"}} --}}
+								{{format-number hospital.selfPayPercentage}}
+							</span>
+						{{/bp-layout}}
 					{{/bp-layout}}
+					{{/if}}
 
 				{{/bp-layout}}
 			</div>
@@ -48,6 +55,7 @@
 		{{!-- left end --}}
 
 		{{!-- right --}}
+		{{#if (bp-eq proposal.case "ucb")}}
 		{{#bp-layout local-class="right-info" direction="col"}}
 			{{#bp-layout local-class="medic-access"	classNames="px-4" }}
 				<h4 local-class="title" class="mb-3">药品准入情况</h4>
@@ -60,15 +68,22 @@
 					{{#bp-layout tagName="th"}}药品准入状态{{/bp-layout}}
 					{{#bp-layout tagName="th"}}患者数量{{/bp-layout}}
 				{{/bp-layout}}
+				{{#each cur as |item|}}
 				{{#bp-layout tagName="tbody" main="between"}}
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
-						{{#bp-layout tagName="td"}}开拓来{{/bp-layout}}
-						{{#bp-layout tagName="td"}}癫痫{{/bp-layout}}
-						{{#bp-layout tagName="td"}}已开发{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{format-number 900000}}{{/bp-layout}}
-					
+						{{#bp-layout tagName="td"}}{{item.product.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td"}}{{item.product.treatmentArea}}{{/bp-layout}}
+						{{#bp-layout tagName="td"}}
+							{{#if (bp-eq item.currentDurgEntrance 1)}}
+							已开发
+							{{else}}
+							未开发
+							{{/if}}
+						{{/bp-layout}}
+						{{#bp-layout tagName="td"}}{{item.currentPatientNum}}{{/bp-layout}}
 					{{/bp-layout}}
 				{{/bp-layout}}
+				{{/each}}
 			{{/bp-layout}}
 
 			{{#bp-layout}}
@@ -82,6 +97,7 @@
 				</div>
 			{{/bp-layout}}
 		{{/bp-layout}}
+		{{/if}}
 	{{/bp-layout}}
 	{{#bp-layout main="between" local-class="sell" classNames="pb-1"}}{{/bp-layout}}
 

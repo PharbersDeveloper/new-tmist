@@ -69,6 +69,19 @@ project:
     hospital: 医院基本信息
     member: 团队成员信息
     sold: 历史销售报告
+    historical-info: 
+      product: 产品
+      representative: 代表
+      hospital: 医院
+      product-sale-circle: 产品销售结构分布图
+      product-sale-trend: 产品销售趋势图
+      representative-sale-circle: 代表销售结构分布图
+      representative-sale-trend: 代表销售趋势图
+      hospital-sale-circle: 医院销售结构分布图
+      hospital-sale-trend: 医院销售趋势图
+      region-sale-circle: 地区销售结构分布图
+      region-sale-trend: 地区销售趋势图
+      total-products: 全部总值
     product-info:
       produce-sale-report: 产品销售报告
       representative-sale-report: 代表销售报告

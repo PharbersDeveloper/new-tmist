@@ -2,7 +2,7 @@ import Component from "@ember/component"
 import { computed, set } from "@ember/object"
 
 export default Component.extend( {
-	positionalParams: ["resource", "answers", "selectResource", "resourceHospital", "curResource"],
+	positionalParams: ["resource", "answers", "selectResource", "resourceHospital", "curResource", "project"],
 	showContent: computed( "curResource", function() {
 		if ( !this.curResource ) {
 			return true

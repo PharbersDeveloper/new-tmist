@@ -3,17 +3,22 @@ import { computed } from "@ember/object"
 // import { A } from "@ember/array"
 // import { isEmpty } from "@ember/utils"
 import { later } from "@ember/runloop"
+import GenerateCondition from "new-tmist/mixins/generate-condition"
 
-export default Component.extend( {
-	positionalParams: ["resource"],
+export default Component.extend( GenerateCondition, {
+	positionalParams: ["resource", "proposal", "kpis", "lastPeriod"],
 	classNames: ["mb-4"],
 	localClassNames: "resource",
 	showContent: false,
+	kpi: computed( "kpis", function(){
+		return this.kpis.find( x => x.resource.get( "id" ) === this.resource.get( "id" ) )
+	} ),
 	icon: computed( "showContent", function () {
 		let showContent = this.get( "showContent" )
 
 		return showContent ? "right" : "down"
 	} ),
+
 	// radarData: computed( "resourceId", function () {
 	// 	let averageAbilityObject =
 	// 		this.get( "averageAbility" ).get( "firstObject" ),
@@ -61,131 +66,83 @@ export default Component.extend( {
 	init() {
 		this._super( ...arguments )
 
+		const that = this
+
+		let repName = this.resource.get( "name" )
+
 		new Promise( function ( resolve ) {
-			later( function () {
-				let tmRadar = {
-						id: "tmRadarContainer",
-						height: 356,
-						panels: [{
-							name: "member ability",
-							id: "tmRadaro1",
-							tooltip: {
-								show: true,
-								trigger: "item"
-							},
-							color: ["#3172E0", "#979797"],
-							legend: {
-								show: true,
-								x: "center",
-								y: "bottom",
-								orient: "vertical"
-							},
-							radar: {
-								radius: "65%",
-								name: {
-									textStyle: {
-										color: "#7A869A",
-										borderRadius: 3,
-										padding: [0, 0]
-									}
-								},
-								indicator: [
-									{ text: "产品知识", max: 10 },
-									{ text: "工作积极性", max: 10 },
-									{ text: "行为有效性", max: 10 },
-									{ text: "区域管理能力", max: 10 },
-									{ text: "销售知识", max: 10 }
-								],
-								splitNumber: 5, //default
-								axisLine: {
-									lineStyle: {
-										color: "#DFE1E6"
-									}
-								},
-								splitLine: {
-									lineStyle: {
-										color: "#DFE1E6"
-									}
-								},
-								splitArea: {
-									areaStyle: {
-										color: ["#fff", "#fff"]
-									}
+			// later( function () {
+			let tmRadar = {
+					id: "tmRadarContainer",
+					height: 356,
+					panels: [{
+						name: "member ability",
+						id: "tmRadaro1",
+						tooltip: {
+							show: true,
+							trigger: "item"
+						},
+						color: ["#3172E0", "#979797"],
+						legend: {
+							show: true,
+							x: "center",
+							y: "bottom",
+							orient: "vertical"
+						},
+						radar: {
+							radius: "65%",
+							name: {
+								textStyle: {
+									color: "#7A869A",
+									borderRadius: 3,
+									padding: [0, 0]
 								}
 							},
-							series: [{
-								name: "",
-								type: "radar",
-
-								areaStyle: {
-									opacity: 0.3
-								},
-								encode: {
-									itemName: 0,
-									value: 0
-								}
-							}]
-
-						}]
-					},
-					tmRadarCondition = [{
-						data: {
-							"_source": [
-								"rep",
-								"product_knowledge",
-								"sales_skills",
-								"territory_management_ability",
-								"work_motivation",
-								"behavior_efficiency"
+							indicator: [
+								{ text: "产品知识", max: 10 },
+								{ text: "工作积极性", max: 10 },
+								{ text: "行为有效性", max: 10 },
+								{ text: "区域管理能力", max: 10 },
+								{ text: "销售知识", max: 10 }
 							],
-							"query": {
-								"bool": {
-									"must": [
-										{
-											"match": {
-												"date": "2018Q1"
-											}
-										},
-										{
-											"match": {
-												"product": "all"
-											}
-										},
-										{
-											"match": {
-												"region": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_level": "all"
-											}
-										},
-										{
-											"match": {
-												"hosp_name": "all"
-											}
-										}
-									],
-									"must_not": [
-										{
-											"match": {
-												"rep": "all"
-											}
-										}
-									]
+							splitNumber: 5, //default
+							axisLine: {
+								lineStyle: {
+									color: "#DFE1E6"
 								}
 							},
-							"sort": [
-								{ "rep": "asc" }
-							]
-						}
-					}]
+							splitLine: {
+								lineStyle: {
+									color: "#DFE1E6"
+								}
+							},
+							splitArea: {
+								areaStyle: {
+									color: ["#fff", "#fff"]
+								}
+							}
+						},
+						series: [{
+							name: "",
+							type: "radar",
 
-				resolve( {
-					tmRadar, tmRadarCondition
-				} )
-			}, 400 )
+							areaStyle: {
+								opacity: 0.3
+							},
+							encode: {
+								itemName: 0,
+								value: 0
+							}
+						}]
+
+					}]
+				},
+				tmRadarCondition = that.generateRepRadarCondition( repName,-3 )
+
+			resolve( {
+				tmRadar, tmRadarCondition
+			} )
+			// }, 400 )
 		} ).then( data => {
 			this.set( "tmRadar", data.tmRadar )
 			this.set( "tmRadarCondition", data.tmRadarCondition )

@@ -48,16 +48,33 @@ export default Route.extend( {
 		this.facade.startPeriodExam( project )
 
 		const presets = period.then( prd => {
-				return this.facade.queryPeriodPresets( prd )
+				return this.facade.queryPeriodPresets( prd, prs, 0 )
 			} ),
 
 		 answers = Promise.all( [period, presets, resources] ).then( results => {
 				const p = results[0],
-					items = results[1],
+					items = results[1].filter( x => x.category == 8 && x.phase == 0 ),
 					people = results[2]
 
 				return this.facade.queryPeriodAnswers( p, items, people )
 			} )
+
+		const dragInfo = 
+			prs.load().then( x => {
+				const condi01 = "(proposalId,:eq,`" + x.id + "`)"
+				const condi02 = "(phase,:eq,0)"
+				const condi03 = "(category,:eq,8)"
+				const condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
+				return this.store.query("model/preset", { filter: condi} )
+			} )
+
+		const kpiInfo = prs.load().then( x => {
+			const condi01 = "(proposalId,:eq,`" + x.id + "`)"
+			const condi02 = "(phase,:eq,0)"
+			const condi03 = "(category,:eq,2)"
+			const condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
+			return this.store.query("model/preset", { filter: condi} )
+		} )
 
 		return RSVP.hash( {
 			period: period,
@@ -65,10 +82,18 @@ export default Route.extend( {
 			hospitals: hospitals,
 			products: products,
 			resources: resources,
-			presets: presets,
+			presets: presets.then( x=> x.filter( it => it.category == 8 && it.phase == 0 ) ),
+			productQuotas: presets.then( x=> x.filter( it => it.category == 4 && it.phase == 0 ) ),
 			answers: answers,
 			validation: validation,
-			quota: quota
+			quota: quota,
+			dragInfo: dragInfo,
+			kpiInfo: kpiInfo
 		} )
+	},
+	setupController( controller , model ) {
+		this._super( controller , model )
+		this.controllerFor( "page.project.period" ).Subscribe()
+		this.controllerFor( "page.project.period" ).callE()
 	}
 } )

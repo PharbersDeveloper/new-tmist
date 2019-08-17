@@ -1,5 +1,6 @@
 import Component from "@ember/component"
 import { computed, set } from "@ember/object"
+import { A } from "@ember/array"
 
 export default Component.extend( {
 	positionalParams: ["project", "period", "resources", "answers", "quota", "managerAnswer"],
@@ -27,6 +28,7 @@ export default Component.extend( {
 		cur += this.transNumber( this.managerAnswer.get( "clientManagementTime" ) )
 		cur += this.transNumber( this.managerAnswer.get( "adminWorkTime" ) )
 		cur += this.transNumber( this.managerAnswer.get( "kpiAnalysisTime" ) )
+		cur += this.transNumber( this.managerAnswer.get( "teamMeetingTime" ) )
 		this.answers.forEach( answer => {
 			resourceTime += this.transNumber( answer.get( "abilityCoach" ) )
 			resourceTime += this.transNumber( answer.get( "assistAccessTime" ) )
@@ -50,6 +52,13 @@ export default Component.extend( {
 		return cur
 	} ),
 	curResourceTime: 0,
+	circleResourceTime: computed( function() {
+		return this.getResourceTimeData()
+	} ),
+	circleSize: A( [42, 56] ),
+	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
+	noTimeCircle: A( ["#ebecf0"] ),
+	timeCircleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
 	transNumber( value ) {
 		let number = Number( value )
 
@@ -70,6 +79,31 @@ export default Component.extend( {
 		}
 		return true
 	},
+	getResourceTimeData() {
+		let arr = []
+
+
+		if ( this.curResourceTime > 0 ) {
+			set( this, "circleColor", this.timeCircleColor )
+
+			this.answers.filter( rs => rs.get( "category" ) === "Resource" ).forEach( r => {
+				let obj = {}
+
+				obj.name = r.get( "resource.name" )
+				obj.value = this.transNumber( r.get( "abilityCoach" ) ) + this.transNumber( r.get( "assistAccessTime" ) )
+
+				if ( obj.value ) {
+					arr.push( obj )
+				}
+			} )
+
+		} else {
+			set( this, "circleColor", this.noTimeCircle )
+			arr.push( {name: "未分配", value: 100} )
+		}
+
+		return A( arr )
+	},
 	actions: {
 		validationInputMangerTime( obj, inputValue ) {
 			let isNumber = this.checkNumber( obj.get( inputValue ) ),
@@ -83,6 +117,7 @@ export default Component.extend( {
 				cur += this.transNumber( this.managerAnswer.get( "clientManagementTime" ) )
 				cur += this.transNumber( this.managerAnswer.get( "adminWorkTime" ) )
 				cur += this.transNumber( this.managerAnswer.get( "kpiAnalysisTime" ) )
+				cur += this.transNumber( this.managerAnswer.get( "teamMeetingTime" ) )
 				this.answers.forEach( answer => {
 					resourceTime += this.transNumber( answer.get( "abilityCoach" ) )
 					resourceTime += this.transNumber( answer.get( "assistAccessTime" ) )
@@ -91,11 +126,13 @@ export default Component.extend( {
 					cur += this.transNumber( answer.get( "assistAccessTime" ) )
 				} )
 				if ( value <= this.maxManagerTime ) {
-
 					set( this, "curResourceTime", resourceTime )
 					set( this , "curManagerTime", cur )
+					let timeArr = this.getResourceTimeData()
+
+					set( this , "circleResourceTime", timeArr )
 					// this.curManagerTime += value
-					window.console.log( this.curManagerTime, value )
+					// window.console.log( this.curManagerTime, value )
 				} else {
 					window.console.log()
 					this.set( "warning", {
@@ -105,7 +142,7 @@ export default Component.extend( {
 					} )
 				}
 			} else {
-				obj.set( inputValue, -1 )
+				obj.set( inputValue, 0 )
 			}
 
 		},

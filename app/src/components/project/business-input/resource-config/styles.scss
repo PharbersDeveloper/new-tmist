@@ -44,6 +44,25 @@
 					}
 				}
 			}
+
+			.remain {
+				background-color: #ebecf0;
+				color: #505f79;
+				font-size: 14px;
+				font-weight: 400;
+				margin-left: 4px;
+				height: 20px;
+				border-radius: 4px;
+
+				svg {
+					font-size: 18px;
+					padding-bottom: 2px;
+
+					path {
+						fill: #505f79;
+					}
+				}
+			}
 		}
 	}
 }
@@ -89,12 +108,22 @@
 	}
 
 	.resource-hospital {
-		.hospital-name {
-			font-size: 14px;
-			color: #344563;
-			width: 84px;
-			height: 20px;
-			text-align: right;
+		.hospital-time {
+			.hospital-name {
+				font-size: 14px;
+				color: #344563;
+				width: 84px;
+				height: 20px;
+				text-align: right;
+			}
+
+			&::after {
+				content: "%";
+				position: absolute;
+				margin-left: 155px;
+				font-size: 14px;
+				color: #344563;
+			}
 		}
 	}
 }
