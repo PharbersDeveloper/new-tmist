@@ -6,7 +6,7 @@ import { later } from "@ember/runloop"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 
 export default Component.extend( GenerateCondition, {
-	positionalParams: ["resource", "proposal", "kpis"],
+	positionalParams: ["resource", "proposal", "kpis", "lastPeriod"],
 	classNames: ["mb-4"],
 	localClassNames: "resource",
 	showContent: false,

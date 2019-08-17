@@ -36,7 +36,7 @@
 				{{#bp-layout local-class="resource-detail" direction="col"}}
 					{{#each resources as |item index|}}
 						{{#if (bp-eq currentResource index)}}
-							{{common/card/member-card resource=item proposal=proposal kpis=kpis}}
+							{{common/card/member-card resource=item proposal=proposal kpis=kpis period=period lastPeriod=lastPeriod}}
 						{{/if}}
 					{{/each}}
 				{{/bp-layout}}
