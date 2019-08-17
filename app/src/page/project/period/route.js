@@ -59,12 +59,19 @@ export default Route.extend( {
 				return this.facade.queryPeriodAnswers( p, items, people )
 			} )
 
-			const dragInfo = 
+		const dragInfo = 
 			prs.load().then( x => {
 				const condi01 = "(proposalId,:eq,`" + x.id + "`)"
 				const condi02 = "(phase,:eq,-1)"
 				const condi = "(:and," + condi01 + "," + condi02 + ")"
-				return this.set("reports", this.store.query("model/report", { filter: condi} ))
+				return this.store.query("model/report", { filter: condi} )
+			} )
+
+			const kpiInfo = prs.load().then( x => {
+				const condi01 = "(proposalId,:eq,`" + x.id + "`)"
+				const condi02 = "(phase,:eq,-1)"
+				const condi = "(:and," + condi01 + "," + condi02 + ")"
+				return this.store.query("model/preset", { filter: condi} )
 			} )
 
 		return RSVP.hash( {
@@ -78,7 +85,8 @@ export default Route.extend( {
 			answers: answers,
 			validation: validation,
 			quota: quota,
-			dragInfo: dragInfo
+			dragInfo: dragInfo,
+			kpiInfo: kpiInfo
 		} )
 	},
 	setupController( controller , model ) {

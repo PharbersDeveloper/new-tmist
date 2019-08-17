@@ -6,10 +6,13 @@ import { later } from "@ember/runloop"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 
 export default Component.extend( GenerateCondition, {
-	positionalParams: ["resource"],
+	positionalParams: ["resource", "proposal", "kpis"],
 	classNames: ["mb-4"],
 	localClassNames: "resource",
 	showContent: false,
+	kpi: computed("kpis", function(){ 
+		return this.kpis.find(x => x.resource.get("id") === this.resource.get("id"))
+	} ),
 	icon: computed( "showContent", function () {
 		let showContent = this.get( "showContent" )
 

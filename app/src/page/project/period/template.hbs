@@ -208,10 +208,21 @@
 			{{/if}}
 			{{#if (bp-eq currentTab 2)}}
 				{{!-- {{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}} --}}
-				{{project/decision-review proposal=model.project.proposal }}
+				{{project/decision-review 
+					proposal=model.project.proposal 
+					project=model.project 
+					hospitals=model.hospitals
+					resources=model.resources
+					products=model.products
+					answers=model.answers
+					}}
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}
-				{{project/proposal-info proposal=model.project.proposal reports=model.dragInfo}}
+				{{project/proposal-info 
+					proposal=model.project.proposal 
+					reports=model.dragInfo 
+					kpis=model.kpiInfo
+					}}
 			{{/if}}
 		{{/bp-layout}}
 	{{/bp-tabs}}

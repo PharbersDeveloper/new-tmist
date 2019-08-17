@@ -34,10 +34,14 @@
 			{{project/proposal-info/hospital-info hospitals=proposal.targets reports=reports proposal=proposal}}
 		{{/if}}
 		{{#if (bp-eq currentPannel 3)}}
-			{{project/proposal-info/member-info resources=proposal.resources}}
+			{{project/proposal-info/member-info resources=proposal.resources proposal=proposal kpis=kpis}}
 		{{/if}}
 		{{#if (bp-eq currentPannel 4)}}
-			{{project/proposal-info/historical-info periods=project.periods}}
+			{{project/proposal-info/historical-info 
+				periods=project.periods 
+				resources=proposal.resources
+				products=proposal.products
+				hospitals=proposal.targets}}
 		{{/if}}
 	</div>
 {{/bp-layout}}

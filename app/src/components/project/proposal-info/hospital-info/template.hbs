@@ -6,30 +6,30 @@
 		{{/bp-layout}}
 		{{#bp-layout direction="row"}}
 			{{#bp-layout tagName="table" local-class="hispital-table" direction="col"}}
-				{{#bp-layout tagName="thead" main="between" classNames="px-4"}}
-					{{#bp-layout tagName="th"}}城市{{/bp-layout}}
-					{{#bp-layout tagName="th"}}城市类型{{/bp-layout}}
-					{{#bp-layout tagName="th"}}城市战略定位{{/bp-layout}}
-					{{#bp-layout tagName="th"}}本地患者占比{{/bp-layout}}
-					{{#bp-layout tagName="th"}}三级{{/bp-layout}}
-					{{#bp-layout tagName="th"}}二级{{/bp-layout}}
-					{{#bp-layout tagName="th"}}一级{{/bp-layout}}
-					{{#bp-layout tagName="th"}}医院总数{{/bp-layout}}
+				{{#bp-layout tagName="thead" main="center" classNames="px-4"}}
+					{{#bp-layout tagName="th" main="center"}}城市{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}城市类型{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}城市战略定位{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}本地患者占比{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}三级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}二级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}一级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}医院总数{{/bp-layout}}
 				{{/bp-layout}}
-				{{#bp-layout tagName="tbody" }}
-					{{#bp-layout tagName="tr" main="between" classNames="px-4 py-2"}}
+				{{#bp-layout tagName="tbody" direction="col"}}
 					{{#each table as |item|}}
-						{{#bp-layout tagName="td"}}{{item.name}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.level}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.type}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.local}}{{/bp-layout}}
+					{{#bp-layout tagName="tr" main="center" classNames="px-4 py-2"}}
+						{{#bp-layout tagName="td" main="center"}}{{item.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.level}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.type}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.local}}{{/bp-layout}}
 						{{!-- {{#bp-layout tagName="td"}}40%{{/bp-layout}} --}}
-						{{#bp-layout tagName="td"}}{{item.t3}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.t2}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.t1}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.count}}{{/bp-layout}}
-					{{/each}}
+						{{#bp-layout tagName="td" main="center"}}{{item.t3}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.t2}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.t1}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.count}}{{/bp-layout}}
 					{{/bp-layout}}
+					{{/each}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
@@ -40,23 +40,24 @@
 		{{/bp-layout}}
 	{{/if}}
 
-	
 	{{#if (bp-eq proposal.case "ucb") }}
 	{{#bp-layout direction="col" local-class="hospital-info" classNames="bg-white mb-2"}}
 		{{#bp-layout tagName="h4"  local-class="title" classNames="ml-4 mb-0" cross="center"}}
 			城市医院详情
 		{{/bp-layout}}
 		{{#bp-layout classNames="ml-4" cross="center" local-class="city-hospital"}}
-			{{#bp-button classNames="mr-3"}}会西市{{/bp-button}}
-			{{#bp-button classNames="mr-3"}}会东市{{/bp-button}}
-			{{#bp-button classNames="mr-3"}}会南市{{/bp-button}}
+			{{#each regions as |item index|}}
+			{{#bp-button classNames="mr-3" onClick=(action (mut currentGroupIndex) index) }}
+				{{item.value}}
+			{{/bp-button}}
+			{{/each}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{/if}}
 
 	{{#bp-layout direction="row" local-class="hospital-detail" }}
 		{{#bp-layout direction="col"  classNames="bg-white mr-2"}}
-			{{#each hospitals as |item index|}}
+			{{#each currentGroup as |item index|}}
 				{{#bp-layout click=(action (mut currentHospital) index) 
 				classNames="py-4 pl-4"
 				local-class=(if (bp-eq currentHospital index) "active hospital-item" "hospital-item")}}
@@ -66,7 +67,7 @@
 		{{/bp-layout}}
 			
 		{{#bp-layout direction="col" local-class="hospital-detail-info"}}
-			{{#each hospitals as |item index|}}
+			{{#each currentGroup as |item index|}}
 				{{#if (bp-eq currentHospital index)}}
 					{{common/card/hospital-card hospital=item reports=reports proposal=proposal}}
 				{{/if}}

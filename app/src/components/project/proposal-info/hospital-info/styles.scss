@@ -22,6 +22,10 @@
 			color: #7a869a;
 			font-size: 12px;
 			width: 1152px;
+
+			th {
+				flex: 1;
+			}
 		}
 
 		tr {
@@ -29,6 +33,9 @@
 			font-size: 14px;
 			color: #344563;
 			// text-align: right;
+			td {
+				flex: 1;
+			}
 		}
 	}
 

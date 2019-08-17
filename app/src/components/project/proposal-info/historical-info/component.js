@@ -7,26 +7,26 @@ import { later } from "@ember/runloop"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 
 export default Component.extend( GenerateCondition, {
-	positionalParams: ["periods"],
+	positionalParams: ["periods", "resources", "products", "hospitals"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
 	// TODO; 产品应该传入来
-	products: A( [
-		{productName: "美素",id: 1},
-		{productName: "普纳林",id: 2},
-		{productName: "西泰来",id:3}
+	// products: A( [
+	// 	{productName: "美素",id: 1},
+	// 	{productName: "普纳林",id: 2},
+	// 	{productName: "西泰来",id:3}
 
-	] ),
-	representatives: A( [
-		{name: "小兰",id: 1},
-		{name: "小宋",id: 2},
-		{name: "小木",id: 3}
-	] ),
-	hospitals: A( [
-		{name: "中日医院",id: 1},
-		{name: "人民医院",id: 2},
-		{name: "光华医院",id: 3}
-	] ),
+	// ] ),
+	// representatives: A( [
+	// 	{name: "小兰",id: 1},
+	// 	{name: "小宋",id: 2},
+	// 	{name: "小木",id: 3}
+	// ] ),
+	// hospitals: A( [
+	// 	{name: "中日医院",id: 1},
+	// 	{name: "人民医院",id: 2},
+	// 	{name: "光华医院",id: 3}
+	// ] ),
 	// init() {
 	// 	this._super(...arguments);
 	// 	// 初始化 全部选择 的一些数据
