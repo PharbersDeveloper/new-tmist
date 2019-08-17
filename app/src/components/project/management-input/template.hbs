@@ -89,8 +89,10 @@
 						{{#bp-layout local-class="text" classNames="mr-4"}}1V1能力辅导与协访{{/bp-layout}}
 						{{#bp-layout tagName="p" classNames="primary mb-0" local-class="percent"}}{{curResourceTime}}%{{/bp-layout}}
 					{{/bp-layout}}
-					{{#bp-layout local-class="circle-table"}}
-						table
+					{{#bp-layout local-class="circle-table" main="center"}}
+						{{#bp-layout local-class="circle" style="width: 128px;height: 128px" direction="row"}}
+							{{bp-circle eid="cricleResourceTime" circleData=circleResourceTime circleColor=circleColor circleSize=circleSize}}
+						{{/bp-layout}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
