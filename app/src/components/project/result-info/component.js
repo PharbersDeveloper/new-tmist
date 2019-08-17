@@ -4,12 +4,12 @@ import { computed } from "@ember/object"
 import { later } from "@ember/runloop"
 
 export default Component.extend( {
-	positionalParams: ["project", "results", "evaluations", "reports"],
+	positionalParams: ["project", "results", "evaluations", "reports", "summary"],
 	// overallInfo: computed(results function () {
 
 	// } ),
-	overallInfo: null,
-	init() {
+	// overallInfo: null,
+	// init() {
 		// this._super( ...arguments )
 		// new Promise( function ( resolve ) {
 		// 	later( function () {
@@ -106,17 +106,17 @@ export default Component.extend( {
 		// 	this.set( "tmResultProductCircleCondition", data.tmResultProductCircleCondition )
 		// 	this.set( "tmResultProductCircle", data.tmResultProductCircle )
 		// } )
-	},
-	didReceiveAttrs() {
-		this._super( ...arguments )
-		let tmpOverall = {
-			abilityLevel: "",
-			abilityDes: "",
-			abilityImg: "",
-			awardLevel: "",
-			awardDes: "",
-			awardImg: ""
-		}
+	// },
+	// didReceiveAttrs() {
+		// this._super( ...arguments )
+		// let tmpOverall = {
+		// 	abilityLevel: "",
+		// 	abilityDes: "",
+		// 	abilityImg: "",
+		// 	awardLevel: "",
+		// 	awardDes: "",
+		// 	awardImg: ""
+		// }
 
 		// this.results.map( ele => {
 		// 	this.evaluations.map( elem => {
@@ -135,10 +135,10 @@ export default Component.extend( {
 		// 	} )
 		// } )
 
-		this.set( "overallInfo", tmpOverall )
-	},
+		// this.set( "overallInfo", tmpOverall )
+	// },
 	salesReport: computed("project", function() {
-		return this.project.get("finals").lastObject
+		return this.project
 	} ),
 	actions: {
 		toReport() {

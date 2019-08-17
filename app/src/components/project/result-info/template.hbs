@@ -55,7 +55,7 @@
 						<span local-class="row-1">总体销售额</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">{{salesReport.sales}}</span>
+						<span local-class="row-2">{{salesReport.finals.lastObject.sales}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col"}}
@@ -63,7 +63,8 @@
 						<span local-class="row-1">总指标达成率</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">{{salesReport.sales}}/{{salesReport.salesQuota}}</span>
+						{{!-- <span local-class="row-2">{{salesReport.quotaAchv}}</span> --}}
+						<span local-class="row-2">{{salesReport.finals.lastObject.quotaAchv}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
@@ -101,7 +102,7 @@
 						<span local-class="row-1">RIO投入产出比</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">30%</span>
+						<span local-class="row-2">{{salesReport.finals.lastObject.roi}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
@@ -109,7 +110,7 @@
 						<span local-class="row-1">人效</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">¥ 4000,000</span>
+						<span local-class="row-2">¥{{salesReport.finals.lastObject.salesForceProductivity}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}

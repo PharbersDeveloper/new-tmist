@@ -8,4 +8,9 @@
 		{{/bp-layout}}
 		{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
 	{{/common/nav-top-project}}
-{{project/result-info project=model.project reports=model.reports evaluations=model.evaluations transitionToReport=(action "toReport")}}
+{{project/result-info 
+	project=model.project 
+	reports=model.reports 
+	summary=model.summary
+	evaluations=model.evaluations 
+	transitionToReport=(action "toReport")}}

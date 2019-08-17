@@ -15,9 +15,13 @@ export default Route.extend( {
 			const reports = this.store.query("model/report", { filter: condi })
 		// } )
 
+
+		// const finals = project.hasMany("finals").load()
+
 		return  RSVP.hash ( {
 			project: project,
-			reports: reports
+			reports: reports,
+			// summary: finals
 		} )
 
 		// const project = this.modelFor( "page.project" ),
