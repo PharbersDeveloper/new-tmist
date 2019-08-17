@@ -55,8 +55,10 @@ export default Component.extend( {
 	circleResourceTime: computed( function() {
 		return this.getResourceTimeData()
 	} ),
-	circleSize: A( ["70%", "95%"] ),
+	circleSize: A( [42, 56] ),
 	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
+	noTimeCircle: A( ["#ebecf0"] ),
+	timeCircleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
 	transNumber( value ) {
 		let number = Number( value )
 
@@ -80,13 +82,25 @@ export default Component.extend( {
 	getResourceTimeData() {
 		let arr = []
 
-		this.answers.filter( rs => rs.get( "category" ) === "Resource" ).forEach( r => {
-			let obj = {}
 
-			obj.name = r.get( "resource.name" )
-			obj.value = this.transNumber( r.get( "abilityCoach" ) ) + this.transNumber( r.get( "assistAccessTime" ) )
-			arr.push( obj )
-		} )
+		if ( this.curResourceTime > 0 ) {
+			set( this, "circleColor", this.timeCircleColor )
+
+			this.answers.filter( rs => rs.get( "category" ) === "Resource" ).forEach( r => {
+				let obj = {}
+
+				obj.name = r.get( "resource.name" )
+				obj.value = this.transNumber( r.get( "abilityCoach" ) ) + this.transNumber( r.get( "assistAccessTime" ) )
+
+				if ( obj.value ) {
+					arr.push( obj )
+				}
+			} )
+
+		} else {
+			set( this, "circleColor", this.noTimeCircle )
+			arr.push( {name: "未分配", value: 100} )
+		}
 
 		return A( arr )
 	},
@@ -112,10 +126,10 @@ export default Component.extend( {
 					cur += this.transNumber( answer.get( "assistAccessTime" ) )
 				} )
 				if ( value <= this.maxManagerTime ) {
-					let timeArr = this.getResourceTimeData()
-
 					set( this, "curResourceTime", resourceTime )
 					set( this , "curManagerTime", cur )
+					let timeArr = this.getResourceTimeData()
+
 					set( this , "circleResourceTime", timeArr )
 					// this.curManagerTime += value
 					// window.console.log( this.curManagerTime, value )

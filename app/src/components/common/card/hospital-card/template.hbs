@@ -73,8 +73,14 @@
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
 						{{#bp-layout tagName="td"}}{{item.product.name}}{{/bp-layout}}
 						{{#bp-layout tagName="td"}}{{item.product.treatmentArea}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.drugEntrance}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.patientNum}}{{/bp-layout}}
+						{{#bp-layout tagName="td"}}
+							{{#if (bp-eq item.currentDurgEntrance 1)}}
+							已开发
+							{{else}}
+							未开发
+							{{/if}}
+						{{/bp-layout}}
+						{{#bp-layout tagName="td"}}{{item.currentPatientNum}}{{/bp-layout}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{/each}}

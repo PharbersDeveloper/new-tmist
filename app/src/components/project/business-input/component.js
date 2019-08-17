@@ -28,7 +28,7 @@ export default Component.extend( {
 			let obj = {}
 
 			obj.name = p.get( "product.name" )
-			obj.allSales = p.salesQuota
+			obj.allSales = p.lastQuota
 			obj.productId = p.get( "product.id" )
 			obj.curSales = 0
 			obj.curBudget = 0
@@ -93,20 +93,6 @@ export default Component.extend( {
 	curHospitalId: null,
 	curAnswerToReset: null,
 	resourceHospital: false,
-	needScrollRepresentative: computed( function() {
-		if ( this.circleBudgetData.length >= 5 ) {
-			return true
-		} else {
-			return false
-		}
-	} ),
-	needScrollProduct: computed( function() {
-		if ( this.circleProductData.length >= 4 ) {
-			return true
-		} else {
-			return false
-		}
-	} ),
 	resourceHospitalNumebr: computed( "resourceHospital", function() {
 		return this.getResourceHospital()
 	} ),
@@ -380,7 +366,7 @@ export default Component.extend( {
 					let productDataArr = this.getProductBudgetData(),
 						budgetArr = this.getResourceBudgetData(),
 						budgetColor = this.getBudgetCircleColor()
-					
+
 					set( this, "circleProductData", productDataArr )
 					set( this, "circleBudgetData", budgetArr )
 					set( this, "circleBudgetColor", budgetColor )

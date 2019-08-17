@@ -11,15 +11,16 @@ export default Service.extend( {
 			current: 0,
 			pharse: aProposal.get( "totalPhase" ),
 			status: 0,
-			lastUpdate: Date.now()
+			lastUpdate: Date.now(),
+			periods: []
 		} ).save()
 	},
 	genPeriodWithProject( aProject ) {
-		const last = aProject.periods.lastObject ? aProject.periods.lastObject : null
+		// const last = aProject.periods.lastObject ? aProject.periods.lastObject : null
 		let result = this.store.createRecord( "model.period", {
 			name: "alfred test",
 			answers: [],
-			last: last
+			pharse: aProject.periods.length
 		} ).save()
 
 		result.then( x => {
