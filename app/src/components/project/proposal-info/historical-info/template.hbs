@@ -270,7 +270,7 @@
 									{{bp-icon icon="down"}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
-									{{#each representatives as |rep|}}
+									{{#each resources as |rep|}}
 										{{#menu.option value=rep
 												onClick=(action 'chooseRep' rep)}}
 											{{rep.name}}

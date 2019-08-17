@@ -218,7 +218,11 @@
 					}}
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}
-				{{project/proposal-info proposal=model.project.proposal reports=model.dragInfo kpis=model.kpiInfo}}
+				{{project/proposal-info 
+					proposal=model.project.proposal 
+					reports=model.dragInfo 
+					kpis=model.kpiInfo
+					}}
 			{{/if}}
 		{{/bp-layout}}
 	{{/bp-tabs}}
