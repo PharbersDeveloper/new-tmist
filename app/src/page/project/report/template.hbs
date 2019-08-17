@@ -33,8 +33,13 @@
 				{{/list.link-to}}
 			</li> --}}
 		{{/tabs.tablist}}
-		{{!-- {{outlet}} --}}
-        {{log model.periods}}
-        {{project/proposal-info/historical-info periods=model.periods}}
+		<h1>Budget: {{model.budget}}</h1>
+		<h1>Sales: {{model.sales}}</h1>
+		<h1>Quota: {{model.quota}}</h1>
+		<h1>QuotaAchv: {{model.quotaAchv}}</h1>
+		<h1>SalesForceProductivity: {{model.salesForceProductivity}}</h1>
+		<h1>Roi: {{model.roi}}</h1>
+		{{!-- {{project/proposal-info/historical-info periods=model.periods}} --}}
 	{{/bp-tabs}}
 {{/bp-layout}}
+>
