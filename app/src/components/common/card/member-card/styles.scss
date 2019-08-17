@@ -71,6 +71,15 @@
 		.kpi-content {
 			height: 874px;
 
+			span.badge {
+				height: 31px;
+				width: 102px;
+				border-radius: 4px;
+				background: rgba(9, 30, 66, 0.04);
+				font-size: 14px;
+				color: #505f79;
+			}
+
 			.kpi-data {
 				height: 356px;
 				width: 874px;
