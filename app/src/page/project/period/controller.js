@@ -63,8 +63,8 @@ export default Controller.extend( {
 			this.runtimeConfig.set( "jobId", subMsg.jobId )
 			this.set( "loadingForSubmit", false )
 			if ( this.calcDone === true ) {
-				// this.transitionToRoute( "page.project.result" )
-				document.getElementById( "submit-btn" ).click()
+				this.transitionToRoute( "page.project.result" )
+				// document.getElementById( "submit-btn" ).click()
 			}
 		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" ) {
 			let proposalId = this.model.project.get( "proposal.id" ),
@@ -531,6 +531,13 @@ export default Controller.extend( {
 			window.console.log( "callE Success!" )
 		} )
 	},
+	validation( proposalCase ) {
+		if ( proposalCase === "ucb" ) {
+			return this.ucbValidation()
+		} else if ( proposalCase === "tm" ) {
+			return this.tmValidation()
+		}
+	},
 	actions: {
 		publish() {
 			this.client.Publish( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "Hello" )
@@ -538,29 +545,18 @@ export default Controller.extend( {
 		toIndex() {
 			this.transitionToRoute( "page.welcome" )
 		},
-		validation( that, proposalCase ) {
-			if ( proposalCase === "ucb" ) {
-				return that.ucbValidation()
-			} else if ( proposalCase === "tm" ) {
-				return that.tmValidation()
-			}
-		},
 		submit() {
-			// this.transitionToRoute( "page.project.result" )
-			// this.actions.saveInputs()
-			// this.callR()
-
 			// 使用这部分代码
-			// let status = this.actions.validation( this, proposalCase )
+			let status = this.validation( this.model.project.proposal.get( "case" ) )
 
-			// if ( status ) {
-			this.set( "calcDone", false )
-			this.set( "loadingForSubmit", true )
-			Ember.Logger.info( "save current input" )
-			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-				this.callR()
-			} )
-			// }
+			if ( status ) {
+				this.set( "calcDone", false )
+				this.set( "loadingForSubmit", true )
+				Ember.Logger.info( "save current input" )
+				this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+					this.callR()
+				} )
+			}
 			// 使用结束
 
 			// let judgeAuth = this.judgeOauth(),
