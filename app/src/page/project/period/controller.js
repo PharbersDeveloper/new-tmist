@@ -13,12 +13,14 @@ export default Controller.extend( {
 	ajax: service(),
 	toast: service(),
 	exam: service( "service/exam-facade" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	em: service( "emitter" ),
 	client: computed( function () {
 		return this.em.GetInstance()
 	} ),
 	currentTab: 0,
-	loadingForSubmit: 0,
+	loadingForSubmit: true,
+	calcDone: false,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
@@ -52,8 +54,43 @@ export default Controller.extend( {
 	onMessage( msg ) {
 		window.console.info( "Emitter Controller" )
 		window.console.info( msg.channel + " => " + msg.asString() )
-		this.set( "loadingForSubmit", false )
-		this.transitionToRoute( "page.project.result" )
+
+		let msgObj = msg.asObject()
+		let subMsg = JSON.parse( msgObj.msg )
+
+
+		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
+			this.runtimeConfig.set( "jobId", subMsg.jobId )
+			this.set( "loadingForSubmit", false )
+			if ( this.calcDone === true ) {
+				// this.transitionToRoute( "page.project.result" )
+				document.getElementById( "submit-btn" ).click()
+			}
+		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" ) {
+			let proposalId = this.model.project.get( "proposal.id" ),
+				projectId = this.model.project.get( "id" ),
+				periodId = this.model.period.get( "id" ),
+				type = this.model.project.get( "proposal.case" )
+
+			this.get( "ajax" ).post( "/callR", {
+				headers: {
+					"dataType": "json",
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
+				},
+				data: {
+					callr: false,
+					type: type,
+					proposalId: proposalId,
+					projectId: projectId,
+					periodId: periodId
+				}
+			} ).then( res => {
+				window.console.log( res )
+				window.console.log( "callBackend Success!" )
+				this.set( "calcDone", true )
+			} )
+		}
 	},
 	Subscribe() {
 		window.console.info( "emitter" )
@@ -61,7 +98,7 @@ export default Controller.extend( {
 		// let client = this.em.GetInstance()
 		// API: 参照https://emitter.io/develop/javascript/
 		// 订阅  参数：channel key，channel name，消息类型（message, error, disconnect），MessageHandel
-		this.client.Subscribe( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "message", this.onMessage )
+		this.client.Subscribe( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "message", this.onMessage.bind( this ) )
 	},
 	transNumber( input ) {
 		let number = Number( input )
@@ -459,7 +496,8 @@ export default Controller.extend( {
 				"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
 			},
 			data: {
-				type: type,
+				callr: true,
+				type: type + "r",
 				proposalId: proposalId,
 				projectId: projectId,
 				periodId: periodId
@@ -469,6 +507,30 @@ export default Controller.extend( {
 			window.console.log( "callR Success!" )
 		} )
 	},
+	callE() {
+		let proposalId = this.model.project.get( "proposal.id" ),
+			projectId = this.model.project.get( "id" ),
+			periodId = this.model.period.get( "id" ),
+			type = this.model.project.get( "proposal.case" )
+
+		this.get( "ajax" ).post( "/callR", {
+			headers: {
+				"dataType": "json",
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
+			},
+			data: {
+				callr: false,
+				type: type,
+				proposalId: proposalId,
+				projectId: projectId,
+				periodId: periodId
+			}
+		} ).then( res => {
+			window.console.log( res )
+			window.console.log( "callE Success!" )
+		} )
+	},
 	actions: {
 		publish() {
 			this.client.Publish( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "Hello" )
@@ -476,28 +538,28 @@ export default Controller.extend( {
 		toIndex() {
 			this.transitionToRoute( "page.welcome" )
 		},
-		validation( proposalCase ) {
+		validation( that, proposalCase ) {
 			if ( proposalCase === "ucb" ) {
-				return this.ucbValidation()
+				return that.ucbValidation()
 			} else if ( proposalCase === "tm" ) {
-				return this.tmValidation()
+				return that.tmValidation()
 			}
 		},
-		submit( proposalCase ) {
-			this.transitionToRoute( "page.project.result" )
-			// this.set( "loadingForSubmit", true )
+		submit() {
+			// this.transitionToRoute( "page.project.result" )
 			// this.actions.saveInputs()
 			// this.callR()
 
 			// 使用这部分代码
-			// let status = this.actions.validation( proposalCase )
+			// let status = this.actions.validation( this, proposalCase )
 
 			// if ( status ) {
-			// 	Ember.Logger.info( "save current input" )
-			// 	this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-			// 		alert( "save success" )
-			// 		this.callR()
-			// 	} )
+			this.set( "calcDone", false )
+			this.set( "loadingForSubmit", true )
+			Ember.Logger.info( "save current input" )
+			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+				this.callR()
+			} )
 			// }
 			// 使用结束
 
