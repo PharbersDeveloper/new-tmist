@@ -25,5 +25,7 @@ export default DS.Model.extend( {
 	currentClsCDoctorVT: DS.attr( "number" ),
 	phase: DS.attr("number"),
 	lastBudget: DS.attr("number"),
-	initBudget: DS.attr("number")
+	initBudget: DS.attr("number"),
+	currentDurgEntrance: DS.attr("number"),
+	currentPatientNum: DS.attr("number")
 } )
