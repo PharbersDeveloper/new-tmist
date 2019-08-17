@@ -14,5 +14,9 @@ export default Route.extend( {
 			proposal: proposal,
 			provious: provious
 		} )
-	}
+	},
+	// setupController( controller , model ) {
+	// 	this._super( controller , model )
+	// 	this.controllerFor( "page.prepare" ).Subscribe()
+	// }
 } )
