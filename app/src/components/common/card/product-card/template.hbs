@@ -24,7 +24,7 @@
 				{{#bp-layout tagName="p" }}
 					<span>{{t "card.product-card.launch-time"}}</span>
 					{{!-- <span>{{bp-string-slice goods.productConfig.launchTime 0 4}}年</span> --}}
-					<span>{{bp-string-slice product.launchTime 0 4}}{{t "card.product-card.year"}}</span>
+					<span>{{bp-string-slice product.launchDate 0 4}}{{t "card.product-card.year"}}</span>
 				{{/bp-layout}}
 				{{#bp-layout tagName="p" }}
 					<span>{{t "card.product-card.producer"}}</span>
@@ -34,7 +34,7 @@
 				{{#bp-layout tagName="p" }}
 					<span>{{t "card.product-card.patent-describe"}}</span>
 					{{!-- <span>{{goods.productConfig.patentDescribe}}</span> --}}
-					<span>{{product.patentDescribe}}</span>
+					<span>{{product.productCategory}}</span>
 				{{/bp-layout}}
 				{{#bp-layout tagName="p" }}
 					<span>{{t "card.product-card.life-cycle"}}</span>

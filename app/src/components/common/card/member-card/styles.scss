@@ -23,7 +23,7 @@
 
 		.basic-infos {
 			.left {
-				height: 124px;
+				// height: 124px;
 				width: 437px;
 
 				.name {
@@ -35,15 +35,35 @@
 					font-size: 14px;
 					color: #7a869a;
 				}
-			}
 
-			.right {
-				min-height: 124px;
-				width: 437px;
+				p span:first-child {
+					font-size: 14px;
+					color: #344563;
+				}
 
 				p span:last-child {
 					font-size: 14px;
 					color: #7a869a;
+				}
+			}
+
+			.right {
+				// min-height: 124px;
+				width: 437px;
+
+				p span:first-child {
+					font-size: 14px;
+					color: #344563;
+				}
+
+				p span:last-child {
+					font-size: 14px;
+					color: #7a869a;
+				}
+
+				.des {
+					font-size: 14px;
+					color: #7A869A;
 				}
 			}
 
@@ -56,8 +76,7 @@
 					flex: 1;
 					font-size: 0;
 
-					.properties,
-					.values {
+					.properties, .values {
 						@extend %p-secondary;
 					}
 

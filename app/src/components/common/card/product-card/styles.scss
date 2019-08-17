@@ -58,6 +58,10 @@
 				flex: 1;
 				font-size: 0;
 
+				p {
+					margin-bottom: 16px;
+				}
+
 				p>span:first-child {
 					@extend %p-primary;
 					flex: 0 0 70px;
