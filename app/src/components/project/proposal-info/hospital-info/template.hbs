@@ -35,8 +35,13 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{else if (bp-eq proposal.case "tm") }}
-		{{#bp-layout local-class="desc" direction="row" classNames="mt-4 ml-4 mb-4" tagName="p"}}
-		关于城市的一段介绍。当前城市下共有X家医院
+		{{#bp-layout classNames="bg-white mb-4" direction="col" local-class="hispital-header"}}
+			{{#bp-layout tagName="h4"  local-class="title" cross="center" classNames="ml-4 mb-0"}}
+				地区城市医院概况
+			{{/bp-layout}}
+			{{#bp-layout local-class="desc" direction="row" classNames="mt-4 ml-4 mb-4" tagName="p"}}
+			关于城市的一段介绍。当前城市下共有X家医院
+			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/if}}
 

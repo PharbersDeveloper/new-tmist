@@ -73,22 +73,15 @@ export default Component.extend( {
 			{ value: this.allMeetingPlaces - this.curMeetingPlaces, name: "未分配" }] )
 	} ),
 	circleSize: A( ["70%", "95%"] ),
-	circleProductColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
+	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
+	circleProductColor: computed( function() {
+		return this.getProductCircleColor()
+	} ),
+	circleBudgetColor: computed( function() {
+		return this.getBudgetCircleColor()
+	} ),
 	circleProductData: computed( function() {
-		let arr = [], all = 0
-
-		this.allProductInfo.forEach( product => {
-			let obj = {}
-
-			obj.name = product.name
-			obj.value = product.curBudget
-			all += product.curBudget
-			arr.push( obj )
-		} )
-		let leftBudget = {value: this.allBudget - all, name: "未分配"}
-
-		arr.push( leftBudget )
-		return A( arr )
+		return this.getProductBudgetData()
 	} ),
 	circleBudgetData: computed( function() {
 		return this.getResourceBudgetData()
@@ -101,14 +94,14 @@ export default Component.extend( {
 	curAnswerToReset: null,
 	resourceHospital: false,
 	needScrollRepresentative: computed( function() {
-		if ( this.circleBudgetData.length > 5 ) {
+		if ( this.circleBudgetData.length >= 5 ) {
 			return true
 		} else {
 			return false
 		}
 	} ),
 	needScrollProduct: computed( function() {
-		if ( this.circleProductData.length > 4 ) {
+		if ( this.circleProductData.length >= 4 ) {
 			return true
 		} else {
 			return false
@@ -150,6 +143,40 @@ export default Component.extend( {
 		}
 		return true
 	},
+	getProductCircleColor() {
+		let num = this.circleProductData.length,
+			arr = []
+
+		for ( let i = 0; i < num; i++ ) {
+			if ( i === num - 1 ) {
+				arr.push( "#dfe1e6" )
+			}
+
+			if ( i > this.circleColor.length - 1 ) {
+				i = 0
+			}
+			arr.push( this.circleColor[i] )
+		}
+		return A( arr )
+	},
+	getBudgetCircleColor() {
+		let num = this.circleBudgetData.length,
+			arr = []
+
+		for ( let i = 0; i < num; i++ ) {
+
+			if ( i === num - 1 ) {
+				arr.push( "#dfe1e6" )
+			} else {
+				if ( i > this.circleColor.length - 1 ) {
+					i = 0
+				}
+				arr.push( this.circleColor[i] )
+			}
+
+		}
+		return A( arr )
+	},
 	getResourceBudgetData() {
 		let obj = {}, budgetArr = [], allResourceBudget = 0
 
@@ -178,6 +205,25 @@ export default Component.extend( {
 		budgetArr.push( {value: remain, name: "未分配", per: ( remain / this.allBudget * 100 ).toFixed( 1 ) } )
 
 		return budgetArr
+	},
+	getProductBudgetData() {
+		let arr = [], all = 0
+
+		this.allProductInfo.forEach( product => {
+			let obj = {}
+
+			obj.name = product.name
+			obj.value = product.curBudget
+			obj.curBudgetPercent = product.curBudgetPercent
+			all += product.curBudget
+			arr.push( obj )
+		} )
+
+		let remain = this.allBudget - all
+
+		arr.push( {value: remain, name: "未分配", curBudgetPercent: ( remain / this.allBudget * 100 ).toFixed( 1 )}
+		)
+		return A( arr )
 	},
 	// inputMaxValue( all, value, type ) {
 	// 	let sum = 0,
@@ -242,6 +288,9 @@ export default Component.extend( {
 	// 	return Number( businessInputMaxValueRule.split( "#" )[1] )
 	// },
 	actions: {
+		getColor( index ) {
+			return this.circleProductColor.objectAt( index )
+		},
 		selectResource( rs ) {
 			set( this,"curResource", rs )
 			window.console.log( "当前代表" , this.curResource.get( "name" ) )
@@ -310,34 +359,31 @@ export default Component.extend( {
 				} )
 
 				curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
-				window.console.log( cur, curProductInfo )
+
 				if ( cur <= this.allBudget ) {
 					set( curProductInfo.firstObject, "curBudget", cur )
 					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
 
 
-					let arr = [], all = 0
+					// let arr = [], all = 0
 
-					this.allProductInfo.forEach( product => {
-						let obj = {}
-
-
-						obj.name = product.name
-						obj.value = product.curBudget
-						all += product.curBudget
-						arr.push( obj )
-					} )
-
-					set( this, "curBudgetPercent", ( ( this.allBudget - all ) / this.allBudget * 100 ).toFixed( 1 ) )
-					let leftBudget = {value: this.allBudget - all, name: "未分配"}
-
-					arr.push( leftBudget )
-					set( this, "circleProductData", arr )
-
-
-					let budgetArr = this.getResourceBudgetData()
-
+					// this.allProductInfo.forEach( product => {
+					// 	let obj = {}
+					// 	obj.name = product.name
+					// 	obj.value = product.curBudget
+					// 	all += product.curBudget
+					// 	arr.push( obj )
+					// } )
+					// set( this, "curBudgetPercent", ( ( this.allBudget - all ) / this.allBudget * 100 ).toFixed( 1 ) )
+					// let leftBudget = {value: this.allBudget - all, name: "未分配"}
+					// arr.push( leftBudget )
+					let productDataArr = this.getProductBudgetData(),
+						budgetArr = this.getResourceBudgetData(),
+						budgetColor = this.getBudgetCircleColor()
+					
+					set( this, "circleProductData", productDataArr )
 					set( this, "circleBudgetData", budgetArr )
+					set( this, "circleBudgetColor", budgetColor )
 
 
 				} else {
