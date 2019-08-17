@@ -5,14 +5,16 @@ import { isEmpty } from "@ember/utils"
 import { htmlSafe } from "@ember/template"
 import { later } from "@ember/runloop"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
+import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
 
-export default Component.extend( GenerateCondition, {
+
+export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	positionalParams: ["periods", "resources", "products", "hospitals"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
 	// TODO; 产品应该传入来
 	// products: A( [
-	// 	{productName: "美素",id: 1},
+	// 	{name: "美素",id: 1},
 	// 	{productName: "普纳林",id: 2},
 	// 	{productName: "西泰来",id:3}
 
@@ -1173,3 +1175,4 @@ export default Component.extend( GenerateCondition, {
 		} )
 	}
 } )
+
