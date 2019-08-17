@@ -29,13 +29,14 @@ export default Object.extend( {
 		// 	} ).join( "," )
 
 		// return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
-		const condi01 = "(proposalId,:eq,`" + aProposal.value().get("id") + "`)"
-		const condi02 = "(category,:eq,`8`)"
-		const condi03 = "(category,:eq,`4`)"
-		const condior = "(:or," + condi02 + "," + condi03 + ")"
-		const fc = "(:and," + condi01 + "," + condior + ")"
+		const condi01 = "(proposalId,:eq,`" + aProposal.value().get( "id" ) + "`)",
+		 condi02 = "(category,:eq,`8`)",
+		 condi03 = "(category,:eq,`4`)",
+		 condior = "(:or," + condi02 + "," + condi03 + ")",
+		 fc = "(:and," + condi01 + "," + condior + ")"
 		// return this.store.query("model/preset", { filter: "(proposalId,:eq,`" + aProposal.value().get("id") + "`)" } )
-		return this.store.query("model/preset", { filter: fc } )
+
+		return this.store.query( "model/preset", { filter: fc } )
 
 	},
 	async answersForPresets ( period, presets, resources ) {
@@ -101,8 +102,8 @@ export default Object.extend( {
 				strategAnalysisTime: item.strategAnalysisTime,
 				adminWorkTime: item.adminWorkTime,
 				clientManagementTime: item.clientManagementTime,
-				kpiAnalysisTime: this.clientManagementTime,
-				teamMeetingTime: this.teamMeetingTime
+				kpiAnalysisTime: item.kpiAnalysisTime,
+				teamMeetingTime: item.teamMeetingTime
 			} )
 		} )
 	}
