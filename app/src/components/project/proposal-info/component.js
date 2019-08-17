@@ -1,7 +1,7 @@
 import Component from "@ember/component"
 
 export default Component.extend( {
-	positionalParams: ["proposal", "reports", "kpis"],
+	positionalParams: ["proposal", "reports", "kpis", "period"],
 
 	groupValue: "",
 	salesGroupValue: 0,
