@@ -19,7 +19,7 @@ export default Controller.extend( {
 		return this.em.GetInstance()
 	} ),
 	currentTab: 0,
-	loadingForSubmit: true,
+	loadingForSubmit: false,
 	calcDone: false,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
@@ -55,8 +55,8 @@ export default Controller.extend( {
 		window.console.info( "Emitter Controller" )
 		window.console.info( msg.channel + " => " + msg.asString() )
 
-		let msgObj = msg.asObject()
-		let subMsg = JSON.parse( msgObj.msg )
+		let msgObj = msg.asObject(),
+		 subMsg = JSON.parse( msgObj.msg )
 
 
 		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
