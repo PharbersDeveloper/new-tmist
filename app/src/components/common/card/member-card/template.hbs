@@ -41,51 +41,36 @@
 					{{/bp-layout}}
 					{{!-- {{#bp-layout classNames="px-4 mr-4 mt-2" tagName="span" local-class="badge" cross="center"}}2019Q1{{/bp-layout}} --}}
 				{{/bp-layout}}
-				{{#bp-layout local-class="kpi-data" direction="row" classNames="bg-white"}}
-					{{#bp-layout local-class="left" direction="col" classNames="mb-1"}}
-						{{#bp-layout direction="row" classNames="" local-class="row"}}
-							{{#bp-layout local-class="row-1 " direction="col"}}
-								{{#bp-layout tagName="p" main="center"}} 目标医生人数 {{/bp-layout}}
-								{{#bp-layout tagName="p" main="center"}} {{kpi.targetDoctorNum}} <span class="ml-1 mt-3">人</span> {{/bp-layout}}
-							{{/bp-layout}}
-							{{#bp-layout local-class="row-1" direction="col"}}
-								{{#bp-layout tagName="p"  main="center"}} 目标医生覆盖率 {{/bp-layout}}
-								{{#bp-layout tagName="p" main="center"}} {{kpi.targetDoctorCoverage}} <span class="ml-1 mt-3">%</span> {{/bp-layout}}
-							{{/bp-layout}}
+				{{!-- {{#bp-layout classNames="px-4 mr-4 mt-2" tagName="span" local-class="badge" cross="center"}}2019Q1{{/bp-layout}} --}}
+			{{/bp-layout}}
+			{{#bp-layout local-class="kpi-data" direction="row" classNames="bg-white"}}
+				{{#bp-layout local-class="left" direction="col" classNames="mb-1"}}
+					{{#bp-layout direction="row" classNames="" local-class="row"}}
+						{{#bp-layout local-class="row-1 " direction="col"}}
+							{{#bp-layout tagName="p" main="center"}} 目标医生人数 {{/bp-layout}}
+							{{#bp-layout tagName="p" main="center"}} {{kpi.currentTargetDoctorNum}} <span class="ml-1 mt-3">人</span> {{/bp-layout}}
 						{{/bp-layout}}
-						{{#bp-layout direction="row" local-class="row" classNames="mx-4"}}
-							{{#bp-layout local-class="row-2" direction="col"}}
-								{{#bp-layout tagName="p" main="center"}}A类{{/bp-layout}}
-								{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
-								{{#bp-layout tagName="p" main="center"}}{{kpi.highTarget}} <span class="ml-1 mt-3">次</span> {{/bp-layout}}
-							{{/bp-layout}}
-							{{#bp-layout local-class="row-2" direction="col"}}
-								{{#bp-layout tagName="p" main="center"}}B类{{/bp-layout}}
-								{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
-								{{#bp-layout tagName="p" main="center"}}{{kpi.middleTarget}} <span class="ml-1 mt-3">次</span> {{/bp-layout}}
-							{{/bp-layout}}
-							{{#bp-layout local-class="row-2" direction="col"}}
-								{{#bp-layout tagName="p" main="center"}}C类{{/bp-layout}}
-								{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
-								{{#bp-layout tagName="p" main="center"}}{{kpi.lowTarget}} <span class="ml-1 mt-3">次</span> {{/bp-layout}}
-							{{/bp-layout}}
+						{{#bp-layout local-class="row-1" direction="col"}}
+							{{#bp-layout tagName="p"  main="center"}} 目标医生覆盖率 {{/bp-layout}}
+							{{#bp-layout tagName="p" main="center"}} {{kpi.currentTargetDoctorCoverage}} <span class="ml-1 mt-3">%</span> {{/bp-layout}}
 						{{/bp-layout}}
 					{{/bp-layout}}
-					{{bp-row direction='col' local-class="right" rowModel=tmRadar conditions=tmRadarCondition}}
-					{{!-- {{#bp-layout local-class="right"}}
-						charts
-					{{/bp-layout}} --}}
-				{{/bp-layout}}
-			{{/bp-layout}}
-		{{/bp-layout}}
-	{{else}}
-		{{#bp-layout local-class="basic-infos" classNames="p-4 mb-1 bg-white" direction="row"}}
-			{{#bp-layout direction="row" local-class="left"}}
-				{{#bp-layout}}<img src={{resource.avatar.img}} alt={{resource.name}}>{{/bp-layout}}
-				{{#bp-layout direction="col"}}
-					{{#bp-layout local-class="name"}} {{resource.name}} {{/bp-layout}}
-					{{#bp-layout local-class="experience"}}
-						入职{{resource.entryTime}}年/{{resource.experience}}年工作经验
+					{{#bp-layout direction="row" local-class="row" classNames="mx-4"}}
+						{{#bp-layout local-class="row-2" direction="col"}}
+							{{#bp-layout tagName="p" main="center"}}A类{{/bp-layout}}
+							{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
+							{{#bp-layout tagName="p" main="center"}}{{kpi.currentClsADoctorVT}} <span class="ml-1 mt-3">次</span> {{/bp-layout}}
+						{{/bp-layout}}
+						{{#bp-layout local-class="row-2" direction="col"}}
+							{{#bp-layout tagName="p" main="center"}}B类{{/bp-layout}}
+							{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
+							{{#bp-layout tagName="p" main="center"}}{{kpi.currentClsBDoctorVT}} <span class="ml-1 mt-3">次</span> {{/bp-layout}}
+						{{/bp-layout}}
+						{{#bp-layout local-class="row-2" direction="col"}}
+							{{#bp-layout tagName="p" main="center"}}C类{{/bp-layout}}
+							{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
+							{{#bp-layout tagName="p" main="center"}}{{kpi.currentClsCDoctorVT}} <span class="ml-1 mt-3">次</span> {{/bp-layout}}
+						{{/bp-layout}}
 					{{/bp-layout}}
 					{{#bp-layout classNames="mt-3 mb-1"}}
 						<p>

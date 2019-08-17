@@ -28,7 +28,7 @@ export default Component.extend( {
 			let obj = {}
 
 			obj.name = p.get( "product.name" )
-			obj.allSales = p.salesQuota
+			obj.allSales = p.lastQuota
 			obj.productId = p.get( "product.id" )
 			obj.curSales = 0
 			obj.curBudget = 0

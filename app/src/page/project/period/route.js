@@ -62,17 +62,19 @@ export default Route.extend( {
 		const dragInfo = 
 			prs.load().then( x => {
 				const condi01 = "(proposalId,:eq,`" + x.id + "`)"
-				const condi02 = "(phase,:eq,-1)"
-				const condi = "(:and," + condi01 + "," + condi02 + ")"
-				return this.store.query("model/report", { filter: condi} )
-			} )
-
-			const kpiInfo = prs.load().then( x => {
-				const condi01 = "(proposalId,:eq,`" + x.id + "`)"
-				const condi02 = "(phase,:eq,-1)"
-				const condi = "(:and," + condi01 + "," + condi02 + ")"
+				const condi02 = "(phase,:eq,0)"
+				const condi03 = "(category,:eq,8)"
+				const condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
 				return this.store.query("model/preset", { filter: condi} )
 			} )
+
+		const kpiInfo = prs.load().then( x => {
+			const condi01 = "(proposalId,:eq,`" + x.id + "`)"
+			const condi02 = "(phase,:eq,0)"
+			const condi03 = "(category,:eq,2)"
+			const condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
+			return this.store.query("model/preset", { filter: condi} )
+		} )
 
 		return RSVP.hash( {
 			period: period,
