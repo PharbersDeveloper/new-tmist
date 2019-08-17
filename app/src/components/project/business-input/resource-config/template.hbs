@@ -8,10 +8,12 @@
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
-					{{#if (bp-not-eq leftTime 0 "0")}}
-						<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}{{leftTime}}%</span>
-					{{else}}
-						<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+					{{#if (bp-eq project.proposal.case "tm")}}
+						{{#if (bp-not-eq leftTime 0 "0")}}
+							<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}剩余{{leftTime}}%</span>
+						{{else}}
+							<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+						{{/if}}
 					{{/if}}
 					{{#if hospitalNumber}}
 						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
@@ -25,10 +27,12 @@
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
-				{{#if (bp-not-eq leftTime 0 "0")}}
-				  <span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}{{leftTime}}%</span>
-				{{else}}
-					<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+				{{#if (bp-eq project.proposal.case "tm")}}
+					{{#if (bp-not-eq leftTime 0 "0")}}
+						<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}剩余{{leftTime}}%</span>
+					{{else}}
+						<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+					{{/if}}
 				{{/if}}
 					{{#if hospitalNumber}}
 						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
