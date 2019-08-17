@@ -110,7 +110,7 @@
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
 									{{#if tmpPsr.id}}
-										<p>{{tmpPsr.productName}}</p>
+										<p>{{tmpPsr.name}}</p>
 									{{else}}
 										全部选择
 									{{/if}}
@@ -124,7 +124,7 @@
 									{{#each products as |psrs|}}
 										{{#menu.option value=psrs
 												onClick=(action 'chooseProd' psrs)}}
-											{{psrs.productName}}
+											{{psrs.name}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
@@ -160,8 +160,8 @@
 											{{/each}}
 										</tr>
 									{{/if}}
-									{{!-- {{#if (bp-not-eq tmpPsr.productName undefined "全部选择")}}
-										{{#if (bp-eq tmpPsr.productName trContent.name)}}
+									{{!-- {{#if (bp-not-eq tmpPsr.name undefined "全部选择")}}
+										{{#if (bp-eq tmpPsr.name trContent.name)}}
 											<tr>
 												<td>{{trContent.name}}</td>
 												{{#each trContent.tableTr as |tdContent|}}
@@ -287,7 +287,7 @@
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
 									{{#if tmpProdRep.id}}
-										<p>{{tmpProdRep.productName}}</p>
+										<p>{{tmpProdRep.name}}</p>
 									{{else}}
 										全部选择
 									{{/if}}
@@ -301,7 +301,7 @@
 									{{#each products as |psrs|}}
 										{{#menu.option value=psrs
 												onClick=(action 'chooseProd' psrs)}}
-											{{psrs.productName}}
+											{{psrs.name}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
@@ -444,7 +444,7 @@
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
 									{{#if tmpProdHosp.id}}
-										<p>{{tmpProdHosp.productName}}</p>
+										<p>{{tmpProdHosp.name}}</p>
 									{{else}}
 										全部选择
 									{{/if}}
@@ -458,7 +458,7 @@
 									{{#each products as |prod|}}
 										{{#menu.option value=prod
 												onClick=(action 'chooseProd' prod)}}
-											{{prod.productName}}
+											{{prod.name}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}

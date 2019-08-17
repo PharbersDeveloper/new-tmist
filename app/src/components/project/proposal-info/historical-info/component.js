@@ -189,7 +189,7 @@ export default Component.extend( GenerateCondition, {
 	init() {
 		this._super( ...arguments )
 
-		this.set( "tmpRep",this.representatives.firstObject )
+		this.set( "tmpRep",this.resources.firstObject )
 		this.set( "tmpHosp",this.hospitals.firstObject )
 
 		const that = this
