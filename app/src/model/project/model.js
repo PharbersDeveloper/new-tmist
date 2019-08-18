@@ -10,5 +10,6 @@ export default DS.Model.extend( {
 	endTime: DS.attr( "number", { defaultValue: 0 } ),
 	lastUpdate: DS.attr( "number" ),
 	periods: DS.hasMany( "model/period" ),
-	results: DS.hasMany( "model/result" )
+	results: DS.hasMany( "model/result" ),
+	finals: DS.hasMany("model/final")
 } )
