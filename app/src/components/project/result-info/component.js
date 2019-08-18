@@ -31,6 +31,9 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "tmResultProductCircle", tmResultProductCircle )
 		this.set( "salesReports", this.project.finals )
 		this.set( "curSalesReports", this.project.finals.lastObject )
+
+		// console.log(this.salesReports)
+		// console.log(this.curSalesReports)
 	},
 	// overallInfo: computed(results function () {
 
@@ -89,7 +92,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		},
 		selPeriod( item ) {
 			this.set( "curSelPeriod", item )
-			this.set( "curSalesReports", this.project.finals.objectAt( item.phase ) )
+			// this.set( "curSalesReports", this.project.finals.objectAt( item.phase ) )
 		}
 	}
 } )
