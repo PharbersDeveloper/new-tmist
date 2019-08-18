@@ -1,14 +1,18 @@
-	{{#common/nav-top-project proposalName=model.project.proposal.name}}
-		{{#bp-layout direction="row"}}
-			{{#if (bp-eq model.project.proposal.case "tm")}}
-				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toCongratulation")}}完成任务{{/bp-button}}
-			{{else if (bp-eq model.project.proposal.case "ucb")}}
-				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toNext" model.project.proposal)}}进行下个周期{{/bp-button}}
+{{#common/nav-top-project proposalName=model.project.proposal.name}}
+	{{#bp-layout direction="row"}}
+		{{#if (bp-eq model.project.proposal.case "tm")}}
+			{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toCongratulation")}}完成任务{{/bp-button}}
+		{{else if (bp-eq model.project.proposal.case "ucb")}}
+			{{#if (bp-eq model.project.status 1)}}
+				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "goRoundOver")}}进行测评报告{{/bp-button}}
+			{{else}}
+				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toNext" model.project)}}进行下个周期{{/bp-button}}
 			{{/if}}
-		{{/bp-layout}}
-		{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
-	{{/common/nav-top-project}}
-{{project/result-info 
+		{{/if}}
+	{{/bp-layout}}
+	{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
+{{/common/nav-top-project}}
+{{project/result-info
 	project=model.project 
 	reports=model.reports 
 	summary=model.summary
