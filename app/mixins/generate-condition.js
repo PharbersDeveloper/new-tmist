@@ -10,6 +10,9 @@ export default Mixin.create( {
 	getJobId() {
 		let jobId = ""
 
+		console.log( this.runtimeConfig )
+		console.log( this.runtimeConfig.jobId )
+		console.log( ENV.environment === "development" && isEmpty( this.runtimeConfig.jobId ) )
 		if ( ENV.environment === "development" && isEmpty( this.runtimeConfig.jobId ) ) {
 			jobId = this.jobId
 		} else {
