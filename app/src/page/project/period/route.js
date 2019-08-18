@@ -14,7 +14,7 @@ export default Route.extend( {
 						return "`" + `${x}` + "`"
 					} ).join( "," )
 
-				return this.store.query( "model/hospital", { filter: "(id,:in," + "[" + hids + "]" + ")"} )
+				return this.store.query( "model/hospital", { filter: "(id,:in," + "[" + hids + "]" + ")" } )
 			} ),
 
 			products = prs.load().then( x => {
@@ -23,7 +23,7 @@ export default Route.extend( {
 						return "`" + `${x}` + "`"
 					} ).join( "," )
 
-				return this.store.query( "model/product", { filter: "(id,:in," + "[" + hids + "]" + ")"} )
+				return this.store.query( "model/product", { filter: "(id,:in," + "[" + hids + "]" + ")" } )
 			} ),
 
 			resources = prs.load().then( x => {
@@ -32,7 +32,7 @@ export default Route.extend( {
 						return "`" + `${x}` + "`"
 					} ).join( "," )
 
-				return this.store.query( "model/resource", { filter: "(id,:in," + "[" + hids + "]" + ")"} )
+				return this.store.query( "model/resource", { filter: "(id,:in," + "[" + hids + "]" + ")" } )
 			} ),
 
 			validation = prs.load().then( x => {
@@ -43,7 +43,15 @@ export default Route.extend( {
 				return x.belongsTo( "quota" ).load()
 			} ),
 
-			period = this.store.findRecord( "model/period", params.period_id )
+			period = this.store.findRecord( "model/period", params.period_id ),
+
+			periodsIds = project.hasMany( "periods" ).ids(),
+			pidsForSearch = periodsIds.map( x => {
+				return "`" + `${x}` + "`"
+			} ).join( "," ),
+
+			periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
+
 
 		this.facade.startPeriodExam( project )
 
@@ -51,30 +59,32 @@ export default Route.extend( {
 				return this.facade.queryPeriodPresets( prd, prs, 0 )
 			} ),
 
-		 answers = Promise.all( [period, presets, resources] ).then( results => {
+			answers = Promise.all( [period, presets, resources] ).then( results => {
 				const p = results[0],
 					items = results[1].filter( x => x.category == 8 && x.phase == 0 ),
 					people = results[2]
 
 				return this.facade.queryPeriodAnswers( p, items, people )
-			} )
+			} ),
 
-		const dragInfo = 
-			prs.load().then( x => {
-				const condi01 = "(proposalId,:eq,`" + x.id + "`)"
-				const condi02 = "(phase,:eq,0)"
-				const condi03 = "(category,:eq,8)"
-				const condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
-				return this.store.query("model/preset", { filter: condi} )
-			} )
+			dragInfo =
+				prs.load().then( x => {
+					const condi01 = "(proposalId,:eq,`" + x.id + "`)",
+						condi02 = "(phase,:eq,0)",
+						condi03 = "(category,:eq,8)",
+						condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
 
-		const kpiInfo = prs.load().then( x => {
-			const condi01 = "(proposalId,:eq,`" + x.id + "`)"
-			const condi02 = "(phase,:eq,0)"
-			const condi03 = "(category,:eq,2)"
-			const condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
-			return this.store.query("model/preset", { filter: condi} )
-		} )
+					return this.store.query( "model/preset", { filter: condi } )
+				} ),
+
+			kpiInfo = prs.load().then( x => {
+				const condi01 = "(proposalId,:eq,`" + x.id + "`)",
+					condi02 = "(phase,:eq,0)",
+					condi03 = "(category,:eq,2)",
+					condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
+
+				return this.store.query( "model/preset", { filter: condi } )
+			} )
 
 		return RSVP.hash( {
 			period: period,
@@ -82,17 +92,18 @@ export default Route.extend( {
 			hospitals: hospitals,
 			products: products,
 			resources: resources,
-			presets: presets.then( x=> x.filter( it => it.category == 8 && it.phase == 0 ) ),
-			productQuotas: presets.then( x=> x.filter( it => it.category == 4 && it.phase == 0 ) ),
+			presets: presets.then( x => x.filter( it => it.category == 8 && it.phase == 0 ) ),
+			productQuotas: presets.then( x => x.filter( it => it.category == 4 && it.phase == 0 ) ),
 			answers: answers,
 			validation: validation,
 			quota: quota,
 			dragInfo: dragInfo,
-			kpiInfo: kpiInfo
+			kpiInfo: kpiInfo,
+			periods: periods
 		} )
 	},
-	setupController( controller , model ) {
-		this._super( controller , model )
+	setupController( controller, model ) {
+		this._super( controller, model )
 		this.controllerFor( "page.project.period" ).Subscribe()
 		this.controllerFor( "page.project.period" ).callE()
 	}
