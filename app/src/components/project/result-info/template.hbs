@@ -74,7 +74,8 @@
 						<span local-class="row-1">产品销售增长率</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2" class="mr-3">4.8%</span>
+						<span local-class="row-2">4.8%</span>
+						{{bp-icon icon='increase'}}
 						<span local-class="row-2-2">同比</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
@@ -83,21 +84,22 @@
 						<span local-class="row-1">产品销售增长率</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2" class="mr-3">5.8%</span>
+						<span local-class="row-2">5.8%</span>
+						{{bp-icon icon='priority-low'}}
 						<span local-class="row-2-2" class="">环比</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout local-class="hospital-rio-people" classNames="bg-white"}}
+			{{#bp-layout local-class="hospital-rio-people" classNames="bg-white p-4"}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout classNames="mb-3"}}
-						<span local-class="row-1">产品销售增常率</span>
+						<span local-class="row-1">产品新进医院数</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
 						<span local-class="row-2">30</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-				{{#bp-layout direction="col" main="center" cross="center"  local-class="col"}}
+				{{#bp-layout direction="col" main="center" cross="center"  local-class="col border-left-right"}}
 					{{#bp-layout classNames="mb-3"}}
 						<span local-class="row-1">RIO投入产出比</span>
 					{{/bp-layout}}
@@ -138,7 +140,8 @@
 			products=products
 			hospitals=hospitals
 			periods=periods
-			case=project.proposal.case}}
+			case=project.proposal.case
+			isResultPage=true}}
 	{{/bp-layout}}
 	{{!-- 
 	{{#bp-layout main="between" local-class="performance"}}

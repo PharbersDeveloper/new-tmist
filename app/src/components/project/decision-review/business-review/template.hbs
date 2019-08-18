@@ -4,11 +4,11 @@
 			{{#bp-layout classNames="mr-3"}}选择季度{{/bp-layout}}
 			{{#bp-layout}}
 				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
-					{{#dd.button }}	
+					{{#dd.button }}
 						{{#if curPeriod}}
-						{{curPeriodIndex}}
+							{{curPeriodIndex}}
 						{{else}}
-						请选择
+							请选择
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
@@ -28,9 +28,9 @@
 				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
 					{{#dd.button }}
 						{{#if curProd}}
-						{{curProd.name}}
+							{{curProd.name}}
 						{{else}}
-						请选择
+							请选择
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
@@ -50,9 +50,9 @@
 				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
 					{{#dd.button }}
 						{{#if curRes}}
-						{{curRes.name}}
+							{{curRes.name}}
 						{{else}}
-						请选择
+							请选择
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
@@ -70,26 +70,25 @@
 	{{#bp-layout local-class="table"}}
 		{{#bp-layout tagName="table" direction="col" classNames="mx-4" }}
 			{{#bp-layout tagName="thead" main="between" }}
-				{{#bp-layout tagName="th"}}医院名称{{/bp-layout}}
-				{{#bp-layout tagName="th"}}产品名称{{/bp-layout}}
-				{{#bp-layout tagName="th"}}代表{{/bp-layout}}
-				{{#bp-layout tagName="th"}}分配时间{{/bp-layout}}
-				{{#bp-layout tagName="th"}}销售目标设定{{/bp-layout}}
-				{{#bp-layout tagName="th"}}预算费用{{/bp-layout}}
-				{{#bp-layout tagName="th"}}会议名额{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}医院名称{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}产品名称{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}代表{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}分配时间{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}销售目标设定{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}预算费用{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}会议名额{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout tagName="tbody" direction="col"}}
 				{{#each filterAnswers as |item|}}
-				{{log item}}
-				{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
-					{{#bp-layout tagName="td"}}{{item.target.name}}{{/bp-layout}}
-					{{#bp-layout tagName="td"}}{{item.product.name}}{{/bp-layout}}
-					{{#bp-layout tagName="td"}}{{item.resource.name}}{{/bp-layout}}
-					{{#bp-layout tagName="td"}}{{item.visitTime}}%{{/bp-layout}}
-					{{#bp-layout tagName="td"}}{{item.salesTarget}}{{/bp-layout}}
-					{{#bp-layout tagName="td"}}{{item.budget}}{{/bp-layout}}
-					{{#bp-layout tagName="td"}}{{item.meetingPlaces}}{{/bp-layout}}
-				{{/bp-layout}}
+					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
+						{{#bp-layout tagName="td" main="start"}}{{item.target.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.product.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.resource.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.visitTime}}%{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.salesTarget}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.budget}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.meetingPlaces}}{{/bp-layout}}
+					{{/bp-layout}}
 				{{/each}}
 			{{/bp-layout}}
 		{{/bp-layout}}

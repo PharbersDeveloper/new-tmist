@@ -9,7 +9,7 @@ export default Component.extend( {
 	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas"],
 	exam: service( "service/exam-facade" ),
 	allVisitTime: 100,
-	currentName: computed( "products", function() {
+	currentName: computed( "products", function () {
 		const cur = this.get( "products" ).find( x => x.productType === 0 )
 
 		return cur ? cur.name : ""
@@ -20,7 +20,7 @@ export default Component.extend( {
 	curCircle: 0,
 	curBudgetPercent: 100,
 	// TODO: 暂时留着，以后可能去掉
-	allProductInfo: computed( "productQuotas",function() {
+	allProductInfo: computed( "productQuotas", function () {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
 
@@ -52,13 +52,13 @@ export default Component.extend( {
 		} )
 		return A( arr )
 	} ),
-	allBudget: computed( "quota", function() {
+	allBudget: computed( "quota", function () {
 		return this.quota.get( "totalBudget" )
 	} ),
-	allMeetingPlaces: computed( "quota", function() {
+	allMeetingPlaces: computed( "quota", function () {
 		return this.quota.get( "meetingPlaces" )
 	} ),
-	curMeetingPlaces: computed( "answers", function() {
+	curMeetingPlaces: computed( "answers", function () {
 		let cur = 0
 
 		this.answers.forEach( answer => {
@@ -68,38 +68,38 @@ export default Component.extend( {
 	} ),
 	circleMeetingColor: A( ["#3172E0", "#DFE1E6"] ),
 	circleMeetingSize: A( ["70%", "85%"] ),
-	circleMeetingData: computed( "curMeetingPlaces", function() {
+	circleMeetingData: computed( "curMeetingPlaces", function () {
 		return A( [{ value: this.curMeetingPlaces, name: "已分配" },
 			{ value: this.allMeetingPlaces - this.curMeetingPlaces, name: "未分配" }] )
 	} ),
 	circleSize: A( ["70%", "95%"] ),
 	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
-	circleProductColor: computed( function() {
+	circleProductColor: computed( function () {
 		return this.getProductCircleColor()
 	} ),
-	circleBudgetColor: computed( function() {
+	circleBudgetColor: computed( function () {
 		return this.getBudgetCircleColor()
 	} ),
-	circleProductData: computed( function() {
+	circleProductData: computed( function () {
 		return this.getProductBudgetData()
 	} ),
-	circleBudgetData: computed( function() {
+	circleBudgetData: computed( function () {
 		return this.getResourceBudgetData()
 	} ),
 	labelEmphasis: false,
-	curResource: computed( function() {
+	curResource: computed( function () {
 		return this.resources.get( "firstObject" )
 	} ),
 	curHospitalId: null,
 	curAnswerToReset: null,
 	resourceHospital: false,
-	resourceHospitalNumebr: computed( "resourceHospital", function() {
+	resourceHospitalNumebr: computed( "resourceHospital", function () {
 		return this.getResourceHospital()
 	} ),
 	getResourceHospital() {
 		let num = 0
 
-		this.get( "answers" ).forEach( answer => {
+		this.get( "answers" ).uniqBy( "target.id" ).forEach( answer => {
 			if ( answer.get( "resource" ) ) {
 				num += 1
 			}
@@ -188,7 +188,7 @@ export default Component.extend( {
 
 		let remain = this.allBudget - allResourceBudget
 
-		budgetArr.push( {value: remain, name: "未分配", per: ( remain / this.allBudget * 100 ).toFixed( 1 ) } )
+		budgetArr.push( { value: remain, name: "未分配", per: ( remain / this.allBudget * 100 ).toFixed( 1 ) } )
 
 		return budgetArr
 	},
@@ -207,7 +207,7 @@ export default Component.extend( {
 
 		let remain = this.allBudget - all
 
-		arr.push( {value: remain, name: "未分配", curBudgetPercent: ( remain / this.allBudget * 100 ).toFixed( 1 )}
+		arr.push( { value: remain, name: "未分配", curBudgetPercent: ( remain / this.allBudget * 100 ).toFixed( 1 ) }
 		)
 		return A( arr )
 	},
@@ -278,13 +278,13 @@ export default Component.extend( {
 			return this.circleProductColor.objectAt( index )
 		},
 		selectResource( rs ) {
-			set( this,"curResource", rs )
-			window.console.log( "当前代表" , this.curResource.get( "name" ) )
+			set( this, "curResource", rs )
+			window.console.log( "当前代表", this.curResource.get( "name" ) )
 		},
 		selectHospital( hid ) {
-			set( this,"curHospitalId", hid )
+			set( this, "curHospitalId", hid )
 		},
- 		allocateRepresentatives( answer ) {
+		allocateRepresentatives( answer ) {
 			// if this.curResource is null  : error 未选择代表
 
 			if ( answer.get( "resource.id" ) && answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {

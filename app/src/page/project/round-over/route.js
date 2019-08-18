@@ -7,9 +7,10 @@ export default Route.extend( {
 	cookies: service(),
 	model( params ) {
 		const accountId = this.cookies.read( "account_id" ),
-			project = this.modelFor( "page.project" )
-			// provious = this.store.query( "model/project", {
-			// 	filter: "(:and," + "(proposal,:eq,`" + params.proposal_id + "`)," + "(accountId,:eq,`" + accountId + "`)," + "(status,:eq,0))" } )
+			project = this.modelFor( "page.project" ),
+			report = this.modelFor( "page.project" ).finals.lastObject
+		// provious = this.store.query( "model/project", {
+		// 	filter: "(:and," + "(proposal,:eq,`" + params.proposal_id + "`)," + "(accountId,:eq,`" + accountId + "`)," + "(status,:eq,0))" } )
 
 		// ids = project.hasMany( "periods" ).ids(),
 		// hids = ids.map( x => {
@@ -19,7 +20,8 @@ export default Route.extend( {
 
 		return RSVP.hash( {
 			// periods: periods,
-			project: project
+			project: project,
+			report: report
 			// provious: provious
 		} )
 	}
