@@ -8,6 +8,8 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods"],
 	curSelPeriod: null,
 	treatmentAreaArr: A( [] ),
+	salesReports: A( [] ),
+	curSalesReports :null,
 	didReceiveAttrs() {
 		this._super( ...arguments )
 		this.set( "curSelPeriod", this.periods.lastObject )
@@ -27,6 +29,8 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 
 		this.set( "tmResultProductCircleCondition", tmResultProductCircleCondition )
 		this.set( "tmResultProductCircle", tmResultProductCircle )
+		this.set( "salesReports", this.project.finals )
+		this.set( "curSalesReports", this.project.finals.lastObject )
 	},
 	// overallInfo: computed(results function () {
 
@@ -82,6 +86,10 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 
 			this.set( "tmResultProductCircleCondition", tmResultProductCircleCondition )
 
+		},
+		selPeriod( item ) {
+			this.set( "curSelPeriod", item )
+			this.set( "curSalesReports", this.project.finals.objectAt( item.phase ) )
 		}
 	}
 } )

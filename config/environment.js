@@ -56,7 +56,7 @@ module.exports = function( environment ) {
 		ENV.APP.LOG_VIEW_LOOKUPS = true
 
 		ENV.OAuth.RedirectUri = "http://ntm.pharbers.com:8081"
-		ENV.OAuth.Host = "http://192.168.100.174:9096"
+		ENV.OAuth.Host = "http://pharbers.com"
 		ENV.QueryAddress.host = "http://59.110.31.50"
 
 	}
