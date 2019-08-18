@@ -40,9 +40,10 @@
 				{{#bp-layout direction='row' classNames='mb-2'}}
 					<div local-class='circle-left' class="bg-white pb-4">
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
-							{{product0Legend.firstObject.phase}}
+							{{!-- {{product0Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep product0Legend.firstObject.phase)}}
 						{{/bp-layout}}
-						{{bp-row direction='col' rowModel=tmProductCircle0 conditions=tmProductCircleCondition onQueryReady=(action 'dealProd0Data')}}
+						{{bp-row direction='col' rowModel=tmProductCircle0 conditions=tmProductCircle0Condition onQueryReady=(action 'dealProd0Data')}}
 						{{#bp-layout direction="row" main='center'}}
 							<div>
 								{{#each product0Legend as |prod|}}
@@ -70,7 +71,8 @@
 					</div>
 					<div local-class='circle-right' class="bg-white pb-4">
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
-							{{product1Legend.firstObject.phase}}
+							{{!-- {{product1Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep product1Legend.firstObject.phase)}}
 						{{/bp-layout}}
 						{{bp-row direction='col' rowModel=tmProductCircle1 conditions=tmProductCircleCondition onQueryReady=(action 'dealProd1Data')}}
 						{{#bp-layout direction="row" main='center'}}
@@ -192,9 +194,9 @@
 				{{#bp-layout classNames="bg-white mb-2 pb-4"}}
 					<div local-class='circle-left'>
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
-							{{rep0Legend.firstObject.phase}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep rep0Legend.firstObject.phase)}}
 						{{/bp-layout}}
-						{{bp-row direction='col' rowModel=tmRepCircle0 conditions=tmRepCircleCondition  onQueryReady=(action 'dealRep0Data')}}
+						{{bp-row direction='col' rowModel=tmRepCircle0 conditions=tmRepCircle0Condition onQueryReady=(action 'dealRep0Data')}}
 
 						{{#bp-layout direction="row" main='center'}}
 							<div>
@@ -223,12 +225,12 @@
 					</div>
 					<div local-class='circle-right'>
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
-							{{rep0Legend.firstObject.phase}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep rep1Legend.firstObject.phase)}}
 						{{/bp-layout}}
-						{{bp-row direction='col'  rowModel=tmRepCircle1 conditions=tmRepCircleCondition  onQueryReady=(action 'dealRep1Data')}}
+						{{bp-row direction='col' rowModel=tmRepCircle1 conditions=tmRepCircleCondition onQueryReady=(action 'dealRep1Data')}}
 						{{#bp-layout direction="row" main='center'}}
 							<div>
-								{{#each rep0Legend as |prod|}}
+								{{#each rep1Legend as |prod|}}
 									<p local-class='circle-legend' class="mb-1">
 										<span local-class='point' style={{prod.color}}></span>
 										<span local-class='name' class="mr-3">{{prod.name}}</span>
@@ -236,14 +238,14 @@
 								{{/each}}
 							</div>
 							<div>
-								{{#each rep0Legend as |prod|}}
+								{{#each rep1Legend as |prod|}}
 									<p local-class='circle-legend' class="mb-1">
 										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
 									</p>
 								{{/each}}
 							</div>
 							<div>
-								{{#each rep0Legend as |prod|}}
+								{{#each rep1Legend as |prod|}}
 									<p local-class='circle-legend' class="mb-1">
 										<span local-class='value'>¥{{format-number prod.sales}}</span>
 									</p>
@@ -351,9 +353,9 @@
 				{{#bp-layout classNames="bg-white mb-2 pb-4"}}
 					<div local-class='circle-left'>
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
-							{{Hosp0Legend.firstObject.phase}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Hosp0Legend.firstObject.phase)}}
 						{{/bp-layout}}
-						{{bp-row direction='col' rowModel=tmHosCircle0 conditions=tmHosCircleCondition onQueryReady=(action 'dealHosp0Data')}}
+						{{bp-row direction='col' rowModel=tmHosCircle0 conditions=tmHosCircle0Condition onQueryReady=(action 'dealHosp0Data')}}
 						{{#bp-layout direction="row" main='center'}}
 							<div>
 								{{#each Hosp0Legend as |prod|}}
@@ -381,7 +383,8 @@
 					</div>
 					<div local-class='circle-right'>
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
-							{{Hosp1Legend.firstObject.phase}}
+							{{!-- {{Hosp1Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Hosp1Legend.firstObject.phase)}}
 						{{/bp-layout}}
 						{{bp-row direction='col'  rowModel=tmHosCircle1 conditions=tmHosCircleCondition  onQueryReady=(action 'dealHosp1Data')}}
 						{{#bp-layout direction="row" main='center'}}
@@ -513,9 +516,10 @@
 				{{#bp-layout classNames="bg-white mb-2 pb-4"}}
 					<div local-class='circle-left'>
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
-							{{Reg0Legend.firstObject.phase}}
+							{{!-- {{Reg0Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Reg0Legend.firstObject.phase)}}
 						{{/bp-layout}}
-						{{bp-row direction='col' rowModel=tmRegCircle0 conditions=tmRegCircleCondition  onQueryReady=(action 'dealReg0Data')}}
+						{{bp-row direction='col' rowModel=tmRegCircle0 conditions=tmRegCircle0Condition  onQueryReady=(action 'dealReg0Data')}}
 						{{#bp-layout direction="row" main='center'}}
 							<div>
 								{{#each Reg0Legend as |prod|}}
@@ -543,7 +547,9 @@
 					</div>
 					<div local-class='circle-right'>
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
-							{{Reg1Legend.firstObject.phase}}
+							{{!-- {{Reg1Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Reg1Legend.firstObject.phase)}}
+
 						{{/bp-layout}}
 						{{bp-row direction='col'  rowModel=tmRegCircle1 conditions=tmRegCircleCondition onQueryReady=(action 'dealReg1Data')}}
 						{{#bp-layout direction="row" main='center'}}

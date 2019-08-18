@@ -37,7 +37,9 @@
 			{{project/proposal-info/member-info resources=proposal.resources period=period proposal=proposal kpis=kpis}}
 		{{/if}}
 		{{#if (bp-eq currentPannel 4)}}
+			{{log periods}}
 			{{project/proposal-info/historical-info
+				proposal=proposal
 				periods=periods 
 				resources=proposal.resources
 				products=proposal.products

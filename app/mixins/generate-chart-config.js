@@ -206,6 +206,7 @@ export default Mixin.create( {
 				xAxis: {
 					show: true,
 					type: "category",
+					formatType:"formatPhase",
 					name: "",
 					axisTick: {
 						show: true,
