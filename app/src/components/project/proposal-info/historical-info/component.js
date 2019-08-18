@@ -3,10 +3,8 @@ import { computed } from "@ember/object"
 import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
 import { htmlSafe } from "@ember/template"
-// import { later } from "@ember/runloop"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
-
 
 export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	positionalParams: ["periods", "resources", "products", "hospitals"],
@@ -20,7 +18,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	// 		name: "2019 第二季度"
 	// 	}
 	// ]),
-
+	regions: A( [{name:"会东市",id: 1},{name:"会南市",id:2},{name:"会西市",id:3}] ),
 	seasonQ( seasonText ) {
 		let season = isEmpty( seasonText ) ? "" : seasonText
 
@@ -110,8 +108,6 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 		chooseProd( prod ) {
 			let salesGroupValue = this.salesGroupValue
 
-			console.log( salesGroupValue )
-			console.log( prod )
 			if ( salesGroupValue === 0 ) {
 				this.set( "tmpPsr",prod )
 				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name ) )
@@ -121,6 +117,9 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 			} else if ( salesGroupValue === 2 ) {
 				this.set( "tmpProdHosp",prod )
 				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name ) )
+			} else if ( salesGroupValue === 3 ) {
+				this.set( "tmpProdReg",prod )
+				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( this.tmpReg.name, prod.name ) )
 			}
 		},
 		chooseRep( rep ) {
@@ -135,6 +134,12 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 			this.set( "tmpHosp",hosp )
 			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name,prodName ) )
 		},
+		chooseReg( reg ) {
+			let prodName = this.tmpProdReg && this.tmpProdReg.name
+
+			this.set( "tmpReg",reg )
+			this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( reg.name,prodName ) )
+		},
 		dealRep0Data( data,config ) {
 			this.dealData( data,config,"representative","rep0Legend" )
 		},
@@ -143,16 +148,15 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 		},
 		dealHosp0Data( data,config ) {
 			this.dealData( data,config,"hospital_level","Hosp0Legend" )
-
 		},
 		dealHosp1Data( data,config ) {
 			this.dealData( data,config,"hospital_level","Hosp1Legend" )
 		},
 		dealReg0Data( data,config ) {
-			this.dealData( data,config,"hospital","Reg0Legend" )
+			this.dealData( data,config,"region","Reg0Legend" )
 		},
 		dealReg1Data( data,config ) {
-			this.dealData( data,config,"hospital","Reg1Legend" )
+			this.dealData( data,config,"region","Reg1Legend" )
 		}
 	},
 	// init() {

@@ -6,11 +6,11 @@ import ENV from "new-tmist/config/environment"
 export default Mixin.create( {
 	runtimeConfig: service( "service/runtime-config" ),
 	queryAddress: ENV.QueryAddress,
-	jobId: "1c49bb4e-8d8d-4db0-af13-a4aaa4fa64ad",
+	jobId: "a109704d-0990-4cb7-a50f-a08e23f73efe",
 	getJobId() {
 		let jobId = ""
 
-		if ( ENV.environment === "development" ) {
+		if ( ENV.environment === "development" && isEmpty( this.runtimeConfig.jobId ) ) {
 			jobId = this.jobId
 		} else {
 			jobId = this.runtimeConfig.jobId
@@ -29,7 +29,8 @@ export default Mixin.create( {
 						"and": [
 							["eq", "category", "Product"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword",jobId]
+							["eq", "job_id.keyword", jobId],
+							["eq", "status.keyword", "已开发"]
 						]
 					},
 					"aggs": [
@@ -75,7 +76,7 @@ export default Mixin.create( {
 		if ( isEmpty( productName ) ) {
 			searchRuls = [
 				["eq", "category", "Product"],
-				["eq", "job_id.keyword",jobId]
+				["eq", "job_id.keyword", jobId]
 			]
 			agg = [
 				{
@@ -91,7 +92,7 @@ export default Mixin.create( {
 			searchRuls = [
 				["eq", "category", "Product"],
 				["eq", "product.keyword", productName],
-				["eq", "job_id.keyword",jobId]
+				["eq", "job_id.keyword", jobId]
 			]
 			agg = [
 				{
@@ -157,7 +158,7 @@ export default Mixin.create( {
 						"and": [
 							["eq", "category", "Resource"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword",jobId]
+							["eq", "job_id.keyword", jobId]
 						]
 					},
 					"aggs": [
@@ -197,7 +198,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateRepBarLineCondition( repName ,prodName ) {
+	generateRepBarLineCondition( repName, prodName ) {
 		let searchRuls = [],
 			jobId = this.getJobId()
 
@@ -205,14 +206,14 @@ export default Mixin.create( {
 			searchRuls = [
 				["eq", "category", "Resource"],
 				["eq", "representative.keyword", repName],
-				["eq", "job_id.keyword",jobId]
+				["eq", "job_id.keyword", jobId]
 			]
 		} else {
 			searchRuls = [
 				["eq", "category", "Resource"],
 				["eq", "product", prodName],
 				["eq", "representative.keyword", repName],
-				["eq", "job_id.keyword",jobId]
+				["eq", "job_id.keyword", jobId]
 			]
 		}
 		return [{
@@ -287,7 +288,7 @@ export default Mixin.create( {
 						"and": [
 							["eq", "category", "Hospital"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword",jobId]
+							["eq", "job_id.keyword", jobId]
 						]
 					},
 					"aggs": [
@@ -327,20 +328,20 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateHospBarLineCondition( hospName,prodName ) {
+	generateHospBarLineCondition( hospName, prodName ) {
 		let searchRuls = [],
 			jobId = this.getJobId()
 
 		if ( isEmpty( prodName ) ) {
 			searchRuls = [
 				["eq", "hospital.keyword", hospName],
-				["eq", "job_id.keyword",jobId]
+				["eq", "job_id.keyword", jobId]
 			]
 		} else {
 			searchRuls = [
 				["eq", "product", prodName],
 				["eq", "hospital.keyword", hospName],
-				["eq", "job_id.keyword",jobId]
+				["eq", "job_id.keyword", jobId]
 			]
 		}
 		return [{
@@ -413,14 +414,14 @@ export default Mixin.create( {
 				"query": {
 					"search": {
 						"and": [
-							["eq", "category", "Hospital"],
+							["eq", "category", "Region"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword",jobId]
+							["eq", "job_id.keyword", jobId]
 						]
 					},
 					"aggs": [
 						{
-							"groupBy": "hospital.keyword",
+							"groupBy": "region.keyword",
 							"aggs": [
 								{
 									"groupBy": "phase",
@@ -445,7 +446,7 @@ export default Mixin.create( {
 					{
 						"class": "cut2DArray",
 						"args": [
-							"hospital.keyword",
+							"region.keyword",
 							"sum(sales)",
 							"phase",
 							"rate(sum(sales))"
@@ -455,8 +456,29 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateRegionBarLineCondition( productName, hospName ) {
-		let jobId = this.getJobId()
+	generateRegionBarLineCondition( regName, prodName ) {
+
+		let searchRuls = [],
+			jobId = this.getJobId()
+
+		if ( isEmpty( prodName ) && isEmpty( regName ) ) {
+			searchRuls = []
+		} else if ( isEmpty( prodName ) && !isEmpty( regName ) ) {
+			searchRuls = [
+				["eq", "region.keyword", regName]
+			]
+		} else if ( !isEmpty( prodName ) && isEmpty( regName ) ) {
+			searchRuls = [
+				["eq", "product.keyword", prodName]
+			]
+		} else {
+			searchRuls = [
+				["eq", "product.keyword", prodName],
+				["eq", "region.keyword", regName]
+			]
+		}
+		searchRuls.unshift( ["eq", "category", "Region"] )
+		searchRuls.push( ["eq", "job_id.keyword", jobId] )
 
 		return [{
 			queryAddress: this.queryAddress,
@@ -464,57 +486,27 @@ export default Mixin.create( {
 				"model": "tmrs",
 				"query": {
 					"search": {
-						"and": [
-							["eq", "product.keyword", productName],
-							["eq", "hospital.keyword", hospName],
-							["eq", "job_id.keyword",jobId]
-						]
+						"and": searchRuls
 					},
-					"aggs": [
-						{
-							"groupBy": "phase",
-							"aggs": [
-								{
-									"groupBy": "product.keyword",
-									"aggs": [
-										{
-											"groupBy": "hospital.keyword",
-											"aggs": [
-												{
-													"agg": "sum",
-													"field": "sales"
-												},
-												{
-													"agg": "sum",
-													"field": "quota"
-												}
-											]
-										}
-									]
-								}
-							]
-						}
-					]
+					"aggs": [{
+						"groupBy": "phase",
+						"aggs": [{
+							"agg": "sum",
+							"field": "sales"
+						}, {
+							"agg": "sum",
+							"field": "quota"
+						}]
+					}]
 				},
-				"format": [
-					{
-						"class": "calcRate",
-						"args": [
-							"sum(quota)"
-						]
-					},
-					{
-						"class": "cut2DArray",
-						"args": [
-							"phase",
-							"sum(sales)",
-							"sum(quota)",
-							"rate(sum(quota))",
-							"product.keyword",
-							"hospital.keyword"
-						]
-					}
-				]
+				"format": [{
+					"class": "calcRate",
+					"args": ["sum(quota)"]
+				}, {
+					"class": "cut2DArray",
+					"args": ["phase", "sum(sales)", "sum(quota)", "rate(sum(quota))", "product.keyword", "region.keyword"]
+				}]
+
 			}
 		}]
 	},
@@ -530,7 +522,7 @@ export default Mixin.create( {
 						"and": [
 							["eq", "category", "Resource"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword",jobId]
+							["eq", "job_id.keyword", jobId]
 						]
 					},
 					"aggs": [
@@ -590,7 +582,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateProdCompLinesCondition() {
+	generateProdCompLinesCondition( productarea ) {
 		let jobId = this.getJobId()
 
 		return [{
@@ -601,7 +593,8 @@ export default Mixin.create( {
 					"search": {
 						"and": [
 							["eq", "category", "Product"],
-							["eq", "job_id.keyword",jobId]
+							["eq", "job_id.keyword", jobId],
+							["eq", "product_area.keyword", productarea]
 						]
 					},
 					"aggs": [
@@ -613,7 +606,7 @@ export default Mixin.create( {
 									"aggs": [
 										{
 											"agg": "sum",
-											"field": "sales"
+											"field": "share"
 										}
 									]
 								}
@@ -627,7 +620,7 @@ export default Mixin.create( {
 						"args": {
 							"yAxis": "phase",
 							"xAxis": "product.keyword",
-							"value": "sum(sales)"
+							"value": "sum(share)"
 						}
 					}
 				]
