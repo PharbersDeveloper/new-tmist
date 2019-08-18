@@ -5,11 +5,13 @@
 				{{#left.item }}
 					周期销售报告
 				{{/left.item}}
-				{{#left.item }}
+				{{#left.item}}
+				{{log periods}}
 					{{!-- 完成日期：<span class="mx-2">{{format-date-standard project.endTime}}</span>
 					用时：<span class="mx-2">{{time-difference project.startTime project.endTime}}</span> --}}
-					<span local-class="badge" class="px-2">2019Q1</span>
-					{{#if condition}}
+
+					<span local-class="badge" class="px-2">{{periods.lastObject.name}}</span>
+					{{#if (bp-eq periods.lastObject.phase project.pharse-1)}}
 						<span local-class="badge" class="px-2">最后周期</span>
 					{{/if}}
 				{{/left.item}}
@@ -33,18 +35,17 @@
 		{{/bp-layout}}
 		{{#bp-layout cross='center'}}
 			<span>选择季度</span>
-			{{!-- {{#bp-button}}2019Q1{{/bp-button}} --}}
 			{{#bp-dropdown classNames="mr-4 ml-1" widthSize="auto" as |dd|}}
-				{{#dd.button }}
-					2019Q1
+				{{#dd.button}}
+					{{curSelPeriod.name}}
 					{{bp-icon icon='down'}}
 				{{/dd.button}}
 				{{#dd.menu as |menu|}}
-					{{!-- {{#each resources as |rcs|}}
-						{{#menu.option value=rcs onClick=(action (mut tmpRepConf))}}
-							{{rcs.name}}
+					{{#each periods as |item|}}
+						{{#menu.option value=item onClick=(action (mut curSelPeriod))}}
+							{{item.name}}
 						{{/menu.option}}
-					{{/each}} --}}
+					{{/each}}
 				{{/dd.menu}}
 			{{/bp-dropdown}}
 		{{/bp-layout}}

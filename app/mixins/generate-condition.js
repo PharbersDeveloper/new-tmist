@@ -13,7 +13,8 @@ export default Mixin.create( {
 		if ( ENV.environment === "development" && isEmpty( this.runtimeConfig.jobId ) ) {
 			jobId = this.jobId
 		} else {
-			jobId = this.runtimeConfig.jobId
+			jobId = window.localStorage.getItem( "jodId" )
+			// jobId = this.runtimeConfig.jobId
 		}
 		return jobId
 	},
