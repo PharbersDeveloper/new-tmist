@@ -374,11 +374,11 @@ export default Component.extend( {
 
 				} else {
 					// TODO: 所有的validation都要重做
-					// this.set( "warning", {
-					// 	open: true,
-					// 	title: "设定超额",
-					// 	detail: "您的预算指标设定已超额，请合理分配。"
-					// } )
+					this.set( "warning", {
+						open: true,
+						title: "设定超额",
+						detail: "您的预算指标设定已超额，请合理分配。"
+					} )
 				}
 
 			} else {
@@ -411,11 +411,11 @@ export default Component.extend( {
 
 					set( curProductInfo.firstObject, "curSales", cur )
 				} else {
-					// this.set( "warning", {
-					// 	open: true,
-					// 	title: "设定超额",
-					// 	detail: "您的指标设定已超额，请合理分配。"
-					// } )
+					this.set( "warning", {
+						open: true,
+						title: "设定超额",
+						detail: "您的指标设定已超额，请合理分配。"
+					} )
 				}
 
 			} else {
