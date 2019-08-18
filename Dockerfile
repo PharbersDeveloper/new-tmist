@@ -10,14 +10,14 @@ RUN apt-get update && apt-get install -y && \
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
 	apt-get install -y nodejs
 
-ENV EMBERVERSION 3.4.0
+ENV EMBERVERSION 3.4.4
 
 RUN npm update && \
 	npm install -g ember-cli@${EMBERVERSION}
 
 WORKDIR /app
 
-LABEL new-tmist.version=0.0.1
+LABEL new-tmist.version=0.0.2
 
 RUN git clone https://github.com/PharbersDeveloper/new-tmist.git && \
 	git clone https://github.com/PharbersDeveloper/BP-Components.git && \
