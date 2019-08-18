@@ -61,7 +61,7 @@
 	{{/if}}
 
 	{{#bp-layout direction="row" local-class="hospital-detail" }}
-		{{#bp-layout direction="col"  classNames="bg-white mr-2"}}
+		{{#bp-layout direction="col" local-class="hospital-list" classNames="bg-white mr-2"}}
 			{{#each currentGroup as |item index|}}
 				{{#bp-layout click=(action (mut currentHospital) index) 
 				classNames="py-4 pl-4"

@@ -59,6 +59,11 @@
 	.hospital-detail {
 		width: 1152px;
 
+		.hospital-list {
+			height: 428px;
+			overflow-y: auto;
+		}
+
 		.hospital-item {
 			height: 68px;
 			width: 270px;

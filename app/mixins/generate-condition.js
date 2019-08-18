@@ -79,7 +79,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateProdBarLineCondition( productName ) {
+	generateProdBarLineCondition( productName ,proposal ) {
 		let searchRuls = [],
 			agg = {},
 			jobId = this.getJobId()
@@ -123,6 +123,10 @@ export default Mixin.create( {
 		}
 		return [{
 			queryAddress: this.queryAddress,
+			xAxisFormat: {
+				periodBase: proposal && proposal.get( "periodBase" ),
+				periodStep:proposal && proposal.get( "periodStep" )
+			},
 			data: {
 				"model": "tmrs",
 				"query": {

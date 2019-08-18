@@ -4,7 +4,13 @@ import { inject as service } from "@ember/service"
 
 export default Route.extend( {
 	facade: service( "service/exam-facade" ),
-	model() {
+	model( param ) {
+		console.log( "*" )
+		console.log( "*" )
+		console.log( "*" )
+		console.log( param )
+		console.log( this.modelFor( "page.project" ) )
+		console.log( this.modelFor( "page.project.period" ) )
 		const project = this.modelFor( "page.project" ),
 			prs = project.belongsTo( "proposal" ),
 			hospitals = prs.load().then( x => {
@@ -39,7 +45,9 @@ export default Route.extend( {
 			reports = this.store.query( "model/report", { filter: condi } )
 
 		return RSVP.hash( {
+			// proposal: proposal,
 			project: project,
+			// period: period,
 			reports: reports,
 			hospitals: hospitals,
 			products: products,
