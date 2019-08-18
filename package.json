@@ -1,6 +1,6 @@
 {
 	"name": "new-tmist",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"private": true,
 	"description": "new TMIST project for PHARBERS company.",
 	"license": "GPL3.0",
@@ -57,6 +57,9 @@
 		"qunit-dom": "^0.6.2",
 		"sass": "^1.22.10",
 		"toastr": "^2.1.4"
+	},
+	"resolutions": {
+		"ember-cli/portfinder": "1.0.21"
 	},
 	"engines": {
 		"node": "6.* || 8.* || >= 10.*"
