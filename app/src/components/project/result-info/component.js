@@ -21,7 +21,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 
 		tmpArr = this.products.map( ele => ele.treatmentArea )
 
-		this.treatmentAreaArr = Array.from( new Set( tmpArr ) )
+		this.set( "treatmentAreaArr", Array.from( new Set( tmpArr ) ) )
 		this.set( "curTreatmentArea", this.treatmentAreaArr[0] )
 		this.set( "buttonGroupValue", this.treatmentAreaArr[0] )
 
