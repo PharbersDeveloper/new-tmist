@@ -133,7 +133,12 @@
 		销售报告
 	{{/bp-layout}}
 	{{#bp-layout local-class="report-info"}}
-		{{project/proposal-info/historical-info }}
+		{{project/proposal-info/historical-info
+			resources=resources
+			products=products
+			hospitals=hospitals
+			periods=project.periods
+			case=project.proposal.case}}
 	{{/bp-layout}}
 	{{!-- 
 	{{#bp-layout main="between" local-class="performance"}}

@@ -37,11 +37,14 @@
 			{{project/proposal-info/member-info resources=proposal.resources period=period proposal=proposal kpis=kpis}}
 		{{/if}}
 		{{#if (bp-eq currentPannel 4)}}
+			{{log project}}
+			{{log project.periods}}
 			{{project/proposal-info/historical-info 
 				periods=project.periods 
 				resources=proposal.resources
 				products=proposal.products
-				hospitals=proposal.targets}}
+				hospitals=proposal.targets
+				case=proposal.case}}
 		{{/if}}
 	</div>
 {{/bp-layout}}

@@ -54,6 +54,7 @@ export default Mixin.create( {
 						show: true,
 						type: "category",
 						name: "",
+						formatType:"formatPhase",
 						axisTick: {
 							show: true,
 							alignWithLabel: true
