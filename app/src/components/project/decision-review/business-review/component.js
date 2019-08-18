@@ -7,7 +7,19 @@ export default Component.extend( {
 	store: service(),
 	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period"],
 	classNames: ["business-review-wrapper"],
-	flag: false,
+	didInsertElement() {
+		const phaseLength = this.project.periods.length
+		for (let i = 0; i < phaseLength - 1; i++) {
+			const ids = this.project.periods.objectAt( i ).hasMany( "answers" ).ids(),
+				hids = ids.map( x => {
+					return "`" + `${x}` + "`"
+				} ).join( "," )
+
+			this.store.query( "model/answer", { filter: "(id,:in," + "[" + hids + "]" + ")" } ).then( x => {
+				this.set("history" + i, x)
+			} )
+		}
+	},
 	curProd: computed( function () {
 		return { name: "全部" }
 	} ),
@@ -54,27 +66,14 @@ export default Component.extend( {
 	curPeriod: computed( "curPeriodIndex", function () {
 		return this.project.periods.objectAt( this.curPeriodIndex )
 	} ),
-
 	curAnswers: computed( "curPeriod", function () {
 		if ( this.curPeriod.phase === this.period.phase ) {
 			return this.answers
 		} else {
-			const ids = this.project.periods.objectAt( this.curPeriodIndex ).hasMany( "answers" ).ids(),
-				hids = ids.map( x => {
-					return "`" + `${x}` + "`"
-				} ).join( "," )
-
-			this.toggleProperty( "flag" )
-			return this.store.query( "model/answer", { filter: "(id,:in," + "[" + hids + "]" + ")" } )
-
-			// const condi01 = "(proposalId,:eq,`" + x.id + "`)"
-			// const condi02 = "(phase,:eq,-1)"
-			// const condi = "(:and," + condi01 + "," + condi02 + ")"
-			// return this.store.query("model/answer", { filter: condi})
-			// return []
+			return this.get("history" + this.curPeriodIndex)
 		}
 	} ),
-	filterAnswers: computed( "curAnswers", "curProd", "curRes", "flag", function () {
+	filterAnswers: computed( "curAnswers", "curProd", "curRes", function () {
 		let result = this.curAnswers.filter( x => x.category === "Business" )
 
 		if ( this.curProd ) {
