@@ -1,0 +1,18 @@
+.page-result {
+	background-color: $n010;
+	height: 100%;
+	overflow: auto;
+
+	.back-area {
+		@extend %p-small;
+		flex: 0 0 32px;
+	}
+
+	.result-header {
+		flex: 0 0 76px;
+	}
+
+	.tabs-container {
+		flex: 1;
+	}
+}

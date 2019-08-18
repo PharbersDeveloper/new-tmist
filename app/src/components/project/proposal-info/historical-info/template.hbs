@@ -1,0 +1,681 @@
+{{#bp-layout local-class="historical-sales-container" main="center"}}
+	{{#bp-layout tagName="ul" direction="col" local-class="nav" classNames="mr-4 p-4 bg-white"}}
+		{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq salesGroupValue 0) "active") classNames="px-4"}}
+			<span {{action "changeSalesValue" 0}}
+				role="button">{{t "project.proposal-info.product-info.produce-sale-report"}}</span>
+		{{/bp-layout}}
+		{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq salesGroupValue 1) "active") classNames="px-4"}}
+			<span {{action "changeSalesValue" 1}}role="button">
+				{{t "project.proposal-info.product-info.representative-sale-report"}}
+			</span>
+		{{/bp-layout}}
+		{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq salesGroupValue 2) "active")
+					classNames="px-4"}}
+			<span {{action "changeSalesValue" 2}}
+				role="button">{{t "project.proposal-info.product-info.hospital-sale-report"}}</span>
+		{{/bp-layout}}
+		{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq salesGroupValue 3) "active") classNames="px-4"}}
+			<span {{action "changeSalesValue" 3}} role="button">
+				地区销售报告
+			</span>
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout local-class="content"}}
+		{{#if (bp-eq salesGroupValue 0)}}
+			<div local-class="report product">
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					{{t "project.proposal-info.historical-info.product-sale-circle"}}
+				{{/bp-layout}}
+				{{!-- {{#bp-layout cross="between"}}
+					{{#bp-layout direction="col" tagName="h2" cross="" local-class="title"
+					classNames="m-0 bg-white px-4"}}
+						2018Q4 销售额
+					{{/bp-layout}}
+					{{#bp-layout direction="col" tagName="h2" cross="" local-class="title"
+					classNames="m-0 bg-white px-4"}}
+						2019Q1 销售额
+					{{/bp-layout}}
+				{{/bp-layout}} --}}
+				{{#bp-layout direction='row' classNames='mb-2'}}
+					<div local-class='circle-left' class="bg-white pb-4">
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{!-- {{product0Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep product0Legend.firstObject.phase)}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmProductCircle0 conditions=tmProductCircle0Condition onQueryReady=(action 'dealProd0Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each product0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each product0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each product0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
+					</div>
+					<div local-class='circle-right' class="bg-white pb-4">
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{!-- {{product1Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep product1Legend.firstObject.phase)}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmProductCircle1 conditions=tmProductCircleCondition onQueryReady=(action 'dealProd1Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each product1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each product1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each product1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
+					</div>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" classNames="bg-white mb-2"}}
+					{{#bp-layout main="between" local-class="choose-container"}}
+						{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 			classNames="m-0 px-4"}}
+							{{t "project.proposal-info.historical-info.representative-sale-trend"}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-3">{{t "project.proposal-info.historical-info.product"}}</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpPsr.id}}
+										<p>{{tmpPsr.name}}</p>
+									{{else}}
+										{{t "project.proposal-info.historical-info.total-products"}}
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#menu.option value=totalProduct
+												onClick=(action 'chooseProd' '')}}
+										{{t "project.proposal-info.historical-info.total-products"}}
+									{{/menu.option}}
+									{{#each products as |psrs|}}
+										{{#menu.option value=psrs
+												onClick=(action 'chooseProd' psrs)}}
+											{{psrs.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+					{{bp-row direction='col' rowModel=tmProductBarLine0  conditions=tmProductBarLineCondition}}
+				{{/bp-layout}}
+				{{!-- <div local-class="table-container">
+					<table class="table">
+						<thead>
+							<th>{{t "project.proposal-info.product-info.drug-name"}}</th>
+							{{#each tableHead as |tcontent|}}
+								<th>{{tcontent}}</th>
+							{{/each}}
+						</thead>
+						<tbody class="bg-white">
+							{{#each model.prodTableBody as |trContent|}}
+								{{#if (bp-eq trContent.goodsConfig.productConfig.productType 0)}}
+									<tr>
+										<td>
+											{{trContent.goodsConfig.productConfig.product.name}}
+										</td>
+										{{#each trContent.tableTr as |tdContent|}}
+											{{#if (type-number tdContent)}}
+												<td>{{t "project.proposal-info.product-info.money"}}{{format-number tdContent 0}}
+												</td>
+											{{else}}
+												<td>{{tdContent}}</td>
+											{{/if}}
+										{{/each}}
+									</tr>
+								{{/if}}
+								{{#if (bp-not-eq tmpPsr.name undefined "全部选择")}}
+									{{#if (bp-eq tmpPsr.name trContent.name)}}
+										<tr>
+											<td>{{trContent.name}}</td>
+											{{#each trContent.tableTr as |tdContent|}}
+												<td>￥{{format-number tdContent}}</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+								{{else}}
+									<tr>
+										<td>{{trContent.name}}</td>
+										{{#each trContent.tableTr as |tdContent|}}
+											<td>￥{{format-number tdContent}}</td>
+										{{/each}}
+									</tr>
+								{{/if}} 
+							{{/each}}
+						</tbody>
+					</table>
+				</div> --}}
+			</div>
+		{{else if (bp-eq salesGroupValue 1)}}
+			<div local-class="report representative">
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					{{t "project.proposal-info.historical-info.representative-sale-circle"}}
+				{{/bp-layout}}
+				{{#bp-layout classNames="bg-white mb-2 pb-4"}}
+					<div local-class='circle-left'>
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep rep0Legend.firstObject.phase)}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmRepCircle0 conditions=tmRepCircle0Condition onQueryReady=(action 'dealRep0Data')}}
+
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each rep0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each rep0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each rep0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
+					</div>
+					<div local-class='circle-right'>
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep rep1Legend.firstObject.phase)}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmRepCircle1 conditions=tmRepCircleCondition onQueryReady=(action 'dealRep1Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each rep1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each rep1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each rep1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
+					</div>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" classNames="bg-white mb-2"}}
+					{{#bp-layout tagName="h2" cross="center" local-class="title"
+						classNames="m-0 bg-white px-4"}}
+						{{t "project.proposal-info.historical-info.representative-sale-trend"}}
+					{{/bp-layout}}
+					{{#bp-layout main="between" local-class="choose-container"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-3">{{t "project.proposal-info.historical-info.representative"}}</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpRep.id}}
+										<p>{{tmpRep.name}}</p>
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each resources as |rep|}}
+										{{#menu.option value=rep
+												onClick=(action 'chooseRep' rep)}}
+											{{rep.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-3">{{t "project.proposal-info.historical-info.product"}}</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpProdRep.id}}
+										<p>{{tmpProdRep.name}}</p>
+									{{else}}
+										{{t "project.proposal-info.historical-info.total-products"}}
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#menu.option value=totalProduct
+												onClick=(action 'chooseProd' '')}}
+										{{t "project.proposal-info.historical-info.total-products"}}
+									{{/menu.option}}
+									{{#each products as |psrs|}}
+										{{#menu.option value=psrs
+												onClick=(action 'chooseProd' psrs)}}
+											{{psrs.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+					{{bp-row direction='col' rowModel=tmRepBarLine0  conditions=tmRepBarLineCondition}}
+				{{/bp-layout}}
+				{{!-- {{#bp-layout direction="col" local-class="table-container" classNames="bg-white"}}
+					<table class="table">
+						<thead>
+							<th>{{t "project.proposal-info.product-info.representative-name"}}</th>
+							<th>{{t "project.proposal-info.product-info.potential"}}</th>
+							{{#each tableHead as |thContent|}}
+								<th>{{thContent}}</th>
+							{{/each}}
+						</thead>
+						<tbody>
+							{{#each model.repTableBody as |trContent|}}
+								<tr>
+									<td>
+										{{trContent.resourceConfig.representativeConfig.representative.name}}
+									</td>
+									<td>{{t "project.proposal-info.product-info.money"}}{{format-number trContent.potential}}
+									</td>
+									{{#each trContent.tableTr as |tdContent|}}
+										{{#if (type-number tdContent)}}
+											<td>{{t "project.proposal-info.product-info.money"}}{{format-number tdContent 0}}
+											</td>
+										{{else}}
+											<td>{{tdContent}}</td>
+										{{/if}}
+									{{/each}}
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				{{/bp-layout}} --}}
+			</div>
+		{{else if (bp-eq salesGroupValue 2)}}
+			<div local-class="report hospital">
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 classNames="m-0 bg-white px-4"}}
+					{{t "project.proposal-info.historical-info.hospital-sale-circle"}}
+				{{/bp-layout}}
+				{{#bp-layout classNames="bg-white mb-2 pb-4"}}
+					<div local-class='circle-left'>
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Hosp0Legend.firstObject.phase)}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmHosCircle0 conditions=tmHosCircle0Condition onQueryReady=(action 'dealHosp0Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each Hosp0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Hosp0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Hosp0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
+					</div>
+					<div local-class='circle-right'>
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{!-- {{Hosp1Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Hosp1Legend.firstObject.phase)}}
+						{{/bp-layout}}
+						{{bp-row direction='col'  rowModel=tmHosCircle1 conditions=tmHosCircleCondition  onQueryReady=(action 'dealHosp1Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each Hosp1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Hosp1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Hosp1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
+					</div>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" classNames="bg-white"}}
+					{{#bp-layout tagName="h2" cross="center" local-class="title"
+							classNames="m-0 bg-white px-4"}}
+							{{t "project.proposal-info.historical-info.hospital-sale-trend"}}
+					{{/bp-layout}}
+					{{#bp-layout main="between" local-class="choose-container"}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">{{t "project.proposal-info.historical-info.hospital"}}</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpHosp.id}}
+										<p>{{tmpHosp.name}}</p>
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#each hospitals as |hospital|}}
+										{{#menu.option value=hospital
+												onClick=(action 'chooseHosp' hospital)}}
+											{{hospital.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">{{t "project.proposal-info.historical-info.product"}}</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpProdHosp.id}}
+										<p>{{tmpProdHosp.name}}</p>
+									{{else}}
+										{{t "project.proposal-info.historical-info.total-products"}}
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#menu.option value=''
+												onClick=(action 'chooseProd' '')}}
+										{{t "project.proposal-info.historical-info.total-products"}}
+									{{/menu.option}}
+									{{#each products as |prod|}}
+										{{#menu.option value=prod
+												onClick=(action 'chooseProd' prod)}}
+											{{prod.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+					{{bp-row direction='col' rowModel=tmHosBarLine0 conditions=tmHosBarLineCondition}}
+				{{/bp-layout}}
+				{{!-- {{#bp-layout direction="col" local-class="table-container" classNames="bg-white"}}
+					<table class="table">
+						<thead>
+							<th>{{t "project.proposal-info.product-info.hospital-name"}}</th>
+							<th>{{t "project.proposal-info.product-info.hospital-representative"}}</th>
+							<th>{{t "project.proposal-info.product-info.potential"}}</th>
+							{{#each tableHead as |tcontent|}}
+								<th>{{tcontent}}</th>
+							{{/each}}
+						</thead>
+						<tbody>
+							{{#each model.hospTableBody as |trContent|}}
+								<tr>
+									<td>
+										{{trContent.destConfig.hospitalConfig.hospital.name}}
+									</td>
+									<td>
+										{{trContent.resourceConfig.representativeConfig.representative.name}}
+									</td>
+									<td>{{t "project.proposal-info.product-info.money"}}{{format-number trContent.potential}}
+									</td>
+									{{#each trContent.tableTr as |tdContent|}}
+										{{#if (type-number tdContent)}}
+											<td>{{t "project.proposal-info.product-info.money"}}{{format-number tdContent 0}}
+											</td>
+										{{else}}
+											<td>{{tdContent}}</td>
+										{{/if}}
+									{{/each}}
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				{{/bp-layout}} --}}
+			</div>
+		{{else if (bp-eq salesGroupValue 3)}}
+			<div local-class="report region">
+				{{#bp-layout tagName="h2" cross="center" local-class="title"
+						 classNames="m-0 bg-white px-4"}}
+					{{t "project.proposal-info.historical-info.region-sale-circle"}}
+				{{/bp-layout}}
+				{{#bp-layout classNames="bg-white mb-2 pb-4"}}
+					<div local-class='circle-left'>
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{!-- {{Reg0Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Reg0Legend.firstObject.phase)}}
+						{{/bp-layout}}
+						{{bp-row direction='col' rowModel=tmRegCircle0 conditions=tmRegCircle0Condition  onQueryReady=(action 'dealReg0Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each Reg0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Reg0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Reg0Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
+					</div>
+					<div local-class='circle-right'>
+						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+							{{!-- {{Reg1Legend.firstObject.phase}} --}}
+							{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Reg1Legend.firstObject.phase)}}
+
+						{{/bp-layout}}
+						{{bp-row direction='col'  rowModel=tmRegCircle1 conditions=tmRegCircleCondition onQueryReady=(action 'dealReg1Data')}}
+						{{#bp-layout direction="row" main='center'}}
+							<div>
+								{{#each Reg1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='point' style={{prod.color}}></span>
+										<span local-class='name' class="mr-3">{{prod.name}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Reg1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
+									</p>
+								{{/each}}
+							</div>
+							<div>
+								{{#each Reg1Legend as |prod|}}
+									<p local-class='circle-legend' class="mb-1">
+										<span local-class='value'>¥{{format-number prod.sales}}</span>
+									</p>
+								{{/each}}
+							</div>
+						{{/bp-layout}}
+					</div>
+				{{/bp-layout}}
+				{{#bp-layout direction="col" classNames="bg-white"}}
+					{{#bp-layout tagName="h2" cross="center" local-class="title"
+							classNames="m-0 bg-white px-4"}}
+							{{t "project.proposal-info.historical-info.region-sale-trend"}}
+					{{/bp-layout}}
+					{{#bp-layout main="between" local-class="choose-container"}}
+						{{#bp-layout main="between" cross="center" local-class="choose-area" classNames="px-4"}}
+							<span local-class="keys" class="mr-4">{{t "project.proposal-info.historical-info.region"}}</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpReg.id}}
+										<p>{{tmpReg.name}}</p>
+									{{else}}
+										<p>{{t "project.proposal-info.historical-info.total-regions"}}</p>
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+								{{#menu.option value=''
+												onClick=(action 'chooseReg' '')}}
+										{{t "project.proposal-info.historical-info.total-regions"}}
+									{{/menu.option}}
+									{{#each regions as |region|}}
+										{{#menu.option value=region
+												onClick=(action 'chooseReg' region)}}
+											{{region.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+						{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+							<span local-class="keys" class="mr-4">{{t "project.proposal-info.historical-info.product"}}</span>
+							{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+								{{#dd.button}}
+									{{#if tmpProdReg.id}}
+										<p>{{tmpProdReg.name}}</p>
+									{{else}}
+										{{t "project.proposal-info.historical-info.total-products"}}
+									{{/if}}
+									{{bp-icon icon="down"}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#menu.option value=''
+												onClick=(action 'chooseProd' '')}}
+										{{t "project.proposal-info.historical-info.total-products"}}
+									{{/menu.option}}
+									{{#each products as |prod|}}
+										{{#menu.option value=prod
+												onClick=(action 'chooseProd' prod)}}
+											{{prod.name}}
+										{{/menu.option}}
+									{{/each}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+					{{bp-row direction='col' rowModel=tmRegBarLine0 conditions=tmRegBarLineCondition}}
+				{{/bp-layout}}
+				{{!-- {{#bp-layout direction="col" local-class="table-container" classNames="bg-white"}}
+					<table class="table">
+						<thead>
+							<th>{{t "project.proposal-info.product-info.hospital-name"}}</th>
+							<th>{{t "project.proposal-info.product-info.hospital-representative"}}</th>
+							<th>{{t "project.proposal-info.product-info.potential"}}</th>
+							{{#each tableHead as |tcontent|}}
+								<th>{{tcontent}}</th>
+							{{/each}}
+						</thead>
+						<tbody>
+							{{#each model.hospTableBody as |trContent|}}
+								<tr>
+									<td>
+										{{trContent.destConfig.hospitalConfig.hospital.name}}
+									</td>
+									<td>
+										{{trContent.resourceConfig.representativeConfig.representative.name}}
+									</td>
+									<td>{{t "project.proposal-info.product-info.money"}}{{format-number trContent.potential}}
+									</td>
+									{{#each trContent.tableTr as |tdContent|}}
+										{{#if (type-number tdContent)}}
+											<td>{{t "project.proposal-info.product-info.money"}}{{format-number tdContent 0}}
+											</td>
+										{{else}}
+											<td>{{tdContent}}</td>
+										{{/if}}
+									{{/each}}
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				{{/bp-layout}} --}}
+			</div>
+		{{/if}}
+	{{/bp-layout}}
+{{/bp-layout}}

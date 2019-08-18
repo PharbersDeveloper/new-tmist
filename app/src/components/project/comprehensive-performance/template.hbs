@@ -1,0 +1,55 @@
+{{#bp-layout local-class="performance" direction="col" main="center" }}
+	{{#bp-layout direction="row" local-class="performance-header" classNames="bg-white px-4 mb-2" main="between"}}
+		{{#bp-layout direction="col"}}
+			{{#bp-layout tagName="h2" local-class="title" classNames="pt-4 pb-1"}}测评综合表现{{/bp-layout}}
+			{{#bp-layout tagName="p" local-class="time-info"}}
+				<span>日期</span>
+				<span class="ml-1 mr-4">2019-04-10 17:00:34</span>
+				<span>用时 50分钟</span>
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	
+	{{#bp-layout direction="row"}}
+			{{#bp-layout local-class="award-title" direction="col" classNames="mr-2 px-4 bg-white"}}
+				{{#bp-layout tagName="h4" local-class="title" cross="center" classNames="mb-0" direction="row"}}荣获称号{{/bp-layout}}
+			
+				{{#bp-layout local-class="level" direction="col" cross="center"}}
+					{{#bp-layout local-class="image" main="center" direction="row"}}{{/bp-layout}}
+					{{#bp-layout local-class="name" main="center" direction="row"}}黄金{{/bp-layout}}
+					{{#bp-layout local-class="desc" main="center" direction="row"}}等级描述{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			
+			{{#bp-layout local-class="ability-analysis" direction="col" classNames="bg-white"}}
+				{{#bp-layout tagName="h4" local-class="title" classNames="mb-0 pl-4" cross="center" direction="row"}}能力分析{{/bp-layout}}
+			
+				{{#bp-layout direction="row"}}
+					{{#bp-layout local-class="chart"}}
+						{{bp-radar-ability
+								eid="radarSecond22"
+								onClick=(action "changeRadar")}}
+					{{/bp-layout}}
+					{{#bp-layout local-class="desc" direction="col" classNames="px-4"}}
+						{{#bp-layout local-class="level" classNames="pb-3" cross="center"}}
+							<span class="mr-2">S</span>
+							{{axisName}}
+						{{/bp-layout}}
+						{{#bp-layout local-class="action-point" direction="col" classNames="mb-3"}}
+							{{#bp-layout classNames="mb-3"}}动作点解读{{/bp-layout}}
+							<p>具备对信息、数字、资讯的敏感度。</p>
+							<p>能过滤无用、錯誤信息，不被其所干扰。</p>
+							<p>理解报表信息，并掌握数据分析思维，对现状进行分析。</p>
+						{{/bp-layout}}
+						{{#bp-layout local-class="level-evaluation" direction="col"}}
+							{{#bp-layout classNames="mb-3"}}等级评价{{/bp-layout}}
+							<p>
+								您還需要花更多的精力，完善自己在报表与数据解读上的能力，透过科学化的分析，能使您在部署战略上，了解全局现状，洞察问题关键，预判发展趋势。從數據中你將收穫宏觀的視野,掌握全局。
+							</p>
+						{{/bp-layout}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+	{{/bp-layout}}
+	
+{{/bp-layout}}

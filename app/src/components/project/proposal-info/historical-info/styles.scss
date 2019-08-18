@@ -1,0 +1,128 @@
+div:global(.report-wrapper) {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+h2.title {
+	@extend %header-medium;
+	height: 52px;
+}
+
+.historical-sales-container {
+	height: 100%;
+	width: 1152px;
+}
+
+.nav {
+	flex: 0 0 270px;
+	height: 100%;
+	list-style: none;
+
+	li {
+		@extend %header-small;
+		cursor: pointer;
+		height: 4 * $spacing;
+
+		span {
+			flex: 1;
+		}
+
+		&.active {
+			background-color: $n020a;
+		}
+	}
+}
+
+.circle-left,
+.circle-right {
+	flex: 1;
+	.title {
+		@extend %header-small;
+	}
+}
+
+
+.circle-legend {
+	span {
+		display: inline-block;
+	}
+
+	.point {
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+	}
+
+	.name {
+		@extend %p-primary;
+	}
+
+	.value {
+		@extend %p-secondary;
+	}
+}
+
+.content {
+	flex: 1;
+	overflow-x: auto;
+
+	.report {
+		flex: 1;
+		overflow-x: auto;
+		&.representative .choose-container {
+			height: 64px;
+		}
+		.choose-container h2.title {
+			flex: 1;
+		}
+		.choose-area {
+			flex: 1;
+
+			.keys {
+				@extend %p-primary;
+				flex: 0 0 28px;
+			}
+
+			.dd-area {
+				flex: 1;
+			}
+		}
+
+		.table-container {
+			// table-layout: fixed;
+
+			overflow-x: auto;
+
+			table {
+				thead {
+					background-color: transparent;
+
+					th {
+						@extend %p-small;
+						border: 0;
+						min-width: 100px;
+						text-align: right;
+					}
+				}
+
+				tbody {
+					tr:hover {
+						td {
+							background-color: rgba(0, 0, 0, 0.075);
+						}
+					}
+
+					td {
+						@extend %p-primary;
+						border: 0;
+						height: 52px;
+						line-height: 52px;
+						text-align: right;
+					}
+				}
+			}
+		}
+	}
+}

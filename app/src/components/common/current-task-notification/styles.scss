@@ -1,0 +1,201 @@
+.page-notice {
+	height: 100%;
+	overflow: auto;
+	background-image: url('/images/img_info-story_bg.png');
+	background-size: auto 100%;
+	background-repeat:no-repeat;
+	width: 1200px;
+
+	h2.title {
+		// @extend %header-large;
+		font-size: 29px;
+		color: #172b4d;
+	}
+
+	h3 {
+		@extend %header-medium;
+	}
+
+	h4.title {
+		// @extend %header-small;
+		color: #172b4d;
+		// margin-top: 25px;
+		font-size: 16px;
+	}
+
+	.blank {
+		flex: 1;
+	}
+
+	.item {
+		// flex: 5;
+
+		.manager {
+			@extend %depth-z200;
+			@extend %defaultRadius;
+			margin-top: 40px;
+			width: 572px;
+			// height: 157px;
+			// position: relative;
+
+			img {
+				border-radius: 50%;
+				height: 128px;
+				position: absolute;
+				top: -64px;
+				width: 128px;
+			}
+
+			h2.title {
+				font-size: 29px;
+				color: #172b4d;
+			}
+
+			p {
+				@extend %p-secondary;
+				margin: 0;
+			}
+		}
+
+		.desc {
+			@extend %depth-z200;
+			@extend %defaultRadius;
+			width: 572px;
+			// height: 333px;
+
+			p {
+				@extend %p-secondary;
+				margin: 0;
+			}
+		}
+
+		.matters-attention {
+			@extend %depth-z200;
+			@extend %defaultRadius;
+			width: 572px;
+			// height: 158px;
+
+			p {
+				@extend %p-secondary;
+				margin: 0;
+			}
+		}
+
+		&.mission-notice {
+			h1 {
+				font-size: 0;
+				position: relative;
+				// background-color: $n300;
+
+				span {
+					display: inline-block;
+				}
+
+				.title {
+					@extend %header-large;
+				}
+
+				.time {
+					@extend %p-primary;
+				}
+			}
+
+			// h1::after {
+			// 	content: '';
+			// 	position: absolute;
+			// 	right: -20px;
+			// 	top: -5px;
+			// 	border-left: 25px solid transparent;
+			// 	border-right: 30px solid transparent;
+			// 	border-bottom: 25px solid $n010;
+			// 	transform: rotate(45deg);
+			// 	width: 0;
+			// }
+
+			.resource {
+				background-color: $n040;
+
+				// h2 {
+				// 	@extend %header-medium;
+				// }
+
+				.item {
+					.icon {
+						fill: rgb(80, 95, 121);
+						height: 32px;
+						width: 32px;
+					}
+
+					p.desc {
+						@extend %p-secondary;
+					}
+
+					h4.title {
+						@extend %header-small;
+					}
+				}
+
+				.item-resource {
+					@extend %depth-z200;
+
+					.icon {
+						flex: 0 0 32px;
+						height: 32px;
+					}
+
+					.blank {
+						flex: 1;
+					}
+
+					.main-box {
+						flex: 3;
+
+						:global(.bp-progress) {
+							height: $spacing;
+						}
+
+						p {
+							@extend %p-small;
+						}
+
+						.circle {
+							height: 64px;
+							width: 64px;
+						}
+					}
+
+					h4 {
+						@extend %p-secondary;
+					}
+
+					span.schedule {
+						@extend %header-medium;
+					}
+				}
+			}
+
+			.entry-mission {
+				a {
+					color: #fff;
+
+					&:hover {
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+.bp-modal {
+	@media (min-width: 576px) {
+		#notification.modal-dialog {
+			margin: 1.75rem auto;
+			max-width: 1000px;
+		}
+	}
+
+	.color {
+		color: blueviolet;
+	}
+}

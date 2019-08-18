@@ -1,0 +1,97 @@
+{{#bp-layout local-class="business-review" direction="col" classNames="bg-white"}}
+	{{#bp-layout local-class="select-part" direction="row" main="between" cross="center"}}
+		{{#bp-layout direction="row" local-class="part" classNames="pl-4" cross="center"}}
+			{{#bp-layout classNames="mr-3"}}选择季度{{/bp-layout}}
+			{{#bp-layout}}
+				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+					{{#dd.button }}
+						{{#if curPeriod}}
+							{{get periodsName curPeriodIndex}}
+						{{else}}
+							请选择
+						{{/if}}
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{#each periodRange as |item index|}}
+							{{#menu.option value=item onClick=(action (mut curPeriodIndex))}}
+								{{!-- {{item}} --}}
+								{{get periodsName index}}
+							{{/menu.option}}
+						{{/each}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout direction="row" local-class="part" cross="center"}}
+			{{#bp-layout classNames="mr-3"}}选择药品{{/bp-layout}}
+			{{#bp-layout}}
+				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+					{{#dd.button }}
+						{{#if curProd}}
+							{{curProd.name}}
+						{{else}}
+							全部
+						{{/if}}
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{#each productList as |item|}}
+							{{#menu.option value=item onClick=(action (mut curProd))}}
+								{{item.name}}
+							{{/menu.option}}
+						{{/each}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout direction="row" local-class="part" cross="center"}}
+			{{#bp-layout classNames="mr-3"}}选择代表{{/bp-layout}}
+			{{#bp-layout}}
+				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+					{{#dd.button }}
+						{{#if curRes}}
+							{{curRes.name}}
+						{{else}}
+							全部
+						{{/if}}
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{#each resourcesList as |rcs|}}
+							{{#menu.option value=rcs onClick=(action (mut curRes))}}
+								{{rcs.name}}
+							{{/menu.option}}
+						{{/each}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout local-class="table"}}
+		{{#bp-layout tagName="table" direction="col" classNames="mx-4" }}
+			{{#bp-layout tagName="thead" main="between" }}
+				{{#bp-layout tagName="th" main="center"}}医院名称{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}产品名称{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}代表{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}分配时间{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}销售目标设定{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}预算费用{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}会议名额{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout tagName="tbody" direction="col"}}
+				{{#each filterAnswers as |item|}}
+					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
+						{{#bp-layout tagName="td" main="start"}}{{item.target.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.product.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.resource.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.visitTime}}%{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.salesTarget}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.budget}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.meetingPlaces}}{{/bp-layout}}
+					{{/bp-layout}}
+				{{/each}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}

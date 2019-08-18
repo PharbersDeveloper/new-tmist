@@ -1,0 +1,27 @@
+
+{{#bp-layout direction="row" local-class="submit-header" main="between" cross="center" classNames="px-4 py-3"}}
+    {{#bp-layout direction="row" cross="center"}}
+        {{#bp-button local-class="exit-btn" onClick=(action "toIndex")}}{{bp-icon icon="sign-out"}}{{/bp-button}}
+        
+        {{#bp-layout tagName="h4" local-class="title" class="ml-2"}}
+            {{!-- {{#if (bp-eq projectType 1)}}
+                APM
+            {{else if (bp-eq projectType 2)}}
+                区域项目管理计划模拟测试
+            {{else if (bp-eq projectType 3)}}
+                优时比区域周期计划测试
+            {{else}}
+                undefined
+            {{/if}} --}}
+            {{#if proposalName}}
+                {{proposalName}}
+            {{/if}}
+        {{/bp-layout}}
+        {{#if periodName}}
+            <p local-class="sub-title" class="ml-2 px-1">{{periodName}}</p>
+        {{/if}}
+    {{/bp-layout}}
+
+    {{yield}}
+    {{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}} --}}
+{{/bp-layout}}

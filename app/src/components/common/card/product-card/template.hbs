@@ -1,0 +1,58 @@
+{{!-- {{#bp-layout tagName="h3" main="between" cross="center" local-class="title" class="px-4" }}
+	<span>
+		<span local-class="icon" {{action "showContent"}} role="button">{{bp-icon icon=icon }}</span>
+		{{#if (bp-eq product.productType 0)}}
+			<span local-class="type self">{{t "card.product-card.company-product"}}</span>
+		{{else}}
+			<span local-class="type compete">{{t "card.product-card.major-competitors"}}</span>
+		{{/if}}
+		{{product.name}}
+	</span>
+{{/bp-layout}} --}}
+{{!-- {{#bs-collapse collapsed=showContent}} --}}
+	{{#bp-layout local-class="product-content" classNames="p-4" }}
+		{{#bp-layout main="between" local-class="left" }}
+			{{!-- {{#each goods.productConfig.product.images as |item|}} --}}
+			<img src={{product.avatar.img}} alt={{product.name}} class="mr-4">
+			{{!-- {{/each}} --}}
+			{{#bp-layout direction="col" local-class="product-infos" }}
+				{{#bp-layout tagName="p" }}
+					<span>{{t "card.product-card.treatment-area"}}</span>
+					{{!-- <span>{{goods.productConfig.treatmentArea}}</span> --}}
+					<span>{{product.treatmentArea}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" }}
+					<span>{{t "card.product-card.launch-time"}}</span>
+					{{!-- <span>{{bp-string-slice goods.productConfig.launchTime 0 4}}年</span> --}}
+					<span>{{bp-string-slice product.launchDate 0 4}}{{t "card.product-card.year"}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" }}
+					<span>{{t "card.product-card.producer"}}</span>
+					{{!-- <span>{{goods.productConfig.product.corpName}}</span> --}}
+					<span>{{product.producer}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" }}
+					<span>{{t "card.product-card.patent-describe"}}</span>
+					{{!-- <span>{{goods.productConfig.patentDescribe}}</span> --}}
+					<span>{{product.productCategory}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" }}
+					<span>{{t "card.product-card.life-cycle"}}</span>
+					{{!-- <span>{{goods.productConfig.lifeCycle}}</span> --}}
+					<span>{{product.lifeCycle}}</span>
+				{{/bp-layout}}
+				{{#bp-layout tagName="p" classNames="m-0"}}
+					<span>{{t "card.product-card.reference-price"}}</span>
+					<span>{{product.priceType}}{{format-number product.price}}</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout direction="col" local-class="right" }}
+			<p local-class="keys" class="mb-2">{{t "card.product-card.product-feature"}}</p>
+			<p local-class="values">
+				{{!-- {{goods.productConfig.productFeature}} --}}
+				{{product.feature}}
+			</p>
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{!-- {{/bs-collapse}} --}}

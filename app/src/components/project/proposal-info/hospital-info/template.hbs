@@ -1,0 +1,85 @@
+{{#bp-layout direction="col" local-class="hispital-container" cross="center"}}
+	{{#if (bp-eq proposal.case "ucb")}}
+	{{#bp-layout direction="col" local-class="hispital-header" classNames="bg-white p-4 mb-4"}}
+		{{#bp-layout tagName="h4"  local-class="title" cross="center" classNames="mb-3"}}
+			地区城市医院概况
+		{{/bp-layout}}
+		{{#bp-layout direction="row"}}
+			{{#bp-layout tagName="table" local-class="hispital-table" direction="col"}}
+				{{#bp-layout tagName="thead" main="center" classNames="py-1"}}
+					{{#bp-layout tagName="th" main="center"}}城市{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}城市类型{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}城市战略定位{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}本地患者占比{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}三级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}二级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}一级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}医院总数{{/bp-layout}}
+				{{/bp-layout}}
+				{{#bp-layout tagName="tbody" direction="col"}}
+					{{#each table as |item|}}
+						{{#bp-layout tagName="tr" main="center" classNames="py-2"}}
+							{{#bp-layout tagName="td" main="center"}}{{item.name}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.level}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.type}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.local}}{{/bp-layout}}
+							{{!-- {{#bp-layout tagName="td"}}40%{{/bp-layout}} --}}
+							{{#bp-layout tagName="td" main="center"}}{{item.t3}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.t2}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.t1}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{item.count}}{{/bp-layout}}
+						{{/bp-layout}}
+					{{/each}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{else if (bp-eq proposal.case "tm") }}
+		{{#bp-layout direction="col" local-class="hispital-header" classNames="bg-white p-4 mb-4"}}
+			{{#bp-layout tagName="h4"  local-class="title" cross="center" classNames="mb-3"}}
+				地区城市医院概况
+			{{/bp-layout}}
+			{{#bp-layout local-class="desc" direction="row" classNames="" tagName="p"}}
+				地区内一共有10家目标医院，包括3家三级医院、4家二级医院及3家一级医院；这一地区销售额去年出现了明显下滑，尽管在上一任地区经理的管理下，地区销售额不再下滑，但仍有待提升。
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/if}}
+
+	{{#if (bp-eq proposal.case "ucb") }}
+	{{#bp-layout direction="col" local-class="hospital-info" classNames="bg-white mb-2 p-4"}}
+		{{#bp-layout tagName="h4"  local-class="title" classNames="mb-4" cross="center"}}
+			城市医院详情
+		{{/bp-layout}}
+		{{#bp-layout classNames="" cross="center" local-class="city-hospital"}}
+			{{#each regions as |item index|}}
+			{{#bp-button classNames="mr-3" onClick=(action (mut currentGroupIndex) index) }}
+				{{item.value}}
+			{{/bp-button}}
+			{{/each}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{/if}}
+
+	{{#bp-layout direction="row" local-class="hospital-detail" }}
+		{{#bp-layout direction="col" local-class="hospital-list" classNames="bg-white mr-2"}}
+			{{#each currentGroup as |item index|}}
+				{{#bp-layout click=(action (mut currentHospital) index) 
+				classNames="py-4 pl-4"
+				local-class=(if (bp-eq currentHospital index) "active hospital-item" "hospital-item")}}
+					{{item.name}}
+				{{/bp-layout}}
+			{{/each}}
+		{{/bp-layout}}
+			
+		{{#bp-layout direction="col" local-class="hospital-detail-info mb-4"}}
+			{{#each currentGroup as |item index|}}
+				{{#if (bp-eq currentHospital index)}}
+					{{common/card/hospital-card hospital=item reports=reports proposal=proposal}}
+				{{/if}}
+			{{/each}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	
+{{/bp-layout}}
+
+

@@ -1,0 +1,55 @@
+{{#bp-layout direction="col" local-class="resource-container" cross="center"}}
+	{{#bp-layout classNames="bg-white" local-class="resource-header" direction="col"}}
+		{{#bp-layout cross="center" local-class="resource-title"}}
+			{{#bp-layout tagName="h4" local-class="title" classNames="ml-4" }}
+				团队成员概况
+			{{/bp-layout}}
+		{{/bp-layout}}
+
+		{{#bp-layout local-class="resource-header-info" direction="row"}}
+			{{#bp-layout local-class="left" cross="center" main="center"}}{{resources.length}}人{{/bp-layout}}
+			{{#if (bp-eq proposal.case "tm")}}
+				{{#bp-layout local-class="right" cross="center" main="center"}} 
+					<p class="py-4 pl-5 pr-2">团队中的{{resources.length}}位代表，工作经验与个人能力各不相同，有各自的优势与劣势；了解与熟悉每位代表的个体情况，才能进行有效的团队管理。</p> 
+				{{/bp-layout}}
+			{{else if (bp-eq proposal.case "ucb")}}
+				{{#bp-layout local-class="right" cross="center" main="center"}} 
+					<p class="py-4 pl-5 pr-2">在你的团队中，一共有{{resources.length}}位代表，请通过阅读代表信息，了解他们的情况。</p> 
+				{{/bp-layout}}
+			{{/if}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+
+	{{#bp-layout direction="col" local-class="resource-info"}}
+		{{#bp-layout local-class="resource-info-header" classNames="bg-white mt-4 mb-2" cross="center"}}
+			{{#bp-layout tagName="h4" local-class="title" classNames="ml-4 mb-0"}}
+				团队成员信息
+			{{/bp-layout}}
+		{{/bp-layout}}
+
+		{{#bp-layout direction="row" }}
+			{{#bp-layout direction="col" classNames="bg-white"}}
+				{{#each resources as |item index|}}
+					{{!-- {{#bp-button onClick=(action (mut currentResource) index) local-class=(if (bp-eq currentResource index) "active")}}{{item.name}}{{/bp-button}} --}}
+					{{#bp-layout click=(action (mut currentResource) index ) 
+					local-class=(if (bp-eq currentResource index) "active resource-item" "resource-item")
+					classNames="py-4 pl-4"}}
+						{{item.name}}
+					{{/bp-layout}}
+				{{/each}}
+			{{/bp-layout}}
+			{{#bp-layout direction="col" classNames="ml-2"}}
+				{{#bp-layout local-class="resource-detail" direction="col"}}
+					{{#each resources as |item index|}}
+						{{#if (bp-eq currentResource index)}}
+							{{common/card/member-card resource=item proposal=proposal kpis=kpis period=period lastPeriod=lastPeriod}}
+						{{/if}}
+					{{/each}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+
+	{{/bp-layout}}
+{{/bp-layout}}
+
+

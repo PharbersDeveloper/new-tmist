@@ -1,0 +1,112 @@
+{{!-- {{#if showNavbar}}
+	{{#bp-layout tagName="header" main="between" cross="center" local-class="header" classNames="bg-white px-4"}}
+	
+		<p class="m-0" role="button" {{action "endMission"}}>
+			<img src="/images/logo_tmist.png" alt={{t "nav.logo"}} class="mr-3">
+			<span>{{t "nav.name"}}</span>
+		</p>
+		{{#if (bp-eq testProgress 1)}}
+			{{#bp-button onClick=(action "endMission")}}
+				{{t "nav.actions.end-mission"}}
+			{{/bp-button}}
+		{{else if (bp-eq testProgress 2)}}
+			<span local-class="button-area">
+				{{#bp-button type="subtle"  classNames="mr-3"
+					onClick=(action (mut rules) true)}}
+					{{t "nav.actions.rules-description"}}
+				{{/bp-button}}
+				{{#bp-button onClick=(action "saveInputEndMission")}}
+					{{t "nav.actions.end-mission"}}
+				{{/bp-button}}
+			</span>
+		{{else if (bp-eq testProgress 3)}}
+			<span local-class="button-area">
+				{{#bp-button type="subtle"  classNames="mr-3"
+					onClick=(action (mut rules) true)}}
+					{{t "nav.actions.rules-description"}}
+				{{/bp-button}}
+				{{#bp-button onClick=(action "resultPageEndMission")}}
+					{{t "nav.actions.end-mission"}}
+				{{/bp-button}}
+			</span>
+		{{else}}
+			{{#bp-dropdown widthSize="auto"
+			local-class="dd-medicines dd-area" as |dd|}}
+				{{#dd.button tagName="span" classNames="bg-white"}}
+					{{bp-icon icon="nav-person"}}
+				{{/dd.button}}
+				{{#dd.menu align="right" as |menu|}}
+					{{#menu.option onClick=(action "logout")}}
+						{{t "nav.actions.profile-config"}}
+					{{/menu.option}}
+					{{#menu.option onClick=(action "logout")}}
+						{{t "nav.actions.logout"}}
+					{{/menu.option}}
+				{{/dd.menu}}
+			{{/bp-dropdown}}
+		{{/if}}
+	{{/bp-layout}}
+{{/if}} --}}
+<section local-class={{if showNavbar "container" "container-height"}}>
+	{{outlet}}
+</section>
+
+{{#bp-modal
+		open=rules 
+		position="center"
+		onHidden=(action (mut rules) false) 
+		local-class="bp-modal" as |modal|}}
+	{{#modal.header classNames="px-4 py-3 border-0"}}
+		{{t "nav.actions.rules-description"}}
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="secondary mb-0">
+			{{t "nav.modal.line-01"}}
+		</p>
+		<p class="secondary mb-0">
+			{{t "nav.modal.line-02"}}
+		</p>
+		<p class="secondary mb-4">
+			{{t "nav.modal.line-03"}}
+		</p>
+		<h4 class="title mt-0 mb-3">
+			{{t "nav.modal.line-04"}}
+		</h4>
+		<p class="secondary mb-4">
+			{{t "nav.modal.line-05"}}
+		</p>
+		<p class="secondary mb-4">
+			{{t "nav.modal.line-06"}}
+		</p>
+		<p class="secondary mb-4">
+			{{t "nav.modal.line-07"}}
+		</p>
+		<h4 class="title mt-0 mb-3">
+			{{t "nav.modal.line-08"}}
+		</h4>
+		<p class="secondary">
+			{{t "nav.modal.line-09"}}
+		</p>
+	{{/modal.body}}
+{{/bp-modal}}
+{{#bp-modal
+		open=exitMission 
+		position="center"
+		onHidden=(action (mut exitMission) false) as |modal|}}
+	{{#modal.header classNames="px-4 py-3 border-0"}}
+		{{t "nav.hits.title"}}
+	{{/modal.header}}
+	{{#modal.body classNames="p-4"}}
+		<p class="desc mb-3">
+			{{t "nav.hits.content"}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bp-button type="link" onClick=(action modal.close)}}
+			{{t "nav.hits.cancel-btn"}}
+		{{/bp-button}}
+		{{#bp-button type="primary" onClick=(action "saveInputs")}}
+			{{t "nav.hits.confirm-btn"}}
+		{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}

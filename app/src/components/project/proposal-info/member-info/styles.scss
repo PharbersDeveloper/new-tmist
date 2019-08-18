@@ -1,0 +1,95 @@
+.overview {
+	height: 342px;
+
+	h4.title {
+		@extend %header-small;
+	}
+
+	.chart {
+		flex: 1;
+		height: 342px;
+	}
+
+	.infos {
+		flex: 1;
+
+		.keys {
+			@extend %p-primary;
+			flex: 0 0 56px;
+		}
+
+		.values {
+			@extend %p-secondary;
+		}
+	}
+}
+
+.resource-container {
+	.resource-header {
+		.resource-title {
+			width: 1152px;
+			height: 54px;
+
+			h4.title {
+				font-size: 16px;
+				color: #172b4d;
+			}
+		}
+
+		.resource-header-info {
+			width: 1152px;
+
+			.left {
+				color: #172b4d;
+				font-size: 29px;
+				height: 89px;
+				width: 576px;
+			}
+
+			.right {
+				height: 89px;
+				width: 576px;
+
+				p {
+					font-size: 14px;
+					color: #7a869a;
+				}
+			}
+		}
+	}
+
+	.resource-info {
+		.resource-info-header {
+			height: 54px;
+			width: 1152px;
+
+			h4.title {
+				font-size: 16px;
+				color: #172b4d;
+			}
+		}
+
+		.resource-item {
+			width: 270px;
+			height: 68px;
+			font-size: 14px;
+			color: #172b4d;
+			text-align: left;
+			border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+			border-radius: 0;
+			cursor: pointer;
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			&.active {
+				background-color: #ebecf0;
+			}
+		}
+
+		.resource-detail {
+			width: 874px;
+		}
+	}
+}

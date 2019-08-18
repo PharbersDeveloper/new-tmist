@@ -17,15 +17,21 @@ RUN npm update && \
 
 WORKDIR /app
 
-LABEL ntm.version=0.2.0
+LABEL new-tmist.version=0.0.1
 
 RUN git clone https://github.com/PharbersDeveloper/new-tmist.git && \
-	git clone https://github.com/PharbersDeveloper/BP-Components.git 
-	
+	git clone https://github.com/PharbersDeveloper/BP-Components.git && \
+	git clone https://github.com/PharbersDeveloper/phemitter.git
+
 WORKDIR /app/BP-Components
 
 RUN git checkout -b frank origin/frank && \
 	npm install && \
+	npm link
+
+WORKDIR /app/phemitter
+
+RUN	npm install && \
 	npm link
 
 WORKDIR /app/new-tmist
@@ -34,7 +40,8 @@ RUN rm -rf node_modules && \
 	rm package-lock.json && \
 	npm cache clear --force && \
 	npm install && \
-	npm link bp-components
+	npm link bp-components && \
+	npm link phemitter
 
 RUN ember b --environment production
 

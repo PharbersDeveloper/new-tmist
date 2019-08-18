@@ -1,0 +1,70 @@
+{{#bp-layout direction="col" local-class="products-container" cross="center"}}
+	{{#bp-layout local-class="products-chart" classNames="mb-4" direction="col"}}
+		{{#bp-layout main="between" cross="center" local-class="chart-header" classNames="bg-white mb-4 px-4 py-2"}}
+			{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="mb-0"}}
+				{{t "project.proposal-info.product-info.product-competing-info"}}
+			{{/bp-layout}}
+			{{#bp-layout classNames="bg-white"}}
+				{{#bp-layout main='between' local-class='item' classNames='px-4'}}
+					<span local-class='title' class='mr-3'>治疗领域</span>
+					{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
+						{{#dd.button  local-class="product-list-btn"}}
+							<span local-class="product-name">{{curTreatmentArea}}</span>
+							{{bp-icon icon='down'}}
+						{{/dd.button}}
+						{{#dd.menu as |menu|}}
+							{{#each treatmentAreaArr as |treatmentArea|}}
+								{{#menu.option value=treatmentArea local-class="representative-info" click=(action 'changeProductArea' treatmentArea)}}
+									{{#bp-layout cross="center"}}
+										{{!-- <img width="24" src={{products.avatar.img}} alt="avatar" class="mr-2"> --}}
+										<span local-class="name" class="mr-2">
+											{{treatmentArea}}
+										</span>
+									{{/bp-layout}}
+								{{/menu.option}}
+							{{/each}}
+						{{/dd.menu}}
+					{{/bp-dropdown}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout direction='col' classNames="bg-white px-4 py-3"}}
+			{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="mb-0"}}
+				{{t "project.proposal-info.product-info.product-share-trend"}}<span local-class='sub-title' class='ml-3'>地区</span>
+			{{/bp-layout}}
+			{{bp-row direction='col' rowModel=tmProdsLines conditions=tmProdsLinesCondition}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{#bp-layout tagName="h4" local-class="title info-header" classNames="bg-white px-4 py-4"}}
+		药品详细信息
+	{{/bp-layout}}
+	{{#bp-layout direction="row"}}
+		{{#bp-layout direction="col"}}
+			{{#each products as |item index|}}
+				{{#if (bp-eq item.treatmentArea curTreatmentArea)}}
+					{{#bp-layout direction="row"}}
+						{{#bp-layout click=(action (mut currentProduct) index)
+							classNames="py-4 pl-4"
+							local-class=(if (bp-eq currentProduct index) "active product-item" "product-item") }}
+							{{#bp-layout }}{{item.name}}{{/bp-layout}}
+							{{#if (bp-eq item.productType 0)}}
+								{{#bp-badge pill=false type='secondary' local-class="badge" classNames="ml-2"}}产品{{/bp-badge}}
+							{{else}}
+								{{#bp-badge pill=false type='secondary' local-class="badge badge-yellow" classNames="ml-2"}}竞品{{/bp-badge}}
+							{{/if}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+				{{/if}}
+			{{/each}}
+		{{/bp-layout}}
+		{{#bp-layout}}
+			<div local-class="products-container reference-content product-info" class="ml-2">
+				{{#each products as |item index|}}
+					{{#if (bp-eq currentProduct index)}}
+						{{common/card/product-card product=item}}
+					{{/if}}
+				{{/each}}
+			</div>
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}

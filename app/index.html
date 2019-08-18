@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NewTmist</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>NewTmist</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	{{content-for "head"}}
-	<link rel="icon" href="/assets/favicon.ico">
-	<link href="https://cdn.bootcss.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
-	<link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
-	<link integrity="" rel="stylesheet" href="{{rootURL}}assets/new-tmist.css">
-	{{content-for "head-footer"}}
-</head>
+    {{content-for "head"}}
 
-<body>
-	{{content-for "body"}}
-	<script src="{{rootURL}}assets/vendor.js"></script>
-	<script src="{{rootURL}}assets/new-tmist.js"></script>
-	{{content-for "body-footer"}}
-</body>
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/new-tmist.css">
+    <link rel="icon" href="/images/favicon.jpg">
 
+    {{content-for "head-footer"}}
+  </head>
+  <body>
+    {{content-for "body"}}
+
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/new-tmist.js"></script>
+
+    {{content-for "body-footer"}}
+  </body>
 </html>

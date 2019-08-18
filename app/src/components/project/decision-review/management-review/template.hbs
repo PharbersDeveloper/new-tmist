@@ -1,0 +1,155 @@
+{{#bp-layout direction="col" local-class="manager-review"}}
+	{{#bp-layout local-class="select-quarter" direction="row" classNames="bg-white pl-4 mb-4" cross="center"}}
+		{{#bp-layout local-class="half" cross="center"}}
+			{{#bp-layout classNames="mr-4"}}选择季度{{/bp-layout}}
+			{{#bp-layout local-class="btn-select-quarter"}}
+				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+					{{#dd.button }}
+						{{#if curPeriod}}
+						{{curPeriodIndex}}
+						{{else}}
+						请选择
+						{{/if}}
+						{{bp-icon icon='down'}}
+					{{/dd.button}}
+					{{#dd.menu as |menu|}}
+						{{#each periodRange as |item|}}
+							{{#menu.option value=item onClick=(action (mut curPeriodIndex))}}
+								{{item}}
+							{{/menu.option}}
+						{{/each}}
+					{{/dd.menu}}
+				{{/bp-dropdown}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+
+	{{/bp-layout}}
+
+	{{#bp-layout local-class="manager-time" direction="row" classNames="pl-4 bg-white mb-2" cross="center"}}
+		{{#bp-layout tagName="h4" local-class="title" classNames="m-0"}}
+			经理时间分配
+		{{/bp-layout}}
+	{{/bp-layout}}
+
+	{{#bp-layout direction="row" local-class="time-detail" classNames="mb-4"}}
+		{{#bp-layout local-class="business-team" direction="col" classNames="bg-white mr-2"}}
+			{{#bp-layout tagName="h4" classNames="m-0 pl-4" cross="center" local-class="title"}}
+				业务及团队
+			{{/bp-layout}}
+
+			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-table"}}
+				{{#bp-layout local-class="circle" style="width: 128px;height: 128px" direction="row"}}
+					{{bp-circle eid="cricleTime" circleData=circleData circleColor=circleColor circleSize=circleSize}}
+					
+					{{!-- {{#bp-layout direction="col"}}
+						{{#bp-layout tagName="div"}}业务策略分析: {{managerAnswers.strategAnalysisTime}} {{/bp-layout}}
+						{{#bp-layout tagName="div"}}重点目标客户管理: {{managerAnswers.clientManagementTime}}{{/bp-layout}}
+						{{#bp-layout tagName="div"}}代表及KPI分析: {{managerAnswers.kpiAnalysisTime}}{{/bp-layout}}
+						{{#bp-layout tagName="div"}}行政工作: {{managerAnswers.adminWorkTime}}{{/bp-layout}}
+						{{#bp-layout tagName="div"}}团队例会: {{managerAnswers.teamMeetingTime}}{{/bp-layout}}
+						{{#bp-layout tagName="div"}}代表能力培养: {{totalTime}}{{/bp-layout}}
+					{{/bp-layout}} --}}
+				{{/bp-layout}}
+				{{#bp-layout direction="col" local-class="circle-legend" classNames="ml-4"}}
+					{{#each circleData as |item index|}}
+						{{#bp-layout direction="row" cross="center" classNames="mb-3" main="between" local-class="legend"}}
+							{{#bp-layout direction="row" cross="center"}}
+								<span style="background: {{get circleColor index}};"></span>
+								{{#bp-layout tagName="p" classNames="ml-1"}} {{item.name}} {{/bp-layout}}
+							{{/bp-layout}}
+							{{#bp-layout tagName="p"}} {{item.value}} %{{/bp-layout}}
+						{{/bp-layout}}
+					{{/each}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+
+		{{#bp-layout local-class="representative-bility" direction="col" classNames="bg-white "}}
+			{{#bp-layout tagName="h4" classNames="m-0 pl-4" cross="center" local-class="title"}}
+				代表能力培养
+			{{/bp-layout}}
+			
+			{{#bp-layout local-class="table" classNames="mx-4"}}
+				{{#bp-layout tagName="table" direction="col" classNames="" }}
+					{{#bp-layout tagName="thead" main="between" }}
+						{{#bp-layout tagName="th"}}代表姓名{{/bp-layout}}
+						{{#bp-layout tagName="th"}}1v1能力辅导{{/bp-layout}}
+						{{#bp-layout tagName="th"}}协防时间{{/bp-layout}}
+					{{/bp-layout}}
+					{{#bp-layout tagName="tbody" direction="col"}}
+						{{#each resourceAnswers as |item|}}
+						{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
+							{{#bp-layout tagName="td"}}{{item.resource.name}}{{/bp-layout}}
+							{{#bp-layout tagName="td"}}{{item.abilityCoach}}%{{/bp-layout}}
+							{{#bp-layout tagName="td"}}{{item.assistAccessTime}}%{{/bp-layout}}
+						{{/bp-layout}}
+						{{/each}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+
+	{{#bp-layout local-class="action-points" direction="col" classNames="bg-white px-4"}}
+		{{#bp-layout tagName="h4" local-class="title" cross="center" classNames="mb-0"}}
+			行动点数分配
+		{{/bp-layout}}
+		{{#bp-layout local-class="table" direction="row"}}
+				{{#bp-layout direction="col" local-class="action-attr"}}
+					{{#bp-layout local-class="blank"}}{{/bp-layout}}
+					{{#bp-layout tagName="div" cross="center"}}产品知识培训{{/bp-layout}}
+					{{#bp-layout tagName="div" cross="center"}}销售能力培训{{/bp-layout}}
+					{{#bp-layout tagName="div" cross="center"}}区域管理培训{{/bp-layout}}
+					{{#bp-layout tagName="div" cross="center"}}绩效约谈{{/bp-layout}}
+					{{#bp-layout tagName="div" cross="center"}}职业发展指导{{/bp-layout}}
+				{{/bp-layout}}
+				{{#bp-layout local-class="resources" main="between"}}
+					{{#each resourceAnswers as |item|}}
+					{{#bp-layout direction="col" local-class="resource" }}
+						{{#bp-layout local-class="name" cross="center" main="center"}}{{item.resource.name}}{{/bp-layout}}
+
+						{{#if item.productKnowledgeTraining}}
+							{{#bp-layout local-class="block" cross="center" main="center"}} 
+								<span></span>
+							{{/bp-layout}}
+						{{else}}
+							{{#bp-layout local-class="block"}}{{/bp-layout}}
+						{{/if}}
+
+						{{#if item.salesAbilityTraining}}
+							{{#bp-layout local-class="block" cross="center" main="center"}} 
+								<span></span>
+							{{/bp-layout}}
+						{{else}}
+							{{#bp-layout local-class="block"}}{{/bp-layout}}
+						{{/if}}
+
+						{{#if item.regionTraining}}
+							{{#bp-layout local-class="block" cross="center" main="center"}} 
+								<span></span>
+							{{/bp-layout}}
+						{{else}}
+							{{#bp-layout local-class="block"}}{{/bp-layout}}
+						{{/if}}
+
+						{{#if item.performanceTraining}}
+							{{#bp-layout local-class="block" cross="center" main="center"}} 
+								<span></span>
+							{{/bp-layout}}
+						{{else}}
+							{{#bp-layout local-class="block"}}{{/bp-layout}}
+						{{/if}}
+
+						{{#if item.vocationalDevelopment}}
+							{{#bp-layout local-class="block" cross="center" main="center"}} 
+								<span></span>
+							{{/bp-layout}}
+						{{else}}
+							{{#bp-layout local-class="block"}}{{/bp-layout}}
+						{{/if}}
+					{{/bp-layout}}
+					{{/each}}
+				{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}
