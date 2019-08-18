@@ -60,7 +60,7 @@ export default Controller.extend( {
 
 
 		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
-			this.runtimeConfig.set( "jobId", subMsg.jobId )
+			this.runtimeConfig.set( "jobId", subMsg.job_id )
 			this.set( "loadingForSubmit", false )
 			if ( this.calcDone === true ) {
 				this.transitionToRoute( "page.project.result" )

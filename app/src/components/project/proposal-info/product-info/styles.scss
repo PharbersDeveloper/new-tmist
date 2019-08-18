@@ -4,17 +4,22 @@
 		width: 1152px;
 
 		.chart-header {
-
+			height: 52px;
 		}
 	}
 
 	h4.title {
-		font-size: 14px;
+		// font-size: 16px;
+		@extend %header-medium;
+		span.sub-title {
+			@extend %p-small;
+		}
 	}
 
 	span.title {
 		font-size: 14px;
 		color: #344563;
+		line-height: 32px;
 	}
 
 	span.product-name {
