@@ -1,20 +1,20 @@
 {{#bp-layout direction="col" local-class="products-container" cross="center"}}
 	{{#bp-layout local-class="products-chart" classNames="mb-4" direction="col"}}
-		{{#bp-layout main="between" direction="row" local-class="chart-header" classNames="bg-white mb-4 px-4 py-3"}}
+		{{#bp-layout main="between" cross="center" local-class="chart-header" classNames="bg-white mb-4 px-4 py-2"}}
 			{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="mb-0"}}
-				药品份额竞争趋势
+				{{t "project.proposal-info.product-info.product-competing-info"}}
 			{{/bp-layout}}
 			{{#bp-layout classNames="bg-white"}}
 				{{#bp-layout main='between' local-class='item' classNames='px-4'}}
-					<span local-class='title' class='mt-3 mr-3'>治疗领域</span>
+					<span local-class='title' class='mr-3'>治疗领域</span>
 					{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
-						{{#dd.button classNames='mt-2 mb-1' local-class="product-list-btn"}}
+						{{#dd.button  local-class="product-list-btn"}}
 							<span local-class="product-name">{{curTreatmentArea}}</span>
 							{{bp-icon icon='down'}}
 						{{/dd.button}}
 						{{#dd.menu as |menu|}}
 							{{#each treatmentAreaArr as |treatmentArea|}}
-								{{#menu.option value=treatmentArea local-class="representative-info" click=(action (mut curTreatmentArea) treatmentArea)}}
+								{{#menu.option value=treatmentArea local-class="representative-info" click=(action 'changeProductArea' treatmentArea)}}
 									{{#bp-layout cross="center"}}
 										{{!-- <img width="24" src={{products.avatar.img}} alt="avatar" class="mr-2"> --}}
 										<span local-class="name" class="mr-2">
@@ -28,7 +28,12 @@
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{bp-row direction='col' rowModel=tmProdsLines conditions=tmProdsLinesCondition}}
+		{{#bp-layout direction='col' classNames="bg-white px-4 py-3"}}
+			{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="mb-0"}}
+				{{t "project.proposal-info.product-info.product-share-trend"}}<span local-class='sub-title' class='ml-3'>地区</span>
+			{{/bp-layout}}
+			{{bp-row direction='col' rowModel=tmProdsLines conditions=tmProdsLinesCondition}}
+		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout tagName="h4" local-class="title info-header" classNames="bg-white px-4 py-4"}}
 		药品详细信息

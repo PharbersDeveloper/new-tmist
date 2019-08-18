@@ -194,5 +194,91 @@ export default Mixin.create( {
 				}
 			] )
 		}
+	},
+	generateLines( rowId,chartId ) {
+		return {
+			id: rowId,
+			height: 305,
+			panels: [{
+				id: chartId,
+				color: ["#57D9A3", "#79E2F2", "#FFE380", "#8777D9"],
+				xAxis: {
+					show: true,
+					type: "category",
+					name: "",
+					axisTick: {
+						show: true,
+						alignWithLabel: true
+					},
+					axisLine: {
+						show: true,
+						lineStyle: {
+							type: "dotted",
+							color: "#DFE1E6"
+						}
+					},
+					axisLabel: {
+						show: true,
+						color: "#7A869A",
+						fontSize: 14,
+						lineHeight: 20
+					}
+				},
+				yAxis: {
+					show: true,
+					type: "value",
+					axisLine: {
+						show: false
+					},
+					axisTick: {
+						show: false
+					},
+					axisLabel: {
+						show: true,
+						color: "#7A869A",
+						formatType:"formatRate"
+
+					// formatter: function (value) {
+					// 	return value * 100 + axisConfig.unit;
+					// }
+					},
+					splitLine: {
+						show: true,
+						lineStyle: {
+							type: "dotted",
+							color: "#DFE1E6"
+						}
+					}
+				},
+				tooltip: {
+					show: true,
+					trigger: "axis",
+					axisPointer: { // 坐标轴指示器，坐标轴触发有效
+						type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+					},
+					backgroundColor: "rgba(9,30,66,0.54)"
+				},
+				legend: {
+					show: true,
+					x: "center",
+					y: "top",
+					orient: "horizontal",
+					textStyle: {
+						fontSize: 14,
+						color: "#7A869A"
+					}
+				},
+				series: [{
+					type: "line"
+				}, {
+					type: "line"
+				}, {
+					type: "line"
+				}, {
+					type: "line"
+				}]
+			}]
+
+		}
 	}
 } )

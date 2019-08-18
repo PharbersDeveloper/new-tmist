@@ -577,24 +577,28 @@
 							classNames="m-0 bg-white px-4"}}
 							{{t "project.proposal-info.historical-info.region-sale-trend"}}
 					{{/bp-layout}}
-					{{!-- {{#bp-layout main="between" local-class="choose-container"}}
-						{{#bp-layout main="between" cross="center"
-							local-class="choose-area" 
-							classNames="px-4"}}
-							<span local-class="keys" class="mr-4">{{t "project.proposal-info.historical-info.hospital"}}</span>
+					{{#bp-layout main="between" local-class="choose-container"}}
+						{{#bp-layout main="between" cross="center" local-class="choose-area" classNames="px-4"}}
+							<span local-class="keys" class="mr-4">{{t "project.proposal-info.historical-info.region"}}</span>
 							{{#bp-dropdown widthSize="auto"
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpHosp.id}}
-										<p>{{tmpHosp.name}}</p>
+									{{#if tmpReg.id}}
+										<p>{{tmpReg.name}}</p>
+									{{else}}
+										<p>{{t "project.proposal-info.historical-info.total-regions"}}</p>
 									{{/if}}
 									{{bp-icon icon="down"}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
-									{{#each hospitals as |hospital|}}
-										{{#menu.option value=hospital
-												onClick=(action 'chooseHosp' hospital)}}
-											{{hospital.name}}
+								{{#menu.option value=''
+												onClick=(action 'chooseReg' '')}}
+										{{t "project.proposal-info.historical-info.total-regions"}}
+									{{/menu.option}}
+									{{#each regions as |region|}}
+										{{#menu.option value=region
+												onClick=(action 'chooseReg' region)}}
+											{{region.name}}
 										{{/menu.option}}
 									{{/each}}
 								{{/dd.menu}}
@@ -607,8 +611,8 @@
 							{{#bp-dropdown widthSize="auto"
 								local-class="dd-medicines dd-area" as |dd|}}
 								{{#dd.button}}
-									{{#if tmpProdHosp.id}}
-										<p>{{tmpProdHosp.name}}</p>
+									{{#if tmpProdReg.id}}
+										<p>{{tmpProdReg.name}}</p>
 									{{else}}
 										{{t "project.proposal-info.historical-info.total-products"}}
 									{{/if}}
@@ -628,7 +632,7 @@
 								{{/dd.menu}}
 							{{/bp-dropdown}}
 						{{/bp-layout}}
-					{{/bp-layout}} --}}
+					{{/bp-layout}}
 					{{bp-row direction='col' rowModel=tmRegBarLine0 conditions=tmRegBarLineCondition}}
 				{{/bp-layout}}
 				{{!-- {{#bp-layout direction="col" local-class="table-container" classNames="bg-white"}}

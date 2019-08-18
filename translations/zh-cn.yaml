@@ -73,6 +73,7 @@ project:
       product: 产品
       representative: 代表
       hospital: 医院
+      region: 地区
       product-sale-circle: 产品销售结构分布图
       product-sale-trend: 产品销售趋势图
       representative-sale-circle: 代表销售结构分布图
@@ -82,7 +83,10 @@ project:
       region-sale-circle: 地区销售结构分布图
       region-sale-trend: 地区销售趋势图
       total-products: 全部总值
+      total-regions: 地区总值
     product-info:
+      product-competing-info: 产品竞品信息
+      product-share-trend: 药品份额竞争趋势
       produce-sale-report: 产品销售报告
       representative-sale-report: 代表销售报告
       hospital-sale-report: 医院销售报告

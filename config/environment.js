@@ -41,7 +41,7 @@ module.exports = function( environment ) {
 		},
 
 		QueryAddress: {
-			host: "http://123.56.179.133",
+			host: "http://59.110.31.50",
 			port: 9202,
 			version: "v1.0",
 			db: "DL"
@@ -57,7 +57,7 @@ module.exports = function( environment ) {
 
 		ENV.OAuth.RedirectUri = "http://ntm.pharbers.com:8081"
 		ENV.OAuth.Host = "http://192.168.100.174:9096"
-		ENV.QueryAddress.host = "http://192.168.100.157"
+		ENV.QueryAddress.host = "http://59.110.31.50"
 
 	}
 
@@ -77,7 +77,7 @@ module.exports = function( environment ) {
 		// here you can enable a production-specific feature
 		ENV.OAuth.RedirectUri = "http://ntm.pharbers.com"
 		ENV.OAuth.Host = "http://oauth.pharbers.com"
-		ENV.QueryAddress.host = "http://123.56.179.133"
+		ENV.QueryAddress.host = "http://59.110.31.50"
 
 	}
 

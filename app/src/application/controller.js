@@ -7,26 +7,26 @@ import { inject as service } from "@ember/service"
 // import Ember from "ember"
 // const { keys } = Object
 
-export default Controller.extend({
+export default Controller.extend( {
 	cookies: service(),
-	oauthService: service("service/oauth"),
-	em: service("emitter"),
+	oauthService: service( "service/oauth" ),
+	em: service( "emitter" ),
 	showNavbar: true,
 
 	init() {
-		this._super(...arguments)
+		this._super( ...arguments )
 		// 总控设置Config
-		this.em.SetConfig({
-			"connect": { host: "tcp://123.56.179.133", port: "46532" },
+		this.em.SetConfig( {
+			"connect": { host: "tcp://192.168.0.101", port: "46532" },
 			"qos": 1
-		})
+		} )
 		// 初始化MQTT Connect并设置全局Singleton MessageHandel Hook，
 		// 不想要单例Message把MessageSingleton(false) or remove了
-		// this.em.Connect().MessageSingleton( true )
+		this.em.Connect().MessageSingleton( true )
 	},
 	actions: {
 		endMission() {
-			this.transitionToRoute("page.welcome")
+			this.transitionToRoute( "page.welcome" )
 		}
 	}
-})
+} )
