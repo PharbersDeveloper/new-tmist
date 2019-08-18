@@ -1,12 +1,20 @@
 import Component from "@ember/component"
 import { computed } from "@ember/object"
+import { A } from "@ember/array"
 
 export default Component.extend( {
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods"],
 	curSelPeriod: null,
+	treatmentAreaArr: A( [] ),
 	didReceiveAttrs() {
 		this._super( ...arguments )
 		this.set( "curSelPeriod", this.periods.lastObject )
+		let tmpArr = A( [] )
+
+		tmpArr = this.products.map( ele=>ele.treatmentArea )
+
+		this.treatmentAreaArr = Array.from( new Set( tmpArr ) )
+		this.set( "curTreatmentArea", this.treatmentAreaArr[0] )
 	},
 	// overallInfo: computed(results function () {
 
