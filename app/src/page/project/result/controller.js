@@ -12,15 +12,23 @@ export default Controller.extend( {
 		toReport() {
 			this.transitionToRoute( "page.project.report" )
 		},
-		toCongratulation() {
+		goRoundOver() {
 			this.transitionToRoute( "page.project.round-over" )
 		},
-		toNext( proposal ) {
+		toNext( project ) {
 			// 创建新的周期并进入
-			this.gen.genProjectWithProposal( proposal ).then( x => {
-				this.deploy( x )
-			} )
+			const currPeriod = project.periods.length,
+				totalPharse = project.pharse
+
+			if ( currPeriod < totalPharse ) {
+				this.deploy( project )
+			} else {
+				window.console.info( "Fuck" )
+			}
+
+			// this.gen.genProjectWithProposal( project.proposal ).then( x => {
+			// this.deploy( x )
+			// })
 		}
 	}
 } )
-
