@@ -7,6 +7,8 @@ export default DS.Model.extend( {
 	inputIds: DS.attr( ),
 	salesReportIds: DS.attr( ),
 	personnelAssessmentIds: DS.attr( ),
+	periodBase: DS.attr( "number" ),
+	periodStep: DS.attr( "string" ),
 	quota: DS.belongsTo( "model/requirement" ),
 	products: DS.hasMany( "model/product" ),
 	targets: DS.hasMany( "model/hospital" ),

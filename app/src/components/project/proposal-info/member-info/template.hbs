@@ -8,11 +8,11 @@
 
 		{{#bp-layout local-class="resource-header-info" direction="row"}}
 			{{#bp-layout local-class="left" cross="center" main="center"}}{{resources.length}}人{{/bp-layout}}
-			{{#if (bp-eq caseType "tm")}}
+			{{#if (bp-eq proposal.case "tm")}}
 				{{#bp-layout local-class="right" cross="center" main="center"}} 
 					<p class="py-4 pl-5 pr-2">团队中的{{resources.length}}位代表，工作经验与个人能力各不相同，有各自的优势与劣势；了解与熟悉每位代表的个体情况，才能进行有效的团队管理。</p> 
 				{{/bp-layout}}
-			{{else if (bp-eq caseType "ucb")}}
+			{{else if (bp-eq proposal.case "ucb")}}
 				{{#bp-layout local-class="right" cross="center" main="center"}} 
 					<p class="py-4 pl-5 pr-2">在你的团队中，一共有{{resources.length}}位代表，请通过阅读代表信息，了解他们的情况。</p> 
 				{{/bp-layout}}
