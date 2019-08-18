@@ -11,17 +11,19 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	getChart( curTreatmentArea ) {
 		const that = this
 
-		new Promise( function ( resolve ) {
-			let	tmProdsLines = that.generateLines( "tmProdsLinesContainer","prodLines" ),
-				tmProdsLinesCondition = that.generateProdCompLinesCondition( curTreatmentArea,that.periodBase,that.periodStep )
+		// new Promise( function ( resolve ) {
+		let	tmProdsLines = that.generateLines( "tmProdsLinesContainer","prodLines" ),
+			tmProdsLinesCondition = that.generateProdCompLinesCondition( curTreatmentArea,that.periodBase,that.periodStep )
 
-			resolve( {
-				tmProdsLines, tmProdsLinesCondition
-			} )
-		} ).then( data => {
-			this.set( "tmProdsLines", data.tmProdsLines )
-			this.set( "tmProdsLinesCondition", data.tmProdsLinesCondition )
-		} )
+		console.log( tmProdsLines )
+		console.log( tmProdsLinesCondition )
+		// 	resolve( {
+		// 		tmProdsLines, tmProdsLinesCondition
+		// 	} )
+		// } ).then( data => {
+		this.set( "tmProdsLines", tmProdsLines )
+		this.set( "tmProdsLinesCondition", tmProdsLinesCondition )
+		// } )
 	},
 	didReceiveAttrs() {
 		this._super( ...arguments )
