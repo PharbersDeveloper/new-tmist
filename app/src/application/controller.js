@@ -17,7 +17,7 @@ export default Controller.extend( {
 		this._super( ...arguments )
 		// 总控设置Config
 		this.em.SetConfig( {
-			"connect": { host: "tcp://123.56.179.133", port: "46532" },
+			"connect": { host: "tcp://192.168.0.101", port: "46532" },
 			"qos": 1
 		} )
 		// 初始化MQTT Connect并设置全局Singleton MessageHandel Hook，

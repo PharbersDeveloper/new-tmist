@@ -25,7 +25,7 @@
 	{{/bp-layout}}
 	<div local-class="reference-content">
 		{{#if (bp-eq currentPannel 0)}}
-			{{common/current-task-notification }}
+			{{common/current-task-notification caseType=proposal.case}}
 		{{/if}}
 		{{#if (bp-eq currentPannel 1)}}
 			{{project/proposal-info/product-info products=proposal.products }}
