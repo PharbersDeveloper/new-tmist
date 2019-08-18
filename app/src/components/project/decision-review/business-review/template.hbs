@@ -6,16 +6,17 @@
 				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
 					{{#dd.button }}
 						{{#if curPeriod}}
-							{{curPeriodIndex}}
+							{{get periodsName curPeriodIndex}}
 						{{else}}
 							请选择
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
-						{{#each periodRange as |item|}}
+						{{#each periodRange as |item index|}}
 							{{#menu.option value=item onClick=(action (mut curPeriodIndex))}}
-								{{item}}
+								{{!-- {{item}} --}}
+								{{get periodsName index}}
 							{{/menu.option}}
 						{{/each}}
 					{{/dd.menu}}
@@ -30,12 +31,12 @@
 						{{#if curProd}}
 							{{curProd.name}}
 						{{else}}
-							请选择
+							全部
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
-						{{#each products as |item|}}
+						{{#each productList as |item|}}
 							{{#menu.option value=item onClick=(action (mut curProd))}}
 								{{item.name}}
 							{{/menu.option}}
@@ -52,12 +53,12 @@
 						{{#if curRes}}
 							{{curRes.name}}
 						{{else}}
-							请选择
+							全部
 						{{/if}}
 						{{bp-icon icon='down'}}
 					{{/dd.button}}
 					{{#dd.menu as |menu|}}
-						{{#each resources as |rcs|}}
+						{{#each resourcesList as |rcs|}}
 							{{#menu.option value=rcs onClick=(action (mut curRes))}}
 								{{rcs.name}}
 							{{/menu.option}}
