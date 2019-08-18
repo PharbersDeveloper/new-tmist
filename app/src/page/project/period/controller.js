@@ -70,7 +70,8 @@ export default Controller.extend( {
 			let proposalId = this.model.project.get( "proposal.id" ),
 				projectId = this.model.project.get( "id" ),
 				periodId = this.model.period.get( "id" ),
-				type = this.model.project.get( "proposal.case" )
+				type = this.model.project.get( "proposal.case" ),
+				phase = this.model.period.get( "phase" )
 
 			this.get( "ajax" ).post( "/callR", {
 				headers: {
@@ -81,6 +82,7 @@ export default Controller.extend( {
 				data: {
 					callr: false,
 					type: type,
+					phase: String( Number( phase ) + 1 ),
 					proposalId: proposalId,
 					projectId: projectId,
 					periodId: periodId
@@ -487,7 +489,8 @@ export default Controller.extend( {
 		let proposalId = this.model.project.get( "proposal.id" ),
 			projectId = this.model.project.get( "id" ),
 			periodId = this.model.period.get( "id" ),
-			type = this.model.project.get( "proposal.case" )
+			type = this.model.project.get( "proposal.case" ),
+			phase = this.model.period.get( "phase" )
 
 		this.get( "ajax" ).post( "/callR", {
 			headers: {
@@ -498,6 +501,7 @@ export default Controller.extend( {
 			data: {
 				callr: true,
 				type: type + "r",
+				phase: String( phase ),
 				proposalId: proposalId,
 				projectId: projectId,
 				periodId: periodId
@@ -511,7 +515,8 @@ export default Controller.extend( {
 		let proposalId = this.model.project.get( "proposal.id" ),
 			projectId = this.model.project.get( "id" ),
 			periodId = this.model.period.get( "id" ),
-			type = this.model.project.get( "proposal.case" )
+			type = this.model.project.get( "proposal.case" ),
+			phase = this.model.period.get( "phase" )
 
 		this.get( "ajax" ).post( "/callR", {
 			headers: {
@@ -522,6 +527,7 @@ export default Controller.extend( {
 			data: {
 				callr: false,
 				type: type,
+				phase: String( phase ),
 				proposalId: proposalId,
 				projectId: projectId,
 				periodId: periodId
