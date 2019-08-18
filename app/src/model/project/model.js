@@ -11,5 +11,5 @@ export default DS.Model.extend( {
 	lastUpdate: DS.attr( "number" ),
 	periods: DS.hasMany( "model/period" ),
 	results: DS.hasMany( "model/result" ),
-	finals: DS.hasMany("model/final")
+	finals: DS.hasMany( "model/final" )
 } )

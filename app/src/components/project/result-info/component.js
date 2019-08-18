@@ -3,6 +3,11 @@ import { computed } from "@ember/object"
 
 export default Component.extend( {
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods"],
+	curSelPeriod: null,
+	didReceiveAttrs() {
+		this._super( ...arguments )
+		this.set( "curSelPeriod", this.periods.lastObject )
+	},
 	// overallInfo: computed(results function () {
 
 	// } ),
