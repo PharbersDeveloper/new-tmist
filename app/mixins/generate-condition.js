@@ -10,9 +10,6 @@ export default Mixin.create( {
 	getJobId() {
 		let jobId = ""
 
-		console.log( this.runtimeConfig )
-		console.log( this.runtimeConfig.jobId )
-		console.log( ENV.environment === "development" && isEmpty( this.runtimeConfig.jobId ) )
 		if ( ENV.environment === "development" && isEmpty( this.runtimeConfig.jobId ) ) {
 			jobId = this.jobId
 		} else {
@@ -20,21 +17,32 @@ export default Mixin.create( {
 		}
 		return jobId
 	},
-	generateProductCircleCondition( phase ) {
-		let jobId = this.getJobId()
+	generateProductCircleCondition( proposalCase, phase ) {
 
+		let searchRuls = [],
+			jobId = this.getJobId()
+
+		if ( proposalCase === "tm" ) {
+			searchRuls = [
+				["eq", "category", "Product"],
+				["eq", "phase", phase],
+				["eq", "job_id.keyword", jobId]
+			]
+		} else {
+			searchRuls = [
+				["eq", "category", "Product"],
+				["eq", "phase", phase],
+				["eq", "job_id.keyword", jobId],
+				["eq", "status.keyword", "已开发"]
+			]
+		}
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
 				"model": "tmrs",
 				"query": {
 					"search": {
-						"and": [
-							["eq", "category", "Product"],
-							["eq", "phase", phase],
-							["eq", "job_id.keyword", jobId],
-							["eq", "status.keyword", "已开发"]
-						]
+						"and": searchRuls
 					},
 					"aggs": [
 						{

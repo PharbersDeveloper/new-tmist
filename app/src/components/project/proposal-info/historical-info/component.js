@@ -7,7 +7,7 @@ import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
 
 export default Component.extend( GenerateCondition,GenerateChartConfig, {
-	positionalParams: ["periods", "resources", "products", "hospitals"],
+	positionalParams: ["periods", "resources", "products", "hospitals","case"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
 	// period: A([
@@ -162,19 +162,21 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	init() {
 		this._super( ...arguments )
 
+		console.log( this.periods )
+		console.log( "======" )
 		const that = this
 
 		let defaultRep = this.resources.firstObject,
-			defaultHosp = this.hospitals.firstObject
+			defaultHosp = this.hospitals.firstObject,
+			proposalCase = this.case
 
 		this.set( "tmpRep",defaultRep )
 		this.set( "tmpHosp",defaultHosp )
 
 		new Promise( function ( resolve ) {
-			// later( function () {
 			let tmProductCircle0 = that.generateCircleChart( "circleproductcontainer0","tmcircleproduct0" ),
 				tmProductCircle1 = that.generateCircleChart( "circleproductcontainer1","tmcircleproduct1" ),
-				tmProductCircleCondition = that.generateProductCircleCondition( -1 ),
+				tmProductCircleCondition = that.generateProductCircleCondition( proposalCase, -1 ),
 				tmProductBarLine0 = that.generateBarLineConfig( "tmProductBarLineContainer","bartmProductBarLine0" ),
 				tmProductBarLineCondition = that.generateProdBarLineCondition(),
 				tmRepCircle0 = that.generateCircleChart( "representativeCircleContainer0","tmcircleRepresentative0" ),
@@ -200,7 +202,6 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 				tmRegCircle0, tmRegCircle1, tmRegCircleCondition, tmRegBarLine0, tmRegBarLineCondition
 
 			} )
-			// }, 400 )
 		} ).then( data => {
 			this.set( "tmProductCircle0", data.tmProductCircle0 )
 			this.set( "tmProductCircleCondition", data.tmProductCircleCondition )
