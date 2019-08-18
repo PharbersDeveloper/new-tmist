@@ -1,7 +1,5 @@
 import Component from "@ember/component"
 import { computed } from "@ember/object"
-// import ENV from 'new-tmist/config/environment';
-import { later } from "@ember/runloop"
 
 export default Component.extend( {
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods"],
