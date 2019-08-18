@@ -1,10 +1,11 @@
 import Component from "@ember/component"
 
 export default Component.extend( {
-	positionalParams: ["provious"],
+	positionalParams: ["provious", "periods"],
 	classNames: ["history-info-wrapper"],
 	actions: {
 		performance() {
+
 			this.set( "performance", {
 				open: true
 			} )
