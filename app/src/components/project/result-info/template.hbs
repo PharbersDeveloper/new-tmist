@@ -123,10 +123,15 @@
 		{{#bp-layout local-class="right" classNames="bg-white" direction="col"}}
 			{{#bp-layout direction="row" main="between" local-class="right-header" cross="center"}}
 				{{#bp-layout tagName="h4" local-class="title" cross="center" classNames="ml-4"}}我司产品份额{{/bp-layout}}
-				{{#bp-layout local-class="right-btn" classNames="mr-4"}}
-					{{#bp-button classNames="mr-1"}}帕金森{{/bp-button}}
-					{{#bp-button}}癫痫{{/bp-button}}
-				{{/bp-layout}}
+				{{#bp-button-group
+					class="mr-4"
+					value=buttonGroupValue 
+					type="radio" 
+					onChange=(action (mut buttonGroupValue)) as |bg|}}
+					{{#each treatmentAreaArr as |item|}}
+						{{#bg.button type="default" value=item}}{{item}}{{/bg.button}}
+					{{/each}}
+				{{/bp-button-group}}
 			{{/bp-layout}}
 			{{bp-row direction='col' rowModel=tmResultProductCircle conditions=tmResultProductCircleCondition}}
 			{{!-- {{#bp-layout}}
