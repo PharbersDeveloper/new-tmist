@@ -61,10 +61,22 @@ export default Controller.extend( {
 
 		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
 			this.runtimeConfig.set( "jobId", subMsg.job_id )
-			this.set( "loadingForSubmit", false )
+			window.localStorage.setItem( "jobId", subMsg.job_id )
+
 			if ( this.calcDone === true ) {
-				this.transitionToRoute( "page.project.result" )
+
+				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
+					this.model.project.set( "status", 1 ).save().then( () => {
+						this.set( "loadingForSubmit", false )
+						this.transitionToRoute( "page.project.result" )
+					} )
+				} else {
+					this.set( "loadingForSubmit", false )
+					this.transitionToRoute( "page.project.result" )
+				}
 				// document.getElementById( "submit-btn" ).click()
+			} else {
+				this.set( "loadingForSubmit", false )
 			}
 		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" ) {
 			let proposalId = this.model.project.get( "proposal.id" ),

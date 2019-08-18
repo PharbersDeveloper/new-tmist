@@ -18,9 +18,9 @@ export default Controller.extend( {
 		toNext( project ) {
 			// 创建新的周期并进入
 			const currPeriod = project.periods.length,
-				totalPharse = project.pharse
+				totalPhase = project.pharse
 
-			if ( currPeriod < totalPharse ) {
+			if ( currPeriod < totalPhase ) {
 				this.deploy( project )
 			} else {
 				window.console.info( "Fuck" )

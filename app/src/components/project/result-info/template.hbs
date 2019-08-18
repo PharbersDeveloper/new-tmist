@@ -8,8 +8,10 @@
 				{{#left.item }}
 					{{!-- 完成日期：<span class="mx-2">{{format-date-standard project.endTime}}</span>
 					用时：<span class="mx-2">{{time-difference project.startTime project.endTime}}</span> --}}
-					<span local-class="badge">2019Q1</span>
-					<span local-class="badge">最后周期</span>
+					<span local-class="badge" class="px-2">2019Q1</span>
+					{{#if condition}}
+						<span local-class="badge" class="px-2">最后周期</span>
+					{{/if}}
 				{{/left.item}}
 			{{/body.left}}
 			{{!-- {{#body.right}}
