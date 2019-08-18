@@ -2,7 +2,7 @@
 	height: 100%;
 	overflow: auto;
 	background-image: url('/images/img_info-story_bg.png');
-	background-size: 100%;
+	background-size: auto 100%;
 	background-repeat:no-repeat;
 	width: 1200px;
 
@@ -34,8 +34,8 @@
 			@extend %depth-z200;
 			@extend %defaultRadius;
 			margin-top: 40px;
-			width: 564px;
-			height: 157px;
+			width: 572px;
+			// height: 157px;
 			// position: relative;
 
 			img {
@@ -60,8 +60,8 @@
 		.desc {
 			@extend %depth-z200;
 			@extend %defaultRadius;
-			width: 564px;
-			height: 333px;
+			width: 572px;
+			// height: 333px;
 
 			p {
 				@extend %p-secondary;
@@ -72,8 +72,8 @@
 		.matters-attention {
 			@extend %depth-z200;
 			@extend %defaultRadius;
-			width: 564px;
-			height: 158px;
+			width: 572px;
+			// height: 158px;
 
 			p {
 				@extend %p-secondary;

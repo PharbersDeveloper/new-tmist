@@ -19,7 +19,7 @@ export default Controller.extend( {
 		return this.em.GetInstance()
 	} ),
 	currentTab: 0,
-	loadingForSubmit: false,
+	loadingForSubmit: true,
 	calcDone: false,
 	allProductInfo: computed( function() {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
@@ -56,7 +56,7 @@ export default Controller.extend( {
 		window.console.info( msg.channel + " => " + msg.asString() )
 
 		let msgObj = msg.asObject(),
-		 subMsg = JSON.parse( msgObj.msg )
+			subMsg = JSON.parse( msgObj.msg )
 
 
 		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
@@ -98,7 +98,7 @@ export default Controller.extend( {
 		// let client = this.em.GetInstance()
 		// API: 参照https://emitter.io/develop/javascript/
 		// 订阅  参数：channel key，channel name，消息类型（message, error, disconnect），MessageHandel
-		// this.client.Subscribe( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "message", this.onMessage.bind( this ) )
+		this.client.Subscribe( "3-9kS0TxsJupymws2yKmXbI-x1OXu78p", "tm/", "message", this.onMessage.bind( this ) )
 	},
 	transNumber( input ) {
 		let number = Number( input )
@@ -540,7 +540,7 @@ export default Controller.extend( {
 	},
 	actions: {
 		publish() {
-			this.client.Publish( "XsKflXovpPuCKy4rGlioYVC7h6N1uutu", "tm/", "Hello" )
+			this.client.Publish( "3-9kS0TxsJupymws2yKmXbI-x1OXu78p", "tm/", "Hello" )
 		},
 		toIndex() {
 			this.transitionToRoute( "page.welcome" )
