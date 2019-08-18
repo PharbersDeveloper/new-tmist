@@ -1,20 +1,20 @@
 import Mixin from "@ember/object/mixin"
 import { isEmpty } from "@ember/utils"
-import { inject as service } from "@ember/service"
+// import { inject as service } from "@ember/service"
 import ENV from "new-tmist/config/environment"
 
 export default Mixin.create( {
-	runtimeConfig: service( "service/runtime-config" ),
+	// runtimeConfig: service( "service/runtime-config" ),
 	queryAddress: ENV.QueryAddress,
 	jobId: "a109704d-0990-4cb7-a50f-a08e23f73efe",
 	getJobId() {
 		let jobId = ""
 
-		if ( ENV.environment === "development" && isEmpty( this.runtimeConfig.jobId ) ) {
+		if ( ENV.environment === "development" && isEmpty( window.localStorage.getItem( "jobId" ) ) ) {
 			jobId = this.jobId
 		} else {
 			jobId = window.localStorage.getItem( "jobId" )
-			this.set( "jobId",jobId )
+			this.set( "jobId", jobId )
 		}
 		return jobId
 	},
@@ -80,7 +80,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateProdBarLineCondition( productName ,proposal ) {
+	generateProdBarLineCondition( productName, proposal ) {
 		let searchRuls = [],
 			agg = {},
 			jobId = this.getJobId()
@@ -126,7 +126,7 @@ export default Mixin.create( {
 			queryAddress: this.queryAddress,
 			xAxisFormat: {
 				periodBase: proposal && proposal.get( "periodBase" ),
-				periodStep:proposal && proposal.get( "periodStep" )
+				periodStep: proposal && proposal.get( "periodStep" )
 			},
 			data: {
 				"model": "tmrs",
@@ -214,7 +214,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateRepBarLineCondition( repName, prodName ) {
+	generateRepBarLineCondition( repName, prodName,proposal ) {
 		let searchRuls = [],
 			jobId = this.getJobId()
 
@@ -234,6 +234,10 @@ export default Mixin.create( {
 		}
 		return [{
 			queryAddress: this.queryAddress,
+			xAxisFormat: {
+				periodBase: proposal && proposal.get( "periodBase" ),
+				periodStep: proposal && proposal.get( "periodStep" )
+			},
 			data: {
 				"model": "tmrs",
 				"query": {
@@ -344,7 +348,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateHospBarLineCondition( hospName, prodName ) {
+	generateHospBarLineCondition( hospName, prodName ,proposal ) {
 		let searchRuls = [],
 			jobId = this.getJobId()
 
@@ -362,6 +366,10 @@ export default Mixin.create( {
 		}
 		return [{
 			queryAddress: this.queryAddress,
+			xAxisFormat: {
+				periodBase: proposal && proposal.get( "periodBase" ),
+				periodStep: proposal && proposal.get( "periodStep" )
+			},
 			data: {
 				"model": "tmrs",
 				"query": {
@@ -472,7 +480,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateRegionBarLineCondition( regName, prodName ) {
+	generateRegionBarLineCondition( regName, prodName, proposal ) {
 
 		let searchRuls = [],
 			jobId = this.getJobId()
@@ -498,6 +506,10 @@ export default Mixin.create( {
 
 		return [{
 			queryAddress: this.queryAddress,
+			xAxisFormat: {
+				periodBase: proposal && proposal.get( "periodBase" ),
+				periodStep: proposal && proposal.get( "periodStep" )
+			},
 			data: {
 				"model": "tmrs",
 				"query": {
@@ -598,14 +610,14 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateProdCompLinesCondition( productarea,periodBase,periodStep ) {
+	generateProdCompLinesCondition( productarea, periodBase, periodStep ) {
 		let jobId = this.getJobId()
 
 		return [{
 			queryAddress: this.queryAddress,
 			xAxisFormat: {
 				periodBase: periodBase,
-				periodStep:periodStep
+				periodStep: periodStep
 			},
 			data: {
 				"model": "tmrs",
@@ -640,8 +652,73 @@ export default Mixin.create( {
 						"args": {
 							"yAxis": "phase",
 							"xAxis": "product.keyword",
-							"value": "sum(share)"
+							"value": "sum(share)",
+							"head": "phase"
 						}
+					}
+				]
+			}
+		}]
+	},
+	generateResultProductCircleCondition( proposalCase, phase,productarea ) {
+
+		let searchRuls = [],
+			jobId = this.getJobId()
+
+		if ( proposalCase === "tm" ) {
+			searchRuls = [
+				["eq", "category", "Product"],
+				["eq", "phase", phase],
+				["eq", "job_id.keyword", jobId],
+				["eq", "product_area.keyword", productarea]
+			]
+		} else {
+			searchRuls = [
+				["eq", "category", "Product"],
+				["eq", "phase", phase],
+				["eq", "job_id.keyword", jobId],
+				["eq", "status.keyword", "已开发"],
+				["eq", "product_area.keyword", productarea]
+			]
+		}
+		return [{
+			queryAddress: this.queryAddress,
+			data: {
+				"model": "tmrs",
+				"query": {
+					"search": {
+						"and": searchRuls
+					},
+					"aggs": [
+						{
+							"groupBy": "phase",
+							"aggs": [
+								{
+									"groupBy": "product.keyword",
+									"aggs": [
+										{
+											"agg": "sum",
+											"field": "sales"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				"format": [
+					{
+						"class": "calcRate",
+						"args": ["sum(sales)"]
+					},
+					{
+						"class": "cut2DArray",
+						"args": [
+							"product.keyword",
+							"sum(sales)",
+							"phase",
+							"rate(sum(sales))"
+						]
 					}
 				]
 			}

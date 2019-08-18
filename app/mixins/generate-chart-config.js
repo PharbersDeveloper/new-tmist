@@ -348,5 +348,41 @@ export default Mixin.create( {
 				}]
 			}]
 		}
+	},
+	generateResultProductCircle( rowId,chartId ) {
+		return {
+			id: rowId,
+			height: 319,
+			panels: [
+				{
+					name: "tmResultProducts",
+					id: chartId,
+					color: ["#73ABFF", "#FFC400", "#57D9A3"],
+					tooltip: {
+						show: true,
+						trigger: "item"
+					},
+					legend: {
+						show: false
+					},
+					series: [{
+						name: "",
+						type: "pie",
+						radius: ["70", "100"],
+						avoidLabelOverlap: false,
+						hoverOffset: 3,
+						labelLine: {
+							normal: {
+								show: true
+							}
+						},
+						label: {
+							color: "#7A869A",
+							formatter: "{b}  {d}%"
+						}
+					}]
+				}
+			]
+		}
 	}
 } )

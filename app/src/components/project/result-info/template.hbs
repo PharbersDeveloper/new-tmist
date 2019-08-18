@@ -127,16 +127,14 @@
 					class="mr-4"
 					value=buttonGroupValue 
 					type="radio" 
-					onChange=(action (mut buttonGroupValue)) as |bg|}}
+					onChange=(action 'changeProductArea' buttonGroupValue) as |bg|}}
 					{{#each treatmentAreaArr as |item|}}
 						{{#bg.button type="default" value=item}}{{item}}{{/bg.button}}
 					{{/each}}
 				{{/bp-button-group}}
 			{{/bp-layout}}
 			{{bp-row direction='col' rowModel=tmResultProductCircle conditions=tmResultProductCircleCondition}}
-			{{!-- {{#bp-layout}}
-					charta
-				{{/bp-layout}} --}}
+
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout local-class="sales-report" tagName="h4" classNames="bg-white pl-4 mb-1" cross="center"}}
@@ -144,10 +142,11 @@
 	{{/bp-layout}}
 	{{#bp-layout local-class="report-info"}}
 		{{project/proposal-info/historical-info
+			proposal=project.proposal
+			periods=periods
 			resources=resources
 			products=products
 			hospitals=hospitals
-			periods=periods
 			case=project.proposal.case
 			isResultPage=true}}
 	{{/bp-layout}}

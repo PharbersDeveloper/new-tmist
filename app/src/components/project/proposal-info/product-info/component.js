@@ -15,15 +15,8 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 		let	tmProdsLines = that.generateLines( "tmProdsLinesContainer","prodLines" ),
 			tmProdsLinesCondition = that.generateProdCompLinesCondition( curTreatmentArea,that.periodBase,that.periodStep )
 
-		console.log( tmProdsLines )
-		console.log( tmProdsLinesCondition )
-		// 	resolve( {
-		// 		tmProdsLines, tmProdsLinesCondition
-		// 	} )
-		// } ).then( data => {
 		this.set( "tmProdsLines", tmProdsLines )
 		this.set( "tmProdsLinesCondition", tmProdsLinesCondition )
-		// } )
 	},
 	didReceiveAttrs() {
 		this._super( ...arguments )
