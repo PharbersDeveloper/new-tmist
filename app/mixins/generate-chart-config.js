@@ -282,5 +282,71 @@ export default Mixin.create( {
 			}]
 
 		}
+	},
+	generateRepRadar( rowId,chartId ,max ) {
+		return {
+			id: rowId,
+			height: 356,
+			panels: [{
+				name: "member ability",
+				id: chartId,
+				tooltip: {
+					show: true,
+					trigger: "item"
+				},
+				color: ["#3172E0", "#979797"],
+				legend: {
+					show: true,
+					x: "center",
+					y: "bottom",
+					orient: "vertical"
+				},
+				radar: {
+					radius: "65%",
+					name: {
+						textStyle: {
+							color: "#7A869A",
+							borderRadius: 3,
+							padding: [0, 0]
+						}
+					},
+					indicator: [
+						{ text: "产品知识", max: max || 10 },
+						{ text: "工作积极性", max: max || 10 },
+						{ text: "行为有效性", max: max || 10 },
+						{ text: "区域管理能力", max: max || 10 },
+						{ text: "销售知识", max: max || 10 }
+					],
+					splitNumber: 5, //default
+					axisLine: {
+						lineStyle: {
+							color: "#DFE1E6"
+						}
+					},
+					splitLine: {
+						lineStyle: {
+							color: "#DFE1E6"
+						}
+					},
+					splitArea: {
+						areaStyle: {
+							color: ["#fff", "#fff"]
+						}
+					}
+				},
+				series: [{
+					name: "",
+					type: "radar",
+
+					areaStyle: {
+						opacity: 0.3
+					},
+					encode: {
+						itemName: 0,
+						value: 0
+					}
+				}]
+			}]
+		}
 	}
 } )

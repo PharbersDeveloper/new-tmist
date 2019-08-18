@@ -1,5 +1,4 @@
 import Component from "@ember/component"
-import { later } from "@ember/runloop"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
 import { A } from "@ember/array"
@@ -14,12 +13,11 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 
 		new Promise( function ( resolve ) {
 			let	tmProdsLines = that.generateLines( "tmProdsLinesContainer","prodLines" ),
-				tmProdsLinesCondition = that.generateProdCompLinesCondition( curTreatmentArea )
+				tmProdsLinesCondition = that.generateProdCompLinesCondition( curTreatmentArea,that.periodBase,that.periodStep )
 
 			resolve( {
 				tmProdsLines, tmProdsLinesCondition
 			} )
-			// }, 400 )
 		} ).then( data => {
 			this.set( "tmProdsLines", data.tmProdsLines )
 			this.set( "tmProdsLinesCondition", data.tmProdsLinesCondition )
@@ -39,16 +37,11 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 		this.getChart( this.curTreatmentArea )
 
 	},
-	init() {
-		this._super( ...arguments )
-
-	},
 	actions: {
 		changeProductArea( treatmentArea ) {
 			this.set( "curTreatmentArea", treatmentArea )
 
-			this.set( "tmProdsLinesCondition", this.generateProdCompLinesCondition( treatmentArea ) )
+			this.set( "tmProdsLinesCondition", this.generateProdCompLinesCondition( treatmentArea,this.periodBase, this.periodStep ) )
 		}
 	}
-
 } )
