@@ -13,8 +13,8 @@ export default Mixin.create( {
 		if ( ENV.environment === "development" && isEmpty( this.runtimeConfig.jobId ) ) {
 			jobId = this.jobId
 		} else {
-			jobId = window.localStorage.getItem( "jodId" )
-			// jobId = this.runtimeConfig.jobId
+			jobId = window.localStorage.getItem( "jobId" )
+			this.set( "jobId",jobId )
 		}
 		return jobId
 	},
@@ -598,11 +598,15 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateProdCompLinesCondition( productarea ) {
+	generateProdCompLinesCondition( productarea,periodBase,periodStep ) {
 		let jobId = this.getJobId()
 
 		return [{
 			queryAddress: this.queryAddress,
+			xAxisFormat: {
+				periodBase: periodBase,
+				periodStep:periodStep
+			},
 			data: {
 				"model": "tmrs",
 				"query": {
