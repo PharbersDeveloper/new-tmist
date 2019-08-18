@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y && \
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
 	apt-get install -y nodejs
 
-ENV EMBERVERSION 3.4.4
+ENV EMBERVERSION 3.4.0
 
 RUN npm update && \
 	npm install -g ember-cli@${EMBERVERSION}
