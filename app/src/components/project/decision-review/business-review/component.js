@@ -9,14 +9,15 @@ export default Component.extend( {
 	classNames: ["business-review-wrapper"],
 	didInsertElement() {
 		const phaseLength = this.project.periods.length
-		for (let i = 0; i < phaseLength - 1; i++) {
+
+		for ( let i = 0; i < phaseLength - 1; i++ ) {
 			const ids = this.project.periods.objectAt( i ).hasMany( "answers" ).ids(),
 				hids = ids.map( x => {
 					return "`" + `${x}` + "`"
 				} ).join( "," )
 
 			this.store.query( "model/answer", { filter: "(id,:in," + "[" + hids + "]" + ")" } ).then( x => {
-				this.set("history" + i, x)
+				this.set( "history" + i, x )
 			} )
 		}
 	},
@@ -67,10 +68,13 @@ export default Component.extend( {
 		return this.project.periods.objectAt( this.curPeriodIndex )
 	} ),
 	curAnswers: computed( "curPeriod", function () {
+		if ( ! this.curPeriod ) {
+			return this.answers
+		}
 		if ( this.curPeriod.phase === this.period.phase ) {
 			return this.answers
 		} else {
-			return this.get("history" + this.curPeriodIndex)
+			return this.get( "history" + this.curPeriodIndex )
 		}
 	} ),
 	filterAnswers: computed( "curAnswers", "curProd", "curRes", function () {
