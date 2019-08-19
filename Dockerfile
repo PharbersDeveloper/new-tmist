@@ -17,7 +17,7 @@ RUN npm update && \
 
 WORKDIR /app
 
-LABEL new-tmist.version=0.0.3
+LABEL new-tmist.version=0.0.4
 
 RUN git clone https://github.com/PharbersDeveloper/new-tmist.git && \
 	git clone https://github.com/PharbersDeveloper/BP-Components.git && \

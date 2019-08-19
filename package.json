@@ -1,6 +1,6 @@
 {
 	"name": "new-tmist",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"private": true,
 	"description": "new TMIST project for PHARBERS company.",
 	"license": "GPL3.0",
@@ -67,10 +67,11 @@
 	"dependencies": {
 		"@fortawesome/ember-fontawesome": "^0.1.14",
 		"@fortawesome/free-solid-svg-icons": "^5.9.0",
-		"cldr-core": "^35.1.0",
 		"bp-components": "*",
-		"phemitter": "*",
+		"cldr-core": "^35.1.0",
 		"eslint": "^6.0.1",
+		"phemitter": "*",
+		"portfinder": "^1.0.21",
 		"sync-disk-cache": "^1.3.3"
 	}
 }
