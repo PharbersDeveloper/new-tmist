@@ -72,23 +72,27 @@
 					{{#if (bp-eq curCircle 0)}}
 						{{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}}
 							{{#each circleProductData as |product index|}}
-								{{#bp-layout direction="row" classNames="mb-2"}}
-									<span local-class="legend-dot" class="mt-2 mr-2"
-										style="background: {{get circleProductColor index}};"></span>
-									<span local-class="name">{{product.name}}</span>
+								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
+									{{#bp-layout}}
+											<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleProductColor index}};"></span>
+											<span local-class="name">{{product.name}}</span>
+									{{/bp-layout}}
 									<span local-class="percent" class="ml-4 mr-3">{{product.curBudgetPercent}}%</span>
+									<span local-class="percent" class="ml-4 mr-3">¥{{format-number product.value}}</span>
 								{{/bp-layout}}
 							{{/each}}
 						{{/bp-layout}}
 					{{else}}
 						{{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}}
 							{{#each circleBudgetData as |resBudget index|}}
-								{{#bp-layout direction="row" classNames="mb-2"}}
-									<span local-class="legend-dot" class="mt-2 mr-2"
-										style="background: {{get circleBudgetColor index}};"></span>
-									{{!-- <span local-class="legend-dot" class="mt-2 mr-2"></span> --}}
-									<span local-class="name">{{resBudget.name}}</span>
+								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
+									{{#bp-layout }}
+										<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleBudgetColor index}};"></span>
+										{{!-- <span local-class="legend-dot" class="mt-2 mr-2"></span> --}}
+										<span local-class="name">{{resBudget.name}}</span>
+									{{/bp-layout}}
 									<span local-class="percent" class="ml-4 mr-3">{{resBudget.per}}%</span>
+									<span local-class="percent" class="ml-4 mr-3">¥{{format-number resBudget.value}}</span>
 								{{/bp-layout}}
 							{{/each}}
 						{{/bp-layout}}
@@ -172,7 +176,7 @@
 				{{/if}} --}}
 			{{/bp-layout}}
 			{{#bp-layout classNames="" local-class="hospital-config"}}
-				{{#project/business-input/input-mapping project=project presets=presets answers=answers as |quizs|}}
+				{{#project/business-input/input-mapping project=project presets=presets answers=answers reports=reports as |quizs|}}
 					{{#bp-layout local-class="hospitals"}}
 						{{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
 							{{#each quizs as |quiz|}}
