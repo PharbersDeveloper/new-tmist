@@ -6,13 +6,12 @@
 					周期销售报告
 				{{/left.item}}
 				{{#left.item}}
-				{{log periods}}
 					{{!-- 完成日期：<span class="mx-2">{{format-date-standard project.endTime}}</span>
 					用时：<span class="mx-2">{{time-difference project.startTime project.endTime}}</span> --}}
 
-					<span local-class="badge" class="px-2">{{periods.lastObject.name}}</span>
+					<span local-class="badge" class="px-2 py-1">{{periods.lastObject.name}}</span>
 					{{#if (bp-eq periods.lastObject.phase project.pharse-1)}}
-						<span local-class="badge" class="px-2">最后周期</span>
+						<span local-class="badge" class="px-2 py-1">最后周期</span>
 					{{/if}}
 				{{/left.item}}
 			{{/body.left}}
@@ -42,7 +41,7 @@
 				{{/dd.button}}
 				{{#dd.menu as |menu|}}
 					{{#each periods as |item|}}
-						{{#menu.option value=item onClick=(action (mut curSelPeriod))}}
+						{{#menu.option value=item onClick=(action "selPeriod" item)}}
 							{{item.name}}
 						{{/menu.option}}
 					{{/each}}
@@ -50,6 +49,7 @@
 			{{/bp-dropdown}}
 		{{/bp-layout}}
 	{{/bp-layout}}
+	{{log curSalesReports}}
 	{{#bp-layout direction="row" local-class="indicators" classNames="mb-4"}}
 		{{#bp-layout direction="col" local-class="left" classNames="mr-1"}}
 			{{#bp-layout local-class="sales" classNames="bg-white mb-1" direction="row" main="between"}}
@@ -58,7 +58,8 @@
 						<span local-class="row-1">总体销售额</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">{{salesReport.finals.lastObject.sales}}</span>
+						<span local-class="row-2">¥ 90,000,000</span>
+						{{!-- <span local-class="row-2">{{curSalesReports.sales}}</span> --}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col"}}
@@ -66,8 +67,8 @@
 						<span local-class="row-1">总指标达成率</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						{{!-- <span local-class="row-2">{{salesReport.quotaAchv}}</span> --}}
-						<span local-class="row-2">{{salesReport.finals.lastObject.quotaAchv}}</span>
+						<span local-class="row-2">80%</span>
+						{{!-- <span local-class="row-2">{{curSalesReports.quotaAchv}}</span> --}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
@@ -104,10 +105,11 @@
 				{{/bp-layout}}
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col border-left-right"}}
 					{{#bp-layout classNames="mb-3"}}
-						<span local-class="row-1">RIO投入产出比</span>
+						<span local-class="row-1">ROI投入产出比</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">{{salesReport.finals.lastObject.roi}}</span>
+						<span local-class="row-2">30%</span>
+						{{!-- <span local-class="row-2">{{curSalesReports.roi}}</span> --}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
@@ -115,7 +117,8 @@
 						<span local-class="row-1">人效</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">¥{{salesReport.finals.lastObject.salesForceProductivity}}</span>
+						<span local-class="row-2">400,000</span>
+						{{!-- <span local-class="row-2">{{curSalesReports.salesForceProductivity}}</span> --}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}

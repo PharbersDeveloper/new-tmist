@@ -1,10 +1,25 @@
 import Component from "@ember/component"
 import { computed } from "@ember/object"
 import { A } from "@ember/array"
+import { inject as service } from "@ember/service"
 
 export default Component.extend( {
-	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers"],
+	store: service(),
+	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period"],
 	classNames: ["business-review-wrapper"],
+	didInsertElement() {
+		const phaseLength = this.project.periods.length
+		for (let i = 0; i < phaseLength - 1; i++) {
+			const ids = this.project.periods.objectAt( i ).hasMany( "answers" ).ids(),
+				hids = ids.map( x => {
+					return "`" + `${x}` + "`"
+				} ).join( "," )
+
+			this.store.query( "model/answer", { filter: "(id,:in," + "[" + hids + "]" + ")" } ).then( x => {
+				this.set("history" + i, x)
+			} )
+		}
+	},
 	curProd: computed( function () {
 		return { name: "全部" }
 	} ),
@@ -17,7 +32,7 @@ export default Component.extend( {
 		this.products.forEach( x => {
 			arr.push( x )
 		} )
-		arr.push( { name: "全部" } )
+		arr.unshift( { name: "全部" } )
 
 		return A( arr )
 	} ),
@@ -27,7 +42,7 @@ export default Component.extend( {
 		this.resources.forEach( x => {
 			arr.push( x )
 		} )
-		arr.push( { name: "全部" } )
+		arr.unshift( { name: "全部" } )
 
 		return A( arr )
 	} ),
@@ -52,14 +67,10 @@ export default Component.extend( {
 		return this.project.periods.objectAt( this.curPeriodIndex )
 	} ),
 	curAnswers: computed( "curPeriod", function () {
-		// const condi01 = "(proposalId,:eq,`" + x.id + "`)"
-		// const condi02 = "(phase,:eq,-1)"
-		// const condi = "(:and," + condi01 + "," + condi02 + ")"
-		// return this.store.query("model/answer", { filter: })
-		if ( this.curPeriodIndex === 0 ) {
+		if ( this.curPeriod.phase === this.period.phase ) {
 			return this.answers
 		} else {
-			return []
+			return this.get("history" + this.curPeriodIndex)
 		}
 	} ),
 	filterAnswers: computed( "curAnswers", "curProd", "curRes", function () {

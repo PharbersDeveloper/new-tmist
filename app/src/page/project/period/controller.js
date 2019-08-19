@@ -572,7 +572,16 @@ export default Controller.extend( {
 				this.set( "loadingForSubmit", true )
 				Ember.Logger.info( "save current input" )
 				this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-					this.callR()
+					this.model.project.set( "lastUpdate", new Date().getTime() )
+					this.model.project.save().then( () => {
+						this.toast.success( "", "保存成功", {
+							closeButton: false,
+							positionClass: "toast-top-center",
+							progressBar: false,
+							timeOut: "2000"
+						} )
+						this.callR()
+					} )
 				} )
 			}
 			// 使用结束
@@ -600,7 +609,15 @@ export default Controller.extend( {
 		saveInputs() {
 			Ember.Logger.info( "save current input" )
 			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
-				alert( "save success" )
+				this.model.project.set( "lastUpdate", new Date().getTime() )
+				this.model.project.save().then( () => {
+					this.toast.success( "", "保存成功", {
+						closeButton: false,
+						positionClass: "toast-top-center",
+						progressBar: false,
+						timeOut: "2000"
+					} )
+				} )
 			} )
 		},
 		// testResult() {

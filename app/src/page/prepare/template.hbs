@@ -9,13 +9,13 @@
             {{#bp-layout direction="row" main="start" cross="start" local-class="status-area"}}
                 {{#if model.provious}}
                     <span local-class="badge">进行中</span>
+                    <p local-class="des" class="ml-2">上次修改时间{{format-date-standard model.provious.lastObject.lastUpdate}}</p>
                 {{/if}}
                 
-                <p local-class="des" class="ml-2">{{model.proposal.describe}}</p>
             {{/bp-layout}}
             {{#bp-layout direction="row" main="between" cross="center" local-class="card-bottom"}}
-                <p local-class="link" {{action "toHistory" model.proposal.id}}>查看历史成果</p>
-                {{!-- {{log model.proposal.id}} --}}
+                {{!-- <p local-class="link" {{action "toHistory" model.proposal.id}}>查看历史成果</p> --}}
+                <p local-class="link">查看历史成果</p>
                     
                 {{#if model.provious}}
                     {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}

@@ -1,5 +1,6 @@
 import Service from "@ember/service"
 import { inject as service } from "@ember/service"
+import { formatPhaseToDate, formatPhaseToStringDefault } from "new-tmist/utils/format-phase-date"
 
 export default Service.extend( {
 	store: service(),
@@ -17,8 +18,13 @@ export default Service.extend( {
 	},
 	genPeriodWithProject( aProject ) {
 		// const last = aProject.periods.lastObject ? aProject.periods.lastObject : null
+		let base = aProject.proposal.get( "periodBase" ),
+			step = aProject.proposal.get( "periodStep" )
+
+		let periodName = formatPhaseToStringDefault( formatPhaseToDate( base, step, aProject.periods.length ) )
+
 		let result = this.store.createRecord( "model.period", {
-			name: aProject.periods.length + "（相对）",
+			name: periodName,
 			answers: [],
 			phase: aProject.periods.length
 		} ).save()
