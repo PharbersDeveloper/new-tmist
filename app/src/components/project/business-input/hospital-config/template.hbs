@@ -76,7 +76,11 @@
 		<thead class='bg-white px-2'>
 			<tr>
 				<th class="border-0 pb-2 pr-2 pl-0 text-left">产品名称</th>
-				<th class="border-0 pb-2 px-2 text-left">药品潜力</th>
+				{{#if (bp-eq proposal.case "ucb")}}
+						<th class="border-0 pb-2 px-2 text-left">患者数量</th>
+				{{else if (bp-eq proposal.case "tm")}}
+						<th class="border-0 pb-2 px-2 text-left">药品潜力</th>
+				{{/if}}
 				<th class="border-0 pb-2 px-2 text-left">上季度销售额</th>
 				<th class="border-0 pb-2 px-2 text-center">销售指标分配</th>
 				<th class="border-0 pb-2 pl-2 text-center ">预算分配</th>
@@ -89,10 +93,15 @@
 						{{quiz.preset.product.name}}
 					</td>
 					<td class="px-2 border-0 text-left">
+						
+						{{#if (bp-eq proposal.case "ucb")}}
+						{{format-number quiz.report.currentPatientNum}}
+						{{else if (bp-eq proposal.case "tm")}}
 						￥{{format-number quiz.preset.potential}}
+						{{/if}}
 					</td>
 					<td class="px-2 border-0 text-left">
-						￥{{format-number quiz.preset.lastSales}}
+						￥{{format-number quiz.preset.lastSales 0}}
 					</td>
 					<td class="border-0">
 						{{#bp-layout main="center" direction="row"}}

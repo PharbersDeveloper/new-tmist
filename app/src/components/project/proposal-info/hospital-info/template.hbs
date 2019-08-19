@@ -23,8 +23,8 @@
 							{{#bp-layout tagName="td" main="center"}}{{item.name}}{{/bp-layout}}
 							{{#bp-layout tagName="td" main="center"}}{{item.level}}{{/bp-layout}}
 							{{#bp-layout tagName="td" main="center"}}{{item.type}}{{/bp-layout}}
-							{{#bp-layout tagName="td" main="center"}}{{item.local}}{{/bp-layout}}
-							{{#bp-layout tagName="td" main="center"}}{{item.outter}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{format-number item.local 0}}%{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{format-number item.outter 0}}%{{/bp-layout}}
 							{{!-- {{#bp-layout tagName="td"}}40%{{/bp-layout}} --}}
 							{{#bp-layout tagName="td" main="center"}}{{item.t3}}{{/bp-layout}}
 							{{#bp-layout tagName="td" main="center"}}{{item.t2}}{{/bp-layout}}

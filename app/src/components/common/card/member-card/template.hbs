@@ -85,7 +85,8 @@
 				{{#bp-layout direction="col"}}
 					{{#bp-layout local-class="name"}} {{resource.name}} {{/bp-layout}}
 					{{#bp-layout local-class="experience"}}
-						入职{{resource.entryTime}}年/{{resource.experience}}年工作经验
+						入职{{resource.entryTime}}年
+						{{!-- /{{resource.experience}}年工作经验 --}}
 					{{/bp-layout}}
 					{{#bp-layout classNames="mt-3 mb-1"}}
 						<p>
@@ -99,12 +100,12 @@
 							<span>{{resource.professional}}</span>
 						</p>
 					{{/bp-layout}}
-					{{#bp-layout classNames="mb-1"}}
+					{{!-- {{#bp-layout classNames="mb-1"}}
 						<p>
 							<span>优势：</span>
 							<span>{{resource.advantage}}</span>
 						</p>
-					{{/bp-layout}}
+					{{/bp-layout}} --}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout direction="col" local-class="right"}}

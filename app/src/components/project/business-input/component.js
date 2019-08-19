@@ -6,7 +6,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 
-	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas"],
+	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports"],
 	exam: service( "service/exam-facade" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function () {
