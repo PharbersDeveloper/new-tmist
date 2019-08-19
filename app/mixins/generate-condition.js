@@ -132,7 +132,8 @@ export default Mixin.create( {
 				"model": "tmrs",
 				"query": {
 					"search": {
-						"and": searchRuls
+						"and": searchRuls,
+						"sort": ["phase"]
 					},
 					"aggs": [
 						{

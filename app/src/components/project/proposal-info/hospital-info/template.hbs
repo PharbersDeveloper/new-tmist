@@ -11,9 +11,10 @@
 					{{#bp-layout tagName="th" main="center"}}城市类型{{/bp-layout}}
 					{{#bp-layout tagName="th" main="center"}}城市战略定位{{/bp-layout}}
 					{{#bp-layout tagName="th" main="center"}}本地患者占比{{/bp-layout}}
-					{{#bp-layout tagName="th" main="center"}}三级{{/bp-layout}}
-					{{#bp-layout tagName="th" main="center"}}二级{{/bp-layout}}
-					{{#bp-layout tagName="th" main="center"}}一级{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}外地患者占比{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}三级目标数量{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}二级目标数量{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}一级目标数量{{/bp-layout}}
 					{{#bp-layout tagName="th" main="center"}}医院总数{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout tagName="tbody" direction="col"}}
@@ -22,7 +23,8 @@
 							{{#bp-layout tagName="td" main="center"}}{{item.name}}{{/bp-layout}}
 							{{#bp-layout tagName="td" main="center"}}{{item.level}}{{/bp-layout}}
 							{{#bp-layout tagName="td" main="center"}}{{item.type}}{{/bp-layout}}
-							{{#bp-layout tagName="td" main="center"}}{{item.local}}{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{format-number item.local 0}}%{{/bp-layout}}
+							{{#bp-layout tagName="td" main="center"}}{{format-number item.outter 0}}%{{/bp-layout}}
 							{{!-- {{#bp-layout tagName="td"}}40%{{/bp-layout}} --}}
 							{{#bp-layout tagName="td" main="center"}}{{item.t3}}{{/bp-layout}}
 							{{#bp-layout tagName="td" main="center"}}{{item.t2}}{{/bp-layout}}
