@@ -83,7 +83,8 @@
 							{{/each}}
 						{{/bp-layout}}
 					{{else}}
-						{{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}}
+					<div local-class="scroll-legend">
+						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
 							{{#each circleBudgetData as |resBudget index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
 									{{#bp-layout }}
@@ -95,7 +96,8 @@
 									<span local-class="percent" class="ml-4 mr-3">¥{{format-number resBudget.value}}</span>
 								{{/bp-layout}}
 							{{/each}}
-						{{/bp-layout}}
+							</div>
+						{{!-- {{/bp-layout}} --}}
 					{{/if}}
 				{{/bp-layout}}
 			{{/bp-layout}}
