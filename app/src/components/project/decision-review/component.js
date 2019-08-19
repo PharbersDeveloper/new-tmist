@@ -2,7 +2,7 @@ import Component from "@ember/component"
 import { computed } from "@ember/object"
 
 export default Component.extend( {
-	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period"],
+	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period", "reports"],
 	curDecisionReview: 0,
 	classNames: ["review-wrapper"],
 	time: computed( "project", function () {
