@@ -14,9 +14,10 @@
                 
             {{/bp-layout}}
             {{#bp-layout direction="row" main="between" cross="center" local-class="card-bottom"}}
+                {{!-- TODO未开发功能，先进行隐藏 --}}
                 {{!-- <p local-class="link" {{action "toHistory" model.proposal.id}}>查看历史成果</p> --}}
-                <p local-class="link">查看历史成果</p>
-                    
+                {{!-- 占位符，开发完历史成果跳转功能后，将 span 删除 --}}
+                <span></span>
                 {{#if model.provious}}
                     {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}
                         {{#bp-button type="default" onClick=(action "startDeploy" model.proposal)}}
