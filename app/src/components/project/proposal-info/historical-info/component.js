@@ -178,7 +178,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 			proposalCase = this.case,
 			isResultPage = this.isResultPage,
 			sortPeriods = this.periods.sortBy( "phase" ),
-			currentPeriod = sortPeriods.lastObject.phase,	 // 当前周期的 phase
+			currentPeriod = sortPeriods.get( "lastObject.phase" ),	 // 当前周期的 phase
 			prevOne = isResultPage ? currentPeriod : currentPeriod - 1,//当为结果页面的时候显示当前周期，否则展示上一周期
 			prevTwo = isResultPage ? currentPeriod - 1 : currentPeriod - 2//当为结果页面的时候展示上一周期，否则展示上两个周期
 

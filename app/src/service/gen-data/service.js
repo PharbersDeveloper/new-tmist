@@ -19,18 +19,18 @@ export default Service.extend( {
 	genPeriodWithProject( aProject ) {
 		// const last = aProject.periods.lastObject ? aProject.periods.lastObject : null
 		let base = aProject.proposal.get( "periodBase" ),
-			step = aProject.proposal.get( "periodStep" )
+			step = aProject.proposal.get( "periodStep" ),
 
-		let periodName = formatPhaseToStringDefault( formatPhaseToDate( base, step, aProject.periods.length ) )
+			periodName = formatPhaseToStringDefault( formatPhaseToDate( base, step, aProject.periods.length ) ),
 
-		let result = this.store.createRecord( "model.period", {
-			name: periodName,
-			answers: [],
-			phase: aProject.periods.length
-		} ).save()
+			result = this.store.createRecord( "model.period", {
+				name: periodName,
+				answers: [],
+				phase: aProject.periods.length
+			} ).save()
 
 		result.then( x => {
-			aProject.periods.pushObject( x )
+			aProject.get( "periods" ).pushObject( x )
 			aProject.save()
 		} )
 		return result
