@@ -7,16 +7,19 @@ export default Component.extend( {
 	localClassNames: "hospital",
 	showContent: false,
 	cur: computed( "reports", function() {
-		return this.reports.filter(x => x.hospital.get("id") == this.hospital.id )
+		return this.reports.filter( x => x.hospital.get( "id" ) === this.hospital.id ).sortBy( "product.name" )
 	} ),
 	icon: computed( "showContent", function () {
 		let showContent = this.get( "showContent" )
 
 		return showContent ? "right" : "down"
 	} ),
+	selfPayPercentage: computed( "hospital",function() {
+		return this.hospital.selfPayPercentage * 100
+	} ),
 	actions: {
 		showContent() {
 			this.toggleProperty( "showContent" )
 		}
-	},
+	}
 } )
