@@ -78,6 +78,10 @@
 					color: #7a869a;
 					font-size: 12px;
 					width: 338px;
+
+					th {
+						flex: 1;
+					}
 				}
 
 				tr {
@@ -85,6 +89,9 @@
 					font-size: 14px;
 					color: #344563;
 					// text-align: right;
+					td {
+						flex: 1;
+					}
 				}
 			}
 

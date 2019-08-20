@@ -18,39 +18,34 @@ export default Controller.extend( {
 	client: computed( function () {
 		return this.em.GetInstance()
 	} ),
-	currentTab: 0,
+	currentTab: 3,
+	// loadingForSubmit: false,
 	loadingForSubmit: true,
 	calcDone: false,
-	allProductInfo: computed( function () {
-		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
+	allProductInfo: computed( function() {
+		return this.getAllProductInfo()
+	} ),
+	getAllProductInfo() {
 		let arr = []
 
-		this.model.products.forEach( product => {
-			if ( product.productType === 0 ) {
-				let obj = {}
+		this.model.productQuotas.forEach( p => {
+			let obj = {}
 
-				obj.name = product.name
-				obj.productId = product.id
-				obj.allSales = 0
-				obj.curSales = 0
+			obj.name = p.get( "product.name" )
+			obj.allSales = p.lastQuota
+			obj.productId = p.get( "product.id" )
+			obj.curSales = 0
+			obj.curBudget = 0
 
-				this.model.presets.forEach( preset => {
-					if ( preset.get( "product.id" ) === product.id ) {
-						obj.allSales += this.transNumber( preset.salesQuota )
-					}
-				} )
-
-				this.model.answers.forEach( answer => {
-					if ( answer.get( "product.id" ) === product.id ) {
-						obj.curSales += this.transNumber( answer.get( "salesTarget" ) )
-					}
-				} )
-
-				arr.push( obj )
-			}
+			this.model.answers.filter( x => x.get( "product.id" ) === obj.productId ).forEach( answer => {
+				obj.curSales += this.transNumber( answer.get( "salesTarget" ) )
+				obj.curBudget += this.transNumber( answer.get( "budget" ) )
+			} )
+			arr.push( obj )
 		} )
 		return A( arr )
-	} ),
+
+	},
 	onMessage( msg ) {
 		window.console.info( "Emitter Controller" )
 		window.console.info( msg.channel + " => " + msg.asString() )
@@ -164,62 +159,47 @@ export default Controller.extend( {
 		// allManagementTime = this.model.project.proposal.get( "quota.mangementHours" )
 
 		// 销售额指标超标或者未分配
+		window.console.log( this.allProductInfo )
 		this.allProductInfo.forEach( p => {
 			if ( p.curSales > p.allSales ) {
 				// 1 over
-				set( this, isOverSalesTarget, 1 )
+				// set( this, isOverSalesTarget, 1 )
+				isOverSalesTarget = 1
+				overSalesTargetName = p.name
 			} else if ( p.curSales < p.allSales ) {
 				// 2 is not enough
-				set( this, isOverSalesTarget, 2 )
+				// set( this, isOverSalesTarget, 2 )
+				isOverSalesTarget = 2
 				overSalesTargetName = p.name
 			}
 		} )
 
 		//budget validation
-		this.model.answers.forEach( answer => {
-			if ( answer.get( "category" ) === "Management" ) {
-
-				// currentManagementTime += this.transNumber( answer.get( "strategAnalysisTime" ) )
-				// currentManagementTime += this.transNumber( answer.get( "clientManagementTime" ) )
-				// currentManagementTime += this.transNumber( answer.get( "adminWorkTime" ) )
-				// currentManagementTime += this.transNumber( answer.get( "kpiAnalysisTime" ) )
-				// currentManagementTime += this.transNumber( answer.get( "teamMeetingTime" ) )
-
-			} else if ( answer.get( "category" ) === "Resource" ) {
-
-
-				// currentManagementTime += this.transNumber( answer.get( "abilityCoach" ) )
-				// currentManagementTime += this.transNumber( answer.get( "assistAccessTime" ) )
-
-			} else if ( answer.get( "category" ) === "Business" ) {
-				// 有医院未被分配会议名额
-				// if ( answer.get( "meetingPlaces" ) === -1 ) {
-				// 	hospitalWithoutMeetingPlaces.push( answer.get( "target.name" ) )
-				// }
-				// 有医院未分配销售额和预算
-				// if ( answer.get( "budget" === -1 || answer.get( "salesTarget" ) === -1 ) ) {
-				// 	hospitalWithoutBudgetOrSales.push( answer )
-				// }
-				// 有医院未被分配代表
-				if ( !answer.get( "resource" ) ) {
-					hospitalWithoutResource.push( answer.get( "target.name" ) )
-				}
-				// currentMeetingPlaces += this.transNumber( answer.get( "meetingPlaces" ) )
-				curerntBudget += this.transNumber( answer.get( "budget" ) )
-
-
-				if ( answer.resource.get( "id" ) ) {
-					// window.console.log( this.transNumber( answer.get( "visitTime" ) ) )
-
-					if ( answer.resource.get( "id" ) in aResources ) {
-						// aResources[answer.resource.get( "id" )] += this.transNumber( answer.get( "visitTime" ) )
-					} else {
-						aResources[answer.resource.get( "id" )] = 0
-						// aResources[answer.resource.get( "id" )] += this.transNumber( answer.get( "visitTime" ) )
-					}
-
-				}
+		this.model.answers.filter( x => x.get( "category" ) === "Business" ).forEach( answer => {
+			// 有医院未被分配会议名额
+			// if ( answer.get( "meetingPlaces" ) === -1 ) {
+			// 	hospitalWithoutMeetingPlaces.push( answer.get( "target.name" ) )
+			// }
+			// 有医院未分配销售额和预算
+			// if ( answer.get( "budget" === -1 || answer.get( "salesTarget" ) === -1 ) ) {
+			// 	hospitalWithoutBudgetOrSales.push( answer )
+			// }
+			// 有医院未被分配代表
+			if ( !answer.get( "resource.id" ) ) {
+				hospitalWithoutResource.push( answer.get( "target.name" ) )
 			}
+			// currentMeetingPlaces += this.transNumber( answer.get( "meetingPlaces" ) )
+			curerntBudget += this.transNumber( answer.get( "budget" ) )
+			if ( answer.resource.get( "id" ) ) {
+				if ( answer.resource.get( "id" ) in aResources ) {
+					// aResources[answer.resource.get( "id" )] += this.transNumber( answer.get( "visitTime" ) )
+				} else {
+					aResources[answer.resource.get( "id" )] = 0
+					// aResources[answer.resource.get( "id" )] += this.transNumber( answer.get( "visitTime" ) )
+				}
+
+			}
+
 		} )
 
 		// 未被分配的代表
@@ -234,7 +214,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定未达标",
-				detail: "总预算尚未完成分配，请分配完毕."
+				detail: "总预算尚未完成分配，请分配完毕。"
 			} )
 			return false
 		} else if ( curerntBudget > allBudget ) {
@@ -252,13 +232,14 @@ export default Controller.extend( {
 				title: "设定未达标",
 				detail: `${overSalesTargetName}销售指标尚未完成分配，请完成指标分配。`
 			} )
+
 			return false
 		} else if ( isOverSalesTarget === 1 ) {
 			// 销售额超标
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的销售指标设定总值已超出业务总指标限制，请合理分配。"
+				detail: `${overSalesTargetName}的销售指标设定总值已超出业务总指标限制，请合理分配。`
 			} )
 			return false
 		} else if ( freeResource.length ) {
@@ -329,10 +310,13 @@ export default Controller.extend( {
 		this.allProductInfo.forEach( p => {
 			if ( p.curSales > p.allSales ) {
 				// 1 over
-				set( this, isOverSalesTarget, 1 )
+				// set( this, isOverSalesTarget, 1 )
+				isOverSalesTarget = 1
+				overSalesTargetName = p.name
 			} else if ( p.curSales < p.allSales ) {
 				// 2 is not enough
-				set( this, isOverSalesTarget, 2 )
+				// set( this, isOverSalesTarget, 2 )
+				isOverSalesTarget = 2
 				overSalesTargetName = p.name
 			}
 		} )
@@ -449,7 +433,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的销售指标设定总值已超出业务总指标限制，请合理分配。"
+				detail: `${overSalesTargetName}的销售指标设定总值已超出业务总指标限制，请合理分配。`
 			} )
 			return false
 		} else if ( currentMeetingPlaces < allMeetingPlaces ) {
@@ -572,6 +556,9 @@ export default Controller.extend( {
 		} )
 	},
 	validation( proposalCase ) {
+		let	validationArr = this.getAllProductInfo()
+
+		set( this, "allProductInfo", validationArr )
 		if ( proposalCase === "ucb" ) {
 			return this.ucbValidation()
 		} else if ( proposalCase === "tm" ) {

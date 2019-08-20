@@ -71,7 +71,7 @@
 				{{#bp-layout direction="col" classNames="ml-4" local-class="legend" main="center" cross="center"}}
 					{{#if (bp-eq curCircle 0)}}
 						{{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}}
-							{{#each circleProductData as |product index|}}
+							{{#each legendProductBudget as |product index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
 									{{#bp-layout}}
 											<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleProductColor index}};"></span>
@@ -85,7 +85,7 @@
 					{{else}}
 					<div local-class="scroll-legend">
 						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
-							{{#each circleBudgetData as |resBudget index|}}
+							{{#each legendResourceBudget as |resBudget index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
 									{{#bp-layout }}
 										<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleBudgetColor index}};"></span>
