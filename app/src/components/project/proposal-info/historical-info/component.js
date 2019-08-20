@@ -1,15 +1,23 @@
 import Component from "@ember/component"
-import { computed } from "@ember/object"
 import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
 import { htmlSafe } from "@ember/template"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
+import { computed } from "@ember/object"
 
 export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	positionalParams: ["periods", "resources", "products", "hospitals","case"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
+	selfProducts: computed( "products",function() {
+		let products = this.products
+
+		if ( isEmpty( products ) ) {
+			return products
+		}
+		return products.filterBy( "productType",0 )
+	} ),
 	/**
 	 * @author Frank Wang
 	 * @property
@@ -20,14 +28,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	 * @public
 	*/
 	isResultPage: false,
-	// period: A([
-	// 	{
-	// 		name: "2019 第一季度"
-	// 	},
-	// 	{
-	// 		name: "2019 第二季度"
-	// 	}
-	// ]),
+	// TODO 有区域实体之后，替换为区域实体
 	regions: A( [{name:"会东市",id: 1},{name:"会南市",id:2},{name:"会西市",id:3}] ),
 	seasonQ( seasonText ) {
 		let season = isEmpty( seasonText ) ? "" : seasonText
@@ -118,6 +119,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 		chooseProd( prod ) {
 			let salesGroupValue = this.salesGroupValue
 
+			// TODO switch更清晰
 			if ( salesGroupValue === 0 ) {
 				this.set( "tmpPsr",prod )
 				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name,this.proposal ) )
