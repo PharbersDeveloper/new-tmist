@@ -15,17 +15,17 @@
 					{{/if}}
 				{{/left.item}}
 			{{/body.left}}
-			{{!-- {{#body.right}}
-				{{#bp-button disabled=true onClick=(action 'toReport') classNames="mr-1"}}
-					导出测试数据
+			{{#body.right}}
+				{{#bp-button onClick=(action 'exportReport')}}
+					导出报告
 				{{/bp-button}}
-				{{#bp-button onClick=(action 'toReport')}}
+				{{!-- {{#bp-button onClick=(action 'toReport')}}
 					返回报告
 				{{/bp-button}}
 				{{#bp-button onClick=(action 'toIndex')}}
 					返回关卡
-				{{/bp-button}}
-			{{/body.right}} --}}
+				{{/bp-button}} --}}
+			{{/body.right}}
 		{{/ph.body}}
 	{{/bp-page-header}}
 	{{#bp-layout direction="row" main="between" classNames="mb-1 bg-white" local-class="key-indicator"}}
@@ -72,7 +72,7 @@
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout local-class="growth-rate" classNames="bg-white mb-1"}}
+			{{!-- {{#bp-layout local-class="growth-rate" classNames="bg-white mb-1"}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout classNames="mb-4"}}
 						<span local-class="row-1">产品销售增长率</span>
@@ -93,8 +93,8 @@
 						<span local-class="row-2-2" class="">环比</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
-			{{/bp-layout}}
-			{{#bp-layout local-class="hospital-rio-people" classNames="bg-white p-4"}}
+			{{/bp-layout}} --}}
+			{{#bp-layout local-class="sales" classNames="bg-white p-4 mb-1"}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout classNames="mb-3"}}
 						<span local-class="row-1">产品新进医院数</span>
@@ -103,6 +103,17 @@
 						<span local-class="row-2">30</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
+				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
+					{{#bp-layout classNames="mb-3"}}
+						<span local-class="row-1">人效</span>
+					{{/bp-layout}}
+					{{#bp-layout }}
+						<span local-class="row-2">￥400,000</span>
+						{{!-- <span local-class="row-2">￥{{curSalesReports.salesForceProductivity}}</span> --}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout local-class="sales" classNames="bg-white p-4"}}
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col border-left-right"}}
 					{{#bp-layout classNames="mb-3"}}
 						<span local-class="row-1">ROI投入产出比</span>
@@ -110,15 +121,6 @@
 					{{#bp-layout }}
 						<span local-class="row-2">30%</span>
 						{{!-- <span local-class="row-2">{{curSalesReports.roi}}</span> --}}
-					{{/bp-layout}}
-				{{/bp-layout}}
-				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
-					{{#bp-layout classNames="mb-3"}}
-						<span local-class="row-1">人效</span>
-					{{/bp-layout}}
-					{{#bp-layout }}
-						<span local-class="row-2">400,000</span>
-						{{!-- <span local-class="row-2">{{curSalesReports.salesForceProductivity}}</span> --}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}

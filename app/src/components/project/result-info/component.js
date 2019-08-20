@@ -74,6 +74,9 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		return this.project
 	} ),
 	actions: {
+		exportReport() {
+			
+		},
 		toReport() {
 			this.transitionToReport()
 		},

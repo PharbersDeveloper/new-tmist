@@ -30,6 +30,9 @@ export default Controller.extend( {
 		}
 	} ),
 	actions: {
+		exportReport() {
+
+		},
 		toIndex() {
 			this.transitionToRoute( "/" )
 		},
