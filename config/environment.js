@@ -55,8 +55,8 @@ module.exports = function( environment ) {
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true
 		ENV.APP.LOG_VIEW_LOOKUPS = true
 
-		ENV.OAuth.RedirectUri = "http://ntm.pharbers.com:8081"
-		ENV.OAuth.Host = "http://192.168.100.174:9096"
+		ENV.OAuth.RedirectUri = "http://tm.pharbers.com"
+		ENV.OAuth.Host = "http://oauth.pharbers.com"
 		ENV.QueryAddress.host = "http://59.110.31.50"
 
 	}
@@ -75,7 +75,7 @@ module.exports = function( environment ) {
 
 	if ( environment === "production" ) {
 		// here you can enable a production-specific feature
-		ENV.OAuth.RedirectUri = "http://ntm.pharbers.com"
+		ENV.OAuth.RedirectUri = "http://tm.pharbers.com"
 		ENV.OAuth.Host = "http://oauth.pharbers.com"
 		ENV.QueryAddress.host = "http://59.110.31.50"
 

@@ -1,5 +1,7 @@
 import Service from "@ember/service"
 import { inject as service } from "@ember/service"
+import { formatPhaseToDate, formatPhaseToStringDefault } from "new-tmist/utils/format-phase-date"
+import { hash } from "rsvp"
 
 export default Service.extend( {
 	store: service(),
@@ -17,16 +19,35 @@ export default Service.extend( {
 	},
 	genPeriodWithProject( aProject ) {
 		// const last = aProject.periods.lastObject ? aProject.periods.lastObject : null
-		let result = this.store.createRecord( "model.period", {
-			name: aProject.periods.length + "（相对）",
+		let base = aProject.proposal.get( "periodBase" ),
+			step = aProject.proposal.get( "periodStep" ),
+
+			periodName = formatPhaseToStringDefault( formatPhaseToDate( base, step, aProject.periods.length ) )
+
+		// 	result = this.store.createRecord( "model.period", {
+		// 		name: periodName,
+		// 		answers: [],
+		// 		phase: aProject.periods.length
+		// 	} ).save()
+
+		// result.then( x => {
+		// 	aProject.get( "periods" ).pushObject( x )
+		// 	aProject.save()
+		// } )
+
+		// return result
+		return this.store.createRecord( "model.period", {
+			name: periodName,
 			answers: [],
 			phase: aProject.periods.length
 		} ).save()
-
-		result.then( x => {
-			aProject.periods.pushObject( x )
-			aProject.save()
-		} )
-		return result
+			.then( data => {
+				aProject.get( "periods" ).pushObject( data )
+				return hash( { result: data, aProject: aProject.save() } )
+			} ).then( data => {
+				return data.result
+			} ).catch( error=> {
+				window.console.warn( error )
+			} )
 	}
 } )

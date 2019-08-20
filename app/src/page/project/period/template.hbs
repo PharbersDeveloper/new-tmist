@@ -193,6 +193,7 @@
 						validation=model.validation
 						answers=(filter-category model.answers "Business")
 						productQuotas=model.productQuotas
+						reports=model.dragInfo
 				}}
 			{{/if}}
 			{{#if (bp-eq currentTab 1)}}
@@ -211,10 +212,12 @@
 				{{project/decision-review 
 					proposal=model.project.proposal 
 					project=model.project 
+					period=model.period
 					hospitals=model.hospitals
 					resources=model.resources
 					products=model.products
 					answers=model.answers
+					reports=model.dragInfo
 					}}
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}

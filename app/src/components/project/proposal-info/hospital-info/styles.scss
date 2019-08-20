@@ -32,6 +32,7 @@
 			width: 100%;
 			font-size: 14px;
 			color: #344563;
+
 			// text-align: right;
 			td {
 				flex: 1;
@@ -52,6 +53,11 @@
 
 			button {
 				width: 80px;
+			}
+
+			.active {
+				background: #505f79;
+				color: #ffffff;
 			}
 		}
 	}

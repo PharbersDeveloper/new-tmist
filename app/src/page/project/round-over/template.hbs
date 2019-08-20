@@ -18,8 +18,8 @@
 		{{#bp-layout local-class="goal block" direction="col" cross="center"}}
 			{{#bp-layout local-class="header-text"}}总指标达成率{{/bp-layout}}
 			{{#bp-layout direction="row" local-class="precent"}}
-				<span>{{model.report.quotaAchv}}</span>
-				<span>%</span>
+				<span>{{bp-percent model.report.quotaAchv}}</span>
+				<span></span>
 			{{/bp-layout}}
 			{{!-- {{#bp-layout direction="row" main="between"}}
 				{{#bp-layout direction="col" }}
@@ -38,7 +38,7 @@
 		{{/bp-layout}}
 		{{#bp-layout local-class="sales block" direction="col" cross="center"}}
 			{{#bp-layout local-class="header-text"}}总销售额{{/bp-layout}}
-			{{#bp-layout}}{{model.report.sales}}{{/bp-layout}}
+			{{#bp-layout}}{{format-number model.report.sales 0}}{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="time block" cross="center"}}
 			{{#bp-layout local-class="header-text"}}完成用时{{/bp-layout}}
@@ -77,7 +77,7 @@
 				{{/bp-dropdown}} --}}
 			{{/bp-layout}}
 			{{#bp-layout local-class="export" direction="row"}}
-				{{#bp-button}}
+				{{#bp-button click=(action "exportReport")}}
 					{{bp-icon icon='export'}}
 					<span class="ml-1">导出报告</span>
 				{{/bp-button}}

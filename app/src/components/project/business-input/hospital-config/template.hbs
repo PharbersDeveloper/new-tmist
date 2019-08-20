@@ -1,7 +1,7 @@
 {{#bp-layout local-class="header"}}
 	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
 		{{#bp-layout direction="row" main="start"}}
-			{{#bp-layout click=(action "changedResource" quizs.firstObject.answer) local-class=(if hasResource "icon-active")}}{{bp-icon icon="check-circle" }}{{/bp-layout}}
+			{{#bp-layout click=(action "changedResource" sortQuizs.firstObject.answer) local-class=(if hasResource "icon-active")}}{{bp-icon icon="check-circle" }}{{/bp-layout}}
 			{{hospital.name}}
 		{{/bp-layout}}
 		{{#bp-layout direction="row" cross="center"}}
@@ -9,17 +9,17 @@
 				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
 					{{#bp-layout local-class="badge" class="px-1"}}
 						{{bp-icon icon="representative"}}
-						{{quizs.firstObject.answer.resource.name}}
+						{{sortQuizs.firstObject.answer.resource.name}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/if}}
 			
-			{{#if (bp-not-eq quizs.firstObject.answer.meetingPlaces -1 0 "" "0")}}
+			{{#if (bp-not-eq sortQuizs.firstObject.answer.meetingPlaces -1 0 "" "0")}}
 				
 				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
 					{{#bp-layout local-class="badge" class="px-1"}}
 						{{bp-icon icon="meeting-quota"}}
-						{{quizs.firstObject.answer.meetingPlaces}}
+						{{sortQuizs.firstObject.answer.meetingPlaces}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 				
@@ -38,8 +38,8 @@
 			<span local-class='keys' class='mr-3'>指定代表</span>
 			{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
 				{{#dd.button}}
-					{{#if quizs.firstObject.answer.resource}}
-						{{quizs.firstObject.answer.resource.name}}
+					{{#if sortQuizs.firstObject.answer.resource}}
+						{{sortQuizs.firstObject.answer.resource.name}}
 					{{else}}
 						代表
 					{{/if}}
@@ -62,8 +62,8 @@
 		{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
 			<span local-class='keys' class='mr-3'>分配时间</span>
 			{{bp-input widthSize="auto"
-					value=quizs.firstObject.answer.visitTime
-					onChange=(action "visitTimeValidation" quizs.firstObject.answer (mut quizs.firstObject.answer.visitTime))
+					value=sortQuizs.firstObject.answer.visitTime
+					onChange=(action "visitTimeValidation" sortQuizs.firstObject.answer (mut sortQuizs.firstObject.answer.visitTime))
 					local-class="input-prepend input-time operating"}}
 		{{/bp-layout}}
 	{{/bp-layout}}
@@ -76,30 +76,39 @@
 		<thead class='bg-white px-2'>
 			<tr>
 				<th class="border-0 pb-2 pr-2 pl-0 text-left">产品名称</th>
-				<th class="border-0 pb-2 px-2 text-left">药品潜力</th>
+				{{#if (bp-eq proposal.case "ucb")}}
+						<th class="border-0 pb-2 px-2 text-left">患者数量</th>
+				{{else if (bp-eq proposal.case "tm")}}
+						<th class="border-0 pb-2 px-2 text-left">药品潜力</th>
+				{{/if}}
 				<th class="border-0 pb-2 px-2 text-left">上季度销售额</th>
 				<th class="border-0 pb-2 px-2 text-center">销售指标分配</th>
 				<th class="border-0 pb-2 pl-2 text-center ">预算分配</th>
 			</tr>
 		</thead>
 		<tbody class="bg-white">
-			{{#each quizs as |quiz|}}
+			{{#each sortQuizs as |quiz|}}
 				<tr class="mx-0 mx-4">
 					<td class="pr-2 border-0 text-left">
 						{{quiz.preset.product.name}}
 					</td>
 					<td class="px-2 border-0 text-left">
+						
+						{{#if (bp-eq proposal.case "ucb")}}
+						{{format-number quiz.report.currentPatientNum}}
+						{{else if (bp-eq proposal.case "tm")}}
 						￥{{format-number quiz.preset.potential}}
+						{{/if}}
 					</td>
 					<td class="px-2 border-0 text-left">
-						￥{{format-number quiz.preset.lastSales}}
+						￥{{format-number quiz.preset.lastSales 0}}
 					</td>
 					<td class="border-0">
 						{{#bp-layout main="center" direction="row"}}
 							{{bp-input block=true  
 									value=quiz.answer.salesTarget
 									onChange=(action "salesTargetValidation" quiz.answer "salesTarget" (mut quiz.answer.salesTarget))
-									disabled=false
+									disabled=disabledInput
 									local-class="input-prepend input-money sales-input"
 									classNames="mb-2 px-0"}}
 						{{/bp-layout}}
@@ -112,7 +121,7 @@
 						{{bp-input block=true 
 							value=quiz.answer.budget
 							onChange=(action "budgetValidation" quiz.answer "budget" (mut quiz.answer.budget))
-							disabled=false
+							disabled=disabledInput
 							classNames="px-0 mb-2"
 							local-class="input-prepend input-money budget-input"}}
 							{{/bp-layout}}
@@ -132,7 +141,7 @@
 		<span local-class="keys" class='mr-3'>分配会议名额</span>
 		{{bp-input
 					value=quizs.firstObject.answer.meetingPlaces
-					disabled=false
+					disabled=disabledInput
 					onChange=(action "meetingPlacesValidation" quizs.firstObject.answer "meetingPlaces" (mut quizs.firstObject.answer.meetingPlaces))
 					local-class="input-prepend input-meeting operating"}}
 	{{/bp-layout}}

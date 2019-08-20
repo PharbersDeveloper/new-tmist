@@ -2,7 +2,8 @@ import { helper } from "@ember/component/helper"
 import { isEmpty } from "@ember/utils"
 
 export function formatDateQ( params/*, hash*/ ) {
-	if ( isEmpty( params ) ) {
+
+	if ( isEmpty( params ) || isEmpty( params[0] ) ) {
 		return params
 	}
 	let date = params[0],

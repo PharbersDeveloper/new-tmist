@@ -66,10 +66,10 @@ project:
     desc: 提交执行中，请稍等...
   proposal-info:
     index: 产品竞品信息
-    hospital: 医院基本信息
+    hospital: 城市医院信息
     member: 团队成员信息
     sold: 历史销售报告
-    historical-info: 
+    historical-info:
       product: 产品
       representative: 代表
       hospital: 医院

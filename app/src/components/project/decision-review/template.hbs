@@ -9,27 +9,29 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
+	{{#if (bp-eq proposal.case "tm")}}
 	{{#bp-layout direction="row" local-class="btn-group-sytle" main="center" classNames="mb-4"}}
 		{{#bp-button onClick=(action (mut curDecisionReview) 0)
 			local-class=(if (bp-eq curDecisionReview 0) "active")}}
 			业务决策回顾
 		{{/bp-button}}
-		{{#if (bp-eq proposal.case "tm")}}
 			{{#bp-button onClick=(action (mut curDecisionReview) 1)
 			local-class=(if (bp-eq curDecisionReview 1) "active")}}
 				管理决策回顾
 			{{/bp-button}}
-		{{/if}}
 	{{/bp-layout}}
+	{{/if}}
 	{{#bp-layout local-class="content"}}
 		{{#if (bp-eq curDecisionReview 0)}}
 			{{project/decision-review/business-review
 				proposal=proposal 
+				period=period
 				project=project 
 				hospitals=hospitals
 				products=products
 				resources=resources
 				answers=answers
+				reports=reports
 			}}
 		{{else}}
 			{{project/decision-review/management-review

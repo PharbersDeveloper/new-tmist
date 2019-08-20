@@ -15,9 +15,9 @@ export default DS.Model.extend( {
 	income: DS.attr( "number" ),
 	spaceBelongs: DS.attr( "string" ),
 	abilityToPay: DS.attr( "string" ),
-	selfPayPercentage: DS.attr("number"),
-	patientNum: DS.attr("number"),
-	patientNumA: DS.attr("number"),
-	patientNumB: DS.attr("number")
+	selfPayPercentage: DS.attr( "number" ),
+	patientNum: DS.attr( "number" ),
+	patientNumA: DS.attr( "number" ),
+	patientNumB: DS.attr( "number" )
 	// policies: DS.hasMany( "model/policy" )
 } )

@@ -41,7 +41,7 @@
 
         button {
             height: 33px;
-            width: 97px;
+            width: 120px;
             border-radius: 4px;
         }
     }
@@ -155,9 +155,9 @@
     .report-info {
         width: 1152px;
 
-        div:first-child {
-            width: 100%;
-        }
+        // div:first-child {
+        //     width: 100%;
+        // }
     }
 
     .performance {

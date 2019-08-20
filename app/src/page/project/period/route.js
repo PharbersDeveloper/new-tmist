@@ -1,6 +1,7 @@
 import Route from "@ember/routing/route"
 import RSVP from "rsvp"
 import { inject as service } from "@ember/service"
+import { A } from "@ember/array"
 
 export default Route.extend( {
 	facade: service( "service/exam-facade" ),
@@ -48,9 +49,15 @@ export default Route.extend( {
 			periodsIds = project.hasMany( "periods" ).ids(),
 			pidsForSearch = periodsIds.map( x => {
 				return "`" + `${x}` + "`"
-			} ).join( "," ),
+			} ).join( "," )
 
+		let periods = null
+
+		if ( periodsIds.length ) {
 			periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
+		} else {
+			periods = A( [period] )
+		}
 
 
 		this.facade.startPeriodExam( project )

@@ -9,14 +9,15 @@
             {{#bp-layout direction="row" main="start" cross="start" local-class="status-area"}}
                 {{#if model.provious}}
                     <span local-class="badge">进行中</span>
+                    <p local-class="des" class="ml-2">上次修改时间{{format-date-standard model.provious.lastObject.lastUpdate}}</p>
                 {{/if}}
                 
-                <p local-class="des" class="ml-2">{{model.proposal.describe}}</p>
             {{/bp-layout}}
             {{#bp-layout direction="row" main="between" cross="center" local-class="card-bottom"}}
-                <p local-class="link" {{action "toHistory" model.proposal.id}}>查看历史成果</p>
-                {{!-- {{log model.proposal.id}} --}}
-                    
+                {{!-- TODO未开发功能，先进行隐藏 --}}
+                {{!-- <p local-class="link" {{action "toHistory" model.proposal.id}}>查看历史成果</p> --}}
+                {{!-- 占位符，开发完历史成果跳转功能后，将 span 删除 --}}
+                <span></span>
                 {{#if model.provious}}
                     {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}
                         {{#bp-button type="default" onClick=(action "startDeploy" model.proposal)}}

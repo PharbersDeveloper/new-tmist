@@ -1,15 +1,23 @@
 import Component from "@ember/component"
-import { computed } from "@ember/object"
 import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
 import { htmlSafe } from "@ember/template"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
+import { computed } from "@ember/object"
 
 export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	positionalParams: ["periods", "resources", "products", "hospitals","case"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
+	selfProducts: computed( "products",function() {
+		let products = this.products
+
+		if ( isEmpty( products ) ) {
+			return products
+		}
+		return products.filterBy( "productType",0 )
+	} ),
 	/**
 	 * @author Frank Wang
 	 * @property
@@ -20,14 +28,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	 * @public
 	*/
 	isResultPage: false,
-	// period: A([
-	// 	{
-	// 		name: "2019 第一季度"
-	// 	},
-	// 	{
-	// 		name: "2019 第二季度"
-	// 	}
-	// ]),
+	// TODO 有区域实体之后，替换为区域实体
 	regions: A( [{name:"会东市",id: 1},{name:"会南市",id:2},{name:"会西市",id:3}] ),
 	seasonQ( seasonText ) {
 		let season = isEmpty( seasonText ) ? "" : seasonText
@@ -118,37 +119,38 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 		chooseProd( prod ) {
 			let salesGroupValue = this.salesGroupValue
 
+			// TODO switch更清晰
 			if ( salesGroupValue === 0 ) {
 				this.set( "tmpPsr",prod )
 				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name,this.proposal ) )
 			} else if ( salesGroupValue === 1 ) {
 				this.set( "tmpProdRep",prod )
-				this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name ) )
+				this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name,this.proposal ) )
 			} else if ( salesGroupValue === 2 ) {
 				this.set( "tmpProdHosp",prod )
-				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name ) )
+				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name,this.proposal ) )
 			} else if ( salesGroupValue === 3 ) {
 				this.set( "tmpProdReg",prod )
-				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( this.tmpReg.name, prod.name ) )
+				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( this.tmpReg.name, prod.name,this.proposal ) )
 			}
 		},
 		chooseRep( rep ) {
 			let prodName = this.tmpProdRep && this.tmpProdRep.name
 
 			this.set( "tmpRep",rep )
-			this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( rep.name,prodName ) )
+			this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( rep.name,prodName ,this.proposal ) )
 		},
 		chooseHosp( hosp ) {
 			let prodName = this.tmpProdHosp && this.tmpProdHosp.name
 
 			this.set( "tmpHosp",hosp )
-			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name,prodName ) )
+			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name,prodName,this.proposal ) )
 		},
 		chooseReg( reg ) {
 			let prodName = this.tmpProdReg && this.tmpProdReg.name
 
 			this.set( "tmpReg",reg )
-			this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( reg.name,prodName ) )
+			this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( reg.name,prodName ,this.proposal ) )
 		},
 		dealRep0Data( data,config ) {
 			this.dealData( data,config,"representative","rep0Legend" )
@@ -178,7 +180,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 			proposalCase = this.case,
 			isResultPage = this.isResultPage,
 			sortPeriods = this.periods.sortBy( "phase" ),
-			currentPeriod = sortPeriods.lastObject.phase,	 // 当前周期的 phase
+			currentPeriod = sortPeriods.get( "lastObject.phase" ),	 // 当前周期的 phase
 			prevOne = isResultPage ? currentPeriod : currentPeriod - 1,//当为结果页面的时候显示当前周期，否则展示上一周期
 			prevTwo = isResultPage ? currentPeriod - 1 : currentPeriod - 2//当为结果页面的时候展示上一周期，否则展示上两个周期
 
@@ -198,19 +200,19 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 				tmRepCircleCondition = that.generateRepCircleCondition( prevOne ),
 				tmRepCircle0Condition = that.generateRepCircleCondition( prevTwo ),
 				tmRepBarLine0 = that.generateBarLineConfig( "tmRepresentativeBarLineContainer","bartmRepresentativeBarLine0" ),
-				tmRepBarLineCondition = that.generateRepBarLineCondition( defaultRep.name ),
+				tmRepBarLineCondition = that.generateRepBarLineCondition( defaultRep.name,"",that.proposal ),
 				tmHosCircle0 = that.generateCircleChart( "hospitalCircleContainer0","tmcircleHospital0" ),
 				tmHosCircle1 = that.generateCircleChart( "hospitalCircleContainer1","tmcircleHospital1" ),
 				tmHosCircleCondition = that.generateHospCircleCondition( prevOne ),
 				tmHosCircle0Condition = that.generateHospCircleCondition( prevTwo ),
 				tmHosBarLine0 = that.generateBarLineConfig( "tmHospitalBarLineContainer","bartmHospitalBarLine0" ),
-				tmHosBarLineCondition = that.generateHospBarLineCondition( defaultHosp.name ),
+				tmHosBarLineCondition = that.generateHospBarLineCondition( defaultHosp.name ,"",that.proposal ),
 				tmRegCircle0 = that.generateCircleChart( "regionCircleContainer0","tmcircleregion0" ),
 				tmRegCircle1 = that.generateCircleChart( "regionCircleContainer1","tmcircleregion1" ),
 				tmRegCircleCondition = that.generateRegionCircleCondition( prevOne ),
 				tmRegCircle0Condition = that.generateRegionCircleCondition( prevTwo ),
 				tmRegBarLine0 = that.generateBarLineConfig( "tmRegionBarLineContainer","bartmRegionBarLine0" ),
-				tmRegBarLineCondition = that.generateRegionBarLineCondition() // 查询区域全部总值&&产品全部总值
+				tmRegBarLineCondition = that.generateRegionBarLineCondition( "","",that.proposal ) // 查询区域全部总值&&产品全部总值
 
 			resolve( {
 				tmProductCircle0, tmProductCircle1, tmProductCircleCondition, tmProductCircle0Condition,tmProductBarLine0, tmProductBarLineCondition,

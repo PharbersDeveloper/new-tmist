@@ -6,7 +6,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 
-	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas"],
+	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports"],
 	exam: service( "service/exam-facade" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function () {
@@ -85,6 +85,12 @@ export default Component.extend( {
 	} ),
 	circleBudgetData: computed( function () {
 		return this.getResourceBudgetData()
+	} ),
+	legendProductBudget: computed( function() {
+		return this.circleProductData
+	} ),
+	legendResourceBudget: computed( function() {
+		return this.circleBudgetData
 	} ),
 	labelEmphasis: false,
 	curResource: computed( function () {
@@ -166,18 +172,25 @@ export default Component.extend( {
 	getResourceBudgetData() {
 		let obj = {}, budgetArr = [], allResourceBudget = 0
 
+		this.resources.forEach( rs => {
+			obj[rs.get( "id" )] = {}
+
+			obj[rs.get( "id" )].name = rs.get( "name" )
+			obj[rs.get( "id" )].value = 0
+			obj[rs.get( "id" )].per = 0
+		} )
+
 		this.answers.forEach( a => {
 			let resource = a.get( "resource.id" )
 
-			if ( obj[resource] ) {
-				obj[resource].value += this.transNumber( a.get( "budget" ) )
-				obj[resource].per = ( obj[resource].value / this.allBudget * 100 ).toFixed( 1 )
+			// if ( obj[resource] ) {
+			// 	obj[resource].value += this.transNumber( a.get( "budget" ) )
+			// 	obj[resource].per = ( obj[resource].value / this.allBudget * 100 ).toFixed( 1 )
 
-			} else if ( a.get( "resource.name" ) ) {
-				obj[resource] = {
-					name: a.get( "resource.name" ),
-					value: this.transNumber( a.get( "budget" ) )
-				}
+			// } else
+
+			if ( resource ) {
+				obj[resource].value += this.transNumber( a.get( "budget" ) )
 				obj[resource].per = ( obj[resource].value / this.allBudget * 100 ).toFixed( 1 )
 			}
 		} )
@@ -274,9 +287,6 @@ export default Component.extend( {
 	// 	return Number( businessInputMaxValueRule.split( "#" )[1] )
 	// },
 	actions: {
-		getColor( index ) {
-			return this.circleProductColor.objectAt( index )
-		},
 		selectResource( rs ) {
 			set( this, "curResource", rs )
 			window.console.log( "当前代表", this.curResource.get( "name" ) )
@@ -350,19 +360,6 @@ export default Component.extend( {
 					set( curProductInfo.firstObject, "curBudget", cur )
 					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
 
-
-					// let arr = [], all = 0
-
-					// this.allProductInfo.forEach( product => {
-					// 	let obj = {}
-					// 	obj.name = product.name
-					// 	obj.value = product.curBudget
-					// 	all += product.curBudget
-					// 	arr.push( obj )
-					// } )
-					// set( this, "curBudgetPercent", ( ( this.allBudget - all ) / this.allBudget * 100 ).toFixed( 1 ) )
-					// let leftBudget = {value: this.allBudget - all, name: "未分配"}
-					// arr.push( leftBudget )
 					let productDataArr = this.getProductBudgetData(),
 						budgetArr = this.getResourceBudgetData(),
 						budgetColor = this.getBudgetCircleColor()
@@ -371,6 +368,8 @@ export default Component.extend( {
 					set( this, "circleBudgetData", budgetArr )
 					set( this, "circleBudgetColor", budgetColor )
 
+					set( this, "legendProductBudget", productDataArr )
+					set( this, "legendResourceBudget", budgetArr )
 
 				} else {
 					// TODO: 所有的validation都要重做
@@ -379,6 +378,19 @@ export default Component.extend( {
 						title: "设定超额",
 						detail: "您的预算指标设定已超额，请合理分配。"
 					} )
+
+					set( curProductInfo.firstObject, "curBudget", cur )
+					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
+
+					let productDataArr = this.getProductBudgetData(),
+						budgetArr = this.getResourceBudgetData()
+
+					set( this, "legendProductBudget", productDataArr )
+					set( this, "legendResourceBudget", budgetArr )
+
+					window.console.log( this.legendProductBudget )
+					window.console.log( this.legendResourceBudget )
+
 				}
 
 			} else {
@@ -387,11 +399,6 @@ export default Component.extend( {
 		},
 		salesTargetValidationHandle( answer, input ) {
 
-			// let allSalesTarget = 100000, inputType = "Number"
-			// let allSalesTarget = this.getInputMaxValue( "businessMaxSalesTarget" ),
-			// 	inputType = this.getInputType( "businessSalesTargetInputType" )
-
-			// this.inputMaxValue( allSalesTarget, "salesTarget", inputType )
 			let isNumer = this.checkNumber( answer.get( input ) )
 
 			if ( isNumer ) {
@@ -417,17 +424,14 @@ export default Component.extend( {
 						detail: "您的指标设定已超额，请合理分配。"
 					} )
 				}
+				set( curProductInfo.firstObject, "curSales", cur )
 
 			} else {
 				answer.set( input, 0 )
 			}
 		},
 		meetingPlacesValidationHandle( answer, input ) {
-			// 1 第一周期
-			// let allMeetingPlaces = this.getInputMaxValue( "businessMaxMeetingPlaces" ),
-			// 	inputType = this.getInputType( "businessMeetingPlacesInputType" )
 
-			// this.inputMaxValue( allMeetingPlaces, "meetingPlaces", inputType )
 			let isNumber = this.checkNumber( answer.get( input ) )
 
 			if ( isNumber ) {

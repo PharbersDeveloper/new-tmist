@@ -27,7 +27,7 @@
 				{{#bp-layout direction="row" local-class="bottom"}}
 					{{#bp-layout tagName="p" direction="col"}}
 						{{#bp-layout}}<span class="mr-3">{{t "card.hospital-card.doctorNumber"}}</span>{{/bp-layout}}
-						{{#bp-layout classNames="mt-2"}}<span local-class="span-last">{{format-number hospital.doctorNumber}}</span>{{/bp-layout}}
+						{{#bp-layout classNames="mt-2"}}<span local-class="span-last">{{format-number hospital.docterNumber}}</span>{{/bp-layout}}
 					{{/bp-layout}}
 
 					{{#bp-layout tagName="p" direction="col"}}
@@ -41,7 +41,7 @@
 							{{#bp-layout classNames="mt-2"}}
 								<span local-class="span-last">
 									{{!-- {{t "card.hospital-card.money"}} --}}
-									{{format-number hospital.selfPayPercentage}}
+									{{format-number selfPayPercentage}}%
 								</span>
 							{{/bp-layout}}
 						{{/bp-layout}}
@@ -61,24 +61,24 @@
 			
 			{{#bp-layout tagName="table" direction="col" classNames="ml-4"}}
 				{{#bp-layout tagName="thead" main="between" }}
-					{{#bp-layout tagName="th"}}药品名{{/bp-layout}}
-					{{#bp-layout tagName="th"}}治疗领域{{/bp-layout}}
-					{{#bp-layout tagName="th"}}药品准入状态{{/bp-layout}}
-					{{#bp-layout tagName="th"}}患者数量{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}药品名{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}治疗领域{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}药品准入状态{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}患者数量{{/bp-layout}}
 				{{/bp-layout}}
 				{{#each cur as |item|}}
 				{{#bp-layout tagName="tbody" main="between"}}
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
-						{{#bp-layout tagName="td"}}{{item.product.name}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.product.treatmentArea}}{{/bp-layout}}
-						{{#bp-layout tagName="td"}}
+						{{#bp-layout tagName="td" main="center"}}{{item.product.name}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.product.treatmentArea}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}
 							{{#if (bp-eq item.currentDurgEntrance 1)}}
 							已开发
 							{{else}}
 							未开发
 							{{/if}}
 						{{/bp-layout}}
-						{{#bp-layout tagName="td"}}{{item.currentPatientNum}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{item.currentPatientNum}}{{/bp-layout}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{/each}}
