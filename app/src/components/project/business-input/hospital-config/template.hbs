@@ -108,7 +108,7 @@
 							{{bp-input block=true  
 									value=quiz.answer.salesTarget
 									onChange=(action "salesTargetValidation" quiz.answer "salesTarget" (mut quiz.answer.salesTarget))
-									disabled=false
+									disabled=disabledInput
 									local-class="input-prepend input-money sales-input"
 									classNames="mb-2 px-0"}}
 						{{/bp-layout}}
@@ -121,7 +121,7 @@
 						{{bp-input block=true 
 							value=quiz.answer.budget
 							onChange=(action "budgetValidation" quiz.answer "budget" (mut quiz.answer.budget))
-							disabled=false
+							disabled=disabledInput
 							classNames="px-0 mb-2"
 							local-class="input-prepend input-money budget-input"}}
 							{{/bp-layout}}
@@ -141,7 +141,7 @@
 		<span local-class="keys" class='mr-3'>分配会议名额</span>
 		{{bp-input
 					value=quizs.firstObject.answer.meetingPlaces
-					disabled=false
+					disabled=disabledInput
 					onChange=(action "meetingPlacesValidation" quizs.firstObject.answer "meetingPlaces" (mut quizs.firstObject.answer.meetingPlaces))
 					local-class="input-prepend input-meeting operating"}}
 	{{/bp-layout}}

@@ -26,6 +26,9 @@ export default Component.extend( {
 		}
 		return false
 	} ),
+	disabledInput: computed( "checked", function() {
+		return !this.checked
+	} ),
 	hasResource: computed( "resourceHospital", function() {
 		if ( this.quizs.get( "firstObject.answer.resource.id" ) ){
 			return true
