@@ -87,9 +87,9 @@
 			{{#bp-layout}}
 				<div local-class="dynamic others" class="p-4">
 					<h4 local-class="title" class="mb-2">{{t "card.hospital-card.dynamic"}}</h4>
-					{{#each hospital.policies as |policy|}}
+					{{#each currentPolicies as |policy|}}
 						<p local-class="content" class="mb-2">
-							{{policy.describe}}
+							{{policy.currentPolicy}}
 						</p>
 					{{/each}}
 				</div>
