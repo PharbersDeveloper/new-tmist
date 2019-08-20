@@ -71,14 +71,14 @@
 	{{#bp-layout local-class="table"}}
 		{{#bp-layout tagName="table" direction="col" classNames="mx-4" }}
 			{{#bp-layout tagName="thead" main="between" }}
+				{{#bp-layout tagName="th" main="center"}}城市{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}医院名称{{/bp-layout}}
-				{{#bp-layout tagName="th" main="center"}}地区{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}产品名称{{/bp-layout}}
-				{{#bp-layout tagName="th" main="center"}}代表{{/bp-layout}}
-				{{#bp-layout tagName="th" main="center"}}销售目标设定{{/bp-layout}}
-				{{#bp-layout tagName="th" main="center"}}预算费用{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}患者数量{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}准入情况{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}代表{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}销售指标{{/bp-layout}}
+				{{#bp-layout tagName="th" main="center"}}预算费用{{/bp-layout}}
 				{{#if (bp-eq proposal.case "tm")}}
 				{{#bp-layout tagName="th" main="center"}}分配时间{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}会议名额{{/bp-layout}}
@@ -87,19 +87,19 @@
 			{{#bp-layout tagName="tbody" direction="col"}}
 				{{#each filterAnswers as |item|}}
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
-						{{#bp-layout tagName="td" main="start"}}{{item.hospitalName}}{{/bp-layout}}
 						{{#bp-layout tagName="td" main="center"}}{{item.region}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="start"}}{{item.hospitalName}}{{/bp-layout}}
 						{{#bp-layout tagName="td" main="center"}}{{item.productName}}{{/bp-layout}}
-						{{#bp-layout tagName="td" main="center"}}{{item.resource.name}}{{/bp-layout}}
-						{{#bp-layout tagName="td" main="center"}}{{item.salesTarget}}{{/bp-layout}}
-						{{#bp-layout tagName="td" main="center"}}{{item.budget}}{{/bp-layout}}
-						{{#bp-layout tagName="td" main="center"}}{{item.currentPatientNum}}{{/bp-layout}}
-						
+						{{#bp-layout tagName="td" main="center"}}{{format-number item.currentPatientNum}}{{/bp-layout}}
 						{{#if (bp-eq item.currentDurgEntrance 1)}}
 						{{#bp-layout tagName="td" main="center"}}已开发{{/bp-layout}}
 						{{else}}
 						{{#bp-layout tagName="td" main="center"}}未开发{{/bp-layout}}
 						{{/if}}
+						{{#bp-layout tagName="td" main="center"}}{{item.resource}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{format-number item.salesTarget}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{format-number item.budget}}{{/bp-layout}}
+						
 
 						{{#if (bp-eq proposal.case "tm")}}
 						{{#bp-layout tagName="td" main="center"}}{{item.visitTime}}%{{/bp-layout}}
