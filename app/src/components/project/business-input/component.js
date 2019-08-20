@@ -172,18 +172,25 @@ export default Component.extend( {
 	getResourceBudgetData() {
 		let obj = {}, budgetArr = [], allResourceBudget = 0
 
+		this.resources.forEach( rs => {
+			obj[rs.get( "id" )] = {}
+
+			obj[rs.get( "id" )].name = rs.get( "name" )
+			obj[rs.get( "id" )].value = 0
+			obj[rs.get( "id" )].per = 0
+		} )
+
 		this.answers.forEach( a => {
 			let resource = a.get( "resource.id" )
 
-			if ( obj[resource] ) {
-				obj[resource].value += this.transNumber( a.get( "budget" ) )
-				obj[resource].per = ( obj[resource].value / this.allBudget * 100 ).toFixed( 1 )
+			// if ( obj[resource] ) {
+			// 	obj[resource].value += this.transNumber( a.get( "budget" ) )
+			// 	obj[resource].per = ( obj[resource].value / this.allBudget * 100 ).toFixed( 1 )
 
-			} else if ( a.get( "resource.name" ) ) {
-				obj[resource] = {
-					name: a.get( "resource.name" ),
-					value: this.transNumber( a.get( "budget" ) )
-				}
+			// } else
+
+			if ( resource ) {
+				obj[resource].value += this.transNumber( a.get( "budget" ) )
 				obj[resource].per = ( obj[resource].value / this.allBudget * 100 ).toFixed( 1 )
 			}
 		} )
