@@ -87,11 +87,9 @@ export default Controller.extend( {
 					this.transitionToRoute( "page.project.result" )
 				}
 				// document.getElementById( "submit-btn" ).click()
-			} else {
-				this.set( "loadingForSubmit", false )
 			}
 
-		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" ) {
+		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" && this.calcJobId === msgObj.jobId ) {
 			let proposalId = this.model.project.get( "proposal.id" ),
 				projectId = this.model.project.get( "id" ),
 				periodId = this.model.period.get( "id" ),
