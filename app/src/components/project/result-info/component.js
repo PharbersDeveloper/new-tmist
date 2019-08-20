@@ -4,10 +4,12 @@ import { inject as service } from "@ember/service"
 import { A } from "@ember/array"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
+// import { inject as service } from "@ember/service"
 
 export default Component.extend( GenerateCondition, GenerateChartConfig, {
-	cookies: service(),
+	ossService: service( "service/oss" ),
 	ajax: service(),
+	cookies: service(),
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods"],
 	curSelPeriod: null,
 	treatmentAreaArr: A( [] ),
@@ -35,8 +37,8 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "salesReports", this.project.finals )
 		this.set( "curSalesReports", this.project.finals.lastObject )
 
-		console.log(this.salesReports)
-		console.log(this.curSalesReports)
+		console.log( this.salesReports )
+		console.log( this.curSalesReports )
 	},
 	// overallInfo: computed(results function () {
 
@@ -76,18 +78,58 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	salesReport: computed( "project", function () {
 		return this.project
 	} ),
+	downloadURI( urlName ) {
+		window.console.log( urlName )
+		fetch( urlName.url )
+			.then( response => {
+				if ( response.status === 200 ) {
+					return response.blob()
+				}
+				throw new Error( `status: ${response.status}` )
+			} )
+			.then( blob => {
+				var link = document.createElement( "a" )
+
+				link.download = urlName.name
+				// var blob = new Blob([response]);
+				link.href = URL.createObjectURL( blob )
+				// link.href = url;
+				document.body.appendChild( link )
+				link.click()
+				document.body.removeChild( link )
+				// delete link;
+
+				window.console.log( "success" )
+			} )
+			.catch( error => {
+				window.console.log( "failed. cause:", error )
+			} )
+	},
+	genDownloadUrl() {
+
+		this.get( "ajax" ).request( `/export/${this.project.get( "id" )}/phase/${this.curSelPeriod.get( "phase" )}`, {
+			headers: {
+				"dataType": "json",
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
+			}
+		} ).then( res => {
+			window.console.log( res )
+			let { jobId } = res,
+				downloadUrl = jobId + ".xlsx",
+				client = this.ossService.get( "ossClient" ),
+				url = client.signatureUrl( "tm-export/" + downloadUrl, { expires: 43200 } )
+
+			window.console.log( res )
+			window.console.log( "Success!" )
+			this.downloadURI( { url: url, name: "历史销售报告" } )
+			// return { url: url, name: downloadUrl }
+		} )
+	},
 	actions: {
 		exportReport() {
-			this.get( "ajax" ).request( `/export/${this.project.get( "id" )}/phase/${this.curSelPeriod.get( "phase" )}`, {
-				headers: {
-					"dataType": "json",
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
-				}
-			} ).then( res => {
-				window.console.log( res )
-				window.console.log( "Success!" )
-			} )
+
+			this.genDownloadUrl()
 		},
 		toReport() {
 			this.transitionToReport()
