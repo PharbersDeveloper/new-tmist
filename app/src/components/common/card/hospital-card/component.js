@@ -17,9 +17,7 @@ export default Component.extend( {
 
 		return showContent ? "right" : "down"
 	} ),
-	selfPayPercentage: computed( "hospital",function() {
-		return this.hospital.selfPayPercentage * 100
-	} ),
+
 	actions: {
 		showContent() {
 			this.toggleProperty( "showContent" )
