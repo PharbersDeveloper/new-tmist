@@ -1,10 +1,13 @@
 import Component from "@ember/component"
 import { computed } from "@ember/object"
+import { inject as service } from "@ember/service"
 import { A } from "@ember/array"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
 
 export default Component.extend( GenerateCondition, GenerateChartConfig, {
+	cookies: service(),
+	ajax: service(),
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods"],
 	curSelPeriod: null,
 	treatmentAreaArr: A( [] ),
@@ -32,8 +35,8 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "salesReports", this.project.finals )
 		this.set( "curSalesReports", this.project.finals.lastObject )
 
-		// console.log(this.salesReports)
-		// console.log(this.curSalesReports)
+		console.log(this.salesReports)
+		console.log(this.curSalesReports)
 	},
 	// overallInfo: computed(results function () {
 
@@ -75,7 +78,16 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	} ),
 	actions: {
 		exportReport() {
-			
+			this.get( "ajax" ).request( `/export/${this.project.get( "id" )}/phase/${this.curSelPeriod.get( "phase" )}`, {
+				headers: {
+					"dataType": "json",
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
+				}
+			} ).then( res => {
+				window.console.log( res )
+				window.console.log( "Success!" )
+			} )
 		},
 		toReport() {
 			this.transitionToReport()
@@ -95,7 +107,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		},
 		selPeriod( item ) {
 			this.set( "curSelPeriod", item )
-			// this.set( "curSalesReports", this.project.finals.objectAt( item.phase ) )
+			this.set( "curSalesReports", this.project.finals.objectAt( item.phase ) )
 		}
 	}
 } )
