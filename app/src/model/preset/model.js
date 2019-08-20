@@ -1,9 +1,9 @@
 import DS from "ember-data"
 
 export default DS.Model.extend( {
-	proposalId: DS.attr("string"),
-	projectId: DS.attr("string"),
-	preiodId: DS.attr("string"),
+	proposalId: DS.attr( "string" ),
+	projectId: DS.attr( "string" ),
+	preiodId: DS.attr( "string" ),
 	hospital: DS.belongsTo( "model/hospital" ),
 	product: DS.belongsTo( "model/product" ),
 	resource: DS.belongsTo( "model/resource" ),
@@ -18,14 +18,15 @@ export default DS.Model.extend( {
 	currentProductKnowledge: DS.attr( "number" ),
 	currentBehaviorEfficiency: DS.attr( "number" ),
 	currentBehaviorEfficiency: DS.attr( "number" ),
+	currentPolicy:DS.attr( "string" ),
 	currentTargetDoctorNum: DS.attr( "number" ),
 	currentTargetDoctorCoverage: DS.attr( "number" ),
 	currentClsADoctorVT: DS.attr( "number" ),
 	currentClsBDoctorVT: DS.attr( "number" ),
 	currentClsCDoctorVT: DS.attr( "number" ),
-	phase: DS.attr("number"),
-	lastBudget: DS.attr("number"),
-	initBudget: DS.attr("number"),
-	currentDurgEntrance: DS.attr("number"),
-	currentPatientNum: DS.attr("number")
+	phase: DS.attr( "number" ),
+	lastBudget: DS.attr( "number" ),
+	initBudget: DS.attr( "number" ),
+	currentDurgEntrance: DS.attr( "number" ),
+	currentPatientNum: DS.attr( "number" )
 } )

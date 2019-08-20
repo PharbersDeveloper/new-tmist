@@ -51,7 +51,8 @@ export default Route.extend( {
 				return "`" + `${x}` + "`"
 			} ).join( "," )
 
-		let periods = null
+		let periods = null,
+			policies = null
 
 		if ( periodsIds.length ) {
 			periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
@@ -93,6 +94,15 @@ export default Route.extend( {
 				return this.store.query( "model/preset", { filter: condi } )
 			} )
 
+		policies = prs.load().then( x => {
+
+			return RSVP.hash( { prsId: x.id, periods } )
+		} ).then( data => {
+			let sourtPeriods = data.periods.sortBy( "phase" )
+
+			return this.store.query( "model/preset", { filter: "(:and," + "(proposalId,:eq,`" + data.prsId + "`)" + `,(phase,:eq,${sourtPeriods.lastObject.phase})` + "," + "(category,:eq,32)" + ")" } )
+		} )
+
 		return RSVP.hash( {
 			period: period,
 			project: project,
@@ -106,7 +116,8 @@ export default Route.extend( {
 			quota: quota,
 			dragInfo: dragInfo,
 			kpiInfo: kpiInfo,
-			periods: periods
+			periods: periods,
+			policies
 		} )
 	},
 	setupController( controller, model ) {

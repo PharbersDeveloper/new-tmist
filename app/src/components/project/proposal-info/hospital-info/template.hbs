@@ -77,7 +77,7 @@
 		{{#bp-layout direction="col" local-class="hospital-detail-info mb-4"}}
 			{{#each currentGroup as |item index|}}
 				{{#if (bp-eq currentHospital index)}}
-					{{common/card/hospital-card hospital=item reports=reports proposal=proposal}}
+					{{common/card/hospital-card hospital=item reports=reports proposal=proposal policies=policies}}
 				{{/if}}
 			{{/each}}
 		{{/bp-layout}}
