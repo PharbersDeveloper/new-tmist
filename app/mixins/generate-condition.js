@@ -137,16 +137,23 @@ export default Mixin.create( {
 					},
 					"aggs": [
 						{
-							"groupBy": "phase",
+							"groupBy": "%2Bphase",
 							"aggs": agg
 						}
 					]
 				},
 				"format": [
 					{
-						"class": "calcRate",
+						"class": "addCol",
 						"args": [
-							"sum(quota)"
+							{
+								"name": "product.keyword",
+								"value":  "all"
+							},
+							{
+								"name": "指标达成率",
+								"value": ["/", "sum(sales)", "sum(quota)"]
+							}
 						]
 					},
 					{
@@ -155,7 +162,7 @@ export default Mixin.create( {
 							"phase",
 							"sum(sales)",
 							"sum(quota)",
-							"rate(sum(quota))",
+							"指标达成率",
 							"product.keyword"
 						]
 					}
@@ -215,7 +222,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateRepBarLineCondition( repName, prodName,proposal ) {
+	generateRepBarLineCondition( repName, prodName, proposal ) {
 		let searchRuls = [],
 			jobId = this.getJobId()
 
@@ -243,14 +250,15 @@ export default Mixin.create( {
 				"model": "tmrs",
 				"query": {
 					"search": {
-						"and": searchRuls
+						"and": searchRuls,
+						"sort": ["phase"]
 					},
 					"aggs": [
 						{
 							"groupBy": "representative.keyword",
 							"aggs": [
 								{
-									"groupBy": "phase",
+									"groupBy": "%2Bphase",
 									"aggs": [
 										{
 											"agg": "sum",
@@ -279,6 +287,10 @@ export default Mixin.create( {
 							{
 								"name": "product",
 								"value": "all"
+							},
+							{
+								"name": "指标达成率",
+								"value": ["/", "sum(sales)", "sum(quota)"]
 							}
 						]
 					},
@@ -288,7 +300,7 @@ export default Mixin.create( {
 							"phase",
 							"sum(sales)",
 							"sum(quota)",
-							"rate(sum(quota))",
+							"指标达成率",
 							"product",
 							"representative.keyword"
 						]
@@ -349,7 +361,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateHospBarLineCondition( hospName, prodName ,proposal ) {
+	generateHospBarLineCondition( hospName, prodName, proposal ) {
 		let searchRuls = [],
 			jobId = this.getJobId()
 
@@ -375,14 +387,15 @@ export default Mixin.create( {
 				"model": "tmrs",
 				"query": {
 					"search": {
-						"and": searchRuls
+						"and": searchRuls,
+						"sort": ["phase"]
 					},
 					"aggs": [
 						{
 							"groupBy": "hospital.keyword",
 							"aggs": [
 								{
-									"groupBy": "phase",
+									"groupBy": "%2Bphase",
 									"aggs": [
 										{
 											"agg": "sum",
@@ -411,6 +424,10 @@ export default Mixin.create( {
 							{
 								"name": "product",
 								"value": "all"
+							},
+							{
+								"name": "指标达成率",
+								"value": ["/", "sum(sales)", "sum(quota)"]
 							}
 						]
 					},
@@ -420,7 +437,7 @@ export default Mixin.create( {
 							"phase",
 							"sum(sales)",
 							"sum(quota)",
-							"rate(sum(quota))",
+							"指标达成率",
 							"product",
 							"hospital.keyword"
 						]
@@ -515,10 +532,11 @@ export default Mixin.create( {
 				"model": "tmrs",
 				"query": {
 					"search": {
-						"and": searchRuls
+						"and": searchRuls,
+						"sort": ["phase"]
 					},
 					"aggs": [{
-						"groupBy": "phase",
+						"groupBy": "%2Bphase",
 						"aggs": [{
 							"agg": "sum",
 							"field": "sales"
@@ -531,9 +549,23 @@ export default Mixin.create( {
 				"format": [{
 					"class": "calcRate",
 					"args": ["sum(quota)"]
-				}, {
+				},
+				{
+					"class": "addCol",
+					"args": [
+						{
+							"name": "product.keyword",
+							"value": "all"
+						},
+						{
+							"name": "指标达成率",
+							"value": ["/", "sum(sales)", "sum(quota)"]
+						}
+					]
+				},
+				{
 					"class": "cut2DArray",
-					"args": ["phase", "sum(sales)", "sum(quota)", "rate(sum(quota))", "product.keyword", "region.keyword"]
+					"args": ["phase", "sum(sales)", "sum(quota)", "指标达成率", "product.keyword", "region.keyword"]
 				}]
 
 			}
@@ -661,7 +693,7 @@ export default Mixin.create( {
 			}
 		}]
 	},
-	generateResultProductCircleCondition( proposalCase, phase,productarea ) {
+	generateResultProductCircleCondition( proposalCase, phase, productarea ) {
 
 		let searchRuls = [],
 			jobId = this.getJobId()
@@ -688,11 +720,12 @@ export default Mixin.create( {
 				"model": "tmrs",
 				"query": {
 					"search": {
-						"and": searchRuls
+						"and": searchRuls,
+						"sort": ["phase"]
 					},
 					"aggs": [
 						{
-							"groupBy": "phase",
+							"groupBy": "%2Bphase",
 							"aggs": [
 								{
 									"groupBy": "product.keyword",
