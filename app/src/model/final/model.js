@@ -6,5 +6,6 @@ export default DS.Model.extend( {
 	budget: DS.attr( "number" ),
 	quotaAchv: DS.attr( "number" ),
 	salesForceProductivity: DS.attr( "number" ),
-	roi: DS.attr( "number" )
+	roi: DS.attr( "number" ),
+	newAccount: DS.attr( "number" )
 } )
