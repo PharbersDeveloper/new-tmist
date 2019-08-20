@@ -1,6 +1,7 @@
 import Component from "@ember/component"
 import { inject as service } from "@ember/service"
 import { computed, set } from "@ember/object"
+import { isEmpty } from "@ember/utils"
 // import Ember from "ember"
 
 export default Component.extend( {
@@ -11,6 +12,14 @@ export default Component.extend( {
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
+	sortQuizs: computed( "quizs",function() {
+		let quizs = this.quizs
+
+		if ( isEmpty( quizs ) ) {
+			return quizs
+		}
+		return quizs.sortBy( "preset.product.name" ).reverse()
+	} ),
 	// showContent: true,
 	showContent: computed( "curHospitalId", function() {
 		if ( !this.curHospitalId ) {
@@ -21,7 +30,7 @@ export default Component.extend( {
 		}
 	} ),
 	checked:  computed( function() {
-		if ( this.quizs.get( "firstObject.answer.resource.id" ) ){
+		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
 			return true
 		}
 		return false
@@ -30,15 +39,15 @@ export default Component.extend( {
 		return !this.checked
 	} ),
 	hasResource: computed( "resourceHospital", function() {
-		if ( this.quizs.get( "firstObject.answer.resource.id" ) ){
+		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
 			return true
 		}
 		return false
 	} ),
 	givenMeetingPlaces: computed( "resourceHospital", function() {
-		let cur = this.transNumber( this.quizs.get( "firstObject.answer.meetingPlaces" ) )
+		let cur = this.transNumber( this.sortQuizs.get( "firstObject.answer.meetingPlaces" ) )
 
-		window.console.log( this.quizs.get( "firstObject.answer.meetingPlaces" ) , "meetingPlaces" )
+		window.console.log( this.sortQuizs.get( "firstObject.answer.meetingPlaces" ) , "meetingPlaces" )
 
 		return cur
 	} ),

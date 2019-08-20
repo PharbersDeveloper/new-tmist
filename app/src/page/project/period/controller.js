@@ -1,7 +1,7 @@
 import Controller from "@ember/controller"
 // import ENV from "new-tmist/config/environment"
 // import { computed } from "@ember/object"
-// import { isEmpty } from "@ember/utils"
+import { isEmpty } from "@ember/utils"
 import { A } from "@ember/array"
 import { computed, set } from "@ember/object"
 import { inject as service } from "@ember/service"
@@ -53,12 +53,29 @@ export default Controller.extend( {
 		let msgObj = msg.asObject(),
 			subMsg = JSON.parse( msgObj.msg )
 
-
 		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
 			this.runtimeConfig.set( "jobId", subMsg.job_id )
-			window.localStorage.setItem( "jobId", subMsg.job_id )
 
-			if ( this.calcDone === true ) {
+			if ( this.callEId === msgObj.jobId ) {
+				window.localStorage.setItem( "jobId", subMsg.job_id )
+				// if ( this.calcDone === true && this.callBackEndSucId === msgObj.jobId) {
+
+				// 	if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
+				// 		this.model.project.set( "status", 1 ).save().then( () => {
+				// 			this.set( "loadingForSubmit", false )
+				// 			this.transitionToRoute( "page.project.result" )
+				// 		} )
+				// 	} else {
+				// 		this.set( "loadingForSubmit", false )
+				// 		this.transitionToRoute( "page.project.result" )
+				// 	}
+				// 	// document.getElementById( "submit-btn" ).click()
+				// } else {
+				this.set( "loadingForSubmit", false )
+				// }
+
+			} else if ( this.calcDone === true && this.callBackEndSucId === msgObj.jobId ) {
+				window.localStorage.setItem( "jobId", subMsg.job_id )
 
 				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
 					this.model.project.set( "status", 1 ).save().then( () => {
@@ -73,12 +90,14 @@ export default Controller.extend( {
 			} else {
 				this.set( "loadingForSubmit", false )
 			}
+
 		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" ) {
 			let proposalId = this.model.project.get( "proposal.id" ),
 				projectId = this.model.project.get( "id" ),
 				periodId = this.model.period.get( "id" ),
 				type = this.model.project.get( "proposal.case" ),
 				phase = this.model.period.get( "phase" )
+
 
 			this.get( "ajax" ).post( "/callR", {
 				headers: {
@@ -98,6 +117,7 @@ export default Controller.extend( {
 				window.console.log( res )
 				window.console.log( "callBackend Success!" )
 				this.set( "calcDone", true )
+				this.set( "callBackEndSucId",res.id )
 			} )
 		}
 	},
@@ -127,16 +147,16 @@ export default Controller.extend( {
 			aResources = {}, // 被分配的resource
 			hospitalWithoutResource = [],
 			allBudget = this.model.project.proposal.get( "quota.totalBudget" )
-			// currentMeetingPlaces = 0,
-			// currentManagementTime = 0,
-			// resourceWithLeftTime = [],
-			// currentManagementPoint = 0,
-			// hospitalWithoutMeetingPlaces = [],
-			// hospitalWithoutBudgetOrSales = [],
-			// allManagementPoint = this.model.project.proposal.get( "quota.managerKpi" )
-			// allSalesTarget = this.model.project.proposal.get( "quota.totalQuotas" ),
-			// allMeetingPlaces = this.model.project.proposal.get( "quota.meetingPlaces" ),
-			// allManagementTime = this.model.project.proposal.get( "quota.mangementHours" )
+		// currentMeetingPlaces = 0,
+		// currentManagementTime = 0,
+		// resourceWithLeftTime = [],
+		// currentManagementPoint = 0,
+		// hospitalWithoutMeetingPlaces = [],
+		// hospitalWithoutBudgetOrSales = [],
+		// allManagementPoint = this.model.project.proposal.get( "quota.managerKpi" )
+		// allSalesTarget = this.model.project.proposal.get( "quota.totalQuotas" ),
+		// allMeetingPlaces = this.model.project.proposal.get( "quota.meetingPlaces" ),
+		// allManagementTime = this.model.project.proposal.get( "quota.mangementHours" )
 
 		// 销售额指标超标或者未分配
 		window.console.log( this.allProductInfo )
@@ -504,6 +524,7 @@ export default Controller.extend( {
 			}
 		} ).then( res => {
 			window.console.log( res )
+			this.set( "calcJobId",res.id )
 			window.console.log( "callR Success!" )
 		} )
 	},
@@ -531,6 +552,7 @@ export default Controller.extend( {
 		} ).then( res => {
 			window.console.log( res )
 			window.console.log( "callE Success!" )
+			this.set( "callEId",res.id )
 		} )
 	},
 	validation( proposalCase ) {

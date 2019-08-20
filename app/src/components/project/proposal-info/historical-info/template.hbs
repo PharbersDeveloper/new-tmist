@@ -126,7 +126,7 @@
 												onClick=(action 'chooseProd' '')}}
 										{{t "project.proposal-info.historical-info.total-products"}}
 									{{/menu.option}}
-									{{#each products as |psrs|}}
+									{{#each selfProducts as |psrs|}}
 										{{#menu.option value=psrs
 												onClick=(action 'chooseProd' psrs)}}
 											{{psrs.name}}
@@ -301,7 +301,7 @@
 												onClick=(action 'chooseProd' '')}}
 										{{t "project.proposal-info.historical-info.total-products"}}
 									{{/menu.option}}
-									{{#each products as |psrs|}}
+									{{#each selfProducts as |psrs|}}
 										{{#menu.option value=psrs
 												onClick=(action 'chooseProd' psrs)}}
 											{{psrs.name}}
@@ -460,7 +460,7 @@
 												onClick=(action 'chooseProd' '')}}
 										{{t "project.proposal-info.historical-info.total-products"}}
 									{{/menu.option}}
-									{{#each products as |prod|}}
+									{{#each selfProducts as |prod|}}
 										{{#menu.option value=prod
 												onClick=(action 'chooseProd' prod)}}
 											{{prod.name}}
@@ -629,7 +629,7 @@
 												onClick=(action 'chooseProd' '')}}
 										{{t "project.proposal-info.historical-info.total-products"}}
 									{{/menu.option}}
-									{{#each products as |prod|}}
+									{{#each selfProducts as |prod|}}
 										{{#menu.option value=prod
 												onClick=(action 'chooseProd' prod)}}
 											{{prod.name}}
