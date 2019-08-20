@@ -4,6 +4,7 @@ import examDelegate from "./exam-delegate/delegate"
 
 export default Service.extend( {
 	store: service(),
+	validation: service("service/validation"),
 	delegate: null,
 	startPeriodExam( aProject ) {
 		this.set( "delegate", examDelegate.create( aProject.belongsTo( "proposal" ) ) )
@@ -13,7 +14,9 @@ export default Service.extend( {
 		return this.delegate.getCurrentPresetsWithPeriod( aPeriod, aProposal, phase )
 	},
 	queryPeriodAnswers( aPeriod, presets, resources ) {
-		return this.delegate.answersForPresets( aPeriod, presets, resources )
+		const answers = this.delegate.answersForPresets( aPeriod, presets, resources )
+		this.validation.setValidateAnswers(answers)
+		return answers
 	},
 	// clearPeriodExam() {
 	// 	this.set( "currentPeriod", null )

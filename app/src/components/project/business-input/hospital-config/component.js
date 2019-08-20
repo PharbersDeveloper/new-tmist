@@ -12,6 +12,7 @@ export default Component.extend( {
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
+	vd: service("service/validation"),
 	sortQuizs: computed( "quizs",function() {
 		let quizs = this.quizs
 

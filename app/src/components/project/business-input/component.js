@@ -372,7 +372,6 @@ export default Component.extend( {
 					set( this, "legendResourceBudget", budgetArr )
 
 				} else {
-					// TODO: 所有的validation都要重做
 					this.set( "warning", {
 						open: true,
 						title: "设定超额",

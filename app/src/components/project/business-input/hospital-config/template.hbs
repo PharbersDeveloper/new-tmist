@@ -105,9 +105,16 @@
 					</td>
 					<td class="border-0">
 						{{#bp-layout main="center" direction="row"}}
+							{{!-- {{bp-input block=true  
+									value=quiz.answer.salesTarget
+									onChange=(action "salesTargetValidation" quiz.answer "salesTarget" )
+									disabled=disabledInput
+									local-class="input-prepend input-money sales-input"
+									classNames="mb-2 px-0"}} --}}
 							{{bp-input block=true  
 									value=quiz.answer.salesTarget
-									onChange=(action "salesTargetValidation" quiz.answer "salesTarget" (mut quiz.answer.salesTarget))
+									focusIn=(action "setOldValue" quiz.answer.salesTarget target=vd)
+									focusOut=(action "runValidate" quiz.answer "saleTarget" target=vd)
 									disabled=disabledInput
 									local-class="input-prepend input-money sales-input"
 									classNames="mb-2 px-0"}}

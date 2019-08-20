@@ -5,6 +5,7 @@ import { A } from "@ember/array"
 
 export default Route.extend( {
 	facade: service( "service/exam-facade" ),
+	validation: service("service/validation"),
 	model( params ) {
 		const project = this.modelFor( "page.project" ),
 			prs = project.belongsTo( "proposal" ),
@@ -36,10 +37,6 @@ export default Route.extend( {
 				return this.store.query( "model/resource", { filter: "(id,:in," + "[" + hids + "]" + ")" } )
 			} ),
 
-			validation = prs.load().then( x => {
-				return x.belongsTo( "validation" ).load()
-			} ),
-
 			quota = prs.load().then( x => {
 				return x.belongsTo( "quota" ).load()
 			} ),
@@ -51,6 +48,10 @@ export default Route.extend( {
 				return "`" + `${x}` + "`"
 			} ).join( "," )
 
+			prs.load().then( x => {
+				return this.validation.createValidatePattern(x, x.hasMany( "validations" ).load())
+			} )
+
 		let periods = null
 
 		if ( periodsIds.length ) {
@@ -58,7 +59,6 @@ export default Route.extend( {
 		} else {
 			periods = A( [period] )
 		}
-
 
 		this.facade.startPeriodExam( project )
 
@@ -102,7 +102,7 @@ export default Route.extend( {
 			presets: presets.then( x => x.filter( it => it.category == 8 && it.phase == 0 ) ),
 			productQuotas: presets.then( x => x.filter( it => it.category == 4 && it.phase == 0 ) ),
 			answers: answers,
-			validation: validation,
+			// validation: validation,
 			quota: quota,
 			dragInfo: dragInfo,
 			kpiInfo: kpiInfo,
@@ -112,6 +112,6 @@ export default Route.extend( {
 	setupController( controller, model ) {
 		this._super( controller, model )
 		this.controllerFor( "page.project.period" ).Subscribe()
-		this.controllerFor( "page.project.period" ).callE()
+		// this.controllerFor( "page.project.period" ).callE()
 	}
 } )
