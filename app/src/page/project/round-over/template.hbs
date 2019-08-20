@@ -77,7 +77,7 @@
 				{{/bp-dropdown}} --}}
 			{{/bp-layout}}
 			{{#bp-layout local-class="export" direction="row"}}
-				{{#bp-button}}
+				{{#bp-button click=(action "exportReport")}}
 					{{bp-icon icon='export'}}
 					<span class="ml-1">导出报告</span>
 				{{/bp-button}}
