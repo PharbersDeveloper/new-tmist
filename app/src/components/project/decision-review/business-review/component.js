@@ -44,6 +44,8 @@ export default Component.extend( {
 		this.resources.forEach( x => {
 			arr.push( x )
 		} )
+
+		arr.unshift( { name: "未分配" } )
 		arr.unshift( { name: "全部" } )
 
 		return A( arr )
@@ -90,7 +92,10 @@ export default Component.extend( {
 		}
 
 		if ( this.curRes ) {
-			if ( this.curRes.name !== "全部" ) {
+			if ( this.curRes.name === "未分配" ) {
+
+				result = result.filter( x => !x.resource.get( "id" ) )
+			} else if ( this.curRes.name !== "全部" ) {
 				// result = result
 				result = result.filter( x => x.resource.get( "id" ) === this.curRes.get( "id" ) )
 			}
