@@ -54,7 +54,8 @@
 		{{/bp-layout}}
 		{{#bp-layout classNames="" cross="center" local-class="city-hospital"}}
 			{{#each regions as |item index|}}
-			{{#bp-button classNames="mr-3" onClick=(action (mut currentGroupIndex) index) }}
+			{{#bp-button classNames="mr-3" onClick=(action (mut currentGroupIndex) index) 
+			local-class=(if (bp-eq currentGroupIndex index) "active")}}
 				{{item.value}}
 			{{/bp-button}}
 			{{/each}}
