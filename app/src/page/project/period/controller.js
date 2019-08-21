@@ -122,7 +122,7 @@ export default Controller.extend( {
 				data: {
 					callr: false,
 					type: type,
-					phase: String( Number( phase ) + 1 ),
+					phase: String( phase ),
 					proposalId: proposalId,
 					projectId: projectId,
 					periodId: periodId
