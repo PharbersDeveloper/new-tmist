@@ -24,7 +24,7 @@ export default Component.extend( {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
 
-		this.get( "productQuotas" ).forEach( p => {
+		this.get( "productQuotas" ).sortBy( "product.name" ).forEach( p => {
 			let obj = {}
 
 			obj.name = p.get( "product.name" )
@@ -50,6 +50,7 @@ export default Component.extend( {
 			arr.push( obj )
 
 		} )
+
 		return A( arr )
 	} ),
 	allBudget: computed( "quota", function () {
@@ -223,68 +224,33 @@ export default Component.extend( {
 		)
 		return A( arr )
 	},
-	// inputMaxValue( all, value, type ) {
-	// 	let sum = 0,
-	// 		showTitle = ""
+	updateResourceBudgetData() {
+		let arrC = this.getResourceBudgetData(),
+			arrL = this.getResourceBudgetData()
 
-	// 	if ( value === "budget" ) {
-	// 		showTitle = "预算"
-	// 	} else if ( value === "salesTarget" ) {
-	// 		showTitle = "销售额"
-	// 	} else if ( value === "meetingPlaces" ) {
-	// 		showTitle = "会议名额"
-	// 	}
+		arrC.forEach( x => {
+			if ( x.value < 0 ) {
+				x.value = 0
+			}
+		} )
 
-	// 	this.get( "answers" ).forEach( answer => {
-	// 		let curValue = answer.get( value )
+		set( this, "circleBudgetData", arrC )
+		set( this, "legendResourceBudget", arrL )
 
-	// 		if ( type === "Number" ) {
-	// 			let checkValue = this.inputTypeNumber( curValue )
+	},
+	updateProductBudgetData() {
+		let arrC = this.getProductBudgetData(),
+			arrL = this.getProductBudgetData()
 
-	// 			if ( checkValue ) {
-	// 				sum += checkValue
-	// 				if ( all < sum ) {
-	// 					this.set( "warning", {
-	// 						open: true,
-	// 						title: `总${showTitle}超额`,
-	// 						detail: `总${showTitle}设定已超过限制，请重新分配。`
-	// 					} )
-	// 				}
-	// 			}
-	// 		}
-	// 	} )
+		arrC.forEach( x => {
+			if ( x.value < 0 ) {
+				x.value = 0
+			}
+		} )
 
-	// 	if ( value === "budget" ) {
-	// 		this.set( "currentBudget", sum )
-	// 	} else if ( value === "salesTarget" ) {
-	// 		this.set( "currentSalesTarget", sum )
-	// 	} else if ( value === "meetingPlaces" ) {
-	// 		this.set( "currentMeetingPlaces", sum )
-	// 	}
-	// },
-	// getInputType( str ) {
-	// 	let typeRules = this.validation["inputType"].split( "*" ),
-	// 		businessInputTypeRule = ""
-
-	// 	typeRules.forEach( e => {
-	// 		if ( e.startsWith( str ) ) {
-	// 			businessInputTypeRule = e
-	// 		}
-	// 	} )
-	// 	return String( businessInputTypeRule.split( "#" )[1] )
-	// },
-	// getInputMaxValue( str ) {
-	// 	let maxValueRules = this.validation["maxValue"].split( "*" ),
-	// 		businessInputMaxValueRule = ""
-
-	// 	maxValueRules.forEach( e => {
-	// 		if ( e.startsWith( str ) ) {
-	// 			businessInputMaxValueRule = e
-	// 		}
-	// 	} )
-	// 	// 传入i  取第[i]周期
-	// 	return Number( businessInputMaxValueRule.split( "#" )[1] )
-	// },
+		set( this, "circleProductData", arrC )
+		set( this, "legendProductBudget", arrL )
+	},
 	actions: {
 		selectResource( rs ) {
 			set( this, "curResource", rs )
@@ -333,14 +299,10 @@ export default Component.extend( {
 			this.exam.resetBusinessAnswer( this.answers, this.curAnswerToReset.get( "target.id" ) )
 			this.toggleProperty( "resourceHospital" )
 		},
-		calculateVisitTime( visitTime ) {
-			this.set( this.allVisitTime, this.allVisitTime - visitTime )
-		},
+		// calculateVisitTime( visitTime ) {
+		// 	this.set( this.allVisitTime, this.allVisitTime - visitTime )
+		// },
 		budgetValidationHandle( answer, input ) {
-			// let allBudget = this.getInputMaxValue( "businessMaxBudget" ),
-			// 	inputType = this.getInputType( "businessBudgetInputType" )
-
-			// this.inputMaxValue( allBudget, "budget", inputType )
 			let isNumer = this.checkNumber( answer.get( input ) )
 
 			if ( isNumer ) {
@@ -360,16 +322,19 @@ export default Component.extend( {
 					set( curProductInfo.firstObject, "curBudget", cur )
 					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
 
-					let productDataArr = this.getProductBudgetData(),
-						budgetArr = this.getResourceBudgetData(),
-						budgetColor = this.getBudgetCircleColor()
+					// let productDataArr = this.getProductBudgetData()
+					// budgetArr = this.getResourceBudgetData()
+					// budgetColor = this.getBudgetCircleColor()
 
-					set( this, "circleProductData", productDataArr )
-					set( this, "circleBudgetData", budgetArr )
-					set( this, "circleBudgetColor", budgetColor )
+					// set( this, "circleProductData", productDataArr )
+					// set( this, "circleBudgetData", budgetArr )
+					// set( this, "circleBudgetColor", budgetColor )
 
-					set( this, "legendProductBudget", productDataArr )
-					set( this, "legendResourceBudget", budgetArr )
+					// set( this, "legendProductBudget", productDataArr )
+					// set( this, "legendResourceBudget", budgetArr )
+
+					this.updateResourceBudgetData()
+					this.updateProductBudgetData()
 
 				} else {
 					// TODO: 所有的validation都要重做
@@ -382,14 +347,14 @@ export default Component.extend( {
 					set( curProductInfo.firstObject, "curBudget", cur )
 					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
 
-					let productDataArr = this.getProductBudgetData(),
-						budgetArr = this.getResourceBudgetData()
+					// let productDataArr = this.getProductBudgetData()
+					// budgetArr = this.getResourceBudgetData()
 
-					set( this, "legendProductBudget", productDataArr )
-					set( this, "legendResourceBudget", budgetArr )
+					// set( this, "legendProductBudget", productDataArr )
+					// set( this, "legendResourceBudget", budgetArr )
 
-					window.console.log( this.legendProductBudget )
-					window.console.log( this.legendResourceBudget )
+					this.updateResourceBudgetData()
+					this.updateProductBudgetData()
 
 				}
 
