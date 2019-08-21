@@ -1,7 +1,7 @@
 {{#bp-layout local-class="header"}}
 	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
-		{{#bp-layout direction="row" main="start"}}
-			{{#bp-layout click=(action "changedResource" sortQuizs.firstObject.answer) local-class=(if hasResource "icon-active")}}{{bp-icon icon="check-circle" }}{{/bp-layout}}
+		{{#bp-layout direction="row" main="start" click=(action "changedResource" sortQuizs.firstObject.answer) local-class="click-part"}}
+			{{#bp-layout local-class=(if hasResource "icon-active")}}{{bp-icon icon="check-circle" }}{{/bp-layout}}
 			{{hospital.name}}
 		{{/bp-layout}}
 		{{#bp-layout direction="row" cross="center"}}
