@@ -18,7 +18,7 @@ export default Component.extend( {
 		if ( isEmpty( quizs ) ) {
 			return quizs
 		}
-		return quizs.sortBy( "preset.product.name" ).reverse()
+		return quizs.sortBy( "preset.product.name" )
 	} ),
 	// showContent: true,
 	showContent: computed( "curHospitalId", function() {
@@ -35,8 +35,8 @@ export default Component.extend( {
 		}
 		return false
 	} ),
-	disabledInput: computed( "checked", function() {
-		return !this.checked
+	disabledInput: computed( "resourceHospital", function() {
+		return !this.hasResource
 	} ),
 	hasResource: computed( "resourceHospital", function() {
 		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
