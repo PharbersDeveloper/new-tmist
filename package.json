@@ -67,6 +67,7 @@
 	"dependencies": {
 		"@fortawesome/ember-fontawesome": "^0.1.14",
 		"@fortawesome/free-solid-svg-icons": "^5.9.0",
+		"ali-oss": "^6.1.1",
 		"bp-components": "*",
 		"cldr-core": "^35.1.0",
 		"eslint": "^6.0.1",
