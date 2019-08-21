@@ -78,6 +78,7 @@
 				<th class="border-0 pb-2 pr-2 pl-0 text-left">产品名称</th>
 				{{#if (bp-eq proposal.case "ucb")}}
 						<th class="border-0 pb-2 px-2 text-left">患者数量</th>
+						<th class="border-0 pb-2 px-2 text-left">准入情况</th>
 				{{else if (bp-eq proposal.case "tm")}}
 						<th class="border-0 pb-2 px-2 text-left">药品潜力</th>
 				{{/if}}
@@ -92,14 +93,24 @@
 					<td class="pr-2 border-0 text-left">
 						{{quiz.preset.product.name}}
 					</td>
-					<td class="px-2 border-0 text-left">
-						
 						{{#if (bp-eq proposal.case "ucb")}}
+						<td class="px-2 border-0 text-left">
 						{{format-number quiz.report.currentPatientNum}}
+						</td>
+
+						<td class="px-2 border-0 text-left">
+								{{#if (bp-eq quiz.report.currentDurgEntrance 1)}}
+									已开发
+								{{else}}
+									未开发
+								{{/if}}
+						</td>
 						{{else if (bp-eq proposal.case "tm")}}
-						￥{{format-number quiz.preset.potential}}
+						<td class="px-2 border-0 text-left">
+							￥{{format-number quiz.preset.potential}}
+						</td>
 						{{/if}}
-					</td>
+
 					<td class="px-2 border-0 text-left">
 						￥{{format-number quiz.preset.lastSales 0}}
 					</td>
