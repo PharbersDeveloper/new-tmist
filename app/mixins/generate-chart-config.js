@@ -280,7 +280,6 @@ export default Mixin.create( {
 					type: "line"
 				}]
 			}]
-
 		}
 	},
 	generateRepRadar( rowId,chartId ,max ) {

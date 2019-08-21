@@ -41,7 +41,7 @@
 							{{#bp-layout classNames="mt-2"}}
 								<span local-class="span-last">
 									{{!-- {{t "card.hospital-card.money"}} --}}
-									{{format-number selfPayPercentage}}%
+									{{bp-percent hospital.selfPayPercentage}}
 								</span>
 							{{/bp-layout}}
 						{{/bp-layout}}
@@ -78,7 +78,7 @@
 							未开发
 							{{/if}}
 						{{/bp-layout}}
-						{{#bp-layout tagName="td" main="center"}}{{item.currentPatientNum}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}{{format-number item.currentPatientNum}}{{/bp-layout}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{/each}}
@@ -87,9 +87,9 @@
 			{{#bp-layout}}
 				<div local-class="dynamic others" class="p-4">
 					<h4 local-class="title" class="mb-2">{{t "card.hospital-card.dynamic"}}</h4>
-					{{#each hospital.policies as |policy|}}
+					{{#each currentPolicies as |policy|}}
 						<p local-class="content" class="mb-2">
-							{{policy.describe}}
+							{{policy.currentPolicy}}
 						</p>
 					{{/each}}
 				</div>

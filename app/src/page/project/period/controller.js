@@ -49,16 +49,26 @@ export default Controller.extend( {
 	onMessage( msg ) {
 		window.console.info( "Emitter Controller" )
 		window.console.info( msg.channel + " => " + msg.asString() )
+		window.console.info( "firstCallEId" + " => " + this.firstCallEId )
+		window.console.info( "secondCallEId" + " => " + this.secondCallEId )
+		window.console.info( "calcJobId" + " => " + this.calcJobId )
 
-		let msgObj = msg.asObject(),
-			subMsg = JSON.parse( msgObj.msg )
+		let msgObj = msg.asObject()
+
+		if ( msgObj.status === "error" && this.calcJobId === msgObj.jobId ) {
+			this.set( "loadingForSubmit", false )
+			window.console.log( "计算出错啦 FXXXXXXXXXXXXXXXk" )
+			return
+		}
+
+		let subMsg = JSON.parse( msgObj.msg )
 
 		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
 			this.runtimeConfig.set( "jobId", subMsg.job_id )
 
-			if ( this.callEId === msgObj.jobId ) {
+			if ( this.firstCallEId === msgObj.jobId ) {
 				window.localStorage.setItem( "jobId", subMsg.job_id )
-				// if ( this.calcDone === true && this.callBackEndSucId === msgObj.jobId) {
+				// if ( this.calcDone === true && this.secondCallEId === msgObj.jobId) {
 
 				// 	if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
 				// 		this.model.project.set( "status", 1 ).save().then( () => {
@@ -74,11 +84,14 @@ export default Controller.extend( {
 				this.set( "loadingForSubmit", false )
 				// }
 
-			} else if ( this.calcDone === true && this.callBackEndSucId === msgObj.jobId ) {
+			} else if ( this.calcDone === true && this.secondCallEId === msgObj.jobId ) {
 				window.localStorage.setItem( "jobId", subMsg.job_id )
 
 				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-					this.model.project.set( "status", 1 ).save().then( () => {
+					this.model.project.set( "status", 1 )
+					this.model.project.set( "endTime", new Date().getTime() )
+					this.model.project.set( "lastUpdate", new Date().getTime() )
+					this.model.project.save().then( () => {
 						this.set( "loadingForSubmit", false )
 						this.transitionToRoute( "page.project.result" )
 					} )
@@ -86,6 +99,9 @@ export default Controller.extend( {
 					this.set( "loadingForSubmit", false )
 					this.transitionToRoute( "page.project.result" )
 				}
+
+				// pressure test
+				// this.set( "loadingForSubmit", false )
 				// document.getElementById( "submit-btn" ).click()
 			}
 
@@ -115,7 +131,7 @@ export default Controller.extend( {
 				window.console.log( res )
 				window.console.log( "callBackend Success!" )
 				this.set( "calcDone", true )
-				this.set( "callBackEndSucId",res.id )
+				this.set( "secondCallEId",res.id )
 			} )
 		}
 	},
@@ -550,7 +566,7 @@ export default Controller.extend( {
 		} ).then( res => {
 			window.console.log( res )
 			window.console.log( "callE Success!" )
-			this.set( "callEId",res.id )
+			this.set( "firstCallEId",res.id )
 		} )
 	},
 	validation( proposalCase ) {

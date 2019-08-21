@@ -49,9 +49,12 @@ export default Route.extend( {
 			periodsIds = project.hasMany( "periods" ).ids(),
 			pidsForSearch = periodsIds.map( x => {
 				return "`" + `${x}` + "`"
-			} ).join( "," )
+			} ).join( "," ),
 
-		let periods = null
+			phase = project.get( "periods" ).length - 1
+
+		let periods = null,
+			policies = null
 
 		if ( periodsIds.length ) {
 			periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
@@ -93,20 +96,31 @@ export default Route.extend( {
 				return this.store.query( "model/preset", { filter: condi } )
 			} )
 
+		policies = prs.load().then( x => {
+
+			return RSVP.hash( { prsId: x.id, periods } )
+		} ).then( data => {
+			let sourtPeriods = data.periods.sortBy( "phase" )
+
+			return this.store.query( "model/preset", { filter: "(:and," + "(proposalId,:eq,`" + data.prsId + "`)" + `,(phase,:eq,${sourtPeriods.lastObject.phase})` + "," + "(category,:eq,32)" + ")" } )
+		} )
+
+
 		return RSVP.hash( {
 			period: period,
 			project: project,
 			hospitals: hospitals,
 			products: products,
 			resources: resources,
-			presets: presets.then( x => x.filter( it => it.category == 8 && it.phase == 0 ) ),
-			productQuotas: presets.then( x => x.filter( it => it.category == 4 && it.phase == 0 ) ),
+			presets: presets.then( x => x.filter( it => it.category === 8 && it.phase === phase ) ),
+			productQuotas: presets.then( x => x.filter( it => it.category === 4 && it.phase === phase ) ),
 			answers: answers,
 			validation: validation,
 			quota: quota,
 			dragInfo: dragInfo,
 			kpiInfo: kpiInfo,
-			periods: periods
+			periods: periods,
+			policies
 		} )
 	},
 	setupController( controller, model ) {
