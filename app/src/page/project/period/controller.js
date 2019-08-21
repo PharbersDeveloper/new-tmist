@@ -53,9 +53,16 @@ export default Controller.extend( {
 		window.console.info( "secondCallEId" + " => " + this.secondCallEId )
 		window.console.info( "calcJobId" + " => " + this.calcJobId )
 
-		let msgObj = msg.asObject(),
-			subMsg = JSON.parse( msgObj.msg )
+		let msgObj = msg.asObject()
+		
 
+		// if ( msgObj.status === "error" ) {
+		// 	this.set( "loadingForSubmit", false )
+		// 	document.getElementById( "submit-btn" ).click()
+		// 	return
+		// }
+		let subMsg = JSON.parse( msgObj.msg )
+		
 		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
 			this.runtimeConfig.set( "jobId", subMsg.job_id )
 
@@ -80,19 +87,19 @@ export default Controller.extend( {
 			} else if ( this.calcDone === true && this.secondCallEId === msgObj.jobId ) {
 				window.localStorage.setItem( "jobId", subMsg.job_id )
 
-				// if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-				// 	this.model.project.set( "status", 1 ).save().then( () => {
-				// 		this.set( "loadingForSubmit", false )
-				// 		this.transitionToRoute( "page.project.result" )
-				// 	} )
-				// } else {
-				// 	this.set( "loadingForSubmit", false )
-				// 	this.transitionToRoute( "page.project.result" )
-				// }
+				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
+					this.model.project.set( "status", 1 ).save().then( () => {
+						this.set( "loadingForSubmit", false )
+						this.transitionToRoute( "page.project.result" )
+					} )
+				} else {
+					this.set( "loadingForSubmit", false )
+					this.transitionToRoute( "page.project.result" )
+				}
 
 				// pressure test
-				this.set( "loadingForSubmit", false )
-				document.getElementById( "submit-btn" ).click()
+				// this.set( "loadingForSubmit", false )
+				// document.getElementById( "submit-btn" ).click()
 			}
 
 		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" && this.calcJobId === msgObj.jobId ) {
