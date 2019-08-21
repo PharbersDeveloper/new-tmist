@@ -107,7 +107,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	},
 	genDownloadUrl() {
 
-		this.get( "ajax" ).request( `/export/${this.project.get( "id" )}/phase/${this.curSelPeriod.get( "phase" )}`, {
+		this.get( "ajax" ).request( `/export/${this.project.get( "id" )}/phase/${this.curSelPeriod.get( "phase" ) + 1}`, {
 			headers: {
 				"dataType": "json",
 				"Content-Type": "application/json",

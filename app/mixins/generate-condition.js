@@ -664,7 +664,7 @@ export default Mixin.create( {
 					},
 					"aggs": [
 						{
-							"groupBy": "phase",
+							"groupBy": "%2Bphase",
 							"aggs": [
 								{
 									"groupBy": "product.keyword",
