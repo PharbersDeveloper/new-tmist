@@ -12,6 +12,13 @@ export default Route.extend( {
 		console.log( this.modelFor( "page.project" ) )
 		console.log( this.modelFor( "page.project.period" ) )
 		const project = this.modelFor( "page.project" ),
+			fids = project.hasMany( "finals" ).ids(),
+			fhids = fids.map( x => {
+				return "`" + `${x}` + "`"
+			} ).join( "," ),
+
+			finals = this.store.query( "model/final", { filter: "(id,:in," + "[" + fhids + "]" + ")" } ),
+
 			prs = project.belongsTo( "proposal" ),
 			hospitals = prs.load().then( x => {
 				const ids = x.hasMany( "targets" ).ids(),
@@ -45,7 +52,7 @@ export default Route.extend( {
 			reports = this.store.query( "model/report", { filter: condi } )
 
 		return RSVP.hash( {
-			// proposal: proposal,
+			finals: finals,
 			project: project,
 			// period: period,
 			reports: reports,
