@@ -106,11 +106,10 @@ export default Component.extend( {
 		let num = 0
 
 		this.get( "answers" ).uniqBy( "target.id" ).forEach( answer => {
-			if ( answer.get( "resource" ) ) {
+			if ( answer.get( "resource.id" ) ) {
 				num += 1
 			}
 		} )
-
 		return num
 	},
 	transNumber( input ) {
@@ -309,7 +308,7 @@ export default Component.extend( {
 				this.toggleProperty( "resourceHospital" )
 				window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ) )
 			}
-
+			window.console.log( this.resourceHospital )
 		},
 		cancelRepresentatives( answer ) {
 			if ( answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {
@@ -324,6 +323,7 @@ export default Component.extend( {
 				this.exam.cancelBusinessResource( this.answers, answer.get( "target" ) )
 			}
 			this.toggleProperty( "resourceHospital" )
+			window.console.log( this.resourceHospital )
 		},
 		resetBusiness() {
 			// this.exam.cancelBusinessResource( this.answers, answer.get( "target" ) )
