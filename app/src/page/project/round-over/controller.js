@@ -6,33 +6,33 @@ export default Controller.extend( {
 	ossService: service( "service/oss" ),
 	ajax: service(),
 	cookies: service(),
-	endTime: computed( "this.model.project", function () {
-		let date = new Date( this.model.project.endTime ),
-			y = date.getFullYear() + "-",
-			m = ( date.getMonth() + 1 < 10 ? "0" + ( date.getMonth() + 1 ) : date.getMonth() + 1 ) + "-",
-			d = date.getDate() + " ",
-			h = ( date.getHours() + 1 < 10 ? "0" + date.getHours() : date.getHours() ) + ":",
-			mins = date.getMinutes() + 1 < 10 ? "0" + date.getMinutes() : date.getMinutes(),
-			time = y + m + d + h + mins
+	// endTime: computed( "this.model.project", function () {
+	// 	let date = new Date( this.model.project.endTime ),
+	// 		y = date.getFullYear() + "-",
+	// 		m = ( date.getMonth() + 1 < 10 ? "0" + ( date.getMonth() + 1 ) : date.getMonth() + 1 ) + "-",
+	// 		d = date.getDate() + " ",
+	// 		h = ( date.getHours() + 1 < 10 ? "0" + date.getHours() : date.getHours() ) + ":",
+	// 		mins = date.getMinutes() + 1 < 10 ? "0" + date.getMinutes() : date.getMinutes(),
+	// 		time = y + m + d + h + mins
 
-		return time
-	} ),
-	spendTime: computed( "this.model.project", function () {
-		if ( this.model.project.endTime < this.model.project.startTime ) {
-			return 0
-		}
+	// 	return time
+	// } ),
+	// spendTime: computed( "this.model.project", function () {
+	// 	if ( this.model.project.endTime < this.model.project.startTime ) {
+	// 		return 0
+	// 	}
 
-		let date = new Date( this.model.project.endTime - this.model.project.startTime ),
-			h = date.getHours(),
-			m = date.getMinutes()
+	// 	let date = new Date( this.model.project.endTime - this.model.project.startTime ),
+	// 		h = date.getHours(),
+	// 		m = date.getMinutes()
 
-		if ( h ) {
+	// 	if ( h ) {
 
-			return h + "时" + m + "分"
-		} else {
-			return m + "分"
-		}
-	} ),
+	// 		return h + "时" + m + "分"
+	// 	} else {
+	// 		return m + "分"
+	// 	}
+	// } ),
 	downloadURI( urlName ) {
 		window.console.log( urlName )
 		fetch( urlName.url )
@@ -63,7 +63,7 @@ export default Controller.extend( {
 	genDownloadUrl() {
 
 
-		this.get( "ajax" ).request( `/export/${this.model.project.get( "id" )}/phase/${this.model.project.get( "periods" ).length - 1}`, {
+		this.get( "ajax" ).request( `/export/${this.model.project.get( "id" )}/phase/${this.model.project.get( "periods" ).length}`, {
 			headers: {
 				"dataType": "json",
 				"Content-Type": "application/json",
