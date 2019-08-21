@@ -4,6 +4,11 @@
 			<span {{action "changeSalesValue" 0}}
 				role="button">{{t "project.proposal-info.product-info.produce-sale-report"}}</span>
 		{{/bp-layout}}
+		{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq salesGroupValue 3) "active") classNames="px-4"}}
+			<span {{action "changeSalesValue" 3}} role="button">
+				地区销售报告
+			</span>
+		{{/bp-layout}}
 		{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq salesGroupValue 1) "active") classNames="px-4"}}
 			<span {{action "changeSalesValue" 1}}role="button">
 				{{t "project.proposal-info.product-info.representative-sale-report"}}
@@ -14,11 +19,7 @@
 			<span {{action "changeSalesValue" 2}}
 				role="button">{{t "project.proposal-info.product-info.hospital-sale-report"}}</span>
 		{{/bp-layout}}
-		{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq salesGroupValue 3) "active") classNames="px-4"}}
-			<span {{action "changeSalesValue" 3}} role="button">
-				地区销售报告
-			</span>
-		{{/bp-layout}}
+		
 	{{/bp-layout}}
 	{{#bp-layout local-class="content"}}
 		{{#if (bp-eq salesGroupValue 0)}}
