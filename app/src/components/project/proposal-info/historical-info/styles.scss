@@ -14,10 +14,41 @@ h2.title {
 	width: 1152px;
 }
 
+.header-export {
+	width: 100%;
+	height: 54px;
+
+	h4 {
+		font-size: 16px;
+		color: #172b4d;
+	}
+
+	button {
+		border-radius: 4px;
+		height: 32px;
+		width: 80px;
+		font-size: 14px;
+		color: #505f79;
+	}
+}
+
 .nav {
 	flex: 0 0 270px;
-	height: 100%;
+	height: fit-content;
 	list-style: none;
+
+	div {
+		height: 68px;
+		// height: 100%;
+		cursor: pointer;
+		font-weight: 500;
+		font-size: 14px;
+		color: #172b4d;
+
+		&.active {
+			background-color: $n020a;
+		}
+	}
 
 	li {
 		@extend %header-small;
@@ -37,11 +68,11 @@ h2.title {
 .circle-left,
 .circle-right {
 	flex: 1;
+
 	.title {
 		@extend %header-small;
 	}
 }
-
 
 .circle-legend {
 	span {
@@ -71,12 +102,15 @@ h2.title {
 	.report {
 		flex: 1;
 		overflow-x: auto;
+
 		&.representative .choose-container {
 			height: 64px;
 		}
+
 		.choose-container h2.title {
 			flex: 1;
 		}
+
 		.choose-area {
 			flex: 1;
 
