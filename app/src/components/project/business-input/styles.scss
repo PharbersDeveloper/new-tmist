@@ -273,7 +273,7 @@
       height: fit-content;
 
       & > .resource-list {
-        overflow-y: scroll;
+        overflow-y: auto;
         height: calc(100vh - 477px);
       }
 
@@ -351,7 +351,7 @@
 
       .hospital-config {
         width: 760px;
-        overflow-y: scroll;
+        overflow-y: auto;
         height: calc(100vh - 481px);
 
         .line {

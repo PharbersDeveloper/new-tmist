@@ -3,7 +3,7 @@ import Controller from "@ember/controller"
 // import { computed } from "@ember/object"
 import { isEmpty } from "@ember/utils"
 import { A } from "@ember/array"
-import { computed, set } from "@ember/object"
+import EmberObject, { computed, set } from "@ember/object"
 import { inject as service } from "@ember/service"
 import Ember from "ember"
 // import { threadId } from "worker_threads"
@@ -15,6 +15,13 @@ export default Controller.extend( {
 	exam: service( "service/exam-facade" ),
 	runtimeConfig: service( "service/runtime-config" ),
 	em: service( "emitter" ),
+	toastOpt: EmberObject.create( {
+		closeButton: false,
+		positionClass: "toast-top-center",
+		progressBar: false,
+		timeOut: "2000",
+		preventDuplicates: false
+	} ),
 	client: computed( function () {
 		return this.em.GetInstance()
 	} ),
@@ -58,6 +65,7 @@ export default Controller.extend( {
 		if ( msgObj.status === "error" && this.calcJobId === msgObj.jobId ) {
 			this.set( "loadingForSubmit", false )
 			window.console.log( "计算出错啦 FXXXXXXXXXXXXXXXk" )
+			this.toast.error( "", "计算失败，请重试", this.toastOpt )
 			return
 		}
 
@@ -597,34 +605,19 @@ export default Controller.extend( {
 				this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 					this.model.project.set( "lastUpdate", new Date().getTime() )
 					this.model.project.save().then( () => {
-						this.toast.success( "", "保存成功", {
-							closeButton: false,
-							positionClass: "toast-top-center",
-							progressBar: false,
-							timeOut: "2000"
-						} )
+						this.toast.success( "", "保存成功", this.toastOpt )
 						this.callR()
 					} ).catch( err => {
 						window.console.log( err )
 						this.set( "loadingForSubmit", false )
-						this.toast.error( "", "保存失败，请重试", {
-							closeButton: false,
-							positionClass: "toast-top-center",
-							progressBar: false,
-							timeOut: "2000"
-						} )
+						this.toast.error( "", "保存失败，请重试", this.toastOpt )
 						return
 					} )
 				}, err => {
 					console.log("fxxked up")
 					console.log(err)
 					this.set( "loadingForSubmit", false )
-					this.toast.error( "", "保存失败，请重试", {
-						closeButton: false,
-						positionClass: "toast-top-center",
-						progressBar: false,
-						timeOut: "2000"
-					} )
+					this.toast.error( "", "保存失败，请重试", this.toastOpt )
 					return
 				} )
 			}
@@ -655,13 +648,19 @@ export default Controller.extend( {
 			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 				this.model.project.set( "lastUpdate", new Date().getTime() )
 				this.model.project.save().then( () => {
-					this.toast.success( "", "保存成功", {
-						closeButton: false,
-						positionClass: "toast-top-center",
-						progressBar: false,
-						timeOut: "2000"
-					} )
+					this.toast.success( "", "保存成功", this.toastOpt )
+				} ).catch( err => {
+					window.console.log( err )
+					this.set( "loadingForSubmit", false )
+					this.toast.error( "", "保存失败，请重试", this.toastOpt )
+					return
 				} )
+			}, err => {
+				console.log("fxxked up")
+				console.log(err)
+				this.set( "loadingForSubmit", false )
+				this.toast.error( "", "保存失败，请重试", this.toastOpt )
+				return
 			} )
 		},
 		// testResult() {
