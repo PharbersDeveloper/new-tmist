@@ -1,16 +1,16 @@
 {{#bp-layout local-class="review" direction="col"}}
-	{{#bp-layout direction="row" local-class="review-header" classNames="bg-white px-4" main="between"}}
-		{{#bp-layout direction="col"}}
-			{{#bp-layout tagName="h2" local-class="title" classNames="pt-4 pb-1"}}决策回顾{{/bp-layout}}
-			{{#bp-layout tagName="p" local-class="time-info"}}
+	{{#bp-layout direction="row" local-class="review-header" classNames="bg-white p-4 mb-3" main="between"}}
+		{{#bp-layout direction="row" cross="center"}}
+			{{#bp-layout tagName="h2" local-class="title" cross="center" direction="row"}}决策回顾{{/bp-layout}}
+			{{!-- {{#bp-layout tagName="p" local-class="time-info"}}
 				<span>日期</span>
 				<span class="ml-1 mr-4">{{time}}</span>
-				{{!-- <span>用时 50分钟</span> --}}
-			{{/bp-layout}}
+				<span>用时 50分钟</span>
+			{{/bp-layout}} --}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#if (bp-eq proposal.case "tm")}}
-	{{#bp-layout direction="row" local-class="btn-group-sytle" main="center" classNames="mb-4"}}
+	{{#bp-layout direction="row" local-class="btn-group-sytle" main="center" classNames="mb-4 mt-4"}}
 		{{#bp-button onClick=(action (mut curDecisionReview) 0)
 			local-class=(if (bp-eq curDecisionReview 0) "active")}}
 			业务决策回顾

@@ -1,8 +1,10 @@
 import Component from "@ember/component"
 import groupBy from "ember-group-by"
 import { computed } from "@ember/object"
-
+import { A } from "@ember/array"
 export default Component.extend( {
+	classNames: "input-mapping",
+	// localClassNameBindings: A( ["input-mapping"] ),
 	positionalParams: ["project", "presets", "answers", "reports"],
 	p: groupBy( "presets", "hospital.id" ),
 	res: computed( "p", "answers", function() {

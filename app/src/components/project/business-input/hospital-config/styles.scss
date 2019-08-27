@@ -1,7 +1,11 @@
+.hospital-config-component {
+	width: 100%;
+}
+
 h4.title {
 	@extend %header-medium;
 	height: 54px;
-	width: 760px;
+	width: 100%;
 	// cursor: pointer;
 }
 
@@ -215,6 +219,8 @@ h5.title {
 }
 
 .header {
+	width: 100%;
+
 	button {
 		width: 32px;
 		height: 32px;

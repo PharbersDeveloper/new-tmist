@@ -28,6 +28,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 		this.treatmentAreaArr = Array.from( new Set( tmpArr ) )
 		this.set( "curTreatmentArea", this.treatmentAreaArr[0] )
 		// window.console.log( this.treatmentAreaArr )
+		// this.set( "currentProduct", this.products )
 
 		this.getChart( this.curTreatmentArea )
 
@@ -35,7 +36,12 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	actions: {
 		changeProductArea( treatmentArea ) {
 			this.set( "curTreatmentArea", treatmentArea )
-
+			for ( let index = 0; index < this.products.length; index++ ) {
+				if ( this.curTreatmentArea === this.products.objectAt( index ).treatmentArea ) {
+					this.set( "currentProduct", index )
+					break
+				}
+			}
 			this.set( "tmProdsLinesCondition", this.generateProdCompLinesCondition( treatmentArea,this.periodBase, this.periodStep ) )
 		}
 	}
