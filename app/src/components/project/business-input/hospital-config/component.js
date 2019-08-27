@@ -2,9 +2,12 @@ import Component from "@ember/component"
 import { inject as service } from "@ember/service"
 import { computed, set } from "@ember/object"
 import { isEmpty } from "@ember/utils"
+import { A } from "@ember/array"
 // import Ember from "ember"
 
 export default Component.extend( {
+	localClassNames: "hospital-config-component",
+	// localClassNameBindings: A( ["hospital-config-component"] ),
 
 	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers",
 		"budgetValidationOuter", "salesTargetValidationOuter",

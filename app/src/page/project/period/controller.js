@@ -604,7 +604,28 @@ export default Controller.extend( {
 							timeOut: "2000"
 						} )
 						this.callR()
+					} ).catch( err => {
+						window.console.log( err )
+						this.set( "loadingForSubmit", false )
+						this.toast.error( "", "保存失败，请重试", {
+							closeButton: false,
+							positionClass: "toast-top-center",
+							progressBar: false,
+							timeOut: "2000"
+						} )
+						return
 					} )
+				}, err => {
+					console.log("fxxked up")
+					console.log(err)
+					this.set( "loadingForSubmit", false )
+					this.toast.error( "", "保存失败，请重试", {
+						closeButton: false,
+						positionClass: "toast-top-center",
+						progressBar: false,
+						timeOut: "2000"
+					} )
+					return
 				} )
 			}
 			// 使用结束

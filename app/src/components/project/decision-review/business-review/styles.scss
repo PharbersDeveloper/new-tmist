@@ -48,6 +48,8 @@
             tbody {
                 font-size: 14px;
                 color: #344563;
+                height: calc(100vh - 365px);
+                overflow-y: auto;
 
                 // text-align: right;
                 tr {
