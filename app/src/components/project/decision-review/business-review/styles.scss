@@ -1,49 +1,48 @@
 :global(.business-review-wrapper) {
-    width: 100%;
+	width: 100%;
 }
 
 .business-review {
-    width: 100%;
+	width: 100%;
 
-    .select-part {
-        height: 64px;
-        width: 100%;
+	.select-part {
+		height: 64px;
+		width: 100%;
 
-        .part {
-            width: 384px;
-            font-size: 14px;
-            color: #344563;
+		.part {
+			width: 384px;
+			font-size: 14px;
+			color: #344563;
 
-            .btn-list {
-                height: 32px;
-                width: 264px;
+			.btn-list {
+				height: 32px;
+				width: 264px;
 
-                // border-radius: 4px;
-                :global(.dropdown-button) {
-                    height: 32px;
-                    width: 264px;
-                    border-radius: 5px;
-                }
-            }
-        }
-    }
+				// border-radius: 4px;
+				:global(.dropdown-button) {
+					height: 32px;
+					width: 264px;
+					border-radius: 5px;
+				}
+			}
+		}
+	}
 
-    .table {
-        width: 100%;
+	.table {
+		width: 100%;
 
-        table {
-            width: 100%;
-            table-layout: fixed;
+		table {
+			width: 100%;
+			table-layout: fixed;
 
-            thead {
-                font-size: 12px;
-                color: #7a869a;
-                border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+			thead {
+				font-size: 12px;
+				color: #7a869a;
+				border-bottom: 2px solid rgba(9, 30, 66, 0.08);
 
-                th {
-                    flex: 1;
-                }
-            }
+				th {
+					flex: 1;
+				}
 
             tbody {
                 font-size: 14px;
@@ -51,17 +50,19 @@
                 height: calc(100vh - 365px);
                 overflow-y: auto;
 
-                // text-align: right;
-                tr {
-                    width: 100%;
+			tbody {
+				font-size: 14px;
+				color: #344563;
 
-                    td {
-                        flex: 1;
-                    }
+				// text-align: right;
+				tr {
+					width: 100%;
 
-
-                }
-            }
-        }
-    }
+					td {
+						flex: 1;
+					}
+				}
+			}
+		}
+	}
 }

@@ -74,7 +74,17 @@
 				{{#bp-layout tagName="th" main="center"}}城市{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}医院名称{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}产品名称{{/bp-layout}}
-				{{#bp-layout tagName="th" main="center"}}患者数量{{/bp-layout}}
+				{{!-- {{#bp-layout tagName="th" main="center" click=(action "sortByPatient") local-class="sort-title"}} --}}
+				{{#bp-layout tagName="th" main="center"}}
+					患者数量
+					{{!-- {{#if (bp-eq sortFlag 0)}}
+						{{bp-icon icon='sort-des'}}
+					{{else if (bp-eq sortFlag 1)}}
+						{{bp-icon icon='sort-asc'}}
+					{{else}}
+						{{bp-icon icon='sort-default'}}
+					{{/if}} --}}
+				{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}准入情况{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}代表{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}销售指标{{/bp-layout}}
