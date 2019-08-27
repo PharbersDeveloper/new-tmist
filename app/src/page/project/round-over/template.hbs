@@ -38,7 +38,7 @@
 		{{/bp-layout}}
 		{{#bp-layout local-class="sales block" direction="col" main="center" cross="center"}}
 			{{#bp-layout local-class="header-text"}}总销售额{{/bp-layout}}
-			{{#bp-layout}}{{format-number model.report.sales 0}}{{/bp-layout}}
+			{{#bp-layout}}¥{{format-number model.report.sales 0}}{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="time block" main="center" cross="center"}}
 			{{#bp-layout local-class="header-text"}}完成用时{{/bp-layout}}
@@ -58,7 +58,7 @@
 			cross="center" main="center"}}
 			{{#bp-layout local-class="report" direction="row" classNames="mr-4" 
 			 click=(action "toReport")}}
-				执行结果报告
+				周期销售报告
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout local-class="examine-export block" cross="center" direction="row" 

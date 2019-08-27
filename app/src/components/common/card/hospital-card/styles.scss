@@ -20,12 +20,12 @@
 		.infos {
 			flex: 1;
 			width: 872px;
-			height: 368px;
+			height: fit-content;
 
 			.left-info {
 				width: 436px;
 				// height: 368px;
-				border-right: 2px solid rgba(9, 30, 66, 0.08);
+				// border-right: 2px solid rgba(9, 30, 66, 0.08);
 
 				img {
 					flex-grow: 160px;
@@ -67,6 +67,20 @@
 						}
 					}
 				}
+
+				.hospital-desc {
+					margin-top: 40px;
+
+					h4 {
+						font-size: 14px;
+						color: #172b4d;
+					}
+
+					p {
+						font-size: 14px;
+						color: #7a869a;
+					}
+				}
 			}
 
 			.right-info {
@@ -88,6 +102,7 @@
 					width: 338px;
 					font-size: 14px;
 					color: #344563;
+
 					// text-align: right;
 					td {
 						flex: 1;
