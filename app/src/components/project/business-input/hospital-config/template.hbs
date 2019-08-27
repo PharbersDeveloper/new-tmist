@@ -1,7 +1,14 @@
 {{#bp-layout local-class="header"}}
 	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
 		{{#bp-layout direction="row" main="start" click=(action "changedResource" sortQuizs.firstObject.answer) local-class="click-part"}}
-			{{#bp-layout local-class=(if hasResource "icon-active")}}{{bp-icon icon="check-circle" }}{{/bp-layout}}
+			{{#bp-layout direction="row" local-class="check-box" classNames="mr-2"}}
+				{{#if hasResource}}
+				{{!-- {{bp-icon icon="check-circle" }} --}}
+					{{bp-icon icon='hospital-checked'}}
+				{{else}}
+					{{bp-icon icon='hospital-unchecked'}}
+				{{/if}}
+			{{/bp-layout}}
 			{{hospital.name}}
 		{{/bp-layout}}
 		{{#bp-layout direction="row" cross="center"}}
@@ -24,7 +31,16 @@
 				{{/bp-layout}}
 				
 			{{/if}}
-			{{#bp-button local-class="icon-btn" onClick=(action 'selectCurHospital' hospital.id)}}{{bp-icon icon='data'}}{{/bp-button}}
+			{{#bp-layout local-class=(if showContent "icon-button" "icon-button icon-active") 
+				click=(action 'selectCurHospital' hospital.id) direction="row"
+				main="center" cross="center"}}
+				{{!-- {{bp-icon icon='data'}} --}}
+				{{#if showContent}}
+					{{bp-icon icon="right"}}
+				{{else}}
+					{{bp-icon icon="down"}}
+				{{/if}}
+			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}

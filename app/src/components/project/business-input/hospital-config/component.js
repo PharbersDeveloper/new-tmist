@@ -23,15 +23,17 @@ export default Component.extend( {
 		}
 		return quizs.sortBy( "preset.product.name" )
 	} ),
-	// showContent: true,
-	showContent: computed( "curHospitalId", function() {
-		if ( !this.curHospitalId ) {
-			return true
-		} else if ( this.curHospitalId === this.hospital.get( "id" ) ) {
-			return false
-			// this.toggleProperty( "showContent" )
-		}
-	} ),
+	showContent: true,
+	// showContent: computed( "curHospitalId", function() {
+	// 	window.console.log( this.curHospitalId )
+	// 	if ( !this.curHospitalId || this.curHospitalId !== this.hospital.get( "id" ) ) {
+	// 		return true
+	// 	} else if ( this.curHospitalId === this.hospital.get( "id" ) ) {
+
+	// 		// this.toggleProperty( "alreadyShow" )
+	// 		return false
+	// 	}
+	// } ),
 	checked:  computed( function() {
 		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
 			return true
@@ -64,10 +66,8 @@ export default Component.extend( {
 		}
 	},
 	actions: {
-		showContent() {
-			this.toggleProperty( "showContent" )
-		},
 		selectCurHospital( hid ) {
+			this.toggleProperty( "showContent" )
 			this.selectHospital( hid )
 		},
 		changedResource( answer ) {
