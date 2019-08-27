@@ -44,22 +44,24 @@
 					flex: 1;
 				}
 
-            tbody {
-                font-size: 14px;
-                color: #344563;
-                height: calc(100vh - 365px);
-                overflow-y: auto;
+				tbody {
+					font-size: 14px;
+					color: #344563;
+					height: calc(100vh - 365px);
+					overflow-y: auto;
 
-			tbody {
-				font-size: 14px;
-				color: #344563;
+					tbody {
+						font-size: 14px;
+						color: #344563;
 
-				// text-align: right;
-				tr {
-					width: 100%;
+						// text-align: right;
+						tr {
+							width: 100%;
 
-					td {
-						flex: 1;
+							td {
+								flex: 1;
+							}
+						}
 					}
 				}
 			}
