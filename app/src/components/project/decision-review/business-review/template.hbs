@@ -95,6 +95,11 @@
 				{{/if}}
 			{{/bp-layout}}
 			{{#bp-layout tagName="tbody" direction="col"}}
+				{{#if (bp-eq filterAnswers.length 0)}}
+						{{#bp-layout tagName="p" direction="main" main="center"}}
+							当前无信息
+						{{/bp-layout}}
+				{{/if}}
 				{{#each filterAnswers as |item|}}
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
 						{{#bp-layout tagName="td" main="center"}}{{item.region}}{{/bp-layout}}

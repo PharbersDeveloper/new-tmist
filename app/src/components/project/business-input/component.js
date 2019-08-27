@@ -20,7 +20,7 @@ export default Component.extend( {
 	curCircle: 0,
 	curBudgetPercent: 100,
 	// TODO: 暂时留着，以后可能去掉
-	allProductInfo: computed( "productQuotas", function () {
+	allProductInfo: computed( "productQuotas", "updateAllProductInfo",function () {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
 
@@ -33,11 +33,6 @@ export default Component.extend( {
 			obj.curSales = 0
 			obj.curBudget = 0
 
-			// this.get( "presets" ).forEach( preset => {
-			// 	if ( preset.get( "product.id" ) === product.id ) {
-			// 		obj.allSales += this.transNumber( preset.salesQuota )
-			// 	}
-			// } )
 			this.get( "answers" ).forEach( answer => {
 				if ( answer.get( "product.id" ) === obj.productId ) {
 					obj.curSales += this.transNumber( answer.get( "salesTarget" ) )
@@ -53,6 +48,7 @@ export default Component.extend( {
 
 		return A( arr )
 	} ),
+	updateAllProductInfo: false,
 	allBudget: computed( "quota", function () {
 		return this.quota.get( "totalBudget" )
 	} ),
@@ -206,9 +202,32 @@ export default Component.extend( {
 		return budgetArr
 	},
 	getProductBudgetData() {
-		let arr = [], all = 0
+		let arr = [], all = 0, allP = []
 
-		this.allProductInfo.forEach( product => {
+		this.get( "productQuotas" ).sortBy( "product.name" ).forEach( p => {
+			let obj = {}
+
+			obj.name = p.get( "product.name" )
+			obj.allSales = p.lastQuota
+			obj.productId = p.get( "product.id" )
+			obj.curSales = 0
+			obj.curBudget = 0
+
+			this.get( "answers" ).forEach( answer => {
+				if ( answer.get( "product.id" ) === obj.productId ) {
+					obj.curSales += this.transNumber( answer.get( "salesTarget" ) )
+					obj.curBudget += this.transNumber( answer.get( "budget" ) )
+				}
+			} )
+			obj.curBudgetPercent = ( obj.curBudget / this.allBudget * 100 ).toFixed( 1 )
+			this.curBudgetPercent -= obj.curBudgetPercent
+			this.curBudgetPercent = this.curBudgetPercent.toFixed( 1 )
+			allP.push( obj )
+
+		} )
+
+
+		allP.forEach( product => {
 			let obj = {}
 
 			obj.name = product.name
@@ -287,6 +306,9 @@ export default Component.extend( {
 				set( this, "curAnswerToReset", answer )
 			} else {
 				this.exam.cancelBusinessResource( this.answers, answer.get( "target" ) )
+				this.updateResourceBudgetData()
+				this.updateProductBudgetData()
+				this.toggleProperty( "updateAllProductInfo" )
 			}
 			this.toggleProperty( "resourceHospital" )
 			window.console.log( this.resourceHospital )
@@ -297,18 +319,18 @@ export default Component.extend( {
 				open: false
 			} )
 			this.exam.resetBusinessAnswer( this.answers, this.curAnswerToReset.get( "target.id" ) )
+			this.updateResourceBudgetData()
+			this.updateProductBudgetData()
+			this.toggleProperty( "updateAllProductInfo" )
 			this.toggleProperty( "resourceHospital" )
 		},
-		// calculateVisitTime( visitTime ) {
-		// 	this.set( this.allVisitTime, this.allVisitTime - visitTime )
-		// },
 		budgetValidationHandle( answer, input ) {
 			let isNumer = this.checkNumber( answer.get( input ) )
 
 			if ( isNumer ) {
 				let cur = 0,
 					curProduct = answer.get( "product.id" ),
-					curProductInfo = {}
+					curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
 
 				this.answers.forEach( a => {
 					if ( a.get( "product.id" ) === curProduct ) {
@@ -316,22 +338,10 @@ export default Component.extend( {
 					}
 				} )
 
-				curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
-
 				if ( cur <= this.allBudget ) {
+
 					set( curProductInfo.firstObject, "curBudget", cur )
 					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
-
-					// let productDataArr = this.getProductBudgetData()
-					// budgetArr = this.getResourceBudgetData()
-					// budgetColor = this.getBudgetCircleColor()
-
-					// set( this, "circleProductData", productDataArr )
-					// set( this, "circleBudgetData", budgetArr )
-					// set( this, "circleBudgetColor", budgetColor )
-
-					// set( this, "legendProductBudget", productDataArr )
-					// set( this, "legendResourceBudget", budgetArr )
 
 					this.updateResourceBudgetData()
 					this.updateProductBudgetData()
@@ -346,12 +356,6 @@ export default Component.extend( {
 
 					set( curProductInfo.firstObject, "curBudget", cur )
 					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
-
-					// let productDataArr = this.getProductBudgetData()
-					// budgetArr = this.getResourceBudgetData()
-
-					// set( this, "legendProductBudget", productDataArr )
-					// set( this, "legendResourceBudget", budgetArr )
 
 					this.updateResourceBudgetData()
 					this.updateProductBudgetData()
@@ -380,7 +384,7 @@ export default Component.extend( {
 				curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
 				window.console.log( cur, curProductInfo )
 				if ( cur <= curProductInfo.firstObject.allSales ) {
-
+					// this.toggleProperty( "updateAllProductInfo" )
 					set( curProductInfo.firstObject, "curSales", cur )
 				} else {
 					this.set( "warning", {
@@ -389,6 +393,7 @@ export default Component.extend( {
 						detail: "您的指标设定已超额，请合理分配。"
 					} )
 				}
+				// this.toggleProperty( "updateAllProductInfo" )
 				set( curProductInfo.firstObject, "curSales", cur )
 
 			} else {
