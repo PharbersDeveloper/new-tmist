@@ -1,6 +1,7 @@
 {{#bp-layout local-class="header"}}
 	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
-		{{#bp-layout direction="row" main="start" click=(action "changedResource" sortQuizs.firstObject.answer) local-class="click-part"}}
+		{{#bp-layout direction="row" main="start" cross="center"
+			 click=(action "changedResource" sortQuizs.firstObject.answer) local-class="click-part"}}
 			{{#bp-layout direction="row" local-class="check-box" classNames="mr-2"}}
 				{{#if hasResource}}
 				{{!-- {{bp-icon icon="check-circle" }} --}}
@@ -9,9 +10,12 @@
 					{{bp-icon icon='hospital-unchecked'}}
 				{{/if}}
 			{{/bp-layout}}
-			{{hospital.name}}
+			{{#bp-layout local-class=(if hasResource "check-name" "uncheck-name")}}
+				{{hospital.name}}
+			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout direction="row" cross="center"}}
+
+		{{#bp-layout direction="row" cross="center" local-class="right"}}
 			{{#if hasResource}}
 				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
 					{{#bp-layout local-class="badge" class="px-1"}}
@@ -22,7 +26,6 @@
 			{{/if}}
 			
 			{{#if (bp-not-eq sortQuizs.firstObject.answer.meetingPlaces -1 0 "" "0")}}
-				
 				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
 					{{#bp-layout local-class="badge" class="px-1"}}
 						{{bp-icon icon="meeting-quota"}}
@@ -31,17 +34,19 @@
 				{{/bp-layout}}
 			{{/if}}
 
-			{{#bp-button local-class=(if showContent "icon-button" "icon-button icon-active") 
-				onClick=(action 'selectCurHospital' hospital.id) 
-				disabled=(if hasResource false true)
-				direction="row" main="center" cross="center"}}
-				{{!-- {{bp-icon icon='data'}} --}}
-				{{#if showContent}}
-					{{bp-icon icon="right"}}
-				{{else}}
-					{{bp-icon icon="down"}}
-				{{/if}}
-			{{/bp-button}}
+			{{#bp-layout local-class=(if hasResource "" "icon-no-check")}}
+				{{#bp-button local-class="icon-button" 
+								onClick=(action 'selectCurHospital' hospital.id) 
+								disabled=(if hasResource false true)
+								direction="row" main="center" cross="center"}}
+					{{!-- {{bp-icon icon='data'}} --}}
+					{{#if showContent}}
+						{{bp-icon icon="right"}}
+					{{else}}
+						{{bp-icon icon="down"}}
+					{{/if}}
+				{{/bp-button}}
+			{{/bp-layout}}
 
 		{{/bp-layout}}
 	{{/bp-layout}}
