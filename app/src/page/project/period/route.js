@@ -71,7 +71,7 @@ export default Route.extend( {
 
 			answers = Promise.all( [period, presets, resources] ).then( results => {
 				const p = results[0],
-					items = results[1].filter( x => x.category == 8 && x.phase == 0 ),
+					items = results[1].filter( x => x.category == 8 && x.phase == phase ),
 					people = results[2]
 
 				return this.facade.queryPeriodAnswers( p, items, people )
@@ -80,7 +80,7 @@ export default Route.extend( {
 			dragInfo =
 				prs.load().then( x => {
 					const condi01 = "(proposalId,:eq,`" + x.id + "`)",
-						condi02 = "(phase,:eq,0)",
+						condi02 = "(phase,:eq," + phase + ")",
 						condi03 = "(category,:eq,8)",
 						condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
 
@@ -88,8 +88,9 @@ export default Route.extend( {
 				} ),
 
 			kpiInfo = prs.load().then( x => {
+				window.console.log( phase )
 				const condi01 = "(proposalId,:eq,`" + x.id + "`)",
-					condi02 = "(phase,:eq,0)",
+					condi02 = "(phase,:eq," + phase + ")",
 					condi03 = "(category,:eq,2)",
 					condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
 
@@ -105,6 +106,7 @@ export default Route.extend( {
 			return this.store.query( "model/preset", { filter: "(:and," + "(proposalId,:eq,`" + data.prsId + "`)" + `,(phase,:eq,${sourtPeriods.lastObject.phase})` + "," + "(category,:eq,32)" + ")" } )
 		} )
 
+		window.console.log( dragInfo )
 
 		return RSVP.hash( {
 			period: period,
@@ -114,6 +116,7 @@ export default Route.extend( {
 			resources: resources,
 			presets: presets.then( x => x.filter( it => it.category === 8 && it.phase === phase ) ),
 			productQuotas: presets.then( x => x.filter( it => it.category === 4 && it.phase === phase ) ),
+			allDrugPresets: presets.then( x => x.filter( it => it.category === 8 ) ),
 			answers: answers,
 			validation: validation,
 			quota: quota,
