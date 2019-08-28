@@ -6,7 +6,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 	store: service(),
-	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period", "reports"],
+	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period", "reports", "allDrugPresets"],
 	classNames: ["business-review-wrapper"],
 	didInsertElement() {
 		const phaseLength = this.project.periods.length
@@ -102,7 +102,7 @@ export default Component.extend( {
 		}
 
 		result.forEach( r => {
-			let report = this.reports.filter( x => x.get( "hospital.id" ) === r.get( "target.id" ) && x.get( "product.id" ) === r.get( "product.id" ) ),
+			let report = this.allDrugPresets.filter( x => x.get( "hospital.id" ) === r.get( "target.id" ) && x.get( "product.id" ) === r.get( "product.id" ) && x.get( "phase" ) === this.curPeriod.phase ),
 				item = {}
 
 			item.hospitalName = r.get( "target.name" )

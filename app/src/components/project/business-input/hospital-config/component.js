@@ -23,15 +23,7 @@ export default Component.extend( {
 		}
 		return quizs.sortBy( "preset.product.name" )
 	} ),
-	// showContent: true,
-	showContent: computed( "curHospitalId", function() {
-		if ( !this.curHospitalId ) {
-			return true
-		} else if ( this.curHospitalId === this.hospital.get( "id" ) ) {
-			return false
-			// this.toggleProperty( "showContent" )
-		}
-	} ),
+	showContent: true,
 	checked:  computed( function() {
 		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
 			return true
@@ -45,6 +37,7 @@ export default Component.extend( {
 		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
 			return true
 		}
+		set( this, "showContent", true )
 		return false
 	} ),
 	givenMeetingPlaces: computed( "resourceHospital", function() {
@@ -64,10 +57,8 @@ export default Component.extend( {
 		}
 	},
 	actions: {
-		showContent() {
-			this.toggleProperty( "showContent" )
-		},
 		selectCurHospital( hid ) {
+			this.toggleProperty( "showContent" )
 			this.selectHospital( hid )
 		},
 		changedResource( answer ) {

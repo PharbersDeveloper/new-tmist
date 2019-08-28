@@ -45,7 +45,6 @@ export default Component.extend( {
 		{
 			name: "会南市",
 			level: "地级市",
-			level: "地级市",
 			type: "外围城市",
 			local: 0.45,
 			outter: 0.55
@@ -53,11 +52,16 @@ export default Component.extend( {
 		{
 			name: "会西市",
 			level: "地级市",
-			level: "地级市",
 			type: "外围城市",
 			local: 0.58,
 			outter: 0.42
 		}
-	] )
+	] ),
+	actions: {
+		selRegion( index ) {
+			this.set( "currentGroupIndex", index )
+			this.set( "currentHospital", 0 )
+		}
+	}
 } )
 
