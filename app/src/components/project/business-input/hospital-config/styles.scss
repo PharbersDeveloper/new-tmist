@@ -228,6 +228,18 @@ h5.title {
 		padding: 0;
 	}
 
+	button:global(.p-btn.default) {
+		background-color: #ffffff;
+
+		&:hover {
+			svg {
+				path {
+					color: #b3bac5;
+				}
+			}
+		}
+	}
+
 	.click-part {
 		cursor: pointer;
 

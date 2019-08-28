@@ -29,18 +29,20 @@
 						{{sortQuizs.firstObject.answer.meetingPlaces}}
 					{{/bp-layout}}
 				{{/bp-layout}}
-				
 			{{/if}}
-			{{#bp-layout local-class=(if showContent "icon-button" "icon-button icon-active") 
-				click=(action 'selectCurHospital' hospital.id) direction="row"
-				main="center" cross="center"}}
+
+			{{#bp-button local-class=(if showContent "icon-button" "icon-button icon-active") 
+				onClick=(action 'selectCurHospital' hospital.id) 
+				disabled=(if hasResource false true)
+				direction="row" main="center" cross="center"}}
 				{{!-- {{bp-icon icon='data'}} --}}
 				{{#if showContent}}
 					{{bp-icon icon="right"}}
 				{{else}}
 					{{bp-icon icon="down"}}
 				{{/if}}
-			{{/bp-layout}}
+			{{/bp-button}}
+
 		{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}

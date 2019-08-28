@@ -24,16 +24,6 @@ export default Component.extend( {
 		return quizs.sortBy( "preset.product.name" )
 	} ),
 	showContent: true,
-	// showContent: computed( "curHospitalId", function() {
-	// 	window.console.log( this.curHospitalId )
-	// 	if ( !this.curHospitalId || this.curHospitalId !== this.hospital.get( "id" ) ) {
-	// 		return true
-	// 	} else if ( this.curHospitalId === this.hospital.get( "id" ) ) {
-
-	// 		// this.toggleProperty( "alreadyShow" )
-	// 		return false
-	// 	}
-	// } ),
 	checked:  computed( function() {
 		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
 			return true
@@ -47,6 +37,7 @@ export default Component.extend( {
 		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
 			return true
 		}
+		set( this, "showContent", true )
 		return false
 	} ),
 	givenMeetingPlaces: computed( "resourceHospital", function() {
