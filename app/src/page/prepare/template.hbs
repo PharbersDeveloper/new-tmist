@@ -5,7 +5,8 @@
 
         {{#bp-layout direction="col" main="between" cross="start" local-class="card" classNames="bg-white"}}
             {{!-- <p local-class="title">您好！欢迎进入优时比区域周期计划测试</p> --}}
-            <p local-class="title">您好！欢迎进入{{model.proposal.name}}测试</p>
+            <p local-class="title">您好！欢迎进入 <br>
+                {{model.proposal.name}}测试</p>
             {{#bp-layout direction="row" main="start" cross="start" local-class="status-area"}}
                 {{#if model.provious}}
                     <span local-class="badge">进行中</span>

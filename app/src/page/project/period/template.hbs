@@ -218,11 +218,13 @@
 					products=model.products
 					answers=model.answers
 					reports=model.dragInfo
+					allDrugPresets=model.allDrugPresets
 					}}
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}
 				{{project/proposal-info 
 					proposal=model.project.proposal 
+					project=model.project
 					reports=model.dragInfo 
 					kpis=model.kpiInfo
 					period=model.period

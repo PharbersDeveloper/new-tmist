@@ -3,7 +3,7 @@ import { computed } from "@ember/object"
 
 export default Component.extend( {
 	positionalParams: ["product"],
-	classNames: ["mb-4", "bg-white"],
+	classNames: ["bg-white"],
 	localClassNames: "product",
 	showContent: true,
 	icon: computed( "showContent", function () {

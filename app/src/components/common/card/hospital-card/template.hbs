@@ -1,15 +1,15 @@
-{{#bp-layout tagName="h3" cross="center" local-class="title" class="px-4" }}
+{{#bp-layout tagName="h3" cross="center" local-class="title" class="px-4 mb-0" }}
 	{{hospital.name}}
 {{/bp-layout}}
 
 {{#bp-layout main="between" local-class="content" direction="row"}}
 
-	{{#bp-layout local-class="infos"}}
+	{{#bp-layout local-class="infos" classNames="pt-4"}}
 		{{!-- left --}}
-		{{#bp-layout main="start" local-class="left-info" classNames="my-4 ml-4" direction="col"}}
+		{{#bp-layout main="start" local-class="left-info" classNames="pb-4 px-4" direction="col"}}
 			
 			{{#bp-layout classNames="mb-4"}}
-				<img alt={{hospital.name}} src="{{hospital.avatar.img}}" class="mr-4">
+				<img alt={{hospital.name}} src="{{hospital.avatar.img}}">
 			{{/bp-layout}}
 
 			{{!-- {{#bp-layout tagName="div" local-class="properties"}} --}}
@@ -47,6 +47,14 @@
 						{{/bp-layout}}
 					{{/if}}
 
+				{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="hospital-desc"}}
+				{{#bp-layout tagName="h4" classNames="mb-3"}}
+					医院描述
+				{{/bp-layout}}
+				{{#bp-layout tagName="p"}}
+					{{hospital.describe}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}

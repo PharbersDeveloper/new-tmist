@@ -11,13 +11,15 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
 	apt-get install -y nodejs
 
 ENV EMBERVERSION 3.4.4
+ENV	BOWERVERSION 1.8.4
 
 RUN npm update && \
-	npm install -g ember-cli@${EMBERVERSION}
+	npm install -g ember-cli@${EMBERVERSION} && \
+	npm install -g bower@${BOWERVERSION}
 
 WORKDIR /app
 
-LABEL new-tmist.version=0.0.8
+LABEL new-tmist.version=0.0.11
 
 RUN git clone https://github.com/PharbersDeveloper/new-tmist.git && \
 	git clone https://github.com/PharbersDeveloper/BP-Components.git && \
@@ -40,8 +42,10 @@ RUN rm -rf node_modules && \
 	rm package-lock.json && \
 	npm cache clear --force && \
 	npm install && \
+	bower install foundation --allow-root && \
+	bower install ali-oss --allow-root	&& \
 	npm link bp-components && \
-	npm link phemitter
+	npm link phemitter 
 
 RUN ember b --environment production
 

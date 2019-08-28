@@ -1,12 +1,12 @@
 import Component from "@ember/component"
-import { computed } from "@ember/object"
+import { computed, set } from "@ember/object"
 import { A } from "@ember/array"
 import { inject as service } from "@ember/service"
-import RSVP from "rsvp"
+// import RSVP from "rsvp"
 
 export default Component.extend( {
 	store: service(),
-	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period", "reports"],
+	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period", "reports", "allDrugPresets"],
 	classNames: ["business-review-wrapper"],
 	didInsertElement() {
 		const phaseLength = this.project.periods.length
@@ -80,7 +80,7 @@ export default Component.extend( {
 			return this.get( "history" + this.curPeriodIndex )
 		}
 	} ),
-	filterAnswers: computed( "curAnswers", "curProd", "curRes", function () {
+	filterAnswers: computed( "curAnswers", "curProd", "curRes", "sortFlag", function () {
 		let result = this.curAnswers.filter( x => x.category === "Business" ).sortBy( "target.name" ),
 			arr = []
 
@@ -102,7 +102,7 @@ export default Component.extend( {
 		}
 
 		result.forEach( r => {
-			let report = this.reports.filter( x => x.get( "hospital.id" ) === r.get( "target.id" ) && x.get( "product.id" ) === r.get( "product.id" ) ),
+			let report = this.allDrugPresets.filter( x => x.get( "hospital.id" ) === r.get( "target.id" ) && x.get( "product.id" ) === r.get( "product.id" ) && x.get( "phase" ) === this.curPeriod.phase ),
 				item = {}
 
 			item.hospitalName = r.get( "target.name" )
@@ -119,6 +119,24 @@ export default Component.extend( {
 			arr.push( item )
 
 		} )
+		arr.sort( function( x, y ) {
+			return y.currentPatientNum - x.currentPatientNum
+		} )
+		// if ( this.sortFlag === 1 ) {
+		// 	arr.sort( function( x, y ) {
+		// 		return x.currentPatientNum - y.currentPatientNum
+		// 	} )
+		// }
 		return A( arr )
 	} )
+	// sortFlag: 0,
+	// actions: {
+	// 	sortByPatient() {
+	// 		if ( this.sortFlag === 0 ) {
+	// 			set( this, "sortFlag", 1 )
+	// 		} else if ( this.sortFlag === 1 ) {
+	// 			set( this, "sortFlag", 0 )
+	// 		}
+	// 	}
+	// }
 } )

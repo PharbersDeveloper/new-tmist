@@ -1,7 +1,11 @@
+.hospital-config-component {
+	width: 100%;
+}
+
 h4.title {
 	@extend %header-medium;
 	height: 54px;
-	width: 760px;
+	width: 100%;
 	// cursor: pointer;
 }
 
@@ -215,9 +219,82 @@ h5.title {
 }
 
 .header {
-	button {
-		width: 32px;
-		height: 32px;
+	width: 100%;
+
+	.right {
+		// .icon-part {}
+
+		.icon-button {
+			width: 32px;
+			height: 32px;
+			padding: 0;
+		}
+
+		.icon-no-check {
+			button:global(.p-btn.default) {
+				background-color: #ffffff;
+
+				&:hover {
+					svg {
+						path {
+							color: #b3bac5;
+						}
+					}
+				}
+			}
+		}
+
+		button:global(.p-btn.default) {
+			background-color: #ffffff;
+
+			// &:hover {
+			// 	svg {
+			// 		path {
+			// 			color: #b3bac5;
+			// 		}
+			// 	}
+			// }
+		}
+
+		.item-right {
+			.badge {
+				background-color: #c2daff;
+				color: #3880f8;
+				font-size: 14px;
+				font-weight: 400;
+				margin-left: 4px;
+				height: 20px;
+				border-radius: 4px;
+
+				svg {
+					font-size: 18px;
+					padding-bottom: 2px;
+
+					path {
+						fill: #3880f8;
+					}
+				}
+			}
+		}
+	}
+
+	.click-part {
+		cursor: pointer;
+
+		.check-box {
+			width: 20px;
+		}
+
+		.check-name {
+			font-size: 14px;
+			color: #172b4d;
+		}
+
+		.uncheck-name {
+			font-size: 14px;
+			color: #344563;
+			font-weight: 400;
+		}
 	}
 
 	.resource-style {
@@ -231,31 +308,6 @@ h5.title {
 		svg {
 			path {
 				fill: #3172e0;
-			}
-		}
-	}
-
-	.icon-btn {
-		padding: 0;
-	}
-
-	.item-right {
-		.badge {
-			background-color: #c2daff;
-			color: #3880f8;
-			font-size: 14px;
-			font-weight: 400;
-			margin-left: 4px;
-			height: 20px;
-			border-radius: 4px;
-
-			svg {
-				font-size: 18px;
-				padding-bottom: 2px;
-
-				path {
-					fill: #3880f8;
-				}
 			}
 		}
 	}
