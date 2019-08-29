@@ -128,7 +128,62 @@ export default Component.extend( {
 		// 	} )
 		// }
 		return A( arr )
-	} )
+	} ),
+	reviewColumns: A( [
+		{
+			label: "所在城市",
+			valuePath: "region",
+			align: "center",
+			// sortable: true,
+			width: 100
+		},{
+			label: "医院名称",
+			valuePath: "hospitalName",
+			align: "center"
+			// sortable: true,
+			// width: 100
+		},{
+			label: "产品名称",
+			valuePath: "productName",
+			align: "center",
+			// sortable: true,
+			width: 72
+		},{
+			label: "患者数量",
+			valuePath: "currentPatientNum",
+			align: "center",
+			cellComponent: "common/table/format-number-thousands",
+			sortable: true,
+			width: 100
+		},{
+			label: "药品准入情况",
+			valuePath: "currentDurgEntrance",
+			align: "center",
+			cellComponent: "common/table/drug-entrance",
+			// sortable: true,
+			width: 100
+		},{
+			label: "代表",
+			valuePath: "resource",
+			align: "center",
+			// sortable: true,
+			width: 100
+		},{
+			label: "销售指标",
+			valuePath: "salesTarget",
+			align: "center",
+			cellComponent: "common/table/format-number-thousands",
+			sortable: true
+			// width: 110
+		},{
+			label: "预算费用",
+			valuePath: "budget",
+			align: "center",
+			cellComponent: "common/table/format-number-thousands",
+			sortable: true
+			// width: 110
+		}
+	] )
 	// sortFlag: 0,
 	// actions: {
 	// 	sortByPatient() {

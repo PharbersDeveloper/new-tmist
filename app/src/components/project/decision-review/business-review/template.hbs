@@ -68,22 +68,14 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-	{{#bp-layout local-class="table"}}
+	{{!-- {{#bp-layout local-class="table"}}
 		{{#bp-layout tagName="table" direction="col" classNames="mx-4 mt-4" }}
 			{{#bp-layout tagName="thead" main="between" classNames="pb-2"}}
 				{{#bp-layout tagName="th" main="center"}}城市{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}医院名称{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}产品名称{{/bp-layout}}
-				{{!-- {{#bp-layout tagName="th" main="center" click=(action "sortByPatient") local-class="sort-title"}} --}}
 				{{#bp-layout tagName="th" main="center"}}
 					患者数量
-					{{!-- {{#if (bp-eq sortFlag 0)}}
-						{{bp-icon icon='sort-des'}}
-					{{else if (bp-eq sortFlag 1)}}
-						{{bp-icon icon='sort-asc'}}
-					{{else}}
-						{{bp-icon icon='sort-default'}}
-					{{/if}} --}}
 				{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}准入情况{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}代表{{/bp-layout}}
@@ -97,9 +89,6 @@
 			{{#bp-layout tagName="tbody" direction="col" 
 			local-class=(if (bp-eq proposal.case "tm" )"tm-table" "ucb-table")}}
 				{{#if (bp-eq filterAnswers.length 0)}}
-						{{!-- {{#bp-layout tagName="p" direction="main" main="center"}}
-							当前无信息
-						{{/bp-layout}} --}}
 						{{bp-empty-state/no-button
 							classNames="mt-3"
 							src='https://i.loli.net/2019/02/13/5c63df11c3b5c.png'
@@ -131,5 +120,8 @@
 				{{/each}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-	{{/bp-layout}}
+	{{/bp-layout}} --}}
+
+	{{bp-table columns=reviewColumns data=filterAnswers local-class=(if (bp-eq proposal.case "tm" )"tm-table" "ucb-table")}}
+
 {{/bp-layout}}
