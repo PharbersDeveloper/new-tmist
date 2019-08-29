@@ -16,9 +16,9 @@
 				{{/left.item}}
 			{{/body.left}}
 			{{#body.right}}
-				{{#bp-button onClick=(action 'exportReport')}}
+				{{!-- {{#bp-button onClick=(action 'exportReport')}}
 					导出报告
-				{{/bp-button}}
+				{{/bp-button}} --}}
 				{{!-- {{#bp-button onClick=(action 'toReport')}}
 					返回报告
 				{{/bp-button}}
@@ -28,8 +28,8 @@
 			{{/body.right}}
 		{{/ph.body}}
 	{{/bp-page-header}}
-	{{#bp-layout direction="row" main="between" classNames="mb-1 bg-white" local-class="key-indicator"}}
-		{{#bp-layout tagName='h3' cross='center' local-class="title" classNames="mb-2 px-4"}}
+	{{#bp-layout direction="row" main="between" classNames="mb-2 bg-white" local-class="key-indicator"}}
+		{{#bp-layout tagName='h3' cross='center' local-class="title" classNames="mb-0 px-4"}}
 			关键指标
 		{{/bp-layout}}
 		{{#bp-layout cross='center'}}
@@ -49,10 +49,9 @@
 			{{/bp-dropdown}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-	{{log curSalesReports}}
 	{{#bp-layout direction="row" local-class="indicators" classNames="mb-4"}}
-		{{#bp-layout direction="col" local-class="left" classNames="mr-1"}}
-			{{#bp-layout local-class="sales" classNames="bg-white mb-1" direction="row" main="between"}}
+		{{#bp-layout direction="col" local-class="left" classNames="mr-2"}}
+			{{#bp-layout local-class="sales" classNames="bg-white mb-2" direction="row" main="between"}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout}}
 						<span local-class="row-1">总体销售额</span>
@@ -94,7 +93,7 @@
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}} --}}
-			{{#bp-layout local-class="sales" classNames="bg-white p-4 mb-1"}}
+			{{#bp-layout local-class="sales" classNames="bg-white p-4 mb-2"}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout classNames="mb-3"}}
 						<span local-class="row-1">产品新进医院数</span>
@@ -143,7 +142,7 @@
 
 		{{/bp-layout}}
 	{{/bp-layout}}
-	{{#bp-layout local-class="sales-report" tagName="h4" classNames="bg-white pl-4 mb-1" cross="center"}}
+	{{#bp-layout local-class="sales-report" tagName="h4" classNames="bg-white pl-4 mb-2" cross="center"}}
 		销售报告
 	{{/bp-layout}}
 	{{#bp-layout local-class="report-info"}}

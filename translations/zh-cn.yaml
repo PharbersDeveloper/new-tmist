@@ -84,6 +84,10 @@ project:
       region-sale-trend: 地区销售趋势图
       total-products: 全部总值
       total-regions: 地区总值
+      product-sale-table: 产品销售数据表
+      representative-sale-table: 代表销售数据表
+      hospital-sale-table: 医院销售数据表
+      region-sale-table: 地区销售数据表
     product-info:
       product-competing-info: 产品竞品信息
       product-share-trend: 药品份额竞争趋势

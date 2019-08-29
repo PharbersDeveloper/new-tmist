@@ -22,7 +22,7 @@ export default Service.extend( {
 	// 	} )
 	// 	this.set( "operationAnswers", null )
 	// },
-	saveCurrentInput( period, answers, fcallback ) {
+	saveCurrentInput( period, answers, fcallback , errCallback ) {
 		/**
          * copy and swap
 		 * TODO: 只写了新建流程
@@ -35,6 +35,8 @@ export default Service.extend( {
 			return period.save()
 		} ).then( period => {
 			fcallback( period )
+		} ).catch( err => {
+			errCallback( err )
 		} )
 	},
 

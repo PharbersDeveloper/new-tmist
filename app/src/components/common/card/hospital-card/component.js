@@ -3,7 +3,7 @@ import { computed } from "@ember/object"
 
 export default Component.extend( {
 	positionalParams: ["hospital", "reports","policies"],
-	classNames: ["mb-4", "bg-white"],
+	classNames: ["bg-white"],
 	localClassNames: "hospital",
 	showContent: false,
 	cur: computed( "reports", function() {

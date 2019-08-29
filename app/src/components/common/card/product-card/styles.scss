@@ -1,5 +1,4 @@
 .product {
-
 	.title {
 		@extend %header-small;
 		line-height: 52px;
@@ -19,8 +18,8 @@
 
 			&.self {
 				@extend %p-secondary;
-				background-color: #B3D4FF;
-				color: #0049B0;
+				background-color: #b3d4ff;
+				color: #0049b0;
 			}
 
 			&.compete {
@@ -34,9 +33,12 @@
 		}
 	}
 
-
+	h4.name {
+		font-size: 16px;
+		color: #172b4d;
+		height: 54px;
+	}
 	.product-content {
-
 		.left {
 			-ms-flex: 1;
 			-webkit-box-flex: 1;
@@ -62,7 +64,7 @@
 					margin-bottom: 16px;
 				}
 
-				p>span:first-child {
+				p > span:first-child {
 					@extend %p-primary;
 					flex: 0 0 70px;
 					margin-right: 2 * $spacing;
@@ -75,7 +77,6 @@
 					-webkit-flex: 1;
 					flex: 1;
 				}
-
 			}
 		}
 

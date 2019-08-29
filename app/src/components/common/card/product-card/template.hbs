@@ -10,7 +10,10 @@
 	</span>
 {{/bp-layout}} --}}
 {{!-- {{#bs-collapse collapsed=showContent}} --}}
-	{{#bp-layout local-class="product-content" classNames="p-4" }}
+	{{#bp-layout tagName="h4" local-class="name" direction="row" cross="center" classNames="mb-0 px-4"}}
+		{{product.name}}
+	{{/bp-layout}}
+	{{#bp-layout local-class="product-content" classNames="p-4" direction="row"}}
 		{{#bp-layout main="between" local-class="left" }}
 			{{!-- {{#each goods.productConfig.product.images as |item|}} --}}
 			<img src={{product.avatar.img}} alt={{product.name}} class="mr-4">

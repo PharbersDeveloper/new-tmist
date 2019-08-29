@@ -31,6 +31,9 @@ body> :global(.ember-view) {
 	border: 0;
 }
 
-:global(.toast-top-center .toast-success) {
-	background-color: #51A351;
+:global(.toast-success) {
+	background-color: $g400;
+}
+:global(.toast-error) {
+	background-color: $r400;
 }

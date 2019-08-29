@@ -119,8 +119,8 @@
 
 			&::after {
 				content: "%";
-				position: absolute;
-				margin-left: 155px;
+				position: relative;
+				margin-left: -20px;
 				font-size: 14px;
 				color: #344563;
 			}

@@ -42,7 +42,7 @@
 		text-align: center;
 		line-height: 22px;
 		height: 22px;
-		background-color: #EBECF0;
+		background-color: #ebecf0;
 		border-radius: 4px;
 		margin-bottom: 0;
 	}
@@ -104,15 +104,37 @@
 }
 
 .modal-loading {
-    background-color: rgba(9, 30, 66, 0.54);
+	background-color: rgba(9, 30, 66, 0.54);
 
-    :global(.modal-content) {
-        background-color: transparent;
-        border: none;
+	:global(.modal-content) {
+		background-color: transparent;
+		border: none;
 	}
-	
-    .loading-img {
+
+	.loading-img {
 		width: 128px;
 		height: 128px;
+	}
+}
+
+.modal {
+	.modal-title {
+		font-size: 20px;
+		color: #172b4d;
+		line-height: 24px;
+	}
+
+	:global(.modal-dialog) {
+		max-width: 400px;
+	}
+
+	.start-deploy-header {
+		font-size: 20px;
+		color: #172b4d;
+		line-height: 24px;
+	}
+
+	:global(.modal-content) {
+		height: 176px;
 	}
 }

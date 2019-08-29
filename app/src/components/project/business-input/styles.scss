@@ -272,6 +272,11 @@
       width: 368px;
       height: fit-content;
 
+      &>.resource-list {
+        overflow-y: auto;
+        height: calc(100vh - 477px);
+      }
+
       .resource-item {
         height: 88px;
         font-size: 14px;
@@ -346,6 +351,8 @@
 
       .hospital-config {
         width: 760px;
+        overflow-y: auto;
+        height: calc(100vh - 481px);
 
         .line {
           border-bottom: 1px solid rgba(9, 30, 66, 0.04);
@@ -461,3 +468,4 @@
     }
   }
 }
+
