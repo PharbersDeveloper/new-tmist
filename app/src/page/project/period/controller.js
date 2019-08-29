@@ -96,12 +96,15 @@ export default Controller.extend( {
 				window.localStorage.setItem( "jobId", subMsg.job_id )
 
 				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-					this.model.project.set( "status", 1 )
-					this.model.project.set( "endTime", new Date().getTime() )
-					this.model.project.set( "lastUpdate", new Date().getTime() )
-					this.model.project.save().then( () => {
-						this.set( "loadingForSubmit", false )
-						this.transitionToRoute( "page.project.result" )
+					set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id ) )
+					this.model.project.then( res => {
+						res.set( "status", 1 )
+						res.set( "endTime", new Date().getTime() )
+						res.set( "lastUpdate", new Date().getTime() )
+						res.save().then( () => {
+							this.set( "loadingForSubmit", false )
+							this.transitionToRoute( "page.project.result" )
+						} )
 					} )
 				} else {
 					this.set( "loadingForSubmit", false )
