@@ -28,49 +28,56 @@
 		}
 	}
 
-	.table {
-		width: 100%;
+	// .table {
+	// 	width: 100%;
 
-		table {
-			width: 100%;
-			table-layout: fixed;
+	// 	table {
+	// 		width: 100%;
+	// 		table-layout: fixed;
 
-			thead {
-				font-size: 12px;
-				color: #7a869a;
-				border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+	// 		thead {
+	// 			font-size: 12px;
+	// 			color: #7a869a;
+	// 			border-bottom: 2px solid rgba(9, 30, 66, 0.08);
 
-				th {
-					font-weight: 400;
-					flex: 1;
-				}
-			}
+	// 			th {
+	// 				font-weight: 400;
+	// 				flex: 1;
+	// 			}
+	// 		}
 
-			tbody {
-				font-size: 14px;
-				color: #344563;
-				overflow-y: auto;
+	// 		tbody {
+	// 			font-size: 14px;
+	// 			color: #344563;
+	// 			overflow-y: auto;
 
-				// font-size: 14px;
-				// color: #344563;
+	// 			// font-size: 14px;
+	// 			// color: #344563;
 
-				// text-align: right;
-				tr {
-					width: 100%;
+	// 			// text-align: right;
+	// 			tr {
+	// 				width: 100%;
 
-					td {
-						flex: 1;
-					}
-				}
-			}
+	// 				td {
+	// 					flex: 1;
+	// 				}
+	// 			}
+	// 		}
 
-			.tm-table {
-				height: calc(100vh - 381px);
-			}
+	// 		.tm-table {
+	// 			height: calc(100vh - 381px);
+	// 		}
 
-			.ucb-table {
-				height: calc(100vh - 288px);
-			}
-		}
+	// 		.ucb-table {
+	// 			height: calc(100vh - 288px);
+	// 		}
+	// 	}
+	// }
+	.tm-table {
+		height: calc(100vh - 381px);
+	}
+
+	.ucb-table {
+		height: calc(100vh - 288px) !important;
 	}
 }
