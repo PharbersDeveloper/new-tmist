@@ -41,13 +41,14 @@
 				border-bottom: 2px solid rgba(9, 30, 66, 0.08);
 
 				th {
+					font-weight: 400;
 					flex: 1;
 				}
 			}
+
 			tbody {
 				font-size: 14px;
 				color: #344563;
-				height: calc(100vh - 381px);
 				overflow-y: auto;
 
 				// font-size: 14px;
@@ -61,6 +62,14 @@
 						flex: 1;
 					}
 				}
+			}
+
+			.tm-table {
+				height: calc(100vh - 381px);
+			}
+
+			.ucb-table {
+				height: calc(100vh - 288px);
 			}
 		}
 	}

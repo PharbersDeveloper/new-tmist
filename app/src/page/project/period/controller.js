@@ -1,7 +1,8 @@
 import Controller from "@ember/controller"
 // import ENV from "new-tmist/config/environment"
 // import { computed } from "@ember/object"
-import { isEmpty } from "@ember/utils"
+// import { isEmpty } from "@ember/utils"
+import groupBy from "ember-group-by"
 import { A } from "@ember/array"
 import EmberObject, { computed, set } from "@ember/object"
 import { inject as service } from "@ember/service"
@@ -32,6 +33,10 @@ export default Controller.extend( {
 	allProductInfo: computed( function() {
 		return this.getAllProductInfo()
 	} ),
+	businessAnswer: computed( function () {
+		return this.model.answers.filter( x => x.get( "category" ) === "Business" )
+	} ),
+	answerHospital: groupBy( "businessAnswer", "target.id" ),
 	getAllProductInfo() {
 		let arr = []
 
@@ -597,8 +602,42 @@ export default Controller.extend( {
 		toIndex() {
 			this.transitionToRoute( "page.welcome" )
 		},
+		submitModal() {
+			let status = this.validation( this.model.project.proposal.get( "case" ) ),
+				detail = "提交执行本周期决策后，决策将保存不可更改，确定要提交吗？",
+				flag = 0
+
+			this.answerHospital.forEach( obj => {
+
+				obj.items.forEach( x => {
+					let sales = this.transNumber( x.get( "salesTarget" ) ),
+						budget = this.transNumber( x.get( "budget" ) )
+
+					if ( sales !== 0 || budget !== 0 ) {
+						flag = 1
+					}
+				} )
+				if ( flag === 0 ) {
+					detail = "当前存在部分医院尚未分配资源，提交后不可再更改本周期决策，确定要提交吗？"
+				}
+				flag = 0
+			} )
+
+			if ( status ) {
+				this.set( "submitConfirm", {
+					open: true,
+					title: "提交执行",
+					detail: detail
+				} )
+			}
+		},
 		submit() {
 			// 使用这部分代码
+
+			this.set( "submitConfirm", {
+				open: false
+			} )
+
 			let status = this.validation( this.model.project.proposal.get( "case" ) )
 
 			if ( status ) {
@@ -617,8 +656,8 @@ export default Controller.extend( {
 						return
 					} )
 				}, err => {
-					console.log("fxxked up")
-					console.log(err)
+					console.log( "fxxked up" )
+					console.log( err )
 					this.set( "loadingForSubmit", false )
 					this.toast.error( "", "保存失败，请重试", this.toastOpt )
 					return
@@ -659,13 +698,54 @@ export default Controller.extend( {
 					return
 				} )
 			}, err => {
-				console.log("fxxked up")
-				console.log(err)
+				window.console.log( "fxxked up" )
+				window.console.log( err )
 				this.set( "loadingForSubmit", false )
 				this.toast.error( "", "保存失败，请重试", this.toastOpt )
 				return
 			} )
 		},
+		saveInputsWhenQuitModal() {
+			this.set( "saveInputsWhenQuit", {
+				open: true,
+				title: "退出任务",
+				detail: "您当前的决策将被保存，等您继续部署。您确定要结束任务吗？"
+			} )
+		},
+		saveInputsWhenQuit() {
+
+			this.set( "saveInputsWhenQuit", {
+				open: false
+			} )
+
+			Ember.Logger.info( "save current input" )
+			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+				this.model.project.set( "lastUpdate", new Date().getTime() )
+				this.model.project.save().then( () => {
+					this.toast.success( "", "保存成功", this.toastOpt )
+
+					setTimeout(	function() {
+						window.location = "/"
+					}, 3000 )
+
+				} ).catch( err => {
+					window.console.log( err )
+					this.set( "loadingForSubmit", false )
+					this.toast.error( "", "保存失败，请重试", this.toastOpt )
+					return
+				} )
+			}, err => {
+				window.console.log( "fxxked up" )
+				window.console.log( err )
+				this.set( "loadingForSubmit", false )
+				this.toast.error( "", "保存失败，请重试", this.toastOpt )
+				return
+			} )
+
+		},
+		// sleep (time) {
+		//		return new Promise((resolve) => setTimeout(resolve, time))
+		// },
 		// testResult() {
 		// 	this.toast.success( "", "保存成功", {
 		// 		closeButton: false,

@@ -12,7 +12,19 @@ export default Controller.extend( {
 		toHistory( pid ) {
 			this.transitionToRoute( "page.history" , pid )
 		},
+		startDeployConfirm() {
+
+			this.set( "startDeployConfirm", {
+				open: true,
+				title: "重新部署",
+				detail: "确定要重新开始测试吗？我们将删除您进行中的决策记录。"
+			} )
+
+		},
 		startDeploy( proposal ) {
+			this.set( "startDeployConfirm", {
+				open: false
+			} )
 			this.gen.genProjectWithProposal( proposal ).then( x => {
 				this.deploy( x )
 			} )

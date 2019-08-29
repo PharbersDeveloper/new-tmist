@@ -135,10 +135,10 @@ h5.title {
 .meeting-place .input-prepend {
 	position: relative;
 
-	input {
-		// padding-left: 30px;
-		// padding-right: 30px;
-	}
+	// input {
+	// 	// padding-left: 30px;
+	// 	// padding-right: 30px;
+	// }
 
 	&::after {
 		@extend %p-secondary;
@@ -220,6 +220,7 @@ h5.title {
 
 .header {
 	width: 100%;
+	height: 52px;
 
 	.right {
 		// .icon-part {}
