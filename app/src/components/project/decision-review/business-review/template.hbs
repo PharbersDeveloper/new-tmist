@@ -69,8 +69,8 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{#bp-layout local-class="table"}}
-		{{#bp-layout tagName="table" direction="col" classNames="mx-4" }}
-			{{#bp-layout tagName="thead" main="between" }}
+		{{#bp-layout tagName="table" direction="col" classNames="mx-4 mt-4" }}
+			{{#bp-layout tagName="thead" main="between" classNames="pb-2"}}
 				{{#bp-layout tagName="th" main="center"}}城市{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}医院名称{{/bp-layout}}
 				{{#bp-layout tagName="th" main="center"}}产品名称{{/bp-layout}}
@@ -94,11 +94,18 @@
 				{{#bp-layout tagName="th" main="center"}}会议名额{{/bp-layout}}
 				{{/if}}
 			{{/bp-layout}}
-			{{#bp-layout tagName="tbody" direction="col"}}
+			{{#bp-layout tagName="tbody" direction="col" 
+			local-class=(if (bp-eq proposal.case "tm" )"tm-table" "ucb-table")}}
 				{{#if (bp-eq filterAnswers.length 0)}}
-						{{#bp-layout tagName="p" direction="main" main="center"}}
+						{{!-- {{#bp-layout tagName="p" direction="main" main="center"}}
 							当前无信息
-						{{/bp-layout}}
+						{{/bp-layout}} --}}
+						{{bp-empty-state/no-button
+							classNames="mt-3"
+							src='https://i.loli.net/2019/02/13/5c63df11c3b5c.png'
+							title=""
+							desc="当前无信息"
+							}}
 				{{/if}}
 				{{#each filterAnswers as |item|}}
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
