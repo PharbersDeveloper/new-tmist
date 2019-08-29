@@ -337,10 +337,11 @@
 	{{/project/business-input/input-mapping}} --}}
 {{/bp-layout}}
 {{#bp-modal
+		classNames="validation-style"
 		open=warning.open 
 		position="center"
 		onHidden=(action (mut warning.open) false) as |modal|}}
-	{{#modal.header}}
+	{{#modal.header }}
 		<h4 class="modal-title">
 			{{warning.title}}
 		</h4>
@@ -370,7 +371,7 @@
 	{{/modal.body}}
 	{{#modal.footer}}
 		{{#bp-button type="primary" onClick=(action "resetBusiness")}}{{t "project.business-input.OK"}}{{/bp-button}}
-		{{#bp-button type="primary" onClick=(action modal.close)}}取消{{/bp-button}}
+		{{#bp-button onClick=(action modal.close)}}取消{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}
 {{yield}}
