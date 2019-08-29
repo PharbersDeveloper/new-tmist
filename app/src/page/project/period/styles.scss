@@ -117,8 +117,24 @@
 	}
 }
 
-.modal-title {
-	font-size: 20px;
-	color: #172b4d;
-	line-height: 24px;
+.modal {
+	.modal-title {
+		font-size: 20px;
+		color: #172b4d;
+		line-height: 24px;
+	}
+
+	:global(.modal-dialog) {
+		max-width: 400px;
+	}
+
+	.start-deploy-header {
+		font-size: 20px;
+		color: #172b4d;
+		line-height: 24px;
+	}
+
+	:global(.modal-content) {
+		height: 176px;
+	}
 }

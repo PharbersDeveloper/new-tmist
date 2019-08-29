@@ -237,41 +237,43 @@
 {{/bp-layout}}
 
 {{#bp-modal
+		local-class="modal"
 		open=validationWarning.open
 		position='center' 
 		onHidden=(action (mut validationWarning.open) false) as |modal|}}
-	{{#modal.header closeButton=false}}
+	{{#modal.header closeButton=false classNames="px-4"}}
 		<h4 class="modal-title" local-class="modal-title">
 			{{validationWarning.title}}
 		</h4>
 	{{/modal.header}}
-	{{#modal.body classNames="p-4"}}
-		<p class="desc">
+	{{#modal.body classNames="px-4 pt-0"}}
+		<p class="desc mb-0 mt-3">
 			{{validationWarning.detail}}
 		</p>
 	{{/modal.body}}
-	{{#modal.footer}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}
 
 {{#bp-modal
+		local-class="modal"
 		open=submitConfirm.open
 		position='center' 
 		onHidden=(action (mut submitConfirm.open) false) as |modal|}}
-	{{#modal.header closeButton=false}}
+	{{#modal.header closeButton=false classNames="px-4"}}
 		<h4 class="modal-title" local-class="modal-title">
 			{{submitConfirm.title}}
 		</h4>
 	{{/modal.header}}
-	{{#modal.body classNames="p-4"}}
+	{{#modal.body classNames="px-4 pt-0"}}
 		<p class="desc">
 			{{submitConfirm.detail}}
 		</p>
 	{{/modal.body}}
-	{{#modal.footer}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
 		{{!-- {{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}} --}}
-		{{#bp-button type="default" onClick=(action modal.close)}}取消{{/bp-button}}
+		{{#bp-button type="subtle" onClick=(action modal.close)}}取消{{/bp-button}}
 		{{#bp-button type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}
