@@ -136,7 +136,8 @@
 
 		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
 	{{/bp-layout}} --}}
-	{{#common/nav-top-project proposalName=model.project.proposal.name  periodName=model.period.name}}
+	{{#common/nav-top-project proposalName=model.project.proposal.name  periodName=model.period.name
+		saveInputsWhenQuitModal=(action "saveInputsWhenQuitModal")}}
 		{{#bp-layout direction="row"}}
 				{{#bp-button local-class="btn-submit" onClick=(action "saveInputs") classNames="mr-1"}}保存{{/bp-button}}
 				{{#bp-button id="submit-btn" local-class="btn-submit" type="primary" onClick=(action "submitModal")}}提交执行{{/bp-button}}
@@ -275,6 +276,28 @@
 		{{!-- {{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}} --}}
 		{{#bp-button type="subtle" onClick=(action modal.close)}}取消{{/bp-button}}
 		{{#bp-button type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}
+
+
+{{#bp-modal
+		local-class="modal"
+		open=saveInputsWhenQuit.open
+		position='center' 
+		onHidden=(action (mut saveInputsWhenQuit.open) false) as |modal|}}
+	{{#modal.header closeButton=false classNames="px-4"}}
+		<h4 class="modal-title" local-class="modal-title">
+			{{saveInputsWhenQuit.title}}
+		</h4>
+	{{/modal.header}}
+	{{#modal.body classNames="px-4 pt-0"}}
+		<p class="desc">
+			{{saveInputsWhenQuit.detail}}
+		</p>
+	{{/modal.body}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
+		{{#bp-button type="subtle" onClick=(action modal.close)}}取消{{/bp-button}}
+		{{#bp-button type="primary" onClick=(action "saveInputsWhenQuit")}}结束任务{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}
 

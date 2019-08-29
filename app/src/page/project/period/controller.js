@@ -698,13 +698,54 @@ export default Controller.extend( {
 					return
 				} )
 			}, err => {
-				console.log( "fxxked up" )
-				console.log( err )
+				window.console.log( "fxxked up" )
+				window.console.log( err )
 				this.set( "loadingForSubmit", false )
 				this.toast.error( "", "保存失败，请重试", this.toastOpt )
 				return
 			} )
 		},
+		saveInputsWhenQuitModal() {
+			this.set( "saveInputsWhenQuit", {
+				open: true,
+				title: "退出任务",
+				detail: "您当前的决策将被保存，等您继续部署。您确定要结束任务吗？"
+			} )
+		},
+		saveInputsWhenQuit() {
+
+			this.set( "saveInputsWhenQuit", {
+				open: false
+			} )
+
+			Ember.Logger.info( "save current input" )
+			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
+				this.model.project.set( "lastUpdate", new Date().getTime() )
+				this.model.project.save().then( () => {
+					this.toast.success( "", "保存成功", this.toastOpt )
+
+					setTimeout(	function() {
+						window.location = "/"
+					}, 3000 )
+
+				} ).catch( err => {
+					window.console.log( err )
+					this.set( "loadingForSubmit", false )
+					this.toast.error( "", "保存失败，请重试", this.toastOpt )
+					return
+				} )
+			}, err => {
+				window.console.log( "fxxked up" )
+				window.console.log( err )
+				this.set( "loadingForSubmit", false )
+				this.toast.error( "", "保存失败，请重试", this.toastOpt )
+				return
+			} )
+
+		},
+		// sleep (time) {
+		//		return new Promise((resolve) => setTimeout(resolve, time))
+		// },
 		// testResult() {
 		// 	this.toast.success( "", "保存成功", {
 		// 		closeButton: false,
