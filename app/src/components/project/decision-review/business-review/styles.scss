@@ -78,6 +78,23 @@
 	}
 
 	.ucb-table {
-		height: calc(100vh - 288px) !important;
+		height: calc(100vh - 246px) !important;
+	}
+
+	.empty {
+		width: 100%;
+
+		.empty-img {
+			width: 100%;
+			// width: 160px;/
+
+			height: 160px;
+		}
+
+		.empty-desc {
+			font-size: 14px;
+			color: #344563;
+			text-align: center;
+		}
 	}
 }
