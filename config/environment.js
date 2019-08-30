@@ -40,7 +40,7 @@ module.exports = function( environment ) {
 			RedirectEndpoint: "service.oauth-callback",
 			UcbAuthEndpoint: "page.ucblogin",
 			UcbIndexEndpoint: "page.ucbprepare",
-			IndexEndpoint: "page.welcome"
+			IndexEndpoint: "page.index"
 		},
 
 		QueryAddress: {
