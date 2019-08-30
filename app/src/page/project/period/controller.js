@@ -725,7 +725,11 @@ export default Controller.extend( {
 					this.toast.success( "", "保存成功", this.toastOpt )
 
 					setTimeout(	function() {
-						window.location = "/"
+						if ( localStorage.getItem( "isUcb" ) === "1" ) {
+							window.location = "/ucbprepare"
+						} else {
+							window.location = "/"
+						}
 					}, 3000 )
 
 				} ).catch( err => {

@@ -87,7 +87,12 @@ export default Controller.extend( {
 			this.exportService.exportReport( this.model.project, this.model.project.get( "periods" ).length )
 		},
 		toIndex() {
-			this.transitionToRoute( "/" )
+			if ( localStorage.getItem( "isUcb" ) === "1" ) {
+				window.location = "/ucbprepare"
+			} else {
+				window.location = "/"
+			}
+			// this.transitionToRoute( "/" )
 		},
 		toReport() {
 			this.transitionToRoute( "page.project.result", this.model.project.id )

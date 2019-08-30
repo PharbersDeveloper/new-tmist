@@ -17,7 +17,7 @@ export default Mixin.create( {
 						show: true,
 						trigger: "item",
 						formatter: function( param ) {
-							return param.marker + " " + param.name + ": " + number2thousand( param.value[1],0 )
+							return param.marker + " " + param.name + ": ¥" + number2thousand( param.value[1],0 )
 						}
 					},
 					legend: {
