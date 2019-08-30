@@ -6,7 +6,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 	store: service(),
-	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period", "reports", "allDrugPresets"],
+	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "period", "reports", "presetsByProject"],
 	classNames: ["business-review-wrapper"],
 	didInsertElement() {
 		const phaseLength = this.project.periods.length
@@ -80,7 +80,14 @@ export default Component.extend( {
 			return this.get( "history" + this.curPeriodIndex )
 		}
 	} ),
-	filterAnswers: computed( "curAnswers", "curProd", "curRes", "sortFlag", function () {
+	curPresets: computed( "curPeriodIndex", "reports", "presetsByProject",function() {
+		if ( this.curPeriodIndex === 0 ) {
+			return this.reports
+		} else {
+			return this.presetsByProject
+		}
+	} ),
+	filterAnswers: computed( "curAnswers", "curProd", "curRes", function () {
 		let result = this.curAnswers.filter( x => x.category === "Business" ).sortBy( "target.name" ),
 			arr = []
 
@@ -101,8 +108,10 @@ export default Component.extend( {
 			}
 		}
 
+		window.console.log( this.curPeriodIndex )
+		window.console.log( this.curPresets )
 		result.forEach( r => {
-			let report = this.allDrugPresets.filter( x => x.get( "hospital.id" ) === r.get( "target.id" ) && x.get( "product.id" ) === r.get( "product.id" ) && x.get( "phase" ) === this.curPeriod.phase ),
+			let report = this.curPresets.filter( x => x.get( "hospital.id" ) === r.get( "target.id" ) && x.get( "product.id" ) === r.get( "product.id" ) && x.get( "phase" ) === this.curPeriodIndex ),
 				item = {}
 
 			item.hospitalName = r.get( "target.name" )
@@ -122,11 +131,7 @@ export default Component.extend( {
 		arr.sort( function( x, y ) {
 			return y.currentPatientNum - x.currentPatientNum
 		} )
-		// if ( this.sortFlag === 1 ) {
-		// 	arr.sort( function( x, y ) {
-		// 		return x.currentPatientNum - y.currentPatientNum
-		// 	} )
-		// }
+
 		return A( arr )
 	} ),
 	reviewColumns: A( [

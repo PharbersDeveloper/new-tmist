@@ -1,7 +1,6 @@
 import Route from "@ember/routing/route"
 import RSVP from "rsvp"
 import { inject as service } from "@ember/service"
-import { A } from "@ember/array"
 
 export default Route.extend( {
 	facade: service( "service/exam-facade" ),
@@ -56,17 +55,13 @@ export default Route.extend( {
 		let periods = null,
 			policies = null
 
-		if ( periodsIds.length ) {
-			periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
-		} else {
-			periods = A( [period] )
-		}
-
+		periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
 
 		this.facade.startPeriodExam( project )
 
+		// get all preset by proposal
 		const presets = period.then( prd => {
-				return this.facade.queryPeriodPresets( prd, prs, 0 )
+				return this.facade.queryPeriodPresets( prd, prs, phase )
 			} ),
 
 			answers = Promise.all( [period, presets, resources] ).then( results => {
@@ -80,7 +75,7 @@ export default Route.extend( {
 			dragInfo =
 				prs.load().then( x => {
 					const condi01 = "(proposalId,:eq,`" + x.id + "`)",
-						condi02 = "(phase,:eq," + phase + ")",
+						condi02 = "(phase,:eq,0)",
 						condi03 = "(category,:eq,8)",
 						condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
 
@@ -95,7 +90,8 @@ export default Route.extend( {
 					condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
 
 				return this.store.query( "model/preset", { filter: condi } )
-			} )
+			} ),
+			presetsByProject = this.store.query( "model/preset", { filter: "(projectId,:eq,`" + project.id + "`)" } )
 
 		policies = prs.load().then( x => {
 
@@ -106,7 +102,7 @@ export default Route.extend( {
 			return this.store.query( "model/preset", { filter: "(:and," + "(proposalId,:eq,`" + data.prsId + "`)" + `,(phase,:eq,${sourtPeriods.lastObject.phase})` + "," + "(category,:eq,32)" + ")" } )
 		} )
 
-		window.console.log( dragInfo )
+		const curPresets = phase === 0 ? presets : presetsByProject
 
 		return RSVP.hash( {
 			period: period,
@@ -114,13 +110,13 @@ export default Route.extend( {
 			hospitals: hospitals,
 			products: products,
 			resources: resources,
-			presets: presets.then( x => x.filter( it => it.category === 8 && it.phase === phase ) ),
+			presets: curPresets.then( x => x.filter( it => it.category === 8 && it.phase === phase ) ),
 			productQuotas: presets.then( x => x.filter( it => it.category === 4 && it.phase === phase ) ),
-			allDrugPresets: presets.then( x => x.filter( it => it.category === 8 ) ),
+			presetsByProject: presetsByProject.then( x => x.filter( it => it.category === 8 && it.projectId === project.id ) ),
 			answers: answers,
 			validation: validation,
 			quota: quota,
-			dragInfo: dragInfo,
+			dragInfo: dragInfo.then( x => x.filter( it => it.category === 8 ) ),
 			kpiInfo: kpiInfo,
 			periods: periods,
 			policies
