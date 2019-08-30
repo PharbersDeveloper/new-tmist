@@ -17,6 +17,7 @@ export default Component.extend( {
 	// currentBudget: 0,
 	// currentSalesTarget: 0,
 	// currentMeetingPlaces: 0,
+	curRegion: 0,
 	curCircle: 0,
 	curBudgetPercent: 100,
 	// TODO: 暂时留着，以后可能去掉
