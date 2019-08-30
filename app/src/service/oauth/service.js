@@ -77,7 +77,11 @@ export default Service.extend( {
 					cookies.write( "scope", response.scope, options )
 					cookies.write( "expiry", response.expiry, options )
 
-					this.get( "router" ).transitionTo( "page.index" )
+					if ( window.localStorage.getItem( "isUcb" ) === "1" ) {
+						this.get( "router" ).transitionTo( ENV.OAuth.UcbIndexEndpoint )
+					} else {
+						this.get( "router" ).transitionTo( ENV.OAuth.IndexEndpoint )
+					}
 					Ember.Logger.info( "auth token successful" )
 				} )
 				.catch( () => {
@@ -88,15 +92,24 @@ export default Service.extend( {
 					let reval = this.checkTokens()
 
 					if ( !reval.tokenFlag || !reval.scopeFlag ) {
-						window.location = "/login"
+						// window.location = "/login"
+						if ( window.localStorage.getItem( "isUcb" ) === "1" ) {
+							this.get( "router" ).transitionTo( ENV.OAuth.UcbIndexEndpoint )
+						} else {
+							this.get( "router" ).transitionTo( ENV.OAuth.IndexEndpoint )
+						}
 						return
 					}
 				} )
 		} else {
-			// this.get( "router" ).transitionTo( "index" )
 			Ember.Logger.error( "auth token failed" )
 			this.removeAuth()
-			window.location = "/login"
+			// window.location = "/login"
+			if ( window.localStorage.getItem( "isUcb" ) === "1" ) {
+				this.get( "router" ).transitionTo( ENV.OAuth.UcbIndexEndpoint )
+			} else {
+				this.get( "router" ).transitionTo( ENV.OAuth.IndexEndpoint )
+			}
 		}
 	},
 
@@ -140,7 +153,11 @@ export default Service.extend( {
 		let reval = this.checkTokens()
 
 		if ( ( !reval.tokenFlag || !reval.scopeFlag ) && targetName !== ENV.OAuth.RedirectEndpoint ) {
-			this.router.transitionTo( ENV.OAuth.AuthEndpoint )
+			if ( window.localStorage.getItem( "isUcb" ) === "1" ) {
+				this.router.transitionTo( ENV.OAuth.UcbAuthEndpoint )
+			} else {
+				this.router.transitionTo( ENV.OAuth.AuthEndpoint )
+			}
 		}
 	},
 

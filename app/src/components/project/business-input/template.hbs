@@ -169,16 +169,18 @@
 				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}分配医院资源
 					({{resourceHospitalNumebr}}/{{hospitals.length}})
 				{{/bp-layout}}
-				{{!-- {{#if (bp-eq project.proposal.case "ucb")}}
+				{{#if (bp-eq project.proposal.case "ucb")}}
 				{{#bp-layout}}
-					{{#bp-button classNames="mr-1" local-class="active"}}全部{{/bp-button}}
-					{{#bp-button classNames="mr-1" local-class="mid-btn"}}已分配{{/bp-button}}
-					{{#bp-button classNames="mr-4"}}未分配{{/bp-button}}
+					{{#bp-button classNames="mr-1" local-class=(if (bp-eq curRegion 0) "active" "") onClick=(action (mut curRegion) 0)}}全部{{/bp-button}}
+					{{#bp-button classNames="mr-1" local-class=(if (bp-eq curRegion 1) "active" "mid-btn") onClick=(action (mut curRegion) 1)}}会东市{{/bp-button}}
+					{{#bp-button classNames="mr-1" local-class=(if (bp-eq curRegion 2) "active" "mid-btn") onClick=(action (mut curRegion) 2)}}会西市{{/bp-button}}
+					{{#bp-button classNames="mr-4" local-class=(if (bp-eq curRegion 3) "active" "") onClick=(action (mut curRegion) 3)}}会南市{{/bp-button}}
 				{{/bp-layout}}
-				{{/if}} --}}
+				{{/if}}
 			{{/bp-layout}}
 			{{#bp-layout classNames="" local-class="hospital-config"}}
-				{{#project/business-input/input-mapping project=project presets=presets answers=answers reports=reports as |quizs|}}
+				{{#project/business-input/input-mapping 
+						curRegion=curRegion project=project presets=presets answers=answers reports=reports as |quizs|}}
 					{{#bp-layout local-class="hospitals"}}
 						{{#bp-layout direction="col" local-class="hospital"}}
 							{{#each quizs as |quiz|}}

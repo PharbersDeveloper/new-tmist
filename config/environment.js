@@ -30,6 +30,7 @@ module.exports = function( environment ) {
 		OAuth: {
 			Version: "v0",
 			ClientId: "5cbd9f94f4ce4352ecb082a0",
+			// ClientId: "5d68d46bb69b1d3f22693d26", //UCB专版
 			ClientSecret: "5c90db71eeefcc082c0823b2",
 			Status: "self",
 			Scope: "APP/NTM",
@@ -37,6 +38,8 @@ module.exports = function( environment ) {
 			RedirectUri: "",
 			AuthEndpoint: "page.login",
 			RedirectEndpoint: "service.oauth-callback",
+			UcbAuthEndpoint: "page.ucblogin",
+			UcbIndexEndpoint: "page.ucbprepare",
 			IndexEndpoint: "page.welcome"
 		},
 
@@ -56,6 +59,7 @@ module.exports = function( environment ) {
 		ENV.APP.LOG_VIEW_LOOKUPS = true
 
 		ENV.OAuth.RedirectUri = "http://tm.pharbers.com"
+		// ENV.OAuth.RedirectUri = "http://ucb.pharbers.com:8081" //UCB专版
 		ENV.OAuth.Host = "http://oauth.pharbers.com"
 		ENV.QueryAddress.host = "http://59.110.31.50"
 
@@ -76,6 +80,7 @@ module.exports = function( environment ) {
 	if ( environment === "production" ) {
 		// here you can enable a production-specific feature
 		ENV.OAuth.RedirectUri = "http://tm.pharbers.com"
+		// ENV.OAuth.RedirectUri = "http://ucb.pharbers.com:8081" //UCB专版
 		ENV.OAuth.Host = "http://oauth.pharbers.com"
 		ENV.QueryAddress.host = "http://59.110.31.50"
 
