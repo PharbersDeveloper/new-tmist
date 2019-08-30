@@ -118,11 +118,11 @@
 					</td>
 						{{#if (bp-eq proposal.case "ucb")}}
 						<td class="px-2 border-0 text-left">
-						{{format-number quiz.report.currentPatientNum}}
+						{{format-number quiz.preset.currentPatientNum}}
 						</td>
 
 						<td class="px-2 border-0 text-left">
-								{{#if (bp-eq quiz.report.currentDurgEntrance 1)}}
+								{{#if (bp-eq quiz.preset.currentDurgEntrance 1)}}
 									已开发
 								{{else}}
 									未开发
