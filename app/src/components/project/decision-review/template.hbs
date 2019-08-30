@@ -1,4 +1,5 @@
 {{#bp-layout local-class="review" direction="col"}}
+	{{#if (bp-eq proposal.case "tm")}}
 	{{#bp-layout direction="row" local-class="review-header" classNames="bg-white p-4 mb-3" main="between"}}
 		{{#bp-layout direction="row" cross="center"}}
 			{{#bp-layout tagName="h2" local-class="title" cross="center" direction="row"}}决策回顾{{/bp-layout}}
@@ -9,6 +10,7 @@
 			{{/bp-layout}} --}}
 		{{/bp-layout}}
 	{{/bp-layout}}
+	{{/if}}
 	{{#if (bp-eq proposal.case "tm")}}
 	{{#bp-layout direction="row" local-class="btn-group-sytle" main="center" classNames="mb-4 mt-4"}}
 		{{#bp-button onClick=(action (mut curDecisionReview) 0)

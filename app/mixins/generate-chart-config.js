@@ -1,5 +1,6 @@
 import Mixin from "@ember/object/mixin"
 import {A} from "@ember/array"
+import {number2percent,number2thousand} from "../utils/number-format"
 
 //TODO chart config应该放入线上数据库，现在没人放，先在本地生成
 export default Mixin.create( {
@@ -14,7 +15,10 @@ export default Mixin.create( {
 					color: ["#73ABFF", "#79E2F2","#57D9A3","#FFC400","#FF8F73"," #998DD9"],
 					tooltip: {
 						show: true,
-						trigger: "item"
+						trigger: "item",
+						formatter: function( param ) {
+							return param.marker + " " + param.name + ": " + number2thousand( param.value[1],0 )
+						}
 					},
 					legend: {
 						show: false
@@ -137,6 +141,23 @@ export default Mixin.create( {
 						axisPointer: { // 坐标轴指示器，坐标轴触发有效
 							type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
 						},
+						formatter:function( params ) {
+							// TODO 动态添加自定义 formatter 方法
+							let title = `<h6>${params[0].axisValue}</h6>`,
+								content = params.map( ele=> {
+
+									let value = ele.value[ele.seriesIndex + 1]
+
+									if ( ele.seriesIndex === params.length - 1 ) {
+										value = number2percent( value,1 )
+										return `<p>${ele.marker} ${ele.seriesName} ${value}%</p>`
+									}
+									value = number2thousand( value )
+									return `<p>${ele.marker} ${ele.seriesName} ¥ ${value}</p>`
+								} )
+
+							return title + content.join( "" )
+						},
 						backgroundColor: "rgba(9,30,66,0.54)"
 					},
 					legend: {
@@ -179,15 +200,14 @@ export default Mixin.create( {
 						encode: {
 							y: [3]
 						},
-						itemStyle: {
-							normal: {
-								label: {
-									show: true,
-									position: "top"
-									// 			formatter: function (params) {
-									// 				return `${params.value} ${rateUnit}`;
-									// 			}
-								}
+						label: {
+							show: true,
+							position: "top",
+							formatter:function( param ) {
+								//TODO 如何动态添加 formater
+								let value = param.value[3]
+
+								return number2percent( value,1 ) + "%"
 							}
 						}
 
@@ -202,7 +222,7 @@ export default Mixin.create( {
 			height: 305,
 			panels: [{
 				id: chartId,
-				color: ["#57D9A3", "#79E2F2", "#FFE380", "#8777D9"],
+				color: ["#57D9A3", "#FF8B00","#FFE380", "#8777D9"],
 				xAxis: {
 					show: true,
 					type: "category",
@@ -257,6 +277,20 @@ export default Mixin.create( {
 					trigger: "axis",
 					axisPointer: { // 坐标轴指示器，坐标轴触发有效
 						type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+					},
+					//TODO 可配置的 formatter
+					formatter: function ( params ) {
+						let title = `<h6>${params[0].axisValue}</h6>`,
+							content = params.map( ele => {
+
+								let value = ele.value[ele.seriesIndex + 1]
+
+								value = number2percent( value, 1 )
+								return `<div>${ele.marker} ${ele.seriesName} ${value}%</div>`
+
+							} )
+
+						return title + content.join( "" )
 					},
 					backgroundColor: "rgba(9,30,66,0.54)"
 				},

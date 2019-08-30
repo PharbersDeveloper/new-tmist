@@ -21,7 +21,7 @@
                 <span></span>
                 {{#if model.provious}}
                     {{#bp-layout direction="row" main="start" cross="start" local-class="btn-area"}}
-                        {{#bp-button type="default" onClick=(action "startDeploy" model.proposal)}}
+                        {{#bp-button type="default" onClick=(action "startDeployConfirm" )}}
                             重新部署
                         {{/bp-button}}
                         {{#bp-button type="primary" classNames="ml-2" onClick=(action "continueDeploy" model.provious.lastObject)}}
@@ -39,3 +39,24 @@
         {{/bp-layout}}
     {{/bp-layout}}
 {{/bp-layout}}
+{{#bp-modal
+        local-class="modal"
+		open=startDeployConfirm.open 
+		position="center"
+        size="sm"
+		onHidden=(action (mut startDeployConfirm.open) false) as |modal|}}
+    {{#modal.header classNames="px-4"}}
+        <h4 class="modal-title" local-class="start-deploy-header">
+            {{startDeployConfirm.title}}
+        </h4>
+    {{/modal.header}}
+    {{#modal.body classNames="px-4 pt-0"}}
+        <p class="desc m-0">
+            {{startDeployConfirm.detail}}
+        </p>
+    {{/modal.body}}
+    {{#modal.footer classNames="pt-0 pb-4 px-4"}}
+        {{#bp-button type="subtle" onClick=(action modal.close)}}取消{{/bp-button}}
+        {{#bp-button type="primary" onClick=(action "startDeploy" model.proposal)}}重新部署{{/bp-button}}
+    {{/modal.footer}}
+{{/bp-modal}}

@@ -2,9 +2,16 @@ import Component from "@ember/component"
 
 export default Component.extend( {
 	projectType: Number( localStorage.getItem( "projectType" ) ),
+	positionalParams:["saveInputsWhenQuitModal"],
 	actions: {
 		toIndex() {
-			window.location = "/"
+			const url = window.location.href
+
+			if ( url.indexOf( "period" ) !== -1 ) {
+				this.saveInputsWhenQuitModal()
+			} else {
+				window.location = "/"
+			}
 		}
 	}
 

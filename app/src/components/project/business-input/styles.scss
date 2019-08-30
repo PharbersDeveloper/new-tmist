@@ -272,7 +272,7 @@
       width: 368px;
       height: fit-content;
 
-      & > .resource-list {
+      &>.resource-list {
         overflow-y: auto;
         height: calc(100vh - 477px);
       }
@@ -468,3 +468,4 @@
     }
   }
 }
+
