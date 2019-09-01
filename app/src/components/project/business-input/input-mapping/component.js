@@ -5,8 +5,8 @@ import { computed } from "@ember/object"
 export default Component.extend( {
 	classNames: "input-mapping",
 	// localClassNameBindings: A( ["input-mapping"] ),
-	positionalParams: ["project", "presets", "answers", "reports", "curRegion"],
-	p: groupBy( "presets", "hospital.id" ),
+	positionalParams: ["project", "presets", "answers", "reports", "curRegion", "presetsByProject", "period"],
+	p: groupBy( "presets" , "hospital.id" ),
 	regionAns: computed( "curRegion", function() {
 		let region = 0
 
@@ -30,7 +30,6 @@ export default Component.extend( {
 
 	} ),
 	res: computed( "p", "answers", function() {
-
 		if ( this.p && this.answers ) {
 
 			return this.p.sortBy( "value" ).map( item => {

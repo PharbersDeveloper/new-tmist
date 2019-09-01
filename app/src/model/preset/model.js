@@ -17,7 +17,7 @@ export default DS.Model.extend( {
 	currentSalesSkills: DS.attr( "number" ),
 	currentProductKnowledge: DS.attr( "number" ),
 	currentBehaviorEfficiency: DS.attr( "number" ),
-	currentBehaviorEfficiency: DS.attr( "number" ),
+	// currentBehaviorEfficiency: DS.attr( "number" ),
 	currentPolicy:DS.attr( "string" ),
 	currentTargetDoctorNum: DS.attr( "number" ),
 	currentTargetDoctorCoverage: DS.attr( "number" ),
