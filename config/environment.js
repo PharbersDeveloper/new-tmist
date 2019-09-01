@@ -29,8 +29,9 @@ module.exports = function( environment ) {
 
 		OAuth: {
 			Version: "v0",
-			ClientId: "5cbd9f94f4ce4352ecb082a0",
+			ClientId: "5cbe7ab8f4ce4352ecb082a3", //UCB专版线上
 			// ClientId: "5d68d46bb69b1d3f22693d26", //UCB专版
+			// ClientId: "5cbd9f94f4ce4352ecb082a0",
 			ClientSecret: "5c90db71eeefcc082c0823b2",
 			Status: "self",
 			Scope: "APP/NTM",
