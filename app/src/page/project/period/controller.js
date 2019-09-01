@@ -101,11 +101,12 @@ export default Controller.extend( {
 				window.localStorage.setItem( "jobId", subMsg.job_id )
 
 				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-					set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id ) )
+					set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id, { reload: true } ) )
 					this.model.project.then( res => {
 						res.set( "status", 1 )
 						res.set( "endTime", new Date().getTime() )
 						res.set( "lastUpdate", new Date().getTime() )
+						console.log(res)
 						res.save().then( () => {
 							this.set( "loadingForSubmit", false )
 							this.transitionToRoute( "page.project.result" )

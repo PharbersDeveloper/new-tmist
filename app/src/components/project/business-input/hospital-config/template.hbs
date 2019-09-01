@@ -118,11 +118,11 @@
 					</td>
 						{{#if (bp-eq proposal.case "ucb")}}
 						<td class="px-2 border-0 text-left">
-						{{format-number quiz.report.currentPatientNum}}
+						{{format-number quiz.preset.currentPatientNum}}
 						</td>
 
 						<td class="px-2 border-0 text-left">
-								{{#if (bp-eq quiz.report.currentDurgEntrance 1)}}
+								{{#if (bp-eq quiz.preset.currentDurgEntrance 1)}}
 									已开发
 								{{else}}
 									未开发
@@ -135,7 +135,12 @@
 						{{/if}}
 
 					<td class="px-2 border-0 text-left">
-						￥{{format-number quiz.preset.lastSales 0}}
+						{{#if (bp-not-eq quiz.preset.lastSales null)}}
+							￥{{format-number quiz.preset.lastSales 0}}
+
+						{{else}}
+							￥0
+						{{/if}}
 					</td>
 					<td class="border-0">
 						{{#bp-layout main="center" direction="row"}}
