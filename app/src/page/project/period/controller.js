@@ -67,89 +67,121 @@ export default Controller.extend( {
 
 		let msgObj = msg.asObject()
 
-		if ( msgObj.status === "error" && this.calcJobId === msgObj.jobId ) {
-			this.set( "loadingForSubmit", false )
-			window.console.log( "计算出错啦 FXXXXXXXXXXXXXXXk" )
-			this.toast.error( "", "计算失败，请重试", this.toastOpt )
-			return
-		}
+		if ( msgObj.header === undefined ) {
 
-		let subMsg = JSON.parse( msgObj.msg )
-
-		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
-			this.runtimeConfig.set( "jobId", subMsg.job_id )
-
-			if ( this.firstCallEId === msgObj.jobId ) {
-				window.localStorage.setItem( "jobId", subMsg.job_id )
-				// if ( this.calcDone === true && this.secondCallEId === msgObj.jobId) {
-
-				// 	if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-				// 		this.model.project.set( "status", 1 ).save().then( () => {
-				// 			this.set( "loadingForSubmit", false )
-				// 			this.transitionToRoute( "page.project.result" )
-				// 		} )
-				// 	} else {
-				// 		this.set( "loadingForSubmit", false )
-				// 		this.transitionToRoute( "page.project.result" )
-				// 	}
-				// 	// document.getElementById( "submit-btn" ).click()
-				// } else {
+			if ( msgObj.status === "error" && this.calcJobId === msgObj.jobId ) {
 				this.set( "loadingForSubmit", false )
-				// }
-
-			} else if ( this.calcDone === true && this.secondCallEId === msgObj.jobId ) {
-				window.localStorage.setItem( "jobId", subMsg.job_id )
-
-				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-					set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id, { reload: true } ) )
-					this.model.project.then( res => {
-						res.set( "status", 1 )
-						res.set( "endTime", new Date().getTime() )
-						res.set( "lastUpdate", new Date().getTime() )
-						console.log(res)
-						res.save().then( () => {
-							this.set( "loadingForSubmit", false )
-							this.transitionToRoute( "page.project.result" )
-						} )
-					} )
-				} else {
-					this.set( "loadingForSubmit", false )
-					this.transitionToRoute( "page.project.result" )
-				}
-
-				// pressure test
-				// this.set( "loadingForSubmit", false )
-				// document.getElementById( "submit-btn" ).click()
+				window.console.log( "计算出错啦 FXXXXXXXXXXXXXXXk" )
+				this.toast.error( "", "计算失败，请重试", this.toastOpt )
+				return
 			}
-
-		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" && this.calcJobId === msgObj.jobId ) {
-			let proposalId = this.model.project.get( "proposal.id" ),
-				projectId = this.model.project.get( "id" ),
-				periodId = this.model.period.get( "id" ),
-				type = this.model.project.get( "proposal.case" ),
-				phase = this.model.period.get( "phase" )
-
-
-			this.get( "ajax" ).post( "/callR", {
-				headers: {
-					"dataType": "json",
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
-				},
-				data: {
-					callr: false,
-					type: type,
-					phase: String( Number( phase ) + 1 ),
-					proposalId: proposalId,
-					projectId: projectId,
-					periodId: periodId
+			let subMsg = JSON.parse( msgObj.msg )
+	
+			if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
+				this.runtimeConfig.set( "jobId", subMsg.job_id )
+	
+				if ( this.firstCallEId === msgObj.jobId ) {
+					window.localStorage.setItem( "jobId", subMsg.job_id )
+					this.set( "loadingForSubmit", false )
+	
+				} else if ( this.calcDone === true && this.secondCallEId === msgObj.jobId ) {
+					window.localStorage.setItem( "jobId", subMsg.job_id )
+	
+					if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
+						set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id, { reload: true } ) )
+						this.model.project.then( res => {
+							res.set( "status", 1 )
+							res.set( "endTime", new Date().getTime() )
+							res.set( "lastUpdate", new Date().getTime() )
+							res.save().then( () => {
+								this.set( "loadingForSubmit", false )
+								this.transitionToRoute( "page.project.result" )
+							} )
+						} )
+					} else {
+						this.set( "loadingForSubmit", false )
+						this.transitionToRoute( "page.project.result" )
+					}
+	
+					// pressure test
+					// this.set( "loadingForSubmit", false )
+					// document.getElementById( "submit-btn" ).click()
 				}
-			} ).then( res => {
-				window.console.log( res )
-				window.console.log( "callBackend Success!" )
-				this.set( "calcDone", true )
-				this.set( "secondCallEId",res.id )
-			} )
+			} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" && this.calcJobId === msgObj.jobId ) {
+			// } else if ( msgObj.Status === "1" && this.calcJobId === msgObj.jobId ) {
+				let proposalId = this.model.project.get( "proposal.id" ),
+					projectId = this.model.project.get( "id" ),
+					periodId = this.model.period.get( "id" ),
+					type = this.model.project.get( "proposal.case" ),
+					phase = this.model.period.get( "phase" )
+
+				this.get( "ajax" ).post( "/callE", {
+					headers: {
+						"dataType": "json",
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
+					},
+					data: {
+						callr: false,
+						type: type,
+						phase: String( Number( phase ) + 1 ),
+						proposalId: proposalId,
+						projectId: projectId,
+						periodId: periodId
+					}
+				} ).then( res => {
+					window.console.log( res )
+					window.console.log( "callE Success!" )
+					this.set( "calcDone", true )
+					this.set( "secondCallEId",res.id )
+				} ).catch( err => {
+					window.console.log( "callE Failed!" )
+					window.console.log( err )
+					this.set( "loadingForSubmit", false )
+					this.toast.error( "", "计算失败，请重试", this.toastOpt )
+				} )
+			}
+		} else {
+			console.log( msgObj )
+			if ( msgObj.payload.jobId === this.calcJobId ) {
+				if ( msgObj.payload.Status === "ERROR" ) {
+					window.console.log( msgObj.payload.Error )
+					this.set( "loadingForSubmit", false )
+					this.toast.error( "", "计算失败，请重试", this.toastOpt )
+				} else if ( msgObj.payload.Status === "FINISH" ) {
+					let proposalId = this.model.project.get( "proposal.id" ),
+						projectId = this.model.project.get( "id" ),
+						periodId = this.model.period.get( "id" ),
+						type = this.model.project.get( "proposal.case" ),
+						phase = this.model.period.get( "phase" )
+
+					this.get( "ajax" ).post( "/callE", {
+						headers: {
+							"dataType": "json",
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
+						},
+						data: {
+							callr: false,
+							type: type,
+							phase: String( Number( phase ) + 1 ),
+							proposalId: proposalId,
+							projectId: projectId,
+							periodId: periodId
+						}
+					} ).then( res => {
+						window.console.log( res )
+						window.console.log( "callE Success!" )
+						this.set( "calcDone", true )
+						this.set( "secondCallEId",res.id )
+					} ).catch( err => {
+						window.console.log( "callE Failed!" )
+						window.console.log( err )
+						this.set( "loadingForSubmit", false )
+						this.toast.error( "", "计算失败，请重试", this.toastOpt )
+					} )
+				}
+			}
 		}
 	},
 	Subscribe() {
@@ -555,8 +587,20 @@ export default Controller.extend( {
 			}
 		} ).then( res => {
 			window.console.log( res )
-			this.set( "calcJobId",res.id )
-			window.console.log( "callR Success!" )
+			if ( res.Status === "ERROR" ) {
+				window.console.log( "callR Failed!" )
+				window.console.log( res.Error )
+				this.set( "loadingForSubmit", false )
+				this.toast.error( "", "计算失败，请重试", this.toastOpt )
+			} else {
+				this.set( "calcJobId",res.jobId )
+				window.console.log( "callR Success!" )
+			}
+		} ).catch( err => {
+			window.console.log( "callR Failed!" )
+			window.console.log( err )
+			this.set( "loadingForSubmit", false )
+			this.toast.error( "", "计算失败，请重试", this.toastOpt )
 		} )
 	},
 	callE() {
@@ -566,7 +610,7 @@ export default Controller.extend( {
 			type = this.model.project.get( "proposal.case" ),
 			phase = this.model.period.get( "phase" )
 
-		this.get( "ajax" ).post( "/callR", {
+		this.get( "ajax" ).post( "/callE", {
 			headers: {
 				"dataType": "json",
 				"Content-Type": "application/json",
@@ -584,6 +628,11 @@ export default Controller.extend( {
 			window.console.log( res )
 			window.console.log( "callE Success!" )
 			this.set( "firstCallEId",res.id )
+		} ).catch( err => {
+			window.console.log( "callE Failed!" )
+			window.console.log( err )
+			this.set( "loadingForSubmit", false )
+			this.toast.error( "", "加载出错，请刷新页面", this.toastOpt )
 		} )
 	},
 	validation( proposalCase ) {
