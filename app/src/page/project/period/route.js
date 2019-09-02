@@ -126,5 +126,6 @@ export default Route.extend( {
 		this._super( controller, model )
 		this.controllerFor( "page.project.period" ).Subscribe()
 		this.controllerFor( "page.project.period" ).callE()
+		// this.controllerFor( "page.project.period" ).set( "taskModal", true )
 	}
 } )
