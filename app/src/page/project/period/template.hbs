@@ -182,6 +182,7 @@
 			</li> --}}
 		{{/tabs.tablist}}
 		{{#bp-layout direction="col" main="start" cross="center" classNames="p-4" local-class="tab-content-outer"}}
+
 			{{#if (bp-eq currentTab 0)}}
 				{{project/business-input
 						project=model.project
@@ -195,6 +196,7 @@
 						answers=(filter-category model.answers "Business")
 						productQuotas=model.productQuotas
 						reports=model.dragInfo
+						presetsByProject=model.presetsByProject
 				}}
 			{{/if}}
 			{{#if (bp-eq currentTab 1)}}
@@ -219,14 +221,14 @@
 					products=model.products
 					answers=model.answers
 					reports=model.dragInfo
-					allDrugPresets=model.allDrugPresets
+					presetsByProject=model.presetsByProject
 					}}
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}
 				{{project/proposal-info 
 					proposal=model.project.proposal 
 					project=model.project
-					reports=model.dragInfo 
+					reports=model.presets
 					kpis=model.kpiInfo
 					period=model.period
 					periods=model.periods

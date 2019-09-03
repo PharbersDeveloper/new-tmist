@@ -10,6 +10,8 @@ export default Route.extend( {
 	oauthService: service( "service/oauth" ),
 
 	beforeModel( { targetName } ) {
+		window.localStorage.setItem( "isUcb", 0 )
+		// window.localStorage.setItem( "isUcb", 1 ) //UCB专版
 		this.get( "intl" ).setLocale( ["zh-CN"] )
 		this.oauthService.judgeAuth( targetName )
 	},
