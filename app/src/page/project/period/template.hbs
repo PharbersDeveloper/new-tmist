@@ -315,3 +315,56 @@
 		{{/bp-layout}}
 	{{/modal.body}}
 {{/bp-modal}}
+
+{{#bp-modal
+		local-class="task-modal"
+		open=taskModal
+		position='center' 
+		onHidden=(action (mut taskModal) false) as |modal|}}
+	{{#modal.header classNames="px-4"}}
+	{{/modal.header}}
+	{{#modal.body classNames="px-4 pt-0"}}
+		{{#bp-layout direction="col"}}
+			{{#bp-layout local-class="schedule" main="center"}}
+
+			{{#each taskModalCircle as |circle index|}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout local-class=(if (or (bp-gt model.period.phase index) (bp-eq model.period.phase index))"circle" "grey-circle") direction="row" main="center" cross="center"}}
+						{{#bp-layout local-class="dot" }}{{/bp-layout}}
+					{{/bp-layout}}
+					{{#if (bp-not-eq index taskModalCircleLength)}}
+						{{#bp-layout local-class= (if (bp-gt model.period.phase index) "line" "grey-line") cross="center"}}{{/bp-layout}}
+					{{/if}}
+					{{#bp-layout local-class="text" classNames=(if (bp-eq index taskModalCircleLength) "mt-1")}}
+						{{circle}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/each}}
+
+			{{/bp-layout}}
+			{{#bp-layout local-class="info" direction="col"}}
+				<h2 class="mb-2">任务通知</h2>
+				<p local-class="p-1" class="mb-0">请阅读参考信息，完成周期业务决策</p>
+				<h3 class="mb-3 mt-4">1.区域划分</h3>
+				<p local-class="p-2" class="mb-1">为医院分配代表，所有医院有代表，所有代表有医院</p>
+				<p local-class="p-3" class="mb-0">请注意：本周起分配完后，后面的周期中将无法再进行人员分配</p>
+				<h3 class="mt-4 mb-3">2.周期销售指标分配</h3>
+				{{#each model.productQuotas as |pd|}}
+				{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
+					<span>{{pd.product.name}}</span>
+					<span>￥{{format-number pd.lastQuota}}</span>	
+				{{/bp-layout}}
+				{{/each}}
+				<h3 class="mt-4 mb-3">3.周期销售额预算分配</h3>
+				{{#bp-layout direction="row" local-class="quota" main="between"}}
+					<span>总预算</span>
+					<span>￥{{format-number model.quota.totalBudget}}</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/modal.body}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}我知道了{{/bp-button}}
+		{{!-- {{#bp-button type="primary" onClick=(action "taskModal")}}结束任务{{/bp-button}} --}}
+	{{/modal.footer}}
+{{/bp-modal}}

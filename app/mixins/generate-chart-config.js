@@ -393,7 +393,10 @@ export default Mixin.create( {
 					color: ["#73ABFF", "#FFC400", "#57D9A3"],
 					tooltip: {
 						show: true,
-						trigger: "item"
+						trigger: "item",
+						formatter: function( param ) {
+							return param.marker + " " + param.name + ": ¥" + number2thousand( param.value[1],0 )
+						}
 					},
 					legend: {
 						show: false
