@@ -188,8 +188,10 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 				this.set( "tmpProdHosp",prod )
 				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name,this.proposal ) )
 			} else if ( salesGroupValue === 3 ) {
+				let regName = isEmpty( this.tmpReg ) ? "" : this.tmpReg.name
+
 				this.set( "tmpProdReg",prod )
-				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( this.tmpReg.name, prod.name,this.proposal ) )
+				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( regName, prod.name,this.proposal ) )
 			}
 		},
 		chooseRep( rep ) {
@@ -241,8 +243,6 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 			currentPeriod = sortPeriods.get( "lastObject.phase" ),	 // 当前周期的 phase
 			prevOne = isResultPage ? currentPeriod : currentPeriod - 1,//当为结果页面的时候显示当前周期，否则展示上一周期
 			prevTwo = isResultPage ? currentPeriod - 1 : currentPeriod - 2//当为结果页面的时候展示上一周期，否则展示上两个周期
-
-		console.log( prevTwo )
 
 		this.set( "tmpRep",defaultRep )
 		this.set( "tmpHosp",defaultHosp )
