@@ -16,6 +16,18 @@ export default Controller.extend( {
 	exam: service( "service/exam-facade" ),
 	runtimeConfig: service( "service/runtime-config" ),
 	em: service( "emitter" ),
+	taskModal: false,
+	taskModalCircle: computed( function() {
+		let arr = Array( this.model.project.pharse )
+
+		for ( let i = 0; i < arr.length; i++ ) {
+			arr[i] = "第" + ( i + 1 ) + "周期"
+		}
+		return A( arr )
+	} ),
+	taskModalCircleLength:computed( function() {
+		return this.model.project.pharse - 1
+	} ),
 	toastOpt: EmberObject.create( {
 		closeButton: false,
 		positionClass: "toast-top-center",
@@ -27,7 +39,6 @@ export default Controller.extend( {
 		return this.em.GetInstance()
 	} ),
 	currentTab: 3,
-	// loadingForSubmit: false,
 	loadingForSubmit: true,
 	calcDone: false,
 	allProductInfo: computed( function() {
@@ -71,22 +82,24 @@ export default Controller.extend( {
 
 			if ( msgObj.status === "error" && this.calcJobId === msgObj.jobId ) {
 				this.set( "loadingForSubmit", false )
+				// this.set( "taskModal", true )
 				window.console.log( "计算出错啦 FXXXXXXXXXXXXXXXk" )
 				this.toast.error( "", "计算失败，请重试", this.toastOpt )
 				return
 			}
 			let subMsg = JSON.parse( msgObj.msg )
-	
+
 			if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
 				this.runtimeConfig.set( "jobId", subMsg.job_id )
-	
+
 				if ( this.firstCallEId === msgObj.jobId ) {
 					window.localStorage.setItem( "jobId", subMsg.job_id )
 					this.set( "loadingForSubmit", false )
-	
+					this.set( "taskModal", true )
+
 				} else if ( this.calcDone === true && this.secondCallEId === msgObj.jobId ) {
 					window.localStorage.setItem( "jobId", subMsg.job_id )
-	
+
 					if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
 						set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id, { reload: true } ) )
 						this.model.project.then( res => {
@@ -102,7 +115,7 @@ export default Controller.extend( {
 						this.set( "loadingForSubmit", false )
 						this.transitionToRoute( "page.project.result" )
 					}
-	
+
 					// pressure test
 					// this.set( "loadingForSubmit", false )
 					// document.getElementById( "submit-btn" ).click()

@@ -4,7 +4,7 @@
 			{{#bp-button local-class="btn-submit" type="primary" onClick=(action "goRoundOver")}}完成任务{{/bp-button}}
 		{{else if (bp-eq model.project.proposal.case "ucb")}}
 			{{#if (bp-eq model.project.status 1)}}
-				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "goRoundOver")}}进行测评报告{{/bp-button}}
+				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "goRoundOver")}}完成任务{{/bp-button}}
 			{{else}}
 				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toNext" model.project)}}进行下个周期{{/bp-button}}
 			{{/if}}
