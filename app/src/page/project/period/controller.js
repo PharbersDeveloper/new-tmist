@@ -38,7 +38,13 @@ export default Controller.extend( {
 	client: computed( function () {
 		return this.em.GetInstance()
 	} ),
-	currentTab: 3,
+	currentTab: computed( function() {
+		if ( this.model.period.phase === 0 ) {
+			return 3
+		} else {
+			return 0
+		}
+	} ),
 	loadingForSubmit: true,
 	calcDone: false,
 	allProductInfo: computed( function() {
