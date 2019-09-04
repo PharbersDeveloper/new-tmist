@@ -298,6 +298,25 @@ h5.title {
 		}
 	}
 
+	.clicked-part {
+		cursor: not-allowed;
+
+		.check-box {
+			width: 20px;
+		}
+
+		.check-name {
+			font-size: 14px;
+			color: #172b4d;
+		}
+
+		.uncheck-name {
+			font-size: 14px;
+			color: #344563;
+			font-weight: 400;
+		}
+	}
+
 	.resource-style {
 		height: 20px;
 		min-width: 70px;

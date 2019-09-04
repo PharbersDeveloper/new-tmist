@@ -1,7 +1,9 @@
 import Component from "@ember/component"
 import groupBy from "ember-group-by"
 import { computed } from "@ember/object"
+// import { inject as service } from "@ember/service"
 // import { A } from "@ember/array"
+
 export default Component.extend( {
 	classNames: "input-mapping",
 	// localClassNameBindings: A( ["input-mapping"] ),
@@ -44,9 +46,13 @@ export default Component.extend( {
 						return ts && ps && bs
 					} )
 
-					let report = this.reports.filter( r => r.get( "hospital.id" ) === tmp.get( "target.id" ) && r.get( "product.id" ) === tmp.get( "product.id" ) ).get( "firstObject" )
+					// let report = this.reports.filter( r => r.get( "hospital.id" ) === tmp.get( "target.id" ) && r.get( "product.id" ) === tmp.get( "product.id" ) ).get( "firstObject" )
 
-					return { preset: preset, answer: tmp , report: report , region: tmp.get( "target.position" )}
+					// return { preset: preset, answer: tmp , report: report , region: tmp.get( "target.position" )}
+
+					// tmp.set( "resource", preset.resource )
+
+					return { preset: preset, answer: tmp , region: tmp.get( "target.position" ) }
 				} )
 
 				return result ? { hospital: result.get( "firstObject.answer.target" ), quizs: result } : {}
