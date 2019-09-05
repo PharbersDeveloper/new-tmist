@@ -139,7 +139,7 @@ export default Controller.extend( {
 			hospitalWithoutResource = [],
 			allBudget = this.model.project.proposal.get( "quota.totalBudget" ),
 			nullName = "",
-			haveNullInput = ""
+			haveNullInput = 0
 		// currentMeetingPlaces = 0,
 		// currentManagementTime = 0,
 		// resourceWithLeftTime = [],
@@ -171,7 +171,8 @@ export default Controller.extend( {
 		this.model.answers.filter( x => x.get( "category" ) === "Business" ).forEach( answer => {
 			// 有预算或销售额为空
 			if ( answer.get( "salesTarget" ) === "" || answer.get( "budget" ) === "" ) {
-				
+				haveNullInput = 1
+				nullName = answer.get( "target.name" )
 			}
 			// 有医院未被分配会议名额
 			// if ( answer.get( "meetingPlaces" ) === -1 ) {
@@ -220,6 +221,14 @@ export default Controller.extend( {
 				open: true,
 				title: "设定超标",
 				detail: "您的预算设定总值已超出总预算限制，请合理分配。"
+			} )
+			return false
+		} else if ( haveNullInput === 1 ) {
+			// 有预算或销售额有空值
+			this.set( "validationWarning", {
+				open: true,
+				title: "设定有空值",
+				detail: `${nullName}销售指标尚未完成分配，请完成指标分配。`
 			} )
 			return false
 		} else if ( isOverSalesTarget === 2 ) {
