@@ -57,6 +57,8 @@ export default Route.extend( {
 
 		periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
 
+		window.console.log( "periodsIds" )
+
 		this.facade.startPeriodExam( project )
 
 		// get all preset by proposal
@@ -104,6 +106,28 @@ export default Route.extend( {
 
 		const curPresets = phase === 0 ? presets : presetsByProject
 
+		// 2.3 周期分配结果等于第一周期分配结果 start
+		if ( phase > 0 ) {
+			presetsByProject.then( x => {
+				x.filter( it => it.category === 8 && it.phase === phase ).forEach( preset => {
+					answers.then( a => {
+						const curAnswer = a.filter( x => x.get( "category" ) === "Business" ).find( ans => {
+							const p = ans.belongsTo( "product" ).id() === preset.belongsTo( "product" ).id(),
+								h = ans.belongsTo( "target" ).id() === preset.belongsTo( "hospital" ).id()
+
+							return p && h
+						} )
+
+						if ( curAnswer ) {
+							curAnswer.set( "resource", preset.resource )
+						}
+
+					} )
+				} )
+			} )
+		}
+		// end
+
 		return RSVP.hash( {
 			period: period,
 			project: project,
@@ -125,8 +149,12 @@ export default Route.extend( {
 	setupController( controller, model ) {
 		this._super( controller, model )
 		this.controllerFor( "page.project.period" ).Subscribe()
-		this.controllerFor( "page.project.period" ).callE()
-		this.controllerFor( "page.project.period" ).set( "loadingForSubmit", true )
-		// this.controllerFor( "page.project.period" ).set( "taskModal", true )
+		// this.controllerFor( "page.project.period" ).callE()
+		// this.controllerFor( "page.project.period" ).set( "loadingForSubmit", true )
+		this.controllerFor( "page.project.period" ).set( "taskModal", true )
+
+		window.localStorage.setItem( "proposalId", model.project.get( "proposal.id" ) )
+		window.localStorage.setItem( "projectId", model.project.get( "id" ) )
+		// window.localStorage.setItem( "periodId", model.period.get( "id" ) )
 	}
 } )

@@ -1,7 +1,9 @@
 {{#bp-layout local-class="header"}}
 	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
 		{{#bp-layout direction="row" main="start" cross="center"
-			 click=(action "changedResource" sortQuizs.firstObject.answer) local-class="click-part"}}
+			 local-class=(if (bp-eq quizs.firstObject.preset.phase 0) "click-part" "clicked-part")
+			 click=(if (bp-eq quizs.firstObject.preset.phase 0) (action "changedResource" sortQuizs.firstObject.answer)) }}
+			 {{!-- click=(action "changedResource" sortQuizs.firstObject.answer) }} --}}
 			{{#bp-layout direction="row" local-class="check-box" classNames="mr-2"}}
 				{{#if hasResource}}
 				{{!-- {{bp-icon icon="check-circle" }} --}}
