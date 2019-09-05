@@ -18,29 +18,55 @@ export default Mixin.create( {
 		}
 		return jobId
 	},
+	getId() {
+		let proposalId = "",
+			projectId = ""
+
+
+		proposalId = window.localStorage.getItem( "proposalId" )
+		projectId = window.localStorage.getItem( "projectId" )
+
+		this.set( "proposalId", proposalId )
+		this.set( "projectId", projectId )
+
+		return {
+			projectId,
+			proposalId
+		}
+	},
 	generateProductCircleCondition( proposalCase, phase ) {
 
 		let searchRuls = [],
-			jobId = this.getJobId()
+			// jobId = this.getJobId(),
+			otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		if ( proposalCase === "tm" ) {
 			searchRuls = [
 				["eq", "category", "Product"],
-				["eq", "phase", phase],
-				["eq", "job_id.keyword", jobId]
+				["eq", "phase", phase]
+				// ["eq", "job_id.keyword", jobId]
 			]
 		} else {
 			searchRuls = [
 				["eq", "category", "Product"],
 				["eq", "phase", phase],
-				["eq", "job_id.keyword", jobId],
+				// ["eq", "job_id.keyword", jobId],
 				["eq", "status.keyword", "已开发"]
 			]
 		}
+		searchRuls.push( ids )
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": searchRuls
@@ -83,12 +109,21 @@ export default Mixin.create( {
 	generateProdBarLineCondition( productName, proposal ) {
 		let searchRuls = [],
 			agg = {},
-			jobId = this.getJobId()
+			// jobId = this.getJobId(),
+			otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		if ( isEmpty( productName ) ) {
 			searchRuls = [
-				["eq", "category", "Product"],
-				["eq", "job_id.keyword", jobId]
+				["eq", "category", "Product"]
+				// ["eq", "job_id.keyword", jobId]
 			]
 			agg = [
 				{
@@ -103,8 +138,8 @@ export default Mixin.create( {
 		} else {
 			searchRuls = [
 				["eq", "category", "Product"],
-				["eq", "product.keyword", productName],
-				["eq", "job_id.keyword", jobId]
+				["eq", "product.keyword", productName]
+				// ["eq", "job_id.keyword", jobId]
 			]
 			agg = [
 				{
@@ -122,6 +157,8 @@ export default Mixin.create( {
 				}
 			]
 		}
+		searchRuls.push( ids )
+
 		return [{
 			queryAddress: this.queryAddress,
 			xAxisFormat: {
@@ -129,7 +166,7 @@ export default Mixin.create( {
 				periodStep: proposal && proposal.get( "periodStep" )
 			},
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": searchRuls,
@@ -171,18 +208,28 @@ export default Mixin.create( {
 		}]
 	},
 	generateRepCircleCondition( phase ) {
-		let jobId = this.getJobId()
+		// let jobId = this.getJobId()
+		let otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": [
 							["eq", "category", "Resource"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword", jobId]
+							ids
+							// ["eq", "job_id.keyword", jobId]
 						]
 					},
 					"aggs": [
@@ -224,22 +271,32 @@ export default Mixin.create( {
 	},
 	generateRepBarLineCondition( repName, prodName, proposal ) {
 		let searchRuls = [],
-			jobId = this.getJobId()
+			// jobId = this.getJobId()
+			otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		if ( isEmpty( prodName ) ) {
 			searchRuls = [
 				["eq", "category", "Resource"],
-				["eq", "representative.keyword", repName],
-				["eq", "job_id.keyword", jobId]
+				["eq", "representative.keyword", repName]
+				// ["eq", "job_id.keyword", jobId]
 			]
 		} else {
 			searchRuls = [
 				["eq", "category", "Resource"],
 				["eq", "product", prodName],
-				["eq", "representative.keyword", repName],
-				["eq", "job_id.keyword", jobId]
+				["eq", "representative.keyword", repName]
+				// ["eq", "job_id.keyword", jobId]
 			]
 		}
+		searchRuls.push( ids )
 		return [{
 			queryAddress: this.queryAddress,
 			xAxisFormat: {
@@ -247,7 +304,7 @@ export default Mixin.create( {
 				periodStep: proposal && proposal.get( "periodStep" )
 			},
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": searchRuls,
@@ -310,18 +367,28 @@ export default Mixin.create( {
 		}]
 	},
 	generateHospCircleCondition( phase ) {
-		let jobId = this.getJobId()
+		// let jobId = this.getJobId()
+		let otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": [
 							["eq", "category", "Hospital"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword", jobId]
+							ids
+							// ["eq", "job_id.keyword", jobId]
 						]
 					},
 					"aggs": [
@@ -363,20 +430,30 @@ export default Mixin.create( {
 	},
 	generateHospBarLineCondition( hospName, prodName, proposal ) {
 		let searchRuls = [],
-			jobId = this.getJobId()
+			// jobId = this.getJobId()
+			otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		if ( isEmpty( prodName ) ) {
 			searchRuls = [
-				["eq", "hospital.keyword", hospName],
-				["eq", "job_id.keyword", jobId]
+				["eq", "hospital.keyword", hospName]
+				// ["eq", "job_id.keyword", jobId]
 			]
 		} else {
 			searchRuls = [
 				["eq", "product", prodName],
-				["eq", "hospital.keyword", hospName],
-				["eq", "job_id.keyword", jobId]
+				["eq", "hospital.keyword", hospName]
+				// ["eq", "job_id.keyword", jobId]
 			]
 		}
+		searchRuls.push( ids )
 		return [{
 			queryAddress: this.queryAddress,
 			xAxisFormat: {
@@ -384,7 +461,7 @@ export default Mixin.create( {
 				periodStep: proposal && proposal.get( "periodStep" )
 			},
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": searchRuls,
@@ -447,18 +524,28 @@ export default Mixin.create( {
 		}]
 	},
 	generateRegionCircleCondition( phase ) {
-		let jobId = this.getJobId()
+		// let jobId = this.getJobId()
+		let otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": [
 							["eq", "category", "Region"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword", jobId]
+							ids
+							// ["eq", "job_id.keyword", jobId]
 						]
 					},
 					"aggs": [
@@ -501,7 +588,16 @@ export default Mixin.create( {
 	generateRegionBarLineCondition( regName, prodName, proposal ) {
 
 		let searchRuls = [],
-			jobId = this.getJobId()
+			// jobId = this.getJobId()
+			otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		if ( isEmpty( prodName ) && isEmpty( regName ) ) {
 			searchRuls = []
@@ -520,7 +616,8 @@ export default Mixin.create( {
 			]
 		}
 		searchRuls.unshift( ["eq", "category", "Region"] )
-		searchRuls.push( ["eq", "job_id.keyword", jobId] )
+		// searchRuls.push( ["eq", "job_id.keyword", jobId] )
+		searchRuls.push( ids )
 
 		return [{
 			queryAddress: this.queryAddress,
@@ -529,7 +626,7 @@ export default Mixin.create( {
 				periodStep: proposal && proposal.get( "periodStep" )
 			},
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": searchRuls,
@@ -572,18 +669,28 @@ export default Mixin.create( {
 		}]
 	},
 	generateRepRadarCondition( repName, phase ) {
-		let jobId = this.getJobId()
+		// let jobId = this.getJobId()
+		let otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": [
 							["eq", "category", "Resource"],
 							["eq", "phase", phase],
-							["eq", "job_id.keyword", jobId]
+							ids
+							// ["eq", "job_id.keyword", jobId]
 						]
 					},
 					"aggs": [
@@ -644,7 +751,16 @@ export default Mixin.create( {
 		}]
 	},
 	generateProdCompLinesCondition( productarea, periodBase, periodStep ) {
-		let jobId = this.getJobId()
+		// let jobId = this.getJobId()
+		let otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		return [{
 			queryAddress: this.queryAddress,
@@ -653,13 +769,14 @@ export default Mixin.create( {
 				periodStep: periodStep
 			},
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": [
 							["eq", "category", "Product"],
-							["eq", "job_id.keyword", jobId],
-							["eq", "product_area.keyword", productarea]
+							// ["eq", "job_id.keyword", jobId],
+							["eq", "product_area.keyword", productarea],
+							ids
 						]
 					},
 					"aggs": [
@@ -696,28 +813,38 @@ export default Mixin.create( {
 	generateResultProductCircleCondition( proposalCase, phase, productarea ) {
 
 		let searchRuls = [],
-			jobId = this.getJobId()
+			// jobId = this.getJobId()
+			otherId = this.getId(),
+			proposalId = otherId.proposalId,
+			projectId = otherId.projectId,
+			ids = [
+				"or",[
+					["eq","proposal_id.keyword",proposalId],
+					["eq","project_id.keyword",projectId]
+				]
+			]
 
 		if ( proposalCase === "tm" ) {
 			searchRuls = [
 				["eq", "category", "Product"],
 				["eq", "phase", phase],
-				["eq", "job_id.keyword", jobId],
+				// ["eq", "job_id.keyword", jobId],
 				["eq", "product_area.keyword", productarea]
 			]
 		} else {
 			searchRuls = [
 				["eq", "category", "Product"],
 				["eq", "phase", phase],
-				["eq", "job_id.keyword", jobId],
+				// ["eq", "job_id.keyword", jobId],
 				["eq", "status.keyword", "已开发"],
 				["eq", "product_area.keyword", productarea]
 			]
 		}
+		searchRuls.push( ids )
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
-				"model": "tmrs",
+				"model": "tmrs_new",
 				"query": {
 					"search": {
 						"and": searchRuls,
