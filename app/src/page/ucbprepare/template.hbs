@@ -45,10 +45,15 @@
 		position="center"
         size="sm"
 		onHidden=(action (mut startDeployConfirm.open) false) as |modal|}}
-    {{#modal.header classNames="px-4"}}
-        <h4 class="modal-title" local-class="start-deploy-header">
-            {{startDeployConfirm.title}}
-        </h4>
+    {{#modal.header closeButton=false classNames="px-4"}}
+        {{#bp-layout direction="row" main="between" classNames="header-wrapper"}}
+            <h4 class="modal-title" local-class="start-deploy-header">
+                {{startDeployConfirm.title}}
+            </h4>
+            {{#bp-layout direction="row" main="between" classNames="close-wrapper" click=(action (mut startDeployConfirm.open) false)}}
+                {{bp-icon icon='cross'}}
+            {{/bp-layout}}
+        {{/bp-layout}}
     {{/modal.header}}
     {{#modal.body classNames="px-4 pt-0"}}
         <p class="desc m-0">
