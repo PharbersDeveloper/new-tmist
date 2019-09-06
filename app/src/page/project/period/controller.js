@@ -522,7 +522,7 @@ export default Controller.extend( {
 			},
 			data: {
 				callr: true,
-				type: type + "r",
+				type: type,
 				phase: String( phase ),
 				proposalId: proposalId,
 				projectId: projectId,

@@ -27,7 +27,7 @@
 					{{#each allProductInfo as |item|}}
 						{{#bp-layout classNames="mt-4"}}
 							<span>¥{{format-number item.curSales}}</span>
-							<span>/{{format-number item.allSales}}</span>
+							<span>/¥{{format-number item.allSales}}</span>
 							{{!-- <span>/¥2,400,000</span> --}}
 						{{/bp-layout}}
 					{{/each}}
@@ -166,8 +166,13 @@
 		{{/bp-layout}}
 		{{#bp-layout local-class="hospital-list" direction="col"}}
 			{{#bp-layout local-class="hospital-header" direction="row" main="between" classNames="bg-white mb-2" cross="center"}}
-				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}分配医院资源
-					({{resourceHospitalNumebr}}/{{hospitals.length}})
+				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}
+					分配医院资源
+					{{#if (bp-not-eq resourceHospitalNumebr 0)}}
+					{{#bp-layout classNames="ml-1" direction="row" cross="center" main="center" local-class="badge"}}
+						{{#bp-badge type='primary' }}{{resourceHospitalNumebr}}{{/bp-badge}}
+					{{/bp-layout}}
+					{{/if}}
 				{{/bp-layout}}
 				{{#if (bp-eq project.proposal.case "ucb")}}
 				{{#bp-layout}}
@@ -340,39 +345,40 @@
 	{{/project/business-input/input-mapping}} --}}
 {{/bp-layout}}
 {{#bp-modal
-		classNames="validation-style"
+		local-class="modal"
 		open=warning.open 
 		position="center"
 		onHidden=(action (mut warning.open) false) as |modal|}}
-	{{#modal.header }}
-		<h4 class="modal-title">
+	{{#modal.header closeButton=false classNames="px-4"}}
+		<h4 local-class="modal-title" class="mb-0">
 			{{warning.title}}
 		</h4>
 	{{/modal.header}}
-	{{#modal.body classNames="p-4"}}
+	{{#modal.body classNames="px-4 pt-0"}}
 		<p class="desc m-0">
 			{{warning.detail}}
 		</p>
 	{{/modal.body}}
-	{{#modal.footer}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}{{t "project.business-input.OK"}}{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}
 {{#bp-modal
+		local-class="modal"
 		open=cancelWarning.open 
 		position="center"
 		onHidden=(action (mut cancelWarning.open) false) as |modal|}}
-	{{#modal.header}}
-		<h4 class="modal-title">
+	{{#modal.header closeButton=false classNames="px-4"}}
+		<h4 local-class="modal-title" class="mb-0">
 			{{cancelWarning.title}}
 		</h4>
 	{{/modal.header}}
-	{{#modal.body classNames="p-4"}}
+	{{#modal.body classNames="px-4 pt-0"}}
 		<p class="desc m-0">
 			{{cancelWarning.detail}}
 		</p>
 	{{/modal.body}}
-	{{#modal.footer}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
 		{{#bp-button type="primary" onClick=(action "resetBusiness")}}{{t "project.business-input.OK"}}{{/bp-button}}
 		{{#bp-button onClick=(action modal.close)}}取消{{/bp-button}}
 	{{/modal.footer}}

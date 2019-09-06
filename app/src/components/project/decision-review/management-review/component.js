@@ -34,11 +34,19 @@ export default Component.extend( {
 	resourceAnswers: computed( "curAnswers", function() {
 		return this.curAnswers.filter( x => x.category === "Resource" )
 	} ),
+	transNumber( value ) {
+		let num = Number( value )
+
+		if ( !isNaN( num ) ) {
+			return num
+		}
+		return 0
+	},
 	totalTime: computed( "resourceAnswers", function() {
 		let result = 0
 
 		this.resourceAnswers.forEach( it => {
-			result += it.abilityCoach + it.assistAccessTime
+			result += this.transNumber( it.abilityCoach ) + this.transNumber( it.assistAccessTime )
 		} )
 		return result
 	} ),

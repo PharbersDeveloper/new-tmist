@@ -104,7 +104,7 @@ export default Component.extend( {
 		let num = 0
 
 		this.get( "answers" ).uniqBy( "target.id" ).forEach( answer => {
-			if ( answer.get( "resource.id" ) ) {
+			if ( !answer.get( "resource.id" ) ) {
 				num += 1
 			}
 		} )
