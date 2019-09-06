@@ -141,7 +141,7 @@
 
 .task-modal {
 	:global(.modal-content) {
-		height: 612px;
+		// height: 612px;
 	}
 
 	:global(.modal-dialog) {
@@ -208,7 +208,7 @@
 			color: #7a869a;
 			margin-top: 12px;
 			position: relative;
-    		left: -8px;
+			left: -8px;
 		}
 	}
 
