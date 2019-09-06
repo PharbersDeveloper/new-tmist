@@ -342,25 +342,50 @@
 			{{/each}}
 
 			{{/bp-layout}}
-			{{#bp-layout local-class="info" direction="col"}}
-				<h2 class="mb-2">任务通知</h2>
-				<p local-class="p-1" class="mb-0">请阅读参考信息，完成周期业务决策</p>
-				<h3 class="mb-3 mt-4">1.区域划分</h3>
-				<p local-class="p-2" class="mb-1">为医院分配代表，所有医院有代表，所有代表有医院</p>
-				<p local-class="p-3" class="mb-0">请注意：本周起分配完后，后面的周期中将无法再进行人员分配</p>
-				<h3 class="mt-4 mb-3">2.周期销售指标分配</h3>
-				{{#each model.productQuotas as |pd|}}
-				{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
-					<span>{{pd.product.name}}</span>
-					<span>￥{{format-number pd.lastQuota}}</span>	
+			{{#if (bp-eq model.period.phase 0)}}
+				{{#bp-layout local-class="info" direction="col"}}
+					<h2 class="mb-2">任务通知</h2>
+					<p local-class="p-1" class="mb-0">请阅读参考信息，完成周期业务决策</p>
+					<h3 class="mb-3 mt-4">1.区域划分</h3>
+					<p local-class="p-2" class="mb-1">本周期分配完后，在后面的周期中将无法再调整人员分配</p>
+					{{!-- <p local-class="p-3" class="mb-0">请注意：本周起分配完后，后面的周期中将无法再进行人员分配</p> --}}
+					<h3 class="mt-4 mb-3">2.周期销售指标分配</h3>
+					{{#each model.productQuotas as |pd|}}
+						{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
+							<span>{{pd.product.name}}</span>
+							<span>￥{{format-number pd.lastQuota}}</span>
+						{{/bp-layout}}
+					{{/each}}
+					<h3 class="mt-4 mb-3">3.周期销售额预算分配</h3>
+					{{#bp-layout direction="row" local-class="quota" main="between"}}
+						<span>总预算</span>
+						<span>￥{{format-number model.quota.totalBudget}}</span>
+					{{/bp-layout}}
 				{{/bp-layout}}
-				{{/each}}
-				<h3 class="mt-4 mb-3">3.周期销售额预算分配</h3>
-				{{#bp-layout direction="row" local-class="quota" main="between"}}
-					<span>总预算</span>
-					<span>￥{{format-number model.quota.totalBudget}}</span>
+
+			{{else}}
+
+				{{#bp-layout local-class="info" direction="col"}}
+					<h2 class="mb-2">任务通知</h2>
+					<p local-class="p-1" class="mb-0">医院动态与历史销售报告已更新，请阅读参考信息，完成周期业务决策</p>
+					{{!-- <h3 class="mb-3 mt-4">1.区域划分</h3> --}}
+					{{!-- <p local-class="p-2" class="mb-1">本周期分配完后，在后面的周期中将无法再调整人员分配</p> --}}
+					{{!-- <p local-class="p-3" class="mb-0">请注意：本周起分配完后，后面的周期中将无法再进行人员分配</p> --}}
+					<h3 class="mt-4 mb-3">1.周期销售指标分配</h3>
+					{{#each model.productQuotas as |pd|}}
+						{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
+							<span>{{pd.product.name}}</span>
+							<span>￥{{format-number pd.lastQuota}}</span>
+						{{/bp-layout}}
+					{{/each}}
+					<h3 class="mt-4 mb-3">2.周期销售额预算分配</h3>
+					{{#bp-layout direction="row" local-class="quota" main="between"}}
+						<span>总预算</span>
+						<span>￥{{format-number model.quota.totalBudget}}</span>
+					{{/bp-layout}}
 				{{/bp-layout}}
-			{{/bp-layout}}
+
+			{{/if}}
 		{{/bp-layout}}
 	{{/modal.body}}
 	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
