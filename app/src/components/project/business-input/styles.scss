@@ -347,6 +347,16 @@
         button:last-child {
           border-radius: 0 4px 4px 0;
         }
+
+        .badge {
+          span {
+            height: 16px;
+            width: 25px;
+            line-height: 16px;
+            font-weight: 300;
+            padding: 0 4px;
+          }
+        }
       }
 
       .hospital-config {
@@ -468,4 +478,3 @@
     }
   }
 }
-
