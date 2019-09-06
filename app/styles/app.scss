@@ -9,6 +9,7 @@ body > :global(.ember-view) {
 }
 
 :global(.modal-header) {
+	padding-top: 24px;
 	@extend %header-large;
 	border: 0;
 }
@@ -28,6 +29,7 @@ body > :global(.ember-view) {
 }
 
 :global(.modal-footer) {
+	padding-bottom: 24px;
 	border: 0;
 }
 
