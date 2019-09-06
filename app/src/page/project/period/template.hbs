@@ -148,6 +148,11 @@
 	{{#bp-tabs classNames="px-0" local-class="tabs-container" as |tabs|}}
 		{{#tabs.tablist}}
 			{{!-- <li > --}}
+			{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq currentTab 3) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white" onClick=(action (mut currentTab) 3) local-class=(if (bp-eq currentTab 3) "active")}}
+					{{t "project.scenario-reference"}}
+				{{/bp-button}}
+			{{/bp-layout}}
 			{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq currentTab 0) "active nav-item" "nav-item")}}
 				{{#bp-button classNames="nav-link bg-white" onClick=(action (mut currentTab) 0) local-class=(if (bp-eq currentTab 0) "active")}}
 					{{t "project.scenario-business"}}
@@ -169,11 +174,7 @@
 			{{/bp-layout}}
 			{{!-- </li> --}}
 			{{!-- <li local-class=(if (bp-eq currentTab 1) "active")> --}}
-			{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq currentTab 3) "active nav-item" "nav-item")}}
-				{{#bp-button classNames="nav-link bg-white" onClick=(action (mut currentTab) 3) local-class=(if (bp-eq currentTab 3) "active")}}
-					{{t "project.scenario-reference"}}
-				{{/bp-button}}
-			{{/bp-layout}}
+			
 			{{!-- </li> --}}
 			{{!-- <li class="nav-item">
 				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 3)}}
