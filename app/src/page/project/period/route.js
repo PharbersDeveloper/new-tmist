@@ -149,8 +149,12 @@ export default Route.extend( {
 	setupController( controller, model ) {
 		this._super( controller, model )
 		this.controllerFor( "page.project.period" ).Subscribe()
-		this.controllerFor( "page.project.period" ).callE()
-		this.controllerFor( "page.project.period" ).set( "loadingForSubmit", true )
-		// this.controllerFor( "page.project.period" ).set( "taskModal", true )
+		// this.controllerFor( "page.project.period" ).callE()
+		// this.controllerFor( "page.project.period" ).set( "loadingForSubmit", true )
+		this.controllerFor( "page.project.period" ).set( "taskModal", true )
+
+		window.localStorage.setItem( "proposalId", model.project.get( "proposal.id" ) )
+		window.localStorage.setItem( "projectId", model.project.get( "id" ) )
+		// window.localStorage.setItem( "periodId", model.period.get( "id" ) )
 	}
 } )
