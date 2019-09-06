@@ -12,11 +12,20 @@ body > :global(.ember-view) {
 	padding-top: 24px;
 	@extend %header-large;
 	border: 0;
+
+	:global(.header-wrapper) {
+		width: 100%;
+
+		:global(.close-wrapper) {
+			cursor: pointer;
+		}
+	}
 }
 
 :global(.modal-body) {
 	:global(.desc) {
 		@extend %p-primary;
+		color: #172B4D;
 	}
 
 	:global(.secondary) {
