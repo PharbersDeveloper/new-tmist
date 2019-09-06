@@ -11,6 +11,7 @@
 	h4.title {
 		// font-size: 16px;
 		@extend %header-medium;
+
 		span.sub-title {
 			@extend %p-small;
 		}
@@ -35,6 +36,7 @@
 
 	.info-header {
 		width: 1152px;
+		height: 52px;
 	}
 
 	.product-item {
@@ -67,7 +69,7 @@
 
 			&.badge-yellow {
 				background-color: #fce380;
-				color: #172B4D;
+				color: #172b4d;
 			}
 		}
 	}

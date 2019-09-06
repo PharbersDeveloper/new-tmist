@@ -134,15 +134,15 @@
 		line-height: 24px;
 	}
 
-	:global(.modal-content) {
-		height: 176px;
-	}
+	// :global(.modal-content) {
+	// 	height: 176px;
+	// }
 }
 
 .task-modal {
-	:global(.modal-content) {
-		height: 612px;
-	}
+	// :global(.modal-content) {
+	// 	// height: 612px;
+	// }
 
 	:global(.modal-dialog) {
 		max-width: 600px;
@@ -208,7 +208,7 @@
 			color: #7a869a;
 			margin-top: 12px;
 			position: relative;
-    		left: -8px;
+			left: -8px;
 		}
 	}
 

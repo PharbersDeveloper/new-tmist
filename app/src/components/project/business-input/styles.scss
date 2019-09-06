@@ -347,6 +347,16 @@
         button:last-child {
           border-radius: 0 4px 4px 0;
         }
+
+        .badge {
+          span {
+            height: 16px;
+            width: 25px;
+            line-height: 16px;
+            font-weight: 400;
+            padding: 0 4px;
+          }
+        }
       }
 
       .hospital-config {
@@ -469,3 +479,15 @@
   }
 }
 
+.modal {
+  :global(.modal-dialog) {
+    max-width: 400px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+    // font-weight: 500;
+    color: #172b4d;
+    line-height: 24px;
+  }
+}
