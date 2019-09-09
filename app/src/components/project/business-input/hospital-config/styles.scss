@@ -233,12 +233,28 @@ h5.title {
 
 		.icon-no-check {
 			button:global(.p-btn.default) {
-				background-color: #ffffff;
+				background-color: #f5f6f8;
+				border-radius: 50%;
 
 				&:hover {
 					svg {
 						path {
 							color: #b3bac5;
+						}
+					}
+				}
+			}
+		}
+
+		.icon-check {
+			button:global(.p-btn.default) {
+				background-color: #505f79;
+				border-radius: 50%;
+
+				& {
+					svg {
+						path {
+							color: #ffffff;
 						}
 					}
 				}

@@ -36,7 +36,7 @@
 				{{/bp-layout}}
 			{{/if}}
 
-			{{#bp-layout local-class=(if hasResource "" "icon-no-check")}}
+			{{#bp-layout local-class=(if hasResource "icon-check" "icon-no-check")}}
 				{{#bp-button local-class="icon-button" 
 								onClick=(action 'selectCurHospital' hospital.id) 
 								disabled=(if hasResource false true)
