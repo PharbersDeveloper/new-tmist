@@ -326,6 +326,7 @@
       width: 760px;
 
       .hospital-header {
+
         .mid-btn {
           border-radius: 0;
         }
@@ -349,12 +350,30 @@
         }
 
         .badge {
+          position: relative;
+
           span {
             height: 16px;
             width: 25px;
             line-height: 16px;
             font-weight: 400;
             padding: 0 4px;
+          }
+        }
+
+        .badge:hover {
+          span::after {
+            background: #172B4D;
+            border-radius: 3px;
+            color: #ffffff;
+            content: "未进行代表分配的医院数量";
+            height: 20px;
+            width: 157px;
+            position: absolute;
+            margin-left: -20px;
+            margin-top: -24px;
+            line-height: 20px;
+            // display: inline;
           }
         }
       }
