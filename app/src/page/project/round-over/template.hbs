@@ -9,14 +9,15 @@
 			{{#bp-button type="primary" onClick=(action "toIndex")}}返回主页{{/bp-button}}
 		{{/bp-layout}}
 	{{/bp-layout}}
-	{{#bp-layout local-class="info" direction="row" classNames="bg-white px-4"}}
+	{{#if ( bp-eq model.project.proposal.case "ucb")}}
+	{{#bp-layout local-class="info ucb-info" direction="row" classNames="bg-white p-4"}}
 		{{!-- {{#bp-layout direction="col" local-class="name block"}}
 			{{#bp-layout local-class="header-text"}}获得称号{{/bp-layout}}
 			{{#bp-layout local-class="img"}}{{/bp-layout}}
 			{{#bp-layout}}黄金{{/bp-layout}}
 		{{/bp-layout}} --}}
-		{{#bp-layout local-class="goal block" direction="col" main="center" cross="center"}}
-			{{#bp-layout local-class="header-text"}}总指标达成率{{/bp-layout}}
+		{{#bp-layout local-class="goal block" direction="col" cross="center"}}
+			{{#bp-layout local-class="header-text" classNames="mb-3"}}总指标达成率{{/bp-layout}}
 			{{#bp-layout direction="row" local-class="precent"}}
 				<span>{{bp-percent model.report.quotaAchv}}</span>
 				<span></span>
@@ -36,20 +37,21 @@
 				{{/bp-layout}}
 			{{/bp-layout}} --}}
 		{{/bp-layout}}
-		{{#bp-layout local-class="sales block" direction="col" main="center" cross="center"}}
-			{{#bp-layout local-class="header-text"}}总销售额{{/bp-layout}}
+		{{#bp-layout local-class="sales block" direction="col" cross="center"}}
+			{{#bp-layout local-class="header-text" classNames="mb-3"}}总销售额{{/bp-layout}}
 			{{#bp-layout}}¥{{format-number model.report.sales 0}}{{/bp-layout}}
+			{{log model.report}}
 		{{/bp-layout}}
-		{{#bp-layout direction="col" local-class="time block" main="center" cross="center"}}
-			{{#bp-layout local-class="header-text"}}完成用时{{/bp-layout}}
+		{{#bp-layout direction="col" local-class="time block" cross="center"}}
+			{{#bp-layout local-class="header-text" classNames="mb-3"}}完成用时{{/bp-layout}}
 			{{#bp-layout}}{{time-difference this.model.project.startTime this.model.project.endTime}}{{/bp-layout}}
 			{{!-- {{#bp-layout local-class="header-text"}}完成时间{{/bp-layout}}
 			{{#bp-layout}}2019-04-08 18:40{{/bp-layout}} --}}
 		{{/bp-layout}}
-		{{#bp-layout direction="col" local-class="time block" main="center" cross="center"}}
+		{{#bp-layout direction="col" local-class="time block" cross="center"}}
 			{{!-- {{#bp-layout local-class="header-text"}}完成用时{{/bp-layout}}
 			{{#bp-layout}}1小时30分钟{{/bp-layout}} --}}
-			{{#bp-layout local-class="header-text"}}完成时间{{/bp-layout}}
+			{{#bp-layout local-class="header-text" classNames="mb-3"}}完成时间{{/bp-layout}}
 			{{#bp-layout}}{{format-date-standard this.model.project.endTime}}{{/bp-layout}}
 		{{/bp-layout}}
 		{{!-- {{#bp-layout local-class="block"}}
@@ -95,6 +97,98 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
+	{{else if (bp-eq model.project.proposal.case "tm")}}
+		{{#bp-layout local-class="info tm-info" direction="row" classNames="bg-white p-4"}}
+			{{#bp-layout direction="col" local-class="name" }}
+					{{#bp-layout local-class="get-name" direction="row" main="center" classNames="mb-3"}}获得称号{{/bp-layout}}
+					{{#bp-layout local-class="img"}}{{/bp-layout}}
+					{{#bp-layout local-class="name-level" main="center" direction="row" classNames="mt-2"}}黄金{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout local-class="goal block" direction="col" }}
+				{{#bp-layout local-class="header-text" classNames="mb-3"}}总指标达成率{{/bp-layout}}
+				{{#bp-layout direction="row" local-class="precent"}}
+					<span class="mb-2">{{bp-percent model.report.quotaAchv}}</span>
+					{{!-- <span></span> --}}
+				{{/bp-layout}}
+				{{#bp-layout direction="row"}}
+						{{#bp-layout direction="col" classNames="mr-3"}}
+							{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
+							{{#bp-layout}}60%{{/bp-layout}}
+						{{/bp-layout}}
+						{{#bp-layout direction="col" classNames="mr-3"}}
+							{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
+							{{#bp-layout}}60%{{/bp-layout}}
+						{{/bp-layout}}
+						{{#bp-layout direction="col" classNames="mr-3"}}
+							{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
+							{{#bp-layout}}60%{{/bp-layout}}
+						{{/bp-layout}}
+					{{/bp-layout}}
+			{{/bp-layout}}
+
+			{{#bp-layout local-class="sales block" direction="col"  }}
+				{{#bp-layout local-class="header-text" classNames="mb-3"}}总销售额{{/bp-layout}}
+				{{#bp-layout}}¥{{format-number model.report.sales 0}}{{/bp-layout}}
+				{{log model.report}}
+			{{/bp-layout}}
+
+			{{#bp-layout direction="col" local-class="block"}}
+				{{#bp-layout direction="col" local-class="time block" classNames="mb-4"}}
+					{{#bp-layout local-class="header-text" classNames="mb-2"}}完成用时{{/bp-layout}}
+					{{#bp-layout}}{{time-difference this.model.project.startTime this.model.project.endTime}}{{/bp-layout}}
+				{{/bp-layout}}
+				{{#bp-layout direction="col" local-class="time block"}}
+					{{#bp-layout local-class="header-text" classNames="mb-2"}}完成时间{{/bp-layout}}
+					{{#bp-layout}}{{format-date-standard this.model.project.endTime}}{{/bp-layout}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+
+			{{!-- {{#bp-layout local-class="block"}}
+				{{/bp-layout}} --}}
+			
+			{{!-- {{#bp-layout local-class="report block" direction="row" main="center"}}
+				{{#bp-layout local-class="report" direction="row" classNames="mr-4" 
+					 click=(action "toReport")}}
+					周期销售报告
+				{{/bp-layout}}
+			{{/bp-layout}} --}}
+
+			{{#bp-layout local-class="examine-export block"  direction="row" main="center" cross="center"}}
+				{{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
+					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+							{{#dd.button }}
+								查看
+								{{bp-icon icon='down'}}
+							{{/dd.button}}
+							{{#dd.menu as |menu|}}
+								{{#menu.option}}测试综合表现{{/menu.option}}
+								{{#menu.option}}周期销售结果{{/menu.option}}
+								{{#menu.option}}决策回顾{{/menu.option}}
+							{{/dd.menu}}
+						{{/bp-dropdown}}
+				{{/bp-layout}}
+				{{#bp-layout local-class="export" direction="row"}}
+					{{!-- {{#bp-button click=(action "exportReport")}}
+						{{bp-icon icon='export'}}
+						<span class="ml-1">导出报告</span>
+					{{/bp-button}} --}}
+					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+							{{#dd.button }}
+								导出
+								{{bp-icon icon='down'}}
+							{{/dd.button}}
+							{{#dd.menu as |menu|}}
+								{{#menu.option}}测试综合表现{{/menu.option}}
+								{{#menu.option}}周期销售结果{{/menu.option}}
+								{{#menu.option}}决策回顾{{/menu.option}}
+							{{/dd.menu}}
+						{{/bp-dropdown}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/if}}
+
+
 	{{!-- {{#bp-layout local-class="history" classNames="bg-white mt-4 px-4" direction="col"}}
 		{{#bp-layout tagName="h4" local-class="history-header" cross="center" classNames="mb-0"}}
 			历史成果
