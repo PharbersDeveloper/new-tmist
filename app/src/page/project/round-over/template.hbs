@@ -161,9 +161,9 @@
 								{{bp-icon icon='down'}}
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
-								{{#menu.option}}测试综合表现{{/menu.option}}
-								{{#menu.option}}周期销售结果{{/menu.option}}
-								{{#menu.option}}决策回顾{{/menu.option}}
+								{{#menu.option click=(action "showTestPerformance")}}测试综合表现{{/menu.option}}
+								{{#menu.option click=(action "toReport")}}周期销售结果{{/menu.option}}
+								{{#menu.option click=(action "toDecisionReview")}}决策回顾{{/menu.option}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 				{{/bp-layout}}
@@ -196,3 +196,21 @@
 		{{project/history-info provious=model.provious}}
 	{{/bp-layout}} --}}
 {{/bp-layout}}
+
+
+
+
+{{#bp-modal
+	local-class="testPerformance"
+	open=testPerformance
+	position='center'
+	onHidden=(action (mut testPerformance) false) as |modal|}}
+	{{#modal.body classNames="p-4"}}
+	{{project/comprehensive-performance }}
+	{{/modal.body}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
+		{{!-- {{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}} --}}
+		{{#bp-button type="subtle" onClick=(action modal.close)}}取消{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}
+

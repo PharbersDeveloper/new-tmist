@@ -1,10 +1,12 @@
-{{common/nav-top-project}}
+{{common/nav-top-project proposalName=model.project.proposal.name}}
 {{#bp-layout direction="col" classNames="p-4" local-class="riview"}}
 	{{#bp-layout tagName="span"  classNames="mb-3" main="start" cross="start" direction="row"}}
 		{{#bp-layout local-class="return" click=(action "returnHistory" )}}返回{{/bp-layout}}
 	{{/bp-layout}}
 	
 	{{#bp-layout direction="row" }}
-		{{project/decision-review }}
+		{{project/decision-review
+		project=model.project
+		proposal=model.project.proposal}}
 	{{/bp-layout}}
 {{/bp-layout}}
