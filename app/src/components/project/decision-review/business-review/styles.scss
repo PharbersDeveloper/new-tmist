@@ -97,4 +97,11 @@
 			text-align: center;
 		}
 	}
+
+	:global(.bp-table-thead) {
+		th {
+			color: #7a869a;
+			font-weight: 400;
+		}
+	}
 }
