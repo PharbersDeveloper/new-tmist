@@ -29,6 +29,7 @@ module.exports = function( environment ) {
 
 		OAuth: {
 			Version: "v0",
+			// ClientId: "5d5a33c145b5387e411a08f0",
 			ClientId: "5cbd9f94f4ce4352ecb082a0",
 			// ClientId: "5d68d46bb69b1d3f22693d26", //UCB专版
 			ClientSecret: "5c90db71eeefcc082c0823b2",
