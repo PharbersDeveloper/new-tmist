@@ -2,7 +2,7 @@ import Component from "@ember/component"
 import { inject as service } from "@ember/service"
 import { computed, set } from "@ember/object"
 import { isEmpty } from "@ember/utils"
-import { A } from "@ember/array"
+// import { A } from "@ember/array"
 // import Ember from "ember"
 
 export default Component.extend( {
@@ -37,7 +37,7 @@ export default Component.extend( {
 		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
 			return true
 		}
-		set( this, "showContent", true )
+		this.set( "showContent", true )
 		return false
 	} ),
 	givenMeetingPlaces: computed( "resourceHospital", function() {

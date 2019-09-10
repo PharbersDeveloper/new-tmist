@@ -82,7 +82,7 @@ export default Controller.extend( {
 
 		let msgObj = msg.asObject()
 
-		if ( msgObj.header === undefined ) {
+		if ( !msgObj.header ) {
 			console.log( "msg format error" )
 			return
 		} else {

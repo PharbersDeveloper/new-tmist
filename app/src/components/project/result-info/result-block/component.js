@@ -2,7 +2,7 @@ import Component from "@ember/component"
 
 export default Component.extend( {
 	positionalParams: ["title", "cate", "results", "evaluations"],
-    // classNames: ["mb-4", "bg-white"],
+	// classNames: ["mb-4", "bg-white"],
 	detailInfo: null,
 
 	didReceiveAttrs() {
@@ -27,8 +27,8 @@ export default Component.extend( {
 			} )
 		} )
 
-        window.console.log(tmp);
-        
+		window.console.log( tmp )
+
 		this.set( "detailInfo", tmp )
 	}
 } )
