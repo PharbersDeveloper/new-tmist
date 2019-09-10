@@ -30,10 +30,11 @@ export default Controller.extend( {
 				open: false
 			} )
 			// old project status : 1
-			window.console.log( this.curProject.status )
-			this.set( "curProject.status", 1 )
-			this.curProject.save()
-			window.console.log( this.curProject.status )
+			if ( this.curProject ) {
+				this.set( "curProject.status", 1 )
+				this.curProject.save()
+			}
+
 			this.gen.genProjectWithProposal( proposal ).then( x => {
 				this.deploy( x )
 			} )
