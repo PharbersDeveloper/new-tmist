@@ -148,6 +148,7 @@
 						color: rgb(52, 69, 99);
 					}
 				}
+
 				.circle-table {
 					width: 100%;
 					height: 100%;
@@ -199,5 +200,18 @@
 				}
 			}
 		}
+	}
+}
+
+.modal {
+	:global(.modal-dialog) {
+		max-width: 400px;
+	}
+
+	.modal-title {
+		font-size: 20px;
+		// font-weight: 500;
+		color: #172b4d;
+		line-height: 24px;
 	}
 }

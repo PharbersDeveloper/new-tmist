@@ -226,19 +226,35 @@ h5.title {
 		// .icon-part {}
 
 		.icon-button {
-			width: 32px;
-			height: 32px;
+			height: 24px;
+			width: 24px;
 			padding: 0;
 		}
 
 		.icon-no-check {
 			button:global(.p-btn.default) {
-				background-color: #ffffff;
+				background-color: #f5f6f8;
+				border-radius: 50%;
 
 				&:hover {
 					svg {
 						path {
 							color: #b3bac5;
+						}
+					}
+				}
+			}
+		}
+
+		.icon-check {
+			button:global(.p-btn.default) {
+				background-color: #505f79;
+				border-radius: 50%;
+
+				& {
+					svg {
+						path {
+							color: #ffffff;
 						}
 					}
 				}

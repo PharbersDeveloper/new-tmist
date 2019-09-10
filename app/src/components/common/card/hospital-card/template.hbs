@@ -82,8 +82,10 @@
 						{{#bp-layout tagName="td" main="center"}}
 							{{#if (bp-eq item.currentDurgEntrance 1)}}
 							已开发
-							{{else}}
+							{{else if (bp-eq item.currentDurgEntrance 0)}}
 							未开发
+							{{else if (bp-eq item.currentDurgEntrance 2)}}
+							正在开发
 							{{/if}}
 						{{/bp-layout}}
 						{{#bp-layout tagName="td" main="center"}}{{format-number item.currentPatientNum}}{{/bp-layout}}

@@ -96,6 +96,12 @@ export default Controller.extend( {
 		},
 		toReport() {
 			this.transitionToRoute( "page.project.result", this.model.project.id )
+		},
+		toDecisionReview() {
+			this.transitionToRoute( "page.project.review", this.model.project.id )
+		},
+		showTestPerformance() {
+			this.set( "testPerformance", true )
 		}
 	}
 } )
