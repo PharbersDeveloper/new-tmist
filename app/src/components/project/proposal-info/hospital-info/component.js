@@ -12,7 +12,7 @@ export default Component.extend( {
 		if ( this.regions.length > 1 ) {
 			return this.regions.map( rg => {
 				const name = rg.value,
-				 ct = this.cities.find( x => x.name === name )
+					ct = this.cities.find( x => x.name === name )
 
 				return {
 					name: ct.name,

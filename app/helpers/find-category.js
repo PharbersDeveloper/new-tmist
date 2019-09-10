@@ -1,8 +1,8 @@
-import { helper } from '@ember/component/helper';
+import { helper } from "@ember/component/helper"
 
-export function findCategory(params/*, hash*/) {
+export function findCategory( params/*, hash*/ ) {
 	if ( params.length !== 2 ) {
-		Ember.Logger.error( `error in helper filter category with params ${params}` )
+		window.console.error( `error in helper filter category with params ${params}` )
 		return params
 	}
 
@@ -12,4 +12,4 @@ export function findCategory(params/*, hash*/) {
 	return lst.find( x => x.get( "category" ) === cat )
 }
 
-export default helper(findCategory);
+export default helper( findCategory )

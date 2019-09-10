@@ -9,12 +9,10 @@ export default Component.extend( {
 
 			if ( url.indexOf( "period" ) !== -1 ) {
 				this.saveInputsWhenQuitModal()
+			} else if ( localStorage.getItem( "isUcb" ) === "1" ) {
+				window.location = "/ucbprepare"
 			} else {
-				if ( localStorage.getItem( "isUcb" ) === "1" ) {
-					window.location = "/ucbprepare"
-				} else {
-					window.location = "/"
-				}
+				window.location = "/"
 			}
 		}
 	}
