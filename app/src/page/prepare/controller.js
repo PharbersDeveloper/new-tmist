@@ -1,5 +1,6 @@
 import Controller from "@ember/controller"
 import { inject as service } from "@ember/service"
+import { computed } from "@ember/object"
 
 export default Controller.extend( {
 	gen: service( "service/gen-data" ),
@@ -8,6 +9,9 @@ export default Controller.extend( {
 			this.transitionToRoute( "page.project.period", project.id, x.id )
 		} )
 	},
+	curProject: computed( function() {
+		return this.model.provious.get( "lastObject" )
+	} ),
 	actions: {
 		toHistory( pid ) {
 			this.transitionToRoute( "page.history" , pid )
@@ -25,6 +29,11 @@ export default Controller.extend( {
 			this.set( "startDeployConfirm", {
 				open: false
 			} )
+			// old project status : 1
+			window.console.log( this.curProject.status )
+			this.set( "curProject.status", 1 )
+			this.curProject.save()
+			window.console.log( this.curProject.status )
 			this.gen.genProjectWithProposal( proposal ).then( x => {
 				this.deploy( x )
 			} )
