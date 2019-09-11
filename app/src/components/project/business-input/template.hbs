@@ -25,7 +25,7 @@
 				{{/bp-layout}}
 				{{#bp-layout classNames="mx-4" local-class="sales-money" direction="col"}}
 					{{#each allProductInfo as |item|}}
-						{{#bp-layout classNames="mt-4"}}
+						{{#bp-layout classNames="mt-4" direction="row" cross="baseline"}}
 							<span>¥{{format-number item.curSales}}</span>
 							<span>/¥{{format-number item.allSales}}</span>
 							{{!-- <span>/¥2,400,000</span> --}}
