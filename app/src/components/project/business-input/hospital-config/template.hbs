@@ -7,7 +7,14 @@
 			{{#bp-layout direction="row" local-class="check-box" classNames="mr-2"}}
 				{{#if hasResource}}
 				{{!-- {{bp-icon icon="check-circle" }} --}}
-					{{bp-icon icon='hospital-checked'}}
+					
+					{{#if (bp-eq quizs.firstObject.preset.phase 0)}}
+						{{bp-icon icon='hospital-checked'}}
+					{{else}}
+						{{bp-icon icon='hospital-checked-disabled'}}
+					{{/if}}
+					
+					
 				{{else}}
 					{{bp-icon icon='hospital-unchecked'}}
 				{{/if}}

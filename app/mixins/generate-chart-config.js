@@ -26,7 +26,7 @@ export default Mixin.create( {
 					series: [{
 						name: "",
 						type: "pie",
-						radius: ["50", "64"],
+						radius: ["48", "64"],
 						avoidLabelOverlap: false,
 						hoverOffset: 3,
 						labelLine: {
@@ -404,7 +404,7 @@ export default Mixin.create( {
 					series: [{
 						name: "",
 						type: "pie",
-						radius: ["70", "100"],
+						radius: ["84", "100"],
 						avoidLabelOverlap: false,
 						hoverOffset: 3,
 						labelLine: {
