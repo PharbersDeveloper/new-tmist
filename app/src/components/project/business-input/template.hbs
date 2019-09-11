@@ -25,7 +25,7 @@
 				{{/bp-layout}}
 				{{#bp-layout classNames="mx-4" local-class="sales-money" direction="col"}}
 					{{#each allProductInfo as |item|}}
-						{{#bp-layout classNames="mt-4"}}
+						{{#bp-layout classNames="mt-4" direction="row" cross="baseline"}}
 							<span>¥{{format-number item.curSales}}</span>
 							<span>/¥{{format-number item.allSales}}</span>
 							{{!-- <span>/¥2,400,000</span> --}}
@@ -61,39 +61,52 @@
 				{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-part"}}
-				{{#bp-layout tagName="div" style="width: 128px;height: 128px" }}
+				{{#bp-layout tagName="div" style="width: 128px;height: 128px" classNames="mr-2"}}
 					{{#if (bp-eq curCircle 0)}}
 						{{bp-circle eid="cricleBudget" circleData=circleProductData circleColor=circleProductColor circleSize=circleSize}}
 					{{else}}
 						{{bp-circle eid="cricleB" circleData=circleBudgetData circleColor=circleBudgetColor circleSize=circleSize}}
 					{{/if}}
 				{{/bp-layout}}
-				{{#bp-layout direction="col" classNames="ml-4" local-class="legend" main="center" cross="center"}}
+				{{#bp-layout direction="col" classNames="ml-0" local-class="legend" main="center" cross="center"}}
 					{{#if (bp-eq curCircle 0)}}
-						{{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}}
+						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
+						<div local-class="scroll-legend">
 							{{#each legendProductBudget as |product index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
-									{{#bp-layout}}
+									{{#bp-layout direction="row"}}
 											<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleProductColor index}};"></span>
 											<span local-class="name">{{product.name}}</span>
 									{{/bp-layout}}
-									<span local-class="percent" class="ml-4 mr-3">{{product.curBudgetPercent}}%</span>
-									<span local-class="percent" class="ml-4 mr-3">¥{{format-number product.value}}</span>
+									{{!-- {{#bp-layout direction="row" main="between" classNames="ml-4"}} --}}
+
+										{{#bp-layout local-class="percent" direction="row" main="start"}} {{product.curBudgetPercent}}% {{/bp-layout}}
+										{{#bp-layout local-class="percent-value" direction="row" main="end"}} ¥{{format-number product.value}} {{/bp-layout}}
+											{{!-- <span local-class="percent" ></span> --}}
+											{{!-- <span local-class="percent" >¥{{format-number product.value}}</span> --}}
+									{{!-- {{/bp-layout}} --}}
 								{{/bp-layout}}
 							{{/each}}
-						{{/bp-layout}}
+						</div>
+						{{!-- {{/bp-layout}} --}}
 					{{else}}
 					<div local-class="scroll-legend">
 						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
 							{{#each legendResourceBudget as |resBudget index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
-									{{#bp-layout }}
+									{{#bp-layout direction="row"}}
 										<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleBudgetColor index}};"></span>
 										{{!-- <span local-class="legend-dot" class="mt-2 mr-2"></span> --}}
 										<span local-class="name">{{resBudget.name}}</span>
 									{{/bp-layout}}
-									<span local-class="percent" class="ml-4 mr-3">{{resBudget.per}}%</span>
-									<span local-class="percent" class="ml-4 mr-3">¥{{format-number resBudget.value}}</span>
+									{{!-- {{#bp-layout direction="row" main="between" classNames="ml-4"}} --}}
+
+									{{#bp-layout local-class="percent" direction="row" main="start"}} {{resBudget.per}}%{{/bp-layout}}
+									{{#bp-layout local-class="percent-value" direction="row" main="end"}} ¥{{format-number resBudget.value}} {{/bp-layout}}
+
+										{{!-- <span local-class="percent">{{resBudget.per}}%</span>
+										<span local-class="percent">¥{{format-number resBudget.value}}</span> --}}
+									{{!-- {{/bp-layout}} --}}
 								{{/bp-layout}}
 							{{/each}}
 							</div>
@@ -176,9 +189,9 @@
 				{{/bp-layout}}
 				{{#if (bp-eq project.proposal.case "ucb")}}
 				{{#bp-layout}}
-					{{#bp-button classNames="mr-1" local-class=(if (bp-eq curRegion 0) "active" "") onClick=(action (mut curRegion) 0)}}全部{{/bp-button}}
-					{{#bp-button classNames="mr-1" local-class=(if (bp-eq curRegion 1) "active" "mid-btn") onClick=(action (mut curRegion) 1)}}会东市{{/bp-button}}
-					{{#bp-button classNames="mr-1" local-class=(if (bp-eq curRegion 2) "active" "mid-btn") onClick=(action (mut curRegion) 2)}}会西市{{/bp-button}}
+					{{#bp-button local-class=(if (bp-eq curRegion 0) "active btn-margin" "btn-margin") onClick=(action (mut curRegion) 0)}}全部{{/bp-button}}
+					{{#bp-button local-class=(if (bp-eq curRegion 1) "active mid-btn" "mid-btn") onClick=(action (mut curRegion) 1)}}会东市{{/bp-button}}
+					{{#bp-button local-class=(if (bp-eq curRegion 2) "active mid-btn" "mid-btn") onClick=(action (mut curRegion) 2)}}会西市{{/bp-button}}
 					{{#bp-button classNames="mr-4" local-class=(if (bp-eq curRegion 3) "active" "") onClick=(action (mut curRegion) 3)}}会南市{{/bp-button}}
 				{{/bp-layout}}
 				{{/if}}

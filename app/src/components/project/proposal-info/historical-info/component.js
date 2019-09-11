@@ -51,8 +51,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	},
 
 	tableHead: computed( "periods", function () {
-		window.console.log( this.periods )
-		if ( this.periods == undefined ) {
+		if ( !this.periods ) {
 			return
 		}
 		let seasonQ = "",

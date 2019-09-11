@@ -65,13 +65,14 @@ export default Component.extend( {
 		return cur
 	} ),
 	circleMeetingColor: A( ["#3172E0", "#DFE1E6"] ),
-	circleMeetingSize: A( ["70%", "85%"] ),
+	circleMeetingSize: A( ["36", "44"] ),
 	circleMeetingData: computed( "curMeetingPlaces", function () {
 		return A( [{ value: this.curMeetingPlaces, name: "已分配" },
 			{ value: this.allMeetingPlaces - this.curMeetingPlaces, name: "未分配" }] )
 	} ),
-	circleSize: A( ["70%", "95%"] ),
+	circleSize: A( ["42", "58"] ),
 	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
+	// ucbCircleColor: A( ["#8777D9", "#FFC400", " #57D9A3", "#dfe1e6"] ),
 	circleProductColor: computed( function () {
 		return this.getProductCircleColor()
 	} ),

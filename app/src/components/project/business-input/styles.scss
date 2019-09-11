@@ -3,7 +3,7 @@
 
   .sales-and-budget {
     h4 {
-      font-size: 12px;
+      font-size: 14px;
       color: #6b778c;
       text-align: left;
       height: 52px;
@@ -163,11 +163,14 @@
       }
 
       .legend {
+        min-width: 220px;
+
         .scroll-legend {
           overflow-y: auto;
           // overflow-y: scroll;
           height: 120px;
           padding-right: 10px;
+          min-width: 220px;
         }
 
         .legend-dot {
@@ -193,8 +196,13 @@
         .percent {
           font-size: 14px;
           color: #7a869a;
-          text-align: right;
           width: 42px;
+        }
+
+        .percent-value {
+          font-size: 14px;
+          color: #7a869a;
+          width: 70px;
         }
       }
 
@@ -327,8 +335,13 @@
 
       .hospital-header {
 
+        .btn-margin {
+          margin-right: 2px;
+        }
+
         .mid-btn {
           border-radius: 0;
+          margin-right: 2px;
         }
 
         .active {
@@ -352,7 +365,7 @@
         .badge {
           position: relative;
 
-          span {        
+          span {
             height: 16px;
             width: 25px;
             line-height: 16px;

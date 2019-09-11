@@ -7,7 +7,14 @@
 			{{#bp-layout direction="row" local-class="check-box" classNames="mr-2"}}
 				{{#if hasResource}}
 				{{!-- {{bp-icon icon="check-circle" }} --}}
-					{{bp-icon icon='hospital-checked'}}
+					
+					{{#if (bp-eq quizs.firstObject.preset.phase 0)}}
+						{{bp-icon icon='hospital-checked'}}
+					{{else}}
+						{{bp-icon icon='hospital-checked-disabled'}}
+					{{/if}}
+					
+					
 				{{else}}
 					{{bp-icon icon='hospital-unchecked'}}
 				{{/if}}
@@ -42,11 +49,19 @@
 								disabled=(if hasResource false true)
 								direction="row" main="center" cross="center"}}
 					{{!-- {{bp-icon icon='data'}} --}}
-					{{#if showContent}}
-						{{bp-icon icon="right"}}
+
+					{{#if hasResource}}
+						{{#if showContent}}
+							{{!-- {{bp-icon icon="right"}} --}}
+						<img src="/images/btn_exp_enable.svg" alt="">	
+						{{else}}
+							{{!-- {{bp-icon icon="down"}} --}}
+							<img src="/images/btn_exp_selected.svg" alt="">
+						{{/if}}
 					{{else}}
-						{{bp-icon icon="down"}}
+						<img src="/images/btn_exp_disabled.svg" alt="">
 					{{/if}}
+					
 				{{/bp-button}}
 			{{/bp-layout}}
 

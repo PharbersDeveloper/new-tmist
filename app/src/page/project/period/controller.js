@@ -82,7 +82,7 @@ export default Controller.extend( {
 
 		let msgObj = msg.asObject()
 
-		if ( msgObj.header === undefined ) {
+		if ( !msgObj.header ) {
 			console.log( "msg format error" )
 			return
 		} else {
@@ -170,9 +170,13 @@ export default Controller.extend( {
 		//budget validation
 		this.model.answers.filter( x => x.get( "category" ) === "Business" ).forEach( answer => {
 			// 有预算或销售额为空
+			// set 0
 			if ( answer.get( "salesTarget" ) === "" || answer.get( "budget" ) === "" ) {
 				haveNullInput = 1
 				nullName = answer.get( "target.name" )
+				// this.set( "answer.salesTarget", 0 )
+				// this.set( "answer.budget", 0 )
+
 			}
 			// 有医院未被分配会议名额
 			// if ( answer.get( "meetingPlaces" ) === -1 ) {
@@ -578,7 +582,52 @@ export default Controller.extend( {
 	// 		this.toast.error( "", "加载出错，请刷新页面", this.toastOpt )
 	// 	} )
 	// },
+	setZeroSave() {
+		this.model.answers.filter( x => x.get( "category" ) === "Business" ).forEach( answer => {
+			// 有预算或销售额为空
+			// set 0
+			if ( answer.get( "salesTarget" ) === "" ) {
+				answer.set( "salesTarget", 0 )
+			}
+			if ( answer.get( "budget" ) === "" ) {
+				answer.set( "budget", 0 )
+			}
+
+		} )
+		if ( this.model.project.get( "proposal.case" ) === "tm" ) {
+			this.model.answers.filter( x => x.get( "category" ) === "Management" ).forEach( answer => {
+				if ( answer.get( "strategAnalysisTime" ) === "" ) {
+					answer.set( "strategAnalysisTime", 0 )
+				}
+				if ( answer.get( "clientManagementTime" ) === "" ) {
+					answer.set( "clientManagementTime", 0 )
+				}
+				if ( answer.get( "adminWorkTime" ) === "" ) {
+					answer.set( "adminWorkTime", 0 )
+				}
+				if ( answer.get( "kpiAnalysisTime" ) === "" ) {
+					answer.set( "kpiAnalysisTime", 0 )
+				}
+				if ( answer.get( "kpiAnalysisTime" ) === "" ) {
+					answer.set( "kpiAnalysisTime", 0 )
+				}
+			} )
+
+			this.model.answers.filter( x => x.get( "category" ) === "Resource" ).forEach( answer => {
+				if ( answer.get( "abilityCoach" ) === "" ) {
+					answer.set( "abilityCoach", 0 )
+				}
+				if ( answer.get( "assistAccessTime" ) === "" ) {
+					answer.set( "assistAccessTime", 0 )
+				}
+			} )
+		}
+	},
 	validation( proposalCase ) {
+
+		// when input is null, set 0
+		this.setZeroSave()
+
 		let	validationArr = this.getAllProductInfo()
 
 		set( this, "allProductInfo", validationArr )
@@ -680,6 +729,10 @@ export default Controller.extend( {
 		},
 		saveInputs() {
 			Ember.Logger.info( "save current input" )
+
+			// when input is null, set 0
+			this.setZeroSave()
+
 			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 				this.model.project.set( "lastUpdate", new Date().getTime() )
 				this.model.project.save().then( () => {
