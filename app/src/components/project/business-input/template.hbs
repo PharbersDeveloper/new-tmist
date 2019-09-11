@@ -176,9 +176,9 @@
 				{{/bp-layout}}
 				{{#if (bp-eq project.proposal.case "ucb")}}
 				{{#bp-layout}}
-					{{#bp-button classNames="mr-1" local-class=(if (bp-eq curRegion 0) "active" "") onClick=(action (mut curRegion) 0)}}全部{{/bp-button}}
-					{{#bp-button classNames="mr-1" local-class=(if (bp-eq curRegion 1) "active" "mid-btn") onClick=(action (mut curRegion) 1)}}会东市{{/bp-button}}
-					{{#bp-button classNames="mr-1" local-class=(if (bp-eq curRegion 2) "active" "mid-btn") onClick=(action (mut curRegion) 2)}}会西市{{/bp-button}}
+					{{#bp-button local-class=(if (bp-eq curRegion 0) "active btn-margin" "btn-margin") onClick=(action (mut curRegion) 0)}}全部{{/bp-button}}
+					{{#bp-button local-class=(if (bp-eq curRegion 1) "active mid-btn" "mid-btn") onClick=(action (mut curRegion) 1)}}会东市{{/bp-button}}
+					{{#bp-button local-class=(if (bp-eq curRegion 2) "active mid-btn" "mid-btn") onClick=(action (mut curRegion) 2)}}会西市{{/bp-button}}
 					{{#bp-button classNames="mr-4" local-class=(if (bp-eq curRegion 3) "active" "") onClick=(action (mut curRegion) 3)}}会南市{{/bp-button}}
 				{{/bp-layout}}
 				{{/if}}
