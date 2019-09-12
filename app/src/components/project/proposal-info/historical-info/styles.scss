@@ -70,6 +70,10 @@ h2.title {
 .circle-right {
 	flex: 1;
 
+	.circle-bottom {
+		margin-top: 32px;
+	}
+
 	.title {
 		@extend %header-small;
 	}
@@ -114,6 +118,11 @@ h2.title {
 
 		.choose-area {
 			flex: 1;
+
+			:global(.bp-dropdown button) {
+				height: 32px;
+				border-radius: 5px;
+			}
 
 			.keys {
 				@extend %p-primary;

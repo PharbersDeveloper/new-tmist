@@ -1,5 +1,5 @@
 {{#bp-layout local-class="header"}}
-	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
+	{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
 		{{#bp-layout direction="row" main="start" cross="center"
 			 local-class=(if (bp-eq quizs.firstObject.preset.phase 0) "click-part" "clicked-part")
 			 click=(if (bp-eq quizs.firstObject.preset.phase 0) (action "changedResource" sortQuizs.firstObject.answer)) }}
@@ -7,30 +7,34 @@
 			{{#bp-layout direction="row" local-class="check-box" classNames="mr-2"}}
 				{{#if hasResource}}
 				{{!-- {{bp-icon icon="check-circle" }} --}}
-					
 					{{#if (bp-eq quizs.firstObject.preset.phase 0)}}
 						{{bp-icon icon='hospital-checked'}}
 					{{else}}
 						{{bp-icon icon='hospital-checked-disabled'}}
-					{{/if}}
-					
-					
+					{{/if}}		
 				{{else}}
 					{{bp-icon icon='hospital-unchecked'}}
 				{{/if}}
+			{{/bp-layout}}	
+		{{/bp-layout}}
+		
+	{{#bp-layout direction="row" main="between" 
+		local-class=(if hasResource "enable-click show-part" "disable-click show-part")
+		click=(if hasResource (action 'selectCurHospital' hospital.id))}}
+		{{#bp-layout direction="row"}}
+			{{#bp-layout local-class=(if hasResource "check-name" "uncheck-name")}}
+					{{hospital.name}}
 			{{/bp-layout}}
-			{{#bp-layout direction="row"}}
-				{{#bp-layout local-class=(if hasResource "check-name" "uncheck-name")}}
-						{{hospital.name}}
-				{{/bp-layout}}
-				{{#if hospitalDrugstore}}
+			{{#if hospitalDrugstore}}
+				{{#if (bp-not-eq quizs.firstObject.preset.phase 0)}}
 					{{#bp-layout local-class="drugstore" classNames="ml-2"}}
 						{{hospital.name}}+关联药房
 					{{/bp-layout}}
 				{{/if}}
-			{{/bp-layout}}
+			{{/if}}
 		{{/bp-layout}}
 
+	{{#bp-layout}}
 		{{#bp-layout direction="row" cross="center" local-class="right"}}
 			{{#if hasResource}}
 				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
@@ -56,7 +60,6 @@
 								disabled=(if hasResource false true)
 								direction="row" main="center" cross="center"}}
 					{{!-- {{bp-icon icon='data'}} --}}
-
 					{{#if hasResource}}
 						{{#if showContent}}
 							{{!-- {{bp-icon icon="right"}} --}}
@@ -67,12 +70,13 @@
 						{{/if}}
 					{{else}}
 						<img src="/images/btn_exp_disabled.svg" alt="">
-					{{/if}}
-					
+					{{/if}}					
 				{{/bp-button}}
 			{{/bp-layout}}
-
 		{{/bp-layout}}
+	{{/bp-layout}}
+
+	{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
 {{#bs-collapse collapsed=showContent}}
