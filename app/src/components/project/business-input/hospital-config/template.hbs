@@ -24,9 +24,11 @@
 						{{hospital.name}}
 				{{/bp-layout}}
 				{{#if hospitalDrugstore}}
-					{{#bp-layout local-class="drugstore" classNames="ml-2"}}
-						{{hospital.name}}+关联药房
-					{{/bp-layout}}
+					{{#if (bp-not-eq quizs.firstObject.preset.phase 0)}}
+						{{#bp-layout local-class="drugstore" classNames="ml-2"}}
+							{{hospital.name}}+关联药房
+						{{/bp-layout}}
+					{{/if}}
 				{{/if}}
 			{{/bp-layout}}
 		{{/bp-layout}}
