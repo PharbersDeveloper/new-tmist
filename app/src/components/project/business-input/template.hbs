@@ -71,26 +71,27 @@
 				{{#bp-layout direction="col" classNames="ml-0" local-class="legend" main="center" cross="center"}}
 					{{#if (bp-eq curCircle 0)}}
 						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
-						<div local-class="scroll-legend">
+						{{!-- <div local-class="scroll-legend"> --}}
+						<div local-class={{if (bp-eq project.proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}>
 							{{#each legendProductBudget as |product index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
 									{{#bp-layout direction="row"}}
 											<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleProductColor index}};"></span>
 											<span local-class="name">{{product.name}}</span>
 									{{/bp-layout}}
-									{{!-- {{#bp-layout direction="row" main="between" classNames="ml-4"}} --}}
+									{{#bp-layout direction="row" tagName="div" main="between" classNames="ml-4" local-class="percent-width"}}
 
-										{{#bp-layout local-class="percent" direction="row" main="start"}} {{product.curBudgetPercent}}% {{/bp-layout}}
-										{{#bp-layout local-class="percent-value" direction="row" main="end"}} ¥{{format-number product.value}} {{/bp-layout}}
+										{{#bp-layout local-class="percent" direction="row" classNames="mr-2"}} {{product.curBudgetPercent}}% {{/bp-layout}}
+										{{#bp-layout local-class="percent-value" direction="row" }} ¥{{format-number product.value}} {{/bp-layout}}
 											{{!-- <span local-class="percent" ></span> --}}
 											{{!-- <span local-class="percent" >¥{{format-number product.value}}</span> --}}
-									{{!-- {{/bp-layout}} --}}
+									{{/bp-layout}}
 								{{/bp-layout}}
 							{{/each}}
 						</div>
 						{{!-- {{/bp-layout}} --}}
 					{{else}}
-					<div local-class="scroll-legend">
+					<div local-class={{if (bp-eq project.proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}>
 						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
 							{{#each legendResourceBudget as |resBudget index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
@@ -99,14 +100,14 @@
 										{{!-- <span local-class="legend-dot" class="mt-2 mr-2"></span> --}}
 										<span local-class="name">{{resBudget.name}}</span>
 									{{/bp-layout}}
-									{{!-- {{#bp-layout direction="row" main="between" classNames="ml-4"}} --}}
+									{{#bp-layout direction="row" main="between" classNames="ml-4" local-class="percent-width"}}
 
-									{{#bp-layout local-class="percent" direction="row" main="start"}} {{resBudget.per}}%{{/bp-layout}}
-									{{#bp-layout local-class="percent-value" direction="row" main="end"}} ¥{{format-number resBudget.value}} {{/bp-layout}}
+									{{#bp-layout local-class="percent" direction="row" classNames="mr-2"}} {{resBudget.per}}%{{/bp-layout}}
+									{{#bp-layout local-class="percent-value" direction="row"}} ¥{{format-number resBudget.value}} {{/bp-layout}}
 
 										{{!-- <span local-class="percent">{{resBudget.per}}%</span>
 										<span local-class="percent">¥{{format-number resBudget.value}}</span> --}}
-									{{!-- {{/bp-layout}} --}}
+									{{/bp-layout}}
 								{{/bp-layout}}
 							{{/each}}
 							</div>

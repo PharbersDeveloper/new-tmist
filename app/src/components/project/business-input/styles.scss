@@ -163,14 +163,22 @@
       }
 
       .legend {
-        min-width: 220px;
+        .ucb-width {
+          max-width: 320px;
+        }
 
+        .tm-width {
+
+          max-width: 220px;
+        }
+        
         .scroll-legend {
+          overflow-x: scroll;
           overflow-y: auto;
           // overflow-y: scroll;
           height: 120px;
           padding-right: 10px;
-          min-width: 220px;
+          // min-width: 220px;
         }
 
         .legend-dot {
@@ -193,17 +201,22 @@
           width: 42px;
         }
 
-        .percent {
-          font-size: 14px;
-          color: #7a869a;
-          width: 42px;
+        .percent-width {
+          flex: 1;
+
+          .percent {
+            font-size: 14px;
+            color: #7a869a;
+            // width: 42px;
+          }
+
+          .percent-value {
+            font-size: 14px;
+            color: #7a869a;
+            // width: 70px;
+          }
         }
 
-        .percent-value {
-          font-size: 14px;
-          color: #7a869a;
-          width: 70px;
-        }
       }
 
       .budget-header {
