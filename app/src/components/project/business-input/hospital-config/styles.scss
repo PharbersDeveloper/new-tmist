@@ -305,11 +305,22 @@ h5.title {
 		.check-name {
 			font-size: 14px;
 			color: #172b4d;
+
+			// .drugstore {
+			// 	font-size: 12px;
+			// 	color: #7a869a;
+			// }
 		}
 
 		.uncheck-name {
 			font-size: 14px;
 			color: #344563;
+			font-weight: 400;
+		}
+
+		.drugstore {
+			font-size: 12px;
+			color: #7a869a;
 			font-weight: 400;
 		}
 	}
@@ -329,6 +340,12 @@ h5.title {
 		.uncheck-name {
 			font-size: 14px;
 			color: #344563;
+			font-weight: 400;
+		}
+
+		.drugstore {
+			font-size: 12px;
+			color: #7a869a;
 			font-weight: 400;
 		}
 	}

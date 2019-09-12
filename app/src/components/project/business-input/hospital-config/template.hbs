@@ -19,8 +19,15 @@
 					{{bp-icon icon='hospital-unchecked'}}
 				{{/if}}
 			{{/bp-layout}}
-			{{#bp-layout local-class=(if hasResource "check-name" "uncheck-name")}}
-				{{hospital.name}}
+			{{#bp-layout direction="row"}}
+				{{#bp-layout local-class=(if hasResource "check-name" "uncheck-name")}}
+						{{hospital.name}}
+				{{/bp-layout}}
+				{{#if hospitalDrugstore}}
+					{{#bp-layout local-class="drugstore" classNames="ml-2"}}
+						{{hospital.name}}+关联药房
+					{{/bp-layout}}
+				{{/if}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 

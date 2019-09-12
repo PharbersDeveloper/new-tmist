@@ -2,19 +2,24 @@ import Component from "@ember/component"
 import { inject as service } from "@ember/service"
 import { computed, set } from "@ember/object"
 import { isEmpty } from "@ember/utils"
-// import { A } from "@ember/array"
+import { A } from "@ember/array"
 // import Ember from "ember"
 
 export default Component.extend( {
 	localClassNames: "hospital-config-component",
 	// localClassNameBindings: A( ["hospital-config-component"] ),
-
 	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers",
 		"budgetValidationOuter", "salesTargetValidationOuter",
 		"meetingPlacesValidationOuter", "visitTimeValidationOuter",
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
+	hospitalDrugstore: computed( function() {
+		let arr = ["省人民医院", "会南市五零一医院", "会东市医科大学附属第二医院"],
+			hospitalName = this.hospital.get( "name" )
+
+		return arr.includes( hospitalName )
+	} ),
 	sortQuizs: computed( "quizs",function() {
 		let quizs = this.quizs
 
