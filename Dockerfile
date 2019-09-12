@@ -38,7 +38,7 @@ RUN	npm install && \
 
 WORKDIR /app/new-tmist
 
-RUN git checkout -b chsun-ucb origin/chsun-ucb && \
+RUN git checkout -b frank-ucb origin/frank-ucb && \
 	rm -rf node_modules && \
 	rm package-lock.json && \
 	npm cache clear --force && \
