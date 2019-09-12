@@ -4,7 +4,7 @@
 		{{#if (bp-eq showContent false)}}
 			{{#bp-layout local-class="resource-item active" direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
 				{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
-					<img src={{resource.avatar.img}} alt={{resource.name}} class="mr-2">
+					<img src={{resource.avatar.img}} alt={{resource.name}}>
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
@@ -16,14 +16,14 @@
 						{{/if}}
 					{{/if}}
 					{{#if hospitalNumber}}
-						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
+						<span local-class="badge hospital-badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
 					{{/if}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{else}}
 			{{#bp-layout local-class="resource-item" direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
 				{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
-					<img src={{resource.avatar.img}} alt={{resource.name}} class="mr-2">
+					<img src={{resource.avatar.img}} alt={{resource.name}}>
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
@@ -35,7 +35,7 @@
 					{{/if}}
 				{{/if}}
 					{{#if hospitalNumber}}
-						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
+						<span local-class="badge hospital-badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
 					{{/if}}
 				{{/bp-layout}}
 			{{/bp-layout}}

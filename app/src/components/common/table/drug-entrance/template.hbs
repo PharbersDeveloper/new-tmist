@@ -1,5 +1,7 @@
-{{#if value}}
+{{#if (bp-eq value 1)}}
     已开发
+{{else if (bp-eq value 0)}}
+    未开发  
 {{else}}
-未开发
+    正在开发
 {{/if}}

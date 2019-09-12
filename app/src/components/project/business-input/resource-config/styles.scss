@@ -24,6 +24,7 @@
 			width: 40px;
 			height: 40px;
 			border-radius: 50%;
+			margin-right: 13px;
 		}
 
 		.item-right {
@@ -43,6 +44,12 @@
 					path {
 						fill: #3880f8;
 					}
+				}
+			}
+
+			.hospital-badge {
+				svg {
+					margin-bottom: 2px;
 				}
 			}
 

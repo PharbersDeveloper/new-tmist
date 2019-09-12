@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>12@1x</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="d-1-2-业务决策--copy" transform="translate(-1137.000000, -763.000000)">
+            <g id="Buttons-/-Default-/-Default-icon-only-/-Default" transform="translate(1137.000000, 763.000000)">
+                <g id="Buttons-/-_part-/-Background-/-Default" fill="#091E42" fill-opacity="0.04">
+                    <rect id="bg" x="0" y="0" width="24" height="24" rx="12"></rect>
+                </g>
+                <g id="icon-/-icon_chevron-right" transform="translate(1.000000, 0.000000)">
+                    <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+                    <path d="M11.2928932,8.70710678 C11.6834175,8.31658249 12.3165825,8.31658249 12.7071068,8.70710678 L17.3,13.3 C17.6865993,13.6865993 17.6865993,14.3134007 17.3,14.7 C16.9134007,15.0865993 16.2865993,15.0865993 15.9,14.7 L12,10.8 L8.1,14.7 C7.71340068,15.0865993 7.08659932,15.0865993 6.7,14.7 C6.31340068,14.3134007 6.31340068,13.6865993 6.7,13.3 L11.2928932,8.70710678 L11.2928932,8.70710678 Z" id="Shape" fill="#B3BAC5" fill-rule="evenodd" transform="translate(12.000000, 11.702082) rotate(90.000000) translate(-12.000000, -11.702082) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

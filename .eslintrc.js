@@ -150,7 +150,7 @@ module.exports = {
 		"lines-around-comment": 0,//行前/行后备注
 		"max-depth": [1, 4],//嵌套块深度
 		"max-len": [0, 80, 4],//字符串最大长度
-		"max-nested-callbacks": ["warn", 2],//回调嵌套深度
+		"max-nested-callbacks": ["warn", 4],//回调嵌套深度
 		"max-params": [0, 3],//函数最多只能有3个参数
 		"max-statements": [0, 10],//函数内最多有几个声明
 		"new-cap": 0,//函数名首行大写必须使用new方式调用，首行小写必须用不带new方式调用

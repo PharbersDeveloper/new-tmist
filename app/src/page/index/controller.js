@@ -5,9 +5,7 @@ export default Controller.extend( {
 	// runtimeConfig: service( "service/runtime-config" ),
 	actions: {
 		toPrepare( tid ) {
-			if (tid === "none") {
-
-			} else {
+			if ( tid !== "none" ) {
 				this.transitionToRoute( "page.prepare", tid )
 			}
 		}
