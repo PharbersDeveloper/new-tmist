@@ -9,6 +9,7 @@ import { computed } from "@ember/object"
 import { inject as service } from "@ember/service"
 import { formatPhaseToDate, formatPhaseToStringDefault } from "new-tmist/utils/format-phase-date"
 import { all } from "rsvp"
+import ENV from "new-tmist/config/environment"
 
 export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// ossService: service( "service/oss" ),
@@ -554,8 +555,6 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "hospitalColumns", hospitalColumns )
 		this.set( "regionColumns", regionColumns )
 
-		console.log( this.project )
-		console.log( "============" )
 		all( [that.queryData( "product_ref", time ),
 			this.queryData( "region_ref", time ),
 			this.queryData( "rep_ref", time ),
@@ -596,12 +595,14 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	 * @default {}
 	 * @public
 	 */
-	tableQueryAddress: EmberObject.create( {
-		host: "http://192.168.100.116",
-		port: 9202,
-		version: "v1.0",
-		db: "NTM"
-	} ),
+	tableQueryAddress: ENV.tableQueryAddress,
+
+	// tableQueryAddress: EmberObject.create( {
+	// 	host: "http://192.168.100.116",
+	// 	port: 9202,
+	// 	version: "v1.0",
+	// 	db: "NTM"
+	// } ),
 	queryData( type ) {
 		let qa = this.get( "tableQueryAddress" ),
 			proposalId = this.get( "proposal.id" ),
