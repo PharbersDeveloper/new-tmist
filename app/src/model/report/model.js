@@ -9,10 +9,10 @@ export default DS.Model.extend( {
 			"Sales",
 			"Region"
 		]} ),
-	proposalId: DS.attr("string"),
-	projectId: DS.attr("string"),
-	periodId: DS.attr("string"),
-	phase: DS.attr("number"),
+	proposalId: DS.attr( "string" ),
+	projectId: DS.attr( "string" ),
+	periodId: DS.attr( "string" ),
+	phase: DS.attr( "number" ),
 	// potential: DS.attr( "number", { defaultValue: 0 } ),
 	sales: DS.attr( "number", { defaultValue: 0 } ),
 	salesQuota: DS.attr( "number", { defaultValue: 0 } ),
@@ -22,8 +22,8 @@ export default DS.Model.extend( {
 	growth: DS.attr( "number", {defaultValue: 0} ),
 	achievements: DS.attr( "number", {defaultValue: 0} ),
 
-    region: DS.attr("string"),
-    // patientNum: DS.attr("number"),
-    // drugEntrance: DS.attr("string"),
-    salesContri: DS.attr("number"),
+	region: DS.attr( "string" ),
+	// patientNum: DS.attr("number"),
+	// drugEntrance: DS.attr("string"),
+	salesContri: DS.attr( "number" )
 } )

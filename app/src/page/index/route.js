@@ -5,8 +5,8 @@ import { inject as service } from "@ember/service"
 export default Route.extend( {
 	cookies: service(),
 	model() {
-		const accountId = this.cookies.read( "account_id" ),
-			tmp = this.store.query( "model/proposal", { filter: "(case,:eq,`tm`)" } ),
+		// const accountId = this.cookies.read( "account_id" ),
+		const tmp = this.store.query( "model/proposal", { filter: "(case,:eq,`tm`)" } ),
 			ucb = this.store.query( "model/proposal", { filter: "(case,:eq,`ucb`)" } ),
 			apm = this.store.query( "model/proposal", { filter: "(case,:eq,`apm`)" } )
 

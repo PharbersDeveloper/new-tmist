@@ -7,13 +7,27 @@
 			{{#bp-layout direction="row" local-class="check-box" classNames="mr-2"}}
 				{{#if hasResource}}
 				{{!-- {{bp-icon icon="check-circle" }} --}}
-					{{bp-icon icon='hospital-checked'}}
+					
+					{{#if (bp-eq quizs.firstObject.preset.phase 0)}}
+						{{bp-icon icon='hospital-checked'}}
+					{{else}}
+						{{bp-icon icon='hospital-checked-disabled'}}
+					{{/if}}
+					
+					
 				{{else}}
 					{{bp-icon icon='hospital-unchecked'}}
 				{{/if}}
 			{{/bp-layout}}
-			{{#bp-layout local-class=(if hasResource "check-name" "uncheck-name")}}
-				{{hospital.name}}
+			{{#bp-layout direction="row"}}
+				{{#bp-layout local-class=(if hasResource "check-name" "uncheck-name")}}
+						{{hospital.name}}
+				{{/bp-layout}}
+				{{#if hospitalDrugstore}}
+					{{#bp-layout local-class="drugstore" classNames="ml-2"}}
+						{{hospital.name}}+关联药房
+					{{/bp-layout}}
+				{{/if}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 
@@ -36,17 +50,25 @@
 				{{/bp-layout}}
 			{{/if}}
 
-			{{#bp-layout local-class=(if hasResource "" "icon-no-check")}}
+			{{#bp-layout local-class=(if hasResource "icon-check" "icon-no-check")}}
 				{{#bp-button local-class="icon-button" 
 								onClick=(action 'selectCurHospital' hospital.id) 
 								disabled=(if hasResource false true)
 								direction="row" main="center" cross="center"}}
 					{{!-- {{bp-icon icon='data'}} --}}
-					{{#if showContent}}
-						{{bp-icon icon="right"}}
+
+					{{#if hasResource}}
+						{{#if showContent}}
+							{{!-- {{bp-icon icon="right"}} --}}
+						<img src="/images/btn_exp_enable.svg" alt="">	
+						{{else}}
+							{{!-- {{bp-icon icon="down"}} --}}
+							<img src="/images/btn_exp_selected.svg" alt="">
+						{{/if}}
 					{{else}}
-						{{bp-icon icon="down"}}
+						<img src="/images/btn_exp_disabled.svg" alt="">
 					{{/if}}
+					
 				{{/bp-button}}
 			{{/bp-layout}}
 
@@ -126,7 +148,9 @@
 						<td class="px-2 border-0 text-left">
 								{{#if (bp-eq quiz.preset.currentDurgEntrance 1)}}
 									已开发
-								{{else}}
+								{{else if (bp-eq quiz.preset.currentDurgEntrance 2)}}
+									正在开发
+								{{else if (bp-eq quiz.preset.currentDurgEntrance 0)}}
 									未开发
 								{{/if}}
 						</td>
@@ -146,11 +170,12 @@
 					</td>
 					<td class="border-0">
 						{{#bp-layout main="center" direction="row"}}
+									{{!-- disabled=(if (bp-eq quiz.preset.currentDurgEntrance 0) true false) --}}
 							{{bp-input block=true  
 									value=quiz.answer.salesTarget
 									onChange=(action "salesTargetValidation" quiz.answer "salesTarget" (mut quiz.answer.salesTarget))
-									disabled=disabledInput
 									local-class="input-prepend input-money sales-input"
+									disabled=false
 									classNames="mb-2 px-0"}}
 						{{/bp-layout}}
 						{{!-- <span class="mt-2 mb-0 text-center" local-class="percent">
@@ -162,7 +187,7 @@
 						{{bp-input block=true 
 							value=quiz.answer.budget
 							onChange=(action "budgetValidation" quiz.answer "budget" (mut quiz.answer.budget))
-							disabled=disabledInput
+							disabled=false
 							classNames="px-0 mb-2"
 							local-class="input-prepend input-money budget-input"}}
 							{{/bp-layout}}

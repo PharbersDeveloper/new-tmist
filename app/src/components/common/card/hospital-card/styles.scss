@@ -112,6 +112,14 @@
 					// text-align: right;
 					td {
 						flex: 1;
+
+						.td-left {
+							width: 44px;
+						}
+
+						.td-right {
+							width: 48px;
+						}
 					}
 				}
 			}

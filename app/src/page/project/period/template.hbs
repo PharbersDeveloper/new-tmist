@@ -322,7 +322,12 @@
 		open=taskModal
 		position='center' 
 		onHidden=(action (mut taskModal) false) as |modal|}}
-	{{#modal.header classNames="px-4"}}
+	{{#modal.header closeButton=false classNames="px-4"}}
+	{{#bp-layout direction="row" main="end" classNames="header-wrapper"}}
+		{{#bp-layout direction="row" main="end" classNames="close-wrapper" click=(action (mut taskModal) false)}}
+			{{bp-icon icon='cross'}}
+		{{/bp-layout}}
+	{{/bp-layout}}
 	{{/modal.header}}
 	{{#modal.body classNames="px-4 pt-0"}}
 		{{#bp-layout direction="col"}}

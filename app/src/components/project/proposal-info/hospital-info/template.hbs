@@ -1,7 +1,7 @@
 {{#bp-layout direction="col" local-class="hispital-container" cross="center"}}
 	{{#if (bp-eq proposal.case "ucb")}}
-	{{#bp-layout direction="col" local-class="hispital-header" classNames="bg-white p-4 mb-4"}}
-		{{#bp-layout tagName="h4"  local-class="title" cross="center" classNames="mb-3"}}
+	{{#bp-layout direction="col" local-class="hispital-header" classNames="bg-white px-4 pb-4 mb-4"}}
+		{{#bp-layout tagName="h4"  local-class="title" cross="center" classNames="mb-1"}}
 			地区城市医院概况
 		{{/bp-layout}}
 		{{#bp-layout direction="row"}}
@@ -48,8 +48,8 @@
 	{{/if}}
 
 	{{#if (bp-eq proposal.case "ucb") }}
-	{{#bp-layout direction="col" local-class="hospital-info" classNames="bg-white mb-2 p-4"}}
-		{{#bp-layout tagName="h4"  local-class="title" classNames="mb-4" cross="center"}}
+	{{#bp-layout direction="col" local-class="hospital-info" classNames="bg-white mb-2 px-4 pb-4"}}
+		{{#bp-layout tagName="h4"  local-class="title" cross="center" classNames="mb-3"}}
 			城市医院详情
 		{{/bp-layout}}
 		{{#bp-layout classNames="" cross="center" local-class="city-hospital"}}
