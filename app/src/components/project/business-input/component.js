@@ -6,7 +6,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 
-	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports"],
+	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports", "budgetPreset"],
 	exam: service( "service/exam-facade" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function () {
@@ -50,8 +50,15 @@ export default Component.extend( {
 		return A( arr )
 	} ),
 	updateAllProductInfo: false,
-	allBudget: computed( "quota", function () {
-		return this.quota.get( "totalBudget" )
+	allBudget: computed( function () {
+
+		if ( this.period.phase === 0 ) {
+			return this.quota.get( "totalBudget" )
+		} else {
+			return this.budgetPreset.get( "firstObject.initBudget" )
+		}
+
+
 	} ),
 	allMeetingPlaces: computed( "quota", function () {
 		return this.quota.get( "meetingPlaces" )
