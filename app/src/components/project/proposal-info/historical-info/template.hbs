@@ -144,12 +144,12 @@
 					{{/bp-layout}}
 					{{bp-row direction='col' rowModel=tmProductBarLine0  conditions=tmProductBarLineCondition}}
 				{{/bp-layout}}
-				<div class="table-container bg-white d-none">
+				<div class="table-container bg-white">
 					{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
 							{{t "project.proposal-info.historical-info.product-sale-table"}}
 						{{/bp-layout}}
 					<div class="pl-4">
-						{{bp-table columns=productColumns data=productTableData fixedColumn=true}}
+						{{bp-table columns=productColumns data=productTableData fixedColumn=true height="200px"}}
 					</div>
 				</div>
 			</div>
@@ -281,7 +281,7 @@
 					{{/bp-layout}}
 					{{bp-row direction='col' rowModel=tmRepBarLine0  conditions=tmRepBarLineCondition}}
 				{{/bp-layout}}
-				<div class="table-container bg-white d-none">
+				<div class="table-container bg-white">
 					{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
 							{{t "project.proposal-info.historical-info.representative-sale-table"}}
 						{{/bp-layout}}
@@ -419,12 +419,12 @@
 					{{/bp-layout}}
 					{{bp-row direction='col' rowModel=tmHosBarLine0 conditions=tmHosBarLineCondition}}
 				{{/bp-layout}}
-				<div class="table-container bg-white d-none">
+				<div class="table-container bg-white">
 					{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
 							{{t "project.proposal-info.historical-info.hospital-sale-table"}}
 						{{/bp-layout}}
 					<div class="pl-4">
-						{{bp-table columns=hospitalColumns data=hospitalTableData fixedColumn=true}}
+						{{bp-table columns=hospitalColumns data=hospitalTableData fixedColumn=true height='350px'}}
 					</div>
 				</div>
 				
@@ -563,7 +563,7 @@
 					{{/bp-layout}}
 					{{bp-row direction='col' rowModel=tmRegBarLine0 conditions=tmRegBarLineCondition}}
 				{{/bp-layout}}
-				<div class="table-container bg-white d-none">
+				<div class="table-container bg-white">
 					{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
 							{{t "project.proposal-info.historical-info.region-sale-table"}}
 						{{/bp-layout}}
