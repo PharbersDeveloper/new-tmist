@@ -301,15 +301,18 @@ h5.title {
 		.check-box {
 			width: 20px;
 		}
+	}
+
+	.clicked-part {
+		cursor: not-allowed;
+
+		.check-box {
+			width: 20px;
+		}
 
 		.check-name {
 			font-size: 14px;
 			color: #172b4d;
-
-			// .drugstore {
-			// 	font-size: 12px;
-			// 	color: #7a869a;
-			// }
 		}
 
 		.uncheck-name {
@@ -325,16 +328,24 @@ h5.title {
 		}
 	}
 
-	.clicked-part {
+	.disable-click {
 		cursor: not-allowed;
+	}
 
-		.check-box {
-			width: 20px;
-		}
+	.enable-click {
+		cursor: pointer;
+	}
+	.show-part {
+		flex: 1;
 
 		.check-name {
 			font-size: 14px;
 			color: #172b4d;
+
+			// .drugstore {
+			// 	font-size: 12px;
+			// 	color: #7a869a;
+			// }
 		}
 
 		.uncheck-name {
