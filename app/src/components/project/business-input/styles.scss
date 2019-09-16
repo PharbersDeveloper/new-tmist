@@ -168,7 +168,6 @@
         }
 
         .tm-width {
-
           max-width: 220px;
         }
         
@@ -410,7 +409,8 @@
         height: calc(100vh - 86px);
 
         .line {
-          border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+          border-bottom: 3px solid rgba(9, 30, 66, 0.04);
+          
         }
       }
     }

@@ -18,7 +18,7 @@
 			{{/bp-layout}}	
 		{{/bp-layout}}
 		
-	{{#bp-layout direction="row" main="between" 
+	{{#bp-layout direction="row" main="between" cross="center"
 		local-class=(if hasResource "enable-click show-part" "disable-click show-part")
 		click=(if hasResource (action 'selectCurHospital' hospital.id))}}
 		{{#bp-layout direction="row"}}
