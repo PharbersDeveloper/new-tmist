@@ -41,14 +41,15 @@
 
 	.product-item {
 		background: #ffffff;
+		cursor: pointer;
+		border-radius: 0;
 		height: 68px;
 		width: 270px;
 		font-size: 14px;
 		color: #172b4d;
 		text-align: left;
-		border-bottom: 1px solid rgba(9, 30, 66, 0.04);
-		border-radius: 0;
-		cursor: pointer;
+		margin-bottom: 1px;
+		// border-bottom: 1px solid rgba(9, 30, 66, 0.04);
 
 		&:last-child {
 			border-bottom: none;

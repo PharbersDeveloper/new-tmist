@@ -8,7 +8,7 @@
 	{{/bp-layout}}
 {{/if}}
 {{#bp-layout local-class="historical-sales-container" main="center"}}
-	{{#bp-layout direction="col" local-class="nav" classNames="mr-4 bg-white"}}
+	{{#bp-layout direction="col" local-class="nav" classNames="mr-4"}}
 		{{#bp-layout tagName="div" cross="center" local-class=(if (bp-eq salesGroupValue 0) "active") classNames="px-4"
 			click=(action "changeSalesValue" 0)}}
 			{{!-- <span {{action "changeSalesValue" 0}} --}}
