@@ -26,7 +26,7 @@ export default Component.extend( {
 		if ( isEmpty( quizs ) ) {
 			return quizs
 		}
-		return quizs.sortBy( "preset.product.name" )
+		return quizs//.sortBy( "preset.product.name" )
 	} ),
 	showContent: true,
 	checked:  computed( function() {
