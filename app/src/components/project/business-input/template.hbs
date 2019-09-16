@@ -81,8 +81,8 @@
 									{{/bp-layout}}
 									{{#bp-layout direction="row" tagName="div" main="between" classNames="ml-4" local-class="percent-width"}}
 
-										{{#bp-layout local-class="percent" direction="row" classNames="mr-2"}} {{product.curBudgetPercent}}% {{/bp-layout}}
-										{{#bp-layout local-class="percent-value" direction="row" }} ¥{{format-number product.value}} {{/bp-layout}}
+										{{#bp-layout local-class=(if (bp-gt 0 product.curBudgetPercent) "percent red" "percent")  direction="row" classNames="mr-2"}} {{product.curBudgetPercent}}% {{/bp-layout}}
+										{{#bp-layout local-class=(if (bp-gt 0 product.value) "percent-value red" "percent-value") direction="row" }} ¥{{format-number product.value}} {{/bp-layout}}
 											{{!-- <span local-class="percent" ></span> --}}
 											{{!-- <span local-class="percent" >¥{{format-number product.value}}</span> --}}
 									{{/bp-layout}}
@@ -102,8 +102,8 @@
 									{{/bp-layout}}
 									{{#bp-layout direction="row" main="between" classNames="ml-4" local-class="percent-width"}}
 
-									{{#bp-layout local-class="percent" direction="row" classNames="mr-2"}} {{resBudget.per}}%{{/bp-layout}}
-									{{#bp-layout local-class="percent-value" direction="row"}} ¥{{format-number resBudget.value}} {{/bp-layout}}
+									{{#bp-layout local-class=(if (bp-gt 0 resBudget.per) "percent red" "percent") direction="row" classNames="mr-2"}} {{resBudget.per}}%{{/bp-layout}}
+									{{#bp-layout local-class=(if (bp-gt 0 resBudget.value) "percent-value red" "percent-value")  direction="row"}} ¥{{format-number resBudget.value}} {{/bp-layout}}
 
 										{{!-- <span local-class="percent">{{resBudget.per}}%</span>
 										<span local-class="percent">¥{{format-number resBudget.value}}</span> --}}
