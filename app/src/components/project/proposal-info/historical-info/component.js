@@ -166,11 +166,19 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				// this.set( "tmpPsr", prod )
 				// this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name, this.proposal ) )
 			} else if ( salesGroupValue === 1 ) {
-				// this.set( "tmpProdRep", prod )
-				// this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name, this.proposal ) )
+				this.set( "representativeProdTable", prod )
+				let type = isEmpty( prod ) ? "rep_ref" : "rep_prod"
+
+				this.queryData( type ,prodName ).then( data => {
+					this.set( "representativeTableData", data )
+				} )
 			} else if ( salesGroupValue === 2 ) {
-				// this.set( "tmpProdHosp", prod )
-				// this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name, this.proposal ) )
+				this.set( "hospitalProdTable", prod )
+				let type = isEmpty( prod ) ? "hospital_ref" : "hospital_prod"
+
+				this.queryData( type ,prodName ).then( data => {
+					this.set( "hospitalTableData", data )
+				} )
 			} else if ( salesGroupValue === 3 ) {
 				this.set( "regionProdTable", prod )
 				let type = isEmpty( prod ) ? "region_ref" : "region_prod"
@@ -642,7 +650,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					"proposal_id": proposalId,
 					// "project_id": "5d78ac93515b2b002b74a414",
 					"project_id": projectId,
-					"product":prod,
+					// "product":prod,
 					"point_origin": "2019Q1"
 				}
 			}

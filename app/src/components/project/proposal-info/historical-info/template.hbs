@@ -285,8 +285,43 @@
 						{{bp-row direction='col' rowModel=tmRepBarLine0  conditions=tmRepBarLineCondition}}
 					{{/bp-layout}}
 					<div class="table-container bg-white">
-						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+						{{!-- {{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
 							{{t "project.proposal-info.historical-info.representative-sale-table"}}
+						{{/bp-layout}} --}}
+						{{#bp-layout main="between" local-class="choose-container"}}
+							{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 			classNames="m-0 px-4"}}
+								{{t "project.proposal-info.historical-info.representative-sale-table"}}
+							{{/bp-layout}}
+							{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+								<span local-class="keys"
+									class="mr-3">{{t "project.proposal-info.historical-info.product"}}</span>
+								{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+									{{#dd.button}}
+										{{#if representativeProdTable.id}}
+											<p>{{representativeProdTable.name}}</p>
+										{{else}}
+											{{t "project.proposal-info.historical-info.total-products"}}
+										{{/if}}
+										{{bp-icon icon="down"}}
+									{{/dd.button}}
+									{{#dd.menu as |menu|}}
+										{{#menu.option value=totalProduct
+												onClick=(action 'changeTableProd' '')}}
+											{{t "project.proposal-info.historical-info.total-products"}}
+										{{/menu.option}}
+										{{#each selfProducts as |psrs|}}
+											{{#menu.option value=psrs
+												onClick=(action 'changeTableProd' psrs)}}
+												{{psrs.name}}
+											{{/menu.option}}
+										{{/each}}
+									{{/dd.menu}}
+								{{/bp-dropdown}}
+							{{/bp-layout}}
 						{{/bp-layout}}
 						<div class="pl-4">
 							{{bp-table columns=representativeColumns data=representativeTableData fixedColumn=true}}
@@ -425,8 +460,43 @@
 						{{bp-row direction='col' rowModel=tmHosBarLine0 conditions=tmHosBarLineCondition}}
 					{{/bp-layout}}
 					<div class="table-container bg-white">
-						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
+						{{!-- {{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
 							{{t "project.proposal-info.historical-info.hospital-sale-table"}}
+						{{/bp-layout}} --}}
+						{{#bp-layout main="between" local-class="choose-container"}}
+							{{#bp-layout tagName="h2" cross="center" local-class="title"
+				 			classNames="m-0 px-4"}}
+								{{t "project.proposal-info.historical-info.hospital-sale-table"}}
+							{{/bp-layout}}
+							{{#bp-layout main="between" cross="center"
+							local-class="choose-area" 
+							classNames="px-4"}}
+								<span local-class="keys"
+									class="mr-3">{{t "project.proposal-info.historical-info.product"}}</span>
+								{{#bp-dropdown widthSize="auto"
+								local-class="dd-medicines dd-area" as |dd|}}
+									{{#dd.button}}
+										{{#if hospitalProdTable.id}}
+											<p>{{hospitalProdTable.name}}</p>
+										{{else}}
+											{{t "project.proposal-info.historical-info.total-products"}}
+										{{/if}}
+										{{bp-icon icon="down"}}
+									{{/dd.button}}
+									{{#dd.menu as |menu|}}
+										{{#menu.option value=totalProduct
+												onClick=(action 'changeTableProd' '')}}
+											{{t "project.proposal-info.historical-info.total-products"}}
+										{{/menu.option}}
+										{{#each selfProducts as |psrs|}}
+											{{#menu.option value=psrs
+												onClick=(action 'changeTableProd' psrs)}}
+												{{psrs.name}}
+											{{/menu.option}}
+										{{/each}}
+									{{/dd.menu}}
+								{{/bp-dropdown}}
+							{{/bp-layout}}
 						{{/bp-layout}}
 						<div class="pl-4">
 							{{bp-table columns=hospitalColumns data=hospitalTableData fixedColumn=true height='350px'}}
