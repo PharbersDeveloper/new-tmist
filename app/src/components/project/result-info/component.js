@@ -13,7 +13,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	exportService: service( "service/export-report" ),
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver"],
 	curSelPeriod: null,
-	roundOver: computed( function() {
+	roundOver: computed( function () {
 		let old = window.document.referrer
 
 		if ( old.indexOf( "round-over" ) !== -1 ) {
@@ -22,9 +22,21 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			return false
 		}
 	} ),
+	yoyFlag: computed( "yoy", function () {
+		return this.yoy > 0
+	} ),
+	momFlag: computed( "mom", function () {
+		return this.mom > 0
+	} ),
+	yoyPer: computed( "yoy", function () {
+		return Math.abs( this.yoy )
+	} ),
+	momPer: computed( "mom", function () {
+		return Math.abs( this.mom )
+	} ),
 	treatmentAreaArr: A( [] ),
 	salesReports: A( [] ),
-	curSalesReports :null,
+	curSalesReports: null,
 	didReceiveAttrs() {
 		this._super( ...arguments )
 		this.set( "curSelPeriod", this.periods.lastObject )
@@ -40,7 +52,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "curTreatmentArea", this.treatmentAreaArr[0] )
 		this.set( "buttonGroupValue", this.treatmentAreaArr[0] )
 
-		tmResultProductCircleCondition = this.generateResultProductCircleCondition( this.project.get( "proposal.case" ), currentPeriodPhase,this.buttonGroupValue )
+		tmResultProductCircleCondition = this.generateResultProductCircleCondition( this.project.get( "proposal.case" ), currentPeriodPhase, this.buttonGroupValue )
 
 		this.set( "tmResultProductCircleCondition", tmResultProductCircleCondition )
 		this.set( "tmResultProductCircle", tmResultProductCircle )
@@ -155,7 +167,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			// this.set( "buttonGroupValue", value )
 			let sortPeriods = this.periods.sortBy( "phase" ),
 				currentPeriodPhase = sortPeriods.lastObject.get( "phase" ),
-				tmResultProductCircleCondition = this.generateResultProductCircleCondition( this.project.get( "proposal.case" ), currentPeriodPhase,value )
+				tmResultProductCircleCondition = this.generateResultProductCircleCondition( this.project.get( "proposal.case" ), currentPeriodPhase, value )
 
 			this.set( "tmResultProductCircleCondition", tmResultProductCircleCondition )
 

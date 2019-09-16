@@ -155,6 +155,31 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( regName, prod.name, this.proposal ) )
 			}
 		},
+		changeTableProd( prod ) {
+			let prodName = prod.name
+
+			window.console.log( prod.name )
+			let salesGroupValue = this.salesGroupValue
+
+			// TODO switch更清晰
+			if ( salesGroupValue === 0 ) {
+				// this.set( "tmpPsr", prod )
+				// this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name, this.proposal ) )
+			} else if ( salesGroupValue === 1 ) {
+				// this.set( "tmpProdRep", prod )
+				// this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name, this.proposal ) )
+			} else if ( salesGroupValue === 2 ) {
+				// this.set( "tmpProdHosp", prod )
+				// this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name, this.proposal ) )
+			} else if ( salesGroupValue === 3 ) {
+				this.set( "regionProdTable", prod )
+				let type = isEmpty( prod ) ? "region_ref" : "region_prod"
+
+				this.queryData( type ,prodName ).then( data => {
+					this.set( "regionTableData", data )
+				} )
+			}
+		},
 		chooseRep( rep ) {
 			let prodName = this.tmpProdRep && this.tmpProdRep.name
 
@@ -555,10 +580,10 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "hospitalColumns", hospitalColumns )
 		this.set( "regionColumns", regionColumns )
 
-		all( [that.queryData( "product_ref", time ),
-			this.queryData( "region_ref", time ),
-			this.queryData( "rep_ref", time ),
-			this.queryData( "hospital_ref", time )
+		all( [that.queryData( "product_ref" ),
+			this.queryData( "region_ref" ),
+			this.queryData( "rep_ref" ),
+			this.queryData( "hospital_ref" )
 		] ).then( data => {
 			this.set( "productTableData", data[0] )
 			this.set( "regionTableData", data[1] )
@@ -603,7 +628,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// 	version: "v1.0",
 	// 	db: "NTM"
 	// } ),
-	queryData( type ) {
+	queryData( type,prod ) {
 		let qa = this.get( "tableQueryAddress" ),
 			proposalId = this.get( "proposal.id" ),
 			projectId = this.get( "project.id" ) || localStorage.getItem( "projectId" )
@@ -617,6 +642,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					"proposal_id": proposalId,
 					// "project_id": "5d78ac93515b2b002b74a414",
 					"project_id": projectId,
+					"product":prod,
 					"point_origin": "2019Q1"
 				}
 			}
