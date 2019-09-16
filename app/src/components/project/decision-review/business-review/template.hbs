@@ -121,7 +121,7 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}} --}}
-	{{#if (bp-eq filterAnswers.length 0)}}
+	{{#if (bp-eq sortedAnswers.length 0)}}
 		{{#bp-layout direction="col" local-class="empty"}}
 			{{#bp-layout local-class="empty-img" direction="row" main="center"}}
 				<img src="/images/img_resource_empty.png" alt="">
@@ -137,7 +137,7 @@
 		{{/bp-layout}}
 	{{else}}
 		{{#bp-layout classNames="px-4"}}
-			{{bp-table columns=reviewColumns data=filterAnswers local-class=(if (bp-eq proposal.case "tm" )"tm-table" "ucb-table")}}
+			{{bp-table columns=reviewColumns data=sortedAnswers local-class=(if (bp-eq proposal.case "tm" )"tm-table" "ucb-table")}}
 		{{/bp-layout}}
 	{{/if}}
 
