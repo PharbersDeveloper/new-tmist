@@ -27,9 +27,9 @@
       box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
       border-radius: 8px;
 
-      .sales-info {
-        height: 144px;
-        flex: 1;
+      // .sales-info {
+      //   height: 144px;
+      //   flex: 1;
 
         .product-name {
           width: 42px;
@@ -147,10 +147,44 @@
 
           }
 
+          .icon-name-ucb {
+            &:nth-child(1) {
+              svg {
+                path {
+                  fill: #8777D9;
+                }
 
+                height: 20px;
+                width: 14px;
+              }
+            }
+
+            &:nth-child(2) {
+              svg {
+                path {
+                  fill: #FFC400;
+                }
+
+                height: 20px;
+                width: 14px;
+              }
+            }
+
+            &:nth-child(3) {
+              svg {
+                path {
+                  fill: #57D9A3;
+                }
+
+                height: 20px;
+                width: 14px;
+              }
+            }
+
+          }
 
         }
-      }
+      // }
 
       .sales-header {
         border-bottom: 1px solid #f4f5f7;
