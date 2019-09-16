@@ -11,8 +11,17 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// ajax: service(),
 	// cookies: service(),
 	exportService: service( "service/export-report" ),
-	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods"],
+	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver"],
 	curSelPeriod: null,
+	roundOver: computed( function() {
+		let old = window.document.referrer
+
+		if ( old.indexOf( "round-over" ) !== -1 ) {
+			return true
+		} else {
+			return false
+		}
+	} ),
 	treatmentAreaArr: A( [] ),
 	salesReports: A( [] ),
 	curSalesReports :null,
@@ -134,6 +143,9 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		},
 		toReport() {
 			this.transitionToReport()
+		},
+		toRoundOver() {
+			this.goRoundOver()
 		},
 		toIndex() {
 			window.location = "/"

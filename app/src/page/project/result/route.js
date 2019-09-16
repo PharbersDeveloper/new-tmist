@@ -4,7 +4,7 @@ import { inject as service } from "@ember/service"
 
 export default Route.extend( {
 	facade: service( "service/exam-facade" ),
-	model( param ) {
+	model( ) {
 		return this.store.findRecord( "model/project", this.modelFor( "page.project" ).id , {reload : true} ).then( data => {
 
 			const project = data,

@@ -95,7 +95,8 @@ export default Controller.extend( {
 			// this.transitionToRoute( "/" )
 		},
 		toReport() {
-			this.transitionToRoute( "page.project.result", this.model.project.id )
+			// this.transitionToRoute( "page.project.result", this.model.project.id )
+			window.location = "/project/" + this.model.project.id + "/result"
 		},
 		toDecisionReview() {
 			this.transitionToRoute( "page.project.review", this.model.project.id )
