@@ -57,8 +57,6 @@ export default Component.extend( {
 		} else {
 			return this.budgetPreset.get( "firstObject.initBudget" )
 		}
-
-
 	} ),
 	allMeetingPlaces: computed( "quota", function () {
 		return this.quota.get( "meetingPlaces" )
@@ -79,7 +77,8 @@ export default Component.extend( {
 	} ),
 	circleSize: A( ["42", "58"] ),
 	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
-	// ucbCircleColor: A( ["#8777D9", "#FFC400", " #57D9A3", "#dfe1e6"] ),
+	ucbCircleColor: A( ["#8777D9", "#FFC400", " #57D9A3", "#dfe1e6"] ),
+	// circleProductColorForUCB: computed(function),
 	circleProductColor: computed( function () {
 		return this.getProductCircleColor()
 	} ),

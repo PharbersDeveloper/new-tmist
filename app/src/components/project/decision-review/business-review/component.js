@@ -138,25 +138,25 @@ export default Component.extend( {
 		{
 			label: "所在城市",
 			valuePath: "region",
-			align: "center",
+			align: "left",
 			// sortable: true,
 			width: 100
 		},{
 			label: "医院名称",
 			valuePath: "hospitalName",
-			align: "center"
+			align: "left"
 			// sortable: true,
 			// width: 100
 		},{
 			label: "产品名称",
 			valuePath: "productName",
-			align: "center",
+			align: "left",
 			// sortable: true,
-			width: 72
+			width: 100
 		},{
 			label: "患者数量",
 			valuePath: "currentPatientNum",
-			align: "center",
+			align: "right",
 			cellComponent: "common/table/format-number-thousands",
 			sortable: true,
 			width: 100
@@ -170,20 +170,20 @@ export default Component.extend( {
 		},{
 			label: "代表",
 			valuePath: "resource",
-			align: "center",
+			align: "left",
 			// sortable: true,
 			width: 100
 		},{
 			label: "销售指标",
 			valuePath: "salesTarget",
-			align: "center",
+			align: "right",
 			cellComponent: "common/table/format-number-thousands",
 			sortable: true
 			// width: 110
 		},{
 			label: "预算费用",
 			valuePath: "budget",
-			align: "center",
+			align: "right",
 			cellComponent: "common/table/format-number-thousands",
 			sortable: true
 			// width: 110
