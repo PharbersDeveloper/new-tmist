@@ -2,23 +2,29 @@
 	<table local-class="history-table" class="table mb-2">
 		<thead class='px-2'>
 			<tr>
+				{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 				<th class="border-0 pb-2 pr-2 pl-0 text-left">获得称号</th>
+				{{/if}}
 				<th class="border-0 pb-2 px-2 text-center">总指标达成率</th>
 				<th class="border-0 pb-2 px-2 text-center">总销售额</th>
+				{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 				<th class="border-0 pb-2 px-2 text-center">分季度销售指标达成率</th>
+				{{/if}}
 				<th class="border-0 pb-2 pl-2 text-center ">用时</th>
 				<th class="border-0 pb-2 pl-2 text-center ">完成时间</th>
 			</tr>
 		</thead>
 		<tbody class="">
-			{{!-- {{#each quizs as |quiz|}} --}}
+			{{#each proviousReport as |pr|}}
 			<tr class="mx-0 mx-4">
+				{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 				<td class="pl-0 border-0 text-left">
 					{{#bp-layout direction="row" main="start" cross="center" local-class="level"}}
 						<img src="/images/img_placeholder.png" alt="level" local-class="level-img">
 						<p local-class="des">黄金</p>
 					{{/bp-layout}}
 				</td>
+				{{/if}}
 				<td class="px-2 border-0 text-center">
 					{{#bp-layout direction="row" main="center" cross="center" local-class="total-percent"}}
 						<p local-class="num">90</p>
@@ -26,8 +32,12 @@
 					{{/bp-layout}}
 				</td>
 				<td class="px-2 border-0 text-center">
-					¥100，000
+					{{#bp-layout local-class="total-sales" main="center" direction="row"}}
+							{{calc-total-sales pr.reports}}
+							{{log pr.reports}}
+					{{/bp-layout}}
 				</td>
+				{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 				<td class="border-0 text-center">
 					{{#bp-layout direction="row" local-class="quarter-sales-reached" main="between"}}
 						{{#bp-layout direction="col" local-class="info"}}
@@ -44,14 +54,22 @@
 						{{/bp-layout}}
 					{{/bp-layout}}
 				</td>
+				{{/if}}
 				<td class="border-0 text-center">
-					1小时30分钟
+					{{#bp-layout local-class="used-time" main="center" direction="row"}}
+							{{!-- 1小时30分钟 --}}
+							{{time-difference pr.project.startTime pr.project.endTime}}
+					{{/bp-layout}}
 				</td>
 				<td class="border-0 text-center">
-					2019-04-08 18:40
+					{{#bp-layout local-class="end-time" main="center" direction="row"}}
+							{{!-- 2019-04-08 18:40 --}}
+							{{format-date-standard pr.project.endTime}}
+					{{/bp-layout}}
 				</td>
 				<td class="px-2 border-0 text-center">
-					{{!-- {{#link-to "page.prepare"}}执行结果报告{{/link-to}} --}}
+					
+					{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 					{{#bp-layout direction="row" main="end"}}
 						{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
 							{{#dd.button }}
@@ -66,10 +84,13 @@
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 					{{/bp-layout}}
+					{{else if (bp-eq provious.firstObject.proposal.case "ucb")}}
+						{{#link-to "page.prepare"}}周期销售报告{{/link-to}}
+					{{/if}}
 				</td>
 				<td class="px-2 border-0 text-center">
-					{{!-- {{bp-icon icon="export" local-class="icon"}}
-                                导出数据 --}}
+					
+					{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 					{{#bp-layout direction="row" main="end"}}
 						{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
 							{{#dd.button }}
@@ -83,9 +104,14 @@
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 					{{/bp-layout}}
+					{{else if (bp-eq provious.firstObject.proposal.case "ucb")}}
+							{{#bp-button}}
+								{{bp-icon icon="export" local-class="icon"}}导出数据
+							{{/bp-button}}
+					{{/if}}
 				</td>
 			</tr>
-			{{!-- {{/each}} --}}
+			{{/each}}
 		</tbody>
 	</table>
 {{/bp-layout}}
