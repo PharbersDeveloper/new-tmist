@@ -1,9 +1,9 @@
 {{#bp-layout direction="col" local-class="page-report" classNames="p-4" cross="center"}}
 
 	{{#if roundOver}}
-	{{#bp-layout local-class="return-round-over" classNames="pb-4" click=(action "toRoundOver")}}
-		返回
-	{{/bp-layout}}
+		{{#bp-layout local-class="return-round-over" classNames="pb-4" click=(action "toRoundOver")}}
+			返回
+		{{/bp-layout}}
 	{{/if}}
 
 	{{#bp-page-header local-class='report-header' class="mb-4 bg-white" as |ph|}}
@@ -84,8 +84,13 @@
 						<span local-class="row-1">产品销售增长率</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">4.8%</span>
-						{{bp-icon icon='increase'}}
+						<span local-class="row-2">{{bp-percent yoyPer}}</span>
+						{{#if yoyFlag}}
+							{{bp-icon icon='increase'}}
+						{{else}}
+							{{bp-icon icon='priority-low'}}
+						{{/if}}
+
 						<span local-class="row-2-2">同比</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
@@ -94,8 +99,12 @@
 						<span local-class="row-1">产品销售增长率</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">5.8%</span>
-						{{bp-icon icon='priority-low'}}
+						<span local-class="row-2">{{bp-percent momPer}}</span>
+						{{#if momFlag}}
+							{{bp-icon icon='increase'}}
+						{{else}}
+							{{bp-icon icon='priority-low'}}
+						{{/if}}
 						<span local-class="row-2-2" class="">环比</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
@@ -120,17 +129,17 @@
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{!-- {{#bp-layout local-class="sales" classNames="bg-white"}} --}}
-					{{#bp-layout direction="col" main="center" cross="center"  local-class="col border-left-right"}}
-						{{#bp-layout classNames="mb-1"}}
-							<span local-class="row-1">ROI投入产出比</span>
-						{{/bp-layout}}
-						{{#bp-layout }}
-							{{!-- <span local-class="row-2">30%</span> --}}
-							<span local-class="row-2">{{format-number curSalesReports.roi 2}}</span>
-						{{/bp-layout}}
+				{{#bp-layout direction="col" main="center" cross="center"  local-class="col border-left-right"}}
+					{{#bp-layout classNames="mb-1"}}
+						<span local-class="row-1">ROI投入产出比</span>
 					{{/bp-layout}}
+					{{#bp-layout }}
+						{{!-- <span local-class="row-2">30%</span> --}}
+						<span local-class="row-2">{{format-number curSalesReports.roi 2}}</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
 				{{!-- {{/bp-layout}} --}}
-			{{/bp-layout}}	
+			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout local-class="right" classNames="bg-white" direction="col"}}
 			{{#bp-layout direction="row" main="between" local-class="right-header" cross="center"}}

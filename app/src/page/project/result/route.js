@@ -4,8 +4,9 @@ import { inject as service } from "@ember/service"
 
 export default Route.extend( {
 	facade: service( "service/exam-facade" ),
-	model( ) {
-		return this.store.findRecord( "model/project", this.modelFor( "page.project" ).id , {reload : true} ).then( data => {
+	ajax: service(),
+	model() {
+		return this.store.findRecord( "model/project", this.modelFor( "page.project" ).id, { reload: true } ).then( data => {
 
 			const project = data,
 
@@ -46,7 +47,43 @@ export default Route.extend( {
 				condi00 = "(projectId,:eq,`" + project.get( "id" ) + "`)",
 				condi01 = "(phase,:eq," + ( project.periods.length - 1 ) + ")",
 				condi = "(:and," + condi00 + "," + condi01 + ")",
-				reports = this.store.query( "model/report", { filter: condi } )
+				reports = this.store.query( "model/report", { filter: condi } ),
+				yoy = prs.load().then( x => {
+					const id = x.get( "id" )
+
+					return this.get( "ajax" ).request( "http://pharbers.com:9202/v1.0/CALC/yoy", {
+						method: "GET",
+						data: JSON.stringify( {
+							"model": "tmrs_new",
+							"query": {
+								"proposal_id": id,
+								"project_id": project.get( "id" ),
+								"phase": project.periods.length - 1
+							}
+						}
+						),
+						dataType: "json"
+					} )
+				} ),
+				mom = prs.load().then( x => {
+					const id = x.get( "id" )
+
+					return this.get( "ajax" ).request( "http://pharbers.com:9202/v1.0/CALC/mom", {
+						method: "GET",
+						data: JSON.stringify( {
+							"model": "tmrs_new",
+							"query": {
+								"proposal_id": id,
+								"project_id": project.get( "id" ),
+								"phase": project.periods.length - 1
+
+							}
+						}
+						),
+						dataType: "json"
+					} )
+
+				} )
 
 			return RSVP.hash( {
 				finals: finals,
@@ -55,7 +92,9 @@ export default Route.extend( {
 				reports: reports,
 				hospitals: hospitals,
 				products: products,
-				resources: resources
+				resources: resources,
+				yoy,
+				mom
 
 
 				// summary: finals
