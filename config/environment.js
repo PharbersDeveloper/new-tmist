@@ -65,8 +65,8 @@ module.exports = function( environment ) {
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true
 		ENV.APP.LOG_VIEW_LOOKUPS = true
 
-		// ENV.OAuth.RedirectUri = "http://tm.pharbers.com"
-		ENV.OAuth.RedirectUri = "http://ucb.pharbers.com" //UCB专版
+		ENV.OAuth.RedirectUri = "http://tm.pharbers.com:8081"
+		// ENV.OAuth.RedirectUri = "http://ucb.pharbers.com" //UCB专版
 		ENV.OAuth.Host = "http://oauth.pharbers.com"
 		ENV.QueryAddress.host = "http://59.110.31.50"
 

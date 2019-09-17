@@ -1,6 +1,7 @@
 import Component from "@ember/component"
 import groupBy from "ember-group-by"
 import { computed } from "@ember/object"
+import sortBy from 'ember-computed-sortby'
 // import { inject as service } from "@ember/service"
 // import { A } from "@ember/array"
 
@@ -31,10 +32,25 @@ export default Component.extend( {
 		}
 
 	} ),
-	res: computed( "p", "answers", function() {
+	st: computed( "p", function() {
 		if ( this.p && this.answers ) {
+			return this.p.map( item => { 
+				const ss = item.items.map ( x => x.currentPatientNum )
+				const si = item.items.sort((left, right) => { 
+					const fl = right.currentPatientNum - left.currentPatientNum 
+					return fl === 0 ? right.lastSales - left.lastSales : fl
+				} )
+				item["pat"] = ss.reduce((accumulator, currentValue) => accumulator + currentValue)
+				item["items"] = si
+				return item
+			} )
+		}
+	} ),
+	sst: sortBy("st", "pat:desc"),
+	res: computed( "sst", "answers", function() {
+		if ( this.sst && this.answers ) {
 
-			return this.p.sortBy( "value" ).map( item => {
+			return this.sst.map( item => {
 				const result = item.items.map( preset => {
 					const tmp = this.answers.find( ans => {
 						const ts = ans.belongsTo( "target" ).id() === preset.belongsTo( "hospital" ).id(),

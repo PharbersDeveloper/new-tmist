@@ -1,5 +1,7 @@
 import Controller from "@ember/controller"
 import { inject as service } from "@ember/service"
+// import computed from "@ember/object"
+import { computed } from "@ember/object"
 
 export default Controller.extend( {
 	gen: service( "service/gen-data" ),
@@ -8,6 +10,15 @@ export default Controller.extend( {
 			this.transitionToRoute( "page.project.period", project.id, x.id )
 		} )
 	},
+	roundOver: computed( function() {
+		let old = window.document.referrer
+
+		if ( old.indexOf( "round-over" ) !== -1 || old.indexOf( "history" ) !== -1 ) {
+			return true
+		} else {
+			return false
+		}
+	} ),
 	actions: {
 		toReport() {
 			this.transitionToRoute( "page.project.report" )

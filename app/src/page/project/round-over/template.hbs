@@ -19,8 +19,9 @@
 		{{#bp-layout local-class="goal block" direction="col" cross="center"}}
 			{{#bp-layout local-class="header-text" classNames="mb-3"}}总指标达成率{{/bp-layout}}
 			{{#bp-layout direction="row" local-class="precent"}}
-				<span>{{bp-percent model.report.quotaAchv}}</span>
-				<span></span>
+				{{!-- <span>{{bp-percent model.report.quotaAchv}}</span> --}}
+				<span>{{calc-quota-achv model.reports}}</span>
+				<span class="mt-3">%</span>
 			{{/bp-layout}}
 			{{!-- {{#bp-layout direction="row" main="between"}}
 				{{#bp-layout direction="col" }}
@@ -39,8 +40,8 @@
 		{{/bp-layout}}
 		{{#bp-layout local-class="sales block" direction="col" cross="center"}}
 			{{#bp-layout local-class="header-text" classNames="mb-3"}}总销售额{{/bp-layout}}
-			{{#bp-layout}}¥{{format-number model.report.sales 0}}{{/bp-layout}}
-			{{log model.report}}
+			{{#bp-layout}}¥{{calc-total-sales model.reports}}{{/bp-layout}}
+			{{!-- {{#bp-layout}}¥{{format-number model.report.sales 0}}{{/bp-layout}} --}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="time block" cross="center"}}
 			{{#bp-layout local-class="header-text" classNames="mb-3"}}完成用时{{/bp-layout}}
@@ -107,7 +108,7 @@
 			{{#bp-layout local-class="goal block" direction="col" }}
 				{{#bp-layout local-class="header-text" classNames="mb-3"}}总指标达成率{{/bp-layout}}
 				{{#bp-layout direction="row" local-class="precent"}}
-					<span class="mb-2">{{bp-percent model.report.quotaAchv}}</span>
+					<span class="mb-2">{{bp-percent model.report.lastObject.quotaAchv}}</span>
 					{{!-- <span></span> --}}
 				{{/bp-layout}}
 				{{#bp-layout direction="row"}}
@@ -128,8 +129,8 @@
 
 			{{#bp-layout local-class="sales block" direction="col"  }}
 				{{#bp-layout local-class="header-text" classNames="mb-3"}}总销售额{{/bp-layout}}
-				{{#bp-layout}}¥{{format-number model.report.sales 0}}{{/bp-layout}}
-				{{log model.report}}
+				{{#bp-layout}}¥{{format-number model.report.lastObject.sales 0}}{{/bp-layout}}
+				{{!-- {{log model.report}} --}}
 			{{/bp-layout}}
 
 			{{#bp-layout direction="col" local-class="block"}}
@@ -189,12 +190,12 @@
 	{{/if}}
 
 
-	{{!-- {{#bp-layout local-class="history" classNames="bg-white mt-4 px-4" direction="col"}}
+	{{#bp-layout local-class="history" classNames="bg-white mt-4 px-4" direction="col"}}
 		{{#bp-layout tagName="h4" local-class="history-header" cross="center" classNames="mb-0"}}
 			历史成果
 		{{/bp-layout}}
-		{{project/history-info provious=model.provious}}
-	{{/bp-layout}} --}}
+		{{project/history-info provious=model.provious proviousReport=model.proviousReport}}
+	{{/bp-layout}}
 {{/bp-layout}}
 
 

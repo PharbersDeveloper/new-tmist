@@ -1,9 +1,14 @@
 import Component from "@ember/component"
+import { inject as service } from "@ember/service"
 
 export default Component.extend( {
-	positionalParams: ["provious", "periods"],
+	positionalParams: ["provious", "periods", "proviousReport"],
 	classNames: ["history-info-wrapper"],
+	exportService: service( "service/export-report" ),
 	actions: {
+		exportReport( project ) {
+			this.exportService.exportReport( project, project.get( "periods" ).length )
+		},
 		performance() {
 
 			this.set( "performance", {
@@ -12,6 +17,9 @@ export default Component.extend( {
 		},
 		review( pid ) {
 			this.transitionToRoute( "page.project.review", pid )
+		},
+		toReport( project ) {
+			window.location = "/project/" + project.id + "/result"
 		}
 	}
 } )
