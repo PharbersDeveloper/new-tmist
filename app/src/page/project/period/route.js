@@ -104,7 +104,8 @@ export default Route.extend( {
 			return this.store.query( "model/preset", { filter: "(:and," + "(proposalId,:eq,`" + data.prsId + "`)" + `,(phase,:eq,${sourtPeriods.lastObject.phase})` + "," + "(category,:eq,32)" + ")" } )
 		} )
 
-		const curPresets = phase === 0 ? presets : presetsByProject
+		const curPresets = phase === 0 ? presets : presetsByProject,
+			budgetPreset = phase === 0 ? quota : presetsByProject.then( x => x.filter( it => it.category === 8 && it.phase === phase ) )
 
 		// 2.3 周期分配结果等于第一周期分配结果 start
 		if ( phase > 0 ) {
@@ -143,6 +144,7 @@ export default Route.extend( {
 			dragInfo: dragInfo.then( x => x.filter( it => it.category === 8 ) ),
 			kpiInfo: kpiInfo,
 			periods: periods,
+			budgetPreset:budgetPreset,
 			policies
 		} )
 	},

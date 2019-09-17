@@ -1,28 +1,31 @@
 import Component from "@ember/component"
 import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
+import EmberObject from "@ember/object"
 import { htmlSafe } from "@ember/template"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
 import { computed } from "@ember/object"
 import { inject as service } from "@ember/service"
 import { formatPhaseToDate, formatPhaseToStringDefault } from "new-tmist/utils/format-phase-date"
+import { all } from "rsvp"
+import ENV from "new-tmist/config/environment"
 
-export default Component.extend( GenerateCondition,GenerateChartConfig, {
+export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// ossService: service( "service/oss" ),
-	// ajax: service(),
+	ajax: service(),
 	// cookies: service(),
 	exportService: service( "service/export-report" ),
-	positionalParams: ["periods", "resources", "products", "hospitals","case", "project"],
+	positionalParams: ["periods", "resources", "products", "hospitals", "case", "project"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
-	selfProducts: computed( "products",function() {
+	selfProducts: computed( "products", function () {
 		let products = this.products
 
 		if ( isEmpty( products ) ) {
 			return products
 		}
-		return products.filterBy( "productType",0 )
+		return products.filterBy( "productType", 0 )
 	} ),
 	/**
 	 * @author Frank Wang
@@ -35,47 +38,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	*/
 	isResultPage: false,
 	// TODO 有区域实体之后，替换为区域实体
-	regions: A( [{name:"会东市",id: 1},{name:"会南市",id:2},{name:"会西市",id:3}] ),
-	seasonQ( seasonText ) {
-		let season = isEmpty( seasonText ) ? "" : seasonText
-
-		if ( season === "" ) {
-			return season
-		}
-		season = season.replace( "第一季度", "Q1" )
-		season = season.replace( "第二季度", "Q2" )
-		season = season.replace( "第三季度", "Q3" )
-		season = season.replace( "第四季度", "Q4" )
-
-		return season
-	},
-
-	tableHead: computed( "periods", function () {
-		if ( !this.periods ) {
-			return
-		}
-		let seasonQ = "",
-			tableHead = A( [] ),
-			tmpHead = this.periods.map( ele => {
-				let name = ele.name
-
-				return name.slice( 0, 4 ) + name.slice( -4 )
-			} )
-
-		seasonQ = this.seasonQ( tmpHead.lastObject )
-		tableHead.push( htmlSafe( `销售增长率<br>${seasonQ}` ) )
-		tableHead.push( htmlSafe( `指标达成率<br>${seasonQ}` ) )
-		tmpHead.forEach( ele => {
-			seasonQ = this.seasonQ( ele )
-			tableHead.push( htmlSafe( `销售额<br>${seasonQ}` ) )
-		} )
-		tmpHead.forEach( ele => {
-			seasonQ = this.seasonQ( ele )
-			tableHead.push( htmlSafe( `销售指标<br>${seasonQ}` ) )
-		} )
-
-		return tableHead
-	} ),
+	regions: A( [{ name: "会东市", id: 1 }, { name: "会南市", id: 2 }, { name: "会西市", id: 3 }] ),
 	/**
 	 * @author Frank Wang
 	 * @method
@@ -87,7 +50,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	 * @example 创建例子。
 	 * @private
 	 */
-	dealData( data, config, name,property ) {
+	dealData( data, config, name, property ) {
 		// this._super( ...arguments )
 		// do something with chart data and config
 		// example
@@ -102,7 +65,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 					productInfo[titleArray[i]] = ele[i]
 				}
 				productInfo.color = htmlSafe( `background-color:${color[index]}` )
-				productInfo.name = productInfo[ `${name}.keyword`]
+				productInfo.name = productInfo[`${name}.keyword`]
 				productInfo.salesRate = productInfo["rate(sum(sales))"]
 				productInfo.sales = productInfo["sum(sales)"]
 
@@ -112,7 +75,6 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 		this.set( property, productsData )
 	},
 	// downloadURI( urlName ) {
-	// 	window.console.log( urlName )
 	// 	fetch( urlName.url )
 	// 		.then( response => {
 	// 			if ( response.status === 200 ) {
@@ -168,66 +130,66 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 			this.set( "salesGroupValue", value )
 		},
 		dealProd0Data( data, config ) {
-			this.dealData( data,config,"product","product0Legend" )
+			this.dealData( data, config, "product", "product0Legend" )
 		},
 		dealProd1Data( data, config ) {
-			this.dealData( data,config,"product","product1Legend" )
+			this.dealData( data, config, "product", "product1Legend" )
 		},
 		chooseProd( prod ) {
 			let salesGroupValue = this.salesGroupValue
 
 			// TODO switch更清晰
 			if ( salesGroupValue === 0 ) {
-				this.set( "tmpPsr",prod )
-				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name,this.proposal ) )
+				this.set( "tmpPsr", prod )
+				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name, this.proposal ) )
 			} else if ( salesGroupValue === 1 ) {
-				this.set( "tmpProdRep",prod )
-				this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name,this.proposal ) )
+				this.set( "tmpProdRep", prod )
+				this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name, this.proposal ) )
 			} else if ( salesGroupValue === 2 ) {
-				this.set( "tmpProdHosp",prod )
-				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name,this.proposal ) )
+				this.set( "tmpProdHosp", prod )
+				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name, this.proposal ) )
 			} else if ( salesGroupValue === 3 ) {
 				let regName = isEmpty( this.tmpReg ) ? "" : this.tmpReg.name
 
-				this.set( "tmpProdReg",prod )
-				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( regName, prod.name,this.proposal ) )
+				this.set( "tmpProdReg", prod )
+				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( regName, prod.name, this.proposal ) )
 			}
 		},
 		chooseRep( rep ) {
 			let prodName = this.tmpProdRep && this.tmpProdRep.name
 
-			this.set( "tmpRep",rep )
-			this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( rep.name,prodName ,this.proposal ) )
+			this.set( "tmpRep", rep )
+			this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( rep.name, prodName, this.proposal ) )
 		},
 		chooseHosp( hosp ) {
 			let prodName = this.tmpProdHosp && this.tmpProdHosp.name
 
-			this.set( "tmpHosp",hosp )
-			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name,prodName,this.proposal ) )
+			this.set( "tmpHosp", hosp )
+			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name, prodName, this.proposal ) )
 		},
 		chooseReg( reg ) {
 			let prodName = this.tmpProdReg && this.tmpProdReg.name
 
-			this.set( "tmpReg",reg )
-			this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( reg.name,prodName ,this.proposal ) )
+			this.set( "tmpReg", reg )
+			this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( reg.name, prodName, this.proposal ) )
 		},
-		dealRep0Data( data,config ) {
-			this.dealData( data,config,"representative","rep0Legend" )
+		dealRep0Data( data, config ) {
+			this.dealData( data, config, "representative", "rep0Legend" )
 		},
-		dealRep1Data( data,config ) {
-			this.dealData( data,config,"representative","rep1Legend" )
+		dealRep1Data( data, config ) {
+			this.dealData( data, config, "representative", "rep1Legend" )
 		},
-		dealHosp0Data( data,config ) {
-			this.dealData( data,config,"hospital_level","Hosp0Legend" )
+		dealHosp0Data( data, config ) {
+			this.dealData( data, config, "hospital_level", "Hosp0Legend" )
 		},
-		dealHosp1Data( data,config ) {
-			this.dealData( data,config,"hospital_level","Hosp1Legend" )
+		dealHosp1Data( data, config ) {
+			this.dealData( data, config, "hospital_level", "Hosp1Legend" )
 		},
-		dealReg0Data( data,config ) {
-			this.dealData( data,config,"region","Reg0Legend" )
+		dealReg0Data( data, config ) {
+			this.dealData( data, config, "region", "Reg0Legend" )
 		},
-		dealReg1Data( data,config ) {
-			this.dealData( data,config,"region","Reg1Legend" )
+		dealReg1Data( data, config ) {
+			this.dealData( data, config, "region", "Reg1Legend" )
 		}
 	},
 	didReceiveAttrs() {
@@ -241,42 +203,319 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 			sortPeriods = this.periods.sortBy( "phase" ),
 			currentPeriod = sortPeriods.get( "lastObject.phase" ),	 // 当前周期的 phase
 			prevOne = isResultPage ? currentPeriod : currentPeriod - 1,//当为结果页面的时候显示当前周期，否则展示上一周期
-			prevTwo = isResultPage ? currentPeriod - 1 : currentPeriod - 2//当为结果页面的时候展示上一周期，否则展示上两个周期
+			prevTwo = isResultPage ? currentPeriod - 1 : currentPeriod - 2,//当为结果页面的时候展示上一周期，否则展示上两个周期
+			date = formatPhaseToDate( that.proposal.get( "periodBase" ), that.proposal.get( "periodStep" ), prevOne ),
+			tableSalesQuotas = that.createDynamicTableHead( prevOne, "销售指标", "quota" ),
+			tableSales = that.createDynamicTableHead( prevOne, "销售额", "sales" ),
+			time = formatPhaseToStringDefault( date ),
+			productColumns = A( [
+				{
+					label: "药品名称",
+					valuePath: "product",
+					align: "left",
+					// sortable: true,
+					width: 64
+				}, {
+					label: `指标贡献率<br />${time}`,
+					valuePath: "quota_contri",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `指标增长率<br />${time}`,
+					valuePath: "quota_growth",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `指标达成率<br />${time}`,
+					valuePath: "quota_rate",
+					align: "left",
+					// sortable: true,
+					cellComponent: "common/table/decimal-to-percentage",
+					width: 100
+				}, {
+					label: `销售额同比增长<br />${time}`,
+					valuePath: "year_on_year_sales",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `销售额环比增长<br />${time}`,
+					valuePath: "sales_growth",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `YTD销售额<br />${time}`,
+					valuePath: "ytd_sales",
+					align: "right",
+					cellComponent: "common/table/format-number-thousands",
+					// sortable: true,
+					width: 110
+				}
+			] ),
+			representativeColumns = A( [
+				{
+					label: "代表名称",
+					valuePath: "representative",
+					align: "left",
+					// sortable: true,
+					width: 64
+				}, {
+					label: "患者数量",
+					valuePath: "current_patient_num",
+					align: "left",
+					cellComponent: "common/table/format-number-thousands",
+					// sortable: true,
+					width: 64
+				}, {
+					label: `指标贡献率<br />${time}`,
+					valuePath: "quota_contri",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `指标增长率<br />${time}`,
+					valuePath: "quota_growth",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `指标达成率<br />${time}`,
+					valuePath: "quota_rate",
+					align: "left",
+					// sortable: true,
+					cellComponent: "common/table/decimal-to-percentage",
+					width: 100
+				}, {
+					label: `销售额同比增长<br />${time}`,
+					valuePath: "year_on_year_sales",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `销售额环比增长<br />${time}`,
+					valuePath: "sales_growth",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `销售额贡献率<br />${time}`,
+					valuePath: "sales_contri",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `YTD销售额<br />${time}`,
+					valuePath: "ytd_sales",
+					align: "right",
+					cellComponent: "common/table/format-number-thousands",
+					// sortable: true,
+					width: 110
+				}
+			] ),
+			hospitalColumns = A( [
+				{
+					label: "医院名称",
+					valuePath: "hospital",
+					align: "left",
+					// sortable: true,
+					width: 200
+				}, {
+					label: "代表",
+					valuePath: "representative",
+					align: "left",
+					// sortable: true,
+					width: 64
+				}, {
+					label: "患者数量",
+					valuePath: "current_patient_num",
+					align: "left",
+					cellComponent: "common/table/format-number-thousands",
+					// sortable: true,
+					width: 64
+				}, {
+					label: "药品准入情况",
+					valuePath: "status",
+					align: "center",
+					// sortable: true,
+					width: 90
+				}, {
+					label: `指标贡献率<br />${time}`,
+					valuePath: "quota_contri",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `指标增长率<br />${time}`,
+					valuePath: "quota_growth",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `指标达成率<br />${time}`,
+					valuePath: "quota_rate",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `销售额同比增长<br />${time}`,
+					valuePath: "year_on_year_sales",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `销售额环比增长<br />${time}`,
+					valuePath: "sales_growth",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `销售额贡献率<br />${time}`,
+					valuePath: "sales_growth",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `YTD销售额<br />${time}`,
+					valuePath: "ytd_sales",
+					align: "right",
+					cellComponent: "common/table/format-number-thousands",
+					// sortable: true,
+					width: 110
+				}, {
+					label: `院内销售额<br />${time}`,
+					valuePath: "inter_sales",
+					align: "center",
+					cellComponent: "common/table/format-number-thousands",
+					// sortable: true,
+					width: 110
+				}, {
+					label: `院外销售额<br />${time}`,
+					valuePath: "outer_sales",
+					align: "center",
+					cellComponent: "common/table/format-number-thousands",
+					// sortable: true,
+					width: 110
+				}
 
-		this.set( "tmpRep",defaultRep )
-		this.set( "tmpHosp",defaultHosp )
+			] ),
+			regionColumns = A( [
+				{
+					label: "城市名称",
+					valuePath: "region",
+					align: "left",
+					// sortable: true,
+					width: 64
+				}, {
+					label: "患者数量",
+					valuePath: "current_patient_num",
+					align: "left",
+					cellComponent: "common/table/format-number-thousands",
+					// sortable: true,
+					width: 64
+				}, {
+					label: `指标贡献率<br />${time}`,
+					valuePath: "quota_contri",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `指标增长率<br />${time}`,
+					valuePath: "quota_growth",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `指标达成率<br />${time}`,
+					valuePath: "quota_rate",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `销售额同比增长<br />${time}`,
+					valuePath: "year_on_year_sales",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `销售额环比增长<br />${time}`,
+					valuePath: "sales_growth",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `销售额贡献率<br />${time}`,
+					valuePath: "sales_contri",
+					align: "left",
+					cellComponent: "common/table/decimal-to-percentage",
+					// sortable: true,
+					width: 100
+				}, {
+					label: `YTD销售额<br />${time}`,
+					valuePath: "ytd_sales",
+					align: "right",
+					cellComponent: "common/table/format-number-thousands",
+					// sortable: true,
+					width: 110
+				}
+			] )
+
+		this.set( "tmpRep", defaultRep )
+		this.set( "tmpHosp", defaultHosp )
 
 		new Promise( function ( resolve ) {
-			let tmProductCircle0 = that.generateCircleChart( "circleproductcontainer0","tmcircleproduct0" ),
-				tmProductCircle1 = that.generateCircleChart( "circleproductcontainer1","tmcircleproduct1" ),
+			let tmProductCircle0 = that.generateCircleChart( "circleproductcontainer0", "tmcircleproduct0" ),
+				tmProductCircle1 = that.generateCircleChart( "circleproductcontainer1", "tmcircleproduct1" ),
 				tmProductCircleCondition = that.generateProductCircleCondition( proposalCase, prevOne ),
 				tmProductCircle0Condition = that.generateProductCircleCondition( proposalCase, prevTwo ),
-				tmProductBarLine0 = that.generateBarLineConfig( "tmProductBarLineContainer","bartmProductBarLine0" ),
-				tmProductBarLineCondition = that.generateProdBarLineCondition( "",that.proposal ),
-				tmRepCircle0 = that.generateCircleChart( "representativeCircleContainer0","tmcircleRepresentative0" ),
-				tmRepCircle1 = that.generateCircleChart( "circleRepresentativeContainer1","tmcirclerepresentative1" ),
+				tmProductBarLine0 = that.generateBarLineConfig( "tmProductBarLineContainer", "bartmProductBarLine0" ),
+				tmProductBarLineCondition = that.generateProdBarLineCondition( "", that.proposal ),
+				tmRepCircle0 = that.generateCircleChart( "representativeCircleContainer0", "tmcircleRepresentative0" ),
+				tmRepCircle1 = that.generateCircleChart( "circleRepresentativeContainer1", "tmcirclerepresentative1" ),
 				tmRepCircleCondition = that.generateRepCircleCondition( prevOne ),
 				tmRepCircle0Condition = that.generateRepCircleCondition( prevTwo ),
-				tmRepBarLine0 = that.generateBarLineConfig( "tmRepresentativeBarLineContainer","bartmRepresentativeBarLine0" ),
-				tmRepBarLineCondition = that.generateRepBarLineCondition( defaultRep.name,"",that.proposal ),
-				tmHosCircle0 = that.generateCircleChart( "hospitalCircleContainer0","tmcircleHospital0" ),
-				tmHosCircle1 = that.generateCircleChart( "hospitalCircleContainer1","tmcircleHospital1" ),
+				tmRepBarLine0 = that.generateBarLineConfig( "tmRepresentativeBarLineContainer", "bartmRepresentativeBarLine0" ),
+				tmRepBarLineCondition = that.generateRepBarLineCondition( defaultRep.name, "", that.proposal ),
+				tmHosCircle0 = that.generateCircleChart( "hospitalCircleContainer0", "tmcircleHospital0" ),
+				tmHosCircle1 = that.generateCircleChart( "hospitalCircleContainer1", "tmcircleHospital1" ),
 				tmHosCircleCondition = that.generateHospCircleCondition( prevOne ),
 				tmHosCircle0Condition = that.generateHospCircleCondition( prevTwo ),
-				tmHosBarLine0 = that.generateBarLineConfig( "tmHospitalBarLineContainer","bartmHospitalBarLine0" ),
-				tmHosBarLineCondition = that.generateHospBarLineCondition( defaultHosp.name ,"",that.proposal ),
-				tmRegCircle0 = that.generateCircleChart( "regionCircleContainer0","tmcircleregion0" ),
-				tmRegCircle1 = that.generateCircleChart( "regionCircleContainer1","tmcircleregion1" ),
+				tmHosBarLine0 = that.generateBarLineConfig( "tmHospitalBarLineContainer", "bartmHospitalBarLine0" ),
+				tmHosBarLineCondition = that.generateHospBarLineCondition( defaultHosp.name, "", that.proposal ),
+				tmRegCircle0 = that.generateCircleChart( "regionCircleContainer0", "tmcircleregion0" ),
+				tmRegCircle1 = that.generateCircleChart( "regionCircleContainer1", "tmcircleregion1" ),
 				tmRegCircleCondition = that.generateRegionCircleCondition( prevOne ),
 				tmRegCircle0Condition = that.generateRegionCircleCondition( prevTwo ),
-				tmRegBarLine0 = that.generateBarLineConfig( "tmRegionBarLineContainer","bartmRegionBarLine0" ),
-				tmRegBarLineCondition = that.generateRegionBarLineCondition( "","",that.proposal ) // 查询区域全部总值&&产品全部总值
+				tmRegBarLine0 = that.generateBarLineConfig( "tmRegionBarLineContainer", "bartmRegionBarLine0" ),
+				tmRegBarLineCondition = that.generateRegionBarLineCondition( "", "", that.proposal ) // 查询区域全部总值&&产品全部总值
 
 			resolve( {
-				tmProductCircle0, tmProductCircle1, tmProductCircleCondition, tmProductCircle0Condition,tmProductBarLine0, tmProductBarLineCondition,
-				tmRepCircle0, tmRepCircle1, tmRepCircleCondition,tmRepCircle0Condition, tmRepBarLine0, tmRepBarLineCondition,
-				tmHosCircle0, tmHosCircle1, tmHosCircleCondition,tmHosCircle0Condition, tmHosBarLine0, tmHosBarLineCondition,
-				tmRegCircle0, tmRegCircle1, tmRegCircleCondition,tmRegCircle0Condition, tmRegBarLine0, tmRegBarLineCondition
+				tmProductCircle0, tmProductCircle1, tmProductCircleCondition, tmProductCircle0Condition, tmProductBarLine0, tmProductBarLineCondition,
+				tmRepCircle0, tmRepCircle1, tmRepCircleCondition, tmRepCircle0Condition, tmRepBarLine0, tmRepBarLineCondition,
+				tmHosCircle0, tmHosCircle1, tmHosCircleCondition, tmHosCircle0Condition, tmHosBarLine0, tmHosBarLineCondition,
+				tmRegCircle0, tmRegCircle1, tmRegCircleCondition, tmRegCircle0Condition, tmRegBarLine0, tmRegBarLineCondition
 
 			} )
 		} ).then( data => {
@@ -306,429 +545,84 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 			this.set( "tmRegBarLineCondition", data.tmRegBarLineCondition )
 		} )
 
-		new Promise( function ( resolve ) {
-			const date = formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevOne )
+		productColumns = productColumns.concat( tableSales ).concat( tableSalesQuotas )
+		representativeColumns = representativeColumns.concat( tableSales ).concat( tableSalesQuotas )
+		hospitalColumns = hospitalColumns.concat( tableSales ).concat( tableSalesQuotas )
+		regionColumns = regionColumns.concat( tableSales ).concat( tableSalesQuotas )
 
+		this.set( "productColumns", productColumns )
+		this.set( "representativeColumns", representativeColumns )
+		this.set( "hospitalColumns", hospitalColumns )
+		this.set( "regionColumns", regionColumns )
 
-			let time = formatPhaseToStringDefault( date ),
-				productColumns = A( [
-					{
-						label: "产品名称",
-						valuePath: "name",
-						align: "left",
-						// sortable: true,
-						width: 64
-					},{
-						label: `指标贡献率<br />${time}`,
-						valuePath: "ratecontribution",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `指标增长率<br />${time}`,
-						valuePath: "growth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `指标达成率<br />${time}`,
-						valuePath: "yield",
-						align: "left",
-						// sortable: true,
-						// cellComponent: 'table/decimal-to-percentage',
-						width: 100
-					},{
-						label: `销售额同比增长<br />${time}`,
-						valuePath: "yoygrowth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `销售额环比增长<br />${time}`,
-						valuePath: "rosegrowth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `销售额贡献率<br />${time}`,
-						valuePath: "salescontribution",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `YTD销售额<br />${time}`,
-						valuePath: "ytd",
-						align: "right",
-						// sortable: true,
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 3 ) ),
-						valuePath: "quota3",
-						align: "right",
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 2 ) ),
-						valuePath: "quota2",
-						align: "right",
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 1 ) ),
-						valuePath: "quota1",
-						align: "right",
-						width: 110
-					},{
-						label: `销售指标<br />${time}`,
-						valuePath: "quota0",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 3 ) ),
-						valuePath: "sales3",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 2 ) ),
-						valuePath: "sales2",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 1 ) ),
-						valuePath: "sales1",
-						align: "right",
-						width: 110
-					},{
-						label: `销售额<br />${time}`,
-						valuePath: "sales0",
-						align: "right",
-						width: 110
-					}
-				] ),
-				productTableData = A( [] ),
-				representativeColumns = A( [
-					{
-						label: "代表名称",
-						valuePath: "name",
-						align: "left",
-						// sortable: true,
-						width: 64
-					},{
-						label: "患者数量",
-						valuePath: "patients",
-						align: "left",
-						// sortable: true,
-						width: 64
-					},{
-						label: `指标贡献率<br />${time}`,
-						valuePath: "ratecontribution",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `指标增长率<br />${time}`,
-						valuePath: "growth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `指标达成率<br />${time}`,
-						valuePath: "yield",
-						align: "left",
-						// sortable: true,
-						// cellComponent: 'table/decimal-to-percentage',
-						width: 100
-					},{
-						label: `销售额同比增长<br />${time}`,
-						valuePath: "yoygrowth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `销售额环比增长<br />${time}`,
-						valuePath: "rosegrowth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `销售额贡献率<br />${time}`,
-						valuePath: "salescontribution",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `YTD销售额<br />${time}`,
-						valuePath: "ytd",
-						align: "right",
-						// sortable: true,
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 3 ) ),
-						valuePath: "quota3",
-						align: "right",
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 2 ) ),
-						valuePath: "quota2",
-						align: "right",
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 1 ) ),
-						valuePath: "quota1",
-						align: "right",
-						width: 110
-					},{
-						label: `销售指标<br />${time}`,
-						valuePath: "quota0",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 3 ) ),
-						valuePath: "sales3",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 2 ) ),
-						valuePath: "sales2",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 1 ) ),
-						valuePath: "sales1",
-						align: "right",
-						width: 110
-					},{
-						label: `销售额<br />${time}`,
-						valuePath: "sales0",
-						align: "right",
-						width: 110
-					}
-				] ),
-				hospitalColumns = A( [
-					{
-						label: "医院名称",
-						valuePath: "name",
-						align: "left",
-						// sortable: true,
-						width: 64
-					},{
-						label: "代表",
-						valuePath: "rep",
-						align: "left",
-						// sortable: true,
-						width: 64
-					},{
-						label: "患者数量",
-						valuePath: "patients",
-						align: "left",
-						// sortable: true,
-						width: 64
-					},{
-						label: "药品准入情况",
-						valuePath: "access",
-						align: "center",
-						// sortable: true,
-						width: 90
-					},{
-						label: `指标贡献率<br />${time}`,
-						valuePath: "ratecontribution",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `指标增长率<br />${time}`,
-						valuePath: "growth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `指标达成率<br />${time}`,
-						valuePath: "yield",
-						align: "left",
-						// sortable: true,
-						// cellComponent: 'table/decimal-to-percentage',
-						width: 100
-					},{
-						label: `销售额同比增长<br />${time}`,
-						valuePath: "yoygrowth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `销售额环比增长<br />${time}`,
-						valuePath: "rosegrowth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `销售额贡献率<br />${time}`,
-						valuePath: "salescontribution",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `YTD销售额<br />${time}`,
-						valuePath: "ytd",
-						align: "right",
-						// sortable: true,
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 3 ) ),
-						valuePath: "quota3",
-						align: "right",
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 2 ) ),
-						valuePath: "quota2",
-						align: "right",
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 1 ) ),
-						valuePath: "quota1",
-						align: "right",
-						width: 110
-					},{
-						label: `销售指标<br />${time}`,
-						valuePath: "quota0",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 3 ) ),
-						valuePath: "sales3",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 2 ) ),
-						valuePath: "sales2",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 1 ) ),
-						valuePath: "sales1",
-						align: "right",
-						width: 110
-					},{
-						label: `销售额<br />${time}`,
-						valuePath: "sales0",
-						align: "right",
-						width: 110
-					}
-				] ),
-				regionColumns = A( [
-					{
-						label: "城市名称",
-						valuePath: "name",
-						align: "left",
-						// sortable: true,
-						width: 64
-					},{
-						label: "患者数量",
-						valuePath: "patients",
-						align: "left",
-						// sortable: true,
-						width: 64
-					},{
-						label: "药品准入情况",
-						valuePath: "access",
-						align: "center",
-						// sortable: true,
-						width: 90
-					},{
-						label: `指标贡献率<br />${time}`,
-						valuePath: "ratecontribution",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `指标增长率<br />${time}`,
-						valuePath: "growth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `指标达成率<br />${time}`,
-						valuePath: "yield",
-						align: "left",
-						// sortable: true,
-						// cellComponent: 'table/decimal-to-percentage',
-						width: 100
-					},{
-						label: `销售额同比增长<br />${time}`,
-						valuePath: "yoygrowth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `销售额环比增长<br />${time}`,
-						valuePath: "rosegrowth",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `销售额贡献率<br />${time}`,
-						valuePath: "salescontribution",
-						align: "left",
-						// sortable: true,
-						width: 100
-					},{
-						label: `YTD销售额<br />${time}`,
-						valuePath: "ytd",
-						align: "right",
-						// sortable: true,
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 3 ) ),
-						valuePath: "quota3",
-						align: "right",
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 2 ) ),
-						valuePath: "quota2",
-						align: "right",
-						width: 110
-					},{
-						label: "销售指标<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 1 ) ),
-						valuePath: "quota1",
-						align: "right",
-						width: 110
-					},{
-						label: `销售指标<br />${time}`,
-						valuePath: "quota0",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 3 ) ),
-						valuePath: "sales3",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 2 ) ),
-						valuePath: "sales2",
-						align: "right",
-						width: 110
-					},{
-						label: "销售额<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ),that.proposal.get( "periodStep" ),prevTwo - 1 ) ),
-						valuePath: "sales1",
-						align: "right",
-						width: 110
-					},{
-						label: `销售额<br />${time}`,
-						valuePath: "sales0",
-						align: "right",
-						width: 110
-					}
-				] )
-
-			resolve( {
-				productColumns, productTableData,representativeColumns,hospitalColumns,regionColumns
-
-			} )
-		} ).then( data => {
-			this.set( "productColumns", data.productColumns )
-			this.set( "productTableData", data.productTableData )
-			this.set( "representativeColumns", data.representativeColumns )
-			this.set( "hospitalColumns", data.hospitalColumns )
-			this.set( "regionColumns", data.regionColumns )
-
+		all( [that.queryData( "product_ref", time ),
+			this.queryData( "region_ref", time ),
+			this.queryData( "rep_ref", time ),
+			this.queryData( "hospital_ref", time )
+		] ).then( data => {
+			this.set( "productTableData", data[0] )
+			this.set( "regionTableData", data[1] )
+			this.set( "representativeTableData", data[2] )
+			this.set( "hospitalTableData", data[3] )
 		} )
-	  }
+	},
+	createDynamicTableHead( seasonNumber, headText, headWord ) {
+		const that = this
+
+		let miniSeason = -4,
+			len = seasonNumber - miniSeason + 1,
+			arr = []
+
+		for ( let i = 0; i < len; i++ ) {
+			arr.push( miniSeason + i )
+		}
+		return arr.map( ele => {
+			return {
+				label: headText + "<br />" + formatPhaseToStringDefault( formatPhaseToDate( that.proposal.get( "periodBase" ), that.proposal.get( "periodStep" ), ele ) ),
+				valuePath: headWord + "_" + ele,
+				cellComponent: "common/table/format-number-thousands",
+				align: "right",
+				width: 110
+			}
+		} )
+	},
+	/**
+	 * @author Frank Wang
+	 * @property
+	 * @name queryAddress
+	 * @description 数据请求的地址
+	 * @type {Object}
+	 * @default {}
+	 * @public
+	 */
+	tableQueryAddress: ENV.tableQueryAddress,
+
+	// tableQueryAddress: EmberObject.create( {
+	// 	host: "http://192.168.100.116",
+	// 	port: 9202,
+	// 	version: "v1.0",
+	// 	db: "NTM"
+	// } ),
+	queryData( type ) {
+		let qa = this.get( "tableQueryAddress" ),
+			proposalId = this.get( "proposal.id" ),
+			projectId = this.get( "project.id" ) || localStorage.getItem( "projectId" )
+
+		return this.get( "ajax" ).request( `${qa.host}:${qa.port}/${qa.version}/${qa.db}/${type}`, {
+			method: "GET",
+			data: JSON.stringify( {
+				"model": "tmrs_new",
+				"query": {
+					// "proposal_id": "5d79c5761c3bac3244ab93c6",
+					"proposal_id": proposalId,
+					// "project_id": "5d78ac93515b2b002b74a414",
+					"project_id": projectId,
+					"point_origin": "2019Q1"
+				}
+			}
+			),
+			dataType: "json"
+		} )
+	}
 } )
 

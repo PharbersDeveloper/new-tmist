@@ -49,6 +49,12 @@ module.exports = function( environment ) {
 			port: 9202,
 			version: "v1.0",
 			db: "DL"
+		},
+		tableQueryAddress: {
+			host: "http://pharbers.com",
+			port: 9202,
+			version: "v1.0",
+			db: "NTM"
 		}
 	}
 

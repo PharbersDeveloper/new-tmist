@@ -198,6 +198,7 @@
 						productQuotas=model.productQuotas
 						reports=model.dragInfo
 						presetsByProject=model.presetsByProject
+						budgetPreset=model.budgetPreset
 				}}
 			{{/if}}
 			{{#if (bp-eq currentTab 1)}}
@@ -387,7 +388,7 @@
 					<h3 class="mt-4 mb-3">2.周期销售额预算分配</h3>
 					{{#bp-layout direction="row" local-class="quota" main="between"}}
 						<span>总预算</span>
-						<span>￥{{format-number model.quota.totalBudget}}</span>
+						<span>￥{{format-number model.budgetPreset.firstObject.initBudget}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 
