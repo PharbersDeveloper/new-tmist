@@ -1,7 +1,7 @@
 import Component from "@ember/component"
 
 export default Component.extend( {
-	positionalParams: ["provious", "periods"],
+	positionalParams: ["provious", "periods", "proviousReport"],
 	classNames: ["history-info-wrapper"],
 	actions: {
 		performance() {
