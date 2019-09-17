@@ -34,14 +34,13 @@
 				{{/if}}
 				<td class="px-2 border-0 text-center">
 					{{#bp-layout direction="row" main="center" cross="center" local-class="total-percent"}}
-						<p local-class="num">90</p>
+						<p local-class="num">{{calc-quota-achv pr.reports}}</p>
 						<p local-class="unit">%</p>
 					{{/bp-layout}}
 				</td>
 				<td class="px-2 border-0 text-center">
 					{{#bp-layout local-class="total-sales" main="center" direction="row"}}
-							{{calc-total-sales pr.reports}}
-							{{log pr.reports}}
+							￥{{calc-total-sales pr.reports}}
 					{{/bp-layout}}
 				</td>
 				{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
@@ -92,7 +91,10 @@
 						{{/bp-dropdown}}
 					{{/bp-layout}}
 					{{else if (bp-eq provious.firstObject.proposal.case "ucb")}}
-						{{#link-to "page.prepare"}}周期销售报告{{/link-to}}
+					{{#bp-layout direction="row" click=(action "toReport" pr.project) local-class="report-link"}}
+							周期销售报告
+					{{/bp-layout}}
+						{{!-- {{#link-to "page.project.result" pr.project.id}}周期销售报告{{/link-to}} --}}
 					{{/if}}
 				</td>
 				<td class="px-2 border-0 text-center">
@@ -112,7 +114,7 @@
 						{{/bp-dropdown}}
 					{{/bp-layout}}
 					{{else if (bp-eq provious.firstObject.proposal.case "ucb")}}
-							{{#bp-button}}
+							{{#bp-button click=(action "exportReport" pr.project)}}
 								{{bp-icon icon="export" local-class="icon"}}导出数据
 							{{/bp-button}}
 					{{/if}}

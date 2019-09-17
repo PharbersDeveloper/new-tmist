@@ -13,15 +13,15 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	exportService: service( "service/export-report" ),
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver"],
 	curSelPeriod: null,
-	roundOver: computed( function () {
-		let old = window.document.referrer
+	// roundOver: computed( function () {
+	// 	let old = window.document.referrer
 
-		if ( old.indexOf( "round-over" ) !== -1 ) {
-			return true
-		} else {
-			return false
-		}
-	} ),
+	// 	if ( old.indexOf( "round-over" ) !== -1 || old.indexOf( "history" ) !== -1 ) {
+	// 		return true
+	// 	} else {
+	// 		return false
+	// 	}
+	// } ),
 	yoyFlag: computed( "yoy", function () {
 		return this.yoy > 0
 	} ),
@@ -157,7 +157,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			this.transitionToReport()
 		},
 		toRoundOver() {
-			this.goRoundOver()
+			history.go( -1 )
 		},
 		toIndex() {
 			window.location = "/"

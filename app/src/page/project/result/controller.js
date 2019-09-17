@@ -13,7 +13,7 @@ export default Controller.extend( {
 	roundOver: computed( function() {
 		let old = window.document.referrer
 
-		if ( old.indexOf( "round-over" ) !== -1 ) {
+		if ( old.indexOf( "round-over" ) !== -1 || old.indexOf( "history" ) !== -1 ) {
 			return true
 		} else {
 			return false

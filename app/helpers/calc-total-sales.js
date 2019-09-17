@@ -23,7 +23,7 @@ export function calcTotalSales( params/*, hash*/ ) {
 		arr.forEach( a => {
 			all += a.sales
 		} )
-		return all
+		return all.toFixed( 0 )
 	} else {
 		return 0
 	}
