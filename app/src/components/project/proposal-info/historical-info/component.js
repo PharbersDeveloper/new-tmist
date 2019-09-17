@@ -156,10 +156,8 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			}
 		},
 		changeTableProd( prod ) {
-			let prodName = prod.name
-
-			window.console.log( prod.name )
-			let salesGroupValue = this.salesGroupValue
+			let prodName = prod.name,
+				salesGroupValue = this.salesGroupValue
 
 			// TODO switch更清晰
 			if ( salesGroupValue === 0 ) {
@@ -170,21 +168,27 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				let type = isEmpty( prod ) ? "rep_ref" : "rep_prod"
 
 				this.queryData( type ,prodName ).then( data => {
-					this.set( "representativeTableData", data )
+					let currentData = data.filterBy( "product",prodName )
+
+					this.set( "representativeTableData", currentData )
 				} )
 			} else if ( salesGroupValue === 2 ) {
 				this.set( "hospitalProdTable", prod )
 				let type = isEmpty( prod ) ? "hospital_ref" : "hospital_prod"
 
 				this.queryData( type ,prodName ).then( data => {
-					this.set( "hospitalTableData", data )
+					let currentData = data.filterBy( "product",prodName )
+
+					this.set( "hospitalTableData", currentData )
 				} )
 			} else if ( salesGroupValue === 3 ) {
 				this.set( "regionProdTable", prod )
 				let type = isEmpty( prod ) ? "region_ref" : "region_prod"
 
 				this.queryData( type ,prodName ).then( data => {
-					this.set( "regionTableData", data )
+					let currentData = data.filterBy( "product",prodName )
+
+					this.set( "regionTableData", currentData )
 				} )
 			}
 		},
