@@ -1,4 +1,11 @@
 {{#bp-layout local-class="history-table-outer"}}
+	{{#if (bp-eq provious.length 0)}}
+		{{#bp-layout local-class="empty-img" direction="col" cross="center"}}
+			<img src="/images/img_history-empty.png" alt="" class="mb-3">
+			还没有完成过该任务
+		{{/bp-layout}}
+	{{else}}
+	
 	<table local-class="history-table" class="table mb-2">
 		<thead class='px-2'>
 			<tr>
@@ -114,6 +121,7 @@
 			{{/each}}
 		</tbody>
 	</table>
+	{{/if}}
 {{/bp-layout}}
 {{#bp-modal
         local-class="modal"
