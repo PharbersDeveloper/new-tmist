@@ -1,7 +1,7 @@
 import Route from "@ember/routing/route"
 import { inject as service } from "@ember/service"
 import ENV from "new-tmist/config/environment"
-import Ember from "ember"
+// import Ember from "ember"
 
 export default Route.extend( {
 	intl: service(),
@@ -17,10 +17,12 @@ export default Route.extend( {
 	},
 	actions: {
 		error( error, transition ) {
-			Ember.Logger.error( error )
-			Ember.Logger.error( transition )
+			// Ember.Logger.error( error )
+			// Ember.Logger.error( transition )
+			window.console.log( error )
+			window.console.log( transition )
 			if ( ENV.environment === "production" ) {
-				window.location = ENV.OAuth.AuthEndpoint
+				this.transitionTo( ENV.OAuth.AuthEndpoint )
 			}
 		}
 	}

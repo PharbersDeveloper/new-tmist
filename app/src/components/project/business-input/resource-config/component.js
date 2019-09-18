@@ -1,7 +1,11 @@
 import Component from "@ember/component"
 import { computed, set } from "@ember/object"
+// import Service from "@ember/service"
+import { inject as service } from "@ember/service"
+
 
 export default Component.extend( {
+	picOSS: service( "service/pic-oss" ),
 	positionalParams: ["resource", "answers", "selectResource", "resourceHospital", "curResource", "project"],
 	showContent: computed( "curResource", function() {
 		if ( !this.curResource ) {
