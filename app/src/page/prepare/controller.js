@@ -31,7 +31,13 @@ export default Controller.extend( {
 			} )
 		},
 		continueDeploy( aProject ) {
-			this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get( "id" ) )
+			if ( this.model.periodsLength ===  aProject.get("current")) {
+				this.transitionToRoute( "page.project.result" , aProject.get("id"))
+			} else {
+				this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get( "id" ) )
+
+			}
+
 		},
 		startAgainDeploy( proposal ) {
 			// old project status : 1
