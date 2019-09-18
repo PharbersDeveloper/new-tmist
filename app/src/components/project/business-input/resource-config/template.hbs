@@ -1,8 +1,8 @@
 {{#bp-layout direction="row"  main='between'}}
 	{{#bp-layout main='between' cross="center" classNames="bg-white mb-0" local-class="resource-list-outer"}}
 		{{!-- {{#if (bp-eq curResource.id resource.id)}} --}}
-		{{#if (bp-eq showContent false)}}
-			{{#bp-layout local-class="resource-item active" direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
+		{{!-- {{#if (bp-eq showContent false)}} --}}
+			{{#bp-layout local-class=(if (bp-eq showContent false) "resource-item active" "resource-item") direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
 				{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
 					<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>
 					{{resource.name}}
@@ -20,10 +20,10 @@
 					{{/if}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-		{{else}}
+		{{!-- {{else}}
 			{{#bp-layout local-class="resource-item" direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
 				{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
-					<img src={{resource.avatar.img}} alt={{resource.name}}>
+					<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
@@ -39,7 +39,7 @@
 					{{/if}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-		{{/if}}
+		{{/if}} --}}
 	{{/bp-layout}}
 {{/bp-layout}}
 {{#if (bp-eq project.proposal.case "tm")}}
