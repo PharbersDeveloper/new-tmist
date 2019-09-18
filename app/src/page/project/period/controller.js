@@ -16,6 +16,9 @@ export default Controller.extend( {
 	exam: service( "service/exam-facade" ),
 	runtimeConfig: service( "service/runtime-config" ),
 	em: service( "emitter" ),
+	productQuotasSorted: computed( "model.productQuotas", function() {
+		return this.model.productQuotas.sortBy( "product.name" )
+	} ),
 	taskModal: false,
 	taskModalCircle: computed( function() {
 		let arr = Array( this.model.project.pharse )
