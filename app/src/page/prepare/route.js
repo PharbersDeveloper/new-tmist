@@ -9,10 +9,14 @@ export default Route.extend( {
 			proposal = this.store.findRecord( "model/proposal", params.proposal_id ),
 			provious = this.store.query( "model/project", {
 				filter: "(:and," + "(proposal,:eq,`" + params.proposal_id + "`)," + "(accountId,:eq,`" + accountId + "`)," + "(status,:eq,0))" } ),
-			periodsLength = provious.then(res => {
-				let cur = res.get("lastObject")
-				
-				return cur.hasMany( "periods" ).ids().length
+			periodsLength = provious.then( res => {
+				let cur = res.get( "lastObject" )
+
+				if ( cur ) {
+					return cur.hasMany( "periods" ).ids().length
+				} else {
+					return 0
+				}
 			} )
 
 		return RSVP.hash( {

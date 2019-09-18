@@ -16,7 +16,7 @@
 	{{#bp-layout local-class="product-content" classNames="p-4" direction="row"}}
 		{{#bp-layout main="between" local-class="left" }}
 			{{!-- {{#each goods.productConfig.product.images as |item|}} --}}
-			<img src={{product.avatar.img}} alt={{product.name}} class="mr-4">
+			<img src={{get-oss-pic product.avatar.img picOSS}}  alt={{product.name}} class="mr-4">
 			{{!-- {{/each}} --}}
 			{{#bp-layout direction="col" local-class="product-infos" }}
 				{{#bp-layout tagName="p" }}
