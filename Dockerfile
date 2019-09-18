@@ -19,7 +19,7 @@ RUN npm update && \
 
 WORKDIR /app
 
-LABEL ucb.version=0.1.9
+LABEL new-tmist.version=0.0.26
 
 RUN git clone https://github.com/PharbersDeveloper/new-tmist.git && \
 	git clone https://github.com/PharbersDeveloper/BP-Components.git && \
@@ -38,8 +38,7 @@ RUN	npm install && \
 
 WORKDIR /app/new-tmist
 
-RUN git checkout -b frank-ucb origin/frank-ucb && \
-	rm -rf node_modules && \
+RUN rm -rf node_modules && \
 	rm package-lock.json && \
 	npm cache clear --force && \
 	npm install && \
