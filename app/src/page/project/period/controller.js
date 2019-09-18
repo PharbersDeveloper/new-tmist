@@ -99,10 +99,11 @@ export default Controller.extend( {
 							res.set( "status", 1 )
 							res.set( "endTime", new Date().getTime() )
 							res.set( "lastUpdate", new Date().getTime() )
-							res.set( "current",  res.periods.length )
+							res.set( "current", res.periods.length )
 							res.save().then( () => {
 								this.set( "loadingForSubmit", false )
-								this.transitionToRoute( "page.project.result" )
+								// this.transitionToRoute( "page.project.result" )
+								window.location = "/project/" + res.get( "id" ) + "/result"
 							} )
 						} )
 					} else {
@@ -114,10 +115,11 @@ export default Controller.extend( {
 							// res.set( "status", 1 )
 							// res.set( "endTime", new Date().getTime() )
 							// res.set( "lastUpdate", new Date().getTime() )
-							res.set( "current",  res.periods.length )
+							res.set( "current", res.periods.length )
 							res.save().then( () => {
 								this.set( "loadingForSubmit", false )
-								this.transitionToRoute( "page.project.result" )
+								window.location = "/project/" + res.get( "id" ) + "/result"
+								// this.transitionToRoute( "page.project.result" )
 							} )
 						} )
 
