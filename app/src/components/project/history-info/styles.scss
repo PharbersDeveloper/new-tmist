@@ -5,6 +5,12 @@
 .history-table-outer {
 	width: 100%;
 
+	.empty-img {
+		width: 100%;
+		font-size: 14px;
+		color: #344563;
+	}
+
 	.history-table {
 		thead {
 			border-bottom: 2px solid rgba(9, 30, 66, 0.08);
@@ -43,6 +49,11 @@
 					}
 				}
 
+				.report-link {
+					color: #3172e0;
+					cursor: pointer;
+				}
+
 				a:hover {
 					color: #3172e0;
 					text-decoration: none;
@@ -71,7 +82,7 @@
 
 				.total-percent {
 					.num {
-						font-size: 24px;
+						font-size: 29px;
 						color: #172b4d;
 					}
 
@@ -79,6 +90,21 @@
 						font-size: 12px;
 						color: #7a869a;
 					}
+				}
+
+				.total-sales {
+					font-size: 16px;
+					color: #172b4d;
+				}
+
+				.used-time {
+					font-size: 14px;
+					color: #7a869a;
+				}
+
+				.end-time {
+					font-size: 12px;
+					color: #7a869a;
 				}
 
 				&:nth-child(3) {

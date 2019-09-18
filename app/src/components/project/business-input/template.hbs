@@ -1,31 +1,31 @@
 {{#bp-layout direction="col" local-class="business-container" classNames="" main="center"}}
 	{{#bp-layout local-class="sales-and-budget" direction="row"  classNames="mb-4" main="center"}}
 		{{#bp-layout local-class=(if (bp-eq project.proposal.case "ucb") "flex-1 sales" "sales") classNames="bg-white mr-4" direction="col" }}
-			{{#bp-layout tagName="h4" classNames="py-3 pl-3" cross="center" local-class="icon sales-header"}}
+			{{#bp-layout tagName="h4" classNames="py-3 pl-3 mb-0" cross="center" local-class="icon sales-header"}}
 				{{bp-icon icon="target"}}
 				药品销售指标
 			{{/bp-layout}}
-			{{#bp-layout direction="row"}}
-				{{#bp-layout local-class="product-icon" direction="col" classNames="ml-4" }}
+			{{#bp-layout direction="row"  classNames="py-4" style="height:100%;"}}
+				{{#bp-layout local-class="product-icon" direction="col" main="between" classNames="ml-4" }}
 					{{#each allProductInfo as |item|}}
-						{{#bp-layout direction="row" classNames="mt-4" local-class="icon-name"}}
+						{{#bp-layout direction="row" classNames=""  local-class= (if (bp-eq project.proposal.case "ucb") "icon-name-ucb" "icon-name") }}
 							{{bp-icon icon="product"}}{{item.name}}
 							{{!-- {{#bp-layout local-class="product-name"}}{{item.name}}{{/bp-layout}} --}}
 						{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}
-				{{#bp-layout cross="center" classNames="ml-4" direction="col" local-class="progress-block"}}
+				{{#bp-layout cross="center" classNames="ml-4 py-2" direction="col" main="between" local-class="progress-block"}}
 					{{#each allProductInfo as |item|}}
-						{{#bp-layout classNames="" local-class="progress"}}
+						{{#bp-layout classNames="" local-class="progress" }}
 							{{#bp-progress as |p|}}
 								{{p.bar value=item.curSales maxValue=item.allSales}}
 							{{/bp-progress}}
 						{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}
-				{{#bp-layout classNames="mx-4" local-class="sales-money" direction="col"}}
+				{{#bp-layout classNames="mx-4" local-class="sales-money" main="between" direction="col"}}
 					{{#each allProductInfo as |item|}}
-						{{#bp-layout classNames="mt-4" direction="row" cross="baseline"}}
+						{{#bp-layout classNames="" direction="row" cross="baseline"}}
 							<span>¥{{format-number item.curSales}}</span>
 							<span>/¥{{format-number item.allSales}}</span>
 							{{!-- <span>/¥2,400,000</span> --}}
@@ -63,7 +63,11 @@
 			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-part"}}
 				{{#bp-layout tagName="div" style="width: 128px;height: 128px" classNames="mr-2"}}
 					{{#if (bp-eq curCircle 0)}}
-						{{bp-circle eid="cricleBudget" circleData=circleProductData circleColor=circleProductColor circleSize=circleSize}}
+						{{#if (bp-eq project.proposal.case "ucb")}}
+							{{bp-circle eid="cricleBudget" circleData=circleProductData circleColor=ucbCircleColor circleSize=circleSize}}
+						{{else}}
+							{{bp-circle eid="cricleBudget" circleData=circleProductData circleColor=circleProductColor circleSize=circleSize}}
+						{{/if}}
 					{{else}}
 						{{bp-circle eid="cricleB" circleData=circleBudgetData circleColor=circleBudgetColor circleSize=circleSize}}
 					{{/if}}
@@ -75,14 +79,23 @@
 						<div local-class={{if (bp-eq project.proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}>
 							{{#each legendProductBudget as |product index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
+									{{#if (bp-eq project.proposal.case "ucb")}}
 									{{#bp-layout direction="row"}}
-											<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleProductColor index}};"></span>
+											<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get ucbCircleColor index}};"></span>
 											<span local-class="name">{{product.name}}</span>
 									{{/bp-layout}}
+									{{else}}
+
+										{{#bp-layout direction="row"}}
+											<span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get circleProductColor index}};"></span>
+											<span local-class="name">{{product.name}}</span>
+										{{/bp-layout}}
+									{{/if}}
+
 									{{#bp-layout direction="row" tagName="div" main="between" classNames="ml-4" local-class="percent-width"}}
 
-										{{#bp-layout local-class="percent" direction="row" classNames="mr-2"}} {{product.curBudgetPercent}}% {{/bp-layout}}
-										{{#bp-layout local-class="percent-value" direction="row" }} ¥{{format-number product.value}} {{/bp-layout}}
+										{{#bp-layout local-class=(if (bp-gt 0 product.curBudgetPercent) "percent red" "percent")  direction="row" classNames="mr-2"}} {{product.curBudgetPercent}}% {{/bp-layout}}
+										{{#bp-layout local-class=(if (bp-gt 0 product.value) "percent-value red" "percent-value") direction="row" }} ¥{{format-number product.value}} {{/bp-layout}}
 											{{!-- <span local-class="percent" ></span> --}}
 											{{!-- <span local-class="percent" >¥{{format-number product.value}}</span> --}}
 									{{/bp-layout}}
@@ -102,8 +115,8 @@
 									{{/bp-layout}}
 									{{#bp-layout direction="row" main="between" classNames="ml-4" local-class="percent-width"}}
 
-									{{#bp-layout local-class="percent" direction="row" classNames="mr-2"}} {{resBudget.per}}%{{/bp-layout}}
-									{{#bp-layout local-class="percent-value" direction="row"}} ¥{{format-number resBudget.value}} {{/bp-layout}}
+									{{#bp-layout local-class=(if (bp-gt 0 resBudget.per) "percent red" "percent") direction="row" classNames="mr-2"}} {{resBudget.per}}%{{/bp-layout}}
+									{{#bp-layout local-class=(if (bp-gt 0 resBudget.value) "percent-value red" "percent-value")  direction="row"}} ¥{{format-number resBudget.value}} {{/bp-layout}}
 
 										{{!-- <span local-class="percent">{{resBudget.per}}%</span>
 										<span local-class="percent">¥{{format-number resBudget.value}}</span> --}}

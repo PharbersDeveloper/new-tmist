@@ -2,6 +2,8 @@ import Component from "@ember/component"
 import { computed } from "@ember/object"
 import { A } from "@ember/array"
 import { inject as service } from "@ember/service"
+import groupBy from "ember-group-by"
+import sortBy from 'ember-computed-sortby'
 // import RSVP from "rsvp"
 
 export default Component.extend( {
@@ -108,8 +110,6 @@ export default Component.extend( {
 			}
 		}
 
-		window.console.log( this.curPeriodIndex )
-		window.console.log( this.curPresets )
 		result.forEach( r => {
 			let report = this.curPresets.filter( x => x.get( "hospital.id" ) === r.get( "target.id" ) && x.get( "product.id" ) === r.get( "product.id" ) && x.get( "phase" ) === this.curPeriodIndex ),
 				item = {}
@@ -121,6 +121,7 @@ export default Component.extend( {
 			item.budget = r.get( "budget" )
 			item.visitTime = r.get( "visitTime" )
 			item.meetingPlaces = r.get( "meetingPlaces" )
+			item.lastSales = report.get( "firstObject.lastSales" )
 			item.currentPatientNum = report.get( "firstObject.currentPatientNum" )
 			item.currentDurgEntrance = report.get( "firstObject.currentDurgEntrance" )
 			item.region = r.get( "target.spaceBelongs" )
@@ -128,35 +129,60 @@ export default Component.extend( {
 			arr.push( item )
 
 		} )
-		arr.sort( function( x, y ) {
-			return y.currentPatientNum - x.currentPatientNum
-		} )
 
 		return A( arr )
+	} ),
+	fa: groupBy("filterAnswers", "hospitalName"),
+	sfa: computed( "fa", function() {
+		if ( this.fa ) {
+			return this.fa.map( item => { 
+				const ss = item.items.map ( x => x.currentPatientNum )
+				const si = item.items.sort((left, right) => { 
+					const fl = right.currentPatientNum - left.currentPatientNum 
+					return fl === 0 ? right.lastSales - left.lastSales : fl
+				} )
+				item["pat"] = ss.reduce((accumulator, currentValue) => accumulator + currentValue)
+				item["items"] = si
+				return item
+			} )
+		}
+	} ),
+	ssfa: sortBy("sfa", "pat:desc"),
+	sortedAnswers: computed("ssfa", function() {
+		if (this.ssfa) {
+			let result = []
+			this.ssfa.forEach( x => { 
+				if (result.length === 0) 
+					result = x.items
+				else result = result.concat(x.items)
+			} )
+			return result
+
+		} else return []
 	} ),
 	reviewColumns: A( [
 		{
 			label: "所在城市",
 			valuePath: "region",
-			align: "center",
+			align: "left",
 			// sortable: true,
 			width: 100
 		},{
 			label: "医院名称",
 			valuePath: "hospitalName",
-			align: "center"
+			align: "left"
 			// sortable: true,
 			// width: 100
 		},{
 			label: "产品名称",
 			valuePath: "productName",
-			align: "center",
+			align: "left",
 			// sortable: true,
-			width: 72
+			width: 100
 		},{
 			label: "患者数量",
 			valuePath: "currentPatientNum",
-			align: "center",
+			align: "right",
 			cellComponent: "common/table/format-number-thousands",
 			sortable: true,
 			width: 100
@@ -170,20 +196,20 @@ export default Component.extend( {
 		},{
 			label: "代表",
 			valuePath: "resource",
-			align: "center",
+			align: "left",
 			// sortable: true,
 			width: 100
 		},{
 			label: "销售指标",
 			valuePath: "salesTarget",
-			align: "center",
+			align: "right",
 			cellComponent: "common/table/format-number-thousands",
 			sortable: true
 			// width: 110
 		},{
 			label: "预算费用",
 			valuePath: "budget",
-			align: "center",
+			align: "right",
 			cellComponent: "common/table/format-number-thousands",
 			sortable: true
 			// width: 110

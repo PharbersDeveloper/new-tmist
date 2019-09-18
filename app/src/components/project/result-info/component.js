@@ -8,14 +8,35 @@ import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
 
 export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// ossService: service( "service/oss" ),
-	// ajax: service(),
+	ajax: service(),
 	// cookies: service(),
 	exportService: service( "service/export-report" ),
-	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods"],
+	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver"],
 	curSelPeriod: null,
+	// roundOver: computed( function () {
+	// 	let old = window.document.referrer
+
+	// 	if ( old.indexOf( "round-over" ) !== -1 || old.indexOf( "history" ) !== -1 ) {
+	// 		return true
+	// 	} else {
+	// 		return false
+	// 	}
+	// } ),
+	yoyFlag: computed( "yoy", function () {
+		return this.yoy > 0
+	} ),
+	momFlag: computed( "mom", function () {
+		return this.mom > 0
+	} ),
+	yoyPer: computed( "yoy", function () {
+		return Math.abs( this.yoy )
+	} ),
+	momPer: computed( "mom", function () {
+		return Math.abs( this.mom )
+	} ),
 	treatmentAreaArr: A( [] ),
 	salesReports: A( [] ),
-	curSalesReports :null,
+	curSalesReports: null,
 	didReceiveAttrs() {
 		this._super( ...arguments )
 		this.set( "curSelPeriod", this.periods.lastObject )
@@ -31,12 +52,13 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "curTreatmentArea", this.treatmentAreaArr[0] )
 		this.set( "buttonGroupValue", this.treatmentAreaArr[0] )
 
-		tmResultProductCircleCondition = this.generateResultProductCircleCondition( this.project.get( "proposal.case" ), currentPeriodPhase,this.buttonGroupValue )
+		tmResultProductCircleCondition = this.generateResultProductCircleCondition( this.project.get( "proposal.case" ), currentPeriodPhase, this.buttonGroupValue )
 
 		this.set( "tmResultProductCircleCondition", tmResultProductCircleCondition )
 		this.set( "tmResultProductCircle", tmResultProductCircle )
 		this.set( "salesReports", this.project.finals )
 		this.set( "curSalesReports", this.project.finals.lastObject )
+
 
 		// console.log( this.salesReports )
 		// console.log( this.curSalesReports )
@@ -135,6 +157,9 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		toReport() {
 			this.transitionToReport()
 		},
+		toRoundOver() {
+			history.go( -1 )
+		},
 		toIndex() {
 			window.location = "/"
 		},
@@ -143,7 +168,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			// this.set( "buttonGroupValue", value )
 			let sortPeriods = this.periods.sortBy( "phase" ),
 				currentPeriodPhase = sortPeriods.lastObject.get( "phase" ),
-				tmResultProductCircleCondition = this.generateResultProductCircleCondition( this.project.get( "proposal.case" ), currentPeriodPhase,value )
+				tmResultProductCircleCondition = this.generateResultProductCircleCondition( this.project.get( "proposal.case" ), currentPeriodPhase, value )
 
 			this.set( "tmResultProductCircleCondition", tmResultProductCircleCondition )
 
@@ -151,6 +176,41 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		selPeriod( item ) {
 			this.set( "curSelPeriod", item )
 			this.set( "curSalesReports", this.project.finals.objectAt( item.phase ) )
+
+
+			this.get( "ajax" ).request( "http://pharbers.com:9202/v1.0/CALC/yoy", {
+				method: "GET",
+				data: JSON.stringify( {
+					"model": "tmrs_new",
+					"query": {
+						"proposal_id": this.project.get( "proposal.id" ),
+						"project_id": this.project.get( "id" ),
+						"phase": this.curSelPeriod.phase
+					}
+				}
+				),
+				dataType: "json"
+			} ).then( res => {
+				this.set( "yoy", res )
+			} )
+
+			this.get( "ajax" ).request( "http://pharbers.com:9202/v1.0/CALC/mom", {
+				method: "GET",
+				data: JSON.stringify( {
+					"model": "tmrs_new",
+					"query": {
+						"proposal_id": this.project.get( "proposal.id" ),
+						"project_id": this.project.get( "id" ),
+						"phase": this.curSelPeriod.phase
+					}
+				}
+				),
+				dataType: "json"
+			} ).then( res => {
+				this.set( "mom", res )
+			} )
+
+
 		}
 	}
 } )

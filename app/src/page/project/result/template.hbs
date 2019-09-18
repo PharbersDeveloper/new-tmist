@@ -4,7 +4,11 @@
 			{{#bp-button local-class="btn-submit" type="primary" onClick=(action "goRoundOver")}}完成任务{{/bp-button}}
 		{{else if (bp-eq model.project.proposal.case "ucb")}}
 			{{#if (bp-eq model.project.status 1)}}
+
+				{{#if roundOver}}
+				{{else}}
 				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "goRoundOver")}}完成任务{{/bp-button}}
+				{{/if}}
 			{{else}}
 				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toNext" model.project)}}进行下个周期{{/bp-button}}
 			{{/if}}
@@ -12,6 +16,7 @@
 	{{/bp-layout}}
 	{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
 {{/common/nav-top-project}}
+
 {{project/result-info
 	project=model.project
 	resources=model.resources
@@ -21,4 +26,8 @@
 	reports=model.reports 
 	summary=model.summary
 	evaluations=model.evaluations 
+	roundOver=roundOver
+	yoy=model.yoy
+	mom=model.mom
+	goRoundOver=(action "goRoundOver")
 	transitionToReport=(action "toReport")}}

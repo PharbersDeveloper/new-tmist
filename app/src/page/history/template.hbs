@@ -5,7 +5,7 @@
 {{#bp-layout direction="col" main="start" cross="center" local-class="history" classNames="px-4 pb-4"}}
     {{#bp-layout direction="col" main="start" cross="start" local-class="list-wrapper" classNames="p-4 bg-white"}}
         {{#bp-layout direction="row" main="start" cross="center" local-class="title-wrapper" classNames="mb-4"}}
-            <span local-class="badge">
+            {{!-- <span local-class="badge">
                 {{#if (bp-eq model.proposal.case "tm")}}
                     TMIST
                 {{else if (bp-eq model.proposal.case "ucb") }}
@@ -13,7 +13,7 @@
                 {{else}}
                     undefined
                 {{/if}}
-            </span>
+            </span> --}}
             <p local-class="title" class="ml-2">历史成果</p>
         {{/bp-layout}}
 
@@ -21,8 +21,7 @@
             还没有完成过该任务
         {{/bp-layout}} --}}
 
-        {{project/history-info provious=model.provious}}
+        {{project/history-info provious=model.provious proviousReport=model.proviousReport}}
         
     {{/bp-layout}}
 {{/bp-layout}}
-

@@ -66,7 +66,7 @@ export default Mixin.create( {
 						axisLine: {
 							show: true,
 							lineStyle: {
-								type: "dotted",
+								type: "solid",
 								color: "#DFE1E6"
 							}
 						},
@@ -166,6 +166,7 @@ export default Mixin.create( {
 						x: "center",
 						y: "bottom",
 						orient: "horizontal",
+						itemGap: 24,
 						textStyle: {
 							fontSize: 14,
 							color: "#7A869A"
@@ -235,7 +236,7 @@ export default Mixin.create( {
 					axisLine: {
 						show: true,
 						lineStyle: {
-							type: "dotted",
+							type: "solid",
 							color: "#DFE1E6"
 						}
 					},
