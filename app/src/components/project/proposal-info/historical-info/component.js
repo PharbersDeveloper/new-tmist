@@ -257,20 +257,20 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "quota_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标增长率<br />${time}`,
 					valuePath: "quota_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标达成率<br />${time}`,
 					valuePath: "quota_rate",
 					align: "left",
-					// sortable: true,
+					sortable: true,
 					cellComponent: "common/table/decimal-to-percentage",
 					width: 100
 				}, {
@@ -278,21 +278,21 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "year_on_year_sales",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额环比增长<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
 					align: "right",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}
 			] ),
@@ -308,27 +308,27 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "current_patient_num",
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 64
 				}, {
 					label: `指标贡献率<br />${time}`,
 					valuePath: "quota_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标增长率<br />${time}`,
 					valuePath: "quota_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标达成率<br />${time}`,
 					valuePath: "quota_rate",
 					align: "left",
-					// sortable: true,
+					sortable: true,
 					cellComponent: "common/table/decimal-to-percentage",
 					width: 100
 				}, {
@@ -336,28 +336,28 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "year_on_year_sales",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额环比增长<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额贡献率<br />${time}`,
 					valuePath: "sales_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
 					align: "right",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}
 			] ),
@@ -379,7 +379,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "current_patient_num",
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 64
 				}, {
 					label: "药品准入情况",
@@ -392,14 +392,14 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "quota_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标增长率<br />${time}`,
 					valuePath: "quota_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标达成率<br />${time}`,
@@ -413,42 +413,42 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "year_on_year_sales",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额环比增长<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
 					// sortable: true,
-					width: 100
+					width: 120
 				}, {
 					label: `销售额贡献率<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
 					align: "right",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}, {
 					label: `院内销售额<br />${time}`,
 					valuePath: "inter_sales",
 					align: "center",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}, {
 					label: `院外销售额<br />${time}`,
 					valuePath: "outer_sales",
 					align: "center",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}
 
@@ -465,56 +465,56 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "current_patient_num",
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 64
 				}, {
 					label: `指标贡献率<br />${time}`,
 					valuePath: "quota_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标增长率<br />${time}`,
 					valuePath: "quota_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标达成率<br />${time}`,
 					valuePath: "quota_rate",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `销售额同比增长<br />${time}`,
 					valuePath: "year_on_year_sales",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额环比增长<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额贡献率<br />${time}`,
 					valuePath: "sales_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
 					align: "right",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}
 			] )
@@ -619,6 +619,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				valuePath: headWord + "_" + ele,
 				cellComponent: "common/table/format-number-thousands",
 				align: "right",
+				sortable: true,
 				width: 110
 			}
 		} )
