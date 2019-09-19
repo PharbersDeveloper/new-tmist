@@ -7,7 +7,8 @@ export default Controller.extend( {
 	gen: service( "service/gen-data" ),
 	deploy( project ) {
 		this.gen.genPeriodWithProject( project ).then( x => {
-			this.transitionToRoute( "page.project.period", project.id, x.id )
+			window.location = "/project/" + project.id + "/period/" + x.id
+			// this.transitionToRoute( "page.project.period", project.id, x.id )
 		} )
 	},
 	roundOver: computed( function() {
