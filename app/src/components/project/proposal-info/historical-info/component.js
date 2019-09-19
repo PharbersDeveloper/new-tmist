@@ -16,7 +16,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	ajax: service(),
 	// cookies: service(),
 	exportService: service( "service/export-report" ),
-	positionalParams: ["periods", "resources", "products", "hospitals", "case", "project"],
+	positionalParams: ["periods", "resources", "products", "hospitals", "case", "project", "proposal"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
 	selfProducts: computed( "products", function () {
@@ -642,8 +642,9 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// } ),
 	queryData( type,prod ) {
 		let qa = this.get( "tableQueryAddress" ),
-			proposalId = this.get( "proposal.id" ),
-			projectId = this.get( "project.id" ) || localStorage.getItem( "projectId" )
+			proposalId = this.proposal.get( "id" ),
+			projectId = this.project.get( "id" )
+			// projectId = this.get( "project.id" ) || localStorage.getItem( "projectId" )
 
 		return this.get( "ajax" ).request( `${qa.host}:${qa.port}/${qa.version}/${qa.db}/${type}`, {
 			method: "GET",

@@ -44,6 +44,11 @@
 			}
 		}
 
+		.blank-part {
+			height: 100%;
+			width: 48px;
+		}
+
 		.name {
 			width: 160px;
 			font-size: 12px;
@@ -76,12 +81,12 @@
 					color: #172b4d;
 				}
 
-				// span:last-child {
-				// 	font-size: 12px;
-				// 	color: #7a869a;
-				// 	margin-top: 12px;
-				// 	margin-left: 4px;
-				// }
+				span:last-child {
+					// font-size: 12px;
+					// color: #7a869a;
+					// margin-top: 12px;
+					margin-left: 2px;
+				}
 			}
 
 			.period {
@@ -104,9 +109,12 @@
 			font-size: 14px;
 			color: #3172e0;
 			cursor: pointer;
+			width: 138px;
 		}
 
 		.export {
+			width: 138px;
+
 			button {
 				svg {
 					height: 18px;
@@ -120,6 +128,8 @@
 		}
 
 		.examine-export {
+			width: 138px;
+
 			:global(.dropdown-button) {
 				width: 112px;
 				height: 32px;
