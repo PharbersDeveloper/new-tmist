@@ -11,7 +11,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	ajax: service(),
 	// cookies: service(),
 	exportService: service( "service/export-report" ),
-	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver"],
+	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver", "proposal"],
 	curSelPeriod: null,
 	// roundOver: computed( function () {
 	// 	let old = window.document.referrer
@@ -183,7 +183,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				data: JSON.stringify( {
 					"model": "tmrs_new",
 					"query": {
-						"proposal_id": this.project.get( "proposal.id" ),
+						"proposal_id": this.proposal.get( "id" ),
 						"project_id": this.project.get( "id" ),
 						"phase": this.curSelPeriod.phase
 					}
@@ -199,7 +199,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				data: JSON.stringify( {
 					"model": "tmrs_new",
 					"query": {
-						"proposal_id": this.project.get( "proposal.id" ),
+						"proposal_id": this.proposal.get( "id" ),
 						"project_id": this.project.get( "id" ),
 						"phase": this.curSelPeriod.phase
 					}

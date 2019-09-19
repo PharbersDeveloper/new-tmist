@@ -163,12 +163,13 @@
 	{{/bp-layout}}
 	{{#bp-layout local-class="report-info"}}
 		{{project/proposal-info/historical-info
-			proposal=project.proposal
+			proposal=proposal
+			project=project
 			periods=periods
 			resources=resources
 			products=products
 			hospitals=hospitals
-			case=project.proposal.case
+			case=proposal.case
 			isResultPage=true}}
 	{{/bp-layout}}
 	{{!-- 

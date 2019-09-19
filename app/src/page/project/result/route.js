@@ -83,7 +83,12 @@ export default Route.extend( {
 						dataType: "json"
 					} )
 
-				} )
+				} ),
+				periodsIds = project.hasMany( "periods" ).ids(),
+				pidsForSearch = periodsIds.map( x => {
+					return "`" + `${x}` + "`"
+				} ).join( "," ),
+				periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
 
 			return RSVP.hash( {
 				finals: finals,
@@ -93,6 +98,8 @@ export default Route.extend( {
 				hospitals: hospitals,
 				products: products,
 				resources: resources,
+				periods: periods,
+				proposal: prs.load(),
 				yoy,
 				mom
 
@@ -100,6 +107,13 @@ export default Route.extend( {
 				// summary: finals
 			} )
 		} )
+	},
+	setupController( controller, model ) {
+		this._super( controller, model )
+
+		window.localStorage.setItem( "proposalId", model.proposal.get( "id" ) )
+		window.localStorage.setItem( "projectId", model.project.get( "id" ) )
+		// window.localStorage.setItem( "periodId", model.period.get( "id" ) )
 	}
 } )
 
