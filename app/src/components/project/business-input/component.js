@@ -19,8 +19,13 @@ export default Component.extend( {
 	// currentMeetingPlaces: 0,
 	curRegion: 0,
 	curCircle: 0,
+	curStatus: 2,
+	curStatusChanged: false,
 	curBudgetPercent: 100,
 	// TODO: 暂时留着，以后可能去掉
+	curRegionArr: computed( function() {
+		return ["全部", "会东市" , "会西市" , "会南市"]
+	} ),
 	allProductInfo: computed( "productQuotas", "updateAllProductInfo",function () {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
@@ -279,6 +284,10 @@ export default Component.extend( {
 		set( this, "legendProductBudget", arrL )
 	},
 	actions: {
+		selectCurStatus( status ) {
+			this.set( "curStatus", status )
+			this.toggleProperty( "curStatusChanged" )
+		},
 		selectResource( rs ) {
 			set( this, "curResource", rs )
 			window.console.log( "当前代表", this.curResource.get( "name" ) )

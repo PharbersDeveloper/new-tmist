@@ -31,159 +31,160 @@
       //   height: 144px;
       //   flex: 1;
 
-        .product-name {
-          width: 42px;
-          height: 20px;
+      .product-name {
+        width: 42px;
+        height: 20px;
+        font-size: 14px;
+        color: #172b4d;
+      }
+
+      .sales-money {
+        color: #172b4d;
+        flex: 1;
+        height: 100%;
+
+        span:last-child {
           font-size: 14px;
-          color: #172b4d;
+          color: #7a869a;
+          text-align: right;
         }
+      }
 
-        .sales-money {
-          color: #172b4d;
-          flex: 1;
-          height: 100%;
+      .progress-block {
+        flex: 1;
+        height: 100%;
+      }
 
-          span:last-child {
-            font-size: 14px;
-            color: #7a869a;
-            text-align: right;
-          }
+      :global(.bp-progress) {
+        height: $spacing;
+        width: 146px;
+        height: 4px;
+        // margin-top: 30px;
+        // margin-bottom: 5px;
+
+        :global(.bp-progress-bar) {
+          background-color: $b200;
         }
+      }
 
-        .progress-block {
-          flex: 1;
-          height: 100%;
+      .progress {
+        &:global(.bp-progress .bp-progress-bar) {
+          background-color: $n500;
         }
+      }
 
-        :global(.bp-progress) {
-          height: $spacing;
-          width: 146px;
-          height: 4px;
-          // margin-top: 30px;
-          // margin-bottom: 5px;
+      .product-icon {
+        height: 100%;
+        font-size: 14px;
+        color: #172B4D;
 
-          :global(.bp-progress-bar) {
-            background-color: $b200;
-          }
-        }
-
-        .progress {
-          &:global(.bp-progress .bp-progress-bar) {
-            background-color: $n500;
-          }
-        }
-
-        .product-icon {
-          height: 100%;
-          font-size: 14px;
-          color: #172B4D;
-
-          .icon-name {
-            &:nth-child(1) {
-              svg {
-                path {
-                  fill: #FFC400;
-                }
-
-                height: 20px;
-                width: 14px;
+        .icon-name {
+          &:nth-child(1) {
+            svg {
+              path {
+                fill: #FFC400;
               }
+
+              height: 20px;
+              width: 14px;
             }
-
-            &:nth-child(2) {
-              svg {
-                path {
-                  fill: #73ABFF;
-                }
-
-                height: 20px;
-                width: 14px;
-              }
-            }
-
-            &:nth-child(3) {
-              svg {
-                path {
-                  fill: #FF8F73;
-                }
-
-                height: 20px;
-                width: 14px;
-              }
-            }
-
-            &:nth-child(4) {
-              svg {
-                path {
-                  fill: #79E2F2;
-                }
-
-                height: 20px;
-                width: 14px;
-              }
-            }
-
-            &:nth-child(5) {
-              svg {
-                path {
-                  fill: #998DD9;
-                }
-
-                height: 20px;
-                width: 14px;
-              }
-            }
-
-            &:nth-child(6) {
-              svg {
-                path {
-                  fill: #57D9A3;
-                }
-
-                height: 20px;
-                width: 14px;
-              }
-            }
-
           }
 
-          .icon-name-ucb {
-            &:nth-child(1) {
-              svg {
-                path {
-                  fill: #8777D9;
-                }
-
-                height: 20px;
-                width: 14px;
+          &:nth-child(2) {
+            svg {
+              path {
+                fill: #73ABFF;
               }
+
+              height: 20px;
+              width: 14px;
             }
+          }
 
-            &:nth-child(2) {
-              svg {
-                path {
-                  fill: #FFC400;
-                }
-
-                height: 20px;
-                width: 14px;
+          &:nth-child(3) {
+            svg {
+              path {
+                fill: #FF8F73;
               }
+
+              height: 20px;
+              width: 14px;
             }
+          }
 
-            &:nth-child(3) {
-              svg {
-                path {
-                  fill: #57D9A3;
-                }
-
-                height: 20px;
-                width: 14px;
+          &:nth-child(4) {
+            svg {
+              path {
+                fill: #79E2F2;
               }
-            }
 
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(5) {
+            svg {
+              path {
+                fill: #998DD9;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(6) {
+            svg {
+              path {
+                fill: #57D9A3;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
           }
 
         }
+
+        .icon-name-ucb {
+          &:nth-child(1) {
+            svg {
+              path {
+                fill: #8777D9;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(2) {
+            svg {
+              path {
+                fill: #FFC400;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(3) {
+            svg {
+              path {
+                fill: #57D9A3;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+        }
+
+      }
+
       // }
 
       .sales-header {
@@ -392,32 +393,54 @@
 
       .hospital-header {
 
-        .btn-margin {
-          margin-right: 2px;
+        .tag {
+          font-size: 14px;
+          color: #344563;
         }
 
-        .mid-btn {
-          border-radius: 0;
-          margin-right: 2px;
+        .btn-list {
+          // :global(.bp-dropdown button) {
+          //   width: 106px;
+          //   height: 32px;
+          // }
+
+          :global(.dropdown-button) {
+            height: 32px;
+            width: 106px;
+            border-radius: 5px;
+          }
+
+          // :global(.btn-group button) {
+          //   border-radius: 5px;
+          // }
         }
 
-        .active {
-          background: #505f79;
-          color: #ffffff;
-        }
+        // .btn-margin {
+        //   margin-right: 2px;
+        // }
 
-        button {
-          height: 24px;
-          width: 80px;
-        }
+        // .mid-btn {
+        //   border-radius: 0;
+        //   margin-right: 2px;
+        // }
 
-        button:first-child {
-          border-radius: 4px 0 0 4px;
-        }
+        // .active {
+        //   background: #505f79;
+        //   color: #ffffff;
+        // }
 
-        button:last-child {
-          border-radius: 0 4px 4px 0;
-        }
+        // button {
+        //   height: 24px;
+        //   width: 80px;
+        // }
+
+        // button:first-child {
+        //   border-radius: 4px 0 0 4px;
+        // }
+
+        // button:last-child {
+        //   border-radius: 0 4px 4px 0;
+        // }
 
         .badge {
           position: relative;

@@ -8,9 +8,9 @@ import sortBy from "ember-computed-sortby"
 export default Component.extend( {
 	classNames: "input-mapping",
 	// localClassNameBindings: A( ["input-mapping"] ),
-	positionalParams: ["project", "presets", "answers", "reports", "curRegion", "presetsByProject", "period", "curResource"],
+	positionalParams: ["project", "presets", "answers", "reports", "curRegion", "presetsByProject", "period", "curResource", "curStatus", "curStatusChanged"],
 	p: groupBy( "presets" , "hospital.id" ),
-	regionAns: computed( "curRegion", "res", "curResource",function() {
+	regionAns: computed( "curRegion", "res", "curResource", "curStatus", "curStatusChanged",function() {
 		window.console.log( this.curResource.name )
 		let region = 0,
 			sortByResource = this.curResource.get( "id" ),
@@ -32,13 +32,32 @@ export default Component.extend( {
 
 
 		if ( region === 0 ) {
-			return this.res.sort( ( a,b ) => {
+			return this.res.filter( a => {
+				if ( this.curStatus === 2 ) {
+					return a
+				} else if ( this.curStatus === 1 ) {
+					window.console.log( a.quizs.firstObject.answer.get( "resource.id" ) )
+					return a.quizs.firstObject.answer.get( "resource.id" ) !== undefined && isNaN( a.quizs.firstObject.answer.get( "resource.id" ) )
+				} else if ( this.curStatus === 0 ) {
+
+					return !a.quizs.firstObject.answer.get( "resource.id" ) || !isNaN( a.quizs.firstObject.answer.get( "resource.id" ) )
+				}
+			} ).sort( ( a,b ) => {
 				return sortFunc( a,b )
 			} )
 		} else {
 
 			// return this.res.filter( a => a.quizs.get( "firstObjetct.answer.target.position" ) === region )
-			return this.res.filter( a => a.quizs.get( "firstObject" ).region === region ).sort( ( a,b ) => {
+			return this.res.filter( a => a.quizs.get( "firstObject" ).region === region ).filter( a => {
+				if ( this.curStatus === 2 ) {
+					return a
+				} else if ( this.curStatus === 1 ) {
+					window.console.log( a.quizs.firstObject.answer.get( "resource.id" ) )
+					return a.quizs.firstObject.answer.get( "resource.id" ) !== undefined && isNaN( a.quizs.firstObject.answer.get( "resource.id" ) )
+				} else if ( this.curStatus === 0 ) {
+					return !a.quizs.firstObject.answer.get( "resource.id" ) || !isNaN( a.quizs.firstObject.answer.get( "resource.id" ) )
+				}
+			} ).sort( ( a,b ) => {
 				return sortFunc( a,b )
 			} )
 
