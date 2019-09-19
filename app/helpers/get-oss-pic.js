@@ -7,8 +7,8 @@ export function getOssPic( params/*, hash*/ ) {
 	if ( img ) {
 		let url = client.signatureUrl( "tm-resources/" + img )
 
-		window.console.log( img )
-		window.console.log( url )
+		// window.console.log( img )
+		// window.console.log( url )
 		return url
 	} else {
 		return ""
