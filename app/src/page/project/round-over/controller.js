@@ -6,6 +6,7 @@ export default Controller.extend( {
 	// ossService: service( "service/oss" ),
 	// ajax: service(),
 	// cookies: service(),
+	roundOver: true,
 	exportService: service( "service/export-report" ),
 	// endTime: computed( "this.model.project", function () {
 	// 	let date = new Date( this.model.project.endTime ),

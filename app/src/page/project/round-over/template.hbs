@@ -16,12 +16,12 @@
 			{{#bp-layout local-class="img"}}{{/bp-layout}}
 			{{#bp-layout}}黄金{{/bp-layout}}
 		{{/bp-layout}} --}}
-		{{#bp-layout local-class="goal block" direction="col" cross="center"}}
+		{{#bp-layout local-class="goal block" direction="col" cross="start" }}
 			{{#bp-layout local-class="header-text" classNames="mb-3"}}总指标达成率{{/bp-layout}}
-			{{#bp-layout direction="row" local-class="precent"}}
+			{{#bp-layout direction="row" local-class="precent" cross="center"}}
 				{{!-- <span>{{bp-percent model.report.quotaAchv}}</span> --}}
 				<span>{{calc-quota-achv model.reports}}</span>
-				<span class="mt-3">%</span>
+				<span>%</span>
 			{{/bp-layout}}
 			{{!-- {{#bp-layout direction="row" main="between"}}
 				{{#bp-layout direction="col" }}
@@ -38,12 +38,14 @@
 				{{/bp-layout}}
 			{{/bp-layout}} --}}
 		{{/bp-layout}}
-		{{#bp-layout local-class="sales block" direction="col" cross="center"}}
+		{{#bp-layout local-class="sales block" direction="col" cross="end"}}
 			{{#bp-layout local-class="header-text" classNames="mb-3"}}总销售额{{/bp-layout}}
 			{{#bp-layout}}¥{{calc-total-sales model.reports}}{{/bp-layout}}
 			{{!-- {{#bp-layout}}¥{{format-number model.report.sales 0}}{{/bp-layout}} --}}
 		{{/bp-layout}}
-		{{#bp-layout direction="col" local-class="time block" cross="center"}}
+		{{#bp-layout local-class="blank-part"}}
+		{{/bp-layout}}
+		{{#bp-layout direction="col" local-class="time block" cross="start"}}
 			{{#bp-layout local-class="header-text" classNames="mb-3"}}完成用时{{/bp-layout}}
 			{{#bp-layout}}{{time-difference this.model.project.startTime this.model.project.endTime}}{{/bp-layout}}
 			{{!-- {{#bp-layout local-class="header-text"}}完成时间{{/bp-layout}}
@@ -57,14 +59,14 @@
 		{{/bp-layout}}
 		{{!-- {{#bp-layout local-class="block"}}
 		{{/bp-layout}} --}}
-		{{#bp-layout local-class="report block" cross="center" direction="row" 
+		{{#bp-layout local-class="report" cross="center" direction="row" 
 			cross="center" main="center"}}
-			{{#bp-layout local-class="report" direction="row" classNames="mr-4" 
+			{{#bp-layout local-class="report" direction="row" main="center"
 			 click=(action "toReport")}}
 				周期销售报告
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout local-class="examine-export block" cross="center" direction="row" 
+		{{#bp-layout local-class="examine-export" cross="center" direction="row" 
 			cross="center" main="center"}}
 			{{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
 				{{!-- {{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
@@ -194,7 +196,7 @@
 		{{#bp-layout tagName="h4" local-class="history-header" cross="center" classNames="mb-0"}}
 			历史成果
 		{{/bp-layout}}
-		{{project/history-info provious=model.provious proviousReport=model.proviousReport}}
+		{{project/history-info provious=model.provious proviousReport=model.proviousReport roundOver=roundOver}}
 	{{/bp-layout}}
 {{/if}}
 
