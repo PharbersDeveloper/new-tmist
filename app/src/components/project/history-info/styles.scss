@@ -5,20 +5,37 @@
 .history-table-outer {
 	width: 100%;
 
+	.empty-img {
+		width: 100%;
+		font-size: 14px;
+		color: #344563;
+	}
+
 	.history-table {
+		table-layout: fixed;
+
 		thead {
 			border-bottom: 2px solid rgba(9, 30, 66, 0.08);
 
 			th {
 				font-size: 12px;
 				color: #7a869a;
+				font-weight: 400;
+			}
+
+			.fix-width {
+				width: 138px;
+			}
+
+			.blank-part {
+				width: 48px;
 			}
 		}
 
 		tbody {
 			td {
 				vertical-align: middle;
-				height: 88px;
+				height: 73px;
 
 				.quarter-sales-reached {
 					.info {
@@ -35,12 +52,30 @@
 					}
 				}
 
+				.blank-part {
+					width: 48px;
+				}
+
+				.fix-click-part {
+					width: 138px;
+				}
+
+				.flex-1 {
+					flex: 1;
+				}
+
 				.btn-list {
 					:global(.dropdown-button) {
 						height: 32px;
 						width: 112px;
 						border-radius: 5px;
 					}
+				}
+
+				.report-link {
+					color: #3172e0;
+					cursor: pointer;
+					font-size: 14px;
 				}
 
 				a:hover {
@@ -78,7 +113,13 @@
 					.unit {
 						font-size: 12px;
 						color: #7a869a;
+						margin-left: 2px;
 					}
+				}
+
+				.total-percent-round {
+					font-size: 16px;
+					color: #172b4d;
 				}
 
 				.total-sales {

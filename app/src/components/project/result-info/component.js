@@ -8,20 +8,20 @@ import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
 
 export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// ossService: service( "service/oss" ),
-	// ajax: service(),
+	ajax: service(),
 	// cookies: service(),
 	exportService: service( "service/export-report" ),
-	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver"],
+	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver", "proposal"],
 	curSelPeriod: null,
-	roundOver: computed( function () {
-		let old = window.document.referrer
+	// roundOver: computed( function () {
+	// 	let old = window.document.referrer
 
-		if ( old.indexOf( "round-over" ) !== -1 ) {
-			return true
-		} else {
-			return false
-		}
-	} ),
+	// 	if ( old.indexOf( "round-over" ) !== -1 || old.indexOf( "history" ) !== -1 ) {
+	// 		return true
+	// 	} else {
+	// 		return false
+	// 	}
+	// } ),
 	yoyFlag: computed( "yoy", function () {
 		return this.yoy > 0
 	} ),
@@ -58,6 +58,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "tmResultProductCircle", tmResultProductCircle )
 		this.set( "salesReports", this.project.finals )
 		this.set( "curSalesReports", this.project.finals.lastObject )
+
 
 		// console.log( this.salesReports )
 		// console.log( this.curSalesReports )
@@ -157,7 +158,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			this.transitionToReport()
 		},
 		toRoundOver() {
-			this.goRoundOver()
+			history.go( -1 )
 		},
 		toIndex() {
 			window.location = "/"
@@ -175,6 +176,41 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		selPeriod( item ) {
 			this.set( "curSelPeriod", item )
 			this.set( "curSalesReports", this.project.finals.objectAt( item.phase ) )
+
+
+			this.get( "ajax" ).request( "http://pharbers.com:9202/v1.0/CALC/yoy", {
+				method: "GET",
+				data: JSON.stringify( {
+					"model": "tmrs_new",
+					"query": {
+						"proposal_id": this.proposal.get( "id" ),
+						"project_id": this.project.get( "id" ),
+						"phase": this.curSelPeriod.phase
+					}
+				}
+				),
+				dataType: "json"
+			} ).then( res => {
+				this.set( "yoy", res )
+			} )
+
+			this.get( "ajax" ).request( "http://pharbers.com:9202/v1.0/CALC/mom", {
+				method: "GET",
+				data: JSON.stringify( {
+					"model": "tmrs_new",
+					"query": {
+						"proposal_id": this.proposal.get( "id" ),
+						"project_id": this.project.get( "id" ),
+						"phase": this.curSelPeriod.phase
+					}
+				}
+				),
+				dataType: "json"
+			} ).then( res => {
+				this.set( "mom", res )
+			} )
+
+
 		}
 	}
 } )

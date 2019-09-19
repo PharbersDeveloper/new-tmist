@@ -1,7 +1,9 @@
 import Component from "@ember/component"
 import { computed } from "@ember/object"
+import { inject as service } from "@ember/service"
 
 export default Component.extend( {
+	picOSS: service( "service/pic-oss" ),
 	positionalParams: ["hospital", "reports","policies"],
 	classNames: ["bg-white"],
 	localClassNames: "hospital",

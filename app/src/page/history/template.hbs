@@ -1,10 +1,10 @@
 {{common/nav-top-project proposalName=model.proposal.name}}
-{{#bp-layout tagName="span"  classNames="ml-4 mt-4 mb-3" main="start" cross="start"}}
+{{!-- {{#bp-layout tagName="span"  classNames="ml-4 mt-4 mb-3" main="start" cross="start"}}
     {{#bp-layout local-class="return" click=(action "returnPrepare" model.proposal.id)}}返回{{/bp-layout}}
-{{/bp-layout}}
-{{#bp-layout direction="col" main="start" cross="center" local-class="history" classNames="px-4 pb-4"}}
+{{/bp-layout}} --}}
+{{#bp-layout direction="col" main="start" cross="center" local-class="history" classNames="px-4 py-4"}}
     {{#bp-layout direction="col" main="start" cross="start" local-class="list-wrapper" classNames="p-4 bg-white"}}
-        {{#bp-layout direction="row" main="start" cross="center" local-class="title-wrapper" classNames="mb-4"}}
+        {{#bp-layout direction="row" main="between" cross="center" local-class="title-wrapper" classNames="mb-4"}}
             {{!-- <span local-class="badge">
                 {{#if (bp-eq model.proposal.case "tm")}}
                     TMIST
@@ -14,7 +14,12 @@
                     undefined
                 {{/if}}
             </span> --}}
-            <p local-class="title" class="ml-2">历史成果</p>
+            {{#bp-layout local-class="title" }}
+                历史成果
+            {{/bp-layout}}
+            {{#bp-button type="primary" onClick=(action "returnPrepare" model.proposal.id)}}
+                返回主页
+            {{/bp-button}}
         {{/bp-layout}}
 
         {{!-- {{#bp-layout tagName="p" local-class="no-task" cross="center" main="center"}}

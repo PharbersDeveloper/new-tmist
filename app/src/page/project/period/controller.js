@@ -16,6 +16,9 @@ export default Controller.extend( {
 	exam: service( "service/exam-facade" ),
 	runtimeConfig: service( "service/runtime-config" ),
 	em: service( "emitter" ),
+	productQuotasSorted: computed( "model.productQuotas", function() {
+		return this.model.productQuotas.sortBy( "product.name" )
+	} ),
 	taskModal: false,
 	taskModalCircle: computed( function() {
 		let arr = Array( this.model.project.pharse )
@@ -99,14 +102,33 @@ export default Controller.extend( {
 							res.set( "status", 1 )
 							res.set( "endTime", new Date().getTime() )
 							res.set( "lastUpdate", new Date().getTime() )
+							res.set( "current", res.periods.length )
 							res.save().then( () => {
 								this.set( "loadingForSubmit", false )
-								this.transitionToRoute( "page.project.result" )
+								// this.transitionToRoute( "page.project.result" )
+								window.location = "/project/" + res.get( "id" ) + "/result"
 							} )
 						} )
 					} else {
-						this.set( "loadingForSubmit", false )
-						this.transitionToRoute( "page.project.result" )
+						// this.model.project.then(res => {
+						// 	res.set( "current",  res.periods.length )
+						// })
+						set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id, { reload: true } ) )
+						this.model.project.then( res => {
+							// res.set( "status", 1 )
+							// res.set( "endTime", new Date().getTime() )
+							// res.set( "lastUpdate", new Date().getTime() )
+							res.set( "current", res.periods.length )
+							res.save().then( () => {
+								this.set( "loadingForSubmit", false )
+								window.location = "/project/" + res.get( "id" ) + "/result"
+								// this.transitionToRoute( "page.project.result" )
+							} )
+						} )
+
+
+						// this.set( "loadingForSubmit", false )
+						// this.transitionToRoute( "page.project.result" )
 					}
 				}
 			}
