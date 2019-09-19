@@ -161,16 +161,23 @@ export default Mixin.create( {
 						backgroundColor: "rgba(9,30,66,0.54)"
 					},
 					legend: {
-						icon: "circle",
+						// icon: "circle",
 						show: true,
 						x: "center",
 						y: "bottom",
 						orient: "horizontal",
 						itemGap: 24,
+						itemHeight: 8,
+						itemWidth: 12,
 						textStyle: {
 							fontSize: 14,
 							color: "#7A869A"
-						}
+						},
+						data:[
+							{name: "销售额",icon: "circle"},
+							{name: "指标",icon: "circle"},
+							{name: "指标达成率",icon: "line"}
+						]
 					},
 					series: [{
 						type: "bar",
