@@ -62,8 +62,9 @@ export default Route.extend( {
 		this.facade.startPeriodExam( project )
 
 		// get all preset by proposal
-		const presets = period.then( prd => {
-				return this.facade.queryPeriodPresets( prd, prs, phase )
+
+		const presets = prs.load().then( data => {
+				return this.facade.queryPeriodPresets( null, data, phase )
 			} ),
 
 			answers = Promise.all( [period, presets, resources] ).then( results => {
