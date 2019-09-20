@@ -256,6 +256,16 @@
 						presets=presets answers=answers reports=reports presetsByProject=presetsByProject as |quizs|}}
 					{{#bp-layout local-class="hospitals"}}
 						{{#bp-layout direction="col" local-class="hospital" classNames="bg-white"}}
+							{{#if (bp-eq quizs.length 0)}}
+								{{#bp-layout local-class="empty-img" direction="col" cross="center"}}
+									<img src="/images/img_history-empty.png" alt="" class="mb-3">
+									{{#if (bp-eq curStatus 0)}}
+											无未分配代表的医院剩余
+									{{else}}
+											尚无已分配代表的医院，快去分配吧
+									{{/if}}
+								{{/bp-layout}}
+							{{else}}
 							{{#each quizs as |quiz|}}
 								{{#bp-layout local-class="line"}}
 									{{project/business-input/hospital-config
@@ -276,6 +286,7 @@
 												budgetValidationOuter=(action "budgetValidationHandle")}}
 								{{/bp-layout}}
 							{{/each}}
+							{{/if}}
 						{{/bp-layout}}
 					{{/bp-layout}}
 				{{/project/business-input/input-mapping}}

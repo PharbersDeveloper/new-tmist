@@ -588,6 +588,13 @@
 
     .hospital {
       flex: 1;
+
+      .empty-img {
+        width: 100%;
+        font-size: 14px;
+        color: #344563;
+        margin-top: 100px;
+      }
     }
   }
 }
