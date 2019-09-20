@@ -4,6 +4,11 @@ import { inject as service } from "@ember/service"
 
 export default Route.extend( {
 	cookies: service(),
+	beforeModel() {
+		if ( window.localStorage.getItem( "isUcb" ) === "1" ) {
+			this.transitionTo( "page.ucbprepare" )
+		}
+	},
 	model() {
 		// const accountId = this.cookies.read( "account_id" ),
 		const tmp = this.store.query( "model/proposal", { filter: "(case,:eq,`tm`)" } ),
