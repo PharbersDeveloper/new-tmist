@@ -155,7 +155,18 @@ export default Component.extend( {
 				detail: "请输入数字。"
 			} )
 			return false
+		} else if ( String( input ).indexOf( "." ) !== -1 ){
+
+			this.set( "warning", {
+				open: true,
+				title: "非法值警告",
+				detail: "请输入整数。"
+			} )
+			return false
+
 		}
+
+
 		return true
 	},
 	getProductCircleColor() {

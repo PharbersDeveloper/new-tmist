@@ -27,13 +27,17 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			return "priority-low"
 		} else if ( this.yoy > 0 ) {
 			return "increase"
+		} else {
+			return "priority-flat"
 		}
 	} ),
 	momFlag: computed( "mom", function () {
 		if ( this.mom < 0 ) {
 			return "priority-low"
-		} else if ( this.yoy > 0 ) {
+		} else if ( this.mom > 0 ) {
 			return "increase"
+		} else {
+			return "priority-flat"
 		}
 	} ),
 	// yoyPer: computed( "yoy", function () {

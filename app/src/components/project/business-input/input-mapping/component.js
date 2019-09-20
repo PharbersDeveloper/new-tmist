@@ -15,9 +15,16 @@ export default Component.extend( {
 		let region = 0,
 			sortByResource = this.curResource.get( "id" ),
 			sortFunc = function( a, b ) {
-				if ( a.quizs.firstObject.answer.get( "resource.id" ) === sortByResource ) {
+				let fa = a.quizs.firstObject.answer.get( "resource.id" ) === sortByResource,
+					fb = b.quizs.firstObject.answer.get( "resource.id" ) === sortByResource
+
+				if ( fa && fb ) {
+					return 0
+				} else if ( !fa && !fb ){
+					return 0
+				} else if ( fa && !fb ) {
 					return -1
-				} else if ( b.quizs.firstObject.answer.get( "resource.id" ) === sortByResource ){
+				} else if ( !fa && !fb ) {
 					return 1
 				}
 			}
