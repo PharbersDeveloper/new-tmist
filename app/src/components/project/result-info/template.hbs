@@ -85,11 +85,11 @@
 					{{/bp-layout}}
 					{{#bp-layout }}
 						<span local-class="row-2">{{bp-percent yoy}}</span>
-						{{#if yoyFlag}}
-							{{bp-icon icon='increase'}}
-						{{else}}
-							{{bp-icon icon='priority-low'}}
-						{{/if}}
+						{{!-- {{#if yoyFlag}} --}}
+							{{bp-icon icon=yoyFlag}}
+						{{!-- {{else}} --}}
+							{{!-- {{bp-icon icon='priority-low'}} --}}
+						{{!-- {{/if}} --}}
 
 						<span local-class="row-2-2">同比</span>
 					{{/bp-layout}}
@@ -100,11 +100,12 @@
 					{{/bp-layout}}
 					{{#bp-layout }}
 						<span local-class="row-2">{{bp-percent mom 1}}</span>
-						{{#if momFlag}}
+						{{bp-icon icon=momFlag}}
+						{{!-- {{#if momFlag}}
 							{{bp-icon icon='increase'}}
 						{{else}}
 							{{bp-icon icon='priority-low'}}
-						{{/if}}
+						{{/if}} --}}
 						<span local-class="row-2-2" class="">环比</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
