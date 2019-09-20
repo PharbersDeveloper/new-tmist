@@ -28,12 +28,12 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	momFlag: computed( "mom", function () {
 		return this.mom > 0
 	} ),
-	yoyPer: computed( "yoy", function () {
-		return Math.abs( this.yoy )
-	} ),
-	momPer: computed( "mom", function () {
-		return Math.abs( this.mom )
-	} ),
+	// yoyPer: computed( "yoy", function () {
+	// 	return Math.abs( this.yoy )
+	// } ),
+	// momPer: computed( "mom", function () {
+	// 	return Math.abs( this.mom )
+	// } ),
 	treatmentAreaArr: A( [] ),
 	salesReports: A( [] ),
 	curSalesReports: null,
