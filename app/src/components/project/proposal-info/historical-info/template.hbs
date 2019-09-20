@@ -324,7 +324,7 @@
 							{{/bp-layout}}
 						{{/bp-layout}}
 						<div class="pl-4">
-							{{bp-table columns=representativeColumns data=representativeTableData fixedColumn=true}}
+							{{bp-table columns=representativeColumns data=representativeTableData fixedColumn=true defaultSort='current_patient_num'}}
 						</div>
 					</div>
 
@@ -499,7 +499,7 @@
 							{{/bp-layout}}
 						{{/bp-layout}}
 						<div class="pl-4">
-							{{bp-table columns=hospitalColumns data=hospitalTableData fixedColumn=true height='350px'}}
+							{{bp-table columns=hospitalColumns data=hospitalTableData fixedColumn=true height='350px' defaultSort="current_patient_num"}}
 						</div>
 					</div>
 
