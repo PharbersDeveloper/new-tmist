@@ -192,8 +192,8 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout local-class="hospital-list" direction="col"}}
-			{{#bp-layout local-class="hospital-header" direction="row" main="between" classNames="bg-white mb-2" cross="center"}}
-				{{#bp-layout tagName="h4" cross="center" classNames="mb-0 pl-4"}}
+			{{#bp-layout local-class="hospital-header" direction="row" main="between" classNames="bg-white mb-2 px-4" cross="center"}}
+				{{#bp-layout tagName="h4" cross="center" classNames="mb-0"}}
 					分配医院资源
 					{{#if (bp-not-eq resourceHospitalNumebr 0)}}
 					{{#bp-layout classNames="ml-1" direction="row" cross="center" main="center" local-class="badge"}}
@@ -202,21 +202,70 @@
 					{{/if}}
 				{{/bp-layout}}
 				{{#if (bp-eq project.proposal.case "ucb")}}
-				{{#bp-layout}}
-					{{#bp-button local-class=(if (bp-eq curRegion 0) "active btn-margin" "btn-margin") onClick=(action (mut curRegion) 0)}}全部{{/bp-button}}
+				{{#bp-layout direction="row" }}
+					{{#bp-layout direction="row" cross="center" local-class="tag" classNames="mr-2"}}
+						城市
+					{{/bp-layout}}					
+					
+					{{#bp-dropdown classNames="mr-4" local-class="btn-list" widthSize="auto" as |dd|}}
+						{{#dd.button }}
+							{{get curRegionArr curRegion}}
+							{{bp-icon icon='down'}}
+						{{/dd.button}}
+						{{#dd.menu as |menu|}}
+							{{#menu.option value="全部" onClick=(action (mut curRegion) 0)}}全部{{/menu.option}}
+							{{#menu.option value="会东市" onClick=(action (mut curRegion) 1)}}会东市{{/menu.option}}
+							{{#menu.option value="会西市" onClick=(action (mut curRegion) 2)}}会西市{{/menu.option}}
+							{{#menu.option value="会南市" onClick=(action (mut curRegion) 3)}}会南市{{/menu.option}}
+						{{/dd.menu}}
+					{{/bp-dropdown}}
+
+					{{#bp-layout direction="row" cross="center" local-class="tag" classNames="mr-2"}}
+						状态
+					{{/bp-layout}}
+					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+						{{#dd.button }}
+							{{#if (bp-eq curStatus 2)}}
+								全部
+							{{else if (bp-eq curStatus 0)}}
+								未分配
+							{{else}}
+								已分配
+							{{/if}}
+							{{bp-icon icon='down'}}
+						{{/dd.button}}
+						{{#dd.menu as |menu|}}
+							{{#menu.option value="未分配" onClick=(action "selectCurStatus" 2)}}全部{{/menu.option}}
+							{{#menu.option value="未分配" onClick=(action "selectCurStatus" 0)}}未分配{{/menu.option}}
+							{{#menu.option value="已分配" onClick=(action "selectCurStatus" 1)}}已分配{{/menu.option}}
+						{{/dd.menu}}
+					{{/bp-dropdown}}
+
+
+					{{!-- {{#bp-button local-class=(if (bp-eq curRegion 0) "active btn-margin" "btn-margin") onClick=(action (mut curRegion) 0)}}全部{{/bp-button}}
 					{{#bp-button local-class=(if (bp-eq curRegion 1) "active mid-btn" "mid-btn") onClick=(action (mut curRegion) 1)}}会东市{{/bp-button}}
 					{{#bp-button local-class=(if (bp-eq curRegion 2) "active mid-btn" "mid-btn") onClick=(action (mut curRegion) 2)}}会西市{{/bp-button}}
-					{{#bp-button classNames="mr-4" local-class=(if (bp-eq curRegion 3) "active" "") onClick=(action (mut curRegion) 3)}}会南市{{/bp-button}}
+					{{#bp-button classNames="mr-4" local-class=(if (bp-eq curRegion 3) "active" "") onClick=(action (mut curRegion) 3)}}会南市{{/bp-button}} --}}
 				{{/bp-layout}}
 				{{/if}}
 			{{/bp-layout}}
 			{{#bp-layout classNames="" local-class="hospital-config" classNames="bg-white"}}
 				{{#project/business-input/input-mapping 
 						curRegion=curRegion project=project period=period
-						curResource=curResource
+						curResource=curResource curStatus=curStatus curStatusChanged=curStatusChanged
 						presets=presets answers=answers reports=reports presetsByProject=presetsByProject as |quizs|}}
 					{{#bp-layout local-class="hospitals"}}
 						{{#bp-layout direction="col" local-class="hospital" classNames="bg-white"}}
+							{{#if (bp-eq quizs.length 0)}}
+								{{#bp-layout local-class="empty-img" direction="col" cross="center"}}
+									<img src="/images/img_history-empty.png" alt="" class="mb-3">
+									{{#if (bp-eq curStatus 0)}}
+											无未分配代表的医院剩余
+									{{else}}
+											尚无已分配代表的医院，快去分配吧
+									{{/if}}
+								{{/bp-layout}}
+							{{else}}
 							{{#each quizs as |quiz|}}
 								{{#bp-layout local-class="line"}}
 									{{project/business-input/hospital-config
@@ -237,6 +286,7 @@
 												budgetValidationOuter=(action "budgetValidationHandle")}}
 								{{/bp-layout}}
 							{{/each}}
+							{{/if}}
 						{{/bp-layout}}
 					{{/bp-layout}}
 				{{/project/business-input/input-mapping}}

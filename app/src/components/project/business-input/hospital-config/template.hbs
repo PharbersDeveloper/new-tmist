@@ -1,10 +1,10 @@
 {{#bp-layout local-class="header"}}
-	{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
+	{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="pl-4  bg-white mb-0" }}
 		{{#bp-layout direction="row" main="start" cross="center"
 			 local-class=(if (bp-eq quizs.firstObject.preset.phase 0) "click-part" "clicked-part")
 			 click=(if (bp-eq quizs.firstObject.preset.phase 0) (action "changedResource" sortQuizs.firstObject.answer)) }}
 			 {{!-- click=(action "changedResource" sortQuizs.firstObject.answer) }} --}}
-			{{#bp-layout direction="row" local-class="check-box" classNames="mr-2"}}
+			{{#bp-layout direction="row" local-class="check-box" classNames="mr-3"}}
 				{{#if hasResource}}
 				{{!-- {{bp-icon icon="check-circle" }} --}}
 					{{#if (bp-eq quizs.firstObject.preset.phase 0)}}
@@ -17,10 +17,13 @@
 				{{/if}}
 			{{/bp-layout}}	
 		{{/bp-layout}}
+
 		
-	{{#bp-layout direction="row" main="between" cross="center"
+	{{#bp-layout direction="row" main="start" cross="center"
 		local-class=(if hasResource "enable-click show-part" "disable-click show-part")
-		click=(if hasResource (action 'selectCurHospital' hospital.id))}}
+		click=(if hasResource (action 'selectCurHospital' hospital.id)) classNames="pr-4"}}
+		<span local-class="line" class="mr-3"></span>
+		{{#bp-layout direction="row" main="between" local-class="flex-1"}}
 		{{#bp-layout direction="row"}}
 			{{#bp-layout local-class=(if hasResource "check-name" "uncheck-name")}}
 					{{hospital.name}}
@@ -62,17 +65,19 @@
 					{{!-- {{bp-icon icon='data'}} --}}
 					{{#if hasResource}}
 						{{#if showContent}}
-							{{!-- {{bp-icon icon="right"}} --}}
-						<img src="/images/btn_exp_enable.svg" alt="">	
+							{{bp-icon icon="right"}}
+						{{!-- <img src="/images/btn_exp_enable.svg" alt="">	 --}}
 						{{else}}
-							{{!-- {{bp-icon icon="down"}} --}}
-							<img src="/images/btn_exp_selected.svg" alt="">
+							{{bp-icon icon="down"}}
+							{{!-- <img src="/images/btn_exp_selected.svg" alt=""> --}}
 						{{/if}}
 					{{else}}
-						<img src="/images/btn_exp_disabled.svg" alt="">
+						{{bp-icon icon="right"}}
+						{{!-- <img src="/images/btn_exp_disabled.svg" alt=""> --}}
 					{{/if}}					
 				{{/bp-button}}
 			{{/bp-layout}}
+		{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
 
