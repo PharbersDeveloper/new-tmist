@@ -26,10 +26,9 @@
       height: 198px;
       box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
       border-radius: 8px;
-
-      // .sales-info {
-      //   height: 144px;
-      //   flex: 1;
+      .medic-container {
+        height: 100%;
+      }
 
       .product-name {
         width: 42px;
@@ -202,6 +201,10 @@
 
       .circle-part {
         height: 176px;
+        div.circle-container {
+          height: 128px;
+          width: 128px;
+        }
       }
 
       .legend {
