@@ -1,6 +1,6 @@
 {{#bp-layout direction="col"}}
 	{{#if (bp-eq show "true")}}
-		{{#bp-layout direction="row" local-class="header-export" classNames="bg-white px-4 mb-4" main="between" cross="center"}}
+		{{#bp-layout direction="row" local-class="header-export" classNames="bg-white px-4 mb-2" main="between" cross="center"}}
 			{{#bp-layout tagName="h4" cross="center" classNames="mb-0"}}
 				历史销售报告
 			{{/bp-layout}}
@@ -324,7 +324,7 @@
 							{{/bp-layout}}
 						{{/bp-layout}}
 						<div class="pl-4">
-							{{bp-table columns=representativeColumns data=representativeTableData fixedColumn=true}}
+							{{bp-table columns=representativeColumns data=representativeTableData fixedColumn=true defaultSort='current_patient_num'}}
 						</div>
 					</div>
 
@@ -499,7 +499,7 @@
 							{{/bp-layout}}
 						{{/bp-layout}}
 						<div class="pl-4">
-							{{bp-table columns=hospitalColumns data=hospitalTableData fixedColumn=true height='350px'}}
+							{{bp-table columns=hospitalColumns data=hospitalTableData fixedColumn=true height='350px' defaultSort="current_patient_num"}}
 						</div>
 					</div>
 

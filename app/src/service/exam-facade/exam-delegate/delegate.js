@@ -22,7 +22,7 @@ export default Object.extend( {
 		return this.getPresetsRefWithCurrentPeriod( aPeriod ).length
 	},
 	async getCurrentPresetsWithPeriod( aPeriod, aProposal, phase ) {
-		const condi01 = "(proposalId,:eq,`" + aProposal.value().get( "id" ) + "`)",
+		const condi01 = "(proposalId,:eq,`" + aProposal.get( "id" ) + "`)",
 			condi02 = "(category,:eq,`8`)",
 			condi03 = "(category,:eq,`4`)",
 			condior = "(:or," + condi02 + "," + condi03 + ")",

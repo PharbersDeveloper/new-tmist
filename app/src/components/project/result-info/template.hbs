@@ -81,30 +81,31 @@
 			{{#bp-layout local-class="growth-rate" classNames="bg-white mb-2"}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout classNames="mb-4"}}
-						<span local-class="row-1">产品销售增长率</span>
+						<span local-class="row-1">销售增长率</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">{{bp-percent yoyPer}}</span>
-						{{#if yoyFlag}}
-							{{bp-icon icon='increase'}}
-						{{else}}
-							{{bp-icon icon='priority-low'}}
-						{{/if}}
+						<span local-class="row-2">{{bp-percent yoy}}</span>
+						{{!-- {{#if yoyFlag}} --}}
+							{{bp-icon icon=yoyFlag}}
+						{{!-- {{else}} --}}
+							{{!-- {{bp-icon icon='priority-low'}} --}}
+						{{!-- {{/if}} --}}
 
 						<span local-class="row-2-2">同比</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col"}}
 					{{#bp-layout classNames="mb-4"}}
-						<span local-class="row-1">产品销售增长率</span>
+						<span local-class="row-1">销售增长率</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
-						<span local-class="row-2">{{bp-percent momPer}}</span>
-						{{#if momFlag}}
+						<span local-class="row-2">{{bp-percent mom 1}}</span>
+						{{bp-icon icon=momFlag}}
+						{{!-- {{#if momFlag}}
 							{{bp-icon icon='increase'}}
 						{{else}}
 							{{bp-icon icon='priority-low'}}
-						{{/if}}
+						{{/if}} --}}
 						<span local-class="row-2-2" class="">环比</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
@@ -112,7 +113,7 @@
 			{{#bp-layout local-class="sales" classNames="bg-white p-4 mb-0"}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
 					{{#bp-layout classNames="mb-1"}}
-						<span local-class="row-1">产品新进医院数</span>
+						<span local-class="row-1">新进医院数量</span>
 					{{/bp-layout}}
 					{{#bp-layout }}
 						{{!-- <span local-class="row-2">30</span> --}}

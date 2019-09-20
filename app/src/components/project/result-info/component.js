@@ -23,17 +23,29 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// 	}
 	// } ),
 	yoyFlag: computed( "yoy", function () {
-		return this.yoy > 0
+		if ( this.yoy < 0 ) {
+			return "priority-low"
+		} else if ( this.yoy > 0 ) {
+			return "increase"
+		} else {
+			return "priority-flat"
+		}
 	} ),
 	momFlag: computed( "mom", function () {
-		return this.mom > 0
+		if ( this.mom < 0 ) {
+			return "priority-low"
+		} else if ( this.mom > 0 ) {
+			return "increase"
+		} else {
+			return "priority-flat"
+		}
 	} ),
-	yoyPer: computed( "yoy", function () {
-		return Math.abs( this.yoy )
-	} ),
-	momPer: computed( "mom", function () {
-		return Math.abs( this.mom )
-	} ),
+	// yoyPer: computed( "yoy", function () {
+	// 	return Math.abs( this.yoy )
+	// } ),
+	// momPer: computed( "mom", function () {
+	// 	return Math.abs( this.mom )
+	// } ),
 	treatmentAreaArr: A( [] ),
 	salesReports: A( [] ),
 	curSalesReports: null,

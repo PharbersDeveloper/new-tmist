@@ -3,7 +3,7 @@ import { computed } from "@ember/object"
 import { A } from "@ember/array"
 import { inject as service } from "@ember/service"
 import groupBy from "ember-group-by"
-import sortBy from 'ember-computed-sortby'
+import sortBy from "ember-computed-sortby"
 // import RSVP from "rsvp"
 
 export default Component.extend( {
@@ -132,73 +132,80 @@ export default Component.extend( {
 
 		return A( arr )
 	} ),
-	fa: groupBy("filterAnswers", "hospitalName"),
+	fa: groupBy( "filterAnswers", "hospitalName" ),
 	sfa: computed( "fa", function() {
 		if ( this.fa ) {
-			return this.fa.map( item => { 
-				const ss = item.items.map ( x => x.currentPatientNum )
-				const si = item.items.sort((left, right) => { 
-					const fl = right.currentPatientNum - left.currentPatientNum 
-					return fl === 0 ? right.lastSales - left.lastSales : fl
-				} )
-				item["pat"] = ss.reduce((accumulator, currentValue) => accumulator + currentValue)
+			return this.fa.map( item => {
+				const ss = item.items.map( x => x.currentPatientNum ),
+				 si = item.items.sort( ( left, right ) => {
+						const fl = right.currentPatientNum - left.currentPatientNum
+
+						return fl === 0 ? right.lastSales - left.lastSales : fl
+					} )
+
+				item["pat"] = ss.reduce( ( accumulator, currentValue ) => accumulator + currentValue )
 				item["items"] = si
 				return item
 			} )
 		}
 	} ),
-	ssfa: sortBy("sfa", "pat:desc"),
-	sortedAnswers: computed("ssfa", function() {
-		if (this.ssfa) {
+	ssfa: sortBy( "sfa", "pat:desc" ),
+	sortedAnswers: computed( "ssfa", function() {
+		if ( this.ssfa ) {
 			let result = []
-			this.ssfa.forEach( x => { 
-				if (result.length === 0) 
+
+			this.ssfa.forEach( x => {
+				if ( result.length === 0 ) {
 					result = x.items
-				else result = result.concat(x.items)
+				} else {
+					result = result.concat( x.items )
+				}
 			} )
 			return result
 
-		} else return []
+		} else {
+			return []
+		}
 	} ),
 	reviewColumns: A( [
 		{
 			label: "所在城市",
 			valuePath: "region",
-			align: "left",
-			// sortable: true,
-			width: 100
-		},{
-			label: "医院名称",
-			valuePath: "hospitalName",
 			align: "left"
 			// sortable: true,
 			// width: 100
 		},{
-			label: "产品名称",
-			valuePath: "productName",
+			label: "医院名称",
+			valuePath: "hospitalName",
 			align: "left",
 			// sortable: true,
-			width: 100
+			width: 300
+		},{
+			label: "产品名称",
+			valuePath: "productName",
+			align: "left"
+			// sortable: true,
+			// width: 100
 		},{
 			label: "患者数量",
 			valuePath: "currentPatientNum",
 			align: "right",
 			cellComponent: "common/table/format-number-thousands",
-			sortable: true,
-			width: 100
+			sortable: true
+			// width: 100
 		},{
 			label: "药品准入情况",
 			valuePath: "currentDurgEntrance",
 			align: "center",
-			cellComponent: "common/table/drug-entrance",
+			cellComponent: "common/table/drug-entrance"
 			// sortable: true,
-			width: 100
+			// width: 100
 		},{
 			label: "代表",
 			valuePath: "resource",
-			align: "left",
+			align: "left"
 			// sortable: true,
-			width: 100
+			// width: 100
 		},{
 			label: "销售指标",
 			valuePath: "salesTarget",
