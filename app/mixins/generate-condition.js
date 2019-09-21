@@ -122,7 +122,8 @@ export default Mixin.create( {
 
 		if ( isEmpty( productName ) ) {
 			searchRuls = [
-				["eq", "category", "Product"]
+				["eq", "category", "Product"],
+				["neq", "product_type", 1]
 				// ["eq", "job_id.keyword", jobId]
 			]
 			agg = [
@@ -138,7 +139,8 @@ export default Mixin.create( {
 		} else {
 			searchRuls = [
 				["eq", "category", "Product"],
-				["eq", "product.keyword", productName]
+				["eq", "product.keyword", productName],
+				["neq", "product_type", 1]
 				// ["eq", "job_id.keyword", jobId]
 			]
 			agg = [
