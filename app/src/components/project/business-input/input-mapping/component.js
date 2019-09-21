@@ -1,16 +1,33 @@
 import Component from "@ember/component"
 import groupBy from "ember-group-by"
 import { computed } from "@ember/object"
+import sortBy from "ember-computed-sortby"
 // import { inject as service } from "@ember/service"
 // import { A } from "@ember/array"
 
 export default Component.extend( {
 	classNames: "input-mapping",
 	// localClassNameBindings: A( ["input-mapping"] ),
-	positionalParams: ["project", "presets", "answers", "reports", "curRegion", "presetsByProject", "period"],
+	positionalParams: ["project", "presets", "answers", "reports", "curRegion", "presetsByProject", "period", "curResource", "curStatus", "curStatusChanged"],
 	p: groupBy( "presets" , "hospital.id" ),
-	regionAns: computed( "curRegion", function() {
-		let region = 0
+	regionAns: computed( "curRegion", "res", "curResource", "curStatus", "curStatusChanged",function() {
+		window.console.log( this.curResource.name )
+		let region = 0,
+			sortByResource = this.curResource.get( "id" ),
+			sortFunc = function( a, b ) {
+				let fa = a.quizs.firstObject.answer.get( "resource.id" ) === sortByResource,
+					fb = b.quizs.firstObject.answer.get( "resource.id" ) === sortByResource
+
+				if ( fa && fb ) {
+					return 0
+				} else if ( !fa && !fb ){
+					return 0
+				} else if ( fa && !fb ) {
+					return -1
+				} else if ( !fa && !fb ) {
+					return 1
+				}
+			}
 
 		if ( this.curRegion === 1 ) {
 			region = "会东市"
@@ -20,21 +37,62 @@ export default Component.extend( {
 			region = "会南市"
 		}
 
+
 		if ( region === 0 ) {
-			return this.res
+			return this.res.filter( a => {
+				if ( this.curStatus === 2 ) {
+					return a
+				} else if ( this.curStatus === 1 ) {
+					window.console.log( a.quizs.firstObject.answer.get( "resource.id" ) )
+					return a.quizs.firstObject.answer.get( "resource.id" ) !== undefined && isNaN( a.quizs.firstObject.answer.get( "resource.id" ) )
+				} else if ( this.curStatus === 0 ) {
+
+					return !a.quizs.firstObject.answer.get( "resource.id" ) || !isNaN( a.quizs.firstObject.answer.get( "resource.id" ) )
+				}
+			} ).sort( ( a,b ) => {
+				return sortFunc( a,b )
+			} )
 		} else {
 
 			// return this.res.filter( a => a.quizs.get( "firstObjetct.answer.target.position" ) === region )
-			return this.res.filter( a => a.quizs.get( "firstObject" ).region === region )
+			return this.res.filter( a => a.quizs.get( "firstObject" ).region === region ).filter( a => {
+				if ( this.curStatus === 2 ) {
+					return a
+				} else if ( this.curStatus === 1 ) {
+					window.console.log( a.quizs.firstObject.answer.get( "resource.id" ) )
+					return a.quizs.firstObject.answer.get( "resource.id" ) !== undefined && isNaN( a.quizs.firstObject.answer.get( "resource.id" ) )
+				} else if ( this.curStatus === 0 ) {
+					return !a.quizs.firstObject.answer.get( "resource.id" ) || !isNaN( a.quizs.firstObject.answer.get( "resource.id" ) )
+				}
+			} ).sort( ( a,b ) => {
+				return sortFunc( a,b )
+			} )
 
 			// return this.res.filter( a => a.answer.get( "firstObjetct.target.position" ) === region )
 		}
 
 	} ),
-	res: computed( "p", "answers", function() {
+	st: computed( "p", function() {
 		if ( this.p && this.answers ) {
+			return this.p.map( item => {
+				const ss = item.items.map( x => x.currentPatientNum ),
+					si = item.items.sort( ( left, right ) => {
+						const fl = right.currentPatientNum - left.currentPatientNum
 
-			return this.p.sortBy( "value" ).map( item => {
+						return fl === 0 ? right.lastSales - left.lastSales : fl
+					} )
+
+				item["pat"] = ss.reduce( ( accumulator, currentValue ) => accumulator + currentValue )
+				item["items"] = si
+				return item
+			} )
+		}
+	} ),
+	sst: sortBy( "st", "pat:desc" ),
+	res: computed( "sst", "answers", function() {
+		if ( this.sst && this.answers ) {
+
+			return this.sst.map( item => {
 				const result = item.items.map( preset => {
 					const tmp = this.answers.find( ans => {
 						const ts = ans.belongsTo( "target" ).id() === preset.belongsTo( "hospital" ).id(),

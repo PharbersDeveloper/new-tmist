@@ -1,7 +1,7 @@
 import Component from "@ember/component"
 import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
-import EmberObject from "@ember/object"
+// import EmberObject from "@ember/object"
 import { htmlSafe } from "@ember/template"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
@@ -16,7 +16,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	ajax: service(),
 	// cookies: service(),
 	exportService: service( "service/export-report" ),
-	positionalParams: ["periods", "resources", "products", "hospitals", "case", "project"],
+	positionalParams: ["periods", "resources", "products", "hospitals", "case", "project", "proposal"],
 	salesGroupValue: 0,
 	classNames: ["report-wrapper"],
 	selfProducts: computed( "products", function () {
@@ -74,53 +74,6 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 
 		this.set( property, productsData )
 	},
-	// downloadURI( urlName ) {
-	// 	fetch( urlName.url )
-	// 		.then( response => {
-	// 			if ( response.status === 200 ) {
-	// 				return response.blob()
-	// 			}
-	// 			throw new Error( `status: ${response.status}` )
-	// 		} )
-	// 		.then( blob => {
-	// 			var link = document.createElement( "a" )
-
-	// 			link.download = urlName.name
-	// 			// var blob = new Blob([response]);
-	// 			link.href = URL.createObjectURL( blob )
-	// 			// link.href = url;
-	// 			document.body.appendChild( link )
-	// 			link.click()
-	// 			document.body.removeChild( link )
-	// 			// delete link;
-
-	// 			window.console.log( "success" )
-	// 		} )
-	// 		.catch( error => {
-	// 			window.console.log( "failed. cause:", error )
-	// 		} )
-	// },
-	// genDownloadUrl() {
-
-	// 	this.get( "ajax" ).request( `/export/${this.project.get( "id" )}/phase/${this.project.get( "periods" ).length - 1}`, {
-	// 		headers: {
-	// 			"dataType": "json",
-	// 			"Content-Type": "application/json",
-	// 			"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
-	// 		}
-	// 	} ).then( res => {
-	// 		window.console.log( res )
-	// 		let { jobId } = res,
-	// 			downloadUrl = jobId + ".xlsx",
-	// 			client = this.ossService.get( "ossClient" ),
-	// 			url = client.signatureUrl( "tm-export/" + downloadUrl, { expires: 43200 } )
-
-	// 		window.console.log( res )
-	// 		window.console.log( "Success!" )
-	// 		this.downloadURI( { url: url, name: "历史销售报告" } )
-	// 		// return { url: url, name: downloadUrl }
-	// 	} )
-	// },
 	actions: {
 		exportReport() {
 			// this.genDownloadUrl()
@@ -153,6 +106,43 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 
 				this.set( "tmpProdReg", prod )
 				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( regName, prod.name, this.proposal ) )
+			}
+		},
+		changeTableProd( prod ) {
+			let prodName = prod.name,
+				salesGroupValue = this.salesGroupValue
+
+			// TODO switch更清晰
+			if ( salesGroupValue === 0 ) {
+				// this.set( "tmpPsr", prod )
+				// this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name, this.proposal ) )
+			} else if ( salesGroupValue === 1 ) {
+				this.set( "representativeProdTable", prod )
+				let type = isEmpty( prod ) ? "rep_ref" : "rep_prod"
+
+				this.queryData( type ,prodName ).then( data => {
+					let currentData = data.filterBy( "product",prodName )
+
+					this.set( "representativeTableData", currentData )
+				} )
+			} else if ( salesGroupValue === 2 ) {
+				this.set( "hospitalProdTable", prod )
+				let type = isEmpty( prod ) ? "hospital_ref" : "hospital_prod"
+
+				this.queryData( type ,prodName ).then( data => {
+					let currentData = data.filterBy( "product",prodName )
+
+					this.set( "hospitalTableData", currentData )
+				} )
+			} else if ( salesGroupValue === 3 ) {
+				this.set( "regionProdTable", prod )
+				let type = isEmpty( prod ) ? "region_ref" : "region_prod"
+
+				this.queryData( type ,prodName ).then( data => {
+					let currentData = data.filterBy( "product",prodName )
+
+					this.set( "regionTableData", currentData )
+				} )
 			}
 		},
 		chooseRep( rep ) {
@@ -220,20 +210,20 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "quota_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标增长率<br />${time}`,
 					valuePath: "quota_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标达成率<br />${time}`,
 					valuePath: "quota_rate",
 					align: "left",
-					// sortable: true,
+					sortable: true,
 					cellComponent: "common/table/decimal-to-percentage",
 					width: 100
 				}, {
@@ -241,21 +231,21 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "year_on_year_sales",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额环比增长<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
 					align: "right",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}
 			] ),
@@ -271,27 +261,27 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "current_patient_num",
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
-					width: 64
+					sortable: true,
+					width: 84
 				}, {
 					label: `指标贡献率<br />${time}`,
 					valuePath: "quota_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标增长率<br />${time}`,
 					valuePath: "quota_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标达成率<br />${time}`,
 					valuePath: "quota_rate",
 					align: "left",
-					// sortable: true,
+					sortable: true,
 					cellComponent: "common/table/decimal-to-percentage",
 					width: 100
 				}, {
@@ -299,28 +289,28 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "year_on_year_sales",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额环比增长<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额贡献率<br />${time}`,
 					valuePath: "sales_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 110
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
 					align: "right",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}
 			] ),
@@ -342,8 +332,8 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "current_patient_num",
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
-					width: 64
+					sortable: true,
+					width: 84
 				}, {
 					label: "药品准入情况",
 					valuePath: "status",
@@ -355,14 +345,14 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "quota_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标增长率<br />${time}`,
 					valuePath: "quota_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标达成率<br />${time}`,
@@ -376,42 +366,42 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "year_on_year_sales",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额环比增长<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
 					// sortable: true,
-					width: 100
+					width: 120
 				}, {
 					label: `销售额贡献率<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 110
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
 					align: "right",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}, {
 					label: `院内销售额<br />${time}`,
 					valuePath: "inter_sales",
 					align: "center",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}, {
 					label: `院外销售额<br />${time}`,
 					valuePath: "outer_sales",
 					align: "center",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}
 
@@ -428,56 +418,56 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "current_patient_num",
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
-					width: 64
+					sortable: true,
+					width: 84
 				}, {
 					label: `指标贡献率<br />${time}`,
 					valuePath: "quota_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标增长率<br />${time}`,
 					valuePath: "quota_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `指标达成率<br />${time}`,
 					valuePath: "quota_rate",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `销售额同比增长<br />${time}`,
 					valuePath: "year_on_year_sales",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额环比增长<br />${time}`,
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 120
 				}, {
 					label: `销售额贡献率<br />${time}`,
 					valuePath: "sales_contri",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
-					width: 100
+					sortable: true,
+					width: 110
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
 					align: "right",
 					cellComponent: "common/table/format-number-thousands",
-					// sortable: true,
+					sortable: true,
 					width: 110
 				}
 			] )
@@ -555,10 +545,10 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "hospitalColumns", hospitalColumns )
 		this.set( "regionColumns", regionColumns )
 
-		all( [that.queryData( "product_ref", time ),
-			this.queryData( "region_ref", time ),
-			this.queryData( "rep_ref", time ),
-			this.queryData( "hospital_ref", time )
+		all( [that.queryData( "product_ref" ),
+			this.queryData( "region_ref" ),
+			this.queryData( "rep_ref" ),
+			this.queryData( "hospital_ref" )
 		] ).then( data => {
 			this.set( "productTableData", data[0] )
 			this.set( "regionTableData", data[1] )
@@ -582,6 +572,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				valuePath: headWord + "_" + ele,
 				cellComponent: "common/table/format-number-thousands",
 				align: "right",
+				sortable: true,
 				width: 110
 			}
 		} )
@@ -603,10 +594,11 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// 	version: "v1.0",
 	// 	db: "NTM"
 	// } ),
-	queryData( type ) {
+	queryData( type,prod ) {
 		let qa = this.get( "tableQueryAddress" ),
-			proposalId = this.get( "proposal.id" ),
-			projectId = this.get( "project.id" ) || localStorage.getItem( "projectId" )
+			proposalId = this.proposal.get( "id" ),
+			projectId = this.project.get( "id" )
+			// projectId = this.get( "project.id" ) || localStorage.getItem( "projectId" )
 
 		return this.get( "ajax" ).request( `${qa.host}:${qa.port}/${qa.version}/${qa.db}/${type}`, {
 			method: "GET",
@@ -617,6 +609,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					"proposal_id": proposalId,
 					// "project_id": "5d78ac93515b2b002b74a414",
 					"project_id": projectId,
+					// "product":prod,
 					"point_origin": "2019Q1"
 				}
 			}

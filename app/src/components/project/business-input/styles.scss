@@ -23,9 +23,12 @@
 
     .sales {
       width: 466px;
-      height: 228px;
+      height: 198px;
       box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
       border-radius: 8px;
+      .medic-container {
+        height: 100%;
+      }
 
       .product-name {
         width: 42px;
@@ -37,6 +40,7 @@
       .sales-money {
         color: #172b4d;
         flex: 1;
+        height: 100%;
 
         span:last-child {
           font-size: 14px;
@@ -47,21 +51,15 @@
 
       .progress-block {
         flex: 1;
-      }
-
-
-
-      .sales-header {
-        border-bottom: 1px solid #f4f5f7;
-        height: 52px;
+        height: 100%;
       }
 
       :global(.bp-progress) {
         height: $spacing;
         width: 146px;
         height: 4px;
-        margin-top: 33px;
-        margin-bottom: 9px;
+        // margin-top: 30px;
+        // margin-bottom: 5px;
 
         :global(.bp-progress-bar) {
           background-color: $b200;
@@ -75,6 +73,7 @@
       }
 
       .product-icon {
+        height: 100%;
         font-size: 14px;
         color: #172B4D;
 
@@ -147,19 +146,65 @@
 
         }
 
+        .icon-name-ucb {
+          &:nth-child(1) {
+            svg {
+              path {
+                fill: #8777D9;
+              }
 
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(2) {
+            svg {
+              path {
+                fill: #FFC400;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(3) {
+            svg {
+              path {
+                fill: #57D9A3;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+        }
 
       }
+
+      // }
+
+      .sales-header {
+        border-bottom: 1px solid #f4f5f7;
+        height: 52px;
+      }
+
     }
 
     .budget {
       width: 368px;
-      height: 228px;
+      height: 198px;
       box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
       border-radius: 8px;
 
       .circle-part {
         height: 176px;
+        div.circle-container {
+          height: 128px;
+          width: 128px;
+        }
       }
 
       .legend {
@@ -168,12 +213,11 @@
         }
 
         .tm-width {
-
           max-width: 220px;
         }
-        
+
         .scroll-legend {
-          overflow-x: scroll;
+          overflow-x: auto;
           overflow-y: auto;
           // overflow-y: scroll;
           height: 120px;
@@ -214,6 +258,10 @@
             font-size: 14px;
             color: #7a869a;
             // width: 70px;
+          }
+
+          .red {
+            color: $r300;
           }
         }
 
@@ -348,32 +396,54 @@
 
       .hospital-header {
 
-        .btn-margin {
-          margin-right: 2px;
+        .tag {
+          font-size: 14px;
+          color: #344563;
         }
 
-        .mid-btn {
-          border-radius: 0;
-          margin-right: 2px;
+        .btn-list {
+          // :global(.bp-dropdown button) {
+          //   width: 106px;
+          //   height: 32px;
+          // }
+
+          :global(.dropdown-button) {
+            height: 32px;
+            width: 106px;
+            border-radius: 5px;
+          }
+
+          // :global(.btn-group button) {
+          //   border-radius: 5px;
+          // }
         }
 
-        .active {
-          background: #505f79;
-          color: #ffffff;
-        }
+        // .btn-margin {
+        //   margin-right: 2px;
+        // }
 
-        button {
-          height: 24px;
-          width: 80px;
-        }
+        // .mid-btn {
+        //   border-radius: 0;
+        //   margin-right: 2px;
+        // }
 
-        button:first-child {
-          border-radius: 4px 0 0 4px;
-        }
+        // .active {
+        //   background: #505f79;
+        //   color: #ffffff;
+        // }
 
-        button:last-child {
-          border-radius: 0 4px 4px 0;
-        }
+        // button {
+        //   height: 24px;
+        //   width: 80px;
+        // }
+
+        // button:first-child {
+        //   border-radius: 4px 0 0 4px;
+        // }
+
+        // button:last-child {
+        //   border-radius: 0 4px 4px 0;
+        // }
 
         .badge {
           position: relative;
@@ -410,7 +480,8 @@
         height: calc(100vh - 86px);
 
         .line {
-          border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+          border-bottom: 3px solid rgba(9, 30, 66, 0.04);
+
         }
       }
     }
@@ -520,6 +591,13 @@
 
     .hospital {
       flex: 1;
+
+      .empty-img {
+        width: 100%;
+        font-size: 14px;
+        color: #344563;
+        margin-top: 100px;
+      }
     }
   }
 }

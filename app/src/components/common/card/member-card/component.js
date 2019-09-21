@@ -4,8 +4,11 @@ import { computed } from "@ember/object"
 // import { isEmpty } from "@ember/utils"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
+import { inject as service } from "@ember/service"
+
 
 export default Component.extend( GenerateChartConfig, GenerateCondition, {
+	picOSS: service( "service/pic-oss" ),
 	positionalParams: ["resource", "proposal", "kpis", "lastPeriod"],
 	classNames: ["mb-4"],
 	localClassNames: "resource",

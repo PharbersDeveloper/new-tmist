@@ -836,7 +836,7 @@ export default Mixin.create( {
 				["eq", "category", "Product"],
 				["eq", "phase", phase],
 				// ["eq", "job_id.keyword", jobId],
-				["eq", "status.keyword", "已开发"],
+				// ["eq", "status.keyword", "已开发"],
 				["eq", "product_area.keyword", productarea]
 			]
 		}

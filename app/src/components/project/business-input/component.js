@@ -3,6 +3,8 @@ import { computed, set } from "@ember/object"
 import { A } from "@ember/array"
 import { inject as service } from "@ember/service"
 // import Ember from "ember"
+import { htmlSafe } from "@ember/string"
+import { alias } from "@ember/object/computed"
 
 export default Component.extend( {
 
@@ -19,9 +21,14 @@ export default Component.extend( {
 	// currentMeetingPlaces: 0,
 	curRegion: 0,
 	curCircle: 0,
+	curStatus: 2,
+	curStatusChanged: false,
 	curBudgetPercent: 100,
 	// TODO: 暂时留着，以后可能去掉
-	allProductInfo: computed( "productQuotas", "updateAllProductInfo",function () {
+	curRegionArr: computed( function () {
+		return ["全部", "会东市", "会西市", "会南市"]
+	} ),
+	allProductInfo: computed( "productQuotas", "updateAllProductInfo", function () {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
 
@@ -57,8 +64,6 @@ export default Component.extend( {
 		} else {
 			return this.budgetPreset.get( "firstObject.initBudget" )
 		}
-
-
 	} ),
 	allMeetingPlaces: computed( "quota", function () {
 		return this.quota.get( "meetingPlaces" )
@@ -79,23 +84,36 @@ export default Component.extend( {
 	} ),
 	circleSize: A( ["42", "58"] ),
 	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
-	// ucbCircleColor: A( ["#8777D9", "#FFC400", " #57D9A3", "#dfe1e6"] ),
+	ucbCircleColor: A( ["#8777D9", "#FFC400", " #57D9A3", "#dfe1e6"] ),
+	ucbHtmlSafeCircleColor: A( [htmlSafe( "background-color: #8777D9" ), htmlSafe( "background-color: #FFC400" ),
+		htmlSafe( "background-color: #57D9A3" ), htmlSafe( "background-color: #dfe1e6" )] ),
+	// circleProductColorForUCB: computed(function),
 	circleProductColor: computed( function () {
 		return this.getProductCircleColor()
 	} ),
-	circleBudgetColor: computed( function () {
-		return this.getBudgetCircleColor()
+	circlebudgetColorOrigin: computed( function() {
+		let originColor = this.getBudgetCircleColor(),
+			htmlSafeColor = originColor.map( ele=> {
+				return htmlSafe( "background-color: " + ele )
+			} )
+
+		return {
+			originColor,
+			htmlSafeColor
+		}
 	} ),
+	circleBudgetColor: alias( "circlebudgetColorOrigin.originColor" ),
+	circleBudgetColorSafe: alias( "circlebudgetColorOrigin.htmlSafeColor" ),
 	circleProductData: computed( function () {
 		return this.getProductBudgetData()
 	} ),
 	circleBudgetData: computed( function () {
 		return this.getResourceBudgetData()
 	} ),
-	legendProductBudget: computed( function() {
+	legendProductBudget: computed( function () {
 		return this.circleProductData
 	} ),
-	legendResourceBudget: computed( function() {
+	legendResourceBudget: computed( function () {
 		return this.circleBudgetData
 	} ),
 	labelEmphasis: false,
@@ -137,7 +155,18 @@ export default Component.extend( {
 				detail: "请输入数字。"
 			} )
 			return false
+		} else if ( String( input ).indexOf( "." ) !== -1 ){
+
+			this.set( "warning", {
+				open: true,
+				title: "非法值警告",
+				detail: "请输入整数。"
+			} )
+			return false
+
 		}
+
+
 		return true
 	},
 	getProductCircleColor() {
@@ -280,6 +309,10 @@ export default Component.extend( {
 		set( this, "legendProductBudget", arrL )
 	},
 	actions: {
+		selectCurStatus( status ) {
+			this.set( "curStatus", status )
+			this.toggleProperty( "curStatusChanged" )
+		},
 		selectResource( rs ) {
 			set( this, "curResource", rs )
 			window.console.log( "当前代表", this.curResource.get( "name" ) )

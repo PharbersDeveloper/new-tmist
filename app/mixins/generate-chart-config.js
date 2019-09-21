@@ -27,12 +27,11 @@ export default Mixin.create( {
 						name: "",
 						type: "pie",
 						radius: ["48", "64"],
-						avoidLabelOverlap: false,
+						avoidLabelOverlap: true,
 						hoverOffset: 3,
 						labelLine: {
-							normal: {
-								show: true
-							}
+							length: 8,
+							length2: 0
 						},
 						label: {
 							color: "#7A869A",
@@ -66,7 +65,7 @@ export default Mixin.create( {
 						axisLine: {
 							show: true,
 							lineStyle: {
-								type: "dotted",
+								type: "solid",
 								color: "#DFE1E6"
 							}
 						},
@@ -161,15 +160,23 @@ export default Mixin.create( {
 						backgroundColor: "rgba(9,30,66,0.54)"
 					},
 					legend: {
-						icon: "circle",
+						// icon: "circle",
 						show: true,
 						x: "center",
 						y: "bottom",
 						orient: "horizontal",
+						itemGap: 24,
+						itemHeight: 8,
+						itemWidth: 12,
 						textStyle: {
 							fontSize: 14,
 							color: "#7A869A"
-						}
+						},
+						data:[
+							{name: "销售额",icon: "circle"},
+							{name: "指标",icon: "circle"},
+							{name: "指标达成率",icon: "line"}
+						]
 					},
 					series: [{
 						type: "bar",
@@ -235,7 +242,7 @@ export default Mixin.create( {
 					axisLine: {
 						show: true,
 						lineStyle: {
-							type: "dotted",
+							type: "solid",
 							color: "#DFE1E6"
 						}
 					},
@@ -405,12 +412,11 @@ export default Mixin.create( {
 						name: "",
 						type: "pie",
 						radius: ["84", "100"],
-						avoidLabelOverlap: false,
+						avoidLabelOverlap: true,
 						hoverOffset: 3,
 						labelLine: {
-							normal: {
-								show: true
-							}
+							length: 9,
+							length2: 0
 						},
 						label: {
 							color: "#7A869A",

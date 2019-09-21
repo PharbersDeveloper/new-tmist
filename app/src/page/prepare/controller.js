@@ -6,7 +6,8 @@ export default Controller.extend( {
 	gen: service( "service/gen-data" ),
 	deploy( project ) {
 		this.gen.genPeriodWithProject( project ).then( x => {
-			this.transitionToRoute( "page.project.period", project.id, x.id )
+			window.location = "/project/" + project.id + "/period/" + x.id
+			// this.transitionToRoute( "page.project.period", project.id, x.id )
 		} )
 	},
 	curProject: computed( function() {
@@ -26,21 +27,35 @@ export default Controller.extend( {
 
 		},
 		startDeploy( proposal ) {
-			this.set( "startDeployConfirm", {
-				open: false
-			} )
-			// old project status : 1
-			if ( this.curProject ) {
-				this.set( "curProject.status", 1 )
-				this.curProject.save()
-			}
-
 			this.gen.genProjectWithProposal( proposal ).then( x => {
 				this.deploy( x )
 			} )
 		},
 		continueDeploy( aProject ) {
-			this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get( "id" ) )
+			if ( this.model.periodsLength === aProject.get( "current" ) ) {
+				this.transitionToRoute( "page.project.result" , aProject.get( "id" ) )
+			} else {
+				this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get( "id" ) )
+
+			}
+
+		},
+		startAgainDeploy( proposal ) {
+			// old project status : 1
+			if ( this.curProject ) {
+				this.curProject.destroyRecord()
+				// this.set( "curProject.status", 1 )
+				// this.curProject.save()
+			}
+
+			this.set( "startDeployConfirm", {
+				open: false
+			} )
+
+			this.gen.genProjectWithProposal( proposal ).then( x => {
+				this.deploy( x )
+			} )
+			// this.actions.startDeploy( proposal )
 		}
 	}
 } )
