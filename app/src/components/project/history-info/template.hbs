@@ -104,25 +104,30 @@
 					{{/if}}
 				</td>
 				<td class="px-0 border-0 text-center px-0" local-class="fix-click-part" style="width: 138px;">
+					{{#bp-button click=(action "exportInput" pr.project)}}
+						{{bp-icon icon="export" local-class="icon"}}导出输入
+					{{/bp-button}}
+				</td>
+				<td class="px-0 border-0 text-center px-0" local-class="fix-click-part" style="width: 138px;">
 					
 					{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
-					{{#bp-layout direction="row" }}
-						{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
-							{{#dd.button }}
-								导出
-								{{bp-icon icon='down'}}
-							{{/dd.button}}
-							{{#dd.menu as |menu|}}
-								{{#menu.option}}测试综合表现{{/menu.option}}
-								{{#menu.option}}周期销售结果{{/menu.option}}
-								{{#menu.option}}决策回顾{{/menu.option}}
-							{{/dd.menu}}
-						{{/bp-dropdown}}
-					{{/bp-layout}}
+						{{#bp-layout direction="row" }}
+							{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+								{{#dd.button }}
+									导出
+									{{bp-icon icon='down'}}
+								{{/dd.button}}
+								{{#dd.menu as |menu|}}
+									{{#menu.option}}测试综合表现{{/menu.option}}
+									{{#menu.option}}周期销售结果{{/menu.option}}
+									{{#menu.option}}决策回顾{{/menu.option}}
+								{{/dd.menu}}
+							{{/bp-dropdown}}
+						{{/bp-layout}}
 					{{else if (bp-eq provious.firstObject.proposal.case "ucb")}}
-							{{#bp-button click=(action "exportReport" pr.project)}}
-								{{bp-icon icon="export" local-class="icon"}}导出数据
-							{{/bp-button}}
+						{{#bp-button click=(action "exportReport" pr.project)}}
+							{{bp-icon icon="export" local-class="icon"}}导出数据
+						{{/bp-button}}
 					{{/if}}
 				</td>
 				{{!-- {{/bp-layout}} --}}
