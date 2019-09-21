@@ -1,7 +1,7 @@
 import Component from "@ember/component"
 import { A } from "@ember/array"
 import { isEmpty } from "@ember/utils"
-import EmberObject from "@ember/object"
+// import EmberObject from "@ember/object"
 import { htmlSafe } from "@ember/template"
 import GenerateCondition from "new-tmist/mixins/generate-condition"
 import GenerateChartConfig from "new-tmist/mixins/generate-chart-config"
@@ -262,7 +262,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
 					sortable: true,
-					width: 64
+					width: 84
 				}, {
 					label: `指标贡献率<br />${time}`,
 					valuePath: "quota_contri",
@@ -304,7 +304,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
 					sortable: true,
-					width: 100
+					width: 110
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
@@ -333,7 +333,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
 					sortable: true,
-					width: 64
+					width: 84
 				}, {
 					label: "药品准入情况",
 					valuePath: "status",
@@ -359,7 +359,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "quota_rate",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `销售额同比增长<br />${time}`,
@@ -373,7 +373,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 120
 				}, {
 					label: `销售额贡献率<br />${time}`,
@@ -381,7 +381,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
 					sortable: true,
-					width: 100
+					width: 110
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
@@ -419,7 +419,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
 					sortable: true,
-					width: 64
+					width: 84
 				}, {
 					label: `指标贡献率<br />${time}`,
 					valuePath: "quota_contri",
@@ -461,7 +461,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
 					sortable: true,
-					width: 100
+					width: 110
 				}, {
 					label: `YTD销售额<br />${time}`,
 					valuePath: "ytd_sales",
