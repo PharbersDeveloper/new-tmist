@@ -359,7 +359,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "quota_rate",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 100
 				}, {
 					label: `销售额同比增长<br />${time}`,
@@ -373,7 +373,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					valuePath: "sales_growth",
 					align: "left",
 					cellComponent: "common/table/decimal-to-percentage",
-					// sortable: true,
+					sortable: true,
 					width: 120
 				}, {
 					label: `销售额贡献率<br />${time}`,
