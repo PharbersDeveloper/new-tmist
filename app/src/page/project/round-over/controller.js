@@ -87,6 +87,9 @@ export default Controller.extend( {
 			// this.genDownloadUrl()
 			this.exportService.exportReport( this.model.project, this.model.project.get( "periods" ).length )
 		},
+		exportInput() {
+			this.exportService.exportInput( this.model.project, this.model.project.get( "periods" ).length )
+		},
 		toIndex() {
 			if ( localStorage.getItem( "isUcb" ) === "1" ) {
 				window.location = "/ucbprepare"

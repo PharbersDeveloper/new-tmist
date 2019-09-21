@@ -9,6 +9,9 @@ export default Component.extend( {
 		exportReport( project ) {
 			this.exportService.exportReport( project, project.get( "periods" ).length )
 		},
+		exportInput( project ) {
+			this.exportService.exportInput( project, project.get( "periods" ).length )
+		},
 		performance() {
 
 			this.set( "performance", {

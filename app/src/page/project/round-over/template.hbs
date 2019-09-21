@@ -66,37 +66,23 @@
 				周期销售报告
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout local-class="examine-export" cross="center" direction="row" 
-			cross="center" main="center"}}
+		{{#bp-layout local-class="examine-export" cross="center" direction="row" cross="center" main="center"}}
 			{{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
-				{{!-- {{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
-					{{#dd.button }}
-						查看
-						{{bp-icon icon='down'}}
-					{{/dd.button}}
-					{{#dd.menu as |menu|}}
-						{{#menu.option}}测试综合表现{{/menu.option}}
-						{{#menu.option}}周期销售结果{{/menu.option}}
-						{{#menu.option}}决策回顾{{/menu.option}}
-					{{/dd.menu}}
-				{{/bp-dropdown}} --}}
+			{{/bp-layout}}
+			{{#bp-layout local-class="export" direction="row"}}
+				{{#bp-button click=(action "exportInput" pr.project)}}
+					{{bp-icon icon="export" local-class="icon"}}导出输入
+				{{/bp-button}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{#bp-layout local-class="examine-export" cross="center" direction="row" cross="center" main="center"}}
+			{{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
 			{{/bp-layout}}
 			{{#bp-layout local-class="export" direction="row"}}
 				{{#bp-button click=(action "exportReport")}}
 					{{bp-icon icon='export'}}
 					<span class="ml-1">导出报告</span>
 				{{/bp-button}}
-				{{!-- {{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
-					{{#dd.button }}
-						导出
-						{{bp-icon icon='down'}}
-					{{/dd.button}}
-					{{#dd.menu as |menu|}}
-						{{#menu.option}}测试综合表现{{/menu.option}}
-						{{#menu.option}}周期销售结果{{/menu.option}}
-						{{#menu.option}}决策回顾{{/menu.option}}
-					{{/dd.menu}}
-				{{/bp-dropdown}} --}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
