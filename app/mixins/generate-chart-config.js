@@ -12,7 +12,7 @@ export default Mixin.create( {
 				{
 					name: "tmcircleproduct0",
 					id: chartId,
-					color: ["#73ABFF", "#79E2F2","#57D9A3","#FFC400","#FF8F73"," #998DD9"],
+					color: ["#73ABFF", "#79E2F2","#57D9A3","#FFC400"," #998DD9","#FF8F73"],
 					tooltip: {
 						show: true,
 						trigger: "item",
@@ -400,7 +400,9 @@ export default Mixin.create( {
 				{
 					name: "tmResultProducts",
 					id: chartId,
-					color: ["#73ABFF", "#FFC400", "#57D9A3"],
+					// color: ["#73ABFF", "#FFC400", "#57D9A3"],
+					color: ["#73ABFF", "#79E2F2","#FFC400"," #998DD9","#FF8F73"],
+
 					tooltip: {
 						show: true,
 						trigger: "item",
