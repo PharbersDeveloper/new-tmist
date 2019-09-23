@@ -32,8 +32,18 @@ export default Service.extend( {
 				window.console.log( "failed. cause:", error )
 			} )
 	},
-	genDownloadUrl( project, phase ) {
-		this.get( "ajax" ).request( `/export/${project.get( "id" )}/phase/${phase}`, {
+	genDownloadUrl( project, phase ,isReport ) {
+		let reqUrl = "",
+			fileName = ""
+
+		if ( isReport ) {
+			reqUrl = `/export/${project.get( "id" )}/phase/${phase}`
+			fileName = "历史销售报告"
+		} else {
+			reqUrl = `/exportInput/${project.get( "id" )}/phase/${phase}`
+			fileName = "数据输入报告"
+		}
+		this.get( "ajax" ).request( reqUrl, {
 			headers: {
 				"dataType": "json",
 				"Content-Type": "application/json",
@@ -48,11 +58,14 @@ export default Service.extend( {
 
 			window.console.log( res )
 			window.console.log( "Success!" )
-			this.downloadURI( { url: url, name: "历史销售报告" } )
+			this.downloadURI( { url: url, name: fileName } )
 			// return { url: url, name: downloadUrl }
 		} )
 	},
 	exportReport( project, phase ) {
-		this.genDownloadUrl( project, phase )
+		this.genDownloadUrl( project, phase ,true )
+	},
+	exportInput( project, phase ) {
+		this.genDownloadUrl( project, phase ,false )
 	}
 } )
