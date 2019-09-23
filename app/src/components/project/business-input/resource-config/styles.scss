@@ -1,3 +1,7 @@
+:global(.resource-config-wrapper) {
+	border-bottom: 1px solid #fafbfc;
+}
+
 .resource-list-outer {
 	width: 368px;
 	height: fit-content;
@@ -8,7 +12,7 @@
 		font-size: 14px;
 		color: #172b4d;
 		text-align: left;
-		border-bottom: 1px solid #fafbfc;
+		// border-bottom: 1px solid #fafbfc;
 		border-radius: 0;
 		cursor: pointer;
 
@@ -82,8 +86,9 @@
 
 	.representative-info {
 		height: fit-content;
-		width: 352px;
+		width: 100%;
 		padding-top: 12px;
+		border-radius: 4px;
 
 		.remain-time {
 			width: 100%;
