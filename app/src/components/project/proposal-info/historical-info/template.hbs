@@ -50,30 +50,8 @@
 								{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep product0Legend.firstObject.phase)}}
 							{{/bp-layout}}
 							{{bp-row direction='col' rowModel=tmProductCircle0 conditions=tmProductCircle0Condition onQueryReady=(action 'dealProd0Data')}}
-							{{#bp-layout direction="row" main='center' local-class="circle-bottom"}}
-								<div>
-									{{#each product0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='point' style={{prod.color}}></span>
-											<span local-class='name' class="mr-3">{{prod.name}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each product0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each product0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value'>¥{{format-number prod.sales 0}}</span>
-										</p>
-									{{/each}}
-								</div>
-							{{/bp-layout}}
+							
+							{{project/proposal-info/historical-info/circle-legend product0Legend}}
 						</div>
 						<div local-class='circle-right' class="bg-white pb-4">
 							{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
@@ -81,30 +59,9 @@
 								{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep product1Legend.firstObject.phase)}}
 							{{/bp-layout}}
 							{{bp-row direction='col' rowModel=tmProductCircle1 conditions=tmProductCircleCondition onQueryReady=(action 'dealProd1Data')}}
-							{{#bp-layout direction="row" main='center' local-class="circle-bottom"}}
-								<div>
-									{{#each product1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='point' style={{prod.color}}></span>
-											<span local-class='name' class="mr-3">{{prod.name}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each product1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each product1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value'>¥{{format-number prod.sales 0}}</span>
-										</p>
-									{{/each}}
-								</div>
-							{{/bp-layout}}
+
+							{{project/proposal-info/historical-info/circle-legend product1Legend}}
+
 						</div>
 					{{/bp-layout}}
 					{{#bp-layout direction="col" classNames="mb-2 bg-white pb-4"}}
@@ -167,60 +124,16 @@
 							{{/bp-layout}}
 							{{bp-row direction='col' rowModel=tmRepCircle0 conditions=tmRepCircle0Condition onQueryReady=(action 'dealRep0Data')}}
 
-							{{#bp-layout direction="row" main='center' local-class="circle-bottom"}}
-								<div>
-									{{#each rep0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='point' style={{prod.color}}></span>
-											<span local-class='name' class="mr-3">{{prod.name}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each rep0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each rep0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value'>¥{{format-number prod.sales 0}}</span>
-										</p>
-									{{/each}}
-								</div>
-							{{/bp-layout}}
+							{{project/proposal-info/historical-info/circle-legend rep0Legend}}
+
 						</div>
 						<div local-class='circle-right'>
 							{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
 								{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep rep1Legend.firstObject.phase)}}
 							{{/bp-layout}}
 							{{bp-row direction='col' rowModel=tmRepCircle1 conditions=tmRepCircleCondition onQueryReady=(action 'dealRep1Data')}}
-							{{#bp-layout direction="row" main='center' local-class="circle-bottom"}}
-								<div>
-									{{#each rep1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='point' style={{prod.color}}></span>
-											<span local-class='name' class="mr-3">{{prod.name}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each rep1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each rep1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value'>¥{{format-number prod.sales 0}}</span>
-										</p>
-									{{/each}}
-								</div>
-							{{/bp-layout}}
+							
+							{{project/proposal-info/historical-info/circle-legend rep1Legend}}
 						</div>
 					{{/bp-layout}}
 					{{#bp-layout direction="col" classNames="mb-2 bg-white pb-4"}}
@@ -341,30 +254,9 @@
 								{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Hosp0Legend.firstObject.phase)}}
 							{{/bp-layout}}
 							{{bp-row direction='col' rowModel=tmHosCircle0 conditions=tmHosCircle0Condition onQueryReady=(action 'dealHosp0Data')}}
-							{{#bp-layout direction="row" main='center' local-class="circle-bottom"}}
-								<div>
-									{{#each Hosp0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='point' style={{prod.color}}></span>
-											<span local-class='name' class="mr-3">{{prod.name}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each Hosp0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each Hosp0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value'>¥{{format-number prod.sales 0}}</span>
-										</p>
-									{{/each}}
-								</div>
-							{{/bp-layout}}
+							
+							{{project/proposal-info/historical-info/circle-legend Hosp0Legend}}
+
 						</div>
 						<div local-class='circle-right'>
 							{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
@@ -372,30 +264,9 @@
 								{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Hosp1Legend.firstObject.phase)}}
 							{{/bp-layout}}
 							{{bp-row direction='col'  rowModel=tmHosCircle1 conditions=tmHosCircleCondition  onQueryReady=(action 'dealHosp1Data')}}
-							{{#bp-layout direction="row" main='center' local-class="circle-bottom"}}
-								<div>
-									{{#each Hosp1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='point' style={{prod.color}}></span>
-											<span local-class='name' class="mr-3">{{prod.name}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each Hosp1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each Hosp1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value'>¥{{format-number prod.sales 0}}</span>
-										</p>
-									{{/each}}
-								</div>
-							{{/bp-layout}}
+							
+							{{project/proposal-info/historical-info/circle-legend Hosp1Legend}}
+
 						</div>
 					{{/bp-layout}}
 					{{#bp-layout direction="col" classNames="mb-2 bg-white pb-4"}}
@@ -517,30 +388,9 @@
 								{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep Reg0Legend.firstObject.phase)}}
 							{{/bp-layout}}
 							{{bp-row direction='col' rowModel=tmRegCircle0 conditions=tmRegCircle0Condition  onQueryReady=(action 'dealReg0Data')}}
-							{{#bp-layout direction="row" main='center' local-class="circle-bottom"}}
-								<div>
-									{{#each Reg0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='point' style={{prod.color}}></span>
-											<span local-class='name' class="mr-3">{{prod.name}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each Reg0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each Reg0Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value'>¥{{format-number prod.sales 0}}</span>
-										</p>
-									{{/each}}
-								</div>
-							{{/bp-layout}}
+							
+							{{project/proposal-info/historical-info/circle-legend Reg0Legend}}
+
 						</div>
 						<div local-class='circle-right'>
 							{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
@@ -549,30 +399,9 @@
 
 							{{/bp-layout}}
 							{{bp-row direction='col'  rowModel=tmRegCircle1 conditions=tmRegCircleCondition onQueryReady=(action 'dealReg1Data')}}
-							{{#bp-layout direction="row" main='center' local-class="circle-bottom"}}
-								<div>
-									{{#each Reg1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='point' style={{prod.color}}></span>
-											<span local-class='name' class="mr-3">{{prod.name}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each Reg1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value' class="mr-2">{{bp-percent prod.salesRate}}</span>
-										</p>
-									{{/each}}
-								</div>
-								<div>
-									{{#each Reg1Legend as |prod|}}
-										<p local-class='circle-legend' class="mb-1">
-											<span local-class='value'>¥{{format-number prod.sales 0}}</span>
-										</p>
-									{{/each}}
-								</div>
-							{{/bp-layout}}
+							
+							{{project/proposal-info/historical-info/circle-legend Reg1Legend}}
+
 						</div>
 					{{/bp-layout}}
 					{{#bp-layout direction="col" classNames="mb-2 bg-white pb-4"}}

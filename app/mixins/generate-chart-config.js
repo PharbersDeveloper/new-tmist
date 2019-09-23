@@ -35,7 +35,10 @@ export default Mixin.create( {
 						},
 						label: {
 							color: "#7A869A",
-							formatter: "{b}  {d}%"
+							formatter:function( data ) {
+								return data.name + " " + data.percent.toFixed( 1 ) + "%"
+							}
+							// formatter: "{b}  {d}%"
 						}
 					}]
 				}
@@ -411,7 +414,7 @@ export default Mixin.create( {
 					series: [{
 						name: "",
 						type: "pie",
-						radius: ["84", "100"],
+						radius: [0, "100"],
 						avoidLabelOverlap: true,
 						hoverOffset: 3,
 						labelLine: {
@@ -420,7 +423,10 @@ export default Mixin.create( {
 						},
 						label: {
 							color: "#7A869A",
-							formatter: "{b}  {d}%"
+							formatter:function( data ) {
+								return data.name + " " + data.percent.toFixed( 1 ) + "%"
+							}
+							// formatter: "{b}  {d}%"
 						}
 					}]
 				}
