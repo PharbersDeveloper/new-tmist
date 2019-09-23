@@ -26,7 +26,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		if ( this.yoy < 0 ) {
 			return "priority-low"
 		} else if ( this.yoy > 0 ) {
-			return "increase"
+			return "priority-high"
 		} else {
 			return "priority-flat"
 		}
@@ -35,7 +35,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		if ( this.mom < 0 ) {
 			return "priority-low"
 		} else if ( this.mom > 0 ) {
-			return "increase"
+			return "priority-high"
 		} else {
 			return "priority-flat"
 		}
