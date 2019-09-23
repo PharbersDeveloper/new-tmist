@@ -37,7 +37,6 @@ export default Mixin.create( {
 	generateProductCircleCondition( proposalCase, phase ) {
 
 		let searchRuls = [],
-			// jobId = this.getJobId(),
 			otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -69,6 +68,7 @@ export default Mixin.create( {
 				"model": "tmrs_new",
 				"query": {
 					"search": {
+						// "sort":["product.keyword"],
 						"and": searchRuls
 					},
 					"aggs": [
