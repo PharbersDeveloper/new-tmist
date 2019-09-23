@@ -81,6 +81,12 @@
 
 				.col {
 					flex: 1;
+
+					svg {
+						height: 16px;
+						width: 16px;
+						margin-top: 4px;
+					}
 				}
 
 				.row-1 {
