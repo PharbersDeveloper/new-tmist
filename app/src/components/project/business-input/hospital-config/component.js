@@ -14,6 +14,11 @@ export default Component.extend( {
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
+	popperOption: {
+			keepTogether: { enabled: false },
+			preventOverflow: { enabled: false },
+			arrow: { enabled: true },
+	},
 	hospitalDrugstore: computed( function() {
 		let arr = ["省人民医院", "会南市五零一医院", "会东市医科大学附属第二医院"],
 			hospitalName = this.hospital.get( "name" )

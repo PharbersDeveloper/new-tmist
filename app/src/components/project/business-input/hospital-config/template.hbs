@@ -4,26 +4,43 @@
 		
 		{{#if (bp-eq quizs.firstObject.preset.phase 0)}}
 		{{#bp-layout direction="row" main="start" cross="center"
-				classNames="ml-4"
-			 local-class=(if (bp-eq quizs.firstObject.preset.phase 0) "click-part" "clicked-part")
-			 click=(if (bp-eq quizs.firstObject.preset.phase 0) (action "changedResource" sortQuizs.firstObject.answer)) }}
-			 {{!-- click=(action "changedResource" sortQuizs.firstObject.answer) }} --}}
-				{{#bp-layout direction="row" local-class="check-box" classNames="mr-3"}}
-					{{#if hasResource}}
-					{{!-- {{bp-icon icon="check-circle" }} --}}
-							{{bp-icon icon='hospital-checked'}}
-						{{!-- {{else}}
-							{{bp-icon icon='hospital-checked-disabled'}} --}}
-					{{else}}
-						{{bp-icon icon='hospital-unchecked'}}
-					{{/if}}
-				{{/bp-layout}}	
+			classNames="ml-4 click-part"
+			local-class=(if (bp-eq quizs.firstObject.preset.phase 0) "click-part" "clicked-part")
+			click=(if (bp-eq quizs.firstObject.preset.phase 0) (action "changedResource" sortQuizs.firstObject.answer)) }}
+			{{!-- click=(action "changedResource" sortQuizs.firstObject.answer) }} --}}
+			{{#bp-layout direction="row" local-class="check-box" classNames="mr-3"}}
+				{{#if hasResource}}
+				{{!-- {{bp-icon icon="check-circle" }} --}}
+						{{bp-icon icon='hospital-checked'}}
+					{{!-- {{else}}
+						{{bp-icon icon='hospital-checked-disabled'}} --}}
+				{{else}}
+					{{bp-icon icon='hospital-unchecked'}}
+				{{/if}}
+			{{/bp-layout}}	
+			{{!-- {{#if (bp-eq index 0)}}
+				{{log popperOption}}
+				{{#attach-popover class="ember-attacher-popper popover-outer"
+					modifiers=popperOption
+					arrow=true
+					flip="top"
+					placement="top"
+					hideOn='click'
+					showOn='click'
+					isShown=true
+					as |attacher|}}
+					<p>
+						Popovers and tooltips, oh my!
+					</p>
+					<button {{action attacher.hide}}>close</button>
+				{{/attach-popover}}
+			{{/if}} --}}
 		{{/bp-layout}}
 		{{/if}}
 
 		
 	{{#bp-layout direction="row" main="start" cross="center"
-		local-class=(if hasResource "enable-click show-part" "disable-click show-part")
+		local-class=(if hasResource "enable-click show-part" "disable-click show-part active-hover")
 		click=(if hasResource (action 'selectCurHospital' hospital.id)) 
 		classNames= (if (bp-eq quizs.firstObject.preset.phase 0) "pr-4" "px-4")}}
 		{{#if (bp-eq quizs.firstObject.preset.phase 0)}}

@@ -342,6 +342,23 @@ h5.title {
 		cursor: pointer;
 	}
 
+	.active-hover:hover {
+		span::after {
+			display: none;
+			background: #172B4D;
+			border-radius: 4px;
+			color: #ffffff;
+			content: "";
+			height: 20px;
+			width: 192px;
+			position: absolute;
+			margin-left: -20px;
+			margin-top: -24px;
+			line-height: 20px;
+			padding: 0 8px;
+			// display: inline;
+		}
+	}
 	.show-part {
 		&:hover {
 			background: #ebecf0;
@@ -415,4 +432,12 @@ h5.title {
 			}
 		}
 	}
+}
+
+:global(.popover-outer) {
+	background-color: #fff;
+	padding: 16px;
+	box-shadow: 0 0 1px 0 rgba(9,30,66,0.12), 0 8px 16px -4px rgba(9,30,66,0.25);
+	border-radius: 4px;
+	// cursor: default;
 }
