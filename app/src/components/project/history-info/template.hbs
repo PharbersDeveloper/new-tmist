@@ -103,11 +103,11 @@
 						{{!-- {{#link-to "page.project.result" pr.project.id}}周期销售报告{{/link-to}} --}}
 					{{/if}}
 				</td>
-				<td class="px-0 border-0 text-center px-0" local-class="fix-click-part" style="width: 138px;">
+				{{!-- <td class="px-0 border-0 text-center px-0" local-class="fix-click-part" style="width: 138px;">
 					{{#bp-button click=(action "exportInput" pr.project)}}
 						{{bp-icon icon="export" local-class="icon"}}导出输入
 					{{/bp-button}}
-				</td>
+				</td> --}}
 				<td class="px-0 border-0 text-center px-0" local-class="fix-click-part" style="width: 138px;">
 					
 					{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
@@ -125,9 +125,19 @@
 							{{/bp-dropdown}}
 						{{/bp-layout}}
 					{{else if (bp-eq provious.firstObject.proposal.case "ucb")}}
-						{{#bp-button click=(action "exportReport" pr.project)}}
+					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+						{{#dd.button }}
+							导出
+							{{bp-icon icon='down'}}
+						{{/dd.button}}
+						{{#dd.menu as |menu|}}
+							{{#menu.option click=(action "exportInput" pr.project)}}导出输入{{/menu.option}}
+							{{#menu.option click=(action "exportReport" pr.project)}}导出数据{{/menu.option}}
+						{{/dd.menu}}
+					{{/bp-dropdown}}
+						{{!-- {{#bp-button click=(action "exportReport" pr.project)}}
 							{{bp-icon icon="export" local-class="icon"}}导出数据
-						{{/bp-button}}
+						{{/bp-button}} --}}
 					{{/if}}
 				</td>
 				{{!-- {{/bp-layout}} --}}

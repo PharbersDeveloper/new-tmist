@@ -66,7 +66,8 @@
 				周期销售报告
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout local-class="examine-export" cross="center" direction="row" cross="center" main="center"}}
+
+		{{!-- {{#bp-layout local-class="examine-export" cross="center" direction="row" cross="center" main="center"}}
 			{{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
 			{{/bp-layout}}
 			{{#bp-layout local-class="export" direction="row"}}
@@ -74,17 +75,30 @@
 					{{bp-icon icon="export" local-class="icon"}}导出输入
 				{{/bp-button}}
 			{{/bp-layout}}
-		{{/bp-layout}}
+		{{/bp-layout}} --}}
 		{{#bp-layout local-class="examine-export" cross="center" direction="row" cross="center" main="center"}}
-			{{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
+			{{!-- {{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
 			{{/bp-layout}}
 			{{#bp-layout local-class="export" direction="row"}}
 				{{#bp-button click=(action "exportReport")}}
 					{{bp-icon icon='export'}}
 					<span class="ml-1">导出报告</span>
 				{{/bp-button}}
-			{{/bp-layout}}
+			{{/bp-layout}} --}}
+
+		{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+			{{#dd.button}}
+				导出
+				{{bp-icon icon='down'}}
+			{{/dd.button}}
+			{{#dd.menu as |menu|}}
+				{{#menu.option click=(action "exportInput" pr.project)}}导出输入{{/menu.option}}
+				{{#menu.option click=(action "exportReport")}}导出报告{{/menu.option}}
+			{{/dd.menu}}
+		{{/bp-dropdown}}
 		{{/bp-layout}}
+
+
 	{{/bp-layout}}
 	{{else if (bp-eq model.project.proposal.case "tm")}}
 		{{#bp-layout local-class="info tm-info" direction="row" classNames="bg-white p-4"}}
