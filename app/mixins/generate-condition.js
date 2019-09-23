@@ -41,9 +41,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -114,9 +114,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -187,7 +187,7 @@ export default Mixin.create( {
 						"args": [
 							{
 								"name": "product.keyword",
-								"value":  "all"
+								"value": "all"
 							},
 							{
 								"name": "指标达成率",
@@ -215,9 +215,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -278,9 +278,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -374,9 +374,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -437,9 +437,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -531,9 +531,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -595,9 +595,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -676,9 +676,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -758,9 +758,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -776,7 +776,6 @@ export default Mixin.create( {
 					"search": {
 						"and": [
 							["eq", "category", "Product"],
-							// ["eq", "job_id.keyword", jobId],
 							["eq", "product_area.keyword", productarea],
 							ids
 						]
@@ -784,27 +783,33 @@ export default Mixin.create( {
 					"aggs": [
 						{
 							"groupBy": "%2Bphase",
-							"aggs": [
-								{
-									"groupBy": "product.keyword",
-									"aggs": [
-										{
-											"agg": "sum",
-											"field": "share"
-										}
-									]
-								}
-							]
+							"aggs": [{
+								"groupBy": "product.keyword",
+								"aggs": [{
+									"agg": "sum",
+									"field": "sales"
+								}, {
+									"agg": "sum",
+									"field": "potential"
+								}]
+							}]
 						}
 					]
 				},
 				"format": [
 					{
+						"class": "addCol",
+						"args": [{
+							"name": "share",
+							"value": ["/", "sum(sales)", "sum(potential)"]
+						}]
+					},
+					{
 						"class": "pivot",
 						"args": {
 							"yAxis": "phase",
 							"xAxis": "product.keyword",
-							"value": "sum(share)",
+							"value": "share",
 							"head": "phase"
 						}
 					}
@@ -820,9 +825,9 @@ export default Mixin.create( {
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
 			ids = [
-				"or",[
-					["eq","proposal_id.keyword",proposalId],
-					["eq","project_id.keyword",projectId]
+				"or", [
+					["eq", "proposal_id.keyword", proposalId],
+					["eq", "project_id.keyword", projectId]
 				]
 			]
 
@@ -830,58 +835,56 @@ export default Mixin.create( {
 			searchRuls = [
 				["eq", "category", "Product"],
 				["eq", "phase", phase],
-				// ["eq", "job_id.keyword", jobId],
 				["eq", "product_area.keyword", productarea]
 			]
 		} else {
 			searchRuls = [
 				["eq", "category", "Product"],
 				["eq", "phase", phase],
-				// ["eq", "job_id.keyword", jobId],
 				// ["eq", "status.keyword", "已开发"],
 				["eq", "product_area.keyword", productarea]
 			]
 		}
 		searchRuls.push( ids )
+
 		return [{
 			queryAddress: this.queryAddress,
 			data: {
 				"model": "tmrs_new",
 				"query": {
 					"search": {
-						"and": searchRuls,
-						"sort": ["phase"]
+						"and": searchRuls
+						// "sort": ["phase"]
 					},
-					"aggs": [
-						{
-							"groupBy": "%2Bphase",
-							"aggs": [
-								{
-									"groupBy": "product.keyword",
-									"aggs": [
-										{
-											"agg": "sum",
-											"field": "sales"
-										}
-									]
-								}
-							]
-						}
-					]
+					"aggs": [{
+						"groupBy": "product.keyword",
+						"aggs": [{
+							"agg": "sum",
+							"field": "-sales"
+						}, {
+							"agg": "sum",
+							"field": "-potential"
+						}]
+					}]
 				},
 				"format": [
 					{
-						"class": "calcRate",
-						"args": ["sum(sales)"]
-					},
-					{
+						"class": "addOtherRow",
+						"args": {
+							"fill": "其他",
+							"keep": ["phase", "sum(potential)"],
+							"complete": "$sum(potential)",
+							"value": "sum(sales)"
+						}
+					}, {
+						"class": "addCol",
+						"args": [{
+							"name": "share",
+							"value": ["/", "sum(sales)", "sum(potential)"]
+						}]
+					}, {
 						"class": "cut2DArray",
-						"args": [
-							"product.keyword",
-							"sum(sales)",
-							"phase",
-							"rate(sum(sales))"
-						]
+						"args": ["product.keyword", "sum(sales)", "phase", "share"]
 					}
 				]
 			}
