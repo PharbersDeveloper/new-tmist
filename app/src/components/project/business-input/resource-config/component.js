@@ -7,6 +7,7 @@ import { inject as service } from "@ember/service"
 export default Component.extend( {
 	picOSS: service( "service/pic-oss" ),
 	positionalParams: ["resource", "answers", "selectResource", "resourceHospital", "curResource", "project"],
+	classNames: ["resource-config-wrapper"],
 	showContent: computed( "curResource", function() {
 		if ( !this.curResource ) {
 			return true
