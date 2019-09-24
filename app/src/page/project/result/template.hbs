@@ -1,18 +1,18 @@
 {{#common/nav-top-project proposalName=model.project.proposal.name}}
 	{{#bp-layout direction="row"}}
+	{{#if (bp-eq roundOver "false")}}
+
 		{{#if (bp-eq model.project.proposal.case "tm")}}
 			{{#bp-button local-class="btn-submit" type="primary" onClick=(action "goRoundOver")}}完成任务{{/bp-button}}
 		{{else if (bp-eq model.project.proposal.case "ucb")}}
-			{{#if (bp-eq model.project.status 1)}}
-
-				{{#if roundOver}}
-				{{else}}
+			{{#if (bp-eq model.project.status 1)}}				
 				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "goRoundOver")}}完成任务{{/bp-button}}
-				{{/if}}
 			{{else}}
 				{{#bp-button local-class="btn-submit" type="primary" onClick=(action "toNext" model.project)}}进行下个周期{{/bp-button}}
 			{{/if}}
 		{{/if}}
+	
+	{{/if}}
 	{{/bp-layout}}
 	{{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "testR")}}测试提交R{{/bp-button}} --}}
 {{/common/nav-top-project}}
@@ -27,7 +27,6 @@
 	reports=model.reports 
 	summary=model.summary
 	evaluations=model.evaluations 
-	roundOver=roundOver
 	yoy=model.yoy
 	mom=model.mom
 	goRoundOver=(action "goRoundOver")

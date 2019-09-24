@@ -6,7 +6,7 @@ export default Controller.extend( {
 	// ossService: service( "service/oss" ),
 	// ajax: service(),
 	// cookies: service(),
-	roundOver: true,
+	// roundOver: true,
 	exportService: service( "service/export-report" ),
 	// endTime: computed( "this.model.project", function () {
 	// 	let date = new Date( this.model.project.endTime ),
@@ -99,8 +99,9 @@ export default Controller.extend( {
 			// this.transitionToRoute( "/" )
 		},
 		toReport() {
-			// this.transitionToRoute( "page.project.result", this.model.project.id )
-			window.location = "/project/" + this.model.project.id + "/result"
+			window.localStorage.setItem( "roundHistory", true )
+			this.transitionToRoute( "page.project.result", this.model.project.id )
+			// window.location = "/project/" + this.model.project.id + "/result"
 		},
 		toDecisionReview() {
 			this.transitionToRoute( "page.project.review", this.model.project.id )

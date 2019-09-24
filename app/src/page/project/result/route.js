@@ -113,6 +113,7 @@ export default Route.extend( {
 
 		window.localStorage.setItem( "proposalId", model.proposal.get( "id" ) )
 		window.localStorage.setItem( "projectId", model.project.get( "id" ) )
+		this.controllerFor( "page.project.result" ).set( "roundOver", window.localStorage.getItem( "roundHistory" ) )
 		// window.localStorage.setItem( "periodId", model.period.get( "id" ) )
 	}
 } )

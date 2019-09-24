@@ -1,6 +1,6 @@
 {{#bp-layout direction="col" local-class="page-report" classNames="p-4" cross="center"}}
 
-	{{#if roundOver}}
+	{{#if (bp-eq roundOver "true")}}
 		{{#bp-layout local-class="return-round-over" classNames="pb-4" click=(action "toRoundOver")}}
 			返回
 		{{/bp-layout}}
@@ -60,22 +60,12 @@
 		{{#bp-layout direction="col" local-class="left" classNames="mr-2"}}
 			{{#bp-layout local-class="sales" classNames="bg-white mb-2" direction="row" main="between"}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
-					{{#bp-layout classNames="mb-1"}}
-						<span local-class="row-1">总体销售额</span>
-					{{/bp-layout}}
-					{{#bp-layout }}
-						{{!-- <span local-class="row-2">¥ 90,000,000</span> --}}
+						<span local-class="row-1" class="mb-3">总体销售额</span>
 						<span local-class="row-2">￥{{format-number curSalesReports.sales 0}}</span>
-					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col"}}
-					{{#bp-layout classNames="mb-1"}}
-						<span local-class="row-1">总指标达成率</span>
-					{{/bp-layout}}
-					{{#bp-layout }}
-						{{!-- <span local-class="row-2">80%</span> --}}
+						<span local-class="row-1" class="mb-3">总指标达成率</span>
 						<span local-class="row-2">{{bp-percent curSalesReports.quotaAchv 2}}</span>
-					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout local-class="growth-rate" classNames="bg-white mb-2"}}
@@ -83,7 +73,7 @@
 					{{#bp-layout classNames="mb-4"}}
 						<span local-class="row-1">销售增长率</span>
 					{{/bp-layout}}
-					{{#bp-layout }}
+					{{#bp-layout direction="row"}}
 						<span local-class="row-2" class="mr-2">{{bp-percent yoy 1}}</span>
 						{{!-- {{#if yoyFlag}} --}}
 							{{bp-icon icon=yoyFlag}}
@@ -98,7 +88,7 @@
 					{{#bp-layout classNames="mb-4"}}
 						<span local-class="row-1">销售增长率</span>
 					{{/bp-layout}}
-					{{#bp-layout }}
+					{{#bp-layout direction="row"}}
 						<span local-class="row-2" class="mr-2">{{bp-percent mom 1}}</span>
 						{{bp-icon icon=momFlag}}
 						{{!-- {{#if momFlag}}
@@ -110,41 +100,30 @@
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout local-class="sales" classNames="bg-white p-4 mb-0"}}
+			{{#bp-layout local-class="hospital-rio-people" classNames="bg-white p-4 mb-0"}}
 				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
-					{{#bp-layout classNames="mb-1"}}
-						<span local-class="row-1">新进医院数量</span>
-					{{/bp-layout}}
-					{{#bp-layout }}
+						<span local-class="row-1" class="mb-3">新进医院数量</span>
 						{{!-- <span local-class="row-2">30</span> --}}
-						<span local-class="row-2">{{format-number curSalesReports.newAccount 0}}</span>
-					{{/bp-layout}}
-				{{/bp-layout}}
-				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
-					{{#bp-layout classNames="mb-1"}}
-						<span local-class="row-1">人效</span>
-					{{/bp-layout}}
-					{{#bp-layout }}
-						{{!-- <span local-class="row-2">￥400,000</span> --}}
-						<span local-class="row-2">￥{{format-number curSalesReports.salesForceProductivity 0}}</span>
-					{{/bp-layout}}
+						<span local-class="row-2 sales-number">{{format-number curSalesReports.newAccount 0}}</span>
 				{{/bp-layout}}
 				{{!-- {{#bp-layout local-class="sales" classNames="bg-white"}} --}}
 				{{#bp-layout direction="col" main="center" cross="center"  local-class="col border-left-right"}}
-					{{#bp-layout classNames="mb-1"}}
-						<span local-class="row-1">ROI投入产出比</span>
-					{{/bp-layout}}
-					{{#bp-layout }}
+						<span local-class="row-1" class="mb-3">ROI投入产出比</span>
 						{{!-- <span local-class="row-2">30%</span> --}}
-						<span local-class="row-2">{{format-number curSalesReports.roi 2}}</span>
-					{{/bp-layout}}
+						<span local-class="row-2 sales-number">{{format-number curSalesReports.roi 2}}</span>
+				{{/bp-layout}}
+
+				{{#bp-layout direction="col" main="center" cross="center" local-class="col"}}
+						<span local-class="row-1" class="mb-3">人效</span>
+						{{!-- <span local-class="row-2">￥400,000</span> --}}
+						<span local-class="row-2 sales-number">￥{{format-number curSalesReports.salesForceProductivity 0}}</span>
 				{{/bp-layout}}
 				{{!-- {{/bp-layout}} --}}
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout local-class="right" classNames="bg-white" direction="col"}}
 			{{#bp-layout direction="row" main="between" local-class="right-header" cross="center"}}
-				{{#bp-layout tagName="h4" local-class="title" cross="center" classNames="ml-4"}}我司产品份额{{/bp-layout}}
+				{{#bp-layout tagName="h4" local-class="title" cross="center" classNames="ml-4"}}产品市场份额{{/bp-layout}}
 				{{#bp-button-group
 					class="mr-4"
 					value=buttonGroupValue 
