@@ -550,7 +550,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			this.queryData( "rep_ref" ),
 			this.queryData( "hospital_ref" )
 		] ).then( data => {
-			this.set( "productTableData", data[0] )
+			this.set( "productTableData", data[0].sort( ( a,b )=> a.product.localeCompare( b.product, "zh" ) ) )
 			this.set( "regionTableData", data[1] )
 			this.set( "representativeTableData", data[2] )
 			this.set( "hospitalTableData", data[3] )
