@@ -270,9 +270,11 @@
 									{{/if}}
 								{{/bp-layout}}
 							{{else}}
-							{{#each quizs as |quiz|}}
+							{{#each quizs as |quiz index|}}
 								{{#bp-layout local-class="line"}}
+									{{log index}}
 									{{project/business-input/hospital-config
+												index=index
 												proposal=project.proposal
 												hospital=quiz.hospital
 												validation=validation
