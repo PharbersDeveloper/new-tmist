@@ -17,7 +17,9 @@ export default Controller.extend( {
 	runtimeConfig: service( "service/runtime-config" ),
 	em: service( "emitter" ),
 	productQuotasSorted: computed( "model.productQuotas", function() {
-		return this.model.productQuotas.sortBy( "product.name" )
+		return this.model.productQuotas.sort(
+			( a,b )=> a.get( "product.name" ).localeCompare( b.get( "product.name" ), "zh" )
+		)
 	} ),
 	taskModal: false,
 	taskModalCircle: computed( function() {
