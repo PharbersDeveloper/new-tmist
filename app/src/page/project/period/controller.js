@@ -17,7 +17,9 @@ export default Controller.extend( {
 	runtimeConfig: service( "service/runtime-config" ),
 	em: service( "emitter" ),
 	productQuotasSorted: computed( "model.productQuotas", function() {
-		return this.model.productQuotas.sortBy( "product.name" )
+		return this.model.productQuotas.sort(
+			( a,b )=> a.get( "product.name" ).localeCompare( b.get( "product.name" ), "zh" )
+		)
 	} ),
 	taskModal: false,
 	taskModalCircle: computed( function() {
@@ -86,10 +88,10 @@ export default Controller.extend( {
 		let msgObj = msg.asObject()
 
 		if ( !msgObj.header ) {
-			console.log( "msg format error" )
+			window.console.log( "msg format error" )
 			return
 		} else {
-			console.log( msgObj )
+			window.console.log( msgObj )
 			if ( msgObj.payload.jobId === this.calcJobId ) {
 				if ( msgObj.payload.Status === "ERROR" ) {
 					window.console.log( msgObj.payload.Error )
@@ -105,8 +107,9 @@ export default Controller.extend( {
 							res.set( "current", res.periods.length )
 							res.save().then( () => {
 								this.set( "loadingForSubmit", false )
-								// this.transitionToRoute( "page.project.result" )
-								window.location = "/project/" + res.get( "id" ) + "/result"
+								window.localStorage.setItem( "roundHistory", false )
+								this.transitionToRoute( "page.project.result" )
+								// window.location = "/project/" + res.get( "id" ) + "/result"
 							} )
 						} )
 					} else {
@@ -121,8 +124,9 @@ export default Controller.extend( {
 							res.set( "current", res.periods.length )
 							res.save().then( () => {
 								this.set( "loadingForSubmit", false )
-								window.location = "/project/" + res.get( "id" ) + "/result"
-								// this.transitionToRoute( "page.project.result" )
+								window.localStorage.setItem( "roundHistory", false )
+								// window.location = "/project/" + res.get( "id" ) + "/result"
+								this.transitionToRoute( "page.project.result" )
 							} )
 						} )
 

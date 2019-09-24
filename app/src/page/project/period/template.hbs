@@ -352,17 +352,19 @@
 			{{#if (bp-eq model.period.phase 0)}}
 				{{#bp-layout local-class="info" direction="col"}}
 					<h2 class="mb-2">任务通知</h2>
-					<p local-class="p-1" class="mb-0">请阅读参考信息，完成周期业务决策</p>
-					<h3 class="mb-3 mt-4">任务1：区域划分</h3>
-					<p local-class="p-2" class="mb-1">请注意本周期分配完后，在后面的周期中将无法再调整人员分配</p>
+					<p local-class="p-1" class="mb-2">请阅读参考信息，完成周期业务决策</p>
+					<h3 class="mb-2 mt-4">任务1：区域划分</h3>
+					<p local-class="p-2" class="mb-2">请注意：本周期分配完后，在后面的周期中将无法再调整人员分配</p>
 					{{!-- <p local-class="p-3" class="mb-0">请注意：本周起分配完后，后面的周期中将无法再进行人员分配</p> --}}
 					<h3 class="mt-4 mb-3">任务2：周期销售指标分配</h3>
+					{{#bp-layout direction="col" classNames="mb-1"}}
 					{{#each productQuotasSorted as |pd|}}
 						{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
 							<span>{{pd.product.name}}周期总指标</span>
 							<span>￥{{format-number pd.lastQuota}}</span>
 						{{/bp-layout}}
 					{{/each}}
+					{{/bp-layout}}
 					<h3 class="mt-4 mb-3">任务3：周期销售预算分配</h3>
 					{{#bp-layout direction="row" local-class="quota" main="between"}}
 						<span>周期总预算</span>
@@ -379,12 +381,14 @@
 					{{!-- <p local-class="p-2" class="mb-1">本周期分配完后，在后面的周期中将无法再调整人员分配</p> --}}
 					{{!-- <p local-class="p-3" class="mb-0">请注意：本周起分配完后，后面的周期中将无法再进行人员分配</p> --}}
 					<h3 class="mt-4 mb-3">任务1：周期销售指标分配</h3>
+					{{#bp-layout direction="col" classNames="mb-1"}}
 					{{#each productQuotasSorted as |pd|}}
 						{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
 							<span>{{pd.product.name}}周期总指标</span>
 							<span>￥{{format-number pd.lastQuota}}</span>
 						{{/bp-layout}}
 					{{/each}}
+					{{/bp-layout}}
 					<h3 class="mt-4 mb-3">任务2：周期销售预算分配</h3>
 					{{#bp-layout direction="row" local-class="quota" main="between"}}
 						<span>周期总预算</span>

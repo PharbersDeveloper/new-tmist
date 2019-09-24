@@ -36,7 +36,7 @@
 				</td>
 				{{/if}}
 				<td class="px-0 border-0 text-left" local-class="flex-1">
-					{{#bp-layout direction="row" main="start" cross="center" local-class=(if roundOver  "total-percent-round" "total-percent") }}
+					{{#bp-layout direction="row" main="start" cross="center" local-class=(if (bp-eq roundOver "true")  "total-percent-round" "total-percent") }}
 						<p local-class="num">{{calc-quota-achv pr.reports}}</p>
 						<p local-class="unit">%</p>
 					{{/bp-layout}}

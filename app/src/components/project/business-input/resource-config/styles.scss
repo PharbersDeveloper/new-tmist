@@ -31,10 +31,22 @@
 			margin-right: 13px;
 		}
 
+		.item-left {
+			.span-1 {
+				font-size: 12px;
+				color: #7a869a;
+			}
+
+			.span-2 {
+				font-size: 16px;
+				color: #172b4d;
+			}
+		}
+
 		.item-right {
 			.badge {
-				background-color: #c2daff;
-				color: #3880f8;
+				background-color: #e1ecff;
+				color: rgba(56, 129, 255, 1);
 				font-size: 14px;
 				font-weight: 400;
 				margin-left: 4px;
@@ -46,7 +58,7 @@
 					padding-bottom: 2px;
 
 					path {
-						fill: #3880f8;
+						fill: rgba(56, 129, 255, 1);
 					}
 				}
 			}
