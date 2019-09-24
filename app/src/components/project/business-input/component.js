@@ -32,7 +32,9 @@ export default Component.extend( {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
 
-		this.get( "productQuotas" ).sortBy( "product.name" ).forEach( p => {
+		this.get( "productQuotas" ).sort(
+			( a,b )=> a.get( "product.name" ).localeCompare( b.get( "product.name" ), "zh" )
+		).forEach( p => {
 			let obj = {}
 
 			obj.name = p.get( "product.name" )
@@ -243,7 +245,9 @@ export default Component.extend( {
 	getProductBudgetData() {
 		let arr = [], all = 0, allP = []
 
-		this.get( "productQuotas" ).sortBy( "product.name" ).forEach( p => {
+		this.get( "productQuotas" ).sort(
+			( a,b )=> a.get( "product.name" ).localeCompare( b.get( "product.name" ), "zh" )
+		).forEach( p => {
 			let obj = {}
 
 			obj.name = p.get( "product.name" )
