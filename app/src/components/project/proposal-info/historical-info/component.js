@@ -25,7 +25,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		if ( isEmpty( products ) ) {
 			return products
 		}
-		return products.filterBy( "productType", 0 )
+		return products.filterBy( "productType", 0 ).sort( ( a,b )=> a.name.localeCompare( b.name, "zh" ) )
 	} ),
 	/**
 	 * @author Frank Wang
