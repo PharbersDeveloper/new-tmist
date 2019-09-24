@@ -31,7 +31,7 @@ export default Component.extend( {
 			all += this.transNumber( a.get( "visitTime" ) )
 		} )
 
-		return 100 - all
+		return all
 	} ),
 	transNumber( input ) {
 		let number = Number( input )
