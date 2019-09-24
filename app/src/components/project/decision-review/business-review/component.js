@@ -33,7 +33,9 @@ export default Component.extend( {
 	productList: computed( "products", function () {
 		let arr = []
 
-		this.products.filter( p => p.productType === 0 ).forEach( x => {
+		this.products.filter( p => p.productType === 0 ).sort(
+			( a,b )=> a.get( "name" ).localeCompare( b.get( "name" ), "zh" )
+		).forEach( x => {
 			arr.push( x )
 		} )
 		arr.unshift( { name: "全部" } )

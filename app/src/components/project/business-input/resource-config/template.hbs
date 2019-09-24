@@ -5,16 +5,28 @@
 			{{#bp-layout local-class=(if (bp-eq showContent false) "resource-item active" "resource-item") direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
 				{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
 					<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>
-					{{resource.name}}
+					{{#bp-layout direction="col"}}
+						{{resource.name}}
+
+							{{#if (bp-eq project.proposal.case "tm")}}
+								{{#bp-layout direction="row" cross="end"}}
+									<span local-class="span-1" class="mr-1">已用时间</span>
+									<span local-class="span-2">{{leftTime}}%</span>
+									{{!-- {{#bp-layout local-class="span-2"}}
+											
+									{{/bp-layout}} --}}
+									<span local-class="span-1">/100%</span>
+								{{/bp-layout}}
+								{{!-- {{#if (bp-not-eq leftTime 0 "0")}}
+														<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}剩余{{leftTime}}%</span>
+													{{else}}
+														<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+													{{/if}} --}}
+							{{/if}}
+
+					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
-					{{#if (bp-eq project.proposal.case "tm")}}
-						{{#if (bp-not-eq leftTime 0 "0")}}
-							<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}剩余{{leftTime}}%</span>
-						{{else}}
-							<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
-						{{/if}}
-					{{/if}}
 					{{#if hospitalNumber}}
 						<span local-class="badge hospital-badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
 					{{/if}}
