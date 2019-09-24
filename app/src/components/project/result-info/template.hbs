@@ -1,6 +1,6 @@
 {{#bp-layout direction="col" local-class="page-report" classNames="p-4" cross="center"}}
 
-	{{#if roundOver}}
+	{{#if (bp-eq roundOver "true")}}
 		{{#bp-layout local-class="return-round-over" classNames="pb-4" click=(action "toRoundOver")}}
 			返回
 		{{/bp-layout}}

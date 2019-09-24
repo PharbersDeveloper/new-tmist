@@ -13,15 +13,18 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	exportService: service( "service/export-report" ),
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver", "proposal"],
 	curSelPeriod: null,
-	// roundOver: computed( function () {
-	// 	let old = window.document.referrer
+	roundOver: computed( function() {
 
-	// 	if ( old.indexOf( "round-over" ) !== -1 || old.indexOf( "history" ) !== -1 ) {
-	// 		return true
-	// 	} else {
-	// 		return false
-	// 	}
-	// } ),
+		return window.localStorage.getItem( "roundHistory" )
+
+		// let old = window.document.referrer
+
+		// if ( old.indexOf( "round-over" ) !== -1 || old.indexOf( "history" ) !== -1 ) {
+		// 	return true
+		// } else {
+		// 	return false
+		// }
+	} ),
 	yoyFlag: computed( "yoy", function () {
 		if ( this.yoy < 0 ) {
 			return "priority-low"
