@@ -212,6 +212,7 @@ export default Component.extend( {
 			obj[rs.get( "id" )].name = rs.get( "name" )
 			obj[rs.get( "id" )].value = 0
 			obj[rs.get( "id" )].per = 0
+			obj[rs.get( "id" )].per = obj[rs.get( "id" )].per.toFixed( 1 )
 		} )
 
 		this.answers.forEach( a => {

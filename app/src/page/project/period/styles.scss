@@ -232,8 +232,8 @@
 		}
 
 		.p-2 {
-			font-size: 14px;
-			color: #344563;
+			font-size: 12px;
+			color: #7a869a;
 		}
 
 		.p-3 {
@@ -245,6 +245,11 @@
 			width: 200px;
 			font-size: 14px;
 			color: #344563;
+
+			span:last-child {
+				font-size: 14px;
+				color: #7a869a;
+			}
 		}
 	}
 }
