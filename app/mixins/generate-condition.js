@@ -445,13 +445,15 @@ export default Mixin.create( {
 
 		if ( isEmpty( prodName ) ) {
 			searchRuls = [
-				["eq", "hospital.keyword", hospName]
+				["eq", "hospital.keyword", hospName],
+				["eq", "category", "Hospital"]
 				// ["eq", "job_id.keyword", jobId]
 			]
 		} else {
 			searchRuls = [
 				["eq", "product", prodName],
-				["eq", "hospital.keyword", hospName]
+				["eq", "hospital.keyword", hospName],
+				["eq", "category", "Hospital"]
 				// ["eq", "job_id.keyword", jobId]
 			]
 		}

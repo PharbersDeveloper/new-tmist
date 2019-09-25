@@ -106,7 +106,8 @@
 						{{#bp-layout direction="row" cross="center" classNames="pl-4"
 							local-class=(if (bp-eq currentResource index) "resource active" "resource")
 							click=(action (mut currentResource) index )}}
-							<img src={{resource.avatar.img}} alt={{resource.name}}>
+							{{!-- <img src={{resource.avatar.img}} alt={{resource.name}}> --}}
+							<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>
 							{{#bp-layout classNames="ml-3" cross="center" tagName="span"}}{{resource.name}}{{/bp-layout}}
 						{{/bp-layout}}
 					{{/each}}

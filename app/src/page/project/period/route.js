@@ -132,6 +132,7 @@ export default Route.extend( {
 		return RSVP.hash( {
 			period: period,
 			project: project,
+			proposal: prs.load().then(),
 			hospitals: hospitals,
 			products: products,
 			resources: resources,

@@ -1,6 +1,6 @@
 {{#bp-layout direction="col" local-class="business-container" classNames="" main="center"}}
 	{{#bp-layout local-class="sales-and-budget" direction="row"  classNames="mb-4" main="center"}}
-		{{#bp-layout local-class=(if (bp-eq project.proposal.case "ucb") "flex-1 sales" "sales") classNames="bg-white mr-4" direction="col" }}
+		{{#bp-layout local-class=(if (bp-eq proposal.case "ucb") "flex-1 sales" "sales") classNames="bg-white mr-4" direction="col" }}
 			{{#bp-layout tagName="h4" classNames="py-3 pl-3 mb-0" cross="center" local-class="icon sales-header"}}
 				{{bp-icon icon="target"}}
 				药品销售指标
@@ -8,7 +8,7 @@
 			{{#bp-layout direction="row"  classNames="py-4" local-class="medic-container"}}
 				{{#bp-layout local-class="product-icon" direction="col" main="between" classNames="ml-4" }}
 					{{#each allProductInfo as |item|}}
-						{{#bp-layout direction="row" classNames=""  local-class= (if (bp-eq project.proposal.case "ucb") "icon-name-ucb" "icon-name") }}
+						{{#bp-layout direction="row" classNames=""  local-class= (if (bp-eq proposal.case "ucb") "icon-name-ucb" "icon-name") }}
 							{{bp-icon icon="product"}}{{item.name}}
 							{{!-- {{#bp-layout local-class="product-name"}}{{item.name}}{{/bp-layout}} --}}
 						{{/bp-layout}}
@@ -49,7 +49,7 @@
 				{{/each}}		 --}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout local-class=(if (bp-eq project.proposal.case "ucb") "flex-1 budget" "budget")    direction="col" classNames="bg-white"}}
+		{{#bp-layout local-class=(if (bp-eq proposal.case "ucb") "flex-1 budget" "budget")    direction="col" classNames="bg-white"}}
 			{{#bp-layout direction="row" main="between" local-class="budget-header"}}
 				{{#bp-layout tagName="h4" classNames="py-3 pl-3 mb-0" local-class="icon" cross="center"}}
 					{{bp-icon icon="target"}}
@@ -63,7 +63,7 @@
 			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-part"}}
 				{{#bp-layout local-class="circle-container" classNames="mr-2"}}
 					{{#if (bp-eq curCircle 0)}}
-						{{#if (bp-eq project.proposal.case "ucb")}}
+						{{#if (bp-eq proposal.case "ucb")}}
 							{{bp-circle eid="cricleBudget" circleData=circleProductData circleColor=ucbCircleColor circleSize=circleSize}}
 						{{else}}
 							{{bp-circle eid="cricleBudget" circleData=circleProductData circleColor=circleProductColor circleSize=circleSize}}
@@ -76,10 +76,10 @@
 					{{#if (bp-eq curCircle 0)}}
 						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
 						{{!-- <div local-class="scroll-legend"> --}}
-						<div local-class={{if (bp-eq project.proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}>
+						<div local-class={{if (bp-eq proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}>
 							{{#each legendProductBudget as |product index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
-									{{#if (bp-eq project.proposal.case "ucb")}}
+									{{#if (bp-eq proposal.case "ucb")}}
 									{{#bp-layout direction="row"}}
 											{{!-- <span local-class="legend-dot" class="mt-2 mr-2" style="background: {{get ucbCircleColor index}};"></span> --}}
 											<span local-class="legend-dot" class="mt-2 mr-2" style={{get ucbHtmlSafeCircleColor index}}></span>
@@ -106,7 +106,7 @@
 						</div>
 						{{!-- {{/bp-layout}} --}}
 					{{else}}
-					<div local-class={{if (bp-eq project.proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}>
+					<div local-class={{if (bp-eq proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}>
 						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
 							{{#each legendResourceBudget as |resBudget index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
@@ -133,7 +133,7 @@
 				{{/bp-layout}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#if (bp-eq project.proposal.case "tm")}}
+		{{#if (bp-eq proposal.case "tm")}}
 			{{#bp-layout direction="col" classNames="bg-white ml-4" local-class="meeting"}}
 				{{#bp-layout local-class="meeting-header" direction="row" cross="center"}}
 					{{#bp-layout direction="row" tagName="h4" local-class="icon" cross="center" classNames="py-3 pl-3 mb-0"}}
@@ -205,7 +205,7 @@
 					{{/bp-layout}}
 					{{/if}}
 				{{/bp-layout}}
-				{{#if (bp-eq project.proposal.case "ucb")}}
+				{{#if (bp-eq proposal.case "ucb")}}
 				{{#bp-layout direction="row" }}
 
 				{{#if (bp-eq period.phase 0)}}
@@ -280,7 +280,7 @@
 									{{log index}}
 									{{project/business-input/hospital-config
 												index=index
-												proposal=project.proposal
+												proposal=proposal
 												hospital=quiz.hospital
 												validation=validation
 												quizs=quiz.quizs
@@ -318,10 +318,10 @@
 					{{t "project.business-input.money"}}
 					{{format-number currentSalesTarget}} /
 					{{t "project.business-input.money"}}
-					{{format-number project.proposal.quota.totalQuotas}}
+					{{format-number proposal.quota.totalQuotas}}
 				</p>
 				{{#bp-progress local-class="progress" as |p|}}
-					{{p.bar value=currentSalesTarget maxValue=project.proposal.quota.totalQuotas}}
+					{{p.bar value=currentSalesTarget maxValue=proposal.quota.totalQuotas}}
 				{{/bp-progress}}
 			</div>
 		</div>
@@ -335,10 +335,10 @@
 					{{t "project.business-input.money"}}
 					{{format-number (mut currentBudget)}} /
 					{{t "project.business-input.money"}}
-					{{format-number project.proposal.quota.totalBudget}}
+					{{format-number proposal.quota.totalBudget}}
 				</p>
 				{{#bp-progress as |p|}}
-					{{p.bar value=currentBudget maxValue=project.proposal.quota.totalBudget}}
+					{{p.bar value=currentBudget maxValue=proposal.quota.totalBudget}}
 				{{/bp-progress}}
 			</div>
 		</div>
@@ -377,13 +377,13 @@
 				<p local-class="m-name" class="mb-3 ">&nbsp;</p>
 				<p local-class="info" class="mb-4">
 					{{format-number currentMeetingPlaces}} /
-					{{format-number project.proposal.quota.meetingPlaces}}
+					{{format-number proposal.quota.meetingPlaces}}
 					<span local-class="unit">
 						{{t "project.business-input.number"}}
 					</span>
 				</p>
 				{{#bp-progress as |p|}}
-					{{p.bar value=currentMeetingPlaces maxValue=project.proposal.quota.meetingPlaces}}
+					{{p.bar value=currentMeetingPlaces maxValue=proposal.quota.meetingPlaces}}
 				{{/bp-progress}}
 			</div>
 		</div>
@@ -418,7 +418,7 @@
 	{{!-- {{#bp-layout direction="col" local-class="hospital" class="mb-2"}}
 			{{#each quizs as |quiz|}}
 				{{project/business-input/hospital-config
-					proposal=project.proposal
+					proposal=proposal
 					hospital=quiz.hospital
 					validation=validation
 					quizs=quiz.quizs

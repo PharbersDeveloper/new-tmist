@@ -49,7 +49,7 @@
 							{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
 								{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep product0Legend.firstObject.phase)}}
 							{{/bp-layout}}
-							{{bp-row direction='col' rowModel=tmProductCircle0 conditions=tmProductCircle0Condition onQueryReady=(action 'dealProd0Data')}}
+							{{bp-row direction='col' rowModel=tmProductCircle0 conditions=tmProductCircle0Condition onQueryReady=(action 'dealProd0Data') outsideDealedData=dealedTmProdCircle0}}
 							
 							{{project/proposal-info/historical-info/circle-legend product0Legend}}
 						</div>
@@ -58,7 +58,7 @@
 								{{!-- {{product1Legend.firstObject.phase}} --}}
 								{{format-date-q (format-phase-date proposal.periodBase proposal.periodStep product1Legend.firstObject.phase)}}
 							{{/bp-layout}}
-							{{bp-row direction='col' rowModel=tmProductCircle1 conditions=tmProductCircleCondition onQueryReady=(action 'dealProd1Data')}}
+							{{bp-row direction='col' rowModel=tmProductCircle1 conditions=tmProductCircleCondition onQueryReady=(action 'dealProd1Data')  outsideDealedData=dealedTmProdCircle1}}
 
 							{{project/proposal-info/historical-info/circle-legend product1Legend}}
 
@@ -105,7 +105,7 @@
 						{{#bp-layout tagName='h2' cross='center' classNames='px-4 py-3 m-0' local-class='title'}}
 							{{t "project.proposal-info.historical-info.product-sale-table"}}
 						{{/bp-layout}}
-						<div class="pl-4">
+						<div class="px-4">
 							{{bp-table columns=productColumns data=productTableData fixedColumn=true height="200px"}}
 						</div>
 					</div>
@@ -235,7 +235,7 @@
 								{{/bp-dropdown}}
 							{{/bp-layout}}
 						{{/bp-layout}}
-						<div class="pl-4">
+						<div class="px-4">
 							{{bp-table columns=representativeColumns data=representativeTableData fixedColumn=true defaultSort='current_patient_num'}}
 						</div>
 					</div>
@@ -368,7 +368,7 @@
 								{{/bp-dropdown}}
 							{{/bp-layout}}
 						{{/bp-layout}}
-						<div class="pl-4">
+						<div class="px-4">
 							{{bp-table columns=hospitalColumns data=hospitalTableData fixedColumn=true height='350px' defaultSort="current_patient_num"}}
 						</div>
 					</div>
@@ -507,11 +507,10 @@
 								{{/bp-dropdown}}
 							{{/bp-layout}}
 						{{/bp-layout}}
-						<div class="pl-4">
+						<div class="px-4">
 							{{bp-table columns=regionColumns data=regionTableData fixedColumn=true}}
 						</div>
 					</div>
-
 				</div>
 			{{/if}}
 		{{/bp-layout}}

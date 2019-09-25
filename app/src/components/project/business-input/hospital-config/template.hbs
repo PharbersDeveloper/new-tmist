@@ -218,7 +218,7 @@
 						{{#bp-layout main="center" direction="row"}}
 						{{bp-input block=true 
 							value=quiz.answer.budget
-							onChange=(action "budgetValidation" quiz.answer "budget" (mut quiz.answer.budget))
+							onChange=(action "budgetValidation" quiz.answer "budget")
 							disabled=false
 							classNames="px-0 mb-2"
 							local-class="input-prepend input-money budget-input"}}

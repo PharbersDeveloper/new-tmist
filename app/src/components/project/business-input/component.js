@@ -8,7 +8,7 @@ import { alias } from "@ember/object/computed"
 
 export default Component.extend( {
 
-	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports", "budgetPreset"],
+	positionalParams: ["project", "period", "proposal","hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports", "budgetPreset"],
 	exam: service( "service/exam-facade" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function () {
@@ -380,11 +380,12 @@ export default Component.extend( {
 					curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
 
 				this.answers.forEach( a => {
-					if ( a.get( "product.id" ) === curProduct ) {
-						cur += this.transNumber( a.get( input ) )
-					}
+					// if ( a.get( "product.id" ) === curProduct ) {
+					cur += this.transNumber( a.get( input ) )
+					// }
 				} )
 
+				window.console.log( cur, this.allBudget )
 				if ( cur <= this.allBudget ) {
 
 					set( curProductInfo.firstObject, "curBudget", cur )
