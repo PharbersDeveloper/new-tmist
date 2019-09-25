@@ -64,7 +64,7 @@ export default Component.extend( {
 				} )
 				set( this, "leftTime", 0 )
 			} else {
-				set( this, "leftTime", 100 - all )
+				set( this, "leftTime", all )
 			}
 			// this.resource.get("totalTiem")
 			// set( this.resource, "totalTime", this.leftTime )

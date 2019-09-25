@@ -55,9 +55,11 @@
 	{{/bp-layout}}
 {{/bp-layout}}
 {{#if (bp-eq project.proposal.case "tm")}}
-{{#bs-collapse collapsed=showContent local-class="wrapper" classNames="pb-2 px-2"}}
-	{{#bp-layout direction="col" local-class="representative-info" classNames="bg-white px-2"}}
-		{{#bp-layout local-class="remain-time" direction="col" classNames="pb-3"}}
+{{#bs-collapse collapsed=showContent local-class="wrapper"}}
+
+{{#if (bp-not-eq hospitalList.length 0)}}
+	{{#bp-layout direction="col" local-class="representative-info" classNames="pb-2 px-2"}}
+		{{!-- {{#bp-layout local-class="remain-time" direction="col" classNames="pb-3"}}
 			{{#bp-layout direction="row" main="between"}}
 				{{#bp-layout local-class="time"}}剩余时间{{/bp-layout}}
 				{{#bp-layout local-class="percent"}}
@@ -70,14 +72,15 @@
 					{{p.bar value=leftTime maxValue=100}}
 				{{/bp-progress}}
 			{{/bp-layout}}
-		{{/bp-layout}}
-		{{#bp-layout local-class="resource-hospital" direction="col"}}
+		{{/bp-layout}} --}}
+		{{#bp-layout local-class="resource-hospital" direction="col" classNames="bg-white px-2"}}
 			{{#each hospitalList as |hospital|}}
-				{{#bp-layout direction="row" cross="center" classNames="mb-3" local-class="hospital-time"}}
+				{{#bp-layout direction="row" cross="center" class="mb-2 mt-2" local-class="hospital-time"}}
 					{{#bp-layout local-class="hospital-name"}}{{hospital.target.name}}{{/bp-layout}}
 					{{#bp-input widthSize="small" value=hospital.visitTime 
 					onChange=(action "inputVisitTime" (mut hospital.visitTime))}}{{/bp-input}}
 				{{/bp-layout}}
+
 			{{/each}}
 			
 			{{!-- {{#bp-layout direction="row" cross="center" classNames="mt-3"}}
@@ -86,6 +89,7 @@
 			{{/bp-layout}} --}}
 		{{/bp-layout}}
 	{{/bp-layout}}
+	{{/if}}
 {{/bs-collapse}}
 {{/if}}
 
