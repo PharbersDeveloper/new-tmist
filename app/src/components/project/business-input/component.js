@@ -380,11 +380,12 @@ export default Component.extend( {
 					curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
 
 				this.answers.forEach( a => {
-					if ( a.get( "product.id" ) === curProduct ) {
-						cur += this.transNumber( a.get( input ) )
-					}
+					// if ( a.get( "product.id" ) === curProduct ) {
+					cur += this.transNumber( a.get( input ) )
+					// }
 				} )
 
+				window.console.log( cur, this.allBudget )
 				if ( cur <= this.allBudget ) {
 
 					set( curProductInfo.firstObject, "curBudget", cur )
