@@ -98,8 +98,12 @@ export default Controller.extend( {
 					this.set( "loadingForSubmit", false )
 					this.toast.error( "", "计算失败，请重试", this.toastOpt )
 				} else if ( msgObj.payload.Status === "FINISH" ) {
+					// calc success
+					clearInterval( this.intervalTimer )
+					// clearTimeout( this.deleteTimer )
+
 					if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-						set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id, { reload: true } ) )
+						set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
 						this.model.project.then( res => {
 							res.set( "status", 1 )
 							res.set( "endTime", new Date().getTime() )
@@ -116,7 +120,7 @@ export default Controller.extend( {
 						// this.model.project.then(res => {
 						// 	res.set( "current",  res.periods.length )
 						// })
-						set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id, { reload: true } ) )
+						set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
 						this.model.project.then( res => {
 							// res.set( "status", 1 )
 							// res.set( "endTime", new Date().getTime() )
@@ -145,6 +149,61 @@ export default Controller.extend( {
 		// API: 参照https://emitter.io/develop/javascript/
 		// 订阅  参数：channel key，channel name，消息类型（message, error, disconnect），MessageHandel
 		this.client.Subscribe( "3-9kS0TxsJupymws2yKmXbI-x1OXu78p", "tm/", "message", this.onMessage.bind( this ) )
+	},
+	deleteTimer: null,
+	intervalTimer: null,
+	timerToCheckCalc() {
+		set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
+		// this.store.findRecord( "model/project", this.model.project.id, { reload: true } )
+
+		window.console.log( this.model.project )
+
+		this.model.project.then( project => {
+			let 	fids = project.hasMany( "finals" ).ids(),
+				fhids = fids.map( x => {
+					return "`" + `${x}` + "`"
+				} ).join( "," )
+
+			return this.store.query( "model/final", { filter: "(id,:in," + "[" + fhids + "]" + ")" } )
+		} ).then( finals => {
+			if ( finals.length === this.model.periods.length ) {
+
+				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
+					set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
+					this.model.project.then( res => {
+						res.set( "status", 1 )
+						res.set( "endTime", new Date().getTime() )
+						res.set( "lastUpdate", new Date().getTime() )
+						res.set( "current", res.periods.length )
+						res.save().then( () => {
+							this.set( "loadingForSubmit", false )
+							window.localStorage.setItem( "roundHistory", false )
+							this.transitionToRoute( "page.project.result" )
+						} )
+					} )
+				} else {
+					set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
+					this.model.project.then( res => {
+						res.set( "current", res.periods.length )
+						res.save().then( () => {
+							this.set( "loadingForSubmit", false )
+							window.localStorage.setItem( "roundHistory", false )
+							this.transitionToRoute( "page.project.result" )
+						} )
+					} )
+				}
+			} else {
+				this.clearTimer()
+			}
+		} ).catch(err => {
+			window.console.log( err )
+			this.clearTimer()
+		})
+	},
+	clearTimer() {
+		clearInterval( this.intervalTimer )
+		this.set( "loadingForSubmit", false )
+		this.toast.error( "", "计算失败，请重试", this.toastOpt )
 	},
 	transNumber( input ) {
 		let number = Number( input )
@@ -568,6 +627,10 @@ export default Controller.extend( {
 			} else {
 				this.set( "calcJobId",res.jobId )
 				window.console.log( "callR Success!" )
+
+				this.set( "intervalTimer", setInterval( this.timerToCheckCalc.bind( this ) , 1000 * 60 * 3 ) )
+				// this.set( "deleteTimer", setTimeout( this.clearTimer.bind( this ), 1000 * 60 * 3 + 1 ) )
+
 			}
 		} ).catch( err => {
 			window.console.log( "callR Failed!" )
