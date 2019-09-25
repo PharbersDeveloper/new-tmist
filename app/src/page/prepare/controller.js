@@ -27,11 +27,13 @@ export default Controller.extend( {
 
 		},
 		startDeploy( proposal ) {
+			window.localStorage.setItem( "roundHistory", false )
 			this.gen.genProjectWithProposal( proposal ).then( x => {
 				this.deploy( x )
 			} )
 		},
 		continueDeploy( aProject ) {
+			window.localStorage.setItem( "roundHistory", false )
 			if ( this.model.periodsLength === aProject.get( "current" ) ) {
 				this.transitionToRoute( "page.project.result" , aProject.get( "id" ) )
 			} else {
@@ -41,6 +43,7 @@ export default Controller.extend( {
 
 		},
 		startAgainDeploy( proposal ) {
+			window.localStorage.setItem( "roundHistory", false )
 			// old project status : 1
 			if ( this.curProject ) {
 				this.curProject.destroyRecord()
