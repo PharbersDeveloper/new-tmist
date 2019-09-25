@@ -136,7 +136,7 @@
 
 		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
 	{{/bp-layout}} --}}
-	{{#common/nav-top-project proposalName=model.project.proposal.name  periodName=model.period.name
+	{{#common/nav-top-project proposalName=model.proposal.name  periodName=model.period.name
 		saveInputsWhenQuitModal=(action "saveInputsWhenQuitModal")}}
 		{{#bp-layout direction="row"}}
 				{{#bp-button local-class="btn-submit" onClick=(action "saveInputs") classNames="mr-1"}}保存{{/bp-button}}
@@ -160,7 +160,7 @@
 			{{/bp-layout}}
 			{{!-- </li> --}}
 			{{!-- <li local-class='nav-item'> --}}
-			{{#if (bp-eq model.project.proposal.case "tm")}}
+			{{#if (bp-eq model.proposal.case "tm")}}
 			{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq currentTab 1) "active nav-item" "nav-item")}}
 				{{#bp-button classNames="nav-link bg-white" onClick=(action (mut currentTab) 1) local-class=(if (bp-eq currentTab 1) "active")}}
 					{{t "project.scenario-management"}}
@@ -187,6 +187,7 @@
 			{{#if (bp-eq currentTab 0)}}
 				{{project/business-input
 						project=model.project
+						proposal=model.proposal
 						period=model.period
 						hospitals=model.hospitals
 						products=model.products
@@ -215,7 +216,7 @@
 			{{#if (bp-eq currentTab 2)}}
 				{{!-- {{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}} --}}
 				{{project/decision-review 
-					proposal=model.project.proposal 
+					proposal=model.proposal 
 					project=model.project 
 					period=model.period
 					hospitals=model.hospitals
@@ -228,7 +229,7 @@
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}
 				{{project/proposal-info 
-					proposal=model.project.proposal 
+					proposal=model.proposal 
 					project=model.project
 					reports=model.presets
 					kpis=model.kpiInfo

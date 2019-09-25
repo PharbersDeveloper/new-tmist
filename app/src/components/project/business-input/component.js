@@ -8,7 +8,7 @@ import { alias } from "@ember/object/computed"
 
 export default Component.extend( {
 
-	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports", "budgetPreset"],
+	positionalParams: ["project", "period", "proposal","hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports", "budgetPreset"],
 	exam: service( "service/exam-facade" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function () {
