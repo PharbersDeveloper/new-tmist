@@ -25,7 +25,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		if ( isEmpty( products ) ) {
 			return products
 		}
-		return products.filterBy( "productType", 0 ).sort( ( a,b )=> a.name.localeCompare( b.name, "zh" ) )
+		return products.filterBy( "productType", 0 ).sort( ( a, b ) => a.name.localeCompare( b.name, "zh" ) )
 	} ),
 	/**
 	 * @author Frank Wang
@@ -74,19 +74,32 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 
 		this.set( property, productsData )
 	},
+	reSortCircleData( data,config,name,dealedProperty,property ) {
+		let dealData = data,
+			dealDataHead = dealData.slice( 0, 1 ),
+			dealDataBody = dealData.slice( 1 ),
+
+			result = A( [] )
+
+		dealDataBody = dealDataBody.sort( ( a, b ) => a[0].localeCompare( b[0], "zh" ) )
+
+		result = [].concat( dealDataHead,dealDataBody )
+		this.set( dealedProperty, result )
+		this.dealData( result, config, name,property )
+
+	},
 	actions: {
 		exportReport() {
-			// this.genDownloadUrl()
 			this.exportService.exportReport( this.project, this.project.get( "periods" ).length - 1 )
 		},
 		changeSalesValue( value ) {
 			this.set( "salesGroupValue", value )
 		},
 		dealProd0Data( data, config ) {
-			this.dealData( data, config, "product", "product0Legend" )
+			this.reSortCircleData( data,config,"product","dealedTmProdCircle0","product0Legend" )
 		},
 		dealProd1Data( data, config ) {
-			this.dealData( data, config, "product", "product1Legend" )
+			this.reSortCircleData( data,config,"product","dealedTmProdCircle1","product1Legend" )
 		},
 		chooseProd( prod ) {
 			let salesGroupValue = this.salesGroupValue
@@ -120,8 +133,8 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				this.set( "representativeProdTable", prod )
 				let type = isEmpty( prod ) ? "rep_ref" : "rep_prod"
 
-				this.queryData( type ,prodName ).then( data => {
-					let currentData = data.filterBy( "product",prodName )
+				this.queryData( type, prodName ).then( data => {
+					let currentData = data.filterBy( "product", prodName )
 
 					this.set( "representativeTableData", currentData )
 				} )
@@ -129,8 +142,8 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				this.set( "hospitalProdTable", prod )
 				let type = isEmpty( prod ) ? "hospital_ref" : "hospital_prod"
 
-				this.queryData( type ,prodName ).then( data => {
-					let currentData = data.filterBy( "product",prodName )
+				this.queryData( type, prodName ).then( data => {
+					let currentData = data.filterBy( "product", prodName )
 
 					this.set( "hospitalTableData", currentData )
 				} )
@@ -138,8 +151,8 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				this.set( "regionProdTable", prod )
 				let type = isEmpty( prod ) ? "region_ref" : "region_prod"
 
-				this.queryData( type ,prodName ).then( data => {
-					let currentData = data.filterBy( "product",prodName )
+				this.queryData( type, prodName ).then( data => {
+					let currentData = data.filterBy( "product", prodName )
 
 					this.set( "regionTableData", currentData )
 				} )
@@ -550,7 +563,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			this.queryData( "rep_ref" ),
 			this.queryData( "hospital_ref" )
 		] ).then( data => {
-			this.set( "productTableData", data[0].sort( ( a,b )=> a.product.localeCompare( b.product, "zh" ) ) )
+			this.set( "productTableData", data[0].sort( ( a, b ) => a.product.localeCompare( b.product, "zh" ) ) )
 			this.set( "regionTableData", data[1] )
 			this.set( "representativeTableData", data[2] )
 			this.set( "hospitalTableData", data[3] )
@@ -594,11 +607,11 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// 	version: "v1.0",
 	// 	db: "NTM"
 	// } ),
-	queryData( type,prod ) {
+	queryData( type, prod ) {
 		let qa = this.get( "tableQueryAddress" ),
 			proposalId = this.proposal.get( "id" ),
 			projectId = this.project.get( "id" )
-			// projectId = this.get( "project.id" ) || localStorage.getItem( "projectId" )
+		// projectId = this.get( "project.id" ) || localStorage.getItem( "projectId" )
 
 		return this.get( "ajax" ).request( `${qa.host}:${qa.port}/${qa.version}/${qa.db}/${type}`, {
 			method: "GET",
