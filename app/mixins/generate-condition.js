@@ -873,7 +873,7 @@ export default Mixin.create( {
 					{
 						"class": "addOtherRow",
 						"args": {
-							"fill": "其他",
+							"fill": "其他竞品",
 							"keep": ["phase", "sum(potential)"],
 							"complete": "$sum(potential)",
 							"value": "sum(sales)"
