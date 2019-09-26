@@ -8,16 +8,16 @@ import { A } from "@ember/array"
 export default Component.extend( {
 	localClassNames: "hospital-config-component",
 	// localClassNameBindings: A( ["hospital-config-component"] ),
-	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers",
+	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers", "curResource",
 		"budgetValidationOuter", "salesTargetValidationOuter",
 		"meetingPlacesValidationOuter", "visitTimeValidationOuter",
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
 	popperOption: {
-			keepTogether: { enabled: false },
-			preventOverflow: { enabled: false },
-			arrow: { enabled: true },
+		keepTogether: { enabled: false },
+		preventOverflow: { enabled: false },
+		arrow: { enabled: true }
 	},
 	hospitalDrugstore: computed( function() {
 		let arr = ["省人民医院", "会南市五零一医院", "会东市医科大学附属第二医院"],

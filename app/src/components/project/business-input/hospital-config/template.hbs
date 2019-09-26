@@ -63,12 +63,24 @@
 	{{#bp-layout}}
 		{{#bp-layout direction="row" cross="center" local-class="right"}}
 			{{#if hasResource}}
+				
 				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
-					{{#bp-layout local-class="badge" class="px-1"}}
-						{{bp-icon icon="representative"}}
-						{{sortQuizs.firstObject.answer.resource.name}}
-					{{/bp-layout}}
+					{{#if (bp-eq curResource.id quizs.firstObject.answer.resource.id)}}
+						{{#bp-layout local-class="badge-changed" class="px-1" cross="center"}}
+							{{bp-icon icon="representative"}}
+							{{sortQuizs.firstObject.answer.resource.name}}
+						{{/bp-layout}}
+					{{else}}
+						{{#bp-layout local-class="badge" class="px-1" cross="center"}}
+							{{bp-icon icon="representative"}}
+							{{sortQuizs.firstObject.answer.resource.name}}
+						{{/bp-layout}}
+					{{/if}}
+
 				{{/bp-layout}}
+
+
+
 			{{/if}}
 			
 			{{#if (bp-not-eq sortQuizs.firstObject.answer.meetingPlaces -1 0 "" "0")}}
