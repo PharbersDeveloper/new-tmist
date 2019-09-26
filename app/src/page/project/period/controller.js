@@ -153,12 +153,8 @@ export default Controller.extend( {
 	deleteTimer: null,
 	intervalTimer: null,
 	timerToCheckCalc() {
-		set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
-		// this.store.findRecord( "model/project", this.model.project.id, { reload: true } )
-
-		window.console.log( this.model.project )
-
-		this.model.project.then( project => {
+		// set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
+		this.store.findRecord( "model/project", this.model.project.id, { reload: true } ).then( project => {
 			let 	fids = project.hasMany( "finals" ).ids(),
 				fhids = fids.map( x => {
 					return "`" + `${x}` + "`"
@@ -169,8 +165,9 @@ export default Controller.extend( {
 			if ( finals.length === this.model.periods.length ) {
 
 				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-					set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
-					this.model.project.then( res => {
+					
+					
+					this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ).then( res => {
 						res.set( "status", 1 )
 						res.set( "endTime", new Date().getTime() )
 						res.set( "lastUpdate", new Date().getTime() )
@@ -195,10 +192,10 @@ export default Controller.extend( {
 			} else {
 				this.clearTimer()
 			}
-		} ).catch(err => {
+		} ).catch( err => {
 			window.console.log( err )
 			this.clearTimer()
-		})
+		} )
 	},
 	clearTimer() {
 		clearInterval( this.intervalTimer )
@@ -222,7 +219,7 @@ export default Controller.extend( {
 			freeResource = [], // 没有分配的resource
 			aResources = {}, // 被分配的resource
 			hospitalWithoutResource = [],
-			allBudget = this.model.project.proposal.get( "quota.totalBudget" ),
+			allBudget = this.model.proposal.get( "quota.totalBudget" ),
 			nullName = "",
 			haveNullInput = 0
 		// currentMeetingPlaces = 0,
@@ -396,10 +393,10 @@ export default Controller.extend( {
 			// hospitalWithoutResource = [],
 			// hospitalWithoutBudgetOrSales = [],
 			// allManagementPoint = this.model.project.proposal.get( "quota.managerKpi" )
-			allBudget = this.model.project.proposal.get( "quota.totalBudget" ),
+			allBudget = this.model.proposal.get( "quota.totalBudget" ),
 			// allSalesTarget = this.model.project.proposal.get( "quota.totalQuotas" ),
-			allMeetingPlaces = this.model.project.proposal.get( "quota.meetingPlaces" ),
-			allManagementTime = this.model.project.proposal.get( "quota.mangementHours" )
+			allMeetingPlaces = this.model.proposal.get( "quota.meetingPlaces" ),
+			allManagementTime = this.model.proposal.get( "quota.mangementHours" )
 
 
 		this.allProductInfo.forEach( p => {
@@ -597,11 +594,13 @@ export default Controller.extend( {
 
 	},
 	callR() {
-		let proposalId = this.model.project.get( "proposal.id" ),
+		let proposalId = this.model.proposal.get( "id" ),
 			projectId = this.model.project.get( "id" ),
 			periodId = this.model.period.get( "id" ),
-			type = this.model.project.get( "proposal.case" ),
+			type = this.model.proposal.get( "case" ),
 			phase = this.model.period.get( "phase" )
+
+		window.console.log( proposalId, projectId, periodId, phase )
 
 		this.get( "ajax" ).post( "/callR", {
 			headers: {
@@ -628,9 +627,8 @@ export default Controller.extend( {
 				this.set( "calcJobId",res.jobId )
 				window.console.log( "callR Success!" )
 
-				this.set( "intervalTimer", setInterval( this.timerToCheckCalc.bind( this ) , 1000 * 60 * 3 ) )
+				this.set( "intervalTimer", setTimeout( this.timerToCheckCalc.bind( this ) , 1000 * 60 * 3 ) )
 				// this.set( "deleteTimer", setTimeout( this.clearTimer.bind( this ), 1000 * 60 * 3 + 1 ) )
-
 			}
 		} ).catch( err => {
 			window.console.log( "callR Failed!" )
@@ -734,7 +732,7 @@ export default Controller.extend( {
 			this.transitionToRoute( "page.welcome" )
 		},
 		submitModal() {
-			let status = this.validation( this.model.project.proposal.get( "case" ) ),
+			let status = this.validation( this.model.proposal.get( "case" ) ),
 				detail = "提交执行本周期决策后，决策将保存不可更改，确定要提交吗？",
 				flag = 0
 
@@ -769,7 +767,7 @@ export default Controller.extend( {
 				open: false
 			} )
 
-			let status = this.validation( this.model.project.proposal.get( "case" ) )
+			let status = this.validation( this.model.proposal.get( "case" ) )
 
 			if ( status ) {
 				this.set( "calcDone", false )

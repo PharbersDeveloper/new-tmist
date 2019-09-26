@@ -7,6 +7,7 @@ export default Controller.extend( {
 	// ajax: service(),
 	// cookies: service(),
 	// roundOver: true,
+	noNavButton: true,
 	exportService: service( "service/export-report" ),
 	// endTime: computed( "this.model.project", function () {
 	// 	let date = new Date( this.model.project.endTime ),

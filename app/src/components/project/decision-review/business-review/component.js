@@ -205,9 +205,9 @@ export default Component.extend( {
 		},{
 			label: "代表",
 			valuePath: "resource",
-			align: "left"
+			align: "center",
 			// sortable: true,
-			// width: 100
+			width: 58
 		},{
 			label: "销售指标",
 			valuePath: "salesTarget",
