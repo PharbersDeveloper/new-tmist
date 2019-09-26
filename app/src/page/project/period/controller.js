@@ -219,7 +219,7 @@ export default Controller.extend( {
 			freeResource = [], // 没有分配的resource
 			aResources = {}, // 被分配的resource
 			hospitalWithoutResource = [],
-			allBudget = this.model.proposal.get( "quota.totalBudget" ),
+			allBudget = this.model.period.phase === 0 ? Math.floor( this.model.quota.get( "totalBudget" ) ) : Math.floor( this.model.budgetPreset.get( "firstObject.initBudget" ) ),
 			nullName = "",
 			haveNullInput = 0
 		// currentMeetingPlaces = 0,
@@ -393,7 +393,8 @@ export default Controller.extend( {
 			// hospitalWithoutResource = [],
 			// hospitalWithoutBudgetOrSales = [],
 			// allManagementPoint = this.model.project.proposal.get( "quota.managerKpi" )
-			allBudget = this.model.proposal.get( "quota.totalBudget" ),
+			// allBudget = this.model.proposal.get( "quota.totalBudget" ),
+			allBudget = this.model.period.phase === 0 ? Math.floor( this.model.quota.get( "totalBudget" ) ) : Math.floor( this.model.budgetPreset.get( "firstObject.initBudget" ) ),
 			// allSalesTarget = this.model.project.proposal.get( "quota.totalQuotas" ),
 			allMeetingPlaces = this.model.proposal.get( "quota.meetingPlaces" ),
 			allManagementTime = this.model.proposal.get( "quota.mangementHours" )
