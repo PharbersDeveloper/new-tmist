@@ -1,29 +1,52 @@
 {{#bp-layout direction="row"  main='between'}}
 	{{#bp-layout main='between' cross="center" classNames="bg-white mb-0" local-class="resource-list-outer"}}
 		{{!-- {{#if (bp-eq curResource.id resource.id)}} --}}
-		{{#if (bp-eq showContent false)}}
-			{{#bp-layout local-class="resource-item active" direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
+		{{!-- {{#if (bp-eq showContent false)}} --}}
+			{{#bp-layout local-class=(if (bp-eq showContent false) "resource-item active" "resource-item") direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
 				{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
-					<img src={{resource.avatar.img}} alt={{resource.name}}>
-					{{resource.name}}
+					<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>
+					{{#bp-layout direction="col"}}
+						{{resource.name}}
+
+							{{#if (bp-eq project.proposal.case "tm")}}
+								{{#bp-layout direction="row" cross="end"}}
+									<span local-class="span-1" class="mr-1">已用时间</span>
+									<span local-class="span-2">{{leftTime}}%</span>
+									{{!-- {{#bp-layout local-class="span-2"}}
+											
+									{{/bp-layout}} --}}
+									<span local-class="span-1">/100%</span>
+								{{/bp-layout}}
+								{{!-- {{#if (bp-not-eq leftTime 0 "0")}}
+														<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}剩余{{leftTime}}%</span>
+													{{else}}
+														<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
+													{{/if}} --}}
+							{{/if}}
+
+					{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
-					{{#if (bp-eq project.proposal.case "tm")}}
-						{{#if (bp-not-eq leftTime 0 "0")}}
-							<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}剩余{{leftTime}}%</span>
-						{{else}}
-							<span local-class="badge" class="px-1">{{bp-icon icon="time-left"}}已分配</span>
-						{{/if}}
-					{{/if}}
 					{{#if hospitalNumber}}
-						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
+						{{#if (bp-eq resource.id curResource.id)}}
+						{{#bp-layout direction="row" cross="center" local-class="badge-changed" classNames="px-1"}}
+							{{bp-icon icon="hospital-sign"}}
+							<span>{{hospitalNumber}}</span>
+						{{/bp-layout}}
+						{{!-- <span local-class="badge hospital-badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span> --}}
+						{{else}}
+							{{#bp-layout direction="row" cross="center" local-class="badge" classNames="px-1"}}
+								{{bp-icon icon="hospital-sign"}}
+								<span>{{hospitalNumber}}</span>
+							{{/bp-layout}}
+						{{/if}}
 					{{/if}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-		{{else}}
+		{{!-- {{else}}
 			{{#bp-layout local-class="resource-item" direction="row" main="between" cross="center" classNames="p-4" click=(action "showContent" resource)}}
 				{{#bp-layout local-class="item-left" direction="row" main="start" cross="center"}}
-					<img src={{resource.avatar.img}} alt={{resource.name}}>
+					<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>
 					{{resource.name}}
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
@@ -35,17 +58,19 @@
 					{{/if}}
 				{{/if}}
 					{{#if hospitalNumber}}
-						<span local-class="badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
+						<span local-class="badge hospital-badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
 					{{/if}}
 				{{/bp-layout}}
 			{{/bp-layout}}
-		{{/if}}
+		{{/if}} --}}
 	{{/bp-layout}}
 {{/bp-layout}}
 {{#if (bp-eq project.proposal.case "tm")}}
 {{#bs-collapse collapsed=showContent local-class="wrapper"}}
-	{{#bp-layout direction="col" local-class="representative-info" classNames="bg-white ml-2 mb-2 px-3"}}
-		{{#bp-layout local-class="remain-time" direction="col" classNames="pb-3"}}
+
+{{#if (bp-not-eq hospitalList.length 0)}}
+	{{#bp-layout direction="col" local-class="representative-info" classNames="pb-2 px-2"}}
+		{{!-- {{#bp-layout local-class="remain-time" direction="col" classNames="pb-3"}}
 			{{#bp-layout direction="row" main="between"}}
 				{{#bp-layout local-class="time"}}剩余时间{{/bp-layout}}
 				{{#bp-layout local-class="percent"}}
@@ -58,14 +83,15 @@
 					{{p.bar value=leftTime maxValue=100}}
 				{{/bp-progress}}
 			{{/bp-layout}}
-		{{/bp-layout}}
-		{{#bp-layout local-class="resource-hospital" direction="col"}}
+		{{/bp-layout}} --}}
+		{{#bp-layout local-class="resource-hospital" direction="col" classNames="bg-white px-2"}}
 			{{#each hospitalList as |hospital|}}
-				{{#bp-layout direction="row" cross="center" classNames="mb-3" local-class="hospital-time"}}
+				{{#bp-layout direction="row" cross="center" class="mb-2 mt-2" local-class="hospital-time"}}
 					{{#bp-layout local-class="hospital-name"}}{{hospital.target.name}}{{/bp-layout}}
 					{{#bp-input widthSize="small" value=hospital.visitTime 
 					onChange=(action "inputVisitTime" (mut hospital.visitTime))}}{{/bp-input}}
 				{{/bp-layout}}
+
 			{{/each}}
 			
 			{{!-- {{#bp-layout direction="row" cross="center" classNames="mt-3"}}
@@ -74,6 +100,7 @@
 			{{/bp-layout}} --}}
 		{{/bp-layout}}
 	{{/bp-layout}}
+	{{/if}}
 {{/bs-collapse}}
 {{/if}}
 

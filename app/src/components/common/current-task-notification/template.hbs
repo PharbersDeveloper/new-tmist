@@ -2,7 +2,7 @@
 	{{#bp-layout direction="row" main="center" local-class="page-notice"}}
 		{{!-- <div local-class="blank"></div> --}}
 		{{#bp-layout direction="col" local-class="item" classNames="" cross="center"}}
-			{{#bp-layout direction="col" local-class="manager" classNames="mb-4 p-4 bg-white"}}
+			{{#bp-layout direction="col" local-class="manager" classNames="mb-4 mt-0 p-4 bg-white"}}
 				
 				<h2 local-class="title" class="mb-4">
 					{{t "current-task-notification.title-1"}}<br />
@@ -38,9 +38,9 @@
 	{{#bp-layout direction="row" main="center" local-class="page-notice"}}
 		{{!-- <div local-class="blank"></div> --}}
 		{{#bp-layout direction="col" local-class="item" classNames="" cross="center"}}
-			{{#bp-layout direction="col" local-class="manager" classNames="mb-4 p-4 bg-white"}}
+			{{#bp-layout direction="col" local-class="manager" classNames="mb-4 mt-0 px-4 pb-4 bg-white"}}
 				
-				<h2 local-class="ucb-title" class="mb-4">
+				<h2 local-class="ucb-title">
 					Dear Catalyst
 				</h2>
 				<p class="mb-3">
@@ -53,9 +53,32 @@
 				威芃可和优派西分别用于帕金森疾病和癫痫疾病的治疗，区别于市场上同类产品，这两个新产品在用法和疗效上各有特点，上市不久，目前处于市场布局的关键阶段，有着很大的市场机会。
 			</p>
 
-			<p class="mb-3">在这个区域内，公司覆盖的目标医院一共有30家，老产品开拓来在这30家医院已有历史销售，而两个新产品由于上市不久，仍在安排进院阶段；公司的目标是保持老产品稳定增长，并尽快开始新产品的销售。
+			<p class="mb-4">在这个区域内，公司覆盖的目标医院一共有30家，老产品开拓来在这30家医院已有历史销售，而两个新产品由于上市不久，仍在安排进院阶段；公司的目标是保持老产品稳定增长，并尽快开始新产品的销售。
 				但值得关注的是内外部销售环境不断发生着变化，多项国家医药政策的落地实施，给药品销售带来了新的挑战，保持战略性思维是业务发展的关键。</p>
-			<p>相信你已经对这个区域的情况有了大致的了解，更详细的区域信息请通过产品竞品信息、城市医院信息、代表信息以及业绩表现页面进行阅读查看。</p>
+
+			{{#bp-layout direction="col" local-class="hospital"}}
+				{{#bp-layout direction="row" main="between" local-class="hospital-header"}}
+					<span>医院等级</span>
+					<span>开发费用（元/每家医院）</span>
+				{{/bp-layout}}
+
+				{{#bp-layout direction="row" local-class="hospital-class" main="between" cross="center"}}
+						<span>一级医院</span>
+						<span>3,000</span>
+				{{/bp-layout}}
+
+				{{#bp-layout direction="row" local-class="hospital-class" main="between" cross="center"}}
+						<span>二级医院</span>
+						<span>8,000</span>
+				{{/bp-layout}}
+
+				{{#bp-layout direction="row" local-class="hospital-class" main="between" cross="center"}}
+					<span>三级医院</span>
+					<span>12,000</span>
+				{{/bp-layout}}
+
+			{{/bp-layout}}
+			<p class="mt-3">相信你已经对这个区域的情况有了大致的了解，更详细的区域信息请通过产品竞品信息、城市医院信息、代表信息以及业绩表现页面进行阅读查看。</p>
 			
 			{{/bp-layout}}
 			{{!-- {{#bp-layout direction="col" local-class="desc" classNames="p-4 bg-white"}} --}}
@@ -77,7 +100,7 @@
 			{{/bp-layout}} --}}
 
 			{{#bp-layout direction="col" local-class="matters-attention" classNames="p-4 mt-1 mb-2 bg-white" }}
-				<h4 local-class="title" class="mt-3">注意事项</h4>
+				<h4 local-class="title">注意事项</h4>
 				<p>
 					请您仔细阅读【参考信息】进行决策。<br>
 					业务决策中，需要您为每位代表分配工作任务。<br>

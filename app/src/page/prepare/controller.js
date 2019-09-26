@@ -1,13 +1,18 @@
 import Controller from "@ember/controller"
 import { inject as service } from "@ember/service"
+import { computed } from "@ember/object"
 
 export default Controller.extend( {
 	gen: service( "service/gen-data" ),
 	deploy( project ) {
 		this.gen.genPeriodWithProject( project ).then( x => {
-			this.transitionToRoute( "page.project.period", project.id, x.id )
+			window.location = "/project/" + project.id + "/period/" + x.id
+			// this.transitionToRoute( "page.project.period", project.id, x.id )
 		} )
 	},
+	curProject: computed( function() {
+		return this.model.provious.get( "lastObject" )
+	} ),
 	actions: {
 		toHistory( pid ) {
 			this.transitionToRoute( "page.history" , pid )
@@ -22,15 +27,38 @@ export default Controller.extend( {
 
 		},
 		startDeploy( proposal ) {
-			this.set( "startDeployConfirm", {
-				open: false
-			} )
+			window.localStorage.setItem( "roundHistory", false )
 			this.gen.genProjectWithProposal( proposal ).then( x => {
 				this.deploy( x )
 			} )
 		},
 		continueDeploy( aProject ) {
-			this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get( "id" ) )
+			window.localStorage.setItem( "roundHistory", false )
+			if ( this.model.periodsLength === aProject.get( "current" ) ) {
+				this.transitionToRoute( "page.project.result" , aProject.get( "id" ) )
+			} else {
+				this.transitionToRoute( "page.project.period", aProject.id, aProject.periods.lastObject.get( "id" ) )
+
+			}
+
+		},
+		startAgainDeploy( proposal ) {
+			window.localStorage.setItem( "roundHistory", false )
+			// old project status : 1
+			if ( this.curProject ) {
+				this.curProject.destroyRecord()
+				// this.set( "curProject.status", 1 )
+				// this.curProject.save()
+			}
+
+			this.set( "startDeployConfirm", {
+				open: false
+			} )
+
+			this.gen.genProjectWithProposal( proposal ).then( x => {
+				this.deploy( x )
+			} )
+			// this.actions.startDeploy( proposal )
 		}
 	}
 } )

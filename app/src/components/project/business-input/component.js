@@ -3,10 +3,12 @@ import { computed, set } from "@ember/object"
 import { A } from "@ember/array"
 import { inject as service } from "@ember/service"
 // import Ember from "ember"
+import { htmlSafe } from "@ember/string"
+import { alias } from "@ember/object/computed"
 
 export default Component.extend( {
 
-	positionalParams: ["project", "period", "hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports"],
+	positionalParams: ["project", "period", "proposal","hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports", "budgetPreset"],
 	exam: service( "service/exam-facade" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function () {
@@ -17,14 +19,22 @@ export default Component.extend( {
 	// currentBudget: 0,
 	// currentSalesTarget: 0,
 	// currentMeetingPlaces: 0,
+	curRegion: 0,
 	curCircle: 0,
+	curStatus: 2,
+	curStatusChanged: false,
 	curBudgetPercent: 100,
 	// TODO: 暂时留着，以后可能去掉
-	allProductInfo: computed( "productQuotas", "updateAllProductInfo",function () {
+	curRegionArr: computed( function () {
+		return ["全部", "会东市", "会西市", "会南市"]
+	} ),
+	allProductInfo: computed( "productQuotas", "updateAllProductInfo", function () {
 		// allProductInfo include product-id, product-cur-budget, product-cur-sales, product-all-sales
 		let arr = []
 
-		this.get( "productQuotas" ).sortBy( "product.name" ).forEach( p => {
+		this.get( "productQuotas" ).sort(
+			( a,b )=> a.get( "product.name" ).localeCompare( b.get( "product.name" ), "zh" )
+		).forEach( p => {
 			let obj = {}
 
 			obj.name = p.get( "product.name" )
@@ -49,8 +59,13 @@ export default Component.extend( {
 		return A( arr )
 	} ),
 	updateAllProductInfo: false,
-	allBudget: computed( "quota", function () {
-		return this.quota.get( "totalBudget" )
+	allBudget: computed( function () {
+
+		if ( this.period.phase === 0 ) {
+			return this.quota.get( "totalBudget" )
+		} else {
+			return this.budgetPreset.get( "firstObject.initBudget" )
+		}
 	} ),
 	allMeetingPlaces: computed( "quota", function () {
 		return this.quota.get( "meetingPlaces" )
@@ -64,29 +79,43 @@ export default Component.extend( {
 		return cur
 	} ),
 	circleMeetingColor: A( ["#3172E0", "#DFE1E6"] ),
-	circleMeetingSize: A( ["70%", "85%"] ),
+	circleMeetingSize: A( ["36", "44"] ),
 	circleMeetingData: computed( "curMeetingPlaces", function () {
 		return A( [{ value: this.curMeetingPlaces, name: "已分配" },
 			{ value: this.allMeetingPlaces - this.curMeetingPlaces, name: "未分配" }] )
 	} ),
-	circleSize: A( ["70%", "95%"] ),
+	circleSize: A( ["42", "58"] ),
 	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
+	ucbCircleColor: A( ["#8777D9", "#FFC400", " #57D9A3", "#dfe1e6"] ),
+	ucbHtmlSafeCircleColor: A( [htmlSafe( "background-color: #8777D9" ), htmlSafe( "background-color: #FFC400" ),
+		htmlSafe( "background-color: #57D9A3" ), htmlSafe( "background-color: #dfe1e6" )] ),
+	// circleProductColorForUCB: computed(function),
 	circleProductColor: computed( function () {
 		return this.getProductCircleColor()
 	} ),
-	circleBudgetColor: computed( function () {
-		return this.getBudgetCircleColor()
+	circlebudgetColorOrigin: computed( function() {
+		let originColor = this.getBudgetCircleColor(),
+			htmlSafeColor = originColor.map( ele=> {
+				return htmlSafe( "background-color: " + ele )
+			} )
+
+		return {
+			originColor,
+			htmlSafeColor
+		}
 	} ),
+	circleBudgetColor: alias( "circlebudgetColorOrigin.originColor" ),
+	circleBudgetColorSafe: alias( "circlebudgetColorOrigin.htmlSafeColor" ),
 	circleProductData: computed( function () {
 		return this.getProductBudgetData()
 	} ),
 	circleBudgetData: computed( function () {
 		return this.getResourceBudgetData()
 	} ),
-	legendProductBudget: computed( function() {
+	legendProductBudget: computed( function () {
 		return this.circleProductData
 	} ),
-	legendResourceBudget: computed( function() {
+	legendResourceBudget: computed( function () {
 		return this.circleBudgetData
 	} ),
 	labelEmphasis: false,
@@ -103,7 +132,7 @@ export default Component.extend( {
 		let num = 0
 
 		this.get( "answers" ).uniqBy( "target.id" ).forEach( answer => {
-			if ( answer.get( "resource.id" ) ) {
+			if ( !answer.get( "resource.id" ) ) {
 				num += 1
 			}
 		} )
@@ -128,7 +157,18 @@ export default Component.extend( {
 				detail: "请输入数字。"
 			} )
 			return false
+		} else if ( String( input ).indexOf( "." ) !== -1 ){
+
+			this.set( "warning", {
+				open: true,
+				title: "非法值警告",
+				detail: "请输入整数。"
+			} )
+			return false
+
 		}
+
+
 		return true
 	},
 	getProductCircleColor() {
@@ -174,6 +214,7 @@ export default Component.extend( {
 			obj[rs.get( "id" )].name = rs.get( "name" )
 			obj[rs.get( "id" )].value = 0
 			obj[rs.get( "id" )].per = 0
+			obj[rs.get( "id" )].per = obj[rs.get( "id" )].per.toFixed( 1 )
 		} )
 
 		this.answers.forEach( a => {
@@ -204,7 +245,9 @@ export default Component.extend( {
 	getProductBudgetData() {
 		let arr = [], all = 0, allP = []
 
-		this.get( "productQuotas" ).sortBy( "product.name" ).forEach( p => {
+		this.get( "productQuotas" ).sort(
+			( a,b )=> a.get( "product.name" ).localeCompare( b.get( "product.name" ), "zh" )
+		).forEach( p => {
 			let obj = {}
 
 			obj.name = p.get( "product.name" )
@@ -271,6 +314,10 @@ export default Component.extend( {
 		set( this, "legendProductBudget", arrL )
 	},
 	actions: {
+		selectCurStatus( status ) {
+			this.set( "curStatus", status )
+			this.toggleProperty( "curStatusChanged" )
+		},
 		selectResource( rs ) {
 			set( this, "curResource", rs )
 			window.console.log( "当前代表", this.curResource.get( "name" ) )
@@ -333,11 +380,12 @@ export default Component.extend( {
 					curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
 
 				this.answers.forEach( a => {
-					if ( a.get( "product.id" ) === curProduct ) {
-						cur += this.transNumber( a.get( input ) )
-					}
+					// if ( a.get( "product.id" ) === curProduct ) {
+					cur += this.transNumber( a.get( input ) )
+					// }
 				} )
 
+				window.console.log( cur, this.allBudget )
 				if ( cur <= this.allBudget ) {
 
 					set( curProductInfo.firstObject, "curBudget", cur )

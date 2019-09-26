@@ -1,7 +1,7 @@
 {{#bp-layout local-class="business-review" direction="col" classNames="bg-white"}}
-	{{#bp-layout local-class="select-part" direction="row" main="between" cross="center"}}
+	{{#bp-layout local-class="select-part" direction="row" main="between" cross="center" classNames="mb-3"}}
 		{{#bp-layout direction="row" local-class="part" classNames="pl-4" cross="center"}}
-			{{#bp-layout classNames="mr-3"}}选择季度{{/bp-layout}}
+			{{#bp-layout classNames="mr-3"}}选择周期{{/bp-layout}}
 			{{#bp-layout}}
 				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
 					{{#dd.button }}
@@ -121,7 +121,25 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}} --}}
+	{{#if (bp-eq sortedAnswers.length 0)}}
+		{{#bp-layout direction="col" local-class="empty"}}
+			{{#bp-layout local-class="empty-img" direction="row" main="center"}}
+				<img src="/images/img_resource_empty.png" alt="">
+			{{/bp-layout}}
+			{{#bp-layout tagName="p" local-class="empty-desc" direction="row" main="center" classNames="pt-2 pb-4"}}
+				{{#if (bp-eq curRes.name "未分配")}}
+					无未分配代表剩余
+				{{else}}
+					尚未为该代表分配医院，快去分配吧
+				{{/if}}
 
-	{{bp-table columns=reviewColumns data=filterAnswers local-class=(if (bp-eq proposal.case "tm" )"tm-table" "ucb-table")}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{else}}
+		{{#bp-layout classNames="px-4"}}
+			{{bp-table columns=reviewColumns data=sortedAnswers local-class=(if (bp-eq proposal.case "tm" )"tm-table" "ucb-table")}}
+		{{/bp-layout}}
+	{{/if}}
+
 
 {{/bp-layout}}

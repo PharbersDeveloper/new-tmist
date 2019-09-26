@@ -2,20 +2,30 @@
 
 html,
 body,
-body> :global(.ember-view) {
+body > :global(.ember-view) {
 	background-color: $n010;
 	height: 100%;
 	min-width: 1200px;
 }
 
 :global(.modal-header) {
+	padding-top: 24px;
 	@extend %header-large;
 	border: 0;
+
+	:global(.header-wrapper) {
+		width: 100%;
+
+		:global(.close-wrapper) {
+			cursor: pointer;
+		}
+	}
 }
 
 :global(.modal-body) {
 	:global(.desc) {
 		@extend %p-primary;
+		color: #172B4D;
 	}
 
 	:global(.secondary) {
@@ -28,12 +38,14 @@ body> :global(.ember-view) {
 }
 
 :global(.modal-footer) {
+	padding-bottom: 24px;
 	border: 0;
 }
 
 :global(.toast-success) {
 	background-color: $g400;
 }
+
 :global(.toast-error) {
 	background-color: $r400;
 }

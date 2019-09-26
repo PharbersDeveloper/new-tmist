@@ -1,28 +1,86 @@
 {{#bp-layout local-class="header"}}
-	{{#bp-layout tagName="h4" main='between' cross="center" local-class="title" classNames="px-4  bg-white mb-0" }}
+	{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="bg-white mb-0" }}
+		
+		
+		{{#if (bp-eq quizs.firstObject.preset.phase 0)}}
 		{{#bp-layout direction="row" main="start" cross="center"
-			 click=(action "changedResource" sortQuizs.firstObject.answer) local-class="click-part"}}
-			{{#bp-layout direction="row" local-class="check-box" classNames="mr-2"}}
+			classNames="ml-4 click-part"
+			local-class=(if (bp-eq quizs.firstObject.preset.phase 0) "click-part" "clicked-part")
+			click=(if (bp-eq quizs.firstObject.preset.phase 0) (action "changedResource" sortQuizs.firstObject.answer)) }}
+			{{!-- click=(action "changedResource" sortQuizs.firstObject.answer) }} --}}
+			{{#bp-layout direction="row" local-class="check-box" classNames="mr-3"}}
 				{{#if hasResource}}
 				{{!-- {{bp-icon icon="check-circle" }} --}}
-					{{bp-icon icon='hospital-checked'}}
+						{{bp-icon icon='hospital-checked'}}
+					{{!-- {{else}}
+						{{bp-icon icon='hospital-checked-disabled'}} --}}
 				{{else}}
 					{{bp-icon icon='hospital-unchecked'}}
 				{{/if}}
-			{{/bp-layout}}
+			{{/bp-layout}}	
+			{{!-- {{#if (bp-eq index 0)}}
+				{{log popperOption}}
+				{{#attach-popover class="ember-attacher-popper popover-outer"
+					modifiers=popperOption
+					arrow=true
+					flip="top"
+					placement="top"
+					hideOn='click'
+					showOn='click'
+					isShown=true
+					as |attacher|}}
+					<p>
+						Popovers and tooltips, oh my!
+					</p>
+					<button {{action attacher.hide}}>close</button>
+				{{/attach-popover}}
+			{{/if}} --}}
+		{{/bp-layout}}
+		{{/if}}
+
+		
+	{{#bp-layout direction="row" main="start" cross="center"
+		local-class=(if hasResource "enable-click show-part" "disable-click show-part active-hover")
+		click=(if hasResource (action 'selectCurHospital' hospital.id)) 
+		classNames= (if (bp-eq quizs.firstObject.preset.phase 0) "pr-4" "px-4")}}
+		{{#if (bp-eq quizs.firstObject.preset.phase 0)}}
+		<span local-class="line" class="mr-3"></span>
+		{{/if}}
+		{{#bp-layout direction="row" main="between" local-class="flex-1"}}
+		{{#bp-layout direction="row"}}
 			{{#bp-layout local-class=(if hasResource "check-name" "uncheck-name")}}
-				{{hospital.name}}
+					{{hospital.name}}
 			{{/bp-layout}}
+			{{#if hospitalDrugstore}}
+				{{#if (bp-not-eq quizs.firstObject.preset.phase 0)}}
+					{{#bp-layout local-class="drugstore" classNames="ml-2"}}
+						{{hospital.name}}+关联药房
+					{{/bp-layout}}
+				{{/if}}
+			{{/if}}
 		{{/bp-layout}}
 
+	{{#bp-layout}}
 		{{#bp-layout direction="row" cross="center" local-class="right"}}
 			{{#if hasResource}}
+				
 				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
-					{{#bp-layout local-class="badge" class="px-1"}}
-						{{bp-icon icon="representative"}}
-						{{sortQuizs.firstObject.answer.resource.name}}
-					{{/bp-layout}}
+					{{#if (bp-eq curResource.id quizs.firstObject.answer.resource.id)}}
+						{{#bp-layout local-class="badge-changed" class="px-1" cross="center"}}
+							{{bp-icon icon="representative"}}
+							{{sortQuizs.firstObject.answer.resource.name}}
+						{{/bp-layout}}
+					{{else}}
+						{{#bp-layout local-class="badge" class="px-1" cross="center"}}
+							{{bp-icon icon="representative"}}
+							{{sortQuizs.firstObject.answer.resource.name}}
+						{{/bp-layout}}
+					{{/if}}
+
 				{{/bp-layout}}
+
+
+
 			{{/if}}
 			
 			{{#if (bp-not-eq sortQuizs.firstObject.answer.meetingPlaces -1 0 "" "0")}}
@@ -34,21 +92,31 @@
 				{{/bp-layout}}
 			{{/if}}
 
-			{{#bp-layout local-class=(if hasResource "" "icon-no-check")}}
+			{{#bp-layout local-class=(if hasResource "icon-check" "icon-no-check")}}
 				{{#bp-button local-class="icon-button" 
 								onClick=(action 'selectCurHospital' hospital.id) 
 								disabled=(if hasResource false true)
 								direction="row" main="center" cross="center"}}
 					{{!-- {{bp-icon icon='data'}} --}}
-					{{#if showContent}}
-						{{bp-icon icon="right"}}
+					{{#if hasResource}}
+						{{#if showContent}}
+							{{bp-icon icon="right"}}
+						{{!-- <img src="/images/btn_exp_enable.svg" alt="">	 --}}
+						{{else}}
+							{{bp-icon icon="down"}}
+							{{!-- <img src="/images/btn_exp_selected.svg" alt=""> --}}
+						{{/if}}
 					{{else}}
-						{{bp-icon icon="down"}}
-					{{/if}}
+						{{bp-icon icon="right"}}
+						{{!-- <img src="/images/btn_exp_disabled.svg" alt=""> --}}
+					{{/if}}					
 				{{/bp-button}}
 			{{/bp-layout}}
-
 		{{/bp-layout}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+
+	{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
 {{#bs-collapse collapsed=showContent}}
@@ -97,17 +165,17 @@
 {{#bp-layout local-class="hospital-resource" class="px-4 pb-4 pt-3 bg-white"}}
 	<table local-class="prod" class="table mb-2">
 		<thead class='bg-white'>
-			<tr class="pb-2">
-				<th class="border-0 pr-2 pl-0 text-left">产品名称</th>
+			<tr class="pb-0">
+				<th class="border-0 pr-2 pl-0 text-left pb-2">产品名称</th>
 				{{#if (bp-eq proposal.case "ucb")}}
-						<th class="border-0 px-2 text-left">患者数量</th>
-						<th class="border-0 px-2 text-left">准入情况</th>
+						<th class="border-0 px-2 text-left pb-2">患者数量</th>
+						<th class="border-0 px-2 text-left pb-2">准入情况</th>
 				{{else if (bp-eq proposal.case "tm")}}
-						<th class="border-0 px-2 text-left">药品潜力</th>
+						<th class="border-0 px-2 text-left pb-2">药品潜力</th>
 				{{/if}}
-				<th class="border-0 px-2 text-left">上季度销售额</th>
-				<th class="border-0 px-2 text-center">销售指标分配</th>
-				<th class="border-0 pl-2 text-center ">预算分配</th>
+				<th class="border-0 px-2 text-left pb-2">上季度销售额</th>
+				<th class="border-0 px-2 text-center pb-2">销售指标分配</th>
+				<th class="border-0 pl-2 text-center pb-2">预算分配</th>
 			</tr>
 		</thead>
 		<tbody class="bg-white">
@@ -118,13 +186,15 @@
 					</td>
 						{{#if (bp-eq proposal.case "ucb")}}
 						<td class="px-2 border-0 text-left">
-						{{format-number quiz.report.currentPatientNum}}
+						{{format-number quiz.preset.currentPatientNum}}
 						</td>
 
 						<td class="px-2 border-0 text-left">
-								{{#if (bp-eq quiz.report.currentDurgEntrance 1)}}
+								{{#if (bp-eq quiz.preset.currentDurgEntrance 1)}}
 									已开发
-								{{else}}
+								{{else if (bp-eq quiz.preset.currentDurgEntrance 2)}}
+									正在开发
+								{{else if (bp-eq quiz.preset.currentDurgEntrance 0)}}
 									未开发
 								{{/if}}
 						</td>
@@ -135,15 +205,21 @@
 						{{/if}}
 
 					<td class="px-2 border-0 text-left">
-						￥{{format-number quiz.preset.lastSales 0}}
+						{{#if (bp-not-eq quiz.preset.lastSales null)}}
+							￥{{format-number quiz.preset.lastSales 0}}
+
+						{{else}}
+							￥0
+						{{/if}}
 					</td>
 					<td class="border-0">
 						{{#bp-layout main="center" direction="row"}}
+									{{!-- disabled=(if (bp-eq quiz.preset.currentDurgEntrance 0) true false) --}}
 							{{bp-input block=true  
 									value=quiz.answer.salesTarget
 									onChange=(action "salesTargetValidation" quiz.answer "salesTarget" (mut quiz.answer.salesTarget))
-									disabled=disabledInput
 									local-class="input-prepend input-money sales-input"
+									disabled=false
 									classNames="mb-2 px-0"}}
 						{{/bp-layout}}
 						{{!-- <span class="mt-2 mb-0 text-center" local-class="percent">
@@ -154,8 +230,8 @@
 						{{#bp-layout main="center" direction="row"}}
 						{{bp-input block=true 
 							value=quiz.answer.budget
-							onChange=(action "budgetValidation" quiz.answer "budget" (mut quiz.answer.budget))
-							disabled=disabledInput
+							onChange=(action "budgetValidation" quiz.answer "budget")
+							disabled=false
 							classNames="px-0 mb-2"
 							local-class="input-prepend input-money budget-input"}}
 							{{/bp-layout}}

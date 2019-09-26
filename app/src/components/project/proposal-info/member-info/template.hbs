@@ -1,7 +1,7 @@
 {{#bp-layout direction="col" local-class="resource-container" cross="center"}}
 	{{#bp-layout classNames="bg-white" local-class="resource-header" direction="col"}}
-		{{#bp-layout cross="center" local-class="resource-title"}}
-			{{#bp-layout tagName="h4" local-class="title" classNames="ml-4" }}
+		{{#bp-layout cross="center" local-class="resource-title" classNames="px-4"}}
+			{{#bp-layout tagName="h4" local-class="title" classNames="mb-0" }}
 				团队成员概况
 			{{/bp-layout}}
 		{{/bp-layout}}
@@ -28,7 +28,7 @@
 		{{/bp-layout}}
 
 		{{#bp-layout direction="row" }}
-			{{#bp-layout direction="col" classNames="bg-white"}}
+			{{#bp-layout direction="col"}}
 				{{#each resources as |item index|}}
 					{{!-- {{#bp-button onClick=(action (mut currentResource) index) local-class=(if (bp-eq currentResource index) "active")}}{{item.name}}{{/bp-button}} --}}
 					{{#bp-layout click=(action (mut currentResource) index ) 

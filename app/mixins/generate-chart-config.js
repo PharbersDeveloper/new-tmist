@@ -12,12 +12,12 @@ export default Mixin.create( {
 				{
 					name: "tmcircleproduct0",
 					id: chartId,
-					color: ["#73ABFF", "#79E2F2","#57D9A3","#FFC400","#FF8F73"," #998DD9"],
+					color: ["#73ABFF", "#79E2F2","#57D9A3","#FFC400"," #998DD9","#FF8F73"],
 					tooltip: {
 						show: true,
 						trigger: "item",
 						formatter: function( param ) {
-							return param.marker + " " + param.name + ": " + number2thousand( param.value[1],0 )
+							return param.marker + " " + param.name + ": ¥" + number2thousand( param.value[1],0 )
 						}
 					},
 					legend: {
@@ -26,17 +26,19 @@ export default Mixin.create( {
 					series: [{
 						name: "",
 						type: "pie",
-						radius: ["50", "64"],
-						avoidLabelOverlap: false,
+						radius: ["48", "64"],
+						avoidLabelOverlap: true,
 						hoverOffset: 3,
 						labelLine: {
-							normal: {
-								show: true
-							}
+							length: 8,
+							length2: 0
 						},
 						label: {
 							color: "#7A869A",
-							formatter: "{b}  {d}%"
+							formatter:function( data ) {
+								return data.name + " " + data.percent.toFixed( 1 ) + "%"
+							}
+							// formatter: "{b}  {d}%"
 						}
 					}]
 				}
@@ -66,7 +68,7 @@ export default Mixin.create( {
 						axisLine: {
 							show: true,
 							lineStyle: {
-								type: "dotted",
+								type: "solid",
 								color: "#DFE1E6"
 							}
 						},
@@ -161,15 +163,23 @@ export default Mixin.create( {
 						backgroundColor: "rgba(9,30,66,0.54)"
 					},
 					legend: {
-						icon: "circle",
+						// icon: "circle",
 						show: true,
 						x: "center",
 						y: "bottom",
 						orient: "horizontal",
+						itemGap: 24,
+						itemHeight: 8,
+						itemWidth: 12,
 						textStyle: {
 							fontSize: 14,
 							color: "#7A869A"
-						}
+						},
+						data:[
+							{name: "销售额",icon: "circle"},
+							{name: "指标",icon: "circle"},
+							{name: "指标达成率",icon: "line"}
+						]
 					},
 					series: [{
 						type: "bar",
@@ -235,7 +245,7 @@ export default Mixin.create( {
 					axisLine: {
 						show: true,
 						lineStyle: {
-							type: "dotted",
+							type: "solid",
 							color: "#DFE1E6"
 						}
 					},
@@ -390,10 +400,15 @@ export default Mixin.create( {
 				{
 					name: "tmResultProducts",
 					id: chartId,
-					color: ["#73ABFF", "#FFC400", "#57D9A3"],
+					// color: ["#73ABFF", "#FFC400", "#57D9A3"],
+					color: ["#73ABFF", "#79E2F2","#FFC400"," #998DD9","#FF8F73"],
+
 					tooltip: {
 						show: true,
-						trigger: "item"
+						trigger: "item",
+						formatter: function( param ) {
+							return param.marker + " " + param.name + ": ¥" + number2thousand( param.value[1],0 )
+						}
 					},
 					legend: {
 						show: false
@@ -401,17 +416,19 @@ export default Mixin.create( {
 					series: [{
 						name: "",
 						type: "pie",
-						radius: ["70", "100"],
-						avoidLabelOverlap: false,
+						radius: ["84", "100"],
+						avoidLabelOverlap: true,
 						hoverOffset: 3,
 						labelLine: {
-							normal: {
-								show: true
-							}
+							length: 9,
+							length2: 0
 						},
 						label: {
 							color: "#7A869A",
-							formatter: "{b}  {d}%"
+							formatter:function( data ) {
+								return data.name + " " + data.percent.toFixed( 1 ) + "%"
+							}
+							// formatter: "{b}  {d}%"
 						}
 					}]
 				}

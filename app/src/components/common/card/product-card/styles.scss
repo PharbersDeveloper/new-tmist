@@ -38,6 +38,7 @@
 		color: #172b4d;
 		height: 54px;
 	}
+
 	.product-content {
 		.left {
 			-ms-flex: 1;
@@ -51,6 +52,7 @@
 				-webkit-flex: 0 0 160px;
 				flex: 0 0 160px;
 				height: 160px;
+				border-radius: 4px;
 			}
 
 			.product-infos {

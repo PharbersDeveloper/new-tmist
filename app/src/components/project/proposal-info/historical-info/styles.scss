@@ -19,6 +19,7 @@ h2.title {
 	height: 54px;
 
 	h4 {
+		height: 54px;
 		font-size: 16px;
 		color: #172b4d;
 	}
@@ -44,6 +45,8 @@ h2.title {
 		font-weight: 500;
 		font-size: 14px;
 		color: #172b4d;
+		background-color: #ffffff;
+		margin-bottom: 1px;
 
 		&.active {
 			background-color: $n020a;
@@ -68,6 +71,10 @@ h2.title {
 .circle-left,
 .circle-right {
 	flex: 1;
+
+	.circle-bottom {
+		margin-top: 32px;
+	}
 
 	.title {
 		@extend %header-small;
@@ -113,6 +120,11 @@ h2.title {
 
 		.choose-area {
 			flex: 1;
+
+			:global(.bp-dropdown button) {
+				height: 32px;
+				border-radius: 5px;
+			}
 
 			.keys {
 				@extend %p-primary;

@@ -21,6 +21,8 @@ Router.map( function() {
 		} )
 		this.route( "prepare", { path: "/prepare/:proposal_id" } )
 		this.route( "history", { path: "/history/:proposal_id" } )
+		this.route( "ucblogin" )
+		this.route( "ucbprepare" )
 	} )
 
 

@@ -8,20 +8,30 @@ import { A } from "@ember/array"
 export default Component.extend( {
 	localClassNames: "hospital-config-component",
 	// localClassNameBindings: A( ["hospital-config-component"] ),
-
-	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers",
+	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers", "curResource",
 		"budgetValidationOuter", "salesTargetValidationOuter",
 		"meetingPlacesValidationOuter", "visitTimeValidationOuter",
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
+	popperOption: {
+		keepTogether: { enabled: false },
+		preventOverflow: { enabled: false },
+		arrow: { enabled: true }
+	},
+	hospitalDrugstore: computed( function() {
+		let arr = ["省人民医院", "会南市五零一医院", "会东市医科大学附属第二医院"],
+			hospitalName = this.hospital.get( "name" )
+
+		return arr.includes( hospitalName )
+	} ),
 	sortQuizs: computed( "quizs",function() {
 		let quizs = this.quizs
 
 		if ( isEmpty( quizs ) ) {
 			return quizs
 		}
-		return quizs.sortBy( "preset.product.name" )
+		return quizs//.sortBy( "preset.product.name" )
 	} ),
 	showContent: true,
 	checked:  computed( function() {
@@ -37,7 +47,7 @@ export default Component.extend( {
 		if ( this.sortQuizs.get( "firstObject.answer.resource.id" ) ){
 			return true
 		}
-		set( this, "showContent", true )
+		this.set( "showContent", true )
 		return false
 	} ),
 	givenMeetingPlaces: computed( "resourceHospital", function() {

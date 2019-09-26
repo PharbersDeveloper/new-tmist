@@ -16,6 +16,23 @@ export default Controller.extend( {
 	exam: service( "service/exam-facade" ),
 	runtimeConfig: service( "service/runtime-config" ),
 	em: service( "emitter" ),
+	productQuotasSorted: computed( "model.productQuotas", function() {
+		return this.model.productQuotas.sort(
+			( a,b )=> a.get( "product.name" ).localeCompare( b.get( "product.name" ), "zh" )
+		)
+	} ),
+	taskModal: false,
+	taskModalCircle: computed( function() {
+		let arr = Array( this.model.project.pharse )
+
+		for ( let i = 0; i < arr.length; i++ ) {
+			arr[i] = "第" + ( i + 1 ) + "周期"
+		}
+		return A( arr )
+	} ),
+	taskModalCircleLength:computed( function() {
+		return this.model.project.pharse - 1
+	} ),
 	toastOpt: EmberObject.create( {
 		closeButton: false,
 		positionClass: "toast-top-center",
@@ -26,9 +43,14 @@ export default Controller.extend( {
 	client: computed( function () {
 		return this.em.GetInstance()
 	} ),
-	currentTab: 3,
-	// loadingForSubmit: false,
-	loadingForSubmit: true,
+	currentTab: computed( function() {
+		if ( this.model.period.phase === 0 ) {
+			return 3
+		} else {
+			return 0
+		}
+	} ),
+	loadingForSubmit: false,
 	calcDone: false,
 	allProductInfo: computed( function() {
 		return this.getAllProductInfo()
@@ -61,94 +83,63 @@ export default Controller.extend( {
 	onMessage( msg ) {
 		window.console.info( "Emitter Controller" )
 		window.console.info( msg.channel + " => " + msg.asString() )
-		window.console.info( "firstCallEId" + " => " + this.firstCallEId )
-		window.console.info( "secondCallEId" + " => " + this.secondCallEId )
 		window.console.info( "calcJobId" + " => " + this.calcJobId )
 
 		let msgObj = msg.asObject()
 
-		if ( msgObj.status === "error" && this.calcJobId === msgObj.jobId ) {
-			this.set( "loadingForSubmit", false )
-			window.console.log( "计算出错啦 FXXXXXXXXXXXXXXXk" )
-			this.toast.error( "", "计算失败，请重试", this.toastOpt )
+		if ( !msgObj.header ) {
+			window.console.log( "msg format error" )
 			return
-		}
-
-		let subMsg = JSON.parse( msgObj.msg )
-
-		if ( subMsg.type.charAt( subMsg.type.length - 1 ) !== "r" && msgObj.status === "1" ) {
-			this.runtimeConfig.set( "jobId", subMsg.job_id )
-
-			if ( this.firstCallEId === msgObj.jobId ) {
-				window.localStorage.setItem( "jobId", subMsg.job_id )
-				// if ( this.calcDone === true && this.secondCallEId === msgObj.jobId) {
-
-				// 	if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-				// 		this.model.project.set( "status", 1 ).save().then( () => {
-				// 			this.set( "loadingForSubmit", false )
-				// 			this.transitionToRoute( "page.project.result" )
-				// 		} )
-				// 	} else {
-				// 		this.set( "loadingForSubmit", false )
-				// 		this.transitionToRoute( "page.project.result" )
-				// 	}
-				// 	// document.getElementById( "submit-btn" ).click()
-				// } else {
-				this.set( "loadingForSubmit", false )
-				// }
-
-			} else if ( this.calcDone === true && this.secondCallEId === msgObj.jobId ) {
-				window.localStorage.setItem( "jobId", subMsg.job_id )
-
-				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-					set( this.model, "project", this.store.findRecord( "model/project", this.model.project.id ) )
-					this.model.project.then( res => {
-						res.set( "status", 1 )
-						res.set( "endTime", new Date().getTime() )
-						res.set( "lastUpdate", new Date().getTime() )
-						res.save().then( () => {
-							this.set( "loadingForSubmit", false )
-							this.transitionToRoute( "page.project.result" )
-						} )
-					} )
-				} else {
+		} else {
+			window.console.log( msgObj )
+			if ( msgObj.payload.jobId === this.calcJobId ) {
+				if ( msgObj.payload.Status === "ERROR" ) {
+					window.console.log( msgObj.payload.Error )
 					this.set( "loadingForSubmit", false )
-					this.transitionToRoute( "page.project.result" )
-				}
+					this.toast.error( "", "计算失败，请重试", this.toastOpt )
+				} else if ( msgObj.payload.Status === "FINISH" ) {
+					// calc success
+					clearInterval( this.intervalTimer )
+					// clearTimeout( this.deleteTimer )
 
-				// pressure test
-				// this.set( "loadingForSubmit", false )
-				// document.getElementById( "submit-btn" ).click()
+					if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
+						set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
+						this.model.project.then( res => {
+							res.set( "status", 1 )
+							res.set( "endTime", new Date().getTime() )
+							res.set( "lastUpdate", new Date().getTime() )
+							res.set( "current", res.periods.length )
+							res.save().then( () => {
+								this.set( "loadingForSubmit", false )
+								window.localStorage.setItem( "roundHistory", false )
+								this.transitionToRoute( "page.project.result" )
+								// window.location = "/project/" + res.get( "id" ) + "/result"
+							} )
+						} )
+					} else {
+						// this.model.project.then(res => {
+						// 	res.set( "current",  res.periods.length )
+						// })
+						set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
+						this.model.project.then( res => {
+							// res.set( "status", 1 )
+							// res.set( "endTime", new Date().getTime() )
+							// res.set( "lastUpdate", new Date().getTime() )
+							res.set( "current", res.periods.length )
+							res.save().then( () => {
+								this.set( "loadingForSubmit", false )
+								window.localStorage.setItem( "roundHistory", false )
+								// window.location = "/project/" + res.get( "id" ) + "/result"
+								this.transitionToRoute( "page.project.result" )
+							} )
+						} )
+
+
+						// this.set( "loadingForSubmit", false )
+						// this.transitionToRoute( "page.project.result" )
+					}
+				}
 			}
-
-		} else if ( subMsg.type.charAt( subMsg.type.length - 1 ) === "r" && msgObj.status === "1" && this.calcJobId === msgObj.jobId ) {
-			let proposalId = this.model.project.get( "proposal.id" ),
-				projectId = this.model.project.get( "id" ),
-				periodId = this.model.period.get( "id" ),
-				type = this.model.project.get( "proposal.case" ),
-				phase = this.model.period.get( "phase" )
-
-
-			this.get( "ajax" ).post( "/callR", {
-				headers: {
-					"dataType": "json",
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
-				},
-				data: {
-					callr: false,
-					type: type,
-					phase: String( Number( phase ) + 1 ),
-					proposalId: proposalId,
-					projectId: projectId,
-					periodId: periodId
-				}
-			} ).then( res => {
-				window.console.log( res )
-				window.console.log( "callBackend Success!" )
-				this.set( "calcDone", true )
-				this.set( "secondCallEId",res.id )
-			} )
 		}
 	},
 	Subscribe() {
@@ -158,6 +149,58 @@ export default Controller.extend( {
 		// API: 参照https://emitter.io/develop/javascript/
 		// 订阅  参数：channel key，channel name，消息类型（message, error, disconnect），MessageHandel
 		this.client.Subscribe( "3-9kS0TxsJupymws2yKmXbI-x1OXu78p", "tm/", "message", this.onMessage.bind( this ) )
+	},
+	deleteTimer: null,
+	intervalTimer: null,
+	timerToCheckCalc() {
+		// set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
+		this.store.findRecord( "model/project", this.model.project.id, { reload: true } ).then( project => {
+			let 	fids = project.hasMany( "finals" ).ids(),
+				fhids = fids.map( x => {
+					return "`" + `${x}` + "`"
+				} ).join( "," )
+
+			return this.store.query( "model/final", { filter: "(id,:in," + "[" + fhids + "]" + ")" } )
+		} ).then( finals => {
+			if ( finals.length === this.model.periods.length ) {
+
+				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
+					
+					
+					this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ).then( res => {
+						res.set( "status", 1 )
+						res.set( "endTime", new Date().getTime() )
+						res.set( "lastUpdate", new Date().getTime() )
+						res.set( "current", res.periods.length )
+						res.save().then( () => {
+							this.set( "loadingForSubmit", false )
+							window.localStorage.setItem( "roundHistory", false )
+							this.transitionToRoute( "page.project.result" )
+						} )
+					} )
+				} else {
+					set( this.model, "project", this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ) )
+					this.model.project.then( res => {
+						res.set( "current", res.periods.length )
+						res.save().then( () => {
+							this.set( "loadingForSubmit", false )
+							window.localStorage.setItem( "roundHistory", false )
+							this.transitionToRoute( "page.project.result" )
+						} )
+					} )
+				}
+			} else {
+				this.clearTimer()
+			}
+		} ).catch( err => {
+			window.console.log( err )
+			this.clearTimer()
+		} )
+	},
+	clearTimer() {
+		clearInterval( this.intervalTimer )
+		this.set( "loadingForSubmit", false )
+		this.toast.error( "", "计算失败，请重试", this.toastOpt )
 	},
 	transNumber( input ) {
 		let number = Number( input )
@@ -176,7 +219,9 @@ export default Controller.extend( {
 			freeResource = [], // 没有分配的resource
 			aResources = {}, // 被分配的resource
 			hospitalWithoutResource = [],
-			allBudget = this.model.project.proposal.get( "quota.totalBudget" )
+			allBudget = this.model.period.phase === 0 ? Math.floor( this.model.quota.get( "totalBudget" ) ) : Math.floor( this.model.budgetPreset.get( "firstObject.initBudget" ) ),
+			nullName = "",
+			haveNullInput = 0
 		// currentMeetingPlaces = 0,
 		// currentManagementTime = 0,
 		// resourceWithLeftTime = [],
@@ -206,6 +251,15 @@ export default Controller.extend( {
 
 		//budget validation
 		this.model.answers.filter( x => x.get( "category" ) === "Business" ).forEach( answer => {
+			// 有预算或销售额为空
+			// set 0
+			if ( answer.get( "salesTarget" ) === "" || answer.get( "budget" ) === "" ) {
+				haveNullInput = 1
+				nullName = answer.get( "target.name" )
+				// this.set( "answer.salesTarget", 0 )
+				// this.set( "answer.budget", 0 )
+
+			}
 			// 有医院未被分配会议名额
 			// if ( answer.get( "meetingPlaces" ) === -1 ) {
 			// 	hospitalWithoutMeetingPlaces.push( answer.get( "target.name" ) )
@@ -253,6 +307,14 @@ export default Controller.extend( {
 				open: true,
 				title: "设定超标",
 				detail: "您的预算设定总值已超出总预算限制，请合理分配。"
+			} )
+			return false
+		} else if ( haveNullInput === 1 ) {
+			// 有预算或销售额有空值
+			this.set( "validationWarning", {
+				open: true,
+				title: "设定有空值",
+				detail: `${nullName}销售指标尚未完成分配，请完成指标分配。`
 			} )
 			return false
 		} else if ( isOverSalesTarget === 2 ) {
@@ -331,10 +393,11 @@ export default Controller.extend( {
 			// hospitalWithoutResource = [],
 			// hospitalWithoutBudgetOrSales = [],
 			// allManagementPoint = this.model.project.proposal.get( "quota.managerKpi" )
-			allBudget = this.model.project.proposal.get( "quota.totalBudget" ),
+			// allBudget = this.model.proposal.get( "quota.totalBudget" ),
+			allBudget = this.model.period.phase === 0 ? Math.floor( this.model.quota.get( "totalBudget" ) ) : Math.floor( this.model.budgetPreset.get( "firstObject.initBudget" ) ),
 			// allSalesTarget = this.model.project.proposal.get( "quota.totalQuotas" ),
-			allMeetingPlaces = this.model.project.proposal.get( "quota.meetingPlaces" ),
-			allManagementTime = this.model.project.proposal.get( "quota.mangementHours" )
+			allMeetingPlaces = this.model.proposal.get( "quota.meetingPlaces" ),
+			allManagementTime = this.model.proposal.get( "quota.mangementHours" )
 
 
 		this.allProductInfo.forEach( p => {
@@ -532,11 +595,13 @@ export default Controller.extend( {
 
 	},
 	callR() {
-		let proposalId = this.model.project.get( "proposal.id" ),
+		let proposalId = this.model.proposal.get( "id" ),
 			projectId = this.model.project.get( "id" ),
 			periodId = this.model.period.get( "id" ),
-			type = this.model.project.get( "proposal.case" ),
+			type = this.model.proposal.get( "case" ),
 			phase = this.model.period.get( "phase" )
+
+		window.console.log( proposalId, projectId, periodId, phase )
 
 		this.get( "ajax" ).post( "/callR", {
 			headers: {
@@ -546,33 +611,6 @@ export default Controller.extend( {
 			},
 			data: {
 				callr: true,
-				type: type + "r",
-				phase: String( phase ),
-				proposalId: proposalId,
-				projectId: projectId,
-				periodId: periodId
-			}
-		} ).then( res => {
-			window.console.log( res )
-			this.set( "calcJobId",res.id )
-			window.console.log( "callR Success!" )
-		} )
-	},
-	callE() {
-		let proposalId = this.model.project.get( "proposal.id" ),
-			projectId = this.model.project.get( "id" ),
-			periodId = this.model.period.get( "id" ),
-			type = this.model.project.get( "proposal.case" ),
-			phase = this.model.period.get( "phase" )
-
-		this.get( "ajax" ).post( "/callR", {
-			headers: {
-				"dataType": "json",
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
-			},
-			data: {
-				callr: false,
 				type: type,
 				phase: String( phase ),
 				proposalId: proposalId,
@@ -581,11 +619,103 @@ export default Controller.extend( {
 			}
 		} ).then( res => {
 			window.console.log( res )
-			window.console.log( "callE Success!" )
-			this.set( "firstCallEId",res.id )
+			if ( res.Status === "ERROR" ) {
+				window.console.log( "callR Failed!" )
+				window.console.log( res.Error )
+				this.set( "loadingForSubmit", false )
+				this.toast.error( "", "计算失败，请重试", this.toastOpt )
+			} else {
+				this.set( "calcJobId",res.jobId )
+				window.console.log( "callR Success!" )
+
+				this.set( "intervalTimer", setTimeout( this.timerToCheckCalc.bind( this ) , 1000 * 60 * 3 ) )
+				// this.set( "deleteTimer", setTimeout( this.clearTimer.bind( this ), 1000 * 60 * 3 + 1 ) )
+			}
+		} ).catch( err => {
+			window.console.log( "callR Failed!" )
+			window.console.log( err )
+			this.set( "loadingForSubmit", false )
+			this.toast.error( "", "计算失败，请重试", this.toastOpt )
 		} )
 	},
+	// callE() {
+	// 	let proposalId = this.model.project.get( "proposal.id" ),
+	// 		projectId = this.model.project.get( "id" ),
+	// 		periodId = this.model.period.get( "id" ),
+	// 		type = this.model.project.get( "proposal.case" ),
+	// 		phase = this.model.period.get( "phase" )
+
+	// 	this.get( "ajax" ).post( "/callE", {
+	// 		headers: {
+	// 			"dataType": "json",
+	// 			"Content-Type": "application/json",
+	// 			"Authorization": `Bearer ${this.cookies.read( "access_token" )}`
+	// 		},
+	// 		data: {
+	// 			callr: false,
+	// 			type: type,
+	// 			phase: String( phase ),
+	// 			proposalId: proposalId,
+	// 			projectId: projectId,
+	// 			periodId: periodId
+	// 		}
+	// 	} ).then( res => {
+	// 		window.console.log( res )
+	// 		window.console.log( "callE Success!" )
+	// 		this.set( "firstCallEId",res.id )
+	// 	} ).catch( err => {
+	// 		window.console.log( "callE Failed!" )
+	// 		window.console.log( err )
+	// 		this.set( "loadingForSubmit", false )
+	// 		this.toast.error( "", "加载出错，请刷新页面", this.toastOpt )
+	// 	} )
+	// },
+	setZeroSave() {
+		this.model.answers.filter( x => x.get( "category" ) === "Business" ).forEach( answer => {
+			// 有预算或销售额为空
+			// set 0
+			if ( answer.get( "salesTarget" ) === "" ) {
+				answer.set( "salesTarget", 0 )
+			}
+			if ( answer.get( "budget" ) === "" ) {
+				answer.set( "budget", 0 )
+			}
+
+		} )
+		if ( this.model.project.get( "proposal.case" ) === "tm" ) {
+			this.model.answers.filter( x => x.get( "category" ) === "Management" ).forEach( answer => {
+				if ( answer.get( "strategAnalysisTime" ) === "" ) {
+					answer.set( "strategAnalysisTime", 0 )
+				}
+				if ( answer.get( "clientManagementTime" ) === "" ) {
+					answer.set( "clientManagementTime", 0 )
+				}
+				if ( answer.get( "adminWorkTime" ) === "" ) {
+					answer.set( "adminWorkTime", 0 )
+				}
+				if ( answer.get( "kpiAnalysisTime" ) === "" ) {
+					answer.set( "kpiAnalysisTime", 0 )
+				}
+				if ( answer.get( "kpiAnalysisTime" ) === "" ) {
+					answer.set( "kpiAnalysisTime", 0 )
+				}
+			} )
+
+			this.model.answers.filter( x => x.get( "category" ) === "Resource" ).forEach( answer => {
+				if ( answer.get( "abilityCoach" ) === "" ) {
+					answer.set( "abilityCoach", 0 )
+				}
+				if ( answer.get( "assistAccessTime" ) === "" ) {
+					answer.set( "assistAccessTime", 0 )
+				}
+			} )
+		}
+	},
 	validation( proposalCase ) {
+
+		// when input is null, set 0
+		this.setZeroSave()
+
 		let	validationArr = this.getAllProductInfo()
 
 		set( this, "allProductInfo", validationArr )
@@ -603,7 +733,7 @@ export default Controller.extend( {
 			this.transitionToRoute( "page.welcome" )
 		},
 		submitModal() {
-			let status = this.validation( this.model.project.proposal.get( "case" ) ),
+			let status = this.validation( this.model.proposal.get( "case" ) ),
 				detail = "提交执行本周期决策后，决策将保存不可更改，确定要提交吗？",
 				flag = 0
 
@@ -638,7 +768,7 @@ export default Controller.extend( {
 				open: false
 			} )
 
-			let status = this.validation( this.model.project.proposal.get( "case" ) )
+			let status = this.validation( this.model.proposal.get( "case" ) )
 
 			if ( status ) {
 				this.set( "calcDone", false )
@@ -687,6 +817,10 @@ export default Controller.extend( {
 		},
 		saveInputs() {
 			Ember.Logger.info( "save current input" )
+
+			// when input is null, set 0
+			this.setZeroSave()
+
 			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 				this.model.project.set( "lastUpdate", new Date().getTime() )
 				this.model.project.save().then( () => {
@@ -725,7 +859,11 @@ export default Controller.extend( {
 					this.toast.success( "", "保存成功", this.toastOpt )
 
 					setTimeout(	function() {
-						window.location = "/"
+						if ( localStorage.getItem( "isUcb" ) === "1" ) {
+							window.location = "/ucbprepare"
+						} else {
+							window.location = "/"
+						}
 					}, 3000 )
 
 				} ).catch( err => {

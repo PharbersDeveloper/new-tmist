@@ -22,19 +22,11 @@ export default Object.extend( {
 		return this.getPresetsRefWithCurrentPeriod( aPeriod ).length
 	},
 	async getCurrentPresetsWithPeriod( aPeriod, aProposal, phase ) {
-		// let prs = await this.getPresetsRefWithCurrentPeriod( aPeriod )
-		// const ids = prs.ids(),
-		// 	fid = ids.map( x => {
-		// 		return "`" + `${x}` + "`"
-		// 	} ).join( "," )
-
-		// return this.store.query( "model/preset", { filter: "(id,:in," + "[" + fid + "]" + ")"} )
-		const condi01 = "(proposalId,:eq,`" + aProposal.value().get( "id" ) + "`)",
-		 condi02 = "(category,:eq,`8`)",
-		 condi03 = "(category,:eq,`4`)",
-		 condior = "(:or," + condi02 + "," + condi03 + ")",
-		 fc = "(:and," + condi01 + "," + condior + ")"
-		// return this.store.query("model/preset", { filter: "(proposalId,:eq,`" + aProposal.value().get("id") + "`)" } )
+		const condi01 = "(proposalId,:eq,`" + aProposal.get( "id" ) + "`)",
+			condi02 = "(category,:eq,`8`)",
+			condi03 = "(category,:eq,`4`)",
+			condior = "(:or," + condi02 + "," + condi03 + ")",
+			fc = "(:and," + condi01 + "," + condior + ")"
 
 		return this.store.query( "model/preset", { filter: fc } )
 

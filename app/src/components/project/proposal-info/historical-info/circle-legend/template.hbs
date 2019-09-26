@@ -1,0 +1,24 @@
+{{#bp-layout direction="row" main='center' local-class="circle-bottom"}}
+    <div>
+        {{#each productLegendData as |prod|}}
+            <p local-class='circle-legend' class="mb-1">
+                <span local-class='point' style={{prod.color}}></span>
+                <span local-class='name' class="mr-3">{{prod.name}}</span>
+            </p>
+        {{/each}}
+    </div>
+    <div>
+        {{#each productLegendData as |prod|}}
+            <p local-class='circle-legend' class="mb-1">
+                <span local-class='value' class="mr-2">{{bp-percent prod.salesRate 1}}</span>
+            </p>
+        {{/each}}
+    </div>
+    <div>
+        {{#each productLegendData as |prod|}}
+            <p local-class='circle-legend' class="mb-1">
+                <span local-class='value'>¥{{format-number prod.sales 0}}</span>
+            </p>
+        {{/each}}
+    </div>
+{{/bp-layout}}

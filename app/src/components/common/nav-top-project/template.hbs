@@ -1,9 +1,16 @@
 
 {{#bp-layout direction="row" local-class="submit-header" main="between" cross="center" classNames="px-4 py-3"}}
     {{#bp-layout direction="row" cross="center"}}
-        {{#bp-button local-class="exit-btn" onClick=(action "toIndex")}}{{bp-icon icon="sign-out"}}{{/bp-button}}
-        
-        {{#bp-layout tagName="h4" local-class="title" class="ml-2"}}
+        {{#if (or noNavButton (bp-eq roundOver "true"))}}
+        {{!-- {{#if noNavButton}} --}}
+        {{else}}
+            {{#if ucbSpecial}}
+                {{#bp-button local-class="exit-btn" onClick=(action "logOut") class="mr-2"}}{{bp-icon icon="sign-out"}}{{/bp-button}}
+            {{else}}
+                {{#bp-button local-class="exit-btn" onClick=(action "toIndex") class="mr-2"}}{{bp-icon icon="sign-out"}}{{/bp-button}}
+            {{/if}}
+        {{/if}}
+        {{#bp-layout tagName="h4" local-class="title" }}
             {{!-- {{#if (bp-eq projectType 1)}}
                 APM
             {{else if (bp-eq projectType 2)}}
@@ -14,7 +21,7 @@
                 undefined
             {{/if}} --}}
             {{#if proposalName}}
-                {{proposalName}}
+                {{proposalName}}系统
             {{/if}}
         {{/bp-layout}}
         {{#if periodName}}

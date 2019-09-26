@@ -30,9 +30,10 @@
 				img {
 					flex-grow: 160px;
 					flex-shrink: 0;
-					height: 160px;
+					height: 239px;
 					width: 388px;
-					background-color: #ebecf0;
+					border-radius: 4px;
+					// background-color: #ebecf0;
 				}
 
 				.properties {
@@ -93,13 +94,14 @@
 				}
 
 				thead {
-					border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+					border-bottom: 1px solid rgba(9, 30, 66, 0.08);
 					color: #7a869a;
 					font-size: 12px;
 					width: 338px;
 
 					th {
 						flex: 1;
+						font-weight: 400;
 					}
 				}
 
@@ -111,6 +113,14 @@
 					// text-align: right;
 					td {
 						flex: 1;
+
+						.td-left {
+							width: 44px;
+						}
+
+						.td-right {
+							width: 48px;
+						}
 					}
 				}
 			}

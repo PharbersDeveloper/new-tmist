@@ -106,7 +106,8 @@
 						{{#bp-layout direction="row" cross="center" classNames="pl-4"
 							local-class=(if (bp-eq currentResource index) "resource active" "resource")
 							click=(action (mut currentResource) index )}}
-							<img src={{resource.avatar.img}} alt={{resource.name}}>
+							{{!-- <img src={{resource.avatar.img}} alt={{resource.name}}> --}}
+							<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>
 							{{#bp-layout classNames="ml-3" cross="center" tagName="span"}}{{resource.name}}{{/bp-layout}}
 						{{/bp-layout}}
 					{{/each}}
@@ -153,20 +154,21 @@
 	{{/if}} --}}
 {{/bp-layout}}
 {{#bp-modal
+		local-class="modal"
 		open=warning.open
 		position='center' 
 		onHidden=(action (mut warning.open) false) as |modal|}}
-	{{#modal.header}}
-		<h4 class="modal-title">
+	{{#modal.header closeButton=false}}
+		<h4 local-class="modal-title" class="mb-0">
 			{{warning.title}}
 		</h4>
 	{{/modal.header}}
-	{{#modal.body classNames="p-4"}}
-		<p class="desc">
+	{{#modal.body classNames="px-4 pt-0"}}
+		<p class="desc m-0">
 			{{warning.detail}}
 		</p>
 	{{/modal.body}}
-	{{#modal.footer}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}

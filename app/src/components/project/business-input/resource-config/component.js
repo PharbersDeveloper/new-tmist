@@ -1,8 +1,13 @@
 import Component from "@ember/component"
 import { computed, set } from "@ember/object"
+// import Service from "@ember/service"
+import { inject as service } from "@ember/service"
+
 
 export default Component.extend( {
+	picOSS: service( "service/pic-oss" ),
 	positionalParams: ["resource", "answers", "selectResource", "resourceHospital", "curResource", "project"],
+	classNames: ["resource-config-wrapper"],
 	showContent: computed( "curResource", function() {
 		if ( !this.curResource ) {
 			return true
@@ -26,7 +31,7 @@ export default Component.extend( {
 			all += this.transNumber( a.get( "visitTime" ) )
 		} )
 
-		return 100 - all
+		return all
 	} ),
 	transNumber( input ) {
 		let number = Number( input )
@@ -59,7 +64,7 @@ export default Component.extend( {
 				} )
 				set( this, "leftTime", 0 )
 			} else {
-				set( this, "leftTime", 100 - all )
+				set( this, "leftTime", all )
 			}
 			// this.resource.get("totalTiem")
 			// set( this.resource, "totalTime", this.leftTime )

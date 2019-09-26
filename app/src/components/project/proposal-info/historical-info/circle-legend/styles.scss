@@ -1,0 +1,23 @@
+.circle-bottom {
+    margin-top: 32px;
+    .circle-legend {
+        span {
+            display: inline-block;
+        }
+    
+        .point {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+    
+        .name {
+            @extend %p-primary;
+        }
+    
+        .value {
+            @extend %p-secondary;
+        }
+    }
+}

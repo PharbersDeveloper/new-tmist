@@ -6,7 +6,7 @@
         {{#bp-layout direction="col" main="between" cross="start" local-class="card" classNames="bg-white"}}
             {{!-- <p local-class="title">您好！欢迎进入优时比区域周期计划测试</p> --}}
             <p local-class="title">您好！欢迎进入 <br>
-                {{model.proposal.name}}测试</p>
+                {{model.proposal.name}}系统</p>
             {{#bp-layout direction="row" main="start" cross="start" local-class="status-area"}}
                 {{#if model.provious}}
                     <span local-class="badge">进行中</span>
@@ -16,7 +16,7 @@
             {{/bp-layout}}
             {{#bp-layout direction="row" main="between" cross="center" local-class="card-bottom"}}
                 {{!-- TODO未开发功能，先进行隐藏 --}}
-                {{!-- <p local-class="link" {{action "toHistory" model.proposal.id}}>查看历史成果</p> --}}
+                <p local-class="link" {{action "toHistory" model.proposal.id}}>查看历史成果</p>
                 {{!-- 占位符，开发完历史成果跳转功能后，将 span 删除 --}}
                 <span></span>
                 {{#if model.provious}}
@@ -45,10 +45,15 @@
 		position="center"
         size="sm"
 		onHidden=(action (mut startDeployConfirm.open) false) as |modal|}}
-    {{#modal.header classNames="px-4"}}
-        <h4 class="modal-title" local-class="start-deploy-header">
-            {{startDeployConfirm.title}}
-        </h4>
+    {{#modal.header closeButton=false classNames="px-4"}}
+        {{#bp-layout direction="row" main="between" classNames="header-wrapper"}}
+            <h4 class="modal-title" local-class="start-deploy-header">
+                {{startDeployConfirm.title}}
+            </h4>
+            {{#bp-layout direction="row" main="between" classNames="close-wrapper" click=(action (mut startDeployConfirm.open) false)}}
+                {{bp-icon icon='cross'}}
+            {{/bp-layout}}
+        {{/bp-layout}}
     {{/modal.header}}
     {{#modal.body classNames="px-4 pt-0"}}
         <p class="desc m-0">
@@ -57,6 +62,6 @@
     {{/modal.body}}
     {{#modal.footer classNames="pt-0 pb-4 px-4"}}
         {{#bp-button type="subtle" onClick=(action modal.close)}}取消{{/bp-button}}
-        {{#bp-button type="primary" onClick=(action "startDeploy" model.proposal)}}重新部署{{/bp-button}}
+        {{#bp-button type="primary" onClick=(action "startAgainDeploy" model.proposal)}}重新部署{{/bp-button}}
     {{/modal.footer}}
 {{/bp-modal}}

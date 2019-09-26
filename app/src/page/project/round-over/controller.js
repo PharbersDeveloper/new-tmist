@@ -6,6 +6,8 @@ export default Controller.extend( {
 	// ossService: service( "service/oss" ),
 	// ajax: service(),
 	// cookies: service(),
+	// roundOver: true,
+	noNavButton: true,
 	exportService: service( "service/export-report" ),
 	// endTime: computed( "this.model.project", function () {
 	// 	let date = new Date( this.model.project.endTime ),
@@ -86,11 +88,27 @@ export default Controller.extend( {
 			// this.genDownloadUrl()
 			this.exportService.exportReport( this.model.project, this.model.project.get( "periods" ).length )
 		},
+		exportInput() {
+			this.exportService.exportInput( this.model.project, this.model.project.get( "periods" ).length )
+		},
 		toIndex() {
-			this.transitionToRoute( "/" )
+			if ( localStorage.getItem( "isUcb" ) === "1" ) {
+				window.location = "/ucbprepare"
+			} else {
+				window.location = "/"
+			}
+			// this.transitionToRoute( "/" )
 		},
 		toReport() {
+			window.localStorage.setItem( "roundHistory", true )
 			this.transitionToRoute( "page.project.result", this.model.project.id )
+			// window.location = "/project/" + this.model.project.id + "/result"
+		},
+		toDecisionReview() {
+			this.transitionToRoute( "page.project.review", this.model.project.id )
+		},
+		showTestPerformance() {
+			this.set( "testPerformance", true )
 		}
 	}
 } )

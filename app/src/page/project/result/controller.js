@@ -1,13 +1,27 @@
 import Controller from "@ember/controller"
 import { inject as service } from "@ember/service"
+// import computed from "@ember/object"
+import { computed } from "@ember/object"
 
 export default Controller.extend( {
 	gen: service( "service/gen-data" ),
 	deploy( project ) {
 		this.gen.genPeriodWithProject( project ).then( x => {
-			this.transitionToRoute( "page.project.period", project.id, x.id )
+			window.location = "/project/" + project.id + "/period/" + x.id
+			// this.transitionToRoute( "page.project.period", project.id, x.id )
 		} )
 	},
+	roundOver: computed( function() {
+		return window.localStorage.getItem( "roundHistory" )
+
+		// let old = window.document.referrer
+
+		// if ( old.indexOf( "round-over" ) !== -1 || old.indexOf( "history" ) !== -1 ) {
+		// 	return true
+		// } else {
+		// 	return false
+		// }
+	} ),
 	actions: {
 		toReport() {
 			this.transitionToRoute( "page.project.report" )

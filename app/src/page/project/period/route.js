@@ -1,7 +1,6 @@
 import Route from "@ember/routing/route"
 import RSVP from "rsvp"
 import { inject as service } from "@ember/service"
-import { A } from "@ember/array"
 
 export default Route.extend( {
 	facade: service( "service/exam-facade" ),
@@ -56,22 +55,20 @@ export default Route.extend( {
 		let periods = null,
 			policies = null
 
-		if ( periodsIds.length ) {
-			periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
-		} else {
-			periods = A( [period] )
-		}
+		periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + pidsForSearch + "]" + ")" } )
 
+		window.console.log( "periodsIds" )
 
 		this.facade.startPeriodExam( project )
 
-		const presets = period.then( prd => {
-				return this.facade.queryPeriodPresets( prd, prs, 0 )
+		// get all preset by proposal
+		const presets = prs.load().then( res => {
+				return this.facade.queryPeriodPresets( null, res, phase )
 			} ),
 
 			answers = Promise.all( [period, presets, resources] ).then( results => {
 				const p = results[0],
-					items = results[1].filter( x => x.category == 8 && x.phase == phase ),
+					items = results[1].filter( x => x.category === 8 && x.phase === phase ),
 					people = results[2]
 
 				return this.facade.queryPeriodAnswers( p, items, people )
@@ -80,7 +77,7 @@ export default Route.extend( {
 			dragInfo =
 				prs.load().then( x => {
 					const condi01 = "(proposalId,:eq,`" + x.id + "`)",
-						condi02 = "(phase,:eq," + phase + ")",
+						condi02 = "(phase,:eq,0)",
 						condi03 = "(category,:eq,8)",
 						condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
 
@@ -95,7 +92,8 @@ export default Route.extend( {
 					condi = "(:and," + condi01 + "," + condi02 + "," + condi03 + ")"
 
 				return this.store.query( "model/preset", { filter: condi } )
-			} )
+			} ),
+			presetsByProject = this.store.query( "model/preset", { filter: "(projectId,:eq,`" + project.id + "`)" } )
 
 		policies = prs.load().then( x => {
 
@@ -106,29 +104,60 @@ export default Route.extend( {
 			return this.store.query( "model/preset", { filter: "(:and," + "(proposalId,:eq,`" + data.prsId + "`)" + `,(phase,:eq,${sourtPeriods.lastObject.phase})` + "," + "(category,:eq,32)" + ")" } )
 		} )
 
-		window.console.log( dragInfo )
+		const curPresets = phase === 0 ? presets : presetsByProject,
+			budgetPreset = phase === 0 ? quota : presetsByProject.then( x => x.filter( it => it.category === 8 && it.phase === phase ) )
+
+		// 2.3 周期分配结果等于第一周期分配结果 start
+		if ( phase > 0 ) {
+			presetsByProject.then( x => {
+				x.filter( it => it.category === 8 && it.phase === phase ).forEach( preset => {
+					answers.then( a => {
+						const curAnswer = a.filter( x => x.get( "category" ) === "Business" ).find( ans => {
+							const p = ans.belongsTo( "product" ).id() === preset.belongsTo( "product" ).id(),
+								h = ans.belongsTo( "target" ).id() === preset.belongsTo( "hospital" ).id()
+
+							return p && h
+						} )
+
+						if ( curAnswer ) {
+							curAnswer.set( "resource", preset.resource )
+						}
+
+					} )
+				} )
+			} )
+		}
+		// end
 
 		return RSVP.hash( {
 			period: period,
 			project: project,
+			proposal: prs.load().then(),
 			hospitals: hospitals,
 			products: products,
 			resources: resources,
-			presets: presets.then( x => x.filter( it => it.category === 8 && it.phase === phase ) ),
+			presets: curPresets.then( x => x.filter( it => it.category === 8 && it.phase === phase ) ),
 			productQuotas: presets.then( x => x.filter( it => it.category === 4 && it.phase === phase ) ),
-			allDrugPresets: presets.then( x => x.filter( it => it.category === 8 ) ),
+			presetsByProject: presetsByProject.then( x => x.filter( it => it.category === 8 && it.projectId === project.id ) ),
 			answers: answers,
 			validation: validation,
 			quota: quota,
-			dragInfo: dragInfo,
+			dragInfo: dragInfo.then( x => x.filter( it => it.category === 8 ) ),
 			kpiInfo: kpiInfo,
 			periods: periods,
+			budgetPreset:budgetPreset,
 			policies
 		} )
 	},
 	setupController( controller, model ) {
 		this._super( controller, model )
 		this.controllerFor( "page.project.period" ).Subscribe()
-		this.controllerFor( "page.project.period" ).callE()
+		// this.controllerFor( "page.project.period" ).callE()
+		// this.controllerFor( "page.project.period" ).set( "loadingForSubmit", true )
+		this.controllerFor( "page.project.period" ).set( "taskModal", true )
+
+		window.localStorage.setItem( "proposalId", model.project.get( "proposal.id" ) )
+		window.localStorage.setItem( "projectId", model.project.get( "id" ) )
+		// window.localStorage.setItem( "periodId", model.period.get( "id" ) )
 	}
 } )

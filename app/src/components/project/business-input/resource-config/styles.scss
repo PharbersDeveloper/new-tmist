@@ -1,129 +1,183 @@
+:global(.resource-config-wrapper) {
+  border-bottom: 1px solid #fafbfc;
+}
+
 .resource-list-outer {
-	width: 368px;
-	height: fit-content;
+  width: 368px;
+  height: fit-content;
 
-	.resource-item {
-		height: 88px;
-		width: 100%;
-		font-size: 14px;
-		color: #172b4d;
-		text-align: left;
-		border-bottom: 1px solid rgba(9, 30, 66, 0.04);
-		border-radius: 0;
-		cursor: pointer;
+  .resource-item {
+    height: 88px;
+    width: 100%;
+    font-size: 14px;
+    color: #172b4d;
+    text-align: left;
+    // border-bottom: 1px solid #fafbfc;
+    border-radius: 0;
+    cursor: pointer;
 
-		// &:last-child {
-		// 	border-bottom: none;
-		// }
+    // &:last-child {
+    // 	border-bottom: none;
+    // }
 
-		&.active {
-			background-color: #ebecf0;
-		}
+    &.active {
+      background-color: #ebecf0;
+    }
 
-		img {
-			height: 40px;
-			height: 40px;
-		}
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 13px;
+    }
 
-		.item-right {
-			.badge {
-				background-color: #c2daff;
-				color: #3880f8;
-				font-size: 14px;
-				font-weight: 400;
-				margin-left: 4px;
-				height: 20px;
-				border-radius: 4px;
+    .item-left {
+      .span-1 {
+        font-size: 12px;
+        color: #7a869a;
+      }
 
-				svg {
-					font-size: 18px;
-					padding-bottom: 2px;
+      .span-2 {
+        font-size: 16px;
+        color: #172b4d;
+      }
+    }
 
-					path {
-						fill: #3880f8;
-					}
-				}
-			}
+    .item-right {
+      .badge {
+        background-color: #e1ecff;
+        color: rgba(56, 129, 255, 1);
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 4px;
+        height: 20px;
+        border-radius: 4px;
 
-			.remain {
-				background-color: #ebecf0;
-				color: #505f79;
-				font-size: 14px;
-				font-weight: 400;
-				margin-left: 4px;
-				height: 20px;
-				border-radius: 4px;
+        svg {
+          font-size: 18px;
 
-				svg {
-					font-size: 18px;
-					padding-bottom: 2px;
+          path {
+            fill: rgba(56, 129, 255, 1);
+          }
+        }
 
-					path {
-						fill: #505f79;
-					}
-				}
-			}
-		}
-	}
+        span {
+          padding-left: 2px;
+        }
+      }
+
+      .badge-changed {
+        background: #3881ff;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 4px;
+        height: 20px;
+        border-radius: 4px;
+
+        svg {
+          font-size: 18px;
+
+          path {
+            fill: #ffffff;
+          }
+        }
+
+        span {
+          padding-left: 2px;
+        }
+      }
+
+      .hospital-badge {
+        svg {
+          margin-bottom: 2px;
+        }
+      }
+
+      .remain {
+        background-color: #ebecf0;
+        color: #505f79;
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 4px;
+        height: 20px;
+        border-radius: 4px;
+
+        svg {
+          font-size: 18px;
+          padding-bottom: 2px;
+
+          path {
+            fill: #505f79;
+          }
+        }
+      }
+    }
+  }
 }
 
 .wrapper {
-	height: fit-content;
-	width: 368px;
-	background: #ebecf0;
+  height: fit-content;
+  width: 368px;
+  background: #ebecf0;
 
-	.representative-info {
-		height: fit-content;
-		width: 352px;
-		padding-top: 12px;
+  .representative-info {
+    background: #ebecf0;
+    height: fit-content;
+    width: 100%;
+    width: 368px;
+    // padding-top: 12px;
+    border-radius: 4px;
 
-		.remain-time {
-			width: 100%;
+    .remain-time {
+      width: 100%;
 
-			.time {
-				font-size: 12px;
-				color: #7a869a;
-			}
+      .time {
+        font-size: 12px;
+        color: #7a869a;
+      }
 
-			.percent {
-				span:first-child {
-					font-size: 16px;
-					color: #172b4d;
-				}
+      .percent {
+        span:first-child {
+          font-size: 16px;
+          color: #172b4d;
+        }
 
-				span:last-child {
-					font-size: 12px;
-					color: #7a869a;
-				}
-			}
+        span:last-child {
+          font-size: 12px;
+          color: #7a869a;
+        }
+      }
 
-			:global(.bp-progress) {
-				height: 4px;
+      :global(.bp-progress) {
+        height: 4px;
 
-				:global(.bp-progress-bar) {
-					background-color: $b200;
-				}
-			}
-		}
-	}
+        :global(.bp-progress-bar) {
+          background-color: $b200;
+        }
+      }
+    }
+  }
 
-	.resource-hospital {
-		.hospital-time {
-			.hospital-name {
-				font-size: 14px;
-				color: #344563;
-				width: 84px;
-				height: 20px;
-				text-align: right;
-			}
+  .resource-hospital {
+    border-radius: 4px;
 
-			&::after {
-				content: "%";
-				position: relative;
-				margin-left: -20px;
-				font-size: 14px;
-				color: #344563;
-			}
-		}
-	}
+    .hospital-time {
+      .hospital-name {
+        font-size: 14px;
+        color: #344563;
+        width: 84px;
+        height: 20px;
+        text-align: right;
+      }
+
+      &::after {
+        content: "%";
+        position: relative;
+        margin-left: -20px;
+        font-size: 14px;
+        color: #344563;
+      }
+    }
+  }
 }

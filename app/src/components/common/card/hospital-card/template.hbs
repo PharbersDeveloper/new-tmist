@@ -9,7 +9,7 @@
 		{{#bp-layout main="start" local-class="left-info" classNames="pb-4 px-4" direction="col"}}
 			
 			{{#bp-layout classNames="mb-4"}}
-				<img alt={{hospital.name}} src="{{hospital.avatar.img}}">
+				<img alt={{hospital.name}} src="{{get-oss-pic hospital.avatar.img picOSS}}">
 			{{/bp-layout}}
 
 			{{!-- {{#bp-layout tagName="div" local-class="properties"}} --}}
@@ -68,7 +68,7 @@
 			{{/bp-layout}}
 			
 			{{#bp-layout tagName="table" direction="col" classNames="ml-4"}}
-				{{#bp-layout tagName="thead" main="between" }}
+				{{#bp-layout tagName="thead" main="between" classNames="pb-2"}}
 					{{#bp-layout tagName="th" main="center"}}药品名{{/bp-layout}}
 					{{#bp-layout tagName="th" main="center"}}治疗领域{{/bp-layout}}
 					{{#bp-layout tagName="th" main="center"}}药品准入状态{{/bp-layout}}
@@ -78,15 +78,25 @@
 				{{#bp-layout tagName="tbody" main="between"}}
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
 						{{#bp-layout tagName="td" main="center"}}{{item.product.name}}{{/bp-layout}}
-						{{#bp-layout tagName="td" main="center"}}{{item.product.treatmentArea}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}
+							{{#bp-layout main="start" local-class="td-left"}}
+									{{item.product.treatmentArea}}
+							{{/bp-layout}}
+						{{/bp-layout}}
 						{{#bp-layout tagName="td" main="center"}}
 							{{#if (bp-eq item.currentDurgEntrance 1)}}
 							已开发
-							{{else}}
+							{{else if (bp-eq item.currentDurgEntrance 0)}}
 							未开发
+							{{else if (bp-eq item.currentDurgEntrance 2)}}
+							正在开发
 							{{/if}}
 						{{/bp-layout}}
-						{{#bp-layout tagName="td" main="center"}}{{format-number item.currentPatientNum}}{{/bp-layout}}
+						{{#bp-layout tagName="td" main="center"}}
+						{{#bp-layout main="end" local-class="td-right"}}
+							{{format-number item.currentPatientNum}}
+						{{/bp-layout}}
+						{{/bp-layout}}
 					{{/bp-layout}}
 				{{/bp-layout}}
 				{{/each}}
@@ -94,7 +104,7 @@
 
 			{{#bp-layout}}
 				<div local-class="dynamic others" class="p-4">
-					<h4 local-class="title" class="mb-2">{{t "card.hospital-card.dynamic"}}</h4>
+					<h4 local-class="title" class="mb-3">{{t "card.hospital-card.dynamic"}}</h4>
 					{{#each currentPolicies as |policy|}}
 						<p local-class="content" class="mb-2">
 							{{policy.currentPolicy}}

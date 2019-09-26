@@ -5,7 +5,7 @@
 	{{#if (bp-eq proposal.case "tm")}}
 		{{#bp-layout local-class="basic-infos" classNames="p-4 mb-1 bg-white" direction="row"}}
 			{{#bp-layout direction="row" local-class="left"}}
-				{{#bp-layout}}<img src={{resource.avatar.img}} alt={{resource.name}}>{{/bp-layout}}
+				{{#bp-layout}}<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>{{/bp-layout}}
 				{{#bp-layout direction="col"}}
 					{{#bp-layout local-class="name"}} {{resource.name}} {{/bp-layout}}
 					{{#bp-layout local-class="experience"}}
@@ -81,7 +81,7 @@
 	{{else}}
 		{{#bp-layout local-class="basic-infos" classNames="p-4 mb-1 bg-white" direction="row"}}
 			{{#bp-layout direction="row" local-class="left"}}
-				{{#bp-layout}}<img src={{resource.avatar.img}} alt={{resource.name}}>{{/bp-layout}}
+				{{#bp-layout classNames="mr-3"}}<img src= {{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>{{/bp-layout}}
 				{{#bp-layout direction="col"}}
 					{{#bp-layout local-class="name"}} {{resource.name}} {{/bp-layout}}
 					{{#bp-layout local-class="experience"}}
@@ -90,13 +90,13 @@
 					{{/bp-layout}}
 					{{#bp-layout classNames="mt-3 mb-1"}}
 						<p>
-							<span>学历：</span>
+							<span class="mr-2">学历</span>
 							<span>{{resource.education}}</span>
 						</p>
 					{{/bp-layout}}
 					{{#bp-layout classNames="mb-1"}}
 						<p>
-							<span>专业：</span>
+							<span class="mr-2">专业</span>
 							<span>{{resource.professional}}</span>
 						</p>
 					{{/bp-layout}}

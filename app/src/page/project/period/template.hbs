@@ -136,7 +136,7 @@
 
 		{{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}}
 	{{/bp-layout}} --}}
-	{{#common/nav-top-project proposalName=model.project.proposal.name  periodName=model.period.name
+	{{#common/nav-top-project proposalName=model.proposal.name  periodName=model.period.name
 		saveInputsWhenQuitModal=(action "saveInputsWhenQuitModal")}}
 		{{#bp-layout direction="row"}}
 				{{#bp-button local-class="btn-submit" onClick=(action "saveInputs") classNames="mr-1"}}保存{{/bp-button}}
@@ -148,32 +148,33 @@
 	{{#bp-tabs classNames="px-0" local-class="tabs-container" as |tabs|}}
 		{{#tabs.tablist}}
 			{{!-- <li > --}}
-			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 0) "active nav-item" "nav-item")}}
-				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 0) local-class=(if (bp-eq currentTab 0) "active")}}
+			{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq currentTab 3) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white" onClick=(action (mut currentTab) 3) local-class=(if (bp-eq currentTab 3) "active")}}
+					{{t "project.scenario-reference"}}
+				{{/bp-button}}
+			{{/bp-layout}}
+			{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq currentTab 0) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white" onClick=(action (mut currentTab) 0) local-class=(if (bp-eq currentTab 0) "active")}}
 					{{t "project.scenario-business"}}
 				{{/bp-button}}
 			{{/bp-layout}}
 			{{!-- </li> --}}
 			{{!-- <li local-class='nav-item'> --}}
-			{{#if (bp-eq model.project.proposal.case "tm")}}
-			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 1) "active nav-item" "nav-item")}}
-				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 1) local-class=(if (bp-eq currentTab 1) "active")}}
+			{{#if (bp-eq model.proposal.case "tm")}}
+			{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq currentTab 1) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white" onClick=(action (mut currentTab) 1) local-class=(if (bp-eq currentTab 1) "active")}}
 					{{t "project.scenario-management"}}
 				{{/bp-button}}
 			{{/bp-layout}}
 			{{/if}}
-			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 2) "active nav-item" "nav-item")}}
-				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 2) local-class=(if (bp-eq currentTab 2) "active")}}
+			{{#bp-layout tagName="li" cross="center" local-class=(if (bp-eq currentTab 2) "active nav-item" "nav-item")}}
+				{{#bp-button classNames="nav-link bg-white" onClick=(action (mut currentTab) 2) local-class=(if (bp-eq currentTab 2) "active")}}
 					决策回顾
 				{{/bp-button}}
 			{{/bp-layout}}
 			{{!-- </li> --}}
 			{{!-- <li local-class=(if (bp-eq currentTab 1) "active")> --}}
-			{{#bp-layout tagName="li" local-class=(if (bp-eq currentTab 3) "active nav-item" "nav-item")}}
-				{{#bp-button classNames="nav-link bg-white mt-4" onClick=(action (mut currentTab) 3) local-class=(if (bp-eq currentTab 3) "active")}}
-					{{t "project.scenario-reference"}}
-				{{/bp-button}}
-			{{/bp-layout}}
+			
 			{{!-- </li> --}}
 			{{!-- <li class="nav-item">
 				{{#bp-button classNames="nav-link" role="button" onClick=(action (mut currentTab) 3)}}
@@ -182,9 +183,11 @@
 			</li> --}}
 		{{/tabs.tablist}}
 		{{#bp-layout direction="col" main="start" cross="center" classNames="p-4" local-class="tab-content-outer"}}
+
 			{{#if (bp-eq currentTab 0)}}
 				{{project/business-input
 						project=model.project
+						proposal=model.proposal
 						period=model.period
 						hospitals=model.hospitals
 						products=model.products
@@ -195,6 +198,8 @@
 						answers=(filter-category model.answers "Business")
 						productQuotas=model.productQuotas
 						reports=model.dragInfo
+						presetsByProject=model.presetsByProject
+						budgetPreset=model.budgetPreset
 				}}
 			{{/if}}
 			{{#if (bp-eq currentTab 1)}}
@@ -211,7 +216,7 @@
 			{{#if (bp-eq currentTab 2)}}
 				{{!-- {{project/proposal-info project=model.project proposal=model.project.proposal resources=model.resources}} --}}
 				{{project/decision-review 
-					proposal=model.project.proposal 
+					proposal=model.proposal 
 					project=model.project 
 					period=model.period
 					hospitals=model.hospitals
@@ -219,14 +224,14 @@
 					products=model.products
 					answers=model.answers
 					reports=model.dragInfo
-					allDrugPresets=model.allDrugPresets
+					presetsByProject=model.presetsByProject
 					}}
 			{{/if}}
 			{{#if (bp-eq currentTab 3)}}
 				{{project/proposal-info 
-					proposal=model.project.proposal 
+					proposal=model.proposal 
 					project=model.project
-					reports=model.dragInfo 
+					reports=model.presets
 					kpis=model.kpiInfo
 					period=model.period
 					periods=model.periods
@@ -312,4 +317,91 @@
 			<img src="/images/loading.gif" alt="" local-class="loading-img">
 		{{/bp-layout}}
 	{{/modal.body}}
+{{/bp-modal}}
+
+{{#bp-modal
+		local-class="task-modal"
+		open=taskModal
+		position='center' 
+		onHidden=(action (mut taskModal) false) as |modal|}}
+	{{#modal.header closeButton=false classNames="px-4"}}
+	{{#bp-layout direction="row" main="end" classNames="header-wrapper"}}
+		{{#bp-layout direction="row" main="end" classNames="close-wrapper" click=(action (mut taskModal) false)}}
+			{{bp-icon icon='cross'}}
+		{{/bp-layout}}
+	{{/bp-layout}}
+	{{/modal.header}}
+	{{#modal.body classNames="px-4 pt-0"}}
+		{{#bp-layout direction="col"}}
+			{{#bp-layout local-class="schedule" main="center"}}
+
+			{{#each taskModalCircle as |circle index|}}
+				{{#bp-layout direction="col"}}
+					{{#bp-layout local-class=(if (or (bp-gt model.period.phase index) (bp-eq model.period.phase index))"circle" "grey-circle") direction="row" main="center" cross="center"}}
+						{{#bp-layout local-class="dot" }}{{/bp-layout}}
+					{{/bp-layout}}
+					{{#if (bp-not-eq index taskModalCircleLength)}}
+						{{#bp-layout local-class= (if (bp-gt model.period.phase index) "line" "grey-line") cross="center"}}{{/bp-layout}}
+					{{/if}}
+					{{#bp-layout local-class="text" classNames=(if (bp-eq index taskModalCircleLength) "mt-1")}}
+						{{circle}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/each}}
+
+			{{/bp-layout}}
+			{{#if (bp-eq model.period.phase 0)}}
+				{{#bp-layout local-class="info" direction="col"}}
+					<h2 class="mb-2">任务通知</h2>
+					<p local-class="p-1" class="mb-2">请阅读参考信息，完成周期业务决策</p>
+					<h3 class="mb-2 mt-4">任务1：区域划分</h3>
+					<p local-class="p-2" class="mb-2">请注意：本周期分配完后，在后面的周期中将无法再调整人员分配</p>
+					{{!-- <p local-class="p-3" class="mb-0">请注意：本周起分配完后，后面的周期中将无法再进行人员分配</p> --}}
+					<h3 class="mt-4 mb-3">任务2：周期销售指标分配</h3>
+					{{#bp-layout direction="col" classNames="mb-1"}}
+					{{#each productQuotasSorted as |pd|}}
+						{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
+							<span>{{pd.product.name}}周期总指标</span>
+							<span>￥{{number-floor pd.lastQuota 0}}</span>
+						{{/bp-layout}}
+					{{/each}}
+					{{/bp-layout}}
+					<h3 class="mt-4 mb-3">任务3：周期销售预算分配</h3>
+					{{#bp-layout direction="row" local-class="quota" main="between"}}
+						<span>周期总预算</span>
+						<span>￥{{number-floor model.quota.totalBudget 0}}</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+
+			{{else}}
+
+				{{#bp-layout local-class="info" direction="col"}}
+					<h2 class="mb-2">任务通知</h2>
+					<p local-class="p-1" class="mb-0">医院动态与历史销售报告已更新，请阅读参考信息，完成周期业务决策</p>
+					{{!-- <h3 class="mb-3 mt-4">1.区域划分</h3> --}}
+					{{!-- <p local-class="p-2" class="mb-1">本周期分配完后，在后面的周期中将无法再调整人员分配</p> --}}
+					{{!-- <p local-class="p-3" class="mb-0">请注意：本周起分配完后，后面的周期中将无法再进行人员分配</p> --}}
+					<h3 class="mt-4 mb-3">任务1：周期销售指标分配</h3>
+					{{#bp-layout direction="col" classNames="mb-1"}}
+					{{#each productQuotasSorted as |pd|}}
+						{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
+							<span>{{pd.product.name}}周期总指标</span>
+							<span>￥{{number-floor pd.lastQuota 0}}</span>
+						{{/bp-layout}}
+					{{/each}}
+					{{/bp-layout}}
+					<h3 class="mt-4 mb-3">任务2：周期销售预算分配</h3>
+					{{#bp-layout direction="row" local-class="quota" main="between"}}
+						<span>周期总预算</span>
+						<span>￥{{number-floor model.budgetPreset.firstObject.initBudget 0}}</span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+
+			{{/if}}
+		{{/bp-layout}}
+	{{/modal.body}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}我知道了{{/bp-button}}
+		{{!-- {{#bp-button type="primary" onClick=(action "taskModal")}}结束任务{{/bp-button}} --}}
+	{{/modal.footer}}
 {{/bp-modal}}
