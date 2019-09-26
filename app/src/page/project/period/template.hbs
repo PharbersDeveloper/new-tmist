@@ -362,14 +362,14 @@
 					{{#each productQuotasSorted as |pd|}}
 						{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
 							<span>{{pd.product.name}}周期总指标</span>
-							<span>￥{{format-number pd.lastQuota}}</span>
+							<span>￥{{number-floor pd.lastQuota 0}}</span>
 						{{/bp-layout}}
 					{{/each}}
 					{{/bp-layout}}
 					<h3 class="mt-4 mb-3">任务3：周期销售预算分配</h3>
 					{{#bp-layout direction="row" local-class="quota" main="between"}}
 						<span>周期总预算</span>
-						<span>￥{{format-number model.quota.totalBudget}}</span>
+						<span>￥{{number-floor model.quota.totalBudget 0}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 
@@ -386,14 +386,14 @@
 					{{#each productQuotasSorted as |pd|}}
 						{{#bp-layout direction="row" local-class="quota" main="between" classNames="mb-1"}}
 							<span>{{pd.product.name}}周期总指标</span>
-							<span>￥{{format-number pd.lastQuota}}</span>
+							<span>￥{{number-floor pd.lastQuota 0}}</span>
 						{{/bp-layout}}
 					{{/each}}
 					{{/bp-layout}}
 					<h3 class="mt-4 mb-3">任务2：周期销售预算分配</h3>
 					{{#bp-layout direction="row" local-class="quota" main="between"}}
 						<span>周期总预算</span>
-						<span>￥{{format-number model.budgetPreset.firstObject.initBudget}}</span>
+						<span>￥{{number-floor model.budgetPreset.firstObject.initBudget 0}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 
