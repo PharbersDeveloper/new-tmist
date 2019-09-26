@@ -32,6 +32,7 @@
 					flex-shrink: 0;
 					height: 239px;
 					width: 388px;
+					border-radius: 4px;
 					// background-color: #ebecf0;
 				}
 
@@ -93,7 +94,7 @@
 				}
 
 				thead {
-					border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+					border-bottom: 1px solid rgba(9, 30, 66, 0.08);
 					color: #7a869a;
 					font-size: 12px;
 					width: 338px;

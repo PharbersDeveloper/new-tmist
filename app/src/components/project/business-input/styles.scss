@@ -27,7 +27,7 @@
       box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
       border-radius: 8px;
       .medic-container {
-        height: 100%;
+        height: 146px;
       }
 
       .product-name {
@@ -200,7 +200,7 @@
       border-radius: 8px;
 
       .circle-part {
-        height: 176px;
+        height: 146px;
         div.circle-container {
           height: 128px;
           width: 128px;
@@ -245,24 +245,16 @@
           width: 42px;
         }
 
-        .percent-width {
+        .percent-normol {
           flex: 1;
+          font-size: 14px;
+          color: #7a869a;
+        }
 
-          .percent {
-            font-size: 14px;
-            color: #7a869a;
-            // width: 42px;
-          }
-
-          .percent-value {
-            font-size: 14px;
-            color: #7a869a;
-            // width: 70px;
-          }
-
-          .red {
-            color: $r300;
-          }
+        .percent-over {
+          flex: 1;
+          font-size: 14px;
+          color: $r300;
         }
 
       }

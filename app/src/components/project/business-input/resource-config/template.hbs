@@ -28,7 +28,18 @@
 				{{/bp-layout}}
 				{{#bp-layout local-class="item-right" direction="row" main="end"}}
 					{{#if hospitalNumber}}
-						<span local-class="badge hospital-badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span>
+						{{#if (bp-eq resource.id curResource.id)}}
+						{{#bp-layout direction="row" cross="center" local-class="badge-changed" classNames="px-1"}}
+							{{bp-icon icon="hospital-sign"}}
+							<span>{{hospitalNumber}}</span>
+						{{/bp-layout}}
+						{{!-- <span local-class="badge hospital-badge" class="px-1">{{bp-icon icon="hospital-sign"}}{{hospitalNumber}}</span> --}}
+						{{else}}
+							{{#bp-layout direction="row" cross="center" local-class="badge" classNames="px-1"}}
+								{{bp-icon icon="hospital-sign"}}
+								<span>{{hospitalNumber}}</span>
+							{{/bp-layout}}
+						{{/if}}
 					{{/if}}
 				{{/bp-layout}}
 			{{/bp-layout}}

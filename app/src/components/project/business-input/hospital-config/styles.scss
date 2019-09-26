@@ -280,6 +280,24 @@ h5.title {
 		}
 
 		.item-right {
+			.badge-changed {
+				background: #3881ff;
+				color: #ffffff;
+				font-size: 14px;
+				font-weight: 400;
+				margin-left: 4px;
+				height: 20px;
+				border-radius: 4px;
+
+				svg {
+					font-size: 18px;
+
+					path {
+						fill: #ffffff;
+					}
+				}
+			}
+
 			.badge {
 				background-color: #c2daff;
 				color: #3880f8;
@@ -291,7 +309,6 @@ h5.title {
 
 				svg {
 					font-size: 18px;
-					padding-top: 2px;
 
 					path {
 						fill: #3880f8;
@@ -345,7 +362,7 @@ h5.title {
 	.active-hover:hover {
 		span::after {
 			display: none;
-			background: #172B4D;
+			background: #172b4d;
 			border-radius: 4px;
 			color: #ffffff;
 			content: "";
@@ -359,6 +376,7 @@ h5.title {
 			// display: inline;
 		}
 	}
+
 	.show-part {
 		&:hover {
 			background: #ebecf0;
@@ -415,13 +433,14 @@ h5.title {
 		thead {
 			font-size: 12px;
 			color: #7a869a;
-			border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+			border-bottom: 1px solid rgba(9, 30, 66, 0.08);
 		}
 
 		tbody {
 			td {
 				padding: 8px;
 			}
+
 			.sales-input {
 				height: 32px;
 				width: 93px;
@@ -440,7 +459,7 @@ h5.title {
 :global(.popover-outer) {
 	background-color: #fff;
 	padding: 16px;
-	box-shadow: 0 0 1px 0 rgba(9,30,66,0.12), 0 8px 16px -4px rgba(9,30,66,0.25);
+	box-shadow: 0 0 1px 0 rgba(9, 30, 66, 0.12), 0 8px 16px -4px rgba(9, 30, 66, 0.25);
 	border-radius: 4px;
 	// cursor: default;
 }
