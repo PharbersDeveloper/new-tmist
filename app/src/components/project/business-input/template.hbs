@@ -1,7 +1,7 @@
 {{#bp-layout direction="col" local-class="business-container" classNames="" main="center"}}
 	{{#bp-layout local-class="sales-and-budget" direction="row"  classNames="mb-4" main="center"}}
 		{{#bp-layout local-class=(if (bp-eq proposal.case "ucb") "flex-1 sales" "sales") classNames="bg-white mr-4" direction="col" }}
-			{{#bp-layout tagName="h4" classNames="py-3 pl-3 mb-0" cross="center" local-class="icon sales-header"}}
+			{{#bp-layout tagName="h4" classNames="pl-4 mb-0" cross="center" local-class="icon sales-header"}}
 				{{bp-icon icon="target"}}
 				药品销售指标
 			{{/bp-layout}}
@@ -50,14 +50,14 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout local-class=(if (bp-eq proposal.case "ucb") "flex-1 budget" "budget")    direction="col" classNames="bg-white"}}
-			{{#bp-layout direction="row" main="between" local-class="budget-header"}}
-				{{#bp-layout tagName="h4" classNames="py-3 pl-3 mb-0" local-class="icon" cross="center"}}
+			{{#bp-layout direction="row" main="between" local-class="budget-header" classNames="px-4"}}
+				{{#bp-layout tagName="h4" classNames="mb-0" local-class="icon" cross="center"}}
 					{{bp-icon icon="target"}}
 					药品预算
 				{{/bp-layout}}
-				{{#bp-layout classNames="py-2" cross="center"}}
+				{{#bp-layout cross="center"}}
 					{{#bp-button local-class=(if (bp-eq curCircle 0) "active") onClick=(action (mut curCircle) 0)}}产品预算占比{{/bp-button}}
-					{{#bp-button classNames="mr-2" local-class=(if (bp-eq curCircle 1) "active") onClick=(action (mut curCircle) 1)}}代表预算占比{{/bp-button}}
+					{{#bp-button local-class=(if (bp-eq curCircle 1) "active") onClick=(action (mut curCircle) 1)}}代表预算占比{{/bp-button}}
 				{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-part"}}
@@ -136,7 +136,7 @@
 		{{#if (bp-eq proposal.case "tm")}}
 			{{#bp-layout direction="col" classNames="bg-white ml-4" local-class="meeting"}}
 				{{#bp-layout local-class="meeting-header" direction="row" cross="center"}}
-					{{#bp-layout direction="row" tagName="h4" local-class="icon" cross="center" classNames="py-3 pl-3 mb-0"}}
+					{{#bp-layout direction="row" tagName="h4" local-class="icon" cross="center" classNames="py-3 pl-4 mb-0"}}
 						{{bp-icon icon="target"}}
 						会议名额
 					{{/bp-layout}}

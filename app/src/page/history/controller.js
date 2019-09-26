@@ -4,6 +4,7 @@ import Controller from "@ember/controller"
 export default Controller.extend( {
 	// runtimeConfig: service( "service/runtime-config" )
 	projectType: Number( localStorage.getItem( "projectType" ) ),
+	noNavButton: true,
 	actions: {
 		performance() {
 			this.set( "performance", {
