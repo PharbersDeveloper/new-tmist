@@ -1,7 +1,7 @@
 
 {{#bp-layout direction="row" local-class="submit-header" main="between" cross="center" classNames="px-4 py-3"}}
     {{#bp-layout direction="row" cross="center"}}
-        {{#if (or noNavButton (bp-eq roundOver "true"))}}
+        {{#if (or noNavButton roundOver)}}
         {{!-- {{#if noNavButton}} --}}
         {{else}}
             {{#if ucbSpecial}}

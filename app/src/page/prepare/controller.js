@@ -4,6 +4,7 @@ import { computed } from "@ember/object"
 
 export default Controller.extend( {
 	gen: service( "service/gen-data" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	deploy( project ) {
 		this.gen.genPeriodWithProject( project ).then( x => {
 			window.location = "/project/" + project.id + "/period/" + x.id
@@ -27,13 +28,15 @@ export default Controller.extend( {
 
 		},
 		startDeploy( proposal ) {
-			window.localStorage.setItem( "roundHistory", false )
+			// window.localStorage.setItem( "roundHistory", false )
+			this.runtimeConfig.setRoundHistoryFalse()
 			this.gen.genProjectWithProposal( proposal ).then( x => {
 				this.deploy( x )
 			} )
 		},
 		continueDeploy( aProject ) {
-			window.localStorage.setItem( "roundHistory", false )
+			// window.localStorage.setItem( "roundHistory", false )
+			this.runtimeConfig.setRoundHistoryFalse()
 			if ( this.model.periodsLength === aProject.get( "current" ) ) {
 				this.transitionToRoute( "page.project.result" , aProject.get( "id" ) )
 			} else {
@@ -43,7 +46,8 @@ export default Controller.extend( {
 
 		},
 		startAgainDeploy( proposal ) {
-			window.localStorage.setItem( "roundHistory", false )
+			// window.localStorage.setItem( "roundHistory", false )
+			this.runtimeConfig.setRoundHistoryFalse()
 			// old project status : 1
 			if ( this.curProject ) {
 				this.curProject.destroyRecord()

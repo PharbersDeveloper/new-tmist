@@ -11,11 +11,12 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	ajax: service(),
 	// cookies: service(),
 	exportService: service( "service/export-report" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver", "proposal"],
 	curSelPeriod: null,
 	roundOver: computed( function() {
 
-		return window.localStorage.getItem( "roundHistory" )
+		return this.runtimeConfig.roundHistory
 
 		// let old = window.document.referrer
 

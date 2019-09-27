@@ -7,6 +7,7 @@ export default Component.extend( {
 	classNames: ["history-info-wrapper"],
 	router: service(),
 	exportService: service( "service/export-report" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	actions: {
 		exportReport( project ) {
 			this.exportService.exportReport( project, project.get( "periods" ).length )
@@ -24,7 +25,8 @@ export default Component.extend( {
 		// 	this.transitionToRoute( "page.project.review", pid )
 		// },
 		toReport( project ) {
-			window.localStorage.setItem( "roundHistory", true )
+			// window.localStorage.setItem( "roundHistory", true )
+			this.runtimeConfig.setRoundHistoryTrue()
 			this.get( "router" ).transitionTo( "page.project.result", project.get( "id" ) )
 			// window.location = "/project/" + project.id + "/result"
 		}
