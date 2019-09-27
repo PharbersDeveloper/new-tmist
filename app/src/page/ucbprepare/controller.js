@@ -4,6 +4,7 @@ import { computed } from "@ember/object"
 
 export default Controller.extend( {
 	gen: service( "service/gen-data" ),
+	noNavButton: true,
 	deploy( project ) {
 		this.gen.genPeriodWithProject( project ).then( x => {
 			window.location = "/project/" + project.id + "/period/" + x.id
