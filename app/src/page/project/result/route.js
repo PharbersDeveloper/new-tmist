@@ -114,8 +114,8 @@ export default Route.extend( {
 
 		// window.localStorage.setItem( "proposalId", model.proposal.get( "id" ) )
 		// window.localStorage.setItem( "projectId", model.project.get( "id" ) )
-		this.runtimeConfig.proposalId = model.project.get( "proposal.id" )
-		this.runtimeConfig.projectId = model.project.get( "id" )
+		this.runtimeConfig.set( "proposalId",model.project.get( "proposal.id" ) )
+		this.runtimeConfig.set( "projectId",model.project.get( "id" ) )
 		this.controllerFor( "page.project.result" ).set( "roundOver", this.runtimeConfig.roundHistory )
 		// this.controllerFor( "page.project.result" ).set( "roundOver", window.localStorage.getItem( "roundHistory" ) )
 		// window.localStorage.setItem( "periodId", model.period.get( "id" ) )
