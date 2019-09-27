@@ -1,38 +1,16 @@
 import Mixin from "@ember/object/mixin"
 import { isEmpty } from "@ember/utils"
-// import { inject as service } from "@ember/service"
+import { inject as service } from "@ember/service"
 import ENV from "new-tmist/config/environment"
 
 export default Mixin.create( {
-	// runtimeConfig: service( "service/runtime-config" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	queryAddress: ENV.QueryAddress,
 	jobId: "a109704d-0990-4cb7-a50f-a08e23f73efe",
-	getJobId() {
-		let jobId = ""
-
-		if ( ENV.environment === "development" && isEmpty( window.localStorage.getItem( "jobId" ) ) ) {
-			jobId = this.jobId
-		} else {
-			jobId = window.localStorage.getItem( "jobId" )
-			this.set( "jobId", jobId )
-		}
-		return jobId
-	},
 	getId() {
-		let proposalId = "",
-			projectId = ""
+		let config = this.runtimeConfig
 
-
-		proposalId = window.localStorage.getItem( "proposalId" )
-		projectId = window.localStorage.getItem( "projectId" )
-
-		this.set( "proposalId", proposalId )
-		this.set( "projectId", projectId )
-
-		return {
-			projectId,
-			proposalId
-		}
+		return config
 	},
 	generateProductCircleCondition( proposalCase, phase ) {
 
@@ -109,7 +87,6 @@ export default Mixin.create( {
 	generateProdBarLineCondition( productName, proposal ) {
 		let searchRuls = [],
 			agg = {},
-			// jobId = this.getJobId(),
 			otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -210,7 +187,6 @@ export default Mixin.create( {
 		}]
 	},
 	generateRepCircleCondition( phase ) {
-		// let jobId = this.getJobId()
 		let otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -273,7 +249,6 @@ export default Mixin.create( {
 	},
 	generateRepBarLineCondition( repName, prodName, proposal ) {
 		let searchRuls = [],
-			// jobId = this.getJobId()
 			otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -369,7 +344,6 @@ export default Mixin.create( {
 		}]
 	},
 	generateHospCircleCondition( phase ) {
-		// let jobId = this.getJobId()
 		let otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -432,7 +406,6 @@ export default Mixin.create( {
 	},
 	generateHospBarLineCondition( hospName, prodName, proposal ) {
 		let searchRuls = [],
-			// jobId = this.getJobId()
 			otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -528,7 +501,6 @@ export default Mixin.create( {
 		}]
 	},
 	generateRegionCircleCondition( phase ) {
-		// let jobId = this.getJobId()
 		let otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -592,7 +564,6 @@ export default Mixin.create( {
 	generateRegionBarLineCondition( regName, prodName, proposal ) {
 
 		let searchRuls = [],
-			// jobId = this.getJobId()
 			otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -673,7 +644,6 @@ export default Mixin.create( {
 		}]
 	},
 	generateRepRadarCondition( repName, phase ) {
-		// let jobId = this.getJobId()
 		let otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -755,7 +725,6 @@ export default Mixin.create( {
 		}]
 	},
 	generateProdCompLinesCondition( productarea, periodBase, periodStep ) {
-		// let jobId = this.getJobId()
 		let otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -822,7 +791,6 @@ export default Mixin.create( {
 	generateResultProductCircleCondition( proposalCase, phase, productarea ) {
 
 		let searchRuls = [],
-			// jobId = this.getJobId()
 			otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
