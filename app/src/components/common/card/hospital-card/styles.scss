@@ -38,26 +38,34 @@
 
 				.properties {
 					flex: 1;
-					font-size: 0;
+					height: 107px;
+					// font-size: 0;
 
-					p span:first-child {
-						@extend %p-secondary;
+					.properties-part {
+						width: 50%;
 					}
 
-					p span:last-child {
-						@extend %p-primary;
-					}
-
-					// &.properties:last-child {
-					// 	p span:first-child {
-					// 		min-width: 70px;
-					// 	}
-					// }
-
-					p div:last-child {
-						span {
-							@extend %p-primary;
+					.two-span {
+						span:first-child {
+							font-size: 14px;
+							color: #7a869a;
 						}
+
+						span:last-child {
+							font-size: 14px;
+							color: #344563;
+						}
+					}
+
+					.item-name {
+						font-size: 14px;
+						color: #7a869a;
+						width: 102px;
+					}
+
+					.item-value {
+						font-size: 14px;
+						color: #344563;
 					}
 
 					.bottom {
@@ -80,6 +88,7 @@
 					p {
 						font-size: 14px;
 						color: #7a869a;
+						height: 140px;
 					}
 				}
 			}
@@ -120,35 +129,6 @@
 
 						.td-right {
 							width: 48px;
-						}
-					}
-				}
-			}
-
-			.basic {
-				img {
-					flex-grow: 160px;
-					flex-shrink: 0;
-					height: 160px;
-					width: 388px;
-					background-color: #ebecf0;
-				}
-
-				.properties {
-					flex: 1;
-					font-size: 0;
-
-					p span:first-child {
-						@extend %p-primary;
-					}
-
-					p span:last-child {
-						@extend %p-secondary;
-					}
-
-					&.properties:last-child {
-						p span:first-child {
-							min-width: 70px;
 						}
 					}
 				}
