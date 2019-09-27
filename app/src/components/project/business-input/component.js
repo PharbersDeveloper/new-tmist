@@ -314,7 +314,9 @@ export default Component.extend( {
 		set( this, "circleProductData", arrC )
 		set( this, "legendProductBudget", arrL )
 	},
-	chooseCheck: [{ id: 1, value: "不再提示", label: "no-notice" }],
+	chooseCheck: computed( function() {
+		return [{ id: 1, value: "不再提示", label: "no-notice" }]
+	} ),
 	actions: {
 		chooseItem() {
 			this.runtimeConfig.setNoticeToggle()
@@ -381,79 +383,71 @@ export default Component.extend( {
 		budgetValidationHandle( answer, input ) {
 			let isNumer = this.checkNumber( answer.get( input ) )
 
-			if ( isNumer ) {
-				let cur = 0,
-					curProduct = answer.get( "product.id" ),
-					curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
+			if ( !isNumer ) {
+				answer.set( input, 0 )
+			}
 
-				this.answers.forEach( a => {
-					// if ( a.get( "product.id" ) === curProduct ) {
-					cur += this.transNumber( a.get( input ) )
-					// }
+			let cur = 0,
+				curProduct = answer.get( "product.id" ),
+				curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
+
+			this.answers.forEach( a => {
+				cur += this.transNumber( a.get( input ) )
+			} )
+
+			window.console.log( cur, this.allBudget )
+			if ( cur <= this.allBudget ) {
+				set( curProductInfo.firstObject, "curBudget", cur )
+				set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
+				this.updateResourceBudgetData()
+				this.updateProductBudgetData()
+			} else {
+				// TODO: 所有的validation都要重做
+				this.set( "warning", {
+					open: true,
+					title: "设定超额",
+					detail: "您的预算指标设定已超额，请合理分配。"
 				} )
 
-				window.console.log( cur, this.allBudget )
-				if ( cur <= this.allBudget ) {
+				set( curProductInfo.firstObject, "curBudget", cur )
+				set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
+				this.updateResourceBudgetData()
+				this.updateProductBudgetData()
 
-					set( curProductInfo.firstObject, "curBudget", cur )
-					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
-
-					this.updateResourceBudgetData()
-					this.updateProductBudgetData()
-
-				} else {
-					// TODO: 所有的validation都要重做
-					this.set( "warning", {
-						open: true,
-						title: "设定超额",
-						detail: "您的预算指标设定已超额，请合理分配。"
-					} )
-
-					set( curProductInfo.firstObject, "curBudget", cur )
-					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
-
-					this.updateResourceBudgetData()
-					this.updateProductBudgetData()
-
-				}
-
-			} else {
-				answer.set( input, 0 )
 			}
 		},
 		salesTargetValidationHandle( answer, input ) {
 
 			let isNumer = this.checkNumber( answer.get( input ) )
 
-			if ( isNumer ) {
-				let cur = 0,
-					curProduct = answer.get( "product.id" ),
-					curProductInfo = {}
-
-				this.answers.forEach( a => {
-					if ( a.get( "product.id" ) === curProduct ) {
-						cur += this.transNumber( a.get( "salesTarget" ) )
-					}
-				} )
-
-				curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
-				window.console.log( cur, curProductInfo )
-				if ( cur <= curProductInfo.firstObject.allSales ) {
-					// this.toggleProperty( "updateAllProductInfo" )
-					set( curProductInfo.firstObject, "curSales", cur )
-				} else {
-					this.set( "warning", {
-						open: true,
-						title: "设定超额",
-						detail: "您的指标设定已超额，请合理分配。"
-					} )
-				}
-				// this.toggleProperty( "updateAllProductInfo" )
-				set( curProductInfo.firstObject, "curSales", cur )
-
-			} else {
+			if ( !isNumer ) {
 				answer.set( input, 0 )
 			}
+
+			let cur = 0,
+				curProduct = answer.get( "product.id" ),
+				curProductInfo = {}
+
+			this.answers.forEach( a => {
+				if ( a.get( "product.id" ) === curProduct ) {
+					cur += this.transNumber( a.get( "salesTarget" ) )
+				}
+			} )
+
+			curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
+			window.console.log( cur, curProductInfo )
+			if ( cur <= curProductInfo.firstObject.allSales ) {
+				// this.toggleProperty( "updateAllProductInfo" )
+				set( curProductInfo.firstObject, "curSales", cur )
+			} else {
+				this.set( "warning", {
+					open: true,
+					title: "设定超额",
+					detail: "您的指标设定已超额，请合理分配。"
+				} )
+			}
+			// this.toggleProperty( "updateAllProductInfo" )
+			set( curProductInfo.firstObject, "curSales", cur )
 		},
 		meetingPlacesValidationHandle( answer, input ) {
 
