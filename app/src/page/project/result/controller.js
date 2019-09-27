@@ -5,6 +5,7 @@ import { computed } from "@ember/object"
 
 export default Controller.extend( {
 	gen: service( "service/gen-data" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	deploy( project ) {
 		this.gen.genPeriodWithProject( project ).then( x => {
 			window.location = "/project/" + project.id + "/period/" + x.id
@@ -12,7 +13,7 @@ export default Controller.extend( {
 		} )
 	},
 	roundOver: computed( function() {
-		return window.localStorage.getItem( "roundHistory" )
+		return this.runtimeConfig.roundHistory
 
 		// let old = window.document.referrer
 
