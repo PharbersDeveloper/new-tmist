@@ -99,7 +99,7 @@ export default Controller.extend( {
 					this.toast.error( "", "计算失败，请重试", this.toastOpt )
 				} else if ( msgObj.payload.Status === "FINISH" ) {
 					// calc success
-					clearInterval( this.intervalTimer )
+					clearTimeout( this.intervalTimer )
 					// clearTimeout( this.deleteTimer )
 
 					if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
@@ -111,8 +111,9 @@ export default Controller.extend( {
 							res.set( "current", res.periods.length )
 							res.save().then( () => {
 								this.set( "loadingForSubmit", false )
-								window.localStorage.setItem( "roundHistory", false )
+								this.runtimeConfig.setRoundHistoryFalse()
 								this.transitionToRoute( "page.project.result" )
+								// window.localStorage.setItem( "roundHistory", false )
 								// window.location = "/project/" + res.get( "id" ) + "/result"
 							} )
 						} )
@@ -128,13 +129,12 @@ export default Controller.extend( {
 							res.set( "current", res.periods.length )
 							res.save().then( () => {
 								this.set( "loadingForSubmit", false )
-								window.localStorage.setItem( "roundHistory", false )
-								// window.location = "/project/" + res.get( "id" ) + "/result"
+								this.runtimeConfig.setRoundHistoryFalse()
 								this.transitionToRoute( "page.project.result" )
+								// window.localStorage.setItem( "roundHistory", false )
+								// window.location = "/project/" + res.get( "id" ) + "/result"
 							} )
 						} )
-
-
 						// this.set( "loadingForSubmit", false )
 						// this.transitionToRoute( "page.project.result" )
 					}
@@ -165,8 +165,8 @@ export default Controller.extend( {
 			if ( finals.length === this.model.periods.length ) {
 
 				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-					
-					
+
+
 					this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ).then( res => {
 						res.set( "status", 1 )
 						res.set( "endTime", new Date().getTime() )
@@ -174,7 +174,8 @@ export default Controller.extend( {
 						res.set( "current", res.periods.length )
 						res.save().then( () => {
 							this.set( "loadingForSubmit", false )
-							window.localStorage.setItem( "roundHistory", false )
+							// window.localStorage.setItem( "roundHistory", false )
+							this.runtimeConfig.setRoundHistoryFalse()
 							this.transitionToRoute( "page.project.result" )
 						} )
 					} )
@@ -184,7 +185,8 @@ export default Controller.extend( {
 						res.set( "current", res.periods.length )
 						res.save().then( () => {
 							this.set( "loadingForSubmit", false )
-							window.localStorage.setItem( "roundHistory", false )
+							this.runtimeConfig.setRoundHistoryFalse()
+							// window.localStorage.setItem( "roundHistory", false )
 							this.transitionToRoute( "page.project.result" )
 						} )
 					} )
@@ -198,7 +200,7 @@ export default Controller.extend( {
 		} )
 	},
 	clearTimer() {
-		clearInterval( this.intervalTimer )
+		clearTimeout( this.intervalTimer )
 		this.set( "loadingForSubmit", false )
 		this.toast.error( "", "计算失败，请重试", this.toastOpt )
 	},

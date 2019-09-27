@@ -4,6 +4,7 @@ import { inject as service } from "@ember/service"
 
 export default Route.extend( {
 	facade: service( "service/exam-facade" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	ajax: service(),
 	model() {
 		return this.store.findRecord( "model/project", this.modelFor( "page.project" ).id, { reload: true } ).then( data => {
@@ -111,9 +112,19 @@ export default Route.extend( {
 	setupController( controller, model ) {
 		this._super( controller, model )
 
-		window.localStorage.setItem( "proposalId", model.proposal.get( "id" ) )
-		window.localStorage.setItem( "projectId", model.project.get( "id" ) )
-		this.controllerFor( "page.project.result" ).set( "roundOver", window.localStorage.getItem( "roundHistory" ) )
+		// window.localStorage.setItem( "proposalId", model.proposal.get( "id" ) )
+		// window.localStorage.setItem( "projectId", model.project.get( "id" ) )
+		this.runtimeConfig.set( "proposalId",model.project.get( "proposal.id" ) )
+		this.runtimeConfig.set( "projectId",model.project.get( "id" ) )
+
+		window.console.log( window.location )
+
+		if ( window.location.href.indexOf( "history" ) !== -1 ) {
+			this.runtimeConfig.setRoundHistoryTrue()
+			// this.controllerFor( "page.project.result" ).set( "roundOver", this.runtimeConfig.roundHistory )
+		}
+		this.controllerFor( "page.project.result" ).set( "roundOver", this.runtimeConfig.roundHistory )
+		// this.controllerFor( "page.project.result" ).set( "roundOver", window.localStorage.getItem( "roundHistory" ) )
 		// window.localStorage.setItem( "periodId", model.period.get( "id" ) )
 	}
 } )

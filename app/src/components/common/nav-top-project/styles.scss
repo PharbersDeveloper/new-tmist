@@ -2,6 +2,15 @@
 	height: 64px;
 	background: #f4f5f7;
 
+	.btn-list {
+		:global(.dropdown-menu) {
+			width: 80px;
+			min-width: 80px;
+			left: -35px;
+			top: 10px;
+		}
+	}
+
 	h4.title {
 		font-size: 16px;
 		color: #172b4d;

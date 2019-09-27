@@ -97,7 +97,7 @@
 									{{#bp-layout direction="row" tagName="div" main="between" classNames="ml-4" 
 										local-class=(if (bp-gt 0 product.value) "percent-over" "percent-normol")}}
 
-										{{#bp-layout direction="row" classNames="mr-2"}} {{product.curBudgetPercent}}% {{/bp-layout}}
+										{{#bp-layout direction="row" classNames="mr-3"}} {{product.curBudgetPercent}}% {{/bp-layout}}
 										{{#bp-layout}} ¥{{number-floor product.value 0}} {{/bp-layout}}
 											{{!-- <span local-class="percent" ></span> --}}
 											{{!-- <span local-class="percent" >¥{{format-number product.value}}</span> --}}
@@ -107,7 +107,7 @@
 						</div>
 						{{!-- {{/bp-layout}} --}}
 					{{else}}
-					<div local-class={{if (bp-eq proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}>
+					<div local-class={{if (bp-eq proposal.case "ucb") "scroll-legend-res ucb-width" "scroll-legend-res tm-width"}}>
 						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
 							{{#each legendResourceBudget as |resBudget index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
@@ -121,7 +121,7 @@
 									{{#bp-layout direction="row" main="between" classNames="ml-4" 
 										local-class=(if (bp-gt 0 resBudget.value) "percent-over" "percent-normol")}}
 
-									{{#bp-layout direction="row" classNames="mr-2"}} {{resBudget.per}}%{{/bp-layout}}
+									{{#bp-layout direction="row" classNames="mr-3"}} {{resBudget.per}}%{{/bp-layout}}
 									{{#bp-layout direction="row"}} ¥{{number-floor resBudget.value 0}} {{/bp-layout}}
 
 										{{!-- <span local-class="percent">{{resBudget.per}}%</span>

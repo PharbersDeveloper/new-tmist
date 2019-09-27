@@ -4,6 +4,7 @@ import { inject as service } from "@ember/service"
 
 export default Route.extend( {
 	facade: service( "service/exam-facade" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	model( params ) {
 		const project = this.modelFor( "page.project" ),
 			prs = project.belongsTo( "proposal" ),
@@ -156,8 +157,7 @@ export default Route.extend( {
 		// this.controllerFor( "page.project.period" ).set( "loadingForSubmit", true )
 		this.controllerFor( "page.project.period" ).set( "taskModal", true )
 
-		window.localStorage.setItem( "proposalId", model.project.get( "proposal.id" ) )
-		window.localStorage.setItem( "projectId", model.project.get( "id" ) )
-		// window.localStorage.setItem( "periodId", model.period.get( "id" ) )
+		this.runtimeConfig.set( "proposalId",model.project.get( "proposal.id" ) )
+		this.runtimeConfig.set( "projectId" , model.project.get( "id" ) )
 	}
 } )

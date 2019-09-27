@@ -1,7 +1,7 @@
 {{#common/nav-top-project proposalName=model.project.proposal.name roundOver=roundOver}}
 	{{#bp-layout direction="row"}}
-	{{#if (bp-eq roundOver "false")}}
-
+	{{#if roundOver}}
+	{{else}}
 		{{#if (bp-eq model.project.proposal.case "tm")}}
 			{{#bp-button local-class="btn-submit" type="primary" onClick=(action "goRoundOver")}}完成任务{{/bp-button}}
 		{{else if (bp-eq model.project.proposal.case "ucb")}}
