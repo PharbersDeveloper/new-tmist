@@ -116,6 +116,13 @@ export default Route.extend( {
 		// window.localStorage.setItem( "projectId", model.project.get( "id" ) )
 		this.runtimeConfig.set( "proposalId",model.project.get( "proposal.id" ) )
 		this.runtimeConfig.set( "projectId",model.project.get( "id" ) )
+
+		window.console.log( window.location )
+
+		if ( window.location.href.indexOf( "history" ) !== -1 ) {
+			this.runtimeConfig.setRoundHistoryTrue()
+			// this.controllerFor( "page.project.result" ).set( "roundOver", this.runtimeConfig.roundHistory )
+		}
 		this.controllerFor( "page.project.result" ).set( "roundOver", this.runtimeConfig.roundHistory )
 		// this.controllerFor( "page.project.result" ).set( "roundOver", window.localStorage.getItem( "roundHistory" ) )
 		// window.localStorage.setItem( "periodId", model.period.get( "id" ) )
