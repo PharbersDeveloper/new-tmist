@@ -103,7 +103,7 @@ export default Controller.extend( {
 		toReport() {
 			// window.localStorage.setItem( "roundHistory", true )
 			this.runtimeConfig.setRoundHistoryTrue()
-			this.transitionToRoute( "page.project.result", this.model.project.id )
+			this.transitionToRoute( "page.project.result", this.model.project.id, { queryParams: { state: "history" }} )
 			// window.location = "/project/" + this.model.project.id + "/result"
 		},
 		toDecisionReview() {
