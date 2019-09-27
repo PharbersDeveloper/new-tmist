@@ -99,7 +99,7 @@ export default Controller.extend( {
 					this.toast.error( "", "计算失败，请重试", this.toastOpt )
 				} else if ( msgObj.payload.Status === "FINISH" ) {
 					// calc success
-					clearInterval( this.intervalTimer )
+					clearTimeout( this.intervalTimer )
 					// clearTimeout( this.deleteTimer )
 
 					if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
@@ -200,7 +200,7 @@ export default Controller.extend( {
 		} )
 	},
 	clearTimer() {
-		clearInterval( this.intervalTimer )
+		clearTimeout( this.intervalTimer )
 		this.set( "loadingForSubmit", false )
 		this.toast.error( "", "计算失败，请重试", this.toastOpt )
 	},
