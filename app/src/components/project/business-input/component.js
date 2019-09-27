@@ -10,6 +10,7 @@ export default Component.extend( {
 
 	positionalParams: ["project", "period", "proposal","hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports", "budgetPreset"],
 	exam: service( "service/exam-facade" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function () {
 		const cur = this.get( "products" ).find( x => x.productType === 0 )
@@ -313,7 +314,12 @@ export default Component.extend( {
 		set( this, "circleProductData", arrC )
 		set( this, "legendProductBudget", arrL )
 	},
+	chooseCheck: [{ id: 1, value: "不再提示", label: "no-notice" }],
 	actions: {
+		chooseItem() {
+			this.runtimeConfig.setNoticeToggle()
+			window.console.log( this.runtimeConfig.cancelRepresentNotice )
+		},
 		selectCurStatus( status ) {
 			this.set( "curStatus", status )
 			this.toggleProperty( "curStatusChanged" )
@@ -343,7 +349,8 @@ export default Component.extend( {
 			window.console.log( this.resourceHospital )
 		},
 		cancelRepresentatives( answer ) {
-			if ( answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {
+			// if ( answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {
+			if ( this.runtimeConfig.cancelRepresentNotice ) {
 				window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ), "当前代表", this.curResource.get( "name" ) )
 				this.set( "cancelWarning", {
 					open: true,
@@ -351,6 +358,7 @@ export default Component.extend( {
 					detail: "确定要取消该医院的代表分配吗？我们将同时重置该医院的其他分配输入。"
 				} )
 				set( this, "curAnswerToReset", answer )
+
 			} else {
 				this.exam.cancelBusinessResource( this.answers, answer.get( "target" ) )
 				this.updateResourceBudgetData()
@@ -358,7 +366,6 @@ export default Component.extend( {
 				this.toggleProperty( "updateAllProductInfo" )
 			}
 			this.toggleProperty( "resourceHospital" )
-			window.console.log( this.resourceHospital )
 		},
 		resetBusiness() {
 			// this.exam.cancelBusinessResource( this.answers, answer.get( "target" ) )
