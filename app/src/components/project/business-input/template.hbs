@@ -471,8 +471,18 @@
 		</p>
 	{{/modal.body}}
 	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
-		{{#bp-button type="primary" onClick=(action "resetBusiness")}}{{t "project.business-input.OK"}}{{/bp-button}}
-		{{#bp-button onClick=(action modal.close)}}取消{{/bp-button}}
+		{{#bp-layout direction="row" main="between" local-class="bottom-part" cross="center"}}
+			{{#choose-group type="checkbox"  vertical=false onChange=(action 'chooseItem') as |choose|}}
+				{{#each chooseCheck as |radio|}}
+					{{choose.item radio=radio}}
+				{{/each}}
+			{{/choose-group}}
+
+			{{#bp-layout direction="row"}}
+					{{#bp-button classNames="mr-2" type="primary" onClick=(action "resetBusiness")}}{{t "project.business-input.OK"}}{{/bp-button}}
+					{{#bp-button onClick=(action modal.close)}}取消{{/bp-button}}
+			{{/bp-layout}}
+		{{/bp-layout}}
 	{{/modal.footer}}
 {{/bp-modal}}
 {{yield}}
