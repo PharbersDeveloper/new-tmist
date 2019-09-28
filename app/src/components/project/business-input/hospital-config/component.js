@@ -15,9 +15,12 @@ export default Component.extend( {
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
 	popperOption: {
+		// preventOverflow: { padding: 50 },
 		keepTogether: { enabled: false },
-		preventOverflow: { enabled: false },
-		arrow: { enabled: true }
+		// preventOverflow: { enabled: false },
+		preventOverflow: { padding: 0 },
+		// arrow: { enabled: true },
+		offset: { enabled: true, offset: "0, 10" }
 	},
 	hospitalDrugstore: computed( function() {
 		let arr = ["省人民医院", "会南市五零一医院", "会东市医科大学附属第二医院"],

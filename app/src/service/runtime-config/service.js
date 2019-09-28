@@ -5,11 +5,15 @@ export default Service.extend( {
 	jobId: "",
 	proposalId: "",
 	projectId: "",
+	cancelRepresentNotice: true,
 	roundHistory: false,
 	setRoundHistoryFalse() {
 		this.set( "roundHistory", false )
 	},
 	setRoundHistoryTrue() {
 		this.set( "roundHistory", true )
+	},
+	setNoticeToggle() {
+		this.toggleProperty( "cancelRepresentNotice" )
 	}
 } )
