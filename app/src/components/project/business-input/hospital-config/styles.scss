@@ -476,6 +476,10 @@ h5.title {
 			svg {
 				width: 24px;
 				height: 24px;
+
+				path {
+					fill: #FFFFFF;
+				}
 			}
 		}
 
@@ -499,6 +503,12 @@ h5.title {
 				font-family: PingFangSC-Regular;
 				font-size: 14px;
 				color: #FFFFFF;
+
+				span {
+					svg {
+						font-size: 16px;
+					}
+				}
 			}
 
 			.popover-btn {
