@@ -1,4 +1,4 @@
-{{#bp-layout local-class="header"}}
+{{#bp-layout local-class=(if showPopover "color-border header" "header") }}
 	{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="bg-white mb-0" }}
 		{{!-- {{#if (bp-eq index 0)}}
 			{{log popperOption}}
@@ -53,6 +53,7 @@
 							<p local-class="subtitle">第2步</p>
 							<p local-class="text">完成代表分配后，点击条目展开进行资源分配。</p>
 							{{#bp-layout direction="row" main="end" local-class="popover-btn"}}
+								{{!-- {{#bp-button type="default" click=(action "hidePopover")}} --}}
 								{{#bp-button type="default" click=(action attacher.hide)}}
 									我知道了
 								{{/bp-button}}
@@ -145,49 +146,8 @@
 	{{/bp-layout}}
 	{{/bp-layout}}
 {{/bp-layout}}
+
 {{#bs-collapse collapsed=showContent}}
-{{!-- {{#bp-layout direction='col' classNames='bg-white mb-2'}}
-	{{#bp-layout tagName="h5" cross="center" local-class="title" classNames="px-4 m-0"}}
-		代表和时间分配
-	{{/bp-layout}}
-	{{#bp-layout main='between' local-class='representative-time' classNames='py-4'}}
-		{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
-			<span local-class='keys' class='mr-3'>指定代表</span>
-			{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
-				{{#dd.button}}
-					{{#if sortQuizs.firstObject.answer.resource}}
-						{{sortQuizs.firstObject.answer.resource.name}}
-					{{else}}
-						代表
-					{{/if}}
-					{{bp-icon icon='down'}}
-				{{/dd.button}}
-				{{#dd.menu as |menu|}}
-					{{#each resources as |resource|}}
-						{{#menu.option value=resource onClick=(action 'changedResource') local-class="representative-info"}}
-							{{#bp-layout cross="center"}}
-								<img width="24" src={{resource.avatar.img}} alt="avatar" class="mr-2">
-								<span local-class="name" class="mr-2">
-									{{resource.name}}
-								</span>
-							{{/bp-layout}}
-						{{/menu.option}}
-					{{/each}}
-				{{/dd.menu}}
-			{{/bp-dropdown}}
-		{{/bp-layout}}
-		{{#bp-layout main='between' cross='center' local-class='item' classNames='px-4'}}
-			<span local-class='keys' class='mr-3'>分配时间</span>
-			{{bp-input widthSize="auto"
-					value=sortQuizs.firstObject.answer.visitTime
-					onChange=(action "visitTimeValidation" sortQuizs.firstObject.answer (mut sortQuizs.firstObject.answer.visitTime))
-					local-class="input-prepend input-time operating"}}
-		{{/bp-layout}}
-	{{/bp-layout}}
-{{/bp-layout}} --}}
-{{!-- {{#bp-layout tagName="h5" cross="center" local-class="title" classNames="m-0 px-4 bg-white"}}
-	药品相关资源设定
-{{/bp-layout}} --}}
 {{#bp-layout local-class="hospital-resource" class="px-4 pb-4 pt-3 bg-white"}}
 	<table local-class="prod" class="table mb-2">
 		<thead class='bg-white'>
@@ -240,7 +200,6 @@
 					</td>
 					<td class="border-0">
 						{{#bp-layout main="center" direction="row"}}
-									{{!-- disabled=(if (bp-eq quiz.preset.currentDurgEntrance 0) true false) --}}
 							{{bp-input block=true  
 									value=quiz.answer.salesTarget
 									onChange=(action "salesTargetValidation" quiz.answer "salesTarget" (mut quiz.answer.salesTarget))
@@ -248,9 +207,6 @@
 									disabled=false
 									classNames="mb-2 px-0"}}
 						{{/bp-layout}}
-						{{!-- <span class="mt-2 mb-0 text-center" local-class="percent">
-							{{IndicatorAllocationPercent.percent}}56%
-						</span> --}}
 					</td>
 					<td class="border-0">
 						{{#bp-layout main="center" direction="row"}}
@@ -261,9 +217,6 @@
 							classNames="px-0 mb-2"
 							local-class="input-prepend input-money budget-input"}}
 							{{/bp-layout}}
-						{{!-- <span class="mt-2 mb-0 text-center" local-class="percent">
-							{{budgetPercent.percent}}56%
-						</span> --}}
 					</td>
 				</tr>
 			{{/each}}

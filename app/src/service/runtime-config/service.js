@@ -7,6 +7,7 @@ export default Service.extend( {
 	projectId: "",
 	cancelRepresentNotice: true,
 	roundHistory: false,
+	popover: true,
 	setRoundHistoryFalse() {
 		this.set( "roundHistory", false )
 	},
