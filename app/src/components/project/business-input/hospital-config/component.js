@@ -75,13 +75,14 @@ export default Component.extend( {
 			this.selectHospital( hid )
 		},
 		changedResource( answer ) {
-			this.toggleProperty( "checked" )
+			// this.toggleProperty( "checked" )
 
-			if ( this.checked ) {
-				this.allocateRepresentatives( answer )
+			// if ( this.checked ) {
+			if ( answer.get( "resource.id" ) ) {
+				this.cancelRepresentatives( answer )
 
 			} else {
-				this.cancelRepresentatives( answer )
+				this.allocateRepresentatives( answer )
 			}
 			// Ember.Logger.info( `change resources ${aResource.name}` )
 			// this.exam.resetBusinessResources( this.answers,this.hospital, aResource )
