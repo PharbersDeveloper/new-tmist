@@ -53,8 +53,7 @@
 							<p local-class="subtitle">第2步</p>
 							<p local-class="text">完成代表分配后，点击条目展开进行资源分配。</p>
 							{{#bp-layout direction="row" main="end" local-class="popover-btn"}}
-								{{!-- {{#bp-button type="default" click=(action "hidePopover")}} --}}
-								{{#bp-button type="default" click=(action attacher.hide)}}
+								{{#bp-button type="default" click=(action "hidePopover" attacher.hide)}}
 									我知道了
 								{{/bp-button}}
 							{{/bp-layout}}
@@ -64,7 +63,6 @@
 			{{/if}}
 		{{/bp-layout}}
 		{{/if}}
-
 		
 	{{#bp-layout direction="row" main="start" cross="center"
 		local-class=(if hasResource "enable-click show-part" "disable-click show-part active-hover")

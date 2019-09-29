@@ -7,6 +7,7 @@ import { A } from "@ember/array"
 
 export default Component.extend( {
 	localClassNames: "hospital-config-component",
+	runtimeConfig: service( "service/runtime-config" ),
 	// localClassNameBindings: A( ["hospital-config-component"] ),
 	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers", "curResource",
 		"budgetValidationOuter", "salesTargetValidationOuter",
@@ -14,7 +15,6 @@ export default Component.extend( {
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
-	runtimeConfig: service( "service/runtime-config" ),
 	showPopover: true,
 	popperOption: {
 		// preventOverflow: { padding: 50 },
@@ -74,16 +74,19 @@ export default Component.extend( {
 	didUpdate() {
 		this._super( ...arguments )
 		this.set( "showPopover", false )
-		// this.runtimeConfig.set( "popover",false )
+	},
+	onHidePopover( event ) {
+		event()
 	},
 	actions: {
-		hidePopover() {
-			this.runtimeConfig.set( "popover",false )
-			this.set( "showPopover", false )
-		},
 		selectCurHospital( hid ) {
 			this.toggleProperty( "showContent" )
 			this.selectHospital( hid )
+		},
+		hidePopover( event ) {
+			this.runtimeConfig.set( "popover",false )
+			this.onHidePopover( event )
+
 		},
 		changedResource( answer ) {
 			// this.toggleProperty( "checked" )
