@@ -335,19 +335,19 @@ export default Component.extend( {
 		},
 		allocateRepresentatives( answer ) {
 			// if this.curResource is null  : error 未选择代表
-
-			if ( answer.get( "resource.id" ) && answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {
-				window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ), "当前代表", this.curResource.get( "name" ) )
-				this.set( "cancelWarning", {
-					open: true,
-					title: "代表取消选择医院",
-					detail: "确定要取消分配代表分配至该医院吗？我们将重置您在该医院下的资源配置。"
-				} )
-			} else {
-				this.exam.resetBusinessResources( this.answers, answer.get( "target" ), this.curResource )
-				this.toggleProperty( "resourceHospital" )
-				window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ) )
-			}
+			window.console.log( "i am allocate represent" )
+			// if ( this.runtimeConfig.cancelRepresentNotice ) {
+			// 	window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ), "当前代表", this.curResource.get( "name" ) )
+			// 	this.set( "cancelWarning", {
+			// 		open: true,
+			// 		title: "代表取消选择医院",
+			// 		detail: "确定要取消分配代表分配至该医院吗？我们将重置您在该医院下的资源配置。"
+			// 	} )
+			// } else {
+			this.exam.resetBusinessResources( this.answers, answer.get( "target" ), this.curResource )
+			this.toggleProperty( "resourceHospital" )
+			window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ) )
+			// }
 			window.console.log( this.resourceHospital )
 		},
 		cancelRepresentatives( answer ) {

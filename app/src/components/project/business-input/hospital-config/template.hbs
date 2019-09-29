@@ -40,7 +40,7 @@
 					placement="bottom"
 					hideOn='click'
 					showOn=''
-					isShown=true
+					isShown=showPopover
 					as |attacher|}}
 					{{#bp-layout direction="row" main="start" local-class="popover-content"}}
 						{{#bp-layout direction="col" main="start" local-class="popover-left" classNames="mr-3"}}
@@ -192,16 +192,16 @@
 	<table local-class="prod" class="table mb-2">
 		<thead class='bg-white'>
 			<tr class="pb-0">
-				<th class="border-0 pr-2 pl-0 text-left pb-2">产品名称</th>
+				<th class="border-0 pr-2 pl-0 text-left pb-2 pt-2">产品名称</th>
 				{{#if (bp-eq proposal.case "ucb")}}
-						<th class="border-0 px-2 text-left pb-2">患者数量</th>
-						<th class="border-0 px-2 text-left pb-2">准入情况</th>
+						<th class="border-0 px-2 text-left pb-2 pt-2">患者数量</th>
+						<th class="border-0 px-2 text-left pb-2 pt-2">准入情况</th>
 				{{else if (bp-eq proposal.case "tm")}}
-						<th class="border-0 px-2 text-left pb-2">药品潜力</th>
+						<th class="border-0 px-2 text-left pb-2 pt-2">药品潜力</th>
 				{{/if}}
-				<th class="border-0 px-2 text-left pb-2">上季度销售额</th>
-				<th class="border-0 px-2 text-center pb-2">销售指标分配</th>
-				<th class="border-0 pl-2 text-center pb-2">预算分配</th>
+				<th class="border-0 px-2 text-left pb-2 pt-2">上季度销售额</th>
+				<th class="border-0 px-2 text-center pb-2 pt-2">销售指标分配</th>
+				<th class="border-0 pl-2 text-center pb-2 pt-2">预算分配</th>
 			</tr>
 		</thead>
 		<tbody class="bg-white">
