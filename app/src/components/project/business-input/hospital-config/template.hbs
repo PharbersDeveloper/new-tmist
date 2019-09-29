@@ -40,8 +40,9 @@
 					placement="bottom"
 					hideOn='click'
 					showOn=''
-					isShown=showPopover
+					isShown=runtimeConfig.popover
 					as |attacher|}}
+					{{log showPopover}}
 					{{#bp-layout direction="row" main="start" local-class="popover-content"}}
 						{{#bp-layout direction="col" main="start" local-class="popover-left" classNames="mr-3"}}
 							{{bp-icon icon='question-circle'}}
