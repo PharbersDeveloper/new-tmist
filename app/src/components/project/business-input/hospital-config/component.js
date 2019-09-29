@@ -14,10 +14,14 @@ export default Component.extend( {
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
+	showPopover: true,
 	popperOption: {
+		// preventOverflow: { padding: 50 },
 		keepTogether: { enabled: false },
-		preventOverflow: { enabled: false },
-		arrow: { enabled: true }
+		// preventOverflow: { enabled: false },
+		preventOverflow: { padding: 0 },
+		// arrow: { enabled: true },
+		offset: { enabled: true, offset: "0, 10" }
 	},
 	hospitalDrugstore: computed( function() {
 		let arr = ["省人民医院", "会南市五零一医院", "会东市医科大学附属第二医院"],
@@ -66,19 +70,24 @@ export default Component.extend( {
 			return number
 		}
 	},
+	didUpdate() {
+		this._super(...arguments)
+		this.set( "showPopover", false )
+	},
 	actions: {
 		selectCurHospital( hid ) {
 			this.toggleProperty( "showContent" )
 			this.selectHospital( hid )
 		},
 		changedResource( answer ) {
-			this.toggleProperty( "checked" )
+			// this.toggleProperty( "checked" )
 
-			if ( this.checked ) {
-				this.allocateRepresentatives( answer )
+			// if ( this.checked ) {
+			if ( answer.get( "resource.id" ) ) {
+				this.cancelRepresentatives( answer )
 
 			} else {
-				this.cancelRepresentatives( answer )
+				this.allocateRepresentatives( answer )
 			}
 			// Ember.Logger.info( `change resources ${aResource.name}` )
 			// this.exam.resetBusinessResources( this.answers,this.hospital, aResource )

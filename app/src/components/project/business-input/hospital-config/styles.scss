@@ -458,9 +458,70 @@ h5.title {
 }
 
 :global(.popover-outer) {
-	background-color: #fff;
+	width: 366px;
+	height: 192px;
+	background-color: #6554C0;
 	padding: 16px;
-	box-shadow: 0 0 1px 0 rgba(9, 30, 66, 0.12), 0 8px 16px -4px rgba(9, 30, 66, 0.25);
+	box-shadow: 0 0 1px 0 rgba(9,30,66,0.12), 0 8px 16px -4px rgba(9,30,66,0.25);
 	border-radius: 4px;
 	// cursor: default;
+
+	.popover-content {
+
+		p {
+			margin-bottom: 0;
+		}
+
+		.popover-left {
+			svg {
+				width: 24px;
+				height: 24px;
+
+				path {
+					fill: #FFFFFF;
+				}
+			}
+		}
+
+		.popover-right {
+
+			.title {
+				font-family: PingFangSC-Medium;
+				font-size: 14px;
+				color: #FFFFFF;
+			}
+
+			.subtitle {
+				margin-top: 8px;
+				opacity: 0.6;
+				font-family: PingFangSC-Regular;
+				font-size: 14px;
+				color: #FFFFFF;
+			}
+
+			.text {
+				font-family: PingFangSC-Regular;
+				font-size: 14px;
+				color: #FFFFFF;
+
+				span {
+					svg {
+						font-size: 16px;
+					}
+				}
+			}
+
+			.popover-btn {
+				margin-top: 8px;
+
+				button {
+					color: #FFFFFF;
+
+					&:hover {
+						background-color: #8b5ed2;
+					}
+				}
+			}
+		}
+	}
 }
