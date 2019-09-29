@@ -14,6 +14,7 @@ export default Component.extend( {
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	showPopover: true,
 	popperOption: {
 		// preventOverflow: { padding: 50 },
@@ -71,10 +72,15 @@ export default Component.extend( {
 		}
 	},
 	didUpdate() {
-		this._super(...arguments)
+		this._super( ...arguments )
 		this.set( "showPopover", false )
+		// this.runtimeConfig.set( "popover",false )
 	},
 	actions: {
+		hidePopover() {
+			this.runtimeConfig.set( "popover",false )
+			this.set( "showPopover", false )
+		},
 		selectCurHospital( hid ) {
 			this.toggleProperty( "showContent" )
 			this.selectHospital( hid )

@@ -278,7 +278,7 @@
 								{{/bp-layout}}
 							{{else}}
 							{{#each quizs as |quiz index|}}
-								{{#bp-layout local-class="line"}}
+								{{#bp-layout local-class=(if popover "line first-line" "line") }}
 									{{log index}}
 									{{project/business-input/hospital-config
 												index=index
