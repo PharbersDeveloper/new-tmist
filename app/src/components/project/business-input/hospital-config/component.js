@@ -14,6 +14,7 @@ export default Component.extend( {
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
+	showPopover: true,
 	popperOption: {
 		// preventOverflow: { padding: 50 },
 		keepTogether: { enabled: false },
@@ -68,6 +69,10 @@ export default Component.extend( {
 		} else {
 			return number
 		}
+	},
+	didUpdate() {
+		this._super(...arguments)
+		this.set( "showPopover", false )
 	},
 	actions: {
 		selectCurHospital( hid ) {
