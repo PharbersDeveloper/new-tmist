@@ -308,7 +308,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的预算设定总值已超出总预算限制，请合理分配。"
+				detail: "你的预算设定总值已超出总预算限制，请合理分配。"
 			} )
 			return false
 		} else if ( haveNullInput === 1 ) {
@@ -512,7 +512,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的预算设定总值已超出总预算限制，请合理分配。"
+				detail: "你的预算设定总值已超出总预算限制，请合理分配。"
 			} )
 			return false
 		} else if ( isOverSalesTarget === 2 ) {
@@ -536,7 +536,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定未达标",
-				detail: "您还有会议名额剩余，请分配完毕。"
+				detail: "你还有会议名额剩余，请分配完毕。"
 			} )
 			return false
 		} else if ( currentMeetingPlaces > allMeetingPlaces ) {
@@ -544,7 +544,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的会议名额设定已超过总名额限制，请合理分配"
+				detail: "你的会议名额设定已超过总名额限制，请合理分配"
 			} )
 			return false
 		} else if ( freeResource.length ) {
@@ -845,7 +845,7 @@ export default Controller.extend( {
 			this.set( "saveInputsWhenQuit", {
 				open: true,
 				title: "退出任务",
-				detail: "您当前的决策将被保存，等您继续部署。您确定要结束任务吗？"
+				detail: "你当前的决策将被保存，等你继续部署。你确定要结束任务吗？"
 			} )
 		},
 		saveInputsWhenQuit() {
