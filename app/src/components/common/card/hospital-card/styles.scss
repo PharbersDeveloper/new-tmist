@@ -114,21 +114,27 @@
 					}
 				}
 
-				tr {
+				tbody {
+					max-height: 117px;
 					width: 338px;
-					font-size: 14px;
-					color: #344563;
+					overflow-y: auto;
 
-					// text-align: right;
-					td {
-						flex: 1;
+					tr {
+						width: 338px;
+						font-size: 14px;
+						color: #344563;
 
-						.td-left {
-							width: 44px;
-						}
+						// text-align: right;
+						td {
+							flex: 1;
 
-						.td-right {
-							width: 48px;
+							.td-left {
+								width: 44px;
+							}
+
+							.td-right {
+								width: 48px;
+							}
 						}
 					}
 				}

@@ -72,8 +72,8 @@
 					{{#bp-layout tagName="th" main="center"}}药品准入状态{{/bp-layout}}
 					{{#bp-layout tagName="th" main="center"}}患者数量{{/bp-layout}}
 				{{/bp-layout}}
+				{{#bp-layout tagName="tbody" main="between" direction="col"}}
 				{{#each cur as |item|}}
-				{{#bp-layout tagName="tbody" main="between"}}
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
 						{{#bp-layout tagName="td" main="center"}}{{item.product.name}}{{/bp-layout}}
 						{{#bp-layout tagName="td" main="center"}}
@@ -96,8 +96,8 @@
 						{{/bp-layout}}
 						{{/bp-layout}}
 					{{/bp-layout}}
-				{{/bp-layout}}
 				{{/each}}
+				{{/bp-layout}}
 			{{/bp-layout}}
 
 			{{#bp-layout}}
