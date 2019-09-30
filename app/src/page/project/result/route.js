@@ -7,6 +7,10 @@ export default Route.extend( {
 	runtimeConfig: service( "service/runtime-config" ),
 	ajax: service(),
 	model() {
+		window.onbeforeunload = function ( e ) {
+			return null
+		}
+
 		return this.store.findRecord( "model/project", this.modelFor( "page.project" ).id, { reload: true } ).then( data => {
 
 			const project = data,

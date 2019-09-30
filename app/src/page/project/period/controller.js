@@ -630,6 +630,18 @@ export default Controller.extend( {
 				this.set( "calcJobId",res.jobId )
 				window.console.log( "callR Success!" )
 
+				window.onbeforeunload = function ( e ) {
+					e = e || window.event
+
+					// 兼容IE8和Firefox 4之前的版本
+					if ( e ) {
+						e.returnValue = "关闭提示"
+					}
+
+					// Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+					return "关闭提示"
+				}
+
 				this.set( "intervalTimer", setTimeout( this.timerToCheckCalc.bind( this ) , 1000 * 60 * 10 ) )
 				// this.set( "deleteTimer", setTimeout( this.clearTimer.bind( this ), 1000 * 60 * 3 + 1 ) )
 			}
@@ -735,6 +747,7 @@ export default Controller.extend( {
 			this.transitionToRoute( "page.welcome" )
 		},
 		submitModal() {
+			this.runtimeConfig.set( "popover",false )
 			let status = this.validation( this.model.proposal.get( "case" ) ),
 				detail = "提交执行本周期决策后，决策将保存不可更改，确定要提交吗？",
 				flag = 0
@@ -822,6 +835,7 @@ export default Controller.extend( {
 
 			// when input is null, set 0
 			this.setZeroSave()
+			this.runtimeConfig.set( "popover",false )
 
 			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 				this.model.project.set( "lastUpdate", new Date().getTime() )

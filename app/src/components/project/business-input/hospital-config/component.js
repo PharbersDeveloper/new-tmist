@@ -76,6 +76,7 @@ export default Component.extend( {
 	},
 	actions: {
 		selectCurHospital( hid ) {
+			this.onHidePopover( )
 			this.toggleProperty( "showContent" )
 			this.selectHospital( hid )
 		},
