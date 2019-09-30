@@ -20,7 +20,8 @@
 		.infos {
 			flex: 1;
 			width: 872px;
-			height: fit-content;
+			max-height: 578px;
+			overflow-y: auto;
 
 			.left-info {
 				width: 436px;
@@ -115,9 +116,9 @@
 				}
 
 				tbody {
-					max-height: 117px;
+					height: fit-content;
 					width: 338px;
-					overflow-y: auto;
+					// overflow-y: auto;
 
 					tr {
 						width: 338px;
@@ -153,7 +154,7 @@
 
 			.others {
 				&.dynamic {
-					font-size: 0;
+					// font-size: 0;
 
 					.content {
 						@extend %p-secondary;
