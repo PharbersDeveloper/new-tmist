@@ -2,11 +2,10 @@ import Component from "@ember/component"
 import { inject as service } from "@ember/service"
 import { computed, set } from "@ember/object"
 import { isEmpty } from "@ember/utils"
-import { A } from "@ember/array"
-// import Ember from "ember"
 
 export default Component.extend( {
 	localClassNames: "hospital-config-component",
+	runtimeConfig: service( "service/runtime-config" ),
 	// localClassNameBindings: A( ["hospital-config-component"] ),
 	positionalParams: ["proposal", "hospital", "quizs", "products", "resources", "answers", "curResource",
 		"budgetValidationOuter", "salesTargetValidationOuter",
@@ -14,7 +13,6 @@ export default Component.extend( {
 		"allocateRepresentatives", "resourceHospital", "cancelRepresentatives",
 		"selectHospital", "curHospitalId"],
 	exam: service( "service/exam-facade" ),
-	showPopover: true,
 	popperOption: {
 		// preventOverflow: { padding: 50 },
 		keepTogether: { enabled: false },
@@ -71,18 +69,24 @@ export default Component.extend( {
 		}
 	},
 	didUpdate() {
-		this._super(...arguments)
-		this.set( "showPopover", false )
+		this._super( ...arguments )
+	},
+	onHidePopover( ) {
+		this.runtimeConfig.set( "popover",false )
 	},
 	actions: {
 		selectCurHospital( hid ) {
+			this.onHidePopover( )
 			this.toggleProperty( "showContent" )
 			this.selectHospital( hid )
 		},
-		changedResource( answer ) {
-			// this.toggleProperty( "checked" )
+		hidePopover( ) {
+			this.onHidePopover( )
 
-			// if ( this.checked ) {
+		},
+		changedResource( answer ) {
+			this.onHidePopover( )
+
 			if ( answer.get( "resource.id" ) ) {
 				this.cancelRepresentatives( answer )
 

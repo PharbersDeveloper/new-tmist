@@ -317,6 +317,15 @@ export default Component.extend( {
 	chooseCheck: computed( function() {
 		return [{ id: 1, value: "不再提示", label: "no-notice" }]
 	} ),
+	// popover: computed( "runtimeConfig.popover",function() {
+	// 	return this.runtimeConfig.popover
+	// } ),
+	// didUpdate() {
+	// 	this._super( ...arguments )
+	// 	// this.set( "showPopover", false )
+	// 	this.runtimeConfig.set( "popover",false )
+	// 	window.console.log( "should be changed" )
+	// },
 	actions: {
 		chooseItem() {
 			this.runtimeConfig.setNoticeToggle()
@@ -341,7 +350,7 @@ export default Component.extend( {
 			// 	this.set( "cancelWarning", {
 			// 		open: true,
 			// 		title: "代表取消选择医院",
-			// 		detail: "确定要取消分配代表分配至该医院吗？我们将重置您在该医院下的资源配置。"
+			// 		detail: "确定要取消分配代表分配至该医院吗？我们将重置你在该医院下的资源配置。"
 			// 	} )
 			// } else {
 			this.exam.resetBusinessResources( this.answers, answer.get( "target" ), this.curResource )
@@ -406,7 +415,7 @@ export default Component.extend( {
 				this.set( "warning", {
 					open: true,
 					title: "设定超额",
-					detail: "您的预算指标设定已超额，请合理分配。"
+					detail: "你的预算指标设定已超额，请合理分配。"
 				} )
 
 				set( curProductInfo.firstObject, "curBudget", cur )
@@ -443,7 +452,7 @@ export default Component.extend( {
 				this.set( "warning", {
 					open: true,
 					title: "设定超额",
-					detail: "您的指标设定已超额，请合理分配。"
+					detail: "你的指标设定已超额，请合理分配。"
 				} )
 			}
 			// this.toggleProperty( "updateAllProductInfo" )
@@ -466,7 +475,7 @@ export default Component.extend( {
 					this.set( "warning", {
 						open: true,
 						title: "设定超额",
-						detail: "您的会议名额设定已超过总名额限制，请合理分配。"
+						detail: "你的会议名额设定已超过总名额限制，请合理分配。"
 					} )
 				}
 			} else {

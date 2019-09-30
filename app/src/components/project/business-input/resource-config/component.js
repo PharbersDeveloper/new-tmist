@@ -6,6 +6,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 	picOSS: service( "service/pic-oss" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	positionalParams: ["resource", "answers", "selectResource", "resourceHospital", "curResource", "project"],
 	classNames: ["resource-config-wrapper"],
 	showContent: computed( "curResource", function() {
@@ -46,6 +47,7 @@ export default Component.extend( {
 		showContent( rs ) {
 			// this.toggleProperty( "showContent" )
 			// this.set( "curResource", rs )
+			this.runtimeConfig.set( "popover",false )
 			this.selectResource( rs )
 		},
 		inputVisitTime() {

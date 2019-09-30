@@ -346,7 +346,8 @@
 
       &>.resource-list {
         overflow-y: auto;
-        height: calc(100vh - 78px);
+        max-height: calc(100vh - 78px);
+        height: fit-content;
       }
 
       .resource-item {
@@ -483,8 +484,13 @@
         height: calc(100vh - 86px);
 
         .line {
-          border-bottom: 3px solid rgba(9, 30, 66, 0.04);
+          border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+        }
 
+        .first-line {
+          &:first-child {
+            border: 2px solid #6554C0;
+          }
         }
       }
     }

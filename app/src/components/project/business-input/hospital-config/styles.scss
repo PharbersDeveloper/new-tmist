@@ -1,527 +1,532 @@
 .hospital-config-component {
-	width: 100%;
+  width: 100%;
 }
 
 h4.title {
-	@extend %header-medium;
-	height: 54px;
-	width: 100%;
-	// cursor: pointer;
+  @extend %header-medium;
+  height: 54px;
+  width: 100%;
+  // cursor: pointer;
 }
 
 h5.title {
-	@extend %header-small;
-	height: 52px;
+  @extend %header-small;
+  height: 52px;
 }
 
 .keys {
-	@extend %p-primary;
+  @extend %p-primary;
 }
 
 .representative-time,
 .meeting-place {
-	.item {
-		flex: 1;
+  .item {
+    flex: 1;
 
-		.keys {
-			flex: 0 0 60px;
-		}
+    .keys {
+      flex: 0 0 60px;
+    }
 
-		.operating {
-			flex: 1;
-		}
-	}
+    .operating {
+      flex: 1;
+    }
+  }
 }
 
 .meeting-place {
-	.item {
-		.keys {
-			flex: 0 0 84px;
-		}
-	}
+  .item {
+    .keys {
+      flex: 0 0 84px;
+    }
+  }
 }
 
 .prod {
-	table-layout: fixed;
+  table-layout: fixed;
 
-	thead {
-		th {
-			@extend %p-small;
-		}
-	}
+  thead {
+    th {
+      @extend %p-small;
+    }
+  }
 
-	tbody {
-		tr {
-			td {
-				@extend %p-primary;
-				align-self: center;
-				padding: 2 * $spacing 0;
-				vertical-align: middle;
+  tbody {
+    tr {
+      td {
+        @extend %p-primary;
+        align-self: center;
+        padding: 2 * $spacing 0;
+        vertical-align: middle;
 
-				.percent {
-					@extend %p-secondary;
-				}
-			}
-		}
-	}
+        .percent {
+          @extend %p-secondary;
+        }
+      }
+    }
+  }
 }
 
 .reps-meeting {
-	.reps,
-	.meeting {
-		flex: 1;
 
-		.keys {
-			@extend %p-primary;
-		}
+  .reps,
+  .meeting {
+    flex: 1;
 
-		.operating {
-			@extend %p-secondary;
-			flex: 1;
-		}
-	}
+    .keys {
+      @extend %p-primary;
+    }
 
-	.reps {
-		.keys {
-			flex: 0 0 56px;
+    .operating {
+      @extend %p-secondary;
+      flex: 1;
+    }
+  }
 
-			span:first-child {
-				height: 40px;
-				line-height: 40px;
-			}
+  .reps {
+    .keys {
+      flex: 0 0 56px;
 
-			span:last-child {
-				height: 32px;
-				line-height: 32px;
-			}
-		}
+      span:first-child {
+        height: 40px;
+        line-height: 40px;
+      }
 
-		.operating {
-			.dd-representative {
-				.representative-info {
-					font-size: 0;
+      span:last-child {
+        height: 32px;
+        line-height: 32px;
+      }
+    }
 
-					div {
-						height: 100%;
-					}
+    .operating {
+      .dd-representative {
+        .representative-info {
+          font-size: 0;
 
-					span.name {
-						@extend %p-primary;
-					}
+          div {
+            height: 100%;
+          }
 
-					span.rest-time {
-						@extend %p-secondary;
-					}
-				}
-			}
-		}
-	}
+          span.name {
+            @extend %p-primary;
+          }
 
-	.meeting {
-		.keys {
-			flex: 0 0 84px;
+          span.rest-time {
+            @extend %p-secondary;
+          }
+        }
+      }
+    }
+  }
 
-			span:last-child {
-				height: 32px;
-				line-height: 32px;
-			}
-		}
-	}
+  .meeting {
+    .keys {
+      flex: 0 0 84px;
+
+      span:last-child {
+        height: 32px;
+        line-height: 32px;
+      }
+    }
+  }
 }
 
 .reps-meeting .input-prepend,
 .prod .input-prepend,
 .representative-time .input-prepend,
 .meeting-place .input-prepend {
-	position: relative;
+  position: relative;
 
-	// input {
-	// 	// padding-left: 30px;
-	// 	// padding-right: 30px;
-	// }
+  // input {
+  // 	// padding-left: 30px;
+  // 	// padding-right: 30px;
+  // }
 
-	&::after {
-		@extend %p-secondary;
-		left: auto;
-		position: absolute;
-		// left: 8px;
-		right: 8px;
-		top: 50%;
-		transform: translateY(-50%);
-	}
+  &::after {
+    @extend %p-secondary;
+    left: auto;
+    position: absolute;
+    // left: 8px;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-	&.input-time {
-		&::after {
-			content: "%";
-		}
-	}
+  &.input-time {
+    &::after {
+      content: "%";
+    }
+  }
 
-	&.input-meeting {
-		&::after {
-			content: "个";
-		}
+  &.input-meeting {
+    &::after {
+      content: "个";
+    }
 
-		.input-default {
-			width: 122px;
-		}
-	}
+    .input-default {
+      width: 122px;
+    }
+  }
 
-	&.input-money {
-		input {
-			max-width: 100% !important;
-			// padding-left: 8px;
-			// padding-right: 30px;
-			padding-left: 30px;
-		}
+  &.input-money {
+    input {
+      max-width: 100% !important;
+      // padding-left: 8px;
+      // padding-right: 30px;
+      padding-left: 30px;
+    }
 
-		&::after {
-			// left: auto;
-			// right: 8px;
-			content: "￥";
-			left: 8px;
-			right: auto;
-			top: 50%;
-			transform: translateY(-50%);
-		}
-	}
+    &::after {
+      // left: auto;
+      // right: 8px;
+      content: "￥";
+      left: 8px;
+      right: auto;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
 }
 
 .disabled {
-	color: $n060 !important;
+  color: $n060 !important;
 
-	.input-prepend {
-		&::after {
-			color: $n060;
-		}
-	}
+  .input-prepend {
+    &::after {
+      color: $n060;
+    }
+  }
 
-	thead {
-		th {
-			color: $n060;
-		}
-	}
+  thead {
+    th {
+      color: $n060;
+    }
+  }
 
-	tbody {
-		tr {
-			td {
-				color: $n060;
+  tbody {
+    tr {
+      td {
+        color: $n060;
 
-				.percent {
-					color: $n060;
-				}
-			}
-		}
-	}
+        .percent {
+          color: $n060;
+        }
+      }
+    }
+  }
 
-	input {
-		color: $n060 !important;
-	}
+  input {
+    color: $n060 !important;
+  }
 }
 
+
+// .color-border {
+//   border: 2px solid #6554C0;
+// }
+
 .header {
-	width: 100%;
-	height: 52px;
+  // width: 100%;
+  // height: 52px;
+  display: inline;
 
-	.line {
-		height: 22px;
-		width: 1px;
-		background: #ebecf0;
-	}
+  .line {
+    height: 22px;
+    width: 1px;
+    background: #ebecf0;
+  }
 
-	.right {
-		// .icon-part {}
+  .right {
+    // .icon-part {}
 
-		.icon-button {
-			height: 24px;
-			width: 24px;
-			padding: 0;
-		}
+    .icon-button {
+      height: 24px;
+      width: 24px;
+      padding: 0;
+    }
 
-		.icon-no-check {
-			button:global(.p-btn.default) {
-				// background-color: #f5f6f8;
-				border-radius: 50%;
+    .icon-no-check {
+      button:global(.p-btn.default) {
+        // background-color: #f5f6f8;
+        border-radius: 50%;
 
-				&:hover {
-					svg {
-						path {
-							color: #b3bac5;
-						}
-					}
-				}
-			}
-		}
+        &:hover {
+          svg {
+            path {
+              color: #b3bac5;
+            }
+          }
+        }
+      }
+    }
 
-		.icon-check {
-			button:global(.p-btn.default) {
-				// background-color: #505f79;
-				border-radius: 50%;
+    .icon-check {
+      button:global(.p-btn.default) {
+        // background-color: #505f79;
+        border-radius: 50%;
 
-				& {
-					svg {
-						path {
-							color: #505f79;
-						}
-					}
-				}
-			}
-		}
+        & {
+          svg {
+            path {
+              color: #505f79;
+            }
+          }
+        }
+      }
+    }
 
-		button:global(.p-btn.default) {
-			background-color: rgba(235, 236, 240, 0);
+    button:global(.p-btn.default) {
+      background-color: rgba(235, 236, 240, 0);
 
-			// &:hover {
-			// 	svg {
-			// 		path {
-			// 			color: #b3bac5;
-			// 		}
-			// 	}
-			// }
-		}
+      // &:hover {
+      // 	svg {
+      // 		path {
+      // 			color: #b3bac5;
+      // 		}
+      // 	}
+      // }
+    }
 
-		.item-right {
-			.badge-changed {
-				// background: #3881ff;
-				background: $n400;
-				color: #ffffff;
-				font-size: 14px;
-				font-weight: 400;
-				margin-left: 4px;
-				height: 20px;
-				border-radius: 4px;
+    .item-right {
+      .badge-changed {
+        // background: #3881ff;
+        background: $n400;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 4px;
+        height: 20px;
+        border-radius: 4px;
 
-				svg {
-					font-size: 18px;
+        svg {
+          font-size: 18px;
 
-					path {
-						fill: #ffffff;
-					}
-				}
-			}
+          path {
+            fill: #ffffff;
+          }
+        }
+      }
 
-			.badge {
-				background-color: #c2daff;
-				color: #3880f8;
-				font-size: 14px;
-				font-weight: 400;
-				margin-left: 4px;
-				height: 20px;
-				border-radius: 4px;
+      .badge {
+        background-color: #c2daff;
+        color: #3880f8;
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 4px;
+        height: 20px;
+        border-radius: 4px;
 
-				svg {
-					font-size: 18px;
+        svg {
+          font-size: 18px;
 
-					path {
-						fill: #3880f8;
-					}
-				}
-			}
-		}
-	}
+          path {
+            fill: #3880f8;
+          }
+        }
+      }
+    }
+  }
 
-	.click-part {
-		cursor: pointer;
+  .click-part {
+    cursor: pointer;
 
-		.check-box {
-			width: 20px;
-		}
-	}
+    .check-box {
+      width: 20px;
+    }
+  }
 
-	.clicked-part {
-		cursor: not-allowed;
+  .clicked-part {
+    cursor: not-allowed;
 
-		.check-box {
-			width: 20px;
-		}
+    .check-box {
+      width: 20px;
+    }
 
-		.check-name {
-			font-size: 14px;
-			color: #172b4d;
-		}
+    .check-name {
+      font-size: 14px;
+      color: #172b4d;
+    }
 
-		.uncheck-name {
-			font-size: 14px;
-			color: #344563;
-			font-weight: 400;
-		}
+    .uncheck-name {
+      font-size: 14px;
+      color: #344563;
+      font-weight: 400;
+    }
 
-		.drugstore {
-			font-size: 12px;
-			color: #7a869a;
-			font-weight: 400;
-		}
-	}
+    .drugstore {
+      font-size: 12px;
+      color: #7a869a;
+      font-weight: 400;
+    }
+  }
 
-	.disable-click {
-		cursor: not-allowed;
-	}
+  .disable-click {
+    cursor: not-allowed;
+  }
 
-	.enable-click {
-		cursor: pointer;
-	}
+  .enable-click {
+    cursor: pointer;
+  }
 
-	.active-hover:hover {
-		span::after {
-			display: none;
-			background: #172b4d;
-			border-radius: 4px;
-			color: #ffffff;
-			content: "";
-			height: 20px;
-			width: 192px;
-			position: absolute;
-			margin-left: -20px;
-			margin-top: -24px;
-			line-height: 20px;
-			padding: 0 8px;
-			// display: inline;
-		}
-	}
+  .active-hover:hover {
+    span::after {
+      display: none;
+      background: #172b4d;
+      border-radius: 4px;
+      color: #ffffff;
+      content: "";
+      height: 20px;
+      width: 192px;
+      position: absolute;
+      margin-left: -20px;
+      margin-top: -24px;
+      line-height: 20px;
+      padding: 0 8px;
+      // display: inline;
+    }
+  }
 
-	.show-part {
-		&:hover {
-			background: #ebecf0;
-		}
+  .show-part {
+    &:hover {
+      background: #ebecf0;
+    }
 
-		.flex-1 {
-			flex: 1;
-		}
+    .flex-1 {
+      flex: 1;
+    }
 
-		flex: 1;
-		height: 100%;
+    flex: 1;
+    height: 100%;
 
-		.check-name {
-			font-size: 14px;
-			color: #172b4d;
+    .check-name {
+      font-size: 14px;
+      color: #172b4d;
 
-			// .drugstore {
-			// 	font-size: 12px;
-			// 	color: #7a869a;
-			// }
-		}
+      // .drugstore {
+      // 	font-size: 12px;
+      // 	color: #7a869a;
+      // }
+    }
 
-		.uncheck-name {
-			font-size: 14px;
-			color: #344563;
-			font-weight: 400;
-		}
+    .uncheck-name {
+      font-size: 14px;
+      color: #344563;
+      font-weight: 400;
+    }
 
-		.drugstore {
-			font-size: 12px;
-			color: #7a869a;
-			font-weight: 400;
-		}
-	}
+    .drugstore {
+      font-size: 12px;
+      color: #7a869a;
+      font-weight: 400;
+    }
+  }
 
-	.resource-style {
-		height: 20px;
-		min-width: 70px;
-		color: #3881ff;
-		background: #e1ecff;
-	}
+  .resource-style {
+    height: 20px;
+    min-width: 70px;
+    color: #3881ff;
+    background: #e1ecff;
+  }
 
-	.icon-active {
-		svg {
-			path {
-				fill: #3172e0;
-			}
-		}
-	}
+  .icon-active {
+    svg {
+      path {
+        fill: #3172e0;
+      }
+    }
+  }
 }
 
 .hospital-resource {
-	table {
-		thead {
-			font-size: 12px;
-			color: #7a869a;
-			border-bottom: 1px solid rgba(9, 30, 66, 0.08);
-		}
+  table {
+    thead {
+      font-size: 12px;
+      color: #7a869a;
+      border-bottom: 1px solid rgba(9, 30, 66, 0.08);
+    }
 
-		tbody {
-			td {
-				padding: 8px;
-			}
+    tbody {
+      td {
+        padding: 8px;
+      }
 
-			.sales-input {
-				height: 32px;
-				width: 93px;
-				display: inline-block;
-			}
+      .sales-input {
+        height: 32px;
+        width: 93px;
+        display: inline-block;
+      }
 
-			.budget-input {
-				height: 32px;
-				width: 93px;
-				display: inline-block;
-			}
-		}
-	}
+      .budget-input {
+        height: 32px;
+        width: 93px;
+        display: inline-block;
+      }
+    }
+  }
 }
 
 :global(.popover-outer) {
-	width: 366px;
-	height: 192px;
-	background-color: #6554C0;
-	padding: 16px;
-	box-shadow: 0 0 1px 0 rgba(9,30,66,0.12), 0 8px 16px -4px rgba(9,30,66,0.25);
-	border-radius: 4px;
-	// cursor: default;
+  width: 366px;
+  height: 192px;
+  background-color: #6554c0;
+  padding: 16px;
+  box-shadow: 0 0 1px 0 rgba(9, 30, 66, 0.12), 0 8px 16px -4px rgba(9, 30, 66, 0.25);
+  border-radius: 4px;
+  // cursor: default;
 
-	.popover-content {
+  .popover-content {
+    p {
+      margin-bottom: 0;
+    }
 
-		p {
-			margin-bottom: 0;
-		}
+    .popover-left {
+      svg {
+        width: 24px;
+        height: 24px;
 
-		.popover-left {
-			svg {
-				width: 24px;
-				height: 24px;
+        path {
+          fill: #ffffff;
+        }
+      }
+    }
 
-				path {
-					fill: #FFFFFF;
-				}
-			}
-		}
+    .popover-right {
+      .title {
+        font-family: PingFangSC-Medium;
+        font-size: 14px;
+        color: #ffffff;
+      }
 
-		.popover-right {
+      .subtitle {
+        margin-top: 8px;
+        opacity: 0.6;
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #ffffff;
+      }
 
-			.title {
-				font-family: PingFangSC-Medium;
-				font-size: 14px;
-				color: #FFFFFF;
-			}
+      .text {
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #ffffff;
 
-			.subtitle {
-				margin-top: 8px;
-				opacity: 0.6;
-				font-family: PingFangSC-Regular;
-				font-size: 14px;
-				color: #FFFFFF;
-			}
+        span {
+          svg {
+            font-size: 16px;
+          }
+        }
+      }
 
-			.text {
-				font-family: PingFangSC-Regular;
-				font-size: 14px;
-				color: #FFFFFF;
+      .popover-btn {
+        margin-top: 8px;
 
-				span {
-					svg {
-						font-size: 16px;
-					}
-				}
-			}
+        button {
+          color: #ffffff;
 
-			.popover-btn {
-				margin-top: 8px;
-
-				button {
-					color: #FFFFFF;
-
-					&:hover {
-						background-color: #8b5ed2;
-					}
-				}
-			}
-		}
-	}
+          &:hover {
+            background-color: #8b5ed2;
+          }
+        }
+      }
+    }
+  }
 }
