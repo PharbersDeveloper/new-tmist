@@ -630,7 +630,7 @@ export default Controller.extend( {
 				this.set( "calcJobId",res.jobId )
 				window.console.log( "callR Success!" )
 
-				this.set( "intervalTimer", setTimeout( this.timerToCheckCalc.bind( this ) , 1000 * 60 * 3 ) )
+				this.set( "intervalTimer", setTimeout( this.timerToCheckCalc.bind( this ) , 1000 * 60 * 10 ) )
 				// this.set( "deleteTimer", setTimeout( this.clearTimer.bind( this ), 1000 * 60 * 3 + 1 ) )
 			}
 		} ).catch( err => {
