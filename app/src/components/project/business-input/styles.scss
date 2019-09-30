@@ -346,7 +346,8 @@
 
       &>.resource-list {
         overflow-y: auto;
-        height: calc(100vh - 78px);
+        max-height: calc(100vh - 78px);
+        height: fit-content;
       }
 
       .resource-item {
