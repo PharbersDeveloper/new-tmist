@@ -317,9 +317,9 @@ export default Component.extend( {
 	chooseCheck: computed( function() {
 		return [{ id: 1, value: "不再提示", label: "no-notice" }]
 	} ),
-	popover: computed( "runtimeConfig.popover",function() {
-		return this.runtimeConfig.popover
-	} ),
+	// popover: computed( "runtimeConfig.popover",function() {
+	// 	return this.runtimeConfig.popover
+	// } ),
 	// didUpdate() {
 	// 	this._super( ...arguments )
 	// 	// this.set( "showPopover", false )

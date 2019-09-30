@@ -278,8 +278,7 @@
 								{{/bp-layout}}
 							{{else}}
 							{{#each quizs as |quiz index|}}
-								{{#bp-layout local-class=(if popover "line first-line" "line") }}
-									{{log index}}
+								{{#bp-layout local-class=(if (and runtimeConfig.popover (bp-eq period.phase 0)) "line first-line" "line") }}
 									{{project/business-input/hospital-config
 												index=index
 												proposal=proposal
