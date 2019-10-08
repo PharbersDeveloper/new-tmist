@@ -16,12 +16,14 @@
 				{{t "project.proposal-info.product-info.produce-sale-report"}}
 				{{!-- </span> --}}
 			{{/bp-layout}}
+			{{#if (bp-eq proposal.case "ucb")}}
 			{{#bp-layout tagName="div" cross="center" local-class=(if (bp-eq salesGroupValue 3) "active") classNames="px-4"
 			click=(action "changeSalesValue" 3)}}
 				{{!-- <span {{action "changeSalesValue" 3}} role="button"> --}}
 				地区销售报告
 				{{!-- </span> --}}
 			{{/bp-layout}}
+			{{/if}}
 			{{#bp-layout tagName="div" cross="center" local-class=(if (bp-eq salesGroupValue 1) "active") classNames="px-4"
 			click=(action "changeSalesValue" 1)}}
 				{{!-- <span {{action "changeSalesValue" 1}}role="button"> --}}

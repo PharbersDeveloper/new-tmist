@@ -1,5 +1,6 @@
 {{#bp-layout local-class="business-review" direction="col" classNames="bg-white"}}
 	{{#bp-layout local-class="select-part" direction="row" main="between" cross="center" classNames="mb-3"}}
+		{{#if (bp-eq proposal.case "ucb")}}
 		{{#bp-layout direction="row" local-class="part" classNames="pl-4" cross="center"}}
 			{{#bp-layout classNames="mr-3"}}选择周期{{/bp-layout}}
 			{{#bp-layout}}
@@ -45,7 +46,8 @@
 				{{/bp-dropdown}}
 			{{/bp-layout}}
 		{{/bp-layout}}
-		{{#bp-layout direction="row" local-class="part" cross="center"}}
+		{{/if}}
+		{{#bp-layout direction="row" local-class=(if (bp-eq proposal.case "tm") "tm-part" "part") cross="center" classNames=(if (bp-eq proposal.case "tm") "ml-4") }}
 			{{#bp-layout classNames="mr-3"}}选择代表{{/bp-layout}}
 			{{#bp-layout}}
 				{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}

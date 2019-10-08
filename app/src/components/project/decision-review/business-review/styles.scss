@@ -26,6 +26,24 @@
 				}
 			}
 		}
+
+		.tm-part {
+			width: 536px;
+			font-size: 14px;
+			color: #344563;
+
+			.btn-list {
+				height: 32px;
+				width: 456px;
+
+				// border-radius: 4px;
+				:global(.dropdown-button) {
+					height: 32px;
+					width: 456px;
+					border-radius: 5px;
+				}
+			}
+		}
 	}
 
 	// .table {
