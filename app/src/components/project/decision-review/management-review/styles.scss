@@ -76,7 +76,7 @@ div:global(.management-review-wrapper) {
 					.legend {
 						&:last-child {
 							padding-top: 8px;
-							border-top: 2px solid rgba(9, 30, 66, 0.08);
+							border-top: 1px solid rgba(9, 30, 66, 0.08);
 						}
 					}
 				}
@@ -104,6 +104,10 @@ div:global(.management-review-wrapper) {
 						width: 100%;
 						font-size: 12px;
 						color: #7a869a;
+
+						th {
+							font-weight: 400;
+						}
 					}
 
 					tbody {
@@ -142,7 +146,7 @@ div:global(.management-review-wrapper) {
 				.blank {
 					height: 34px;
 					width: 157px;
-					border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+					border-bottom: 1px solid rgba(9, 30, 66, 0.08);
 				}
 
 				div {
@@ -165,7 +169,7 @@ div:global(.management-review-wrapper) {
 					flex: 1;
 
 					.name {
-						border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+						border-bottom: 1px solid rgba(9, 30, 66, 0.08);
 						// width: 157px;
 						height: 34px;
 						font-size: 14px;

@@ -164,5 +164,9 @@ export default Route.extend( {
 		if ( model.project.current === model.periods.length ) {
 			this.transitionTo( "page.project.result", model.project.get( "id" ) )
 		}
+
+		if ( model.period.phase < model.periods.length - 1 ) {
+			this.transitionTo( "page.project.period", model.project.get( "id" ), model.periods.get( "lastObject.id" ) )
+		}
 	}
 } )

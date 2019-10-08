@@ -6,7 +6,7 @@
 				经理时间
 			{{/bp-layout}}
 			{{#bp-layout direction="col" main="center" cross="center" local-class="info" classNames="mt-1"}}
-				{{!-- {{#bp-layout local-class="remain-text"}}剩余{{/bp-layout}} --}}
+				{{#bp-layout local-class="remain-text"}}已用时间{{/bp-layout}}
 				{{#bp-layout local-class="percent"}}
 					<span>{{curManagerTime}}%</span>
 					<span class="mt-3">/{{maxManagerTime}}%</span>
@@ -24,7 +24,7 @@
 				{{bp-icon icon="target"}}经理行动点数
 			{{/bp-layout}}
 			{{#bp-layout direction="col" main="center" cross="center" local-class="info" classNames="mt-1"}}
-				{{!-- {{#bp-layout local-class="remain-text"}}剩余{{/bp-layout}} --}}
+				{{#bp-layout local-class="remain-text"}}已用点数{{/bp-layout}}
 				{{#bp-layout local-class="percent"}}
 					<span>{{curManagerActionPoints}}点</span>
 					<span class="mt-3">/{{maxActionPoints}}点</span>

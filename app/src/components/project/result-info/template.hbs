@@ -35,6 +35,7 @@
 			{{/body.right}}
 		{{/ph.body}}
 	{{/bp-page-header}}
+	{{#if (bp-eq proposal.case "ucb")}}
 	{{#bp-layout direction="row" main="between" classNames="mb-2 bg-white" local-class="key-indicator"}}
 		{{#bp-layout tagName='h3' cross='center' local-class="title" classNames="mb-0 px-4"}}
 			关键指标
@@ -138,6 +139,8 @@
 
 		{{/bp-layout}}
 	{{/bp-layout}}
+	{{/if}}
+
 	{{#bp-layout local-class="sales-report" tagName="h4" classNames="bg-white pl-4 mb-2" cross="center"}}
 		销售报告
 	{{/bp-layout}}

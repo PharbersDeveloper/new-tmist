@@ -12,7 +12,12 @@ export default Controller.extend( {
 			} )
 		},
 		returnPrepare( pid ) {
-			this.transitionToRoute( "page.prepare", pid )
+			if ( window.localStorage.getItem( "isUcb" ) === "1" ) {
+				this.transitionToRoute( "page.ucbprepare" )
+			} else {
+				this.transitionToRoute( "page.prepare", pid )
+			}
+
 		},
 		review( pid ) {
 			this.transitionToRoute( "page.project.review", pid )
