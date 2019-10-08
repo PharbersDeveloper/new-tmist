@@ -127,6 +127,7 @@ export default Component.extend( {
 			item.currentPatientNum = report.get( "firstObject.currentPatientNum" )
 			item.currentDurgEntrance = report.get( "firstObject.currentDurgEntrance" )
 			item.region = r.get( "target.spaceBelongs" )
+			item.potential = report.get( "firstObject.potential" )
 
 			arr.push( item )
 
