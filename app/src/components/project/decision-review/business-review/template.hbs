@@ -139,7 +139,12 @@
 		{{/bp-layout}}
 	{{else}}
 		{{#bp-layout classNames="px-4"}}
-			{{bp-table columns=reviewColumns data=sortedAnswers local-class=(if (bp-eq proposal.case "tm" )"tm-table" "ucb-table")}}
+		{{#if (bp-eq proposal.case "tm" )}}
+
+			{{bp-table columns=reviewColumnsTM data=sortedAnswers local-class="tm-table"}}
+		{{else}}
+			{{bp-table columns=reviewColumns data=sortedAnswers local-class="ucb-table"}}
+		{{/if}}
 		{{/bp-layout}}
 	{{/if}}
 
