@@ -1,4 +1,4 @@
-{{#bp-layout local-class=(if showPopover "color-border header" "header") }}
+{{#bp-layout local-class="header" }}
 	{{#bp-layout tagName="h4" cross="center" local-class="title" classNames="bg-white mb-0" }}
 		{{!-- {{#if (bp-eq index 0)}}
 			{{log popperOption}}
@@ -40,8 +40,9 @@
 					placement="bottom"
 					hideOn='click'
 					showOn=''
-					isShown=showPopover
+					isShown=runtimeConfig.popover
 					as |attacher|}}
+					{{log showPopover}}
 					{{#bp-layout direction="row" main="start" local-class="popover-content"}}
 						{{#bp-layout direction="col" main="start" local-class="popover-left" classNames="mr-3"}}
 							{{bp-icon icon='question-circle'}}

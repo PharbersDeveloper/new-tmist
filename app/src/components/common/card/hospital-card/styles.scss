@@ -20,7 +20,8 @@
 		.infos {
 			flex: 1;
 			width: 872px;
-			height: fit-content;
+			max-height: 578px;
+			overflow-y: auto;
 
 			.left-info {
 				width: 436px;
@@ -114,21 +115,27 @@
 					}
 				}
 
-				tr {
+				tbody {
+					height: fit-content;
 					width: 338px;
-					font-size: 14px;
-					color: #344563;
+					// overflow-y: auto;
 
-					// text-align: right;
-					td {
-						flex: 1;
+					tr {
+						width: 338px;
+						font-size: 14px;
+						color: #344563;
 
-						.td-left {
-							width: 44px;
-						}
+						// text-align: right;
+						td {
+							flex: 1;
 
-						.td-right {
-							width: 48px;
+							.td-left {
+								width: 44px;
+							}
+
+							.td-right {
+								width: 48px;
+							}
 						}
 					}
 				}
@@ -147,7 +154,7 @@
 
 			.others {
 				&.dynamic {
-					font-size: 0;
+					// font-size: 0;
 
 					.content {
 						@extend %p-secondary;

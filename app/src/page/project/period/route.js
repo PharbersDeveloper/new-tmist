@@ -159,5 +159,10 @@ export default Route.extend( {
 
 		this.runtimeConfig.set( "proposalId",model.project.get( "proposal.id" ) )
 		this.runtimeConfig.set( "projectId" , model.project.get( "id" ) )
+	},
+	afterModel( model ) {
+		if ( model.project.current === model.periods.length ) {
+			this.transitionTo( "page.project.result", model.project.get( "id" ) )
+		}
 	}
 } )
