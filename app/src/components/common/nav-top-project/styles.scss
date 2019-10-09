@@ -6,14 +6,15 @@
 		:global(.dropdown-menu) {
 			width: fit-content;
 			min-width: 80px;
-			left: -35px;
-			top: 10px;
+			margin-top: 8px;
+			left: -30px !important;
+			top: 20px;
 		}
 	}
 
 	h4.title {
 		font-size: 16px;
-		color: #172B4D;
+		color: #172b4d;
 		height: 22px;
 		line-height: 22px;
 		margin-bottom: 0;

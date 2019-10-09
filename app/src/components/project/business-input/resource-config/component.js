@@ -25,7 +25,8 @@ export default Component.extend( {
 		// let hospitals = []
 		return this.hospitalList.length
 	} ),
-	leftTime: computed( "resourceHospital", function() {
+	inputVisitTime: false,
+	leftTime: computed( "inputVisitTime", function() {
 		let all = 0
 
 
@@ -82,6 +83,7 @@ export default Component.extend( {
 			} else {
 				set( this, "leftTime", all )
 			}
+			this.toggleProperty( "inputVisitTime" )
 			// this.resource.get("totalTiem")
 			// set( this.resource, "totalTime", this.leftTime )
 		}

@@ -25,7 +25,7 @@ body > :global(.ember-view) {
 :global(.modal-body) {
 	:global(.desc) {
 		@extend %p-primary;
-		color: #172B4D;
+		color: #172b4d;
 	}
 
 	:global(.secondary) {
@@ -48,4 +48,8 @@ body > :global(.ember-view) {
 
 :global(.toast-error) {
 	background-color: $r400;
+}
+
+:global(.dropdown-menu) {
+	max-height: 170px !important;
 }
