@@ -5,9 +5,9 @@ import { inject as service } from "@ember/service"
 export default Route.extend( {
 	cookies: service(),
 	facade: service( "service/exam-facade" ),
-	model( params ) {
-		const accountId = this.cookies.read( "account_id" ),
-			project = this.modelFor( "page.project" ),
+	model( ) {
+		// const accountId = this.cookies.read( "account_id" ),
+		const project = this.modelFor( "page.project" ),
 			prs = project.belongsTo( "proposal" ),
 
 			hospitals = prs.load().then( x => {

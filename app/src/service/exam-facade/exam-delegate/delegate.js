@@ -52,16 +52,16 @@ export default Object.extend( {
 							} )
 						} ),
 
-					 rsi = resources.map( resource => {
+						rsi = resources.map( resource => {
 							return this.store.createRecord( "model/answer", {
 								category: "Resource",
 								resource: resource
 							} )
 						} ),
 
-					 msi = this.store.createRecord( "model/answer", {
+						msi = this.store.createRecord( "model/answer", {
 							category: "Management"
-					 } )
+						} )
 
 					result.addObjects( bsi )
 					result.addObjects( rsi )
