@@ -11,9 +11,8 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 	getChart( curTreatmentArea ) {
 		const that = this
 
-		// new Promise( function ( resolve ) {
 		let	tmProdsLines = that.generateLines( "tmProdsLinesContainer","prodLines" ),
-			tmProdsLinesCondition = that.generateProdCompLinesCondition( curTreatmentArea,that.periodBase,that.periodStep )
+			tmProdsLinesCondition = that.generateProdCompLinesCondition( curTreatmentArea,that.periodBase,that.periodStep,this.project.get( "current" ) )
 
 		this.set( "tmProdsLines", tmProdsLines )
 		this.set( "tmProdsLinesCondition", tmProdsLinesCondition )
@@ -42,7 +41,7 @@ export default Component.extend( GenerateCondition,GenerateChartConfig, {
 					break
 				}
 			}
-			this.set( "tmProdsLinesCondition", this.generateProdCompLinesCondition( treatmentArea,this.periodBase, this.periodStep ) )
+			this.set( "tmProdsLinesCondition", this.generateProdCompLinesCondition( treatmentArea,this.periodBase, this.periodStep,this.project.get( "current" ) ) )
 		}
 	}
 } )
