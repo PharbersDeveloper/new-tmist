@@ -55,7 +55,7 @@
 
 	// 		thead {
 	// 			font-size: 12px;
-	// 			color: #7a869a;
+	// 			color: $n100;
 	// 			border-bottom: 2px solid rgba(9, 30, 66, 0.08);
 
 	// 			th {
@@ -118,7 +118,7 @@
 
 	:global(.bp-table-thead) {
 		th {
-			color: #7a869a;
+			color: $n100;
 			font-weight: 400;
 
 			span {

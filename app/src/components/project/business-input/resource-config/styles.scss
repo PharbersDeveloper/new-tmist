@@ -10,7 +10,7 @@
 		height: 88px;
 		width: 100%;
 		font-size: 14px;
-		color: #172B4D;
+		color: $n800;
 		text-align: left;
 		// border-bottom: 1px solid #fafbfc;
 		border-radius: 0;
@@ -34,12 +34,12 @@
 		.item-left {
 			.span-1 {
 				font-size: 12px;
-				color: #7a869a;
+				color: $n100;
 			}
 
 			.span-2 {
 				font-size: 16px;
-				color: #172B4D;
+				color: $n800;
 			}
 		}
 
@@ -135,18 +135,18 @@
 
 			.time {
 				font-size: 12px;
-				color: #7a869a;
+				color: $n100;
 			}
 
 			.percent {
 				span:first-child {
 					font-size: 16px;
-					color: #172B4D;
+					color: $n800;
 				}
 
 				span:last-child {
 					font-size: 12px;
-					color: #7a869a;
+					color: $n100;
 				}
 			}
 

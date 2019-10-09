@@ -3,7 +3,7 @@
 		@extend %header-medium;
 		height: 52px;
 		font-size: 14px;
-		color: #172B4D;
+		color: $n800;
 
 		.icon {
 			cursor: pointer;
@@ -28,12 +28,12 @@
 
 				.name {
 					font-size: 20px;
-					color: #172B4D;
+					color: $n800;
 				}
 
 				.experience {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				p span:first-child {
@@ -43,7 +43,7 @@
 
 				p span:last-child {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 				}
 			}
 
@@ -58,7 +58,7 @@
 
 				p span:last-child {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				.des {
@@ -123,16 +123,16 @@
 
 						p:first-child {
 							font-size: 14px;
-							color: #7a869a;
+							color: $n100;
 						}
 
 						p:last-child {
 							font-size: 29px;
-							color: #172B4D;
+							color: $n800;
 
 							span {
 								font-size: 14px;
-								color: #7a869a;
+								color: $n100;
 							}
 						}
 					}
@@ -144,17 +144,17 @@
 
 						p {
 							font-size: 14px;
-							color: #7a869a;
+							color: $n100;
 							margin-bottom: 0;
 						}
 
 						p:last-child {
 							font-size: 29px;
-							color: #172B4D;
+							color: $n800;
 
 							span {
 								font-size: 14px;
-								color: #7a869a;
+								color: $n100;
 							}
 						}
 					}

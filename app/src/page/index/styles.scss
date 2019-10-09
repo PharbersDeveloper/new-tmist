@@ -12,14 +12,13 @@
 			background-repeat: no-repeat;
 			background-size: 50%;
 
-
 			.title-wrapper {
 				margin-top: 16px;
 				margin-bottom: 40px;
 
 				.title {
 					font-size: 24px;
-					color: #FFFFFF;
+					color: #ffffff;
 				}
 			}
 
@@ -41,35 +40,34 @@
 
 						.des {
 							font-size: 12px;
-							color: #7A869A;
+							color: $n100;
 						}
 					}
 				}
 
 				.title {
 					font-size: 16px;
-					color: #172B4D;
+					color: $n800;
 				}
-				
+
 				.subtitle {
 					font-size: 14px;
-					color: #7A869A;
+					color: $n100;
 					margin-bottom: 24px;
 				}
 
 				.card-bottom {
 					width: 100%;
 				}
-
 			}
-						
+
 			&.apm {
-				background-color: #172B4D;
+				background-color: $n800;
 				background-image: url("/images/img_home_card-bg_apm@2x.png");
 			}
 
 			&.ntm {
-				background-color: #5E6C84;;
+				background-color: #5e6c84;
 				background-image: url("/images/img_home_card-bg_tmist@2x.png");
 
 				.card-inner {
@@ -77,24 +75,23 @@
 
 					.badge {
 						font-size: 12px;
-						color: #FFFFFF;
+						color: #ffffff;
 						background-color: #55b37e;
 						line-height: 16px;
 						border-radius: 4px;
 						padding-left: 4px;
 						padding-right: 4px;
-						
 					}
 
 					.des {
 						font-size: 12px;
-						color: #7A869A;
+						color: $n100;
 					}
 				}
 			}
 
 			&.ucb {
-				background-color: #B3BAC5;
+				background-color: #b3bac5;
 				background-image: url("/images/img_home_card-bg_case@2x.png");
 
 				.card {

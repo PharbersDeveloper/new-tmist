@@ -19,7 +19,7 @@
 
 			th {
 				font-size: 12px;
-				color: #7a869a;
+				color: $n100;
 				font-weight: 400;
 			}
 
@@ -41,7 +41,7 @@
 					.info {
 						span:first-child {
 							font-size: 12px;
-							color: #7a869a;
+							color: $n100;
 							text-align: center;
 						}
 
@@ -100,56 +100,56 @@
 
 					.des {
 						font-size: 12px;
-						color: #6b778c;
+						color: $n200;
 					}
 				}
 
 				.total-percent {
 					.num {
 						font-size: 29px;
-						color: #172B4D;
+						color: $n800;
 					}
 
 					.unit {
 						font-size: 12px;
-						color: #7a869a;
+						color: $n100;
 						margin-left: 2px;
 					}
 				}
 
 				.total-percent-round {
 					font-size: 16px;
-					color: #172B4D;
+					color: $n800;
 				}
 
 				.total-sales {
 					font-size: 16px;
-					color: #172B4D;
+					color: $n800;
 				}
 
 				.used-time {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				.end-time {
 					font-size: 12px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				&:nth-child(3) {
 					font-size: 16px;
-					color: #172B4D;
+					color: $n800;
 				}
 
 				&:nth-child(5) {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				&:nth-child(6) {
 					font-size: 12px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				// &:nth-child(5) {
