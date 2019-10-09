@@ -127,6 +127,7 @@ export default Component.extend( {
 			item.currentPatientNum = report.get( "firstObject.currentPatientNum" )
 			item.currentDurgEntrance = report.get( "firstObject.currentDurgEntrance" )
 			item.region = r.get( "target.spaceBelongs" )
+			item.potential = report.get( "firstObject.potential" )
 
 			arr.push( item )
 
@@ -220,6 +221,60 @@ export default Component.extend( {
 			valuePath: "budget",
 			align: "right",
 			cellComponent: "common/table/format-number-thousands",
+			sortable: true
+			// width: 110
+		}
+	] ),
+	reviewColumnsTM: A( [
+		{
+			label: "医院名称",
+			valuePath: "hospitalName",
+			align: "left"
+			// sortable: true,
+			// width: 300
+		},{
+			label: "潜力",
+			valuePath: "potential",
+			align: "right",
+			cellComponent: "common/table/format-number-thousands",
+			sortable: true
+			// width: 58
+		}, {
+			label: "上季度销售额",
+			valuePath: "lastSales",
+			cellComponent: "common/table/format-number-thousands",
+			align: "right",
+			sortable: true
+
+		},{
+			label: "代表",
+			valuePath: "resource",
+			align: "center"
+			// sortable: true,
+			// width: 58
+		},{
+			label: "时间分配",
+			valuePath: "visitTime",
+			cellComponent: "common/table/visit-time-per",
+			align: "right"
+		},{
+			label: "销售指标",
+			valuePath: "salesTarget",
+			align: "right",
+			cellComponent: "common/table/format-number-thousands",
+			sortable: true
+			// width: 110
+		},{
+			label: "预算费用",
+			valuePath: "budget",
+			align: "right",
+			cellComponent: "common/table/format-number-thousands",
+			sortable: true
+			// width: 110
+		}, {
+			label: "会议分配名额",
+			valuePath: "meetingPlaces",
+			align: "left",
 			sortable: true
 			// width: 110
 		}

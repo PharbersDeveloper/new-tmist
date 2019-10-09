@@ -1,5 +1,5 @@
 {{#bp-layout direction="col" local-class="manager-review"}}
-	{{#bp-layout local-class="select-quarter" direction="row" classNames="bg-white pl-4 mb-4" cross="center"}}
+	{{!-- {{#bp-layout local-class="select-quarter" direction="row" classNames="bg-white pl-4 mb-4" cross="center"}}
 		{{#bp-layout local-class="half" cross="center"}}
 			{{#bp-layout classNames="mr-4"}}选择周期{{/bp-layout}}
 			{{#bp-layout local-class="btn-select-quarter"}}
@@ -23,7 +23,7 @@
 			{{/bp-layout}}
 		{{/bp-layout}}
 
-	{{/bp-layout}}
+	{{/bp-layout}} --}}
 
 	{{#bp-layout local-class="manager-time" direction="row" classNames="pl-4 bg-white mb-2" cross="center"}}
 		{{#bp-layout tagName="h4" local-class="title" classNames="m-0"}}
@@ -108,7 +108,7 @@
 					{{#bp-layout direction="col" local-class="resource" }}
 						{{#bp-layout local-class="name" cross="center" main="center"}}{{item.resource.name}}{{/bp-layout}}
 
-						{{#if item.productKnowledgeTraining}}
+						{{#if (bp-eq item.productKnowledgeTraining 1)}}
 							{{#bp-layout local-class="block" cross="center" main="center"}} 
 								<span></span>
 							{{/bp-layout}}
@@ -116,7 +116,7 @@
 							{{#bp-layout local-class="block"}}{{/bp-layout}}
 						{{/if}}
 
-						{{#if item.salesAbilityTraining}}
+						{{#if (bp-eq item.salesAbilityTraining 1)}}
 							{{#bp-layout local-class="block" cross="center" main="center"}} 
 								<span></span>
 							{{/bp-layout}}
@@ -124,7 +124,7 @@
 							{{#bp-layout local-class="block"}}{{/bp-layout}}
 						{{/if}}
 
-						{{#if item.regionTraining}}
+						{{#if (bp-eq item.regionTraining 1)}}
 							{{#bp-layout local-class="block" cross="center" main="center"}} 
 								<span></span>
 							{{/bp-layout}}
@@ -132,7 +132,7 @@
 							{{#bp-layout local-class="block"}}{{/bp-layout}}
 						{{/if}}
 
-						{{#if item.performanceTraining}}
+						{{#if (bp-eq item.performanceTraining 1)}}
 							{{#bp-layout local-class="block" cross="center" main="center"}} 
 								<span></span>
 							{{/bp-layout}}
@@ -140,7 +140,7 @@
 							{{#bp-layout local-class="block"}}{{/bp-layout}}
 						{{/if}}
 
-						{{#if item.vocationalDevelopment}}
+						{{#if (bp-eq item.vocationalDevelopment 1)}}
 							{{#bp-layout local-class="block" cross="center" main="center"}} 
 								<span></span>
 							{{/bp-layout}}
