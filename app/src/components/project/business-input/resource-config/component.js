@@ -2,6 +2,7 @@ import Component from "@ember/component"
 import { computed, set } from "@ember/object"
 // import Service from "@ember/service"
 import { inject as service } from "@ember/service"
+import { A } from "@ember/array"
 
 
 export default Component.extend( {
@@ -24,7 +25,8 @@ export default Component.extend( {
 		// let hospitals = []
 		return this.hospitalList.length
 	} ),
-	leftTime: computed( "resourceHospital", function() {
+	inputVisitTime: false,
+	leftTime: computed( "inputVisitTime", function() {
 		let all = 0
 
 
@@ -43,6 +45,19 @@ export default Component.extend( {
 			return number
 		}
 	},
+	labelEmphasis: false,
+	circleVisitTimeData: computed( "leftTime", function() {
+		return A( [
+			{value: this.leftTime, name: "已分配时间"},
+			{value: 100 - this.leftTime, name: "未分配时间"}
+		] )
+	} ),
+	circleVisitTimeColor: computed( function() {
+		return A( ["#3881FF", " #DFE1E6"] )
+	} ),
+	circleVisitTimeSize: computed( function() {
+		return ["6", "8"]
+	} ),
 	actions: {
 		showContent( rs ) {
 			// this.toggleProperty( "showContent" )
@@ -68,6 +83,7 @@ export default Component.extend( {
 			} else {
 				set( this, "leftTime", all )
 			}
+			this.toggleProperty( "inputVisitTime" )
 			// this.resource.get("totalTiem")
 			// set( this.resource, "totalTime", this.leftTime )
 		}

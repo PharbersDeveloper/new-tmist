@@ -9,9 +9,9 @@ body > :global(.ember-view) {
 }
 
 :global(.modal-header) {
-	padding-top: 24px;
 	@extend %header-large;
 	border: 0;
+	padding-top: 24px;
 
 	:global(.header-wrapper) {
 		width: 100%;
@@ -25,7 +25,7 @@ body > :global(.ember-view) {
 :global(.modal-body) {
 	:global(.desc) {
 		@extend %p-primary;
-		color: #172B4D;
+		color: #172b4d;
 	}
 
 	:global(.secondary) {
@@ -38,8 +38,8 @@ body > :global(.ember-view) {
 }
 
 :global(.modal-footer) {
-	padding-bottom: 24px;
 	border: 0;
+	padding-bottom: 24px;
 }
 
 :global(.toast-success) {
@@ -48,4 +48,8 @@ body > :global(.ember-view) {
 
 :global(.toast-error) {
 	background-color: $r400;
+}
+
+:global(.dropdown-menu) {
+	max-height: 170px !important;
 }

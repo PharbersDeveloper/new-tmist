@@ -102,23 +102,25 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			this.reSortCircleData( data,config,"product","dealedTmProdCircle1","product1Legend" )
 		},
 		chooseProd( prod ) {
-			let salesGroupValue = this.salesGroupValue
+			let salesGroupValue = this.salesGroupValue,
+				currentParse = this.project.get( "current" ),
+				isResultPage = this.isResultPage
 
 			// TODO switch更清晰
 			if ( salesGroupValue === 0 ) {
 				this.set( "tmpPsr", prod )
-				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name, this.proposal ) )
+				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name, this.proposal,currentParse,isResultPage ) )
 			} else if ( salesGroupValue === 1 ) {
 				this.set( "tmpProdRep", prod )
-				this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name, this.proposal ) )
+				this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name, this.proposal,currentParse,isResultPage ) )
 			} else if ( salesGroupValue === 2 ) {
 				this.set( "tmpProdHosp", prod )
-				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name, this.proposal ) )
+				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name, this.proposal,currentParse,isResultPage ) )
 			} else if ( salesGroupValue === 3 ) {
 				let regName = isEmpty( this.tmpReg ) ? "" : this.tmpReg.name
 
 				this.set( "tmpProdReg", prod )
-				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( regName, prod.name, this.proposal ) )
+				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( regName, prod.name, this.proposal,currentParse,isResultPage ) )
 			}
 		},
 		changeTableProd( prod ) {
@@ -128,7 +130,6 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			// TODO switch更清晰
 			if ( salesGroupValue === 0 ) {
 				// this.set( "tmpPsr", prod )
-				// this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name, this.proposal ) )
 			} else if ( salesGroupValue === 1 ) {
 				this.set( "representativeProdTable", prod )
 				let type = isEmpty( prod ) ? "rep_ref" : "rep_prod"
@@ -159,22 +160,28 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			}
 		},
 		chooseRep( rep ) {
-			let prodName = this.tmpProdRep && this.tmpProdRep.name
+			let prodName = this.tmpProdRep && this.tmpProdRep.name,
+				currentParse = this.project.get( "current" ),
+				isResultPage = this.isResultPage
 
 			this.set( "tmpRep", rep )
-			this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( rep.name, prodName, this.proposal ) )
+			this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( rep.name, prodName, this.proposal,currentParse,isResultPage ) )
 		},
 		chooseHosp( hosp ) {
-			let prodName = this.tmpProdHosp && this.tmpProdHosp.name
+			let prodName = this.tmpProdHosp && this.tmpProdHosp.name,
+				currentParse = this.project.get( "current" ),
+				isResultPage = this.isResultPage
 
 			this.set( "tmpHosp", hosp )
-			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name, prodName, this.proposal ) )
+			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name, prodName, this.proposal,currentParse,isResultPage ) )
 		},
 		chooseReg( reg ) {
-			let prodName = this.tmpProdReg && this.tmpProdReg.name
+			let prodName = this.tmpProdReg && this.tmpProdReg.name,
+				currentParse = this.project.get( "current" ),
+				isResultPage = this.isResultPage
 
 			this.set( "tmpReg", reg )
-			this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( reg.name, prodName, this.proposal ) )
+			this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( reg.name, prodName, this.proposal,currentParse,isResultPage ) )
 		},
 		dealRep0Data( data, config ) {
 			this.dealData( data, config, "representative", "rep0Legend" )
@@ -494,25 +501,25 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				tmProductCircleCondition = that.generateProductCircleCondition( proposalCase, prevOne ),
 				tmProductCircle0Condition = that.generateProductCircleCondition( proposalCase, prevTwo ),
 				tmProductBarLine0 = that.generateBarLineConfig( "tmProductBarLineContainer", "bartmProductBarLine0" ),
-				tmProductBarLineCondition = that.generateProdBarLineCondition( "", that.proposal ),
+				tmProductBarLineCondition = that.generateProdBarLineCondition( "", that.proposal,currentPeriod,isResultPage ),
 				tmRepCircle0 = that.generateCircleChart( "representativeCircleContainer0", "tmcircleRepresentative0" ),
 				tmRepCircle1 = that.generateCircleChart( "circleRepresentativeContainer1", "tmcirclerepresentative1" ),
 				tmRepCircleCondition = that.generateRepCircleCondition( prevOne ),
 				tmRepCircle0Condition = that.generateRepCircleCondition( prevTwo ),
 				tmRepBarLine0 = that.generateBarLineConfig( "tmRepresentativeBarLineContainer", "bartmRepresentativeBarLine0" ),
-				tmRepBarLineCondition = that.generateRepBarLineCondition( defaultRep.name, "", that.proposal ),
+				tmRepBarLineCondition = that.generateRepBarLineCondition( defaultRep.name, "", that.proposal,currentPeriod,isResultPage ),
 				tmHosCircle0 = that.generateCircleChart( "hospitalCircleContainer0", "tmcircleHospital0" ),
 				tmHosCircle1 = that.generateCircleChart( "hospitalCircleContainer1", "tmcircleHospital1" ),
 				tmHosCircleCondition = that.generateHospCircleCondition( prevOne ),
 				tmHosCircle0Condition = that.generateHospCircleCondition( prevTwo ),
 				tmHosBarLine0 = that.generateBarLineConfig( "tmHospitalBarLineContainer", "bartmHospitalBarLine0" ),
-				tmHosBarLineCondition = that.generateHospBarLineCondition( defaultHosp.name, "", that.proposal ),
+				tmHosBarLineCondition = that.generateHospBarLineCondition( defaultHosp.name, "", that.proposal,currentPeriod,isResultPage ),
 				tmRegCircle0 = that.generateCircleChart( "regionCircleContainer0", "tmcircleregion0" ),
 				tmRegCircle1 = that.generateCircleChart( "regionCircleContainer1", "tmcircleregion1" ),
 				tmRegCircleCondition = that.generateRegionCircleCondition( prevOne ),
 				tmRegCircle0Condition = that.generateRegionCircleCondition( prevTwo ),
 				tmRegBarLine0 = that.generateBarLineConfig( "tmRegionBarLineContainer", "bartmRegionBarLine0" ),
-				tmRegBarLineCondition = that.generateRegionBarLineCondition( "", "", that.proposal ) // 查询区域全部总值&&产品全部总值
+				tmRegBarLineCondition = that.generateRegionBarLineCondition( "", "", that.proposal,currentPeriod,isResultPage ) // 查询区域全部总值&&产品全部总值
 
 			resolve( {
 				tmProductCircle0, tmProductCircle1, tmProductCircleCondition, tmProductCircle0Condition, tmProductBarLine0, tmProductBarLineCondition,

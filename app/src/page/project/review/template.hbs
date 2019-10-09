@@ -6,7 +6,14 @@
 	
 	{{#bp-layout direction="row" }}
 		{{project/decision-review
+		proposal=model.proposal
 		project=model.project
-		proposal=model.project.proposal}}
+		period=model.period
+		hospitals=model.hospitals
+		resources=model.resources
+		products=model.products
+		answers=model.answers
+		reports=model.dragInfo
+		presetsByProject=model.presetsByProject}}
 	{{/bp-layout}}
 {{/bp-layout}}

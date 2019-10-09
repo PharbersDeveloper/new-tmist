@@ -17,7 +17,7 @@
 					用时：<span class="mx-2">{{time-difference project.startTime project.endTime}}</span> --}}
 
 					<span local-class="badge" class="px-2 py-1">{{periods.lastObject.name}}</span>
-					{{#if (bp-eq periods.lastObject.phase project.pharse-1)}}
+					{{#if (bp-eq periods.lastObject.phase projectPhase)}}
 						<span local-class="badge" class="px-2 py-1">最后周期</span>
 					{{/if}}
 				{{/left.item}}

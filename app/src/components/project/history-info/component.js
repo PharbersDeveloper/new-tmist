@@ -29,6 +29,9 @@ export default Component.extend( {
 			this.runtimeConfig.setRoundHistoryTrue()
 			this.get( "router" ).transitionTo( "page.project.result", project.get( "id" ) , { queryParams: { state: "history" }} )
 			// window.location = "/project/" + project.id + "/result"
+		},
+		review( pid ) {
+			this.get( "router" ).transitionTo( "page.project.review", pid )
 		}
 	}
 } )
