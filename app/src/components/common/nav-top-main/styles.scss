@@ -1,7 +1,7 @@
 .nav-top {
-	height: 64px;
 	background: #ffffff;
 	box-shadow: 0 1px 2px 0 rgba(23, 43, 77, 0.12);
+	height: 64px;
 
 	.nav-left {
 		svg {
@@ -9,10 +9,10 @@
 				fill: #42526e;
 			}
 		}
-		
+
 		.logo {
-			widows: 56px;
 			height: 32px;
+			widows: 56px;
 		}
 	}
 
@@ -23,8 +23,8 @@
 
 		.btn-list {
 			:global(.dropdown-menu) {
-				width: 80px;
 				min-width: 80px;
+				width: 80px;
 			}
 		}
 	}
