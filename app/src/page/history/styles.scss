@@ -1,7 +1,7 @@
 .return {
 	font-size: 12px;
 	line-height: 16px;
-	color: #6b778c;
+	color: $n200;
 	cursor: pointer;
 }
 
@@ -31,7 +31,7 @@
 
 			.title {
 				font-size: 24px;
-				color: #172b4d;
+				color: $n800;
 			}
 		}
 
@@ -44,7 +44,7 @@
 
 					th {
 						font-size: 12px;
-						color: #7a869a;
+						color: $n100;
 					}
 				}
 
@@ -57,7 +57,7 @@
 							.info {
 								span:first-child {
 									font-size: 12px;
-									color: #7a869a;
+									color: $n100;
 									text-align: center;
 								}
 
@@ -98,35 +98,35 @@
 
 							.des {
 								font-size: 12px;
-								color: #6b778c;
+								color: $n200;
 							}
 						}
 
 						.total-percent {
 							.num {
 								font-size: 24px;
-								color: #172b4d;
+								color: $n800;
 							}
 
 							.unit {
 								font-size: 12px;
-								color: #7a869a;
+								color: $n100;
 							}
 						}
 
 						&:nth-child(3) {
 							font-size: 16px;
-							color: #172b4d;
+							color: $n800;
 						}
 
 						&:nth-child(5) {
 							font-size: 14px;
-							color: #7a869a;
+							color: $n100;
 						}
 
 						&:nth-child(6) {
 							font-size: 12px;
-							color: #7a869a;
+							color: $n100;
 						}
 
 						// &:nth-child(5) {

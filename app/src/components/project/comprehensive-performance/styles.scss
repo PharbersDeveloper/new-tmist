@@ -12,12 +12,12 @@ div:global(.performance-wrapper) {
 
 		h2.title {
 			font-size: 24px;
-			color: #172b4d;
+			color: $n800;
 		}
 
 		.time-info {
 			font-size: 14px;
-			color: #7a869a;
+			color: $n100;
 		}
 	}
 
@@ -29,7 +29,7 @@ div:global(.performance-wrapper) {
 			height: 54px;
 			width: 100%;
 			font-size: 16px;
-			color: #172b4d;
+			color: $n800;
 		}
 
 		.level {
@@ -39,7 +39,7 @@ div:global(.performance-wrapper) {
 			.image {
 				height: 100px;
 				width: 86px;
-				background-color: #7a869a;
+				background-color: $n100;
 			}
 
 			.name {
@@ -50,7 +50,7 @@ div:global(.performance-wrapper) {
 
 			.desc {
 				font-size: 14px;
-				color: #7a869a;
+				color: $n100;
 				text-align: center;
 				margin-top: 32px;
 			}
@@ -62,7 +62,7 @@ div:global(.performance-wrapper) {
 
 		h4.title {
 			font-size: 16px;
-			color: #172b4d;
+			color: $n800;
 			height: 54px;
 		}
 
@@ -90,12 +90,12 @@ div:global(.performance-wrapper) {
 
 			.action-point {
 				font-size: 14px;
-				color: #172b4d;
+				color: $n800;
 				text-align: left;
 
 				p {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				p::before {
@@ -106,12 +106,12 @@ div:global(.performance-wrapper) {
 
 			.level-evaluation {
 				font-size: 14px;
-				color: #172b4d;
+				color: $n800;
 				text-align: left;
 
 				p {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 					letter-spacing: 1px;
 				}
 			}

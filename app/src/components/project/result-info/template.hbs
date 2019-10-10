@@ -1,6 +1,6 @@
 {{#bp-layout direction="col" local-class="page-report" classNames="p-4" cross="center"}}
 
-	{{#if (bp-eq roundOver "true")}}
+	{{#if roundOver }}
 		{{#bp-layout local-class="return-round-over" classNames="pb-4" click=(action "toRoundOver")}}
 			返回
 		{{/bp-layout}}
@@ -17,7 +17,7 @@
 					用时：<span class="mx-2">{{time-difference project.startTime project.endTime}}</span> --}}
 
 					<span local-class="badge" class="px-2 py-1">{{periods.lastObject.name}}</span>
-					{{#if (bp-eq periods.lastObject.phase project.pharse-1)}}
+					{{#if (bp-eq periods.lastObject.phase projectPhase)}}
 						<span local-class="badge" class="px-2 py-1">最后周期</span>
 					{{/if}}
 				{{/left.item}}
@@ -35,6 +35,7 @@
 			{{/body.right}}
 		{{/ph.body}}
 	{{/bp-page-header}}
+	{{#if (bp-eq proposal.case "ucb")}}
 	{{#bp-layout direction="row" main="between" classNames="mb-2 bg-white" local-class="key-indicator"}}
 		{{#bp-layout tagName='h3' cross='center' local-class="title" classNames="mb-0 px-4"}}
 			关键指标
@@ -138,6 +139,8 @@
 
 		{{/bp-layout}}
 	{{/bp-layout}}
+	{{/if}}
+
 	{{#bp-layout local-class="sales-report" tagName="h4" classNames="bg-white pl-4 mb-2" cross="center"}}
 		销售报告
 	{{/bp-layout}}

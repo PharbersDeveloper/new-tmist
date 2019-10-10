@@ -10,6 +10,7 @@ export default Component.extend( {
 
 	positionalParams: ["project", "period", "proposal","hospitals", "products", "resources", "presets", "answers", "quota", "validation", "productQuotas", "reports", "budgetPreset"],
 	exam: service( "service/exam-facade" ),
+	runtimeConfig: service( "service/runtime-config" ),
 	allVisitTime: 100,
 	currentName: computed( "products", function () {
 		const cur = this.get( "products" ).find( x => x.productType === 0 )
@@ -313,7 +314,23 @@ export default Component.extend( {
 		set( this, "circleProductData", arrC )
 		set( this, "legendProductBudget", arrL )
 	},
+	chooseCheck: computed( function() {
+		return [{ id: 1, value: "不再提示", label: "no-notice" }]
+	} ),
+	// popover: computed( "runtimeConfig.popover",function() {
+	// 	return this.runtimeConfig.popover
+	// } ),
+	// didUpdate() {
+	// 	this._super( ...arguments )
+	// 	// this.set( "showPopover", false )
+	// 	this.runtimeConfig.set( "popover",false )
+	// 	window.console.log( "should be changed" )
+	// },
 	actions: {
+		chooseItem() {
+			this.runtimeConfig.setNoticeToggle()
+			window.console.log( this.runtimeConfig.cancelRepresentNotice )
+		},
 		selectCurStatus( status ) {
 			this.set( "curStatus", status )
 			this.toggleProperty( "curStatusChanged" )
@@ -327,23 +344,24 @@ export default Component.extend( {
 		},
 		allocateRepresentatives( answer ) {
 			// if this.curResource is null  : error 未选择代表
-
-			if ( answer.get( "resource.id" ) && answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {
-				window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ), "当前代表", this.curResource.get( "name" ) )
-				this.set( "cancelWarning", {
-					open: true,
-					title: "代表取消选择医院",
-					detail: "确定要取消分配代表分配至该医院吗？我们将重置您在该医院下的资源配置。"
-				} )
-			} else {
-				this.exam.resetBusinessResources( this.answers, answer.get( "target" ), this.curResource )
-				this.toggleProperty( "resourceHospital" )
-				window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ) )
-			}
+			window.console.log( "i am allocate represent" )
+			// if ( this.runtimeConfig.cancelRepresentNotice ) {
+			// 	window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ), "当前代表", this.curResource.get( "name" ) )
+			// 	this.set( "cancelWarning", {
+			// 		open: true,
+			// 		title: "代表取消选择医院",
+			// 		detail: "确定要取消分配代表分配至该医院吗？我们将重置你在该医院下的资源配置。"
+			// 	} )
+			// } else {
+			this.exam.resetBusinessResources( this.answers, answer.get( "target" ), this.curResource )
+			this.toggleProperty( "resourceHospital" )
+			window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ) )
+			// }
 			window.console.log( this.resourceHospital )
 		},
 		cancelRepresentatives( answer ) {
-			if ( answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {
+			// if ( answer.get( "resource.id" ) !== this.curResource.get( "id" ) ) {
+			if ( this.runtimeConfig.cancelRepresentNotice ) {
 				window.console.log( answer.get( "target.name" ), answer.get( "resource.name" ), "当前代表", this.curResource.get( "name" ) )
 				this.set( "cancelWarning", {
 					open: true,
@@ -351,6 +369,7 @@ export default Component.extend( {
 					detail: "确定要取消该医院的代表分配吗？我们将同时重置该医院的其他分配输入。"
 				} )
 				set( this, "curAnswerToReset", answer )
+
 			} else {
 				this.exam.cancelBusinessResource( this.answers, answer.get( "target" ) )
 				this.updateResourceBudgetData()
@@ -358,7 +377,6 @@ export default Component.extend( {
 				this.toggleProperty( "updateAllProductInfo" )
 			}
 			this.toggleProperty( "resourceHospital" )
-			window.console.log( this.resourceHospital )
 		},
 		resetBusiness() {
 			// this.exam.cancelBusinessResource( this.answers, answer.get( "target" ) )
@@ -374,79 +392,71 @@ export default Component.extend( {
 		budgetValidationHandle( answer, input ) {
 			let isNumer = this.checkNumber( answer.get( input ) )
 
-			if ( isNumer ) {
-				let cur = 0,
-					curProduct = answer.get( "product.id" ),
-					curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
+			if ( !isNumer ) {
+				answer.set( input, 0 )
+			}
 
-				this.answers.forEach( a => {
-					// if ( a.get( "product.id" ) === curProduct ) {
-					cur += this.transNumber( a.get( input ) )
-					// }
+			let cur = 0,
+				curProduct = answer.get( "product.id" ),
+				curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
+
+			this.answers.forEach( a => {
+				cur += this.transNumber( a.get( input ) )
+			} )
+
+			window.console.log( cur, this.allBudget )
+			if ( cur <= this.allBudget ) {
+				set( curProductInfo.firstObject, "curBudget", cur )
+				set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
+				this.updateResourceBudgetData()
+				this.updateProductBudgetData()
+			} else {
+				// TODO: 所有的validation都要重做
+				this.set( "warning", {
+					open: true,
+					title: "设定超额",
+					detail: "你的预算指标设定已超额，请合理分配。"
 				} )
 
-				window.console.log( cur, this.allBudget )
-				if ( cur <= this.allBudget ) {
+				set( curProductInfo.firstObject, "curBudget", cur )
+				set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
+				this.updateResourceBudgetData()
+				this.updateProductBudgetData()
 
-					set( curProductInfo.firstObject, "curBudget", cur )
-					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
-
-					this.updateResourceBudgetData()
-					this.updateProductBudgetData()
-
-				} else {
-					// TODO: 所有的validation都要重做
-					this.set( "warning", {
-						open: true,
-						title: "设定超额",
-						detail: "您的预算指标设定已超额，请合理分配。"
-					} )
-
-					set( curProductInfo.firstObject, "curBudget", cur )
-					set( curProductInfo.firstObject, "curBudgetPercent", ( cur / this.allBudget * 100 ).toFixed( 1 ) )
-
-					this.updateResourceBudgetData()
-					this.updateProductBudgetData()
-
-				}
-
-			} else {
-				answer.set( input, 0 )
 			}
 		},
 		salesTargetValidationHandle( answer, input ) {
 
 			let isNumer = this.checkNumber( answer.get( input ) )
 
-			if ( isNumer ) {
-				let cur = 0,
-					curProduct = answer.get( "product.id" ),
-					curProductInfo = {}
-
-				this.answers.forEach( a => {
-					if ( a.get( "product.id" ) === curProduct ) {
-						cur += this.transNumber( a.get( "salesTarget" ) )
-					}
-				} )
-
-				curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
-				window.console.log( cur, curProductInfo )
-				if ( cur <= curProductInfo.firstObject.allSales ) {
-					// this.toggleProperty( "updateAllProductInfo" )
-					set( curProductInfo.firstObject, "curSales", cur )
-				} else {
-					this.set( "warning", {
-						open: true,
-						title: "设定超额",
-						detail: "您的指标设定已超额，请合理分配。"
-					} )
-				}
-				// this.toggleProperty( "updateAllProductInfo" )
-				set( curProductInfo.firstObject, "curSales", cur )
-
-			} else {
+			if ( !isNumer ) {
 				answer.set( input, 0 )
 			}
+
+			let cur = 0,
+				curProduct = answer.get( "product.id" ),
+				curProductInfo = {}
+
+			this.answers.forEach( a => {
+				if ( a.get( "product.id" ) === curProduct ) {
+					cur += this.transNumber( a.get( "salesTarget" ) )
+				}
+			} )
+
+			curProductInfo = this.allProductInfo.filter( p => p.productId === curProduct )
+			window.console.log( cur, curProductInfo )
+			if ( cur <= curProductInfo.firstObject.allSales ) {
+				// this.toggleProperty( "updateAllProductInfo" )
+				set( curProductInfo.firstObject, "curSales", cur )
+			} else {
+				this.set( "warning", {
+					open: true,
+					title: "设定超额",
+					detail: "你的指标设定已超额，请合理分配。"
+				} )
+			}
+			// this.toggleProperty( "updateAllProductInfo" )
+			set( curProductInfo.firstObject, "curSales", cur )
 		},
 		meetingPlacesValidationHandle( answer, input ) {
 
@@ -465,7 +475,7 @@ export default Component.extend( {
 					this.set( "warning", {
 						open: true,
 						title: "设定超额",
-						detail: "您的会议名额设定已超过总名额限制，请合理分配。"
+						detail: "你的会议名额设定已超过总名额限制，请合理分配。"
 					} )
 				}
 			} else {

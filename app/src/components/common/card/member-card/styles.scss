@@ -3,7 +3,7 @@
 		@extend %header-medium;
 		height: 52px;
 		font-size: 14px;
-		color: #172b4d;
+		color: $n800;
 
 		.icon {
 			cursor: pointer;
@@ -28,12 +28,12 @@
 
 				.name {
 					font-size: 20px;
-					color: #172b4d;
+					color: $n800;
 				}
 
 				.experience {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				p span:first-child {
@@ -43,7 +43,7 @@
 
 				p span:last-child {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 				}
 			}
 
@@ -58,12 +58,27 @@
 
 				p span:last-child {
 					font-size: 14px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				.des {
 					font-size: 14px;
-					color: #7A869A;
+					color: #7a869a;
+				}
+			}
+
+			.tm-right {
+				// height: 356px;
+				width: 437px;
+
+				span:first-child {
+					color: $n600;
+					font-size: 14px;
+				}
+
+				span:last-child {
+					color: $n100;
+					font-size: 14px;
 				}
 			}
 
@@ -76,7 +91,8 @@
 					flex: 1;
 					font-size: 0;
 
-					.properties, .values {
+					.properties,
+					.values {
 						@extend %p-secondary;
 					}
 
@@ -91,12 +107,12 @@
 			height: 874px;
 
 			span.badge {
+				background: rgba(9, 30, 66, 0.04);
+				border-radius: 4px;
+				color: #505f79;
+				font-size: 14px;
 				height: 31px;
 				width: 102px;
-				border-radius: 4px;
-				background: rgba(9, 30, 66, 0.04);
-				font-size: 14px;
-				color: #505f79;
 			}
 
 			.kpi-data {
@@ -108,31 +124,31 @@
 					height: 356px;
 					width: 437px;
 
-					.row:first-child {
-						border-right: 2px solid rgba(9, 30, 66, 0.08);
-					}
+					// .row:first-child {
+					// 	// border-right: 2px solid rgba(9, 30, 66, 0.08);
+					// }
 
 					.row:last-child {
-						border-top: 2px solid rgba(9, 30, 66, 0.08);
+						border-top: 1px solid rgba(9, 30, 66, 0.08);
 					}
 
 					.row-1 {
 						height: 178px;
+						// padding-top: 47px;
 						width: 219px;
-						padding-top: 47px;
 
 						p:first-child {
+							color: $n100;
 							font-size: 14px;
-							color: #7a869a;
 						}
 
 						p:last-child {
+							color: $n800;
 							font-size: 29px;
-							color: #172b4d;
 
 							span {
+								color: $n100;
 								font-size: 14px;
-								color: #7a869a;
 							}
 						}
 					}
@@ -140,21 +156,21 @@
 					.row-2 {
 						height: 178px;
 						width: 146px;
-						padding-top: 37px;
+						// padding-top: 37px;
 
 						p {
 							font-size: 14px;
-							color: #7a869a;
+							color: $n100;
 							margin-bottom: 0;
 						}
 
 						p:last-child {
 							font-size: 29px;
-							color: #172b4d;
+							color: $n800;
 
 							span {
 								font-size: 14px;
-								color: #7a869a;
+								color: $n100;
 							}
 						}
 					}

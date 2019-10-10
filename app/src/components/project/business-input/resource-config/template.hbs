@@ -16,6 +16,12 @@
 											
 									{{/bp-layout}} --}}
 									<span local-class="span-1">/100%</span>
+
+									<span style="width: 24px;height: 24px">{{bp-circle eid=resource.name
+														circleData=circleVisitTimeData 
+														circleColor=circleVisitTimeColor 
+														circleSize=circleVisitTimeSize
+														labelEmphasis=labelEmphasis}}</span>
 								{{/bp-layout}}
 								{{!-- {{#if (bp-not-eq leftTime 0 "0")}}
 														<span local-class="remain" class="px-1">{{bp-icon icon="time-left"}}剩余{{leftTime}}%</span>

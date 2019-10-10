@@ -5,16 +5,16 @@
 		width: 1200px;
 
 		.card {
-			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
 			border-radius: 4px;
-			padding: 40px;
+			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
 			height: 259px;
+			padding: 40px;
 			width: 639px;
 
 			.title {
-				color: #172b4d;
-				font-weight: 500;
+				color: $n800;
 				font-size: 24px;
+				font-weight: 500;
 				width: 90%;
 			}
 
@@ -30,7 +30,7 @@
 				}
 
 				.des {
-					color: #7a869a;
+					color: $n100;
 					font-size: 12px;
 				}
 			}
@@ -54,7 +54,7 @@
 	}
 
 	.start-deploy-header {
-		color: #172b4d;
+		color: $n800;
 		font-size: 20px;
 		font-weight: 500;
 		line-height: 24px;

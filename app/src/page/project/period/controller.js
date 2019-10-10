@@ -99,7 +99,7 @@ export default Controller.extend( {
 					this.toast.error( "", "计算失败，请重试", this.toastOpt )
 				} else if ( msgObj.payload.Status === "FINISH" ) {
 					// calc success
-					clearInterval( this.intervalTimer )
+					clearTimeout( this.intervalTimer )
 					// clearTimeout( this.deleteTimer )
 
 					if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
@@ -111,8 +111,9 @@ export default Controller.extend( {
 							res.set( "current", res.periods.length )
 							res.save().then( () => {
 								this.set( "loadingForSubmit", false )
-								window.localStorage.setItem( "roundHistory", false )
+								this.runtimeConfig.setRoundHistoryFalse()
 								this.transitionToRoute( "page.project.result" )
+								// window.localStorage.setItem( "roundHistory", false )
 								// window.location = "/project/" + res.get( "id" ) + "/result"
 							} )
 						} )
@@ -128,13 +129,12 @@ export default Controller.extend( {
 							res.set( "current", res.periods.length )
 							res.save().then( () => {
 								this.set( "loadingForSubmit", false )
-								window.localStorage.setItem( "roundHistory", false )
-								// window.location = "/project/" + res.get( "id" ) + "/result"
+								this.runtimeConfig.setRoundHistoryFalse()
 								this.transitionToRoute( "page.project.result" )
+								// window.localStorage.setItem( "roundHistory", false )
+								// window.location = "/project/" + res.get( "id" ) + "/result"
 							} )
 						} )
-
-
 						// this.set( "loadingForSubmit", false )
 						// this.transitionToRoute( "page.project.result" )
 					}
@@ -165,8 +165,8 @@ export default Controller.extend( {
 			if ( finals.length === this.model.periods.length ) {
 
 				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
-					
-					
+
+
 					this.store.findRecord( "model/project", this.model.project.get( "id" ), { reload: true } ).then( res => {
 						res.set( "status", 1 )
 						res.set( "endTime", new Date().getTime() )
@@ -174,7 +174,8 @@ export default Controller.extend( {
 						res.set( "current", res.periods.length )
 						res.save().then( () => {
 							this.set( "loadingForSubmit", false )
-							window.localStorage.setItem( "roundHistory", false )
+							// window.localStorage.setItem( "roundHistory", false )
+							this.runtimeConfig.setRoundHistoryFalse()
 							this.transitionToRoute( "page.project.result" )
 						} )
 					} )
@@ -184,7 +185,8 @@ export default Controller.extend( {
 						res.set( "current", res.periods.length )
 						res.save().then( () => {
 							this.set( "loadingForSubmit", false )
-							window.localStorage.setItem( "roundHistory", false )
+							this.runtimeConfig.setRoundHistoryFalse()
+							// window.localStorage.setItem( "roundHistory", false )
 							this.transitionToRoute( "page.project.result" )
 						} )
 					} )
@@ -198,7 +200,7 @@ export default Controller.extend( {
 		} )
 	},
 	clearTimer() {
-		clearInterval( this.intervalTimer )
+		clearTimeout( this.intervalTimer )
 		this.set( "loadingForSubmit", false )
 		this.toast.error( "", "计算失败，请重试", this.toastOpt )
 	},
@@ -306,7 +308,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的预算设定总值已超出总预算限制，请合理分配。"
+				detail: "你的预算设定总值已超出总预算限制，请合理分配。"
 			} )
 			return false
 		} else if ( haveNullInput === 1 ) {
@@ -510,7 +512,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的预算设定总值已超出总预算限制，请合理分配。"
+				detail: "你的预算设定总值已超出总预算限制，请合理分配。"
 			} )
 			return false
 		} else if ( isOverSalesTarget === 2 ) {
@@ -534,7 +536,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定未达标",
-				detail: "您还有会议名额剩余，请分配完毕。"
+				detail: "你还有会议名额剩余，请分配完毕。"
 			} )
 			return false
 		} else if ( currentMeetingPlaces > allMeetingPlaces ) {
@@ -542,7 +544,7 @@ export default Controller.extend( {
 			this.set( "validationWarning", {
 				open: true,
 				title: "设定超标",
-				detail: "您的会议名额设定已超过总名额限制，请合理分配"
+				detail: "你的会议名额设定已超过总名额限制，请合理分配"
 			} )
 			return false
 		} else if ( freeResource.length ) {
@@ -628,7 +630,19 @@ export default Controller.extend( {
 				this.set( "calcJobId",res.jobId )
 				window.console.log( "callR Success!" )
 
-				this.set( "intervalTimer", setTimeout( this.timerToCheckCalc.bind( this ) , 1000 * 60 * 3 ) )
+				window.onbeforeunload = function ( e ) {
+					e = e || window.event
+
+					// 兼容IE8和Firefox 4之前的版本
+					if ( e ) {
+						e.returnValue = "关闭提示"
+					}
+
+					// Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+					return "关闭提示"
+				}
+
+				this.set( "intervalTimer", setTimeout( this.timerToCheckCalc.bind( this ) , 1000 * 60 * 10 ) )
 				// this.set( "deleteTimer", setTimeout( this.clearTimer.bind( this ), 1000 * 60 * 3 + 1 ) )
 			}
 		} ).catch( err => {
@@ -733,6 +747,7 @@ export default Controller.extend( {
 			this.transitionToRoute( "page.welcome" )
 		},
 		submitModal() {
+			this.runtimeConfig.set( "popover",false )
 			let status = this.validation( this.model.proposal.get( "case" ) ),
 				detail = "提交执行本周期决策后，决策将保存不可更改，确定要提交吗？",
 				flag = 0
@@ -820,6 +835,7 @@ export default Controller.extend( {
 
 			// when input is null, set 0
 			this.setZeroSave()
+			this.runtimeConfig.set( "popover",false )
 
 			this.exam.saveCurrentInput( this.model.period, this.model.answers, () => {
 				this.model.project.set( "lastUpdate", new Date().getTime() )
@@ -843,7 +859,7 @@ export default Controller.extend( {
 			this.set( "saveInputsWhenQuit", {
 				open: true,
 				title: "退出任务",
-				detail: "您当前的决策将被保存，等您继续部署。您确定要结束任务吗？"
+				detail: "你当前的决策将被保存，等你继续部署。你确定要结束任务吗？"
 			} )
 		},
 		saveInputsWhenQuit() {

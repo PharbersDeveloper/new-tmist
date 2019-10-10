@@ -37,7 +37,7 @@
 		{{/bp-layout}}
 	{{/bp-layout}}
 	{{else if (bp-eq proposal.case "tm") }}
-		{{#bp-layout direction="col" local-class="hispital-header" classNames="bg-white p-4 mb-4"}}
+		{{#bp-layout direction="col" local-class="hispital-header" classNames="bg-white px-4 pb-4 mb-4"}}
 			{{#bp-layout tagName="h4"  local-class="title" cross="center" classNames="mb-3"}}
 				地区城市医院概况
 			{{/bp-layout}}
@@ -48,13 +48,13 @@
 	{{/if}}
 
 	{{#if (bp-eq proposal.case "ucb") }}
-	{{#bp-layout direction="col" local-class="hospital-info" classNames="bg-white mb-2 px-4 pb-4"}}
-		{{#bp-layout tagName="h4"  local-class="title" cross="center" classNames="mb-3"}}
+	{{#bp-layout direction="row" local-class="hospital-info" classNames="bg-white mb-2 px-4" main="between" cross="center"}}
+		{{#bp-layout tagName="h4"  local-class="title" cross="center" classNames="mb-0"}}
 			城市医院详情
 		{{/bp-layout}}
 		{{#bp-layout classNames="" cross="center" local-class="city-hospital"}}
 			{{#each regions as |item index|}}
-			{{#bp-button classNames="mr-3" onClick=(action "selRegion" index) 
+			{{#bp-button onClick=(action "selRegion" index) 
 			local-class=(if (bp-eq currentGroupIndex index) "active")}}
 				{{item.value}}
 			{{/bp-button}}

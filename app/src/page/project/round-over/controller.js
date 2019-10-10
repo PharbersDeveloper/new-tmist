@@ -1,14 +1,18 @@
 import Controller from "@ember/controller"
-// import { computed } from "@ember/object"
+import { computed } from "@ember/object"
 import { inject as service } from "@ember/service"
 
 export default Controller.extend( {
 	// ossService: service( "service/oss" ),
 	// ajax: service(),
 	// cookies: service(),
-	// roundOver: true,
+	roundOver: true,
 	noNavButton: true,
+	runtimeConfig: service( "service/runtime-config" ),
 	exportService: service( "service/export-report" ),
+	tmSalesAchv: computed( "model.tmReports", function() {
+		return this.model.tmReports.get( "lastObject.sales" ) / this.model.tmReports.get( "lastObject.salesQuota" )
+	} ),
 	// endTime: computed( "this.model.project", function () {
 	// 	let date = new Date( this.model.project.endTime ),
 	// 		y = date.getFullYear() + "-",
@@ -100,8 +104,9 @@ export default Controller.extend( {
 			// this.transitionToRoute( "/" )
 		},
 		toReport() {
-			window.localStorage.setItem( "roundHistory", true )
-			this.transitionToRoute( "page.project.result", this.model.project.id )
+			// window.localStorage.setItem( "roundHistory", true )
+			this.runtimeConfig.setRoundHistoryTrue()
+			this.transitionToRoute( "page.project.result", this.model.project.id, { queryParams: { state: "history" }} )
 			// window.location = "/project/" + this.model.project.id + "/result"
 		},
 		toDecisionReview() {

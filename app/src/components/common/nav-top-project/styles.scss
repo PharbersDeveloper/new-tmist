@@ -1,10 +1,20 @@
 .submit-header {
-	height: 64px;
 	background: #f4f5f7;
+	height: 64px;
+
+	.btn-list {
+		:global(.dropdown-menu) {
+			left: -30px !important;
+			margin-top: 8px;
+			min-width: 80px;
+			top: 20px;
+			width: fit-content;
+		}
+	}
 
 	h4.title {
+		color: $n800;
 		font-size: 16px;
-		color: #172b4d;
 		height: 22px;
 		line-height: 22px;
 		margin-bottom: 0;
@@ -20,30 +30,30 @@
 	// }
 
 	.exit-btn {
-		width: 32px;
+		font-size: 32px;
 		height: 32px;
 		padding: 0;
-		font-size: 32px;
+		width: 32px;
 	}
 
 	.sub-title {
-		font-size: 14px;
-		color: #344563;
-		text-align: center;
-		line-height: 22px;
-		height: 22px;
 		background-color: #ebecf0;
 		border-radius: 4px;
+		color: #344563;
+		font-size: 14px;
+		height: 22px;
+		line-height: 22px;
 		margin-bottom: 0;
+		text-align: center;
 	}
 
 	.btn-submit {
-		font-size: 14px;
 		color: #ffffff;
-		letter-spacing: 0;
-		text-align: center;
-		line-height: 32px;
+		font-size: 14px;
 		height: 32px;
+		letter-spacing: 0;
+		line-height: 32px;
+		text-align: center;
 		width: 80px;
 	}
 }

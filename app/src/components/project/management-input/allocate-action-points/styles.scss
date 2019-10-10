@@ -177,7 +177,7 @@
 
 	.line {
 		width: 369px;
-		border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+		border-bottom: 1px solid rgba(9, 30, 66, 0.08);
 	}
 
 	.ability-training {
@@ -205,7 +205,7 @@
 
 		.header {
 			font-size: 12px;
-			color: #6b778c;
+			color: $n200;
 		}
 
 		.text {
@@ -220,7 +220,7 @@
 
 		.header {
 			font-size: 12px;
-			color: #6b778c;
+			color: $n200;
 		}
 
 		.text {

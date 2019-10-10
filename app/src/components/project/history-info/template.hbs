@@ -15,9 +15,9 @@
 				<th class="border-0 pb-2 px-0 text-left">总指标达成率</th>
 				<th class="border-0 pb-2 px-0 text-right">总销售额</th>
 				<th local-class="blank-part" class="border-0"></th>
-				{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
+				{{!-- {{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 				<th class="border-0 pb-2 px-0 text-center">分季度销售指标达成率</th>
-				{{/if}}
+				{{/if}} --}}
 				<th class="border-0 pb-2 px-0 text-left ">完成用时</th>
 				<th class="border-0 pb-2 pl-2 text-center ">完成时间</th>
 				<th class="border-0" local-class="fix-width"></th>
@@ -36,18 +36,26 @@
 				</td>
 				{{/if}}
 				<td class="px-0 border-0 text-left" local-class="flex-1">
-					{{#bp-layout direction="row" main="start" cross="center" local-class=(if (bp-eq roundOver "true")  "total-percent-round" "total-percent") }}
+					{{#bp-layout direction="row" main="start" cross="center" local-class=(if roundOver "total-percent-round" "total-percent") }}
+					{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
+						{{two-number-percent pr.tmReports.lastObject.sales pr.tmReports.lastObject.salesQuota}}
+					{{else}}
 						<p local-class="num">{{calc-quota-achv pr.reports}}</p>
 						<p local-class="unit">%</p>
+					{{/if}}
 					{{/bp-layout}}
 				</td>
 				<td class="border-0 text-right px-0" local-class="flex-1">
 					{{#bp-layout local-class="total-sales" main="end" direction="row"}}
+							{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
+							￥{{format-number pr.tmReports.lastObject.sales 0}}
+							{{else}}
 							￥{{calc-total-sales pr.reports}}
+							{{/if}}
 					{{/bp-layout}}
 				</td>
 				<td local-class="blank-part" class="border-0"></td>
-				{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
+				{{!-- {{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 				<td class="border-0 text-center" local-class="flex-1">
 					{{#bp-layout direction="row" local-class="quarter-sales-reached" main="between"}}
 						{{#bp-layout direction="col" local-class="info"}}
@@ -64,7 +72,7 @@
 						{{/bp-layout}}
 					{{/bp-layout}}
 				</td>
-				{{/if}}
+				{{/if}} --}}
 				<td class="border-0 text-left px-0" local-class="flex-1">
 					{{#bp-layout local-class="used-time" main="start" direction="row"}}
 							{{!-- 1小时30分钟 --}}
@@ -90,9 +98,9 @@
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
 								{{#menu.option click=(action "performance")}}测试综合表现{{/menu.option}}
-								{{#menu.option }}周期销售结果{{/menu.option}}
+								{{#menu.option click=(action "toReport" pr.project)}}周期销售结果{{/menu.option}}
 								{{!-- {{#menu.option click=(action "review" provious.lastObject.id)}}决策回顾{{/menu.option}} --}}
-								{{#menu.option }}决策回顾{{/menu.option}}
+								{{#menu.option click=(action "review" pr.project.id)}}决策回顾{{/menu.option}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 					{{/bp-layout}}

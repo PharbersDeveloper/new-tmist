@@ -1,7 +1,7 @@
 
 {{#bp-layout direction="row" local-class="submit-header" main="between" cross="center" classNames="px-4 py-3"}}
     {{#bp-layout direction="row" cross="center"}}
-        {{#if (or noNavButton (bp-eq roundOver "true"))}}
+        {{#if (or noNavButton roundOver)}}
         {{!-- {{#if noNavButton}} --}}
         {{else}}
             {{#if ucbSpecial}}
@@ -28,6 +28,22 @@
             <p local-class="sub-title" class="ml-2 px-1">{{periodName}}</p>
         {{/if}}
     {{/bp-layout}}
+
+    {{#if ucbSpecial}}
+        {{#bp-layout direction="row"}}
+            {{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+                {{#dd.toggle}}
+                    {{bp-icon icon='nav-person'}}
+                {{/dd.toggle}}
+                {{#dd.menu as |menu|}}
+                    {{#menu.option onClick=(action "logOut")}}
+                        退出登录
+                    {{/menu.option}}
+                {{/dd.menu}}
+            {{/bp-dropdown}}
+        {{/bp-layout}}
+
+    {{/if}}
 
     {{yield}}
     {{!-- {{#bp-button local-class="btn-submit" type="primary" onClick=(action "submit")}}提交执行{{/bp-button}} --}}

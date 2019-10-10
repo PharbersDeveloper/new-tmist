@@ -102,18 +102,18 @@
 	{{/bp-layout}}
 	{{else if (bp-eq model.project.proposal.case "tm")}}
 		{{#bp-layout local-class="info tm-info" direction="row" classNames="bg-white p-4"}}
-			{{#bp-layout direction="col" local-class="name" }}
+			{{#bp-layout direction="col" local-class="name block" }}
 					{{#bp-layout local-class="get-name" direction="row" main="center" classNames="mb-3"}}获得称号{{/bp-layout}}
 					{{#bp-layout local-class="img"}}{{/bp-layout}}
 					{{#bp-layout local-class="name-level" main="center" direction="row" classNames="mt-2"}}黄金{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout local-class="goal block" direction="col" }}
+			{{#bp-layout local-class="goal block" direction="col" cross="start"}}
 				{{#bp-layout local-class="header-text" classNames="mb-3"}}总指标达成率{{/bp-layout}}
-				{{#bp-layout direction="row" local-class="precent"}}
-					<span class="mb-2">{{bp-percent model.report.lastObject.quotaAchv}}</span>
+				{{#bp-layout direction="row" local-class="precent" cross="center"}}
+					<span class="mb-2">{{two-number-percent model.tmReports.lastObject.sales model.tmReports.lastObject.salesQuota}}</span>
 					{{!-- <span></span> --}}
 				{{/bp-layout}}
-				{{#bp-layout direction="row"}}
+				{{!-- {{#bp-layout direction="row"}}
 						{{#bp-layout direction="col" classNames="mr-3"}}
 							{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
 							{{#bp-layout}}60%{{/bp-layout}}
@@ -126,25 +126,26 @@
 							{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
 							{{#bp-layout}}60%{{/bp-layout}}
 						{{/bp-layout}}
-					{{/bp-layout}}
+					{{/bp-layout}} --}}
 			{{/bp-layout}}
 
-			{{#bp-layout local-class="sales block" direction="col"  }}
+			{{#bp-layout local-class="sales block" direction="col" cross="end"}}
 				{{#bp-layout local-class="header-text" classNames="mb-3"}}总销售额{{/bp-layout}}
-				{{#bp-layout}}¥{{format-number model.report.lastObject.sales 0}}{{/bp-layout}}
-				{{!-- {{log model.report}} --}}
+				{{#bp-layout local-class="content-row" cross="center"}}¥{{format-number model.tmReports.lastObject.sales 0}}{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout local-class="blank-part"}}
 			{{/bp-layout}}
 
-			{{#bp-layout direction="col" local-class="block"}}
-				{{#bp-layout direction="col" local-class="time block" classNames="mb-4"}}
-					{{#bp-layout local-class="header-text" classNames="mb-2"}}完成用时{{/bp-layout}}
-					{{#bp-layout}}{{time-difference this.model.project.startTime this.model.project.endTime}}{{/bp-layout}}
-				{{/bp-layout}}
-				{{#bp-layout direction="col" local-class="time block"}}
-					{{#bp-layout local-class="header-text" classNames="mb-2"}}完成时间{{/bp-layout}}
-					{{#bp-layout}}{{format-date-standard this.model.project.endTime}}{{/bp-layout}}
-				{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="time block" cross="start"}}
+				{{#bp-layout local-class="header-text" classNames="mb-3"}}完成用时{{/bp-layout}}
+				{{#bp-layout local-class="content-row" cross="center"}}{{time-difference this.model.project.startTime this.model.project.endTime}}{{/bp-layout}}
 			{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="time block" cross="center"}}
+				{{#bp-layout local-class="header-text" classNames="mb-3"}}完成时间{{/bp-layout}}
+				{{#bp-layout local-class="content-row" cross="center"}}{{format-date-standard this.model.project.endTime}}{{/bp-layout}}
+			{{/bp-layout}}
+			{{!-- {{#bp-layout direction="col" local-class="block"}} --}}
+			{{!-- {{/bp-layout}} --}}
 
 			{{!-- {{#bp-layout local-class="block"}}
 				{{/bp-layout}} --}}
@@ -156,8 +157,8 @@
 				{{/bp-layout}}
 			{{/bp-layout}} --}}
 
-			{{#bp-layout local-class="examine-export block"  direction="row" main="center" cross="center"}}
-				{{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
+			{{#bp-layout local-class="examine-export"  direction="row" main="center" cross="center"}}
+				{{#bp-layout local-class="examine" direction="row"}}
 					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
 							{{#dd.button }}
 								查看
@@ -196,7 +197,7 @@
 		{{#bp-layout tagName="h4" local-class="history-header" cross="center" classNames="mb-0"}}
 			历史成果
 		{{/bp-layout}}
-		{{project/history-info provious=model.provious proviousReport=model.proviousReport roundOver="true"}}
+		{{project/history-info provious=model.provious proviousReport=model.proviousReport roundOver=roundOver}}
 	{{/bp-layout}}
 {{/if}}
 

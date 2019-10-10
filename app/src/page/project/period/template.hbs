@@ -333,8 +333,8 @@
 	{{/modal.header}}
 	{{#modal.body classNames="px-4 pt-0"}}
 		{{#bp-layout direction="col"}}
+			{{#if (bp-eq model.proposal.case "ucb")}}
 			{{#bp-layout local-class="schedule" main="center"}}
-
 			{{#each taskModalCircle as |circle index|}}
 				{{#bp-layout direction="col"}}
 					{{#bp-layout local-class=(if (or (bp-gt model.period.phase index) (bp-eq model.period.phase index))"circle" "grey-circle") direction="row" main="center" cross="center"}}
@@ -348,8 +348,8 @@
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/each}}
-
 			{{/bp-layout}}
+			{{/if}}
 			{{#if (bp-eq model.period.phase 0)}}
 				{{#bp-layout local-class="info" direction="col"}}
 					<h2 class="mb-2">任务通知</h2>

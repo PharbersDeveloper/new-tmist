@@ -5,15 +5,32 @@
 	{{#if (bp-eq proposal.case "tm")}}
 		{{#bp-layout local-class="basic-infos" classNames="p-4 mb-1 bg-white" direction="row"}}
 			{{#bp-layout direction="row" local-class="left"}}
-				{{#bp-layout}}<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>{{/bp-layout}}
+				{{#bp-layout classNames="mr-3"}}<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>{{/bp-layout}}
 				{{#bp-layout direction="col"}}
 					{{#bp-layout local-class="name"}} {{resource.name}} {{/bp-layout}}
-					{{#bp-layout local-class="experience"}}
-						入职{{resource.entryTime}}年/{{resource.experience}}年工作经验{{/bp-layout}}
+					{{#bp-layout local-class="experience" classNames="mb-4"}}
+						<span class="mr-3">{{resource.age}}岁</span> 
+						<span>{{resource.experience}}年工作经验</span>
+					{{/bp-layout}}
+
+					{{#bp-layout classNames="mb-1"}}
+						<p>
+							<span>学历</span>
+							<span>{{resource.education}}</span>
+						</p>
+					{{/bp-layout}}
+					{{#bp-layout classNames="mb-1"}}
+						<p>
+							<span>专业</span>
+							<span>{{resource.professional}}</span>
+						</p>
+					{{/bp-layout}}
+
+
 				{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout direction="col" local-class="right"}}
-				{{#bp-layout classNames="mb-1"}}
+			{{#bp-layout direction="col" local-class="tm-right"}}
+				{{!-- {{#bp-layout classNames="mb-1"}}
 					<p>
 						<span>学历：</span>
 						<span>{{resource.education}}</span>
@@ -21,16 +38,18 @@
 				{{/bp-layout}}
 				{{#bp-layout classNames="mb-1"}}
 					<p>
-						<span>优势：</span>
-						<span>{{resource.advantage}}</span>
+						<span>专业：</span>
+						<span>{{resource.professional}}</span>
 					</p>
 				{{/bp-layout}}
 				{{#bp-layout classNames="mb-1"}}
 					<p>
-						<span>历届经理评价：</span>
-						<span>{{resource.evaluation}}</span>
+						<span>优势：</span>
+						<span>{{resource.advantage}}</span>
 					</p>
-				{{/bp-layout}}
+				{{/bp-layout}} --}}
+					<span class="mb-3">成员简介</span>
+					<span>{{resource.evaluation}}</span>	
 			{{/bp-layout}}
 		{{/bp-layout}}
 		{{#bp-layout direction="col" local-class="kpi-content" classNames="bg-white"}}
@@ -44,27 +63,27 @@
 				{{#bp-layout local-class="kpi-data" direction="row" classNames="bg-white"}}
 					{{#bp-layout local-class="left" direction="col" classNames="mb-1"}}
 						{{#bp-layout direction="row" classNames="" local-class="row"}}
-							{{#bp-layout local-class="row-1 " direction="col"}}
+							{{#bp-layout local-class="row-1 " direction="col" main="center"}}
 								{{#bp-layout tagName="p" main="center"}} 目标医生人数 {{/bp-layout}}
 								{{#bp-layout tagName="p" main="center"}} {{kpi.currentTargetDoctorNum}} <span class="ml-1 mt-3">人</span> {{/bp-layout}}
 							{{/bp-layout}}
-							{{#bp-layout local-class="row-1" direction="col"}}
+							{{#bp-layout local-class="row-1" direction="col" main="center"}}
 								{{#bp-layout tagName="p"  main="center"}} 目标医生覆盖率 {{/bp-layout}}
 								{{#bp-layout tagName="p" main="center"}} {{kpi.currentTargetDoctorCoverage}} <span class="ml-1 mt-3">%</span> {{/bp-layout}}
 							{{/bp-layout}}
 						{{/bp-layout}}
 						{{#bp-layout direction="row" local-class="row" classNames="mx-4"}}
-							{{#bp-layout local-class="row-2" direction="col"}}
+							{{#bp-layout local-class="row-2" direction="col" main="center"}}
 								{{#bp-layout tagName="p" main="center"}}A类{{/bp-layout}}
 								{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
 								{{#bp-layout tagName="p" main="center"}}{{kpi.currentClsADoctorVT}} <span class="ml-1 mt-3">次</span> {{/bp-layout}}
 							{{/bp-layout}}
-							{{#bp-layout local-class="row-2" direction="col"}}
+							{{#bp-layout local-class="row-2" direction="col" main="center"}}
 								{{#bp-layout tagName="p" main="center"}}B类{{/bp-layout}}
 								{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
 								{{#bp-layout tagName="p" main="center"}}{{kpi.currentClsBDoctorVT}} <span class="ml-1 mt-3">次</span> {{/bp-layout}}
 							{{/bp-layout}}
-							{{#bp-layout local-class="row-2" direction="col"}}
+							{{#bp-layout local-class="row-2" direction="col" main="center"}}
 								{{#bp-layout tagName="p" main="center"}}C类{{/bp-layout}}
 								{{#bp-layout tagName="p" main="center"}}拜访频率（次）{{/bp-layout}}
 								{{#bp-layout tagName="p" main="center"}}{{kpi.currentClsCDoctorVT}} <span class="ml-1 mt-3">次</span> {{/bp-layout}}

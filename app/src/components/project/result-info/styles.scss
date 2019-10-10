@@ -5,7 +5,7 @@
 
 	.return-round-over {
 		font-size: 12px;
-		color: #6b778c;
+		color: $n200;
 		line-height: 16px;
 		width: 1152px;
 		cursor: pointer;
@@ -72,7 +72,7 @@
 
 				.row-2 {
 					font-size: 29px;
-					color: #172b4d;
+					color: $n800;
 				}
 			}
 
@@ -96,12 +96,12 @@
 
 				.row-2 {
 					font-size: 16px;
-					color: #172b4d;
+					color: $n800;
 				}
 
 				.row-2-2 {
 					font-size: 12px;
-					color: #7a869a;
+					color: $n100;
 					margin-top: 4px;
 				}
 			}
@@ -111,7 +111,7 @@
 
 				.sales-number {
 					font-size: 16px;
-					color: #172b4d;
+					color: $n800;
 				}
 
 				.col {
@@ -125,12 +125,12 @@
 
 				.row-1 {
 					font-size: 12px;
-					color: #7a869a;
+					color: $n100;
 				}
 
 				.row-2 {
 					font-size: 16px;
-					color: #172b4d;
+					color: $n800;
 				}
 			}
 		}
@@ -140,7 +140,7 @@
 
 			h4.title {
 				font-size: 14px;
-				color: #172b4d;
+				color: $n800;
 			}
 
 			.right-header {
@@ -166,7 +166,7 @@
 
 	.sales-report {
 		font-size: 16px;
-		color: #172b4d;
+		color: $n800;
 		height: 54px;
 		width: 1152px;
 	}

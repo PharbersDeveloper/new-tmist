@@ -2,9 +2,10 @@
 	{{hospital.name}}
 {{/bp-layout}}
 
+{{#if (bp-eq proposal.case "ucb")}}
 {{#bp-layout main="between" local-class="content" direction="row"}}
 
-	{{#bp-layout local-class="infos" classNames="pt-4"}}
+	{{#bp-layout local-class="infos" classNames="pt-2"}}
 		{{!-- left --}}
 		{{#bp-layout main="start" local-class="left-info" classNames="pb-4 px-4" direction="col"}}
 			
@@ -13,42 +14,40 @@
 			{{/bp-layout}}
 
 			{{!-- {{#bp-layout tagName="div" local-class="properties"}} --}}
-			{{#bp-layout direction="col" local-class="properties"}}
-				{{#bp-layout tagName="p" }}
-					<span class="mr-3">{{t "card.hospital-card.category"}}</span>
-					<span>{{hospital.category}} </span>
-				{{/bp-layout}}
+			{{#bp-layout direction="row" local-class="properties"}}
 
-				{{#bp-layout tagName="p" classNames="mt-2"}}
-					<span class="mr-3">{{t "card.hospital-card.level"}}</span>
-					<span>{{hospital.level}}</span>
-				{{/bp-layout}}
-
-				{{#bp-layout direction="row" local-class="bottom"}}
-					{{#bp-layout tagName="p" direction="col"}}
-						{{#bp-layout}}<span class="mr-3">{{t "card.hospital-card.doctorNumber"}}</span>{{/bp-layout}}
-						{{#bp-layout classNames="mt-2"}}<span local-class="span-last">{{format-number hospital.docterNumber}}</span>{{/bp-layout}}
+				{{#bp-layout direction="col" local-class="properties-part"}}
+					{{#bp-layout direction="row" local-class="two-span"}}
+						<span class="mr-3">{{t "card.hospital-card.category"}}</span>
+						<span>{{hospital.category}} </span>
 					{{/bp-layout}}
 
-					{{#bp-layout tagName="p" direction="col"}}
-						{{#bp-layout}}<span class="mr-3">{{t "card.hospital-card.bedNumber"}}</span>{{/bp-layout}}
-						{{#bp-layout classNames="mt-2"}}<span local-class="span-last">{{format-number hospital.bedNumber}}</span>{{/bp-layout}}
+					{{#bp-layout classNames="mt-2" direction="row" local-class="two-span"}}
+						<span class="mr-3">{{t "card.hospital-card.level"}}</span>
+						<span>{{hospital.level}} </span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+
+				{{#bp-layout direction="row" local-class="properties-part"}}
+					{{#bp-layout direction="col" local-class="item-name"}}
+							<span class="mb-2">{{t "card.hospital-card.doctorNumber"}}</span>
+							<span class="mb-2">{{t "card.hospital-card.bedNumber"}}</span>
+							{{#if (bp-eq proposal.case "ucb")}}
+									<span> 自费病人比例</span>
+							{{/if}}
 					{{/bp-layout}}
 
+					{{#bp-layout direction="col" local-class="item-value"}}
+						<span class="mb-2">{{format-number hospital.docterNumber}}</span>
+						<span class="mb-2">{{format-number hospital.bedNumber}}</span>
 					{{#if (bp-eq proposal.case "ucb")}}
-						{{#bp-layout tagName="p" direction="col"}}
-							{{#bp-layout}}<span class="mr-3">自费病人比例</span>{{/bp-layout}}
-							{{#bp-layout classNames="mt-2"}}
-								<span local-class="span-last">
-									{{!-- {{t "card.hospital-card.money"}} --}}
-									{{bp-percent hospital.selfPayPercentage}}
-								</span>
-							{{/bp-layout}}
-						{{/bp-layout}}
+							<span local-class="span-last">{{bp-percent hospital.selfPayPercentage}}</span>
 					{{/if}}
+					{{/bp-layout}}
 
 				{{/bp-layout}}
 			{{/bp-layout}}
+
 			{{#bp-layout direction="col" local-class="hospital-desc"}}
 				{{#bp-layout tagName="h4" classNames="mb-3"}}
 					医院描述
@@ -74,8 +73,8 @@
 					{{#bp-layout tagName="th" main="center"}}药品准入状态{{/bp-layout}}
 					{{#bp-layout tagName="th" main="center"}}患者数量{{/bp-layout}}
 				{{/bp-layout}}
+				{{#bp-layout tagName="tbody" main="between" direction="col"}}
 				{{#each cur as |item|}}
-				{{#bp-layout tagName="tbody" main="between"}}
 					{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
 						{{#bp-layout tagName="td" main="center"}}{{item.product.name}}{{/bp-layout}}
 						{{#bp-layout tagName="td" main="center"}}
@@ -98,8 +97,8 @@
 						{{/bp-layout}}
 						{{/bp-layout}}
 					{{/bp-layout}}
-				{{/bp-layout}}
 				{{/each}}
+				{{/bp-layout}}
 			{{/bp-layout}}
 
 			{{#bp-layout}}
@@ -118,3 +117,78 @@
 	{{!-- {{#bp-layout main="between" local-class="sell" classNames="pb-1"}}{{/bp-layout}} --}}
 
 {{/bp-layout}} 
+
+{{else}}
+
+{{#bp-layout main="between" local-class="content" direction="row"}}
+
+	{{#bp-layout local-class="tm-infos" classNames="pt-2" direction="row"}}
+		{{!-- left --}}
+		{{#bp-layout main="start" local-class="tm-left" classNames="pb-4 px-4" direction="col"}}
+			{{#bp-layout classNames="mb-4"}}
+				<img alt={{hospital.name}} src="{{get-oss-pic hospital.avatar.img picOSS}}">
+			{{/bp-layout}}
+		{{/bp-layout}}
+		{{!-- left end --}}
+
+		{{#bp-layout direction="col" local-class="tm-right" classNames="px-4 pb-4"}}
+			{{#bp-layout direction="row" local-class="properties"}}
+				{{#bp-layout direction="row" local-class="properties-part"}}
+					{{#bp-layout direction="col" local-class="item-name"}}
+						<span class="mb-2 mr-3">{{t "card.hospital-card.category"}}</span>
+						<span class="mb-2 mr-3">{{t "card.hospital-card.level"}}</span>
+						<span class="mb-2 mr-3">病人支付能力</span>
+					{{/bp-layout}}
+			
+					{{#bp-layout classNames="" direction="col" local-class="item-value"}}
+						<span class="mb-2">{{hospital.category}} </span>
+						<span class="mb-2">{{hospital.level}} </span>
+						<span class="mb-2">{{hospital.abilityToPay}} </span>
+					{{/bp-layout}}
+				{{/bp-layout}}
+			
+				{{#bp-layout direction="row" local-class="properties-part"}}
+					{{#bp-layout direction="col" local-class="item-name"}}
+						<span class="mb-2 mr-3">成立时间</span>
+						<span class="mb-2 mr-3">医院地址</span>
+					{{/bp-layout}}
+			
+					{{#bp-layout direction="col" local-class="item-value"}}
+						<span class="mb-2">{{hospital.regtime}}</span>
+						<span class="mb-2">{{hospital.position}}</span>
+					{{/bp-layout}}
+			
+				{{/bp-layout}}
+			{{/bp-layout}}
+
+			{{#bp-layout direction="row" local-class="part-two"}}
+				{{#bp-layout direction="col" local-class="line-two"}}
+					<span class="mb-2">年医药收入</span>
+					<span class="mb-2">{{format-number hospital.income}}</span>
+				{{/bp-layout}}
+
+				{{#bp-layout direction="col" local-class="line-two" classNames="pl-4"}}
+					<span class="mb-2">{{t "card.hospital-card.doctorNumber"}}</span>
+					<span class="mb-2">{{format-number hospital.docterNumber}}</span>
+				{{/bp-layout}}
+
+				{{#bp-layout direction="col" local-class="line-two" classNames="pl-4"}}
+					<span class="mb-2">{{t "card.hospital-card.bedNumber"}}</span>
+					<span class="mb-2">{{format-number hospital.bedNumber}}</span>
+				{{/bp-layout}}
+			{{/bp-layout}}
+			
+			{{#bp-layout direction="col" local-class="hospital-desc"}}
+				{{#bp-layout local-class="title" classNames="mb-3"}}
+					医院描述
+				{{/bp-layout}}
+				{{#bp-layout tagName="p"}}
+					{{hospital.describe}}
+				{{/bp-layout}}
+			{{/bp-layout}}
+
+		{{/bp-layout}}
+	{{/bp-layout}}
+{{/bp-layout}}
+
+{{/if}}

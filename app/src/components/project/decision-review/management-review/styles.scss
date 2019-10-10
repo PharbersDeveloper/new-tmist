@@ -37,7 +37,7 @@ div:global(.management-review-wrapper) {
 
 		h4.title {
 			font-size: 16px;
-			color: #172b4d;
+			color: $n800;
 		}
 	}
 
@@ -51,7 +51,7 @@ div:global(.management-review-wrapper) {
 				height: 52px;
 				width: 100%;
 				font-size: 14px;
-				color: #172b4d;
+				color: $n800;
 			}
 
 			.circle-table {
@@ -76,7 +76,7 @@ div:global(.management-review-wrapper) {
 					.legend {
 						&:last-child {
 							padding-top: 8px;
-							border-top: 2px solid rgba(9, 30, 66, 0.08);
+							border-top: 1px solid rgba(9, 30, 66, 0.08);
 						}
 					}
 				}
@@ -92,7 +92,7 @@ div:global(.management-review-wrapper) {
 				height: 52px;
 				width: 100%;
 				font-size: 14px;
-				color: #172b4d;
+				color: $n800;
 			}
 
 			.table {
@@ -103,7 +103,11 @@ div:global(.management-review-wrapper) {
 						border-bottom: 1px solid rgba(9, 30, 66, 0.08);
 						width: 100%;
 						font-size: 12px;
-						color: #7a869a;
+						color: $n100;
+
+						th {
+							font-weight: 400;
+						}
 					}
 
 					tbody {
@@ -128,7 +132,7 @@ div:global(.management-review-wrapper) {
 			height: 54px;
 			width: 100%;
 			font-size: 16px;
-			color: #172b4d;
+			color: $n800;
 		}
 
 		.table {
@@ -142,14 +146,14 @@ div:global(.management-review-wrapper) {
 				.blank {
 					height: 34px;
 					width: 157px;
-					border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+					border-bottom: 1px solid rgba(9, 30, 66, 0.08);
 				}
 
 				div {
 					height: 52px;
 					width: 157px;
 					font-size: 12px;
-					color: #7a869a;
+					color: $n100;
 				}
 			}
 
@@ -161,15 +165,15 @@ div:global(.management-review-wrapper) {
 					// width: 157px;
 					// height: 34px;
 					// font-size: 14px;
-					// color: #172b4d;
+					// color: $n800;
 					flex: 1;
 
 					.name {
-						border-bottom: 2px solid rgba(9, 30, 66, 0.08);
+						border-bottom: 1px solid rgba(9, 30, 66, 0.08);
 						// width: 157px;
 						height: 34px;
 						font-size: 14px;
-						color: #172b4d;
+						color: $n800;
 					}
 
 					.block {

@@ -26,6 +26,24 @@
 				}
 			}
 		}
+
+		.tm-part {
+			width: 536px;
+			font-size: 14px;
+			color: #344563;
+
+			.btn-list {
+				height: 32px;
+				width: 456px;
+
+				// border-radius: 4px;
+				:global(.dropdown-button) {
+					height: 32px;
+					width: 456px;
+					border-radius: 5px;
+				}
+			}
+		}
 	}
 
 	// .table {
@@ -37,7 +55,7 @@
 
 	// 		thead {
 	// 			font-size: 12px;
-	// 			color: #7a869a;
+	// 			color: $n100;
 	// 			border-bottom: 2px solid rgba(9, 30, 66, 0.08);
 
 	// 			th {
@@ -74,7 +92,7 @@
 	// 	}
 	// }
 	.tm-table {
-		height: calc(100vh - 381px);
+		height: calc(100vh - 306px) !important;
 	}
 
 	.ucb-table {
@@ -100,7 +118,7 @@
 
 	:global(.bp-table-thead) {
 		th {
-			color: #7a869a;
+			color: $n100;
 			font-weight: 400;
 
 			span {
