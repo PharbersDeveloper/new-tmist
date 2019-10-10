@@ -63,7 +63,7 @@
 
 				.des {
 					font-size: 14px;
-					color: #7A869A;
+					color: #7a869a;
 				}
 			}
 
@@ -76,7 +76,8 @@
 					flex: 1;
 					font-size: 0;
 
-					.properties, .values {
+					.properties,
+					.values {
 						@extend %p-secondary;
 					}
 
@@ -91,12 +92,12 @@
 			height: 874px;
 
 			span.badge {
+				background: rgba(9, 30, 66, 0.04);
+				border-radius: 4px;
+				color: #505f79;
+				font-size: 14px;
 				height: 31px;
 				width: 102px;
-				border-radius: 4px;
-				background: rgba(9, 30, 66, 0.04);
-				font-size: 14px;
-				color: #505f79;
 			}
 
 			.kpi-data {
@@ -108,31 +109,31 @@
 					height: 356px;
 					width: 437px;
 
-					.row:first-child {
-						border-right: 2px solid rgba(9, 30, 66, 0.08);
-					}
+					// .row:first-child {
+					// 	// border-right: 2px solid rgba(9, 30, 66, 0.08);
+					// }
 
 					.row:last-child {
-						border-top: 2px solid rgba(9, 30, 66, 0.08);
+						border-top: 1px solid rgba(9, 30, 66, 0.08);
 					}
 
 					.row-1 {
 						height: 178px;
+						// padding-top: 47px;
 						width: 219px;
-						padding-top: 47px;
 
 						p:first-child {
-							font-size: 14px;
 							color: $n100;
+							font-size: 14px;
 						}
 
 						p:last-child {
-							font-size: 29px;
 							color: $n800;
+							font-size: 29px;
 
 							span {
-								font-size: 14px;
 								color: $n100;
+								font-size: 14px;
 							}
 						}
 					}
@@ -140,7 +141,7 @@
 					.row-2 {
 						height: 178px;
 						width: 146px;
-						padding-top: 37px;
+						// padding-top: 37px;
 
 						p {
 							font-size: 14px;

@@ -12,20 +12,34 @@ export default Route.extend( {
 				filter: "(:and," + "(proposal,:eq,`" + params.proposal_id + "`)," + "(accountId,:eq,`" + accountId + "`)," + "(status,:eq,1))"
 			} )
 
+
 		return provious.then( data => {
 			let promiseAll = data.map( ele => {
-				return ele.hasMany( "finals" ).load()
-			} )
+					return ele.hasMany( "finals" ).load()
+				} ),
+				tmReportAll = data.map( ele => {
+					const	condi00 = "(projectId,:eq,`" + ele.get( "id" ) + "`)",
+						condi01 = "(phase,:eq," + ( ele.periods.length - 1 ) + ")",
+						condi = "(:and," + condi00 + "," + condi01 + ")"
 
-			return RSVP.hash( { provious: data, finals: all( promiseAll ) } )
+					return this.store.query( "model/report", { filter: condi } )
+				} )
+
+
+			return RSVP.hash( { provious: data, finals: all( promiseAll ), tmReports: all( tmReportAll ) } )
 
 
 		} ).then( data => {
 			let finals = data.finals,
+				tmReports = data.tmReports,
 				proviousReports = data.provious.map( ( ele, index ) => {
+					window.console.log( tmReports[index] )
+					window.console.log( tmReports[index].filter( x => x.get( "category" ).value === "Sales" ) )
+
 					return {
 						project: ele,
-						reports: finals[index]
+						reports: finals[index],
+						tmReports: tmReports[index].filter( x => x.get( "category" ).value === "Sales" )
 					}
 				} )
 
@@ -33,6 +47,7 @@ export default Route.extend( {
 				proposal: proposal,
 				provious: provious,
 				proviousReport:proviousReports
+				// tmReports: tmReports.then( r => r.filter( x => x.get( "category" ).value === "Sales" ) )
 			} )
 		} )
 		// return RSVP.hash( {

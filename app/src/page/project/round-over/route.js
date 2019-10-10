@@ -18,7 +18,11 @@ export default Route.extend( {
 				return this.store.query( "model/project", {
 					filter: "(:and," + "(proposal,:eq,`" + proposalId + "`)," + "(accountId,:eq,`" + accountId + "`)," + "(status,:eq,1))"
 				} )
-			} )
+			} ),
+			condi00 = "(projectId,:eq,`" + project.get( "id" ) + "`)",
+			condi01 = "(phase,:eq," + ( project.periods.length - 1 ) + ")",
+			condi = "(:and," + condi00 + "," + condi01 + ")",
+			tmReports = this.store.query( "model/report", { filter: condi } )
 		// provious = this.store.query( "model/project", {
 		// 	filter: "(:and," + "(proposal,:eq,`" + params.proposal_id + "`)," + "(accountId,:eq,`" + accountId + "`)," + "(status,:eq,0))" } )
 
@@ -51,7 +55,8 @@ export default Route.extend( {
 				provious: provious,
 				proviousReport:proviousReports,
 				project: project,
-				reports: reports
+				reports: reports,
+				tmReports: tmReports.then( r => r.filter( x => x.get( "category" ).value === "Sales" ) )
 			} )
 		} )
 		// return RSVP.hash( {

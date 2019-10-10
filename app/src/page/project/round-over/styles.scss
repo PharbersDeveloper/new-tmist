@@ -42,6 +42,9 @@
 				// margin-top: 20px;
 				// margin-bottom: 15px;
 			}
+			.content-row {
+				height: 100%;
+			}
 		}
 
 		.blank-part {
@@ -76,6 +79,7 @@
 			// margin-right: 67px;
 
 			.precent {
+				height: 100%;
 				span:first-child {
 					color: $n800;
 					font-size: 29px;
