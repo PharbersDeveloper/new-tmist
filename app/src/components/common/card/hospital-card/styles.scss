@@ -15,178 +15,253 @@
 			@extend %p-small;
 		}
 	}
+}
 
-	.content {
-		.infos {
-			flex: 1;
-			width: 872px;
-			max-height: 578px;
-			overflow-y: auto;
+.content {
+	.infos {
+		flex: 1;
+		width: 872px;
+		max-height: 578px;
+		overflow-y: auto;
 
-			.left-info {
-				width: 436px;
-				// height: 368px;
-				// border-right: 2px solid rgba(9, 30, 66, 0.08);
+		.left-info {
+			width: 436px;
+			// height: 368px;
+			// border-right: 2px solid rgba(9, 30, 66, 0.08);
 
-				img {
-					flex-grow: 160px;
-					flex-shrink: 0;
-					height: 239px;
-					width: 388px;
-					border-radius: 4px;
-					// background-color: #ebecf0;
+			img {
+				flex-grow: 160px;
+				flex-shrink: 0;
+				height: 239px;
+				width: 388px;
+				border-radius: 4px;
+				// background-color: #ebecf0;
+			}
+
+			.properties {
+				flex: 1;
+				height: 107px;
+				// font-size: 0;
+
+				.properties-part {
+					width: 50%;
 				}
 
-				.properties {
-					flex: 1;
-					height: 107px;
-					// font-size: 0;
-
-					.properties-part {
-						width: 50%;
-					}
-
-					.two-span {
-						span:first-child {
-							font-size: 14px;
-							color: $n100;
-						}
-
-						span:last-child {
-							font-size: 14px;
-							color: #344563;
-						}
-					}
-
-					.item-name {
+				.two-span {
+					span:first-child {
 						font-size: 14px;
 						color: $n100;
-						width: 102px;
 					}
 
-					.item-value {
+					span:last-child {
 						font-size: 14px;
 						color: #344563;
 					}
-
-					.bottom {
-						margin-top: 40px;
-
-						p {
-							margin-right: 40px;
-						}
-					}
 				}
 
-				.hospital-desc {
+				.item-name {
+					font-size: 14px;
+					color: $n100;
+					width: 102px;
+				}
+
+				.item-value {
+					font-size: 14px;
+					color: #344563;
+				}
+
+				.bottom {
 					margin-top: 40px;
 
-					h4 {
-						font-size: 14px;
-						color: $n800;
-					}
-
 					p {
-						font-size: 14px;
-						color: $n100;
-						height: 140px;
+						margin-right: 40px;
 					}
 				}
 			}
 
-			.right-info {
-				height: 368px;
-				width: 436px;
+			.hospital-desc {
+				margin-top: 40px;
 
 				h4 {
 					font-size: 14px;
 					color: $n800;
 				}
 
-				thead {
-					border-bottom: 1px solid rgba(9, 30, 66, 0.08);
+				p {
+					font-size: 14px;
 					color: $n100;
-					font-size: 12px;
-					width: 338px;
+					height: 140px;
+				}
+			}
+		}
 
-					th {
+		.right-info {
+			height: 368px;
+			width: 436px;
+
+			h4 {
+				font-size: 14px;
+				color: $n800;
+			}
+
+			thead {
+				border-bottom: 1px solid rgba(9, 30, 66, 0.08);
+				color: $n100;
+				font-size: 12px;
+				width: 338px;
+
+				th {
+					flex: 1;
+					font-weight: 400;
+				}
+			}
+
+			tbody {
+				height: fit-content;
+				width: 338px;
+				// overflow-y: auto;
+
+				tr {
+					width: 338px;
+					font-size: 14px;
+					color: #344563;
+
+					// text-align: right;
+					td {
 						flex: 1;
-						font-weight: 400;
-					}
-				}
 
-				tbody {
-					height: fit-content;
-					width: 338px;
-					// overflow-y: auto;
-
-					tr {
-						width: 338px;
-						font-size: 14px;
-						color: #344563;
-
-						// text-align: right;
-						td {
-							flex: 1;
-
-							.td-left {
-								width: 44px;
-							}
-
-							.td-right {
-								width: 48px;
-							}
+						.td-left {
+							width: 44px;
 						}
-					}
-				}
-			}
 
-			.medic-access {
-				.keys {
-					@extend %p-small;
-					margin-bottom: $spacing;
-				}
-
-				.values {
-					@extend %p-primary;
-				}
-			}
-
-			.others {
-				&.dynamic {
-					// font-size: 0;
-
-					.content {
-						@extend %p-secondary;
+						.td-right {
+							width: 48px;
+						}
 					}
 				}
 			}
 		}
 
-		.sell {
-			flex: 1;
-			// &>div {
-			// 	flex: 1;
-			// }
+		.medic-access {
+			.keys {
+				@extend %p-small;
+				margin-bottom: $spacing;
+			}
 
-			// .medic-access {
-			// 	.keys {
-			// 		margin-bottom: $spacing;
-			// 		@extend %p-small;
-			// 	}
+			.values {
+				@extend %p-primary;
+			}
+		}
 
-			// 	.values {
-			// 		@extend %p-primary;
-			// 	}
-			// }
+		.others {
+			&.dynamic {
+				// font-size: 0;
+
+				.content {
+					@extend %p-secondary;
+				}
+			}
+		}
+	}
+
+	.sell {
+		flex: 1;
+		// &>div {
+		// 	flex: 1;
+		// }
+
+		// .medic-access {
+		// 	.keys {
+		// 		margin-bottom: $spacing;
+		// 		@extend %p-small;
+		// 	}
+
+		// 	.values {
+		// 		@extend %p-primary;
+		// 	}
+		// }
+		// height: 343px;
+		height: 429px;
+
+		.chart {
+			// height: 321px;
 			// height: 343px;
 			height: 429px;
+			// background-color: #A1C6E7;
+		}
+	}
 
-			.chart {
-				// height: 321px;
-				// height: 343px;
-				height: 429px;
-				// background-color: #A1C6E7;
+	.tm-infos {
+		.tm-left {
+			width: 308px;
+
+			img {
+				height: 160px;
+				width: 260px;
+				border-radius: 4px;
+			}
+		}
+
+		.tm-right {
+			width: 564px;
+
+			.properties {
+				width: 100%;
+
+				.properties-part {
+					margin-right: 40px;
+					.item-name {
+						color: $n600;
+						font-size: 14px;
+					}
+
+					.item-value {
+						color: $n100;
+						font-size: 14px;
+					}
+
+					.two-span {
+						span:first-child {
+							color: $n600;
+							font-size: 14px;
+						}
+
+						span:last-child {
+							color: $n100;
+							font-size: 14px;
+						}
+					}
+				}
+			}
+
+			.part-two {
+				margin-top: 40px;
+				margin-bottom: 40px;
+
+				.line-two {
+					width: 108px;
+					span:first-child {
+						color: $n600;
+						font-size: 14px;
+					}
+
+					span:last-child {
+						color: $n800;
+						font-size: 14px;
+					}
+				}
+			}
+			.hospital-desc {
+				.title {
+					color: $n600;
+					font-size: 14px;
+				}
+
+				p {
+					font-size: 14px;
+					color: $n100;
+					letter-spacing: 1px;
+				}
 			}
 		}
 	}
