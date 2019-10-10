@@ -67,6 +67,21 @@
 				}
 			}
 
+			.tm-right {
+				// height: 356px;
+				width: 437px;
+
+				span:first-child {
+					color: $n600;
+					font-size: 14px;
+				}
+
+				span:last-child {
+					color: $n100;
+					font-size: 14px;
+				}
+			}
+
 			.rep {
 				img {
 					flex: 0 0 80px;
