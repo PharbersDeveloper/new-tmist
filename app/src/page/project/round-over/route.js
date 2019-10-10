@@ -33,18 +33,27 @@ export default Route.extend( {
 		// periods = this.store.query( "model/period", { filter: "(id,:in," + "[" + hids + "]" + ")"} )
 		return provious.then( data => {
 			let promiseAll = data.map( ele => {
-				return ele.hasMany( "finals" ).load()
-			} )
+					return ele.hasMany( "finals" ).load()
+				} ),
+				tmReportAll = data.map( ele => {
+					const	condi0 = "(projectId,:eq,`" + ele.get( "id" ) + "`)",
+						cond1 = "(phase,:eq," + ( ele.periods.length - 1 ) + ")",
+						cond = "(:and," + condi0 + "," + cond1 + ")"
 
-			return RSVP.hash( { provious: data, finals: all( promiseAll ) } )
+					return this.store.query( "model/report", { filter: cond } )
+				} )
+
+			return RSVP.hash( { provious: data, finals: all( promiseAll ), tmReports: all( tmReportAll ) } )
 
 
 		} ).then( data => {
 			let finals = data.finals,
+				tmProReports = data.tmReports,
 				proviousReports = data.provious.map( ( ele, index ) => {
 					return {
 						project: ele,
-						reports: finals[index]
+						reports: finals[index],
+						tmReports: tmProReports[index].filter( x => x.get( "category" ).value === "Sales" )
 					}
 				} )
 

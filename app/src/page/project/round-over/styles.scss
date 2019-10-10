@@ -132,7 +132,12 @@
 		}
 
 		.examine-export {
-			width: 138px;
+			.examine {
+				width: 138px;
+			}
+			.export {
+				width: 138px;
+			}
 
 			:global(.dropdown-button) {
 				height: 32px;
