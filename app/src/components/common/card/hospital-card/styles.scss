@@ -209,7 +209,8 @@
 				width: 100%;
 
 				.properties-part {
-					margin-right: 40px;
+					margin-right: 120px;
+
 					.item-name {
 						color: $n600;
 						font-size: 14px;
@@ -240,6 +241,7 @@
 
 				.line-two {
 					width: 108px;
+
 					span:first-child {
 						color: $n600;
 						font-size: 14px;
@@ -249,8 +251,14 @@
 						color: $n800;
 						font-size: 14px;
 					}
+
+					&:nth-child(2) {
+						border-right: 1px solid rgba(9, 30, 66, 0.08);
+						border-left: 1px solid rgba(9, 30, 66, 0.08);
+					}
 				}
 			}
+
 			.hospital-desc {
 				.title {
 					color: $n600;
@@ -258,9 +266,10 @@
 				}
 
 				p {
-					font-size: 14px;
 					color: $n100;
+					font-size: 14px;
 					letter-spacing: 1px;
+					width: 260px;
 				}
 			}
 		}
