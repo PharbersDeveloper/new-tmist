@@ -42,6 +42,7 @@
 				// margin-top: 20px;
 				// margin-bottom: 15px;
 			}
+
 			.content-row {
 				height: 100%;
 			}
@@ -80,6 +81,7 @@
 
 			.precent {
 				height: 100%;
+
 				span:first-child {
 					color: $n800;
 					font-size: 29px;
@@ -132,9 +134,13 @@
 		}
 
 		.examine-export {
+			height: 87px;
+			margin-top: 32px;
+
 			.examine {
 				width: 138px;
 			}
+
 			.export {
 				width: 138px;
 			}
@@ -163,6 +169,10 @@
 }
 
 .testPerformance {
+	:global(.modal-content) {
+		background-color: rgba(250, 251, 252, 1);
+	}
+
 	:global(.modal-dialog) {
 		max-width: 1200px;
 	}

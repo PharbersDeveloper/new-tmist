@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>优时比销售管理沙盘模拟系统</title>
+		<title></title>
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -24,4 +24,13 @@
 		{{content-for "body-footer"}}
 	</body>
 	<script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-6.1.1.min.js"></script>
+	<script type="text/javascript">
+		let url = window.location.href;
+
+		if (url.indexOf("tm") !== -1) {
+			document.title = "铁马区域管理沙盘模拟系统";
+		} else if (url.indexOf("ucb") !== -1) {
+			document.title = "优时比销售管理沙盘模拟系统";
+		}
+	</script>
 </html>

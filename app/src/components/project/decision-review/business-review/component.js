@@ -274,7 +274,7 @@ export default Component.extend( {
 		}, {
 			label: "会议分配名额",
 			valuePath: "meetingPlaces",
-			align: "left",
+			align: "center",
 			sortable: true
 			// width: 110
 		}

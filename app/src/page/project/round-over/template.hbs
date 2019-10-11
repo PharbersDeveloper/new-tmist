@@ -211,12 +211,19 @@
 	open=testPerformance
 	position='center'
 	onHidden=(action (mut testPerformance) false) as |modal|}}
+	{{#modal.header closeButton=false classNames="px-4 pb-0 pt-4"}}
+		{{#bp-layout direction="row" main="end" classNames="header-wrapper"}}
+			{{#bp-layout direction="row" main="end" click=(action (mut testPerformance) false)}}
+				{{bp-icon icon='cross'}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
 	{{project/comprehensive-performance }}
 	{{/modal.body}}
-	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
-		{{!-- {{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}} --}}
+	{{!-- {{#modal.footer classNames="pt-0 pb-4 px-4"}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
 		{{#bp-button type="subtle" onClick=(action modal.close)}}取消{{/bp-button}}
-	{{/modal.footer}}
+	{{/modal.footer}} --}}
 {{/bp-modal}}
 

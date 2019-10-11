@@ -549,7 +549,16 @@ export default Controller.extend( {
 			return false
 		} else if ( freeResource.length ) {
 			// 有代表未被分配
-			let name = freeResource[0].name
+			// let name = freeResource[0].name
+			let name = "", i = 0
+
+			freeResource.forEach( rs => {
+				i += 1
+				name += rs.get( "name" )
+				if ( i <= freeResource.length - 1 ) {
+					name += "，"
+				}
+			} )
 
 			this.set( "validationWarning", {
 				open: true,
@@ -559,9 +568,17 @@ export default Controller.extend( {
 			return false
 		} else if ( resourceWithLeftTime.length ) {
 			// 代表时间有剩余
-			window.console.log( aResources )
-			window.console.log( resourceWithLeftTime )
-			let name = resourceWithLeftTime[0].name
+
+			// let name = resourceWithLeftTime[0].name
+			let name = "", i = 0
+
+			resourceWithLeftTime.forEach( rs => {
+				i += 1
+				name += rs.get( "name" )
+				if ( i <= resourceWithLeftTime.length - 1 ) {
+					name += "，"
+				}
+			} )
 
 			this.set( "validationWarning", {
 				open: true,

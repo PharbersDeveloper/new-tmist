@@ -182,3 +182,20 @@
 		}
 	}
 }
+
+.modal {
+	:global(.modal-dialog) {
+		max-width: 400px;
+	}
+
+	.modal-title {
+		color: $n800;
+		font-size: 20px;
+		// font-weight: 500;
+		line-height: 24px;
+	}
+
+	.bottom-part {
+		width: 100%;
+	}
+}
