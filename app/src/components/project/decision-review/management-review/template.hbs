@@ -39,7 +39,13 @@
 
 			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-table"}}
 				{{#bp-layout local-class="circle" style="width: 128px;height: 128px" direction="row"}}
+				{{#if (bp-eq totalTime 0)}}
+
+					{{bp-circle eid="cricleTime" circleData=circleDataZero circleColor=circleColorZero circleSize=circleSize}}
+				{{else}}
 					{{bp-circle eid="cricleTime" circleData=circleData circleColor=circleColor circleSize=circleSize}}
+
+				{{/if}}
 					
 					{{!-- {{#bp-layout direction="col"}}
 						{{#bp-layout tagName="div"}}业务策略分析: {{managerAnswers.strategAnalysisTime}} {{/bp-layout}}
