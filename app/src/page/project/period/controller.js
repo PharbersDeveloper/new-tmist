@@ -392,7 +392,7 @@ export default Controller.extend( {
 			aResources = {}, // 被分配的resource
 			// currentManagementPoint = 0,
 			// hospitalWithoutMeetingPlaces = [],
-			// hospitalWithoutResource = [],
+			hospitalWithoutResource = [],
 			// hospitalWithoutBudgetOrSales = [],
 			// allManagementPoint = this.model.project.proposal.get( "quota.managerKpi" )
 			// allBudget = this.model.proposal.get( "quota.totalBudget" ),
@@ -442,9 +442,9 @@ export default Controller.extend( {
 				// 	hospitalWithoutBudgetOrSales.push( answer )
 				// }
 				// 有医院未被分配代表
-				// if ( !answer.get( "resource" ) ) {
-				// 	hospitalWithoutResource.push( answer.get( "target.name" ) )
-				// }
+				if ( !answer.get( "resource.name" ) ) {
+					hospitalWithoutResource.push( answer.get( "target.name" ) )
+				}
 				currentMeetingPlaces += this.transNumber( answer.get( "meetingPlaces" ) )
 				curerntBudget += this.transNumber( answer.get( "budget" ) )
 				// currentSalesTarget += this.transNumber( answer.get( "salesTarget" ) )
@@ -584,6 +584,14 @@ export default Controller.extend( {
 				open: true,
 				title: "有剩余时间未分配",
 				detail: `${name}还有剩余时间未被分配，请合理分配。`
+			} )
+			return false
+		} else if ( hospitalWithoutResource.length > 0 ) {
+			// 有医院没有分配代表
+			this.set( "validationWarning", {
+				open: true,
+				title: "有医院未分配代表",
+				detail: `尚未对${hospitalWithoutResource[0]}进行代表分配，请为其分配代表`
 			} )
 			return false
 		} else {
