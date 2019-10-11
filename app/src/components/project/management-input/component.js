@@ -71,11 +71,11 @@ export default Component.extend( {
 		}
 	},
 	checkNumber( value ) {
-		if ( isNaN( Number( value ) ) ) {
+		if ( isNaN( Number( value ) ) || String( value ).indexOf( "." ) !== -1 ) {
 			this.set( "warning", {
 				open: true,
 				title: "非法值警告",
-				detail: "请输入数字！"
+				detail: "请输入正整数。"
 			} )
 			return false
 		}

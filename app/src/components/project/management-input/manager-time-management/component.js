@@ -189,7 +189,7 @@ export default Component.extend( {
 	// 			this.set( "warning", {
 	// 				open: true,
 	// 				title: "非法值警告",
-	// 				detail: "请输入数字！"
+	// 				detail: "请输入正整数！"
 	// 			} )
 	// 		}
 	// 		restTime = managerTotalTime - usedTime
@@ -288,7 +288,7 @@ export default Component.extend( {
 				this.set( "warning", {
 					open: true,
 					title: "非法值警告",
-					detail: "请输入数字！"
+					detail: "请输入正整数。"
 				} )
 				return false
 			}

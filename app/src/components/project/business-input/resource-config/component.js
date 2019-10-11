@@ -79,7 +79,7 @@ export default Component.extend( {
 					this.set( "warning", {
 						open: true,
 						title: "非法输入",
-						detail: "请输入正整数"
+						detail: "请输入正整数。"
 					} )
 				}
 
@@ -105,7 +105,7 @@ export default Component.extend( {
 				this.set( "warning", {
 					open: true,
 					title: "非法输入",
-					detail: "请输入正整数"
+					detail: "请输入正整数。"
 				} )
 			}
 
