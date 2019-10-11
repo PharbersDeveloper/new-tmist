@@ -29,6 +29,12 @@
 				.name {
 					font-size: 20px;
 					color: $n800;
+
+					svg {
+						width: 16px;
+						height: 16px;
+						margin-left: 4px;
+					}
 				}
 
 				.experience {

@@ -247,13 +247,13 @@
 		open=validationWarning.open
 		position='center' 
 		onHidden=(action (mut validationWarning.open) false) as |modal|}}
-	{{#modal.header closeButton=false classNames="px-4"}}
+	{{#modal.header closeButton=false classNames="px-4 pt-4 pb-3"}}
 		<h4 class="modal-title" local-class="modal-title">
 			{{validationWarning.title}}
 		</h4>
 	{{/modal.header}}
 	{{#modal.body classNames="px-4 pt-0"}}
-		<p class="desc mb-0 mt-3">
+		<p class="desc mb-0 mt-0">
 			{{validationWarning.detail}}
 		</p>
 	{{/modal.body}}
@@ -267,13 +267,13 @@
 		open=submitConfirm.open
 		position='center' 
 		onHidden=(action (mut submitConfirm.open) false) as |modal|}}
-	{{#modal.header closeButton=false classNames="px-4"}}
+	{{#modal.header closeButton=false classNames="px-4 pt-4 pb-3"}}
 		<h4 class="modal-title" local-class="modal-title">
 			{{submitConfirm.title}}
 		</h4>
 	{{/modal.header}}
 	{{#modal.body classNames="px-4 pt-0"}}
-		<p class="desc">
+		<p class="desc m-0">
 			{{submitConfirm.detail}}
 		</p>
 	{{/modal.body}}

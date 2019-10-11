@@ -111,40 +111,43 @@ export default Component.extend( {
 			let isNumber = this.checkNumber( obj.get( inputValue ) ),
 				value = this.transNumber( obj.get( inputValue ) )
 
-			if ( isNumber ) {
-				let cur = 0,
-					resourceTime = 0
-
-				cur += this.transNumber( this.managerAnswer.get( "strategAnalysisTime" ) )
-				cur += this.transNumber( this.managerAnswer.get( "clientManagementTime" ) )
-				cur += this.transNumber( this.managerAnswer.get( "adminWorkTime" ) )
-				cur += this.transNumber( this.managerAnswer.get( "kpiAnalysisTime" ) )
-				cur += this.transNumber( this.managerAnswer.get( "teamMeetingTime" ) )
-				this.answers.forEach( answer => {
-					resourceTime += this.transNumber( answer.get( "abilityCoach" ) )
-					resourceTime += this.transNumber( answer.get( "assistAccessTime" ) )
-
-					cur += this.transNumber( answer.get( "abilityCoach" ) )
-					cur += this.transNumber( answer.get( "assistAccessTime" ) )
-				} )
-				if ( value <= this.maxManagerTime ) {
-					set( this, "curResourceTime", resourceTime )
-					set( this , "curManagerTime", cur )
-					let timeArr = this.getResourceTimeData()
-
-					set( this , "circleResourceTime", timeArr )
-					// this.curManagerTime += value
-					// window.console.log( this.curManagerTime, value )
-				} else {
-					window.console.log()
-					this.set( "warning", {
-						open: true,
-						title: "设定超额",
-						detail: "经理时间设定已超过限制，请重新分配。"
-					} )
-				}
-			} else {
+			if ( !isNumber ) {
 				obj.set( inputValue, 0 )
+			}
+
+			let cur = 0,
+				resourceTime = 0
+
+			cur += this.transNumber( this.managerAnswer.get( "strategAnalysisTime" ) )
+			cur += this.transNumber( this.managerAnswer.get( "clientManagementTime" ) )
+			cur += this.transNumber( this.managerAnswer.get( "adminWorkTime" ) )
+			cur += this.transNumber( this.managerAnswer.get( "kpiAnalysisTime" ) )
+			cur += this.transNumber( this.managerAnswer.get( "teamMeetingTime" ) )
+			this.answers.forEach( answer => {
+				resourceTime += this.transNumber( answer.get( "abilityCoach" ) )
+				resourceTime += this.transNumber( answer.get( "assistAccessTime" ) )
+
+				cur += this.transNumber( answer.get( "abilityCoach" ) )
+				cur += this.transNumber( answer.get( "assistAccessTime" ) )
+			} )
+			window.console.log( cur, this.maxManagerTime )
+			if ( cur <= this.maxManagerTime ) {
+				set( this, "curResourceTime", resourceTime )
+				set( this , "curManagerTime", cur )
+				let timeArr = this.getResourceTimeData()
+
+				set( this , "circleResourceTime", timeArr )
+				// this.curManagerTime += value
+				// window.console.log( this.curManagerTime, value )
+			} else {
+				window.console.log()
+				set( this, "curResourceTime", resourceTime )
+				set( this , "curManagerTime", cur )
+				this.set( "warning", {
+					open: true,
+					title: "设定超额",
+					detail: "经理时间设定已超过限制，请重新分配。"
+				} )
 			}
 
 		},

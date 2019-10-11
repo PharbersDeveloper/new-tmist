@@ -7,7 +7,14 @@
 			{{#bp-layout direction="row" local-class="left"}}
 				{{#bp-layout classNames="mr-3"}}<img src={{get-oss-pic resource.avatar.img picOSS}} alt={{resource.name}}>{{/bp-layout}}
 				{{#bp-layout direction="col"}}
-					{{#bp-layout local-class="name"}} {{resource.name}} {{/bp-layout}}
+					{{#bp-layout local-class="name" cross="center"}} 
+						{{resource.name}} 
+						{{#if (bp-eq resource.gender 0)}}
+							{{bp-icon icon='female'}}
+						{{else}}
+							{{bp-icon icon='male'}}
+						{{/if}}	
+					{{/bp-layout}}
 					{{#bp-layout local-class="experience" classNames="mb-4"}}
 						<span class="mr-3">{{resource.age}}岁</span> 
 						<span>{{resource.experience}}年工作经验</span>
