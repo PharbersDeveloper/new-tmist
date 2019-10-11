@@ -157,18 +157,21 @@
 	{{/if}}
 {{/bp-layout}}
 {{#bp-modal
-        local-class="modal"
-        size="lg"
+		local-class="modal"
+		size="lg"
 		open=performance.open 
 		position="center"
 		onHidden=(action (mut performance.open) false) as |modal|}}
-	{{#modal.header classNames="pb-0"}}
+	{{#modal.header classNames="pb-0" closeButton=false}}
+		{{#bp-layout direction="row" main="end" click=(action (mut performance.open) false) local-class="header-wrapper"}}
+			{{bp-icon icon='cross'}}
+		{{/bp-layout}}
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
 		{{project/comprehensive-performance}}
 	{{/modal.body}}
-	{{#modal.footer}}
+	{{!-- {{#modal.footer}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}确定{{/bp-button}}
-	{{/modal.footer}}
+	{{/modal.footer}} --}}
 {{/bp-modal}}
 {{log periods}}
