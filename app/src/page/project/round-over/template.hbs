@@ -92,8 +92,8 @@
 				{{bp-icon icon='down'}}
 			{{/dd.button}}
 			{{#dd.menu as |menu|}}
-				{{#menu.option click=(action "exportInput" pr.project)}}导出输入{{/menu.option}}
-				{{#menu.option click=(action "exportReport")}}导出报告{{/menu.option}}
+				{{#menu.option click=(action "exportInput" pr.project)}}决策回顾{{/menu.option}}
+				{{#menu.option click=(action "exportReport")}}周期销售报告{{/menu.option}}
 			{{/dd.menu}}
 		{{/bp-dropdown}}
 		{{/bp-layout}}
@@ -166,7 +166,7 @@
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
 								{{#menu.option click=(action "showTestPerformance")}}测试综合表现{{/menu.option}}
-								{{#menu.option click=(action "toReport")}}周期销售结果{{/menu.option}}
+								{{#menu.option click=(action "toReport")}}周期销售报告{{/menu.option}}
 								{{#menu.option click=(action "toDecisionReview")}}决策回顾{{/menu.option}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
@@ -183,7 +183,7 @@
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
 								{{#menu.option}}测试综合表现{{/menu.option}}
-								{{#menu.option}}周期销售结果{{/menu.option}}
+								{{#menu.option}}周期销售报告{{/menu.option}}
 								{{#menu.option}}决策回顾{{/menu.option}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
