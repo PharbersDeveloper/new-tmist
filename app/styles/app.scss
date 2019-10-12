@@ -25,7 +25,7 @@ body > :global(.ember-view) {
 :global(.modal-body) {
 	:global(.desc) {
 		@extend %p-primary;
-		color: #172b4d;
+		color: $n800;
 	}
 
 	:global(.secondary) {

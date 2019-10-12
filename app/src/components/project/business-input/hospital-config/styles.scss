@@ -343,7 +343,7 @@ h5.title {
 
     .check-name {
       font-size: 14px;
-      color: #172B4D;
+      color: $n800;
     }
 
     .uncheck-name {
@@ -354,7 +354,7 @@ h5.title {
 
     .drugstore {
       font-size: 12px;
-      color: #7a869a;
+      color: $n100;
       font-weight: 400;
     }
   }
@@ -370,7 +370,7 @@ h5.title {
   .active-hover:hover {
     span::after {
       display: none;
-      background: #172B4D;
+      background: $n800;
       border-radius: 4px;
       color: #ffffff;
       content: "";
@@ -399,11 +399,11 @@ h5.title {
 
     .check-name {
       font-size: 14px;
-      color: #172B4D;
+      color: $n800;
 
       // .drugstore {
       // 	font-size: 12px;
-      // 	color: #7a869a;
+      // 	color: $n100;
       // }
     }
 
@@ -415,7 +415,7 @@ h5.title {
 
     .drugstore {
       font-size: 12px;
-      color: #7a869a;
+      color: $n100;
       font-weight: 400;
     }
   }
@@ -440,7 +440,7 @@ h5.title {
   table {
     thead {
       font-size: 12px;
-      color: #7a869a;
+      color: $n100;
       border-bottom: 1px solid rgba(9, 30, 66, 0.08);
     }
 

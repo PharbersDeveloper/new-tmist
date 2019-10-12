@@ -8,7 +8,7 @@
 				{{#bp-layout main='between' local-class='item' classNames='px-4'}}
 					<span local-class='title' class='mr-3'>治疗领域</span>
 					{{#bp-dropdown widthSize="auto" local-class="dd-representative operating" as |dd|}}
-						{{#dd.button local-class="product-list-btn"}}
+						{{#dd.button local-class="product-list-btn" disabled=(if (bp-eq proposal.case "tm") true false)}}
 							<span local-class="product-name">{{curTreatmentArea}}</span>
 							{{bp-icon icon='down'}}
 						{{/dd.button}}

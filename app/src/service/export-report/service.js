@@ -38,7 +38,7 @@ export default Service.extend( {
 
 		if ( isReport ) {
 			reqUrl = `/export/${project.get( "id" )}/phase/${phase}`
-			fileName = "历史销售报告"
+			fileName = "周期销售报告"
 		} else {
 			reqUrl = `/exportInput/${project.get( "id" )}/phase/${phase}`
 			fileName = "数据输入报告"

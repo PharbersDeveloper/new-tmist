@@ -1,6 +1,5 @@
 import Component from "@ember/component"
 import { inject as service } from "@ember/service"
-// import { computed } from "@ember/object"
 
 export default Component.extend( {
 	positionalParams: ["provious", "periods", "proviousReport"],
@@ -8,6 +7,7 @@ export default Component.extend( {
 	router: service(),
 	exportService: service( "service/export-report" ),
 	runtimeConfig: service( "service/runtime-config" ),
+	tmCurProject: null,
 	actions: {
 		exportReport( project ) {
 			this.exportService.exportReport( project, project.get( "periods" ).length )
@@ -15,7 +15,8 @@ export default Component.extend( {
 		exportInput( project ) {
 			this.exportService.exportInput( project, project.get( "periods" ).length )
 		},
-		performance() {
+		performance( curProject ) {
+			this.set( "tmCurProject", curProject )
 
 			this.set( "performance", {
 				open: true

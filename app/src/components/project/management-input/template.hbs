@@ -158,7 +158,7 @@
 		open=warning.open
 		position='center' 
 		onHidden=(action (mut warning.open) false) as |modal|}}
-	{{#modal.header closeButton=false}}
+	{{#modal.header closeButton=false classNames="px-4 pt-4 pb-3"}}
 		<h4 local-class="modal-title" class="mb-0">
 			{{warning.title}}
 		</h4>

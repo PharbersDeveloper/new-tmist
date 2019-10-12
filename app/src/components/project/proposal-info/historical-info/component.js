@@ -565,16 +565,31 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 		this.set( "hospitalColumns", hospitalColumns )
 		this.set( "regionColumns", regionColumns )
 
-		all( [that.queryData( "product_ref" ),
-			this.queryData( "region_ref" ),
-			this.queryData( "rep_ref" ),
-			this.queryData( "hospital_ref" )
-		] ).then( data => {
-			this.set( "productTableData", data[0].sort( ( a, b ) => a.product.localeCompare( b.product, "zh" ) ) )
-			this.set( "regionTableData", data[1] )
-			this.set( "representativeTableData", data[2] )
-			this.set( "hospitalTableData", data[3] )
-		} )
+		if ( this.case === "tm" ) {
+			all( [that.queryData( "product_ref" ),
+				this.queryData( "rep_ref" ),
+				this.queryData( "hospital_ref" )
+			// this.queryData( "region_ref" )
+			] ).then( data => {
+				this.set( "productTableData", data[0].sort( ( a, b ) => a.product.localeCompare( b.product, "zh" ) ) )
+				// this.set( "regionTableData", data[3] )
+				this.set( "representativeTableData", data[1] )
+				this.set( "hospitalTableData", data[2] )
+			} )
+		} else {
+
+			all( [that.queryData( "product_ref" ),
+				this.queryData( "rep_ref" ),
+				this.queryData( "hospital_ref" ),
+				this.queryData( "region_ref" )
+			] ).then( data => {
+				this.set( "productTableData", data[0].sort( ( a, b ) => a.product.localeCompare( b.product, "zh" ) ) )
+				this.set( "regionTableData", data[3] )
+				this.set( "representativeTableData", data[1] )
+				this.set( "hospitalTableData", data[2] )
+			} )
+		}
+
 	},
 	createDynamicTableHead( seasonNumber, headText, headWord ) {
 		const that = this

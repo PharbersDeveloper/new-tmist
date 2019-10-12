@@ -95,7 +95,7 @@
 				{{#bp-layout direction="row" cross="center" class="mb-2 mt-2" local-class="hospital-time"}}
 					{{#bp-layout local-class="hospital-name"}}{{hospital.target.name}}{{/bp-layout}}
 					{{#bp-input widthSize="small" value=hospital.visitTime 
-					onChange=(action "inputVisitTime" (mut hospital.visitTime))}}{{/bp-input}}
+					onChange=(action "inputVisitTime" hospital)}}{{/bp-input}}
 				{{/bp-layout}}
 
 			{{/each}}
@@ -112,19 +112,20 @@
 
 {{#bp-modal
 		open=warning.open 
+		local-class="modal"
 		position="center"
 		onHidden=(action (mut warning.open) false) as |modal|}}
-	{{#modal.header}}
-		<h4 class="modal-title">
+	{{#modal.header closeButton=false classNames="px-4 pt-4 pb-3"}}
+		<h4 local-class="modal-title" class="m-0">
 			{{warning.title}}
 		</h4>
 	{{/modal.header}}
-	{{#modal.body classNames="p-4"}}
+	{{#modal.body classNames="px-4 pt-0"}}
 		<p class="desc m-0">
 			{{warning.detail}}
 		</p>
 	{{/modal.body}}
-	{{#modal.footer}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}{{t "project.business-input.OK"}}{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}

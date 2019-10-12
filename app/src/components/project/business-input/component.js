@@ -155,7 +155,7 @@ export default Component.extend( {
 			this.set( "warning", {
 				open: true,
 				title: "非法值警告",
-				detail: "请输入数字。"
+				detail: "请输入正整数。"
 			} )
 			return false
 		} else if ( String( input ).indexOf( "." ) !== -1 ){
@@ -163,7 +163,7 @@ export default Component.extend( {
 			this.set( "warning", {
 				open: true,
 				title: "非法值警告",
-				detail: "请输入整数。"
+				detail: "请输入正整数。"
 			} )
 			return false
 
