@@ -97,7 +97,7 @@
 								{{bp-icon icon='down'}}
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
-								{{#menu.option click=(action "performance")}}测试综合表现{{/menu.option}}
+								{{#menu.option click=(action "performance" pr.project)}}测试综合表现{{/menu.option}}
 								{{#menu.option click=(action "toReport" pr.project)}}周期销售报告{{/menu.option}}
 								{{!-- {{#menu.option click=(action "review" provious.lastObject.id)}}决策回顾{{/menu.option}} --}}
 								{{#menu.option click=(action "review" pr.project.id)}}决策回顾{{/menu.option}}
@@ -168,7 +168,7 @@
 		{{/bp-layout}}
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
-		{{project/comprehensive-performance}}
+		{{project/comprehensive-performance project=tmCurProject}}
 	{{/modal.body}}
 	{{!-- {{#modal.footer}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}确定{{/bp-button}}

@@ -4,8 +4,8 @@
 			{{#bp-layout tagName="h2" local-class="title" classNames="pt-4 pb-1"}}测评综合表现{{/bp-layout}}
 			{{#bp-layout tagName="p" local-class="time-info"}}
 				<span>日期</span>
-				<span class="ml-1 mr-4">2019-04-10 17:00:34</span>
-				<span>用时 50分钟</span>
+				<span class="ml-1 mr-4">{{format-date-standard project.endTime}}</span>
+				<span>用时 {{time-difference this.project.startTime this.project.endTime}}</span>
 			{{/bp-layout}}
 		{{/bp-layout}}
 	{{/bp-layout}}
