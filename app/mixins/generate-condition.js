@@ -650,7 +650,7 @@ export default Mixin.create( {
 				"query": {
 					"search": {
 						"and": [
-							["eq", "category", "Resource"],
+							["eq", "category", "Ability"],
 							["eq", "phase", phase],
 							ids
 							// ["eq", "job_id.keyword", jobId]
