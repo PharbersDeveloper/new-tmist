@@ -1,5 +1,12 @@
 {{#bp-layout tagName="h3" cross="center" local-class="title" class="px-4 mb-0" }}
 	{{hospital.name}}
+	{{#if hospitalDrugstore}}
+		{{#if (bp-not-eq quizs.firstObject.preset.phase 0)}}
+			{{#bp-layout local-class="drugstore" classNames="ml-2"}}
+				{{hospital.name}}+关联药房
+			{{/bp-layout}}
+		{{/if}}
+	{{/if}}
 {{/bp-layout}}
 
 {{#if (bp-eq proposal.case "ucb")}}

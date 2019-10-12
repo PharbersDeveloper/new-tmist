@@ -34,6 +34,10 @@ export default Component.extend( {
 			all += this.transNumber( a.get( "visitTime" ) )
 		} )
 
+		if ( all > 100 ) {
+			return 100
+		}
+
 		return all
 	} ),
 	transNumber( input ) {

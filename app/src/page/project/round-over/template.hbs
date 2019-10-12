@@ -92,8 +92,8 @@
 				{{bp-icon icon='down'}}
 			{{/dd.button}}
 			{{#dd.menu as |menu|}}
-				{{#menu.option click=(action "exportInput" pr.project)}}导出输入{{/menu.option}}
-				{{#menu.option click=(action "exportReport")}}导出报告{{/menu.option}}
+				{{#menu.option click=(action "exportInput" pr.project)}}决策回顾{{/menu.option}}
+				{{#menu.option click=(action "exportReport")}}周期销售报告{{/menu.option}}
 			{{/dd.menu}}
 		{{/bp-dropdown}}
 		{{/bp-layout}}
@@ -157,7 +157,7 @@
 				{{/bp-layout}}
 			{{/bp-layout}} --}}
 
-			{{#bp-layout local-class="examine-export"  direction="row" main="center" cross="center"}}
+			{{#bp-layout local-class="tm-examine-export"  direction="row" main="center" cross="center"}}
 				{{#bp-layout local-class="examine" direction="row"}}
 					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
 							{{#dd.button }}
@@ -166,7 +166,7 @@
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
 								{{#menu.option click=(action "showTestPerformance")}}测试综合表现{{/menu.option}}
-								{{#menu.option click=(action "toReport")}}周期销售结果{{/menu.option}}
+								{{#menu.option click=(action "toReport")}}周期销售报告{{/menu.option}}
 								{{#menu.option click=(action "toDecisionReview")}}决策回顾{{/menu.option}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
@@ -183,8 +183,8 @@
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
 								{{#menu.option}}测试综合表现{{/menu.option}}
-								{{#menu.option}}周期销售结果{{/menu.option}}
-								{{#menu.option}}决策回顾{{/menu.option}}
+								{{#menu.option click=(action "exportReport")}}周期销售报告{{/menu.option}}
+								{{#menu.option click=(action "exportInput" pr.project)}}决策回顾{{/menu.option}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 				{{/bp-layout}}
@@ -219,7 +219,7 @@
 		{{/bp-layout}}
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
-	{{project/comprehensive-performance }}
+	{{project/comprehensive-performance  project=this.model.project}}
 	{{/modal.body}}
 	{{!-- {{#modal.footer classNames="pt-0 pb-4 px-4"}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
