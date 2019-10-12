@@ -127,8 +127,8 @@
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
 									{{#menu.option}}测试综合表现{{/menu.option}}
-									{{#menu.option}}周期销售报告{{/menu.option}}
-									{{#menu.option}}决策回顾{{/menu.option}}
+									{{#menu.option click=(action "exportReport" pr.project)}}周期销售报告{{/menu.option}}
+									{{#menu.option click=(action "exportInput" pr.project)}}决策回顾{{/menu.option}}
 								{{/dd.menu}}
 							{{/bp-dropdown}}
 						{{/bp-layout}}
