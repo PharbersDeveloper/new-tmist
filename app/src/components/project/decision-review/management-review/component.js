@@ -64,7 +64,7 @@ export default Component.extend( {
 	} ),
 	circleSize: A( ["70%", "95%"] ),
 	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
-	circleDataZero: A( [{value: "0"}] ),
+	circleDataZero: A( [{name: "未分配", value: "0"}] ),
 	circleColorZero: A( ["#DFE1E6"] )
 
 } )
