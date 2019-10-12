@@ -134,6 +134,25 @@
 		}
 
 		.examine-export {
+			.examine {
+				width: 138px;
+			}
+
+			.export {
+				width: 138px;
+			}
+
+			:global(.dropdown-button) {
+				height: 32px;
+				width: 112px;
+			}
+
+			:global(.btn-group button) {
+				border-radius: 5px;
+			}
+		}
+
+		.tm-examine-export {
 			height: 87px;
 			margin-top: 32px;
 
