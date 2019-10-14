@@ -53,5 +53,11 @@ export default Route.extend( {
 		// 	// currentProjects: this.store.query( "model/project", { filter: "(:and,(accountId,:eq,`" + accountId + "`),(status,:eq,0))" } ),
 		// 	// historicalProjects: this.store.query( "model/project", { filter: "(:and,(accountId,:eq,`" + accountId + "`),(status,:eq,1))" } )
 		// } )
+	},
+	afterModel( model ) {
+		if ( window.location.href.indexOf( "tm" ) !== -1 ) {
+			window.console.log( model.tmist )
+			this.transitionTo( "page.prepare", model.tmist.get( "firstObject.id" ) )
+		}
 	}
 } )
