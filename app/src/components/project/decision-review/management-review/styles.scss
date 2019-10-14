@@ -108,6 +108,7 @@ div:global(.management-review-wrapper) {
 
 						th {
 							font-weight: 400;
+							width: 180px;
 						}
 					}
 
@@ -119,6 +120,10 @@ div:global(.management-review-wrapper) {
 						tr {
 							width: 100%;
 							height: 44px;
+
+							td {
+								width: 174px;
+							}
 						}
 					}
 				}

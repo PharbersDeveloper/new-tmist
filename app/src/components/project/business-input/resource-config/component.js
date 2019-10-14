@@ -26,17 +26,17 @@ export default Component.extend( {
 		return this.hospitalList.length
 	} ),
 	inputVisitTime: false,
-	leftTime: computed( "inputVisitTime", function() {
+	leftTime: computed( "resourceHospital","inputVisitTime", function() {
+		window.console.log( "time left" )
 		let all = 0
-
 
 		this.answers.filter( a => a.get( "resource.id" ) === this.resource.id ).forEach( a => {
 			all += this.transNumber( a.get( "visitTime" ) )
 		} )
 
-		if ( all > 100 ) {
-			return 100
-		}
+		// if ( all > 100 ) {
+		// 	return 100
+		// }
 
 		return all
 	} ),
@@ -54,6 +54,9 @@ export default Component.extend( {
 	},
 	labelEmphasis: false,
 	circleVisitTimeData: computed( "leftTime", function() {
+		if ( this.leftTime > 100 ) {
+			return A( [{value: this.leftTime, name: "已分配时间"}] )
+		}
 		return A( [
 			{value: this.leftTime, name: "已分配时间"},
 			{value: 100 - this.leftTime, name: "未分配时间"}
@@ -98,10 +101,12 @@ export default Component.extend( {
 						title: "设定超额",
 						detail: `${name}的拜访时间已超过总时间限制，请合理分配。`
 					} )
-					set( this, "leftTime", 100 )
-				} else {
-					set( this, "leftTime", all )
+					// set( this, "leftTime", 100 )
+					// all = 100
 				}
+				// else {
+				// 	set( this, "leftTime", all )
+				// }
 
 
 			} else {

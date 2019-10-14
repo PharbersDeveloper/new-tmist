@@ -88,6 +88,15 @@
 
 	{{#bp-layout}}
 		{{#bp-layout direction="row" cross="center" local-class="right"}}
+			{{#if (bp-not-eq sortQuizs.firstObject.answer.meetingPlaces -1 0 "" "0")}}
+				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
+					{{#bp-layout local-class="badge" class="px-1"}}
+						{{bp-icon icon="meeting-quota"}}
+						{{sortQuizs.firstObject.answer.meetingPlaces}}
+					{{/bp-layout}}
+				{{/bp-layout}}
+			{{/if}}
+
 			{{#if hasResource}}
 				
 				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
@@ -104,19 +113,8 @@
 					{{/if}}
 
 				{{/bp-layout}}
-
-
-
 			{{/if}}
 			
-			{{#if (bp-not-eq sortQuizs.firstObject.answer.meetingPlaces -1 0 "" "0")}}
-				{{#bp-layout direction="row" local-class="item-right" cross="center" classNames="mr-2"}}
-					{{#bp-layout local-class="badge" class="px-1"}}
-						{{bp-icon icon="meeting-quota"}}
-						{{sortQuizs.firstObject.answer.meetingPlaces}}
-					{{/bp-layout}}
-				{{/bp-layout}}
-			{{/if}}
 
 			{{#bp-layout local-class=(if hasResource "icon-check" "icon-no-check")}}
 				{{#bp-button local-class="icon-button" 
