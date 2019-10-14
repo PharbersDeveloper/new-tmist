@@ -86,8 +86,8 @@
 						{{#each resourceAnswers as |item|}}
 						{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
 							{{#bp-layout tagName="td"}}{{item.resource.name}}{{/bp-layout}}
-							{{#bp-layout tagName="td"}}{{item.abilityCoach}}%{{/bp-layout}}
-							{{#bp-layout tagName="td"}}{{item.assistAccessTime}}%{{/bp-layout}}
+							{{#bp-layout tagName="td" local-class="td-width-1"}}{{item.abilityCoach}}%{{/bp-layout}}
+							{{#bp-layout tagName="td" local-class="td-width-2"}}{{item.assistAccessTime}}%{{/bp-layout}}
 						{{/bp-layout}}
 						{{/each}}
 					{{/bp-layout}}
