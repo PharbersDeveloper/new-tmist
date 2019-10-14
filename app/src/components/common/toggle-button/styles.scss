@@ -9,6 +9,8 @@
 	cursor: pointer;
 
 	svg {
+		margin-bottom: 4px;
+
 		path {
 			fill: $n040;
 		}
@@ -18,10 +20,11 @@
 		background-color: $n400;
 
 		svg {
+			margin-bottom: 4px;
+
 			path {
 				fill: $n000;
 			}
 		}
 	}
-
 }
