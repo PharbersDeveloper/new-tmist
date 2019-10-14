@@ -11,7 +11,7 @@
 							{{#if (bp-eq project.proposal.case "tm")}}
 								{{#bp-layout direction="row" cross="end"}}
 									<span local-class="span-1" class="mr-1">已用时间</span>
-									<span local-class="span-2">{{leftTime}}%</span>
+									<span local-class={{if (gt leftTime 100 ) "red" "span-2"}}>{{leftTime}}%</span>
 									{{!-- {{#bp-layout local-class="span-2"}}
 											
 									{{/bp-layout}} --}}
