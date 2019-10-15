@@ -92,8 +92,8 @@
 				{{bp-icon icon='down'}}
 			{{/dd.button}}
 			{{#dd.menu as |menu|}}
-				{{#menu.option click=(action "exportInput" pr.project)}}导出输入{{/menu.option}}
-				{{#menu.option click=(action "exportReport")}}导出报告{{/menu.option}}
+				{{#menu.option click=(action "exportInput" pr.project)}}决策回顾{{/menu.option}}
+				{{#menu.option click=(action "exportReport")}}周期销售报告{{/menu.option}}
 			{{/dd.menu}}
 		{{/bp-dropdown}}
 		{{/bp-layout}}
@@ -102,18 +102,18 @@
 	{{/bp-layout}}
 	{{else if (bp-eq model.project.proposal.case "tm")}}
 		{{#bp-layout local-class="info tm-info" direction="row" classNames="bg-white p-4"}}
-			{{#bp-layout direction="col" local-class="name" }}
+			{{#bp-layout direction="col" local-class="name block" }}
 					{{#bp-layout local-class="get-name" direction="row" main="center" classNames="mb-3"}}获得称号{{/bp-layout}}
 					{{#bp-layout local-class="img"}}{{/bp-layout}}
 					{{#bp-layout local-class="name-level" main="center" direction="row" classNames="mt-2"}}黄金{{/bp-layout}}
 			{{/bp-layout}}
-			{{#bp-layout local-class="goal block" direction="col" }}
+			{{#bp-layout local-class="goal block" direction="col" cross="start"}}
 				{{#bp-layout local-class="header-text" classNames="mb-3"}}总指标达成率{{/bp-layout}}
-				{{#bp-layout direction="row" local-class="precent"}}
-					<span class="mb-2">{{bp-percent model.report.lastObject.quotaAchv}}</span>
+				{{#bp-layout direction="row" local-class="precent" cross="center"}}
+					<span class="mb-2">{{two-number-percent model.tmReports.lastObject.sales model.tmReports.lastObject.salesQuota}}</span>
 					{{!-- <span></span> --}}
 				{{/bp-layout}}
-				{{#bp-layout direction="row"}}
+				{{!-- {{#bp-layout direction="row"}}
 						{{#bp-layout direction="col" classNames="mr-3"}}
 							{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
 							{{#bp-layout}}60%{{/bp-layout}}
@@ -126,25 +126,26 @@
 							{{#bp-layout local-class="period"}}2019Q1{{/bp-layout}}
 							{{#bp-layout}}60%{{/bp-layout}}
 						{{/bp-layout}}
-					{{/bp-layout}}
+					{{/bp-layout}} --}}
 			{{/bp-layout}}
 
-			{{#bp-layout local-class="sales block" direction="col"  }}
+			{{#bp-layout local-class="sales block" direction="col" cross="end"}}
 				{{#bp-layout local-class="header-text" classNames="mb-3"}}总销售额{{/bp-layout}}
-				{{#bp-layout}}¥{{format-number model.report.lastObject.sales 0}}{{/bp-layout}}
-				{{!-- {{log model.report}} --}}
+				{{#bp-layout local-class="content-row" cross="center"}}¥{{format-number model.tmReports.lastObject.sales 0}}{{/bp-layout}}
+			{{/bp-layout}}
+			{{#bp-layout local-class="blank-part"}}
 			{{/bp-layout}}
 
-			{{#bp-layout direction="col" local-class="block"}}
-				{{#bp-layout direction="col" local-class="time block" classNames="mb-4"}}
-					{{#bp-layout local-class="header-text" classNames="mb-2"}}完成用时{{/bp-layout}}
-					{{#bp-layout}}{{time-difference this.model.project.startTime this.model.project.endTime}}{{/bp-layout}}
-				{{/bp-layout}}
-				{{#bp-layout direction="col" local-class="time block"}}
-					{{#bp-layout local-class="header-text" classNames="mb-2"}}完成时间{{/bp-layout}}
-					{{#bp-layout}}{{format-date-standard this.model.project.endTime}}{{/bp-layout}}
-				{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="time block" cross="start"}}
+				{{#bp-layout local-class="header-text" classNames="mb-3"}}完成用时{{/bp-layout}}
+				{{#bp-layout local-class="content-row" cross="center"}}{{time-difference this.model.project.startTime this.model.project.endTime}}{{/bp-layout}}
 			{{/bp-layout}}
+			{{#bp-layout direction="col" local-class="time block" cross="center"}}
+				{{#bp-layout local-class="header-text" classNames="mb-3"}}完成时间{{/bp-layout}}
+				{{#bp-layout local-class="content-row" cross="center"}}{{format-date-standard this.model.project.endTime}}{{/bp-layout}}
+			{{/bp-layout}}
+			{{!-- {{#bp-layout direction="col" local-class="block"}} --}}
+			{{!-- {{/bp-layout}} --}}
 
 			{{!-- {{#bp-layout local-class="block"}}
 				{{/bp-layout}} --}}
@@ -156,8 +157,8 @@
 				{{/bp-layout}}
 			{{/bp-layout}} --}}
 
-			{{#bp-layout local-class="examine-export block"  direction="row" main="center" cross="center"}}
-				{{#bp-layout local-class="examine" direction="row" classNames="mr-4"}}
+			{{#bp-layout local-class="tm-examine-export"  direction="row" main="center" cross="center"}}
+				{{#bp-layout local-class="examine" direction="row"}}
 					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
 							{{#dd.button }}
 								查看
@@ -165,7 +166,7 @@
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
 								{{#menu.option click=(action "showTestPerformance")}}测试综合表现{{/menu.option}}
-								{{#menu.option click=(action "toReport")}}周期销售结果{{/menu.option}}
+								{{#menu.option click=(action "toReport")}}周期销售报告{{/menu.option}}
 								{{#menu.option click=(action "toDecisionReview")}}决策回顾{{/menu.option}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
@@ -182,8 +183,8 @@
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
 								{{#menu.option}}测试综合表现{{/menu.option}}
-								{{#menu.option}}周期销售结果{{/menu.option}}
-								{{#menu.option}}决策回顾{{/menu.option}}
+								{{#menu.option click=(action "exportReport")}}周期销售报告{{/menu.option}}
+								{{#menu.option click=(action "exportInput" pr.project)}}决策回顾{{/menu.option}}
 							{{/dd.menu}}
 						{{/bp-dropdown}}
 				{{/bp-layout}}
@@ -210,12 +211,19 @@
 	open=testPerformance
 	position='center'
 	onHidden=(action (mut testPerformance) false) as |modal|}}
+	{{#modal.header closeButton=false classNames="px-4 pb-0 pt-4"}}
+		{{#bp-layout direction="row" main="end" classNames="header-wrapper"}}
+			{{#bp-layout direction="row" main="end" click=(action (mut testPerformance) false)}}
+				{{bp-icon icon='cross'}}
+			{{/bp-layout}}
+		{{/bp-layout}}
+	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
-	{{project/comprehensive-performance }}
+	{{project/comprehensive-performance  project=this.model.project}}
 	{{/modal.body}}
-	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
-		{{!-- {{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}} --}}
+	{{!-- {{#modal.footer classNames="pt-0 pb-4 px-4"}}
+		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
 		{{#bp-button type="subtle" onClick=(action modal.close)}}取消{{/bp-button}}
-	{{/modal.footer}}
+	{{/modal.footer}} --}}
 {{/bp-modal}}
 

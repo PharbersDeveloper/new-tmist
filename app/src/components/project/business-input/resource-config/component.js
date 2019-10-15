@@ -26,27 +26,37 @@ export default Component.extend( {
 		return this.hospitalList.length
 	} ),
 	inputVisitTime: false,
-	leftTime: computed( "inputVisitTime", function() {
+	leftTime: computed( "resourceHospital","inputVisitTime", function() {
+		window.console.log( "time left" )
 		let all = 0
-
 
 		this.answers.filter( a => a.get( "resource.id" ) === this.resource.id ).forEach( a => {
 			all += this.transNumber( a.get( "visitTime" ) )
 		} )
+
+		// if ( all > 100 ) {
+		// 	return 100
+		// }
 
 		return all
 	} ),
 	transNumber( input ) {
 		let number = Number( input )
 
-		if ( isNaN( number ) || number === -1 ) {
+		if ( isNaN( number ) ) {
 			return 0
 		} else {
 			return number
 		}
 	},
+	isNumber( input ) {
+		return !isNaN( Number( input ) )
+	},
 	labelEmphasis: false,
 	circleVisitTimeData: computed( "leftTime", function() {
+		if ( this.leftTime > 100 ) {
+			return A( [{value: this.leftTime, name: "已分配时间"}] )
+		}
 		return A( [
 			{value: this.leftTime, name: "已分配时间"},
 			{value: 100 - this.leftTime, name: "未分配时间"}
@@ -65,24 +75,50 @@ export default Component.extend( {
 			this.runtimeConfig.set( "popover",false )
 			this.selectResource( rs )
 		},
-		inputVisitTime() {
+		inputVisitTime( curAns ) {
 			let all = 0,
 				name = this.resource.get( "name" )
 
-			this.answers.filter( a => a.get( "resource.id" ) === this.resource.id ).forEach( a => {
-				all += this.transNumber( a.get( "visitTime" ) )
-			} )
+			if ( this.isNumber( curAns.get( "visitTime" ) ) ) {
 
-			if ( all > 100 ) {
+				if ( String( curAns.get( "visitTime" ) ).indexOf( "." ) !== -1 ) {
+					curAns.set( "visitTime", 0 )
+					this.set( "warning", {
+						open: true,
+						title: "非法输入",
+						detail: "请输入正整数。"
+					} )
+				}
+
+				this.answers.filter( a => a.get( "resource.id" ) === this.resource.id ).forEach( a => {
+					all += this.transNumber( a.get( "visitTime" ) )
+				} )
+
+
+				if ( all > 100 ) {
+					this.set( "warning", {
+						open: true,
+						title: "设定超额",
+						detail: `${name}的拜访时间已超过总时间限制，请合理分配。`
+					} )
+					// set( this, "leftTime", 100 )
+					// all = 100
+				}
+				// else {
+				// 	set( this, "leftTime", all )
+				// }
+
+
+			} else {
+				curAns.set( "visitTime", 0 )
 				this.set( "warning", {
 					open: true,
-					title: "设定超额",
-					detail: `${name}的拜访时间已超过总时间限制，请合理分配。`
+					title: "非法输入",
+					detail: "请输入正整数。"
 				} )
-				set( this, "leftTime", 0 )
-			} else {
-				set( this, "leftTime", all )
 			}
+
+
 			this.toggleProperty( "inputVisitTime" )
 			// this.resource.get("totalTiem")
 			// set( this.resource, "totalTime", this.leftTime )

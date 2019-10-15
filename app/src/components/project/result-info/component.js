@@ -14,6 +14,9 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	runtimeConfig: service( "service/runtime-config" ),
 	positionalParams: ["project", "results", "evaluations", "reports", "summary", "hospitals", "resources", "products", "periods", "goRoundOver", "proposal"],
 	curSelPeriod: null,
+	projectPhase: computed( "project", function() {
+		return this.project.pharse - 1
+	} ),
 	roundOver: computed( function() {
 
 		return this.runtimeConfig.roundHistory

@@ -58,11 +58,13 @@ export default Component.extend( {
 		arr.push( {name: "代表及KPI分析", value: this.managerAnswers.kpiAnalysisTime} )
 		arr.push( {name: "行政工作", value: this.managerAnswers.adminWorkTime} )
 		arr.push( {name: "团队例会", value: this.managerAnswers.teamMeetingTime} )
-		arr.push( {name: "代表能力培养", value: this.totalTime} )
+		arr.push( {name: "代表能力辅导与协访", value: this.totalTime} )
 
 		return A( arr )
 	} ),
 	circleSize: A( ["70%", "95%"] ),
-	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] )
+	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
+	circleDataZero: A( [{name: "未分配", value: "0"}] ),
+	circleColorZero: A( ["#DFE1E6"] )
 
 } )

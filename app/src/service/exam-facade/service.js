@@ -71,6 +71,7 @@ export default Service.extend( {
 			answer.set( "salesTarget", 0 )
 			answer.set( "budget", 0 )
 			answer.set( "meetingPlaces", 0 )
+			answer.set( "visitTime", 0 )
 			answer.set( "resource", null )
 		} )
 	},

@@ -6,7 +6,7 @@
 		h4.title {
 			font-size: 16px;
 			height: 54px;
-			color: #172B4D;
+			color: $n800;
 		}
 
 		p.desc {
@@ -20,7 +20,7 @@
 
 		thead {
 			border-bottom: 1px solid rgba(9, 30, 66, 0.08);
-			color: #7a869a;
+			color: $n100;
 			font-size: 12px;
 			width: 100%;
 
@@ -47,7 +47,7 @@
 		height: 54px;
 
 		h4.title {
-			color: #172B4D;
+			color: $n800;
 			font-size: 16px;
 			height: 54px;
 		}
@@ -93,7 +93,7 @@
 			background: #ffffff;
 			height: 68px;
 			font-size: 14px;
-			color: #172B4D;
+			color: $n800;
 			text-align: left;
 			// border-bottom: 1px solid rgba(9, 30, 66, 0.04);
 			margin-bottom: 1px;

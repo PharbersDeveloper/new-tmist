@@ -41,8 +41,7 @@
 		{{#bp-layout local-class="content"}}
 			{{#if (bp-eq salesGroupValue 0)}}
 				<div local-class="report product">
-					{{#bp-layout tagName="h2" cross="center" local-class="title"
-				 classNames="m-0 bg-white px-4"}}
+					{{#bp-layout tagName="h2" cross="center" local-class="title" classNames="m-0 bg-white px-4"}}
 						{{t "project.proposal-info.historical-info.product-sale-circle"}}
 					{{/bp-layout}}
 
@@ -78,11 +77,15 @@
 								<span local-class="keys"
 									class="mr-3">{{t "project.proposal-info.historical-info.product"}}</span>
 								{{#bp-dropdown widthSize="auto" local-class="dd-medicines dd-area" as |dd|}}
-									{{#dd.button}}
-										{{#if tmpPsr.id}}
-											<p>{{tmpPsr.name}}</p>
+									{{#dd.button disabled=(if (bp-eq proposal.case "tm") true false)}}
+										{{#if (bp-eq proposal.case "tm")}}
+											<p>{{selfProducts.firstObject.name}}</p>
 										{{else}}
-											{{t "project.proposal-info.historical-info.total-products"}}
+											{{#if tmpPsr.id}}
+												<p>{{tmpPsr.name}}</p>
+											{{else}}
+												{{t "project.proposal-info.historical-info.total-products"}}
+											{{/if}}
 										{{/if}}
 										{{bp-icon icon="down"}}
 									{{/dd.button}}
@@ -173,13 +176,18 @@
 									class="mr-3">{{t "project.proposal-info.historical-info.product"}}</span>
 								{{#bp-dropdown widthSize="auto"
 								local-class="dd-medicines dd-area" as |dd|}}
-									{{#dd.button}}
+									{{#dd.button disabled=(if (bp-eq proposal.case "tm") true false)}}
+									{{#if (bp-eq proposal.case "tm")}}
+											<p>{{selfProducts.firstObject.name}}</p>
+									{{else}}
 										{{#if tmpProdRep.id}}
 											<p>{{tmpProdRep.name}}</p>
 										{{else}}
 											{{t "project.proposal-info.historical-info.total-products"}}
 										{{/if}}
-										{{bp-icon icon="down"}}
+									{{/if}}
+
+									{{bp-icon icon="down"}}
 									{{/dd.button}}
 									{{#dd.menu as |menu|}}
 										{{#menu.option value=totalProduct
@@ -306,12 +314,16 @@
 									class="mr-4">{{t "project.proposal-info.historical-info.product"}}</span>
 								{{#bp-dropdown widthSize="auto"
 								local-class="dd-medicines dd-area" as |dd|}}
-									{{#dd.button}}
+									{{#dd.button disabled=(if (bp-eq proposal.case "tm") true false)}}
+									{{#if (bp-eq proposal.case "tm")}}
+										<p>{{selfProducts.firstObject.name}}</p>
+									{{else}}
 										{{#if tmpProdHosp.id}}
 											<p>{{tmpProdHosp.name}}</p>
 										{{else}}
 											{{t "project.proposal-info.historical-info.total-products"}}
 										{{/if}}
+									{{/if}}
 										{{bp-icon icon="down"}}
 									{{/dd.button}}
 									{{#dd.menu as |menu|}}
@@ -347,12 +359,16 @@
 									class="mr-3">{{t "project.proposal-info.historical-info.product"}}</span>
 								{{#bp-dropdown widthSize="auto"
 								local-class="dd-medicines dd-area" as |dd|}}
-									{{#dd.button}}
+									{{#dd.button disabled=(if (bp-eq proposal.case "tm") true false)}}
+									{{#if (bp-eq proposal.case "tm")}}
+											<p>{{selfProducts.firstObject.name}}</p>
+									{{else}}
 										{{#if hospitalProdTable.id}}
 											<p>{{hospitalProdTable.name}}</p>
 										{{else}}
 											{{t "project.proposal-info.historical-info.total-products"}}
 										{{/if}}
+									{{/if}}
 										{{bp-icon icon="down"}}
 									{{/dd.button}}
 									{{#dd.menu as |menu|}}

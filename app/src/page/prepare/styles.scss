@@ -12,7 +12,7 @@
 			width: 639px;
 
 			.title {
-				color: #172B4D;
+				color: $n800;
 				font-size: 24px;
 				font-weight: 500;
 				width: 90%;
@@ -30,7 +30,7 @@
 				}
 
 				.des {
-					color: #7a869a;
+					color: $n100;
 					font-size: 12px;
 				}
 			}
@@ -54,7 +54,7 @@
 	}
 
 	.start-deploy-header {
-		color: #172B4D;
+		color: $n800;
 		font-size: 20px;
 		font-weight: 500;
 		line-height: 24px;

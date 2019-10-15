@@ -39,7 +39,13 @@
 
 			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-table"}}
 				{{#bp-layout local-class="circle" style="width: 128px;height: 128px" direction="row"}}
+				{{#if (bp-eq totalTime 0)}}
+
+					{{bp-circle eid="cricleTime" circleData=circleDataZero circleColor=circleColorZero circleSize=circleSize}}
+				{{else}}
 					{{bp-circle eid="cricleTime" circleData=circleData circleColor=circleColor circleSize=circleSize}}
+
+				{{/if}}
 					
 					{{!-- {{#bp-layout direction="col"}}
 						{{#bp-layout tagName="div"}}业务策略分析: {{managerAnswers.strategAnalysisTime}} {{/bp-layout}}
@@ -50,7 +56,7 @@
 						{{#bp-layout tagName="div"}}代表能力培养: {{totalTime}}{{/bp-layout}}
 					{{/bp-layout}} --}}
 				{{/bp-layout}}
-				{{#bp-layout direction="col" local-class="circle-legend" classNames="ml-4"}}
+				{{#bp-layout direction="col" local-class="circle-legend" classNames="ml-5"}}
 					{{#each circleData as |item index|}}
 						{{#bp-layout direction="row" cross="center" classNames="mb-3" main="between" local-class="legend"}}
 							{{#bp-layout direction="row" cross="center"}}
@@ -66,22 +72,22 @@
 
 		{{#bp-layout local-class="representative-bility" direction="col" classNames="bg-white "}}
 			{{#bp-layout tagName="h4" classNames="m-0 pl-4" cross="center" local-class="title"}}
-				代表能力培养
+				代表能力辅导与协访
 			{{/bp-layout}}
 			
 			{{#bp-layout local-class="table" classNames="mx-4"}}
-				{{#bp-layout tagName="table" direction="col" classNames="" }}
-					{{#bp-layout tagName="thead" main="between" }}
+				{{#bp-layout tagName="table" direction="col" }}
+					{{#bp-layout tagName="thead" main="between" classNames="pt-2 pb-2"}}
 						{{#bp-layout tagName="th"}}代表姓名{{/bp-layout}}
 						{{#bp-layout tagName="th"}}1v1能力辅导{{/bp-layout}}
-						{{#bp-layout tagName="th"}}协防时间{{/bp-layout}}
+						{{#bp-layout tagName="th"}}协访时间{{/bp-layout}}
 					{{/bp-layout}}
 					{{#bp-layout tagName="tbody" direction="col"}}
 						{{#each resourceAnswers as |item|}}
 						{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
 							{{#bp-layout tagName="td"}}{{item.resource.name}}{{/bp-layout}}
-							{{#bp-layout tagName="td"}}{{item.abilityCoach}}%{{/bp-layout}}
-							{{#bp-layout tagName="td"}}{{item.assistAccessTime}}%{{/bp-layout}}
+							{{#bp-layout tagName="td" local-class="td-width-1"}}{{item.abilityCoach}}%{{/bp-layout}}
+							{{#bp-layout tagName="td" local-class="td-width-2"}}{{item.assistAccessTime}}%{{/bp-layout}}
 						{{/bp-layout}}
 						{{/each}}
 					{{/bp-layout}}

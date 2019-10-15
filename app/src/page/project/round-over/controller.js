@@ -1,5 +1,5 @@
 import Controller from "@ember/controller"
-// import { computed } from "@ember/object"
+import { computed } from "@ember/object"
 import { inject as service } from "@ember/service"
 
 export default Controller.extend( {
@@ -10,6 +10,9 @@ export default Controller.extend( {
 	noNavButton: true,
 	runtimeConfig: service( "service/runtime-config" ),
 	exportService: service( "service/export-report" ),
+	tmSalesAchv: computed( "model.tmReports", function() {
+		return this.model.tmReports.get( "lastObject.sales" ) / this.model.tmReports.get( "lastObject.salesQuota" )
+	} ),
 	// endTime: computed( "this.model.project", function () {
 	// 	let date = new Date( this.model.project.endTime ),
 	// 		y = date.getFullYear() + "-",
