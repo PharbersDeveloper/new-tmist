@@ -2,13 +2,12 @@
 {{#bp-layout direction="row" local-class="submit-header" main="between" cross="center" classNames="px-4 py-3"}}
     {{#bp-layout direction="row" cross="center"}}
         {{#if (or noNavButton roundOver)}}
-        {{!-- {{#if noNavButton}} --}}
         {{else}}
             {{#if ucbSpecial}}
                 {{#bp-button local-class="exit-btn" onClick=(action "logOut") class="mr-2"}}{{bp-icon icon="sign-out"}}{{/bp-button}}
             {{else}}
                 {{#if (bp-eq tmPrepare "true")}}
-                    {{#bp-button local-class="exit-btn" onClick=(action "toIndex") class="mr-2"}}{{bp-icon icon="home-filled"}}{{/bp-button}}
+                    {{!-- {{#bp-button local-class="exit-btn" onClick=(action "toIndex") class="mr-2"}}{{bp-icon icon="home-filled"}}{{/bp-button}} --}}
                 {{else}}
                     {{#bp-button local-class="exit-btn" onClick=(action "toIndex") class="mr-2"}}{{bp-icon icon="sign-out"}}{{/bp-button}}
                 {{/if}}
@@ -46,7 +45,21 @@
                 {{/dd.menu}}
             {{/bp-dropdown}}
         {{/bp-layout}}
+    {{/if}}
 
+    {{#if (bp-eq tmPrepare "true")}}
+        {{#bp-layout direction="row"}}
+            {{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
+                {{#dd.toggle}}
+                    {{bp-icon icon='nav-person'}}
+                {{/dd.toggle}}
+                {{#dd.menu as |menu|}}
+                    {{#menu.option onClick=(action "logOutTM")}}
+                        退出登录
+                    {{/menu.option}}
+                {{/dd.menu}}
+            {{/bp-dropdown}}
+        {{/bp-layout}}
     {{/if}}
 
     {{yield}}
