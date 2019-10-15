@@ -168,7 +168,7 @@
 		{{/bp-layout}}
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
-		{{project/comprehensive-performance project=tmCurProject}}
+		{{project/comprehensive-performance project=tmCurProject proviousReport=proviousReport}}
 	{{/modal.body}}
 	{{!-- {{#modal.footer}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}确定{{/bp-button}}

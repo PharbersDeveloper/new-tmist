@@ -27,12 +27,13 @@
 				{{#bp-layout direction="row"}}
 					{{#bp-layout local-class="chart"}}
 						{{bp-radar-ability
+								radarData=radarData
 								eid="radarSecond22"
 								onClick=(action "changeRadar")}}
 					{{/bp-layout}}
 					{{#bp-layout local-class="desc" direction="col" classNames="px-4"}}
 						{{#bp-layout local-class="level" classNames="pb-3" cross="center"}}
-							<span class="mr-2">S</span>
+							<span class="mr-2">{{axisLevel}}</span>
 							{{axisName}}
 						{{/bp-layout}}
 						{{#bp-layout local-class="action-point" direction="col" classNames="mb-3"}}

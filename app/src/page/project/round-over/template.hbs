@@ -219,7 +219,7 @@
 		{{/bp-layout}}
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
-	{{project/comprehensive-performance  project=this.model.project}}
+	{{project/comprehensive-performance  project=this.model.project proviousReport=model.proviousReport}}
 	{{/modal.body}}
 	{{!-- {{#modal.footer classNames="pt-0 pb-4 px-4"}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
