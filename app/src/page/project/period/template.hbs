@@ -319,6 +319,7 @@
 	{{/modal.body}}
 {{/bp-modal}}
 
+{{#if (bp-eq model.proposal.case "ucb")}}
 {{#bp-modal
 		local-class="task-modal"
 		open=taskModal
@@ -333,7 +334,6 @@
 	{{/modal.header}}
 	{{#modal.body classNames="px-4 pt-0"}}
 		{{#bp-layout direction="col"}}
-			{{#if (bp-eq model.proposal.case "ucb")}}
 			{{#bp-layout local-class="schedule" main="center"}}
 			{{#each taskModalCircle as |circle index|}}
 				{{#bp-layout direction="col"}}
@@ -349,7 +349,6 @@
 				{{/bp-layout}}
 			{{/each}}
 			{{/bp-layout}}
-			{{/if}}
 			{{#if (bp-eq model.period.phase 0)}}
 				{{#bp-layout local-class="info" direction="col"}}
 					<h2 class="mb-2">任务通知</h2>
@@ -405,3 +404,4 @@
 		{{!-- {{#bp-button type="primary" onClick=(action "taskModal")}}结束任务{{/bp-button}} --}}
 	{{/modal.footer}}
 {{/bp-modal}}
+{{/if}}

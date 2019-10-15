@@ -21,6 +21,11 @@ export default Component.extend( {
 			this.oauthService.removeAuth()
 			window.localStorage.clear()
 			window.location = "/ucblogin"
+		},
+		logOutTM() {
+			this.oauthService.removeAuth()
+			window.localStorage.clear()
+			window.location = "/login"
 		}
 	}
 
