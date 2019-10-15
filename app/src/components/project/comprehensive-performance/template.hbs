@@ -16,7 +16,7 @@
 			
 				{{#bp-layout local-class="level" direction="col" cross="center"}}
 					{{#bp-layout local-class="image" main="center" direction="row"}}{{/bp-layout}}
-					{{#bp-layout local-class="name" main="center" direction="row"}}黄金{{/bp-layout}}
+					{{#bp-layout local-class="name" main="center" direction="row"}}{{nameLevel}}{{/bp-layout}}
 					{{#bp-layout local-class="desc" main="center" direction="row"}}等级描述{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
@@ -38,14 +38,18 @@
 						{{/bp-layout}}
 						{{#bp-layout local-class="action-point" direction="col" classNames="mb-3"}}
 							{{#bp-layout classNames="mb-3"}}动作点解读{{/bp-layout}}
-							<p>具备对信息、数字、资讯的敏感度。</p>
+							<p>
+								{{actionAndDesc.actions}}
+							</p>
+							{{!-- <p>具备对信息、数字、资讯的敏感度。</p>
 							<p>能过滤无用、錯誤信息，不被其所干扰。</p>
-							<p>理解报表信息，并掌握数据分析思维，对现状进行分析。</p>
+							<p>理解报表信息，并掌握数据分析思维，对现状进行分析。</p> --}}
 						{{/bp-layout}}
 						{{#bp-layout local-class="level-evaluation" direction="col"}}
 							{{#bp-layout classNames="mb-3"}}等级评价{{/bp-layout}}
 							<p>
-								你還需要花更多的精力，完善自己在报表与数据解读上的能力，透过科学化的分析，能使你在部署战略上，了解全局现状，洞察问题关键，预判发展趋势。從數據中你將收穫宏觀的視野,掌握全局。
+								{{actionAndDesc.levels}}
+								{{!-- 你還需要花更多的精力，完善自己在报表与数据解读上的能力，透过科学化的分析，能使你在部署战略上，了解全局现状，洞察问题关键，预判发展趋势。從數據中你將收穫宏觀的視野,掌握全局。 --}}
 							</p>
 						{{/bp-layout}}
 					{{/bp-layout}}
