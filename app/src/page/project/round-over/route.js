@@ -56,14 +56,15 @@ export default Route.extend( {
 						reports: finals[index],
 						tmReports: tmProReports[index].filter( x => x.get( "category" ).value === "Sales" )
 					}
-				} )
+				} ),
 
-			proviousReports = proviousReports.slice( 0, proviousReports.length - 1 )
+			 historyReports = proviousReports.slice( 0, proviousReports.length - 1 )
 
 			return RSVP.hash( {
 				proposal: proposal,
 				provious: provious,
 				proviousReport:proviousReports,
+				historyReports: historyReports,
 				project: project,
 				reports: reports,
 				tmReports: tmReports.then( r => r.filter( x => x.get( "category" ).value === "Sales" ) ),
