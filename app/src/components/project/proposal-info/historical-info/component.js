@@ -491,28 +491,28 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				}
 			] )
 
-		// if ( this.case === "tm" ) {
-		// 	hospitalColumns.splice( 2, 2,
-		// 		{
-		// 			label: "潜力",
-		// 			valuePath: "current_patient_num",
-		// 			align: "left",
-		// 			cellComponent: "common/table/format-number-thousands",
-		// 			sortable: true,
-		// 			width: 84
-		// 		}
-		// 	)
-		// 	representativeColumns.splice( 1 , 1,
-		// 		{
-		// 			label: "潜力",
-		// 			valuePath: "current_patient_num",
-		// 			align: "left",
-		// 			cellComponent: "common/table/format-number-thousands",
-		// 			sortable: true,
-		// 			width: 84
-		// 		}
-		// 	)
-		// }
+		if ( this.case === "tm" ) {
+			hospitalColumns.splice( 2, 2,
+				{
+					label: "潜力",
+					valuePath: "potential",
+					align: "right",
+					cellComponent: "common/table/format-number-thousands",
+					sortable: true,
+					width: 100
+				}
+			)
+			representativeColumns.splice( 1 , 1,
+				{
+					label: "潜力",
+					valuePath: "potential",
+					align: "right",
+					cellComponent: "common/table/format-number-thousands",
+					sortable: true,
+					width: 84
+				}
+			)
+		}
 		this.set( "tmpRep", defaultRep )
 		this.set( "tmpHosp", defaultHosp )
 
