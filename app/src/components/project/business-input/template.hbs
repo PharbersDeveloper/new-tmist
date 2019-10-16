@@ -6,7 +6,7 @@
 				药品销售指标
 			{{/bp-layout}}
 			{{#bp-layout direction="row"  classNames="py-4" local-class="medic-container"}}
-				{{#bp-layout local-class="product-icon" direction="col" main="between" classNames="ml-4" }}
+				{{#bp-layout local-class="product-icon" direction="col" main=(if (bp-eq proposal.case "ucb") "between" "center") classNames="ml-4" }}
 					{{#each allProductInfo as |item|}}
 						{{#bp-layout direction="row" classNames=""  local-class= (if (bp-eq proposal.case "ucb") "icon-name-ucb" "icon-name") }}
 							{{bp-icon icon="product"}}{{item.name}}
@@ -14,7 +14,7 @@
 						{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}
-				{{#bp-layout cross="center" classNames="ml-4 py-2" direction="col" main="between" local-class="progress-block"}}
+				{{#bp-layout cross="center" classNames="ml-4 py-2" direction="col" main=(if (bp-eq proposal.case "ucb") "between" "center") local-class="progress-block"}}
 					{{#each allProductInfo as |item|}}
 						{{#bp-layout classNames="" local-class="progress" }}
 							{{#bp-progress as |p|}}
@@ -23,7 +23,7 @@
 						{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}
-				{{#bp-layout classNames="ml-4" local-class="sales-money" main="between" direction="col"}}
+				{{#bp-layout classNames="ml-4" local-class="sales-money" main=(if (bp-eq proposal.case "ucb") "between" "center") direction="col"}}
 					{{#each allProductInfo as |item|}}
 						{{#bp-layout classNames="" direction="row" cross="baseline"}}
 							<span>¥{{number-floor item.curSales 0}}</span>
@@ -76,7 +76,8 @@
 					{{#if (bp-eq curCircle 0)}}
 						{{!-- {{#bp-layout local-class="scroll-legend" direction="col" main="center" cross="center"}} --}}
 						{{!-- <div local-class="scroll-legend"> --}}
-						<div local-class={{if (bp-eq proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}>
+						<div local-class={{if (bp-eq proposal.case "ucb") "scroll-legend ucb-width" "scroll-legend tm-width"}}
+							class={{if (and (bp-eq proposal.case "tm") ( bp-eq curCircle 0) )"mt-5"}}>
 							{{#each legendProductBudget as |product index|}}
 								{{#bp-layout direction="row" classNames="mb-2" main="between"}}
 									{{#if (bp-eq proposal.case "ucb")}}
