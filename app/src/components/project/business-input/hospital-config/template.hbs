@@ -49,10 +49,17 @@
 						{{/bp-layout}}
 						{{#bp-layout direction="col" main="start" local-class="popover-right"}}
 							<p local-class="title">如何分配</p>
-							<p local-class="subtitle">第1步</p>
-							<p local-class="text">选择代表，点击<span local-class="pic"> {{bp-icon icon='hospital-unchecked'}} </span>将其分配至医院。</p>
-							<p local-class="subtitle">第2步</p>
-							<p local-class="text">完成代表分配后，点击条目展开进行资源分配。</p>
+							{{#if (bp-eq proposal.case "ucb")}}
+								<p local-class="subtitle">第1步</p>
+								<p local-class="text">选择代表，点击<span local-class="pic"> {{bp-icon icon='hospital-unchecked'}} </span>将其分配至医院。</p>
+								<p local-class="subtitle">第2步</p>
+								<p local-class="text">完成代表分配后，点击条目展开进行资源分配。</p>
+							{{else}}
+								<p local-class="subtitle">第1步</p>
+								<p local-class="text">选择代表，点击<span local-class="pic"> {{bp-icon icon='hospital-unchecked'}} </span>将其分配至医院。</p>
+								<p local-class="subtitle">第2步</p>
+								<p local-class="text">完成代表分配后，点击条目展开进行资源分配。</p>
+							{{/if}}
 							{{#bp-layout direction="row" main="end" local-class="popover-btn"}}
 								{{#bp-button type="default" click=(action "hidePopover" attacher.hide)}}
 									我知道了
