@@ -466,7 +466,7 @@ h5.title {
 
 :global(.popover-outer) {
   width: 366px;
-  height: 192px;
+  height: fit-content;
   background-color: #6554c0;
   padding: 16px;
   box-shadow: 0 0 1px 0 rgba(9, 30, 66, 0.12), 0 8px 16px -4px rgba(9, 30, 66, 0.25);
@@ -476,6 +476,7 @@ h5.title {
   .popover-content {
     p {
       margin-bottom: 0;
+      width: 294px;
     }
 
     .popover-left {

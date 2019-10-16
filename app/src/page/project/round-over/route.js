@@ -63,8 +63,8 @@ export default Route.extend( {
 			return RSVP.hash( {
 				proposal: proposal,
 				provious: provious,
-				proviousReport:proviousReports,
-				historyReports: historyReports,
+				proviousReport: proviousReports.reverse(),
+				historyReports: historyReports.reverse(),
 				project: project,
 				reports: reports,
 				tmReports: tmReports.then( r => r.filter( x => x.get( "category" ).value === "Sales" ) ),

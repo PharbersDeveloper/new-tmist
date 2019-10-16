@@ -19,7 +19,7 @@ export default Component.extend( {
 	} ),
 	hospitalList: computed( "resourceHospital", function() {
 		// let hospitals = []
-		return this.answers.filter( a => a.get( "resource.id" ) === this.resource.id ).uniqBy( "target.id" )
+		return this.answers.filter( a => a.get( "resource.id" ) === this.resource.id ).uniqBy( "target.id" ).reverse()
 	} ),
 	hospitalNumber: computed( "hospitalList", function() {
 		// let hospitals = []

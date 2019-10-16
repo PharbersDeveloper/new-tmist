@@ -64,9 +64,11 @@
 			}
 
 			.img {
-				background: $n200;
-				height: 64px;
-				width: 55px;
+				// background: $n200;
+				img {
+					height: 64px;
+					width: 55px;
+				}
 			}
 
 			.name-level {

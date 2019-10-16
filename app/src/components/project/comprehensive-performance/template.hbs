@@ -15,7 +15,9 @@
 				{{#bp-layout tagName="h4" local-class="title" cross="center" classNames="mb-0" direction="row"}}荣获称号{{/bp-layout}}
 			
 				{{#bp-layout local-class="level" direction="col" cross="center"}}
-					{{#bp-layout local-class="image" main="center" direction="row"}}{{/bp-layout}}
+					{{#bp-layout local-class="image" main="center" direction="row"}}
+						<img src={{curLink}} alt="">
+					{{/bp-layout}}
 					{{#bp-layout local-class="name" main="center" direction="row"}}{{nameLevel}}{{/bp-layout}}
 					{{#bp-layout local-class="desc" main="center" direction="row"}}等级描述{{/bp-layout}}
 				{{/bp-layout}}

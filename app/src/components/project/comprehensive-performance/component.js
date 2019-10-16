@@ -26,6 +26,15 @@ export default Component.extend( {
 			return "青铜"
 		}
 	} ),
+	curLink: computed( "nameLevel", function() {
+		if ( this.nameLevel === "黄金" ) {
+			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_gold%402x.png"
+		} else if ( this.nameLevel === "白银" ) {
+			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_silver%402x.png"
+		} else {
+			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_bronze%402x.png"
+		}
+	} ),
 	radarData: computed( "curFinal", "levelObj",function() {
 		this.set( "axisLevel", this.levelObj[this.curFinal.get( "regionDivision" )] )
 		return A( [{
