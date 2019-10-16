@@ -14,7 +14,6 @@ import ENV from "new-tmist/config/environment"
 export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	// ossService: service( "service/oss" ),
 	ajax: service(),
-	// cookies: service(),
 	exportService: service( "service/export-report" ),
 	positionalParams: ["periods", "resources", "products", "hospitals", "case", "project", "proposal"],
 	salesGroupValue: 0,
@@ -74,7 +73,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 
 		this.set( property, productsData )
 	},
-	reSortCircleData( data,config,name,dealedProperty,property ) {
+	reSortCircleData( data, config, name, dealedProperty, property ) {
 		let dealData = data,
 			dealDataHead = dealData.slice( 0, 1 ),
 			dealDataBody = dealData.slice( 1 ),
@@ -83,9 +82,9 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 
 		dealDataBody = dealDataBody.sort( ( a, b ) => a[0].localeCompare( b[0], "zh" ) )
 
-		result = [].concat( dealDataHead,dealDataBody )
+		result = [].concat( dealDataHead, dealDataBody )
 		this.set( dealedProperty, result )
-		this.dealData( result, config, name,property )
+		this.dealData( result, config, name, property )
 
 	},
 	actions: {
@@ -96,10 +95,10 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			this.set( "salesGroupValue", value )
 		},
 		dealProd0Data( data, config ) {
-			this.reSortCircleData( data,config,"product","dealedTmProdCircle0","product0Legend" )
+			this.reSortCircleData( data, config, "product", "dealedTmProdCircle0", "product0Legend" )
 		},
 		dealProd1Data( data, config ) {
-			this.reSortCircleData( data,config,"product","dealedTmProdCircle1","product1Legend" )
+			this.reSortCircleData( data, config, "product", "dealedTmProdCircle1", "product1Legend" )
 		},
 		chooseProd( prod ) {
 			let salesGroupValue = this.salesGroupValue,
@@ -109,18 +108,18 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			// TODO switch更清晰
 			if ( salesGroupValue === 0 ) {
 				this.set( "tmpPsr", prod )
-				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name, this.proposal,currentParse,isResultPage ) )
+				this.set( "tmProductBarLineCondition", this.generateProdBarLineCondition( prod.name, this.proposal, currentParse, isResultPage ) )
 			} else if ( salesGroupValue === 1 ) {
 				this.set( "tmpProdRep", prod )
-				this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name, this.proposal,currentParse,isResultPage ) )
+				this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( this.tmpRep.name, prod.name, this.proposal, currentParse, isResultPage ) )
 			} else if ( salesGroupValue === 2 ) {
 				this.set( "tmpProdHosp", prod )
-				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name, this.proposal,currentParse,isResultPage ) )
+				this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( this.tmpHosp.name, prod.name, this.proposal, currentParse, isResultPage ) )
 			} else if ( salesGroupValue === 3 ) {
 				let regName = isEmpty( this.tmpReg ) ? "" : this.tmpReg.name
 
 				this.set( "tmpProdReg", prod )
-				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( regName, prod.name, this.proposal,currentParse,isResultPage ) )
+				this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( regName, prod.name, this.proposal, currentParse, isResultPage ) )
 			}
 		},
 		changeTableProd( prod ) {
@@ -165,7 +164,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				isResultPage = this.isResultPage
 
 			this.set( "tmpRep", rep )
-			this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( rep.name, prodName, this.proposal,currentParse,isResultPage ) )
+			this.set( "tmRepBarLineCondition", this.generateRepBarLineCondition( rep.name, prodName, this.proposal, currentParse, isResultPage ) )
 		},
 		chooseHosp( hosp ) {
 			let prodName = this.tmpProdHosp && this.tmpProdHosp.name,
@@ -173,7 +172,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				isResultPage = this.isResultPage
 
 			this.set( "tmpHosp", hosp )
-			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name, prodName, this.proposal,currentParse,isResultPage ) )
+			this.set( "tmHosBarLineCondition", this.generateHospBarLineCondition( hosp.name, prodName, this.proposal, currentParse, isResultPage ) )
 		},
 		chooseReg( reg ) {
 			let prodName = this.tmpProdReg && this.tmpProdReg.name,
@@ -181,7 +180,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				isResultPage = this.isResultPage
 
 			this.set( "tmpReg", reg )
-			this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( reg.name, prodName, this.proposal,currentParse,isResultPage ) )
+			this.set( "tmRegBarLineCondition", this.generateRegionBarLineCondition( reg.name, prodName, this.proposal, currentParse, isResultPage ) )
 		},
 		dealRep0Data( data, config ) {
 			this.dealData( data, config, "representative", "rep0Legend" )
@@ -492,6 +491,28 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				}
 			] )
 
+		// if ( this.case === "tm" ) {
+		// 	hospitalColumns.splice( 2, 2,
+		// 		{
+		// 			label: "潜力",
+		// 			valuePath: "current_patient_num",
+		// 			align: "left",
+		// 			cellComponent: "common/table/format-number-thousands",
+		// 			sortable: true,
+		// 			width: 84
+		// 		}
+		// 	)
+		// 	representativeColumns.splice( 1 , 1,
+		// 		{
+		// 			label: "潜力",
+		// 			valuePath: "current_patient_num",
+		// 			align: "left",
+		// 			cellComponent: "common/table/format-number-thousands",
+		// 			sortable: true,
+		// 			width: 84
+		// 		}
+		// 	)
+		// }
 		this.set( "tmpRep", defaultRep )
 		this.set( "tmpHosp", defaultHosp )
 
@@ -501,25 +522,25 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 				tmProductCircleCondition = that.generateProductCircleCondition( proposalCase, prevOne ),
 				tmProductCircle0Condition = that.generateProductCircleCondition( proposalCase, prevTwo ),
 				tmProductBarLine0 = that.generateBarLineConfig( "tmProductBarLineContainer", "bartmProductBarLine0" ),
-				tmProductBarLineCondition = that.generateProdBarLineCondition( "", that.proposal,currentPeriod,isResultPage ),
+				tmProductBarLineCondition = that.generateProdBarLineCondition( "", that.proposal, currentPeriod, isResultPage ),
 				tmRepCircle0 = that.generateCircleChart( "representativeCircleContainer0", "tmcircleRepresentative0" ),
 				tmRepCircle1 = that.generateCircleChart( "circleRepresentativeContainer1", "tmcirclerepresentative1" ),
 				tmRepCircleCondition = that.generateRepCircleCondition( prevOne ),
 				tmRepCircle0Condition = that.generateRepCircleCondition( prevTwo ),
 				tmRepBarLine0 = that.generateBarLineConfig( "tmRepresentativeBarLineContainer", "bartmRepresentativeBarLine0" ),
-				tmRepBarLineCondition = that.generateRepBarLineCondition( defaultRep.name, "", that.proposal,currentPeriod,isResultPage ),
+				tmRepBarLineCondition = that.generateRepBarLineCondition( defaultRep.name, "", that.proposal, currentPeriod, isResultPage ),
 				tmHosCircle0 = that.generateCircleChart( "hospitalCircleContainer0", "tmcircleHospital0" ),
 				tmHosCircle1 = that.generateCircleChart( "hospitalCircleContainer1", "tmcircleHospital1" ),
 				tmHosCircleCondition = that.generateHospCircleCondition( prevOne ),
 				tmHosCircle0Condition = that.generateHospCircleCondition( prevTwo ),
 				tmHosBarLine0 = that.generateBarLineConfig( "tmHospitalBarLineContainer", "bartmHospitalBarLine0" ),
-				tmHosBarLineCondition = that.generateHospBarLineCondition( defaultHosp.name, "", that.proposal,currentPeriod,isResultPage ),
+				tmHosBarLineCondition = that.generateHospBarLineCondition( defaultHosp.name, "", that.proposal, currentPeriod, isResultPage ),
 				tmRegCircle0 = that.generateCircleChart( "regionCircleContainer0", "tmcircleregion0" ),
 				tmRegCircle1 = that.generateCircleChart( "regionCircleContainer1", "tmcircleregion1" ),
 				tmRegCircleCondition = that.generateRegionCircleCondition( prevOne ),
 				tmRegCircle0Condition = that.generateRegionCircleCondition( prevTwo ),
 				tmRegBarLine0 = that.generateBarLineConfig( "tmRegionBarLineContainer", "bartmRegionBarLine0" ),
-				tmRegBarLineCondition = that.generateRegionBarLineCondition( "", "", that.proposal,currentPeriod,isResultPage ) // 查询区域全部总值&&产品全部总值
+				tmRegBarLineCondition = that.generateRegionBarLineCondition( "", "", that.proposal, currentPeriod, isResultPage ) // 查询区域全部总值&&产品全部总值
 
 			resolve( {
 				tmProductCircle0, tmProductCircle1, tmProductCircleCondition, tmProductCircle0Condition, tmProductBarLine0, tmProductBarLineCondition,
@@ -569,7 +590,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 			all( [that.queryData( "product_ref" ),
 				this.queryData( "rep_ref" ),
 				this.queryData( "hospital_ref" )
-			// this.queryData( "region_ref" )
+				// this.queryData( "region_ref" )
 			] ).then( data => {
 				this.set( "productTableData", data[0].sort( ( a, b ) => a.product.localeCompare( b.product, "zh" ) ) )
 				// this.set( "regionTableData", data[3] )
@@ -623,28 +644,18 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 	 */
 	tableQueryAddress: ENV.tableQueryAddress,
 
-	// tableQueryAddress: EmberObject.create( {
-	// 	host: "http://192.168.100.116",
-	// 	port: 9202,
-	// 	version: "v1.0",
-	// 	db: "NTM"
-	// } ),
-	queryData( type, prod ) {
+	queryData( type ) {
 		let qa = this.get( "tableQueryAddress" ),
 			proposalId = this.proposal.get( "id" ),
 			projectId = this.project.get( "id" )
-		// projectId = this.get( "project.id" ) || localStorage.getItem( "projectId" )
 
 		return this.get( "ajax" ).request( `${qa.host}:${qa.port}/${qa.version}/${qa.db}/${type}`, {
 			method: "GET",
 			data: JSON.stringify( {
 				"model": "tmrs_new",
 				"query": {
-					// "proposal_id": "5d79c5761c3bac3244ab93c6",
 					"proposal_id": proposalId,
-					// "project_id": "5d78ac93515b2b002b74a414",
 					"project_id": projectId,
-					// "product":prod,
 					"point_origin": "2019Q1"
 				}
 			}
