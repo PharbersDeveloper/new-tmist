@@ -26,6 +26,15 @@ export default Controller.extend( {
 			return "青铜"
 		}
 	} ),
+	curLink: computed( "curProjectLevel", function() {
+		if ( this.curProjectLevel === "黄金" ) {
+			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_gold%402x.png"
+		} else if ( this.curProjectLevel === "白银" ) {
+			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_silver%402x.png"
+		} else {
+			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_bronze%402x.png"
+		}
+	} ),
 	// endTime: computed( "this.model.project", function () {
 	// 	let date = new Date( this.model.project.endTime ),
 	// 		y = date.getFullYear() + "-",
