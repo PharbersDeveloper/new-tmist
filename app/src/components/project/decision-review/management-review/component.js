@@ -50,6 +50,21 @@ export default Component.extend( {
 		} )
 		return result
 	} ),
+	allTime: computed( "resourceAnswers", "managerAnswers",function() {
+		let result = 0
+
+		this.resourceAnswers.forEach( it => {
+			result += this.transNumber( it.abilityCoach ) + this.transNumber( it.assistAccessTime )
+		} )
+
+		result += this.managerAnswers.get( "strategAnalysisTime" )
+		result += this.managerAnswers.get( "clientManagementTime" )
+		result += this.managerAnswers.get( "kpiAnalysisTime" )
+		result += this.managerAnswers.get( "adminWorkTime" )
+		result += this.managerAnswers.get( "teamMeetingTime" )
+
+		return result
+	} ),
 	circleData: computed( function() {
 		let arr = []
 

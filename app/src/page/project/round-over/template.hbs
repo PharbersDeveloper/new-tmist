@@ -105,7 +105,7 @@
 			{{#bp-layout direction="col" local-class="name block" }}
 					{{#bp-layout local-class="get-name" direction="row" main="center" classNames="mb-3"}}获得称号{{/bp-layout}}
 					{{#bp-layout local-class="img"}}{{/bp-layout}}
-					{{#bp-layout local-class="name-level" main="center" direction="row" classNames="mt-2"}}黄金{{/bp-layout}}
+					{{#bp-layout local-class="name-level" main="center" direction="row" classNames="mt-2"}}{{curProjectLevel}}{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout local-class="goal block" direction="col" cross="start"}}
 				{{#bp-layout local-class="header-text" classNames="mb-3"}}总指标达成率{{/bp-layout}}
@@ -182,7 +182,7 @@
 								{{bp-icon icon='down'}}
 							{{/dd.button}}
 							{{#dd.menu as |menu|}}
-								{{#menu.option}}测试综合表现{{/menu.option}}
+								{{!-- {{#menu.option}}测试综合表现{{/menu.option}} --}}
 								{{#menu.option click=(action "exportReport")}}周期销售报告{{/menu.option}}
 								{{#menu.option click=(action "exportInput" pr.project)}}决策回顾{{/menu.option}}
 							{{/dd.menu}}
