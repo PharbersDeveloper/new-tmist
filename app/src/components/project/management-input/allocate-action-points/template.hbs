@@ -120,7 +120,13 @@
 {{#bp-layout direction="col" local-class="action"}}
 	
 	{{#bp-layout local-class="action-point" direction="col"}}
-		{{#bp-layout local-class="header"}}行动点数{{/bp-layout}}
+		{{#bp-layout local-class="header" cross="center" direction="row"}}
+			行动点数
+			<span local-class="hover-part">
+				{{bp-icon icon='info'}}
+				<span></span>
+			</span>
+		{{/bp-layout}}
 		{{#bp-layout direction="col"}}
 			{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
 				{{#bp-layout local-class="text" classNames="mr-4"}}产品知识培训{{/bp-layout}}
@@ -173,7 +179,13 @@
 	{{#bp-layout local-class="line" classNames="mx-4 mt-4"}}{{/bp-layout}}
 
 	{{#bp-layout local-class="ability-training" direction="col" classNames="my-4"}}
-		{{#bp-layout local-class="header"}}代表能力辅导与协访{{/bp-layout}}
+		{{#bp-layout local-class="header" cross="center" direction="row"}}
+			代表能力辅导与协访
+			<span local-class="hover-part">
+				{{bp-icon icon='info'}}
+				<span></span>
+			</span>
+		{{/bp-layout}}
 		{{#bp-layout direction="row" classNames="mt-4" cross="center"}}
 			{{#bp-layout local-class="text" classNames="mr-4"}}1V1能力辅导{{/bp-layout}}
 	

@@ -206,6 +206,24 @@
 		.header {
 			font-size: 12px;
 			color: $n200;
+
+			svg {
+				height: 20px;
+				width: 20px;
+			}
+
+			.hover-part:hover {
+				span::after {
+					background: $n800;
+					border-radius: 3px;
+					color: #ffffff;
+					height: 20px;
+					width: 260px;
+					content: "行动点数有针对性地用于提高该代表的各项能力";
+					padding: 1px 4px 0 4px;
+					position: absolute;
+				}
+			}
 		}
 
 		.text {
@@ -221,6 +239,24 @@
 		.header {
 			font-size: 12px;
 			color: $n200;
+
+			svg {
+				height: 20px;
+				width: 20px;
+			}
+
+			.hover-part:hover {
+				span::after {
+					background: $n800;
+					border-radius: 3px;
+					color: #ffffff;
+					height: 20px;
+					width: 333px;
+					content: "代表培养用时将作为经理管理时间的一部分用于提高代表能力";
+					padding: 1px 4px 0 4px;
+					position: absolute;
+				}
+			}
 		}
 
 		.text {
