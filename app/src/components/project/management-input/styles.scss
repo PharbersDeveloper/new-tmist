@@ -48,7 +48,12 @@
 		}
 
 		.percent {
-			span:first-child {
+			.red {
+				font-size: 29px;
+				color: $r300;
+			}
+
+			.span-first-child {
 				font-size: 29px;
 				color: $n800;
 			}

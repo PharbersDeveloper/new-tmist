@@ -8,7 +8,7 @@
 			{{#bp-layout direction="col" main="center" cross="center" local-class="info" classNames="mt-1"}}
 				{{#bp-layout local-class="remain-text"}}已用时间{{/bp-layout}}
 				{{#bp-layout local-class="percent"}}
-					<span>{{curManagerTime}}%</span>
+					<span local-class={{if (gt curManagerTime maxManagerTime) "red" "span-first-child"}}>{{curManagerTime}}%</span>
 					<span class="mt-3">/{{maxManagerTime}}%</span>
 				{{/bp-layout}}
 				{{#bp-layout classNames="mt-1"}}
@@ -98,7 +98,7 @@
 
 		{{#bp-layout local-class="points-operation" direction="col" classNames="bg-white"}}
 			{{#bp-layout tagName="h4" local-class="header" classNames="pl-4 mb-0" cross="center"}}
-				分配经理行动点数
+				代表培养计划
 			{{/bp-layout}}
 			{{#bp-layout local-class="resouse-wrapper" direction="row"}}
 				{{#bp-layout local-class="resource-list" direction="col"}}
