@@ -18,7 +18,7 @@ export default Controller.extend( {
 		let pr = this.model.proviousReport.filter( it => it.project.get( "id" ) === this.model.project.get( "id" ) ).get( "firstObject" ),
 			level = pr.reports.get( "firstObject.generalPerformance" )
 
-		if ( level === 3 ) {
+		if ( level === 1 ) {
 			return "黄金"
 		} else if ( level === 2 ) {
 			return "白银"

@@ -6,7 +6,6 @@ export default Component.extend( {
 	classNames: ["performance-wrapper"],
 	positionalParams: ["project", "proviousReport", "evaluations"],
 	axisName: "区域能力划分",
-	axisLevel: null,
 	curFinal: computed( "project", "proviousReport", function() {
 		let curReport = this.proviousReport.filter( pro => pro.project.get( "id" ) === this.project.get( "id" ) ).get( "firstObject" )
 
@@ -14,11 +13,11 @@ export default Component.extend( {
 	} ),
 	levelObj: computed( function() {
 		return {
-			1: "D", 2: "C", 3: "B", 4: "A", 5: "S"
+			1: "S", 2: "A", 3: "B"
 		}
 	} ),
 	nameLevel: computed( "curFinal", function() {
-		if ( this.curFinal.get( "generalPerformance" ) === 3 ) {
+		if ( this.curFinal.get( "generalPerformance" ) === 1 ) {
 			return "黄金"
 		} else if ( this.curFinal.get( "generalPerformance" ) === 2 ) {
 			return "白银"
@@ -26,6 +25,12 @@ export default Component.extend( {
 			return "青铜"
 		}
 	} ),
+	axisLevel: computed( "levelObj", "curFinal",function () {
+		return this.levelObj[this.curFinal.get( "regionDivision" )]
+	} ),
+	transRaderNumber( value ) {
+		return Math.abs( value - 4 )
+	},
 	curLink: computed( "nameLevel", function() {
 		if ( this.nameLevel === "黄金" ) {
 			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_gold%402x.png"
@@ -36,10 +41,13 @@ export default Component.extend( {
 		}
 	} ),
 	radarData: computed( "curFinal", "levelObj",function() {
-		this.set( "axisLevel", this.levelObj[this.curFinal.get( "regionDivision" )] )
+		// this.set( "axisLevel", this.levelObj[this.curFinal.get( "regionDivision" )] )
 		return A( [{
-			value: [this.curFinal.get( "regionDivision" ), this.curFinal.get( "manageTeam" ), this.curFinal.get( "manageTime" ),
-				this.curFinal.get( "resourceAssigns" ),this.curFinal.get( "targetAssigns" )],
+			value: [this.transRaderNumber( this.curFinal.get( "regionDivision" ) ),
+				this.transRaderNumber( this.curFinal.get( "manageTeam" ) ),
+				this.transRaderNumber( this.curFinal.get( "manageTime" ) ),
+				this.transRaderNumber( this.curFinal.get( "resourceAssigns" ) ),
+				this.transRaderNumber( this.curFinal.get( "targetAssigns" ) )],
 			name: "能力分析"
 		}] )
 	} ),

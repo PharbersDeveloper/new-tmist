@@ -154,8 +154,8 @@
 					{{/bp-layout}}
 					{{#bp-layout tagName="p" local-class="desc"}} 已分配名额{{/bp-layout}}
 					{{#bp-layout tagName="p" local-class="number-desc"}}
-						<span>{{curMeetingPlaces}}</span>
-						<span>/{{allMeetingPlaces}}</span>
+						<span local-class={{if (gt curMeetingPlaces allMeetingPlaces) "red" "span-first-child"}}>{{curMeetingPlaces}}</span>
+						<span local-class="span-last">/{{allMeetingPlaces}}</span>
 					{{/bp-layout}}
 				{{/bp-layout}}
 			{{/bp-layout}}
