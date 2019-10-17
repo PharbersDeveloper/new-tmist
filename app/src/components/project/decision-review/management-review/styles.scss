@@ -74,11 +74,12 @@ div:global(.management-review-wrapper) {
 					}
 
 					.legend {
-						&:last-child {
-							border-top: 1px solid rgba(9, 30, 66, 0.08);
-							margin-top: 8px;
-							padding-top: 24px;
-						}
+						color: $r300;
+						// &:last-child {
+						// 	border-top: 1px solid rgba(9, 30, 66, 0.08);
+						// 	margin-top: 8px;
+						// 	padding-top: 24px;
+						// }
 					}
 				}
 			}

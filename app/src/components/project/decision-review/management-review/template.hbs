@@ -57,13 +57,20 @@
 					{{/bp-layout}} --}}
 				{{/bp-layout}}
 				{{#bp-layout direction="col" local-class="circle-legend" classNames="ml-5"}}
-					{{#each circleData as |item index|}}
-						{{#bp-layout direction="row" cross="center" classNames="mb-3" main="between" local-class="legend"}}
+					{{#each legendData as |item index|}}
+						{{#bp-layout direction="row" cross="center" classNames="mb-3" main="between" 
+							local-class=(if (gt 0 item.value) "legend")}}
 							{{#bp-layout direction="row" cross="center"}}
 								<span style="background: {{get circleColor index}};"></span>
 								{{#bp-layout tagName="p" classNames="ml-1"}} {{item.name}} {{/bp-layout}}
 							{{/bp-layout}}
-							{{#bp-layout tagName="p"}} {{item.value}} %{{/bp-layout}}
+							{{#bp-layout tagName="p"}} 
+							{{#if item.value}}
+								{{item.value}} %
+							{{else}}
+								0 %
+							{{/if}}
+							{{/bp-layout}}
 						{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}

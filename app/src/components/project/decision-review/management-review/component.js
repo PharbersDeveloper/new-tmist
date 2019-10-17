@@ -3,8 +3,11 @@ import { computed } from "@ember/object"
 import { A } from "@ember/array"
 
 export default Component.extend( {
-	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers"],
+	positionalParams: ["proposol", "project", "hospitals", "resources", "products", "answers", "quota"],
 	classNames: ["management-review-wrapper"],
+	maxManagerTime: computed( "quota", function () {
+		return Number( this.quota.get( "mangementHours" ) )
+	} ),
 	periodRange: computed( "periodLength", function() {
 		return Array( this.periodLength ).fill().map( ( e,i )=>i )
 	} ),
@@ -57,16 +60,17 @@ export default Component.extend( {
 			result += this.transNumber( it.abilityCoach ) + this.transNumber( it.assistAccessTime )
 		} )
 
-		result += this.managerAnswers.get( "strategAnalysisTime" )
-		result += this.managerAnswers.get( "clientManagementTime" )
-		result += this.managerAnswers.get( "kpiAnalysisTime" )
-		result += this.managerAnswers.get( "adminWorkTime" )
-		result += this.managerAnswers.get( "teamMeetingTime" )
+		result += this.transNumber( this.managerAnswers.get( "strategAnalysisTime" ) )
+		result += this.transNumber( this.managerAnswers.get( "clientManagementTime" ) )
+		result += this.transNumber( this.managerAnswers.get( "kpiAnalysisTime" ) )
+		result += this.transNumber( this.managerAnswers.get( "adminWorkTime" ) )
+		result += this.transNumber( this.managerAnswers.get( "teamMeetingTime" ) )
 
 		return result
 	} ),
-	circleData: computed( function() {
-		let arr = []
+	circleData: computed( "maxManagerTime", "allTime", function() {
+		let arr = [],
+			value = this.maxManagerTime - this.allTime
 
 		arr.push( {name: "业务策略分析", value: this.managerAnswers.strategAnalysisTime} )
 		arr.push( {name: "重点目标客户管理", value: this.managerAnswers.clientManagementTime} )
@@ -75,10 +79,29 @@ export default Component.extend( {
 		arr.push( {name: "团队例会", value: this.managerAnswers.teamMeetingTime} )
 		arr.push( {name: "代表能力辅导与协访", value: this.totalTime} )
 
+		if ( value >= 0 ) {
+			arr.push( {name: "未分配", value: value} )
+		}
+
+
 		return A( arr )
 	} ),
+	legendData: computed( "circleData", "maxManagerTime", "allTime", function () {
+		let arr = this.circleData,
+			value = this.maxManagerTime - this.allTime
+
+		if ( arr.length === 7 ) {
+			return arr
+		} else {
+
+			window.console.log( this.maxManagerTime, this.allTime, value )
+			arr.push( {name: "未分配", value: value} )
+			return arr
+		}
+
+	} ),
 	circleSize: A( ["70%", "95%"] ),
-	circleColor: A( ["#008DA6", "#00A3BF", "#00B8D9", "#79E2F2", "#B3F5FF", "#FFC400"] ),
+	circleColor: A( ["#008DA6", "#00A3BF", "#00B8D9", "#79E2F2", "#B3F5FF", "#FFC400", "#DFE1E6"] ),
 	circleDataZero: A( [{name: "未分配", value: "0"}] ),
 	circleColorZero: A( ["#DFE1E6"] )
 
