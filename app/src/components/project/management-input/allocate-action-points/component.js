@@ -4,7 +4,7 @@ import { inject as service } from "@ember/service"
 
 export default Component.extend( {
 	positionalParams: ["resources", "answers", "validation", "quiz", "answer",
-		"validationInputMangerTime", "validationManagerActionPoints"],
+		"validationInputMangerTime", "validationManagerActionPoints", "currentResource"],
 	quizs: computed( "resources", "answers", function () {
 		return this.resources.map( item => {
 			const one = this.answers.find( x => x.get( "resource.id" ) === item.get( "id" ) )
@@ -13,6 +13,9 @@ export default Component.extend( {
 		} )
 	} ),
 	exam: service( "service/exam-facade" ),
+	curResource: computed( "currentResource", "resources",function () {
+		return this.resources.objectAt( this.currentResource )
+	} ),
 	// isOverKpi: computed( "ManagerUsedKpi", "managerTotalKpi", function () {
 	// 	let { ManagerUsedKpi, managerTotalKpi } =
 	// 		this.getProperties( "ManagerUsedKpi", "managerTotalKpi" )

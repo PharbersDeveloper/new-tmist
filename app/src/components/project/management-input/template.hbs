@@ -81,7 +81,7 @@
 					{{/bp-layout}}
 
 					{{#bp-layout local-class="used-time" direction="col" classNames="bg-white" cross="center"}}
-						{{#bp-layout direction="row" local-class="coach-info" cross="center" main="center" classNames="mb-3"}}
+						{{#bp-layout direction="row" local-class="coach-info" cross="center" main="between" classNames="mb-3"}}
 							{{#bp-layout local-class="text" classNames="mr-4"}}代表能力辅导与协访{{/bp-layout}}
 							{{#bp-layout tagName="p" classNames="primary mb-0" local-class=(if (gt curResourceTime maxManagerTime) "red" "percent")}}
 								{{curResourceTime}}%
@@ -143,8 +143,9 @@
 					{{#each quizs as |quiz index|}}
 						{{#if (bp-eq currentResource index)}}
 							{{#bp-layout}}
-								{{log quiz}}
+								{{!-- {{log quiz}} --}}
 								{{project/management-input/allocate-action-points
+											currentResource=currentResource
 											resources=resources
 											validation=validation
 											quiz=quiz
