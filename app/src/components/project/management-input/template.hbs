@@ -42,13 +42,13 @@
 		{{#bp-layout local-class="time-operation" direction="col" classNames="mr-4"}}
 			{{#bp-layout local-class="allocate-time" direction="col" classNames="bg-white mb-1"}}
 				{{#bp-layout tagName="h4" local-class="header" classNames="pl-4 m-0" cross="center"}}
-					分配经理时间
+					经理时间分配
 				{{/bp-layout}}
 				{{!-- {{#bp-layout tagName="p" classNames="pl-4 mb-0"}}
 					业务及团队管理用时
 				{{/bp-layout}} --}}
 				{{#bp-layout local-class="input-time" direction="col" main="center" cross="center"}}
-					{{#bp-layout local-class="input" cross="center"}}
+					{{#bp-layout local-class="input" cross="center" classNames="mt-2"}}
 						{{#bp-layout cross="center" tagName="span" classNames="mr-4"}}业务数据策略分析{{/bp-layout}}
 						{{#bp-input widthSize="small" local-class="per"
 							value=managerAnswer.strategAnalysisTime
@@ -79,11 +79,38 @@
 							value=managerAnswer.teamMeetingTime
 							onChange=(action "validationInputMangerTime" managerAnswer "teamMeetingTime" (mut managerAnswer.teamMeetingTime))}}{{/bp-input}}
 					{{/bp-layout}}
+
+					{{#bp-layout local-class="used-time" direction="col" classNames="bg-white" cross="center"}}
+						{{#bp-layout direction="row" local-class="coach-info" cross="center" main="center" classNames="mb-3"}}
+							{{#bp-layout local-class="text" classNames="mr-4"}}代表能力辅导与协访{{/bp-layout}}
+							{{#bp-layout tagName="p" classNames="primary mb-0" local-class=(if (gt curResourceTime maxManagerTime) "red" "percent")}}
+								{{curResourceTime}}%
+							{{/bp-layout}}
+						{{/bp-layout}}
+
+						{{#bp-layout direction="col" cross="center" local-class="resource-time"}}
+							{{#each circleResourceTime as |rsTime|}}
+									{{#bp-layout direction="row" classNames="mb-2" local-class="resource" main="between" cross="center"}}
+										<span>{{rsTime.name}}</span>	
+										<span>{{rsTime.value}}%</span>
+									{{/bp-layout}}
+							{{/each}}
+
+						{{/bp-layout}}
+
+						{{!-- {{#bp-layout local-class="circle-table" main="center"}}
+							{{#bp-layout main='center' local-class="circle" style="width:100%;height: 200px" direction="row"}}
+								{{bp-circle eid="cricleResourceTime" circleData=circleResourceTime circleColor=circleColor circleSize=circleSize label=true}}
+							{{/bp-layout}}
+						{{/bp-layout}} --}}
+					{{/bp-layout}}
+
+
 				{{/bp-layout}}
 			{{/bp-layout}}
 
-			{{#bp-layout local-class="used-time" direction="col" classNames="bg-white"}}
-				{{!-- {{#bp-layout tagName="p" classNames="pl-4" local-class="header"}}代表能力辅导与协访{{/bp-layout}} --}}
+			{{!-- {{#bp-layout local-class="used-time" direction="col" classNames="bg-white"}}
+				{{#bp-layout tagName="p" classNames="pl-4" local-class="header"}}代表能力辅导与协访{{/bp-layout}}
 					{{#bp-layout direction="row" local-class="coach-info" cross="center" main="center"}}
 						{{#bp-layout local-class="text" classNames="mr-4"}}代表能力辅导与协访{{/bp-layout}}
 						{{#bp-layout tagName="p" classNames="primary mb-0" local-class="percent"}}{{curResourceTime}}%{{/bp-layout}}
@@ -93,7 +120,7 @@
 							{{bp-circle eid="cricleResourceTime" circleData=circleResourceTime circleColor=circleColor circleSize=circleSize label=true}}
 						{{/bp-layout}}
 					{{/bp-layout}}
-			{{/bp-layout}}
+			{{/bp-layout}} --}}
 		{{/bp-layout}}
 
 		{{#bp-layout local-class="points-operation" direction="col" classNames="bg-white"}}
