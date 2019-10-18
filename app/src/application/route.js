@@ -9,36 +9,37 @@ export default Route.extend( {
 	cookies: service(),
 	ajax: service(),
 	oauthService: service( "service/oauth" ),
-
+	tokenExpiredService: service( "service/token-expired" ),
 	beforeModel( { targetName } ) {
 		window.localStorage.setItem( "isUcb", 0 )
 		// window.localStorage.setItem( "isUcb", 1 ) //UCB专版
 		this.get( "intl" ).setLocale( ["zh-CN"] )
 		this.oauthService.judgeAuth( targetName )
 	},
-	model() {
-		return {
-			tokenExpired: false
-		}
-	},
-	afterModel( model ) {
-		let cookies = this.get( "cookies" ),
-			expiredTime = Date.parse( new Date( cookies.read( "expiry" ) ) ),
-			nowTime = Date.parse( new Date( ) ),
-			time = expiredTime - nowTime - 1000 * 60 * 10,
-			countdown = time > 0 ? time : 0,
-			toggle = function () {
-				set( model, "tokenExpired", true )
-				if ( window.location.href.indexOf( "login" ) !== -1 ) {
-					set( model, "tokenExpired", false )
-				}
-			}
-			// test = 0
-			// this.toggleToken()
+	// model() {
+	// 	return {
+	// 		tokenExpired: false
+	// 	}
+	// },
+	afterModel( ) {
+		this.tokenExpiredService.setTimeoutToken()
+		// 	let cookies = this.get( "cookies" ),
+		// 		expiredTime = Date.parse( new Date( cookies.read( "expiry" ) ) ),
+		// 		nowTime = Date.parse( new Date( ) ),
+		// 		time = expiredTime - nowTime - 1000 * 60 * 10,
+		// 		countdown = time > 0 ? time : 0,
+		// 		toggle = function () {
+		// 			set( model, "tokenExpired", true )
+		// 			if ( window.location.href.indexOf( "login" ) !== -1 ) {
+		// 				set( model, "tokenExpired", false )
+		// 			}
+		// 		}
+		// 		// test = 0
+		// 		// this.toggleToken()
 
 
-		setTimeout( toggle.bind( this ), countdown )
-		// setTimeout( toggle.bind( this ), test )	
+	// 	setTimeout( toggle.bind( this ), countdown )
+	// 	// setTimeout( toggle.bind( this ), test )
 	},
 	actions: {
 		error( error, transition ) {

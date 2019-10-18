@@ -113,15 +113,15 @@
 
 {{#bp-modal
 		local-class="modal"
-		open=model.tokenExpired
+		open=tokenExpiredService.tokenExpired
 		position='center' 
-		onHidden=(action (mut model.tokenExpired) false) as |modal|}}
+		onHidden=(action (mut tokenExpiredService.tokenExpired) false) as |modal|}}
 	{{#modal.header closeButton=false classNames="px-4 pt-4 pb-3"}}
 		{{#bp-layout direction="row" main="between" local-class="close-wrapper"}}
 			<h4 class="modal-title m-0" local-class="modal-title">
 				温馨提示
 			</h4>
-			{{#bp-layout direction="row" click=(action (mut model.tokenExpired) false) cross="center"}}
+			{{#bp-layout direction="row" click=(action (mut tokenExpiredService.tokenExpired) false) cross="center"}}
 				{{bp-icon icon='cross'}}
 			{{/bp-layout}}
 		{{/bp-layout}}
