@@ -39,7 +39,7 @@
 
 			{{#bp-layout direction="row" main="center" cross="center" local-class="circle-table"}}
 				{{#bp-layout local-class="circle" style="width: 128px;height: 128px" direction="row"}}
-				{{#if (bp-eq totalTime 0)}}
+				{{#if (bp-eq allTime 0)}}
 
 					{{bp-circle eid="cricleTime" circleData=circleDataZero circleColor=circleColorZero circleSize=circleSize}}
 				{{else}}
@@ -57,13 +57,20 @@
 					{{/bp-layout}} --}}
 				{{/bp-layout}}
 				{{#bp-layout direction="col" local-class="circle-legend" classNames="ml-5"}}
-					{{#each circleData as |item index|}}
-						{{#bp-layout direction="row" cross="center" classNames="mb-3" main="between" local-class="legend"}}
+					{{#each legendData as |item index|}}
+						{{#bp-layout direction="row" cross="center" classNames="mb-3" main="between" 
+							local-class=(if (gt 0 item.value) "legend")}}
 							{{#bp-layout direction="row" cross="center"}}
 								<span style="background: {{get circleColor index}};"></span>
 								{{#bp-layout tagName="p" classNames="ml-1"}} {{item.name}} {{/bp-layout}}
 							{{/bp-layout}}
-							{{#bp-layout tagName="p"}} {{item.value}} %{{/bp-layout}}
+							{{#bp-layout tagName="p"}} 
+							{{#if item.value}}
+								{{item.value}} %
+							{{else}}
+								0 %
+							{{/if}}
+							{{/bp-layout}}
 						{{/bp-layout}}
 					{{/each}}
 				{{/bp-layout}}
@@ -72,7 +79,7 @@
 
 		{{#bp-layout local-class="representative-bility" direction="col" classNames="bg-white "}}
 			{{#bp-layout tagName="h4" classNames="m-0 pl-4" cross="center" local-class="title"}}
-				代表能力培养
+				代表能力辅导与协访
 			{{/bp-layout}}
 			
 			{{#bp-layout local-class="table" classNames="mx-4"}}
@@ -80,14 +87,30 @@
 					{{#bp-layout tagName="thead" main="between" classNames="pt-2 pb-2"}}
 						{{#bp-layout tagName="th"}}代表姓名{{/bp-layout}}
 						{{#bp-layout tagName="th"}}1v1能力辅导{{/bp-layout}}
-						{{#bp-layout tagName="th"}}协防时间{{/bp-layout}}
+						{{#bp-layout tagName="th"}}协访时间{{/bp-layout}}
 					{{/bp-layout}}
 					{{#bp-layout tagName="tbody" direction="col"}}
 						{{#each resourceAnswers as |item|}}
 						{{#bp-layout tagName="tr" main="between" classNames="py-2"}}
 							{{#bp-layout tagName="td"}}{{item.resource.name}}{{/bp-layout}}
-							{{#bp-layout tagName="td"}}{{item.abilityCoach}}%{{/bp-layout}}
-							{{#bp-layout tagName="td"}}{{item.assistAccessTime}}%{{/bp-layout}}
+							{{!-- {{#bp-layout tagName="td" }}{{item.abilityCoach}}%{{/bp-layout}} --}}
+							{{#bp-layout tagName="td"}}
+								{{#if item.abilityCoach}}
+									{{item.abilityCoach}}
+								{{else}}
+								 0
+								{{/if}}
+								%
+							{{/bp-layout}}
+							{{!-- {{#bp-layout tagName="td"}}{{item.assistAccessTime}}%{{/bp-layout}} --}}
+							{{#bp-layout tagName="td"}}
+								{{#if item.assistAccessTime}}
+									{{item.assistAccessTime}}
+								{{else}}
+									0
+								{{/if}}
+								%
+							{{/bp-layout}}
 						{{/bp-layout}}
 						{{/each}}
 					{{/bp-layout}}

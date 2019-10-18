@@ -74,11 +74,12 @@ div:global(.management-review-wrapper) {
 					}
 
 					.legend {
-						&:last-child {
-							border-top: 1px solid rgba(9, 30, 66, 0.08);
-							margin-top: 8px;
-							padding-top: 24px;
-						}
+						color: $r300;
+						// &:last-child {
+						// 	border-top: 1px solid rgba(9, 30, 66, 0.08);
+						// 	margin-top: 8px;
+						// 	padding-top: 24px;
+						// }
 					}
 				}
 			}
@@ -108,6 +109,7 @@ div:global(.management-review-wrapper) {
 
 						th {
 							font-weight: 400;
+							width: 180px;
 						}
 					}
 
@@ -119,6 +121,10 @@ div:global(.management-review-wrapper) {
 						tr {
 							width: 100%;
 							height: 44px;
+
+							td {
+								width: 174px;
+							}
 						}
 					}
 				}

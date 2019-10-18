@@ -30,8 +30,25 @@
 				{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 				<td class="pl-0 border-0 text-left"  local-class="flex-1">
 					{{#bp-layout direction="row" main="start" cross="center" local-class="level"}}
-						<img src="/images/img_placeholder.png" alt="level" local-class="level-img">
-						<p local-class="des">黄金</p>
+						{{#if (bp-eq pr.reports.lastObject.generalPerformance 1)}}
+						<img src="https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_gold%402x.png"
+						 alt="level" local-class="level-img">
+						{{else if (bp-eq pr.reports.lastObject.generalPerformance 2)}}
+							<img src="https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_silver%402x.png"
+							 alt="level" local-class="level-img">
+						{{else}}
+							<img src="https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_bronze%402x.png"
+							 alt="level" local-class="level-img">
+						{{/if}}
+						<p local-class="des" class="ml-2">
+							{{#if (bp-eq pr.reports.lastObject.generalPerformance 1)}}
+									黄金
+							{{else if (bp-eq pr.reports.lastObject.generalPerformance 2)}}
+									白银
+							{{else}}
+									青铜
+							{{/if}}
+						</p>
 					{{/bp-layout}}
 				</td>
 				{{/if}}
@@ -121,12 +138,12 @@
 					{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 						{{#bp-layout direction="row" }}
 							{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
-								{{#dd.button }}
+								{{#dd.button disabled=true}}
 									导出
 									{{bp-icon icon='down'}}
 								{{/dd.button}}
 								{{#dd.menu as |menu|}}
-									{{#menu.option}}测试综合表现{{/menu.option}}
+									{{!-- {{#menu.option}}测试综合表现{{/menu.option}} --}}
 									{{#menu.option click=(action "exportReport" pr.project)}}周期销售报告{{/menu.option}}
 									{{#menu.option click=(action "exportInput" pr.project)}}决策回顾{{/menu.option}}
 								{{/dd.menu}}
@@ -168,7 +185,7 @@
 		{{/bp-layout}}
 	{{/modal.header}}
 	{{#modal.body classNames="p-4"}}
-		{{project/comprehensive-performance project=tmCurProject}}
+		{{project/comprehensive-performance project=tmCurProject proviousReport=proviousReport evaluations=evaluations}}
 	{{/modal.body}}
 	{{!-- {{#modal.footer}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}确定{{/bp-button}}

@@ -39,7 +39,12 @@ div:global(.performance-wrapper) {
 			.image {
 				height: 100px;
 				width: 86px;
-				background-color: $n100;
+				// background-color: $n100;
+
+				img {
+					height: 100px;
+					width: 86px;
+				}
 			}
 
 			.name {
@@ -99,8 +104,8 @@ div:global(.performance-wrapper) {
 				}
 
 				p::before {
-					content: "· ";
-					margin-bottom: 8px;
+					// content: "· ";
+					// margin-bottom: 8px;
 				}
 			}
 

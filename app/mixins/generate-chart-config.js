@@ -358,7 +358,7 @@ export default Mixin.create( {
 						{ text: "工作积极性", max: max || 10 },
 						{ text: "行为有效性", max: max || 10 },
 						{ text: "区域管理能力", max: max || 10 },
-						{ text: "销售知识", max: max || 10 }
+						{ text: "销售技巧", max: max || 10 }
 					],
 					splitNumber: 5, //default
 					axisLine: {

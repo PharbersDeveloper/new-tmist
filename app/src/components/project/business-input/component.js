@@ -81,9 +81,14 @@ export default Component.extend( {
 	} ),
 	circleMeetingColor: A( ["#3172E0", "#DFE1E6"] ),
 	circleMeetingSize: A( ["36", "44"] ),
-	circleMeetingData: computed( "curMeetingPlaces", function () {
+	circleMeetingData: computed( "curMeetingPlaces", "allMeetingPlaces",function () {
+		let leftValue = 0
+
+		if ( this.curMeetingPlaces < this.allMeetingPlaces ) {
+			leftValue = this.allMeetingPlaces - this.curMeetingPlaces
+		}
 		return A( [{ value: this.curMeetingPlaces, name: "已分配" },
-			{ value: this.allMeetingPlaces - this.curMeetingPlaces, name: "未分配" }] )
+			{ value: leftValue, name: "未分配" }] )
 	} ),
 	circleSize: A( ["42", "58"] ),
 	circleColor: A( ["#FFC400", "#73ABFF", "#FF8F73", "#79E2F2", "#998DD9", "#57D9A3"] ),
@@ -469,17 +474,18 @@ export default Component.extend( {
 					cur += this.transNumber( a.get( "meetingPlaces" ) )
 				} )
 
-				if ( cur <= this.allMeetingPlaces ) {
-					set( this, "curMeetingPlaces", cur )
-				} else {
+				if ( cur > this.allMeetingPlaces ) {
 					this.set( "warning", {
 						open: true,
 						title: "设定超额",
 						detail: "你的会议名额设定已超过总名额限制，请合理分配。"
 					} )
 				}
+
+				set( this, "curMeetingPlaces", cur )
 			} else {
 				answer.set( input, 0 )
+				set( this, "curMeetingPlaces", 0 )
 			}
 		},
 		visitTimeValidationHandle( curAnswer ) {

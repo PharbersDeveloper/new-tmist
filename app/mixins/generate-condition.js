@@ -14,7 +14,11 @@ export default Mixin.create( {
 	},
 	generateProductCircleCondition( proposalCase, phase ) {
 
-		let searchRuls = [],
+		let searchRuls = [
+				["eq", "category", "Product"],
+				["neq", "product_type", 1],
+				["eq", "phase", phase]
+			],
 			otherId = this.getId(),
 			proposalId = otherId.proposalId,
 			projectId = otherId.projectId,
@@ -25,19 +29,8 @@ export default Mixin.create( {
 				]
 			]
 
-		if ( proposalCase === "tm" ) {
-			searchRuls = [
-				["eq", "category", "Product"],
-				["eq", "phase", phase]
-				// ["eq", "job_id.keyword", jobId]
-			]
-		} else {
-			searchRuls = [
-				["eq", "category", "Product"],
-				["eq", "phase", phase],
-				// ["eq", "job_id.keyword", jobId],
-				["eq", "status.keyword", "已开发"]
-			]
+		if ( proposalCase !== "tm" ) {
+			searchRuls.push( ["eq", "status.keyword", "已开发"] )
 		}
 		searchRuls.push( ids )
 		return [{
@@ -368,7 +361,7 @@ export default Mixin.create( {
 									"aggs": [
 										{
 											"agg": "sum",
-											"field": "sales"
+											"field": "-sales"
 										}
 									]
 								}
@@ -650,7 +643,7 @@ export default Mixin.create( {
 				"query": {
 					"search": {
 						"and": [
-							["eq", "category", "Resource"],
+							["eq", "category", "Ability"],
 							["eq", "phase", phase],
 							ids
 							// ["eq", "job_id.keyword", jobId]

@@ -157,7 +157,7 @@ export default Controller.extend( {
 		window.onbeforeunload = function ( e ) {
 			return null
 		}
-		
+
 		this.store.findRecord( "model/project", this.model.project.id, { reload: true } ).then( project => {
 			let 	fids = project.hasMany( "finals" ).ids(),
 				fhids = fids.map( x => {
@@ -166,7 +166,7 @@ export default Controller.extend( {
 
 			return this.store.query( "model/final", { filter: "(id,:in," + "[" + fhids + "]" + ")" } )
 		} ).then( finals => {
-			
+
 			if ( finals.length === this.model.periods.length ) {
 
 				if ( this.model.period.phase + 1 === this.model.project.get( "proposal.totalPhase" ) ) {
@@ -723,6 +723,10 @@ export default Controller.extend( {
 			}
 			if ( answer.get( "budget" ) === "" ) {
 				answer.set( "budget", 0 )
+			}
+
+			if ( answer.get( "visitTime" ) === "" ) {
+				answer.set( "visitTime", 0 )
 			}
 
 		} )

@@ -12,7 +12,7 @@ export default Controller.extend( {
 	oauthService: service( "service/oauth" ),
 	em: service( "emitter" ),
 	showNavbar: true,
-
+	tokenExpiredService: service( "service/token-expired" ),
 	init() {
 		this._super( ...arguments )
 		// 总控设置Config

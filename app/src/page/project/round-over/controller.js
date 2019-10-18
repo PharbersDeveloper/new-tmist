@@ -13,6 +13,28 @@ export default Controller.extend( {
 	tmSalesAchv: computed( "model.tmReports", function() {
 		return this.model.tmReports.get( "lastObject.sales" ) / this.model.tmReports.get( "lastObject.salesQuota" )
 	} ),
+	// eslint-disable-next-line ember/use-brace-expansion
+	curProjectLevel: computed( "model.proviousReport", "model.project", function() {
+		let pr = this.model.proviousReport.filter( it => it.project.get( "id" ) === this.model.project.get( "id" ) ).get( "firstObject" ),
+			level = pr.reports.get( "firstObject.generalPerformance" )
+
+		if ( level === 1 ) {
+			return "黄金"
+		} else if ( level === 2 ) {
+			return "白银"
+		} else {
+			return "青铜"
+		}
+	} ),
+	curLink: computed( "curProjectLevel", function() {
+		if ( this.curProjectLevel === "黄金" ) {
+			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_gold%402x.png"
+		} else if ( this.curProjectLevel === "白银" ) {
+			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_silver%402x.png"
+		} else {
+			return "https://pharbers-images.oss-cn-beijing.aliyuncs.com/pharbers-ucb/level/img_level_bronze%402x.png"
+		}
+	} ),
 	// endTime: computed( "this.model.project", function () {
 	// 	let date = new Date( this.model.project.endTime ),
 	// 		y = date.getFullYear() + "-",
