@@ -138,7 +138,7 @@
 					{{#if (bp-eq provious.firstObject.proposal.case "tm")}}
 						{{#bp-layout direction="row" }}
 							{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
-								{{#dd.button }}
+								{{#dd.button disabled=true}}
 									导出
 									{{bp-icon icon='down'}}
 								{{/dd.button}}

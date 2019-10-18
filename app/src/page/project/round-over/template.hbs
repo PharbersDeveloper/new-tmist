@@ -179,7 +179,7 @@
 						<span class="ml-1">导出报告</span>
 					{{/bp-button}} --}}
 					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
-							{{#dd.button }}
+							{{#dd.button disabled=true}}
 								导出
 								{{bp-icon icon='down'}}
 							{{/dd.button}}
@@ -194,7 +194,7 @@
 		{{/bp-layout}}
 	{{/if}}
 
-{{#if (bp-not-eq model.proviousReport.length 0)}}
+{{#if (bp-not-eq model.historyReports.length 0)}}
 	{{#bp-layout local-class="history" classNames="bg-white mt-4 px-4" direction="col"}}
 		{{#bp-layout tagName="h4" local-class="history-header" cross="center" classNames="mb-0"}}
 			历史成果
