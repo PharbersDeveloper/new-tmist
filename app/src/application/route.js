@@ -29,14 +29,16 @@ export default Route.extend( {
 			countdown = time > 0 ? time : 0,
 			toggle = function () {
 				set( model, "tokenExpired", true )
+				if ( window.location.href.indexOf( "login" ) !== -1 ) {
+					set( model, "tokenExpired", false )
+				}
 			}
-			// test = 1000 * 10
-
-		// this.toggleToken()
+			// test = 0
+			// this.toggleToken()
 
 
 		setTimeout( toggle.bind( this ), countdown )
-		// setTimeout( toggle.bind( this ), test )
+		// setTimeout( toggle.bind( this ), test )	
 	},
 	actions: {
 		error( error, transition ) {
