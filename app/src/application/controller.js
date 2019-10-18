@@ -12,7 +12,6 @@ export default Controller.extend( {
 	oauthService: service( "service/oauth" ),
 	em: service( "emitter" ),
 	showNavbar: true,
-
 	init() {
 		this._super( ...arguments )
 		// 总控设置Config
