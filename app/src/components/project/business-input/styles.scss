@@ -43,6 +43,10 @@
         flex: 1;
         height: 100%;
 
+        .red {
+          color: $r300;
+        }
+
         span:last-child {
           color: $n100;
           font-size: 14px;
