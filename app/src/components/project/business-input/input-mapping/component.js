@@ -104,11 +104,7 @@ export default Component.extend( {
 						return ts && ps && bs
 					} )
 
-					// let report = this.reports.filter( r => r.get( "hospital.id" ) === tmp.get( "target.id" ) && r.get( "product.id" ) === tmp.get( "product.id" ) ).get( "firstObject" )
-
-					// return { preset: preset, answer: tmp , report: report , region: tmp.get( "target.position" )}
-
-					// tmp.set( "resource", preset.resource )
+					// window.console.log( tmp )
 
 					return { preset: preset, answer: tmp , region: tmp.get( "target.position" ) }
 				} )
