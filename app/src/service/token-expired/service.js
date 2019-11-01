@@ -38,7 +38,7 @@ export default Service.extend( {
 					} else {
 						this.set( "remainTime", s + "秒" )
 					}
-					window.console.log( "cookie expired" )
+					// window.console.log( "cookie expired" )
 				},
 				interval = setInterval( countTime.bind( this ), 1000 ),
 				clearCountInterval = function () {
