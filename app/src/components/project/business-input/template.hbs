@@ -26,7 +26,7 @@
 				{{#bp-layout classNames="ml-4" local-class="sales-money" main=(if (bp-eq proposal.case "ucb") "between" "center") direction="col"}}
 					{{#each allProductInfo as |item|}}
 						{{#bp-layout classNames="" direction="row" cross="baseline"}}
-							<span>¥{{number-floor item.curSales 0}}</span>
+							<span local-class={{if (gt item.curSales item.allSales) "red"}}>¥{{number-floor item.curSales 0}}</span>
 							<span>/¥{{number-floor item.allSales 0}}</span>
 							{{!-- <span>/¥2,400,000</span> --}}
 						{{/bp-layout}}

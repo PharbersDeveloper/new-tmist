@@ -128,10 +128,35 @@
 	{{/modal.header}}
 	{{#modal.body classNames="px-4 pt-0"}}
 		<p class="desc m-0">
-			因在线时间过长，您本次登录即将过期，系统将在10分钟后自动退出，请您及时保存填写记录，以免数据丢失。
+			因在线时间过长，您本次登录即将过期，系统将在{{tokenExpiredService.remainTime}}后自动退出，请您及时保存填写记录，以免数据丢失。
 		</p>
 	{{/modal.body}}
 	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
 		{{#bp-button type="primary" onClick=(action modal.close)}}好的{{/bp-button}}
+	{{/modal.footer}}
+{{/bp-modal}}
+
+{{#bp-modal
+		local-class="modal"
+		open=tokenExpiredService.showRemainTime
+		position='center' 
+		onHidden=(action "tologin") as |modal|}}
+	{{#modal.header closeButton=false classNames="px-4 pt-4 pb-3"}}
+		{{#bp-layout direction="row" main="between" local-class="close-wrapper"}}
+			<h4 class="modal-title m-0" local-class="modal-title">
+				温馨提示
+			</h4>
+			{{!-- {{#bp-layout direction="row" click=(action (mut tokenExpiredService.tokenExpired) false) cross="center"}}
+				{{bp-icon icon='cross'}}
+			{{/bp-layout}} --}}
+		{{/bp-layout}}
+	{{/modal.header}}
+	{{#modal.body classNames="px-4 pt-1 mt-2 mb-2"}}
+		<p class="desc m-0">
+			您的登陆时间过长，登陆状态已过期，请重新登陆。
+		</p>
+	{{/modal.body}}
+	{{#modal.footer classNames="pt-0 pb-4 px-4"}}
+		{{#bp-button type="primary" onClick=(action "tologin")}}好的{{/bp-button}}
 	{{/modal.footer}}
 {{/bp-modal}}

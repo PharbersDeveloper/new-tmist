@@ -35,7 +35,7 @@ module.exports = function( environment ) {
 			// ClientId: "5d5a33c145b5387e411a08f0", //tm线下
 			ClientSecret: "5c90db71eeefcc082c0823b2",
 			Status: "self",
-			Scope: "APP/NTM",
+			Scope: "APP/UCB",
 			Host: "",
 			RedirectUri: "",
 			AuthEndpoint: "page.login",

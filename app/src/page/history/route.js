@@ -21,9 +21,9 @@ export default Route.extend( {
 				return this.store.query( "model/evaluation", { filter: "(id,:in," + "[" + eids + "]" + ")" } )
 			} )
 
-			window.console.log( proposal )
-			window.console.log( "proposal" )
-			// evaluations = this.store.query( "model/evaluation" , {} )
+		// window.console.log( proposal )
+		// window.console.log( "proposal" )
+		// evaluations = this.store.query( "model/evaluation" , {} )
 
 
 		return provious.then( data => {
