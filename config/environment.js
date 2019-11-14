@@ -31,11 +31,11 @@ module.exports = function( environment ) {
 			Version: "v0",
 			// ClientId: "5cbe7ab8f4ce4352ecb082a3", //UCB专版线上
 			// ClientId: "5d68d46bb69b1d3f22693d26", //UCB专版
-			ClientId: "5cbd9f94f4ce4352ecb082a0", //tm线上
-			// ClientId: "5d5a33c145b5387e411a08f0", //tm线下
+			// ClientId: "5cbd9f94f4ce4352ecb082a0", //tm线上
+			ClientId: "5d5a33c145b5387e411a08f0", //tm线下
 			ClientSecret: "5c90db71eeefcc082c0823b2",
 			Status: "self",
-			Scope: "APP/NTM",
+			Scope: "APP/UCB",
 			Host: "",
 			RedirectUri: "",
 			AuthEndpoint: "page.login",
@@ -66,7 +66,7 @@ module.exports = function( environment ) {
 		ENV.APP.LOG_TRANSITIONS_INTERNAL = true
 		ENV.APP.LOG_VIEW_LOOKUPS = true
 
-		ENV.OAuth.RedirectUri = "http://tm.pharbers.com"
+		ENV.OAuth.RedirectUri = "http://tm.pharbers.com:8081"
 		// ENV.OAuth.RedirectUri = "http://ucb.pharbers.com" //UCB专版
 		ENV.OAuth.Host = "http://oauth.pharbers.com"
 		ENV.QueryAddress.host = "http://59.110.31.50"

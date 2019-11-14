@@ -134,7 +134,7 @@ export default Service.extend( {
 				let appScope = elem.split( ":" )[0],
 					scopeGroup = elem.split( ":" )[1]
 
-				if ( appScope === "NTM" && scopeGroup !== "" && typeof scopeGroup !== "undefined" ) {
+				if ( appScope === "UCB" && scopeGroup !== "" && typeof scopeGroup !== "undefined" ) {
 					scopeFlag = true
 				}
 			} )
@@ -142,7 +142,7 @@ export default Service.extend( {
 				let appScope = elem.split( ":" )[0],
 					scopeGroup = elem.split( ":" )[1]
 
-				if ( appScope === "NTM" && scopeGroup !== "" && typeof scopeGroup !== "undefined" ) {
+				if ( appScope === "UCB" && scopeGroup !== "" && typeof scopeGroup !== "undefined" ) {
 					this.set( "groupName", scopeGroup.split( "#" )[0] )
 				}
 			} )
