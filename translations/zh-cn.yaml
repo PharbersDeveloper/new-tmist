@@ -90,7 +90,7 @@ project:
       region-sale-table: 地区销售数据表
     product-info:
       product-competing-info: 产品竞品信息
-      product-share-trend: 药品份额竞争趋势
+      product-share-trend: 市场份额竞争趋势
       produce-sale-report: 产品销售报告
       representative-sale-report: 代表销售报告
       hospital-sale-report: 医院销售报告

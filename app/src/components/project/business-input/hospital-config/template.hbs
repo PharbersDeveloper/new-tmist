@@ -162,7 +162,7 @@
 			<tr class="pb-0">
 				<th class="border-0 pr-2 pl-0 text-left pb-2 pt-2">产品名称</th>
 				{{#if (bp-eq proposal.case "ucb")}}
-						<th class="border-0 px-2 text-left pb-2 pt-2">患者数量</th>
+						<th class="border-0 px-2 text-left pb-2 pt-2">患者总数</th>
 						<th class="border-0 px-2 text-left pb-2 pt-2">准入情况</th>
 				{{else if (bp-eq proposal.case "tm")}}
 						<th class="border-0 px-2 text-left pb-2 pt-2">药品潜力</th>
@@ -185,11 +185,11 @@
 
 						<td class="px-2 border-0 text-left">
 								{{#if (bp-eq quiz.preset.currentDurgEntrance 1)}}
-									已开发
+									已进院
 								{{else if (bp-eq quiz.preset.currentDurgEntrance 2)}}
-									正在开发
+									正在进院
 								{{else if (bp-eq quiz.preset.currentDurgEntrance 0)}}
-									未开发
+									未进院
 								{{/if}}
 						</td>
 						{{else if (bp-eq proposal.case "tm")}}

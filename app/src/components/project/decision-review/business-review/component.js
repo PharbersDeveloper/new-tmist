@@ -190,7 +190,7 @@ export default Component.extend( {
 			// sortable: true,
 			// width: 100
 		},{
-			label: "患者数量",
+			label: "患者总数",
 			valuePath: "currentPatientNum",
 			align: "right",
 			cellComponent: "common/table/format-number-thousands",

@@ -276,7 +276,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					// sortable: true,
 					width: 64
 				}, {
-					label: "患者数量",
+					label: "患者总数",
 					valuePath: "current_patient_num",
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
@@ -347,7 +347,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					// sortable: true,
 					width: 64
 				}, {
-					label: "患者数量",
+					label: "患者总数",
 					valuePath: "current_patient_num",
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",
@@ -433,7 +433,7 @@ export default Component.extend( GenerateCondition, GenerateChartConfig, {
 					// sortable: true,
 					width: 64
 				}, {
-					label: "患者数量",
+					label: "患者总数",
 					valuePath: "current_patient_num",
 					align: "left",
 					cellComponent: "common/table/format-number-thousands",

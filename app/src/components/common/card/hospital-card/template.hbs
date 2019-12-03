@@ -78,7 +78,7 @@
 					{{#bp-layout tagName="th" main="center"}}药品名{{/bp-layout}}
 					{{#bp-layout tagName="th" main="center"}}治疗领域{{/bp-layout}}
 					{{#bp-layout tagName="th" main="center"}}药品准入状态{{/bp-layout}}
-					{{#bp-layout tagName="th" main="center"}}患者数量{{/bp-layout}}
+					{{#bp-layout tagName="th" main="center"}}患者总数{{/bp-layout}}
 				{{/bp-layout}}
 				{{#bp-layout tagName="tbody" main="between" direction="col"}}
 				{{#each cur as |item|}}
@@ -91,11 +91,11 @@
 						{{/bp-layout}}
 						{{#bp-layout tagName="td" main="center"}}
 							{{#if (bp-eq item.currentDurgEntrance 1)}}
-							已开发
+							已进院
 							{{else if (bp-eq item.currentDurgEntrance 0)}}
-							未开发
+							未进院
 							{{else if (bp-eq item.currentDurgEntrance 2)}}
-							正在开发
+							正在进院
 							{{/if}}
 						{{/bp-layout}}
 						{{#bp-layout tagName="td" main="center"}}

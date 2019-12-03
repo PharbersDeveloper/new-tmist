@@ -31,6 +31,7 @@ export default Mixin.create( {
 
 		if ( proposalCase !== "tm" ) {
 			searchRuls.push( ["eq", "status.keyword", "已开发"] )
+			// 已开发 >> 已进院
 		}
 		searchRuls.push( ids )
 		return [{
