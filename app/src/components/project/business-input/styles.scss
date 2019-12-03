@@ -1,623 +1,640 @@
 .business-container {
-	height: calc(100% - 25px);
-
-	.sales-and-budget {
-		h4 {
-			color: $n200;
-			font-size: 14px;
-			height: 52px;
-			text-align: left;
-		}
-
-		.icon {
-			svg {
-				path {
-					fill: $n200;
-				}
-			}
-		}
-
-		.flex-1 {
-			flex: 1;
-		}
-
-		.sales {
-			border-radius: 8px;
-			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
-			height: 198px;
-			width: 466px;
-
-			.medic-container {
-				height: 146px;
-			}
-
-			.product-name {
-				color: $n800;
-				font-size: 14px;
-				height: 20px;
-				width: 42px;
-			}
-
-			.sales-money {
-				color: $n800;
-				flex: 1;
-				height: 100%;
-
-				span:last-child {
-					color: $n100;
-					font-size: 14px;
-					text-align: right;
-				}
-			}
-
-			.progress-block {
-				flex: 1;
-				height: 100%;
-			}
-
-			:global(.bp-progress) {
-				height: $spacing;
-				height: 4px;
-				width: 146px;
-				// margin-top: 30px;
-				// margin-bottom: 5px;
-
-				:global(.bp-progress-bar) {
-					background-color: $b200;
-				}
-			}
-
-			.progress {
-				&:global(.bp-progress .bp-progress-bar) {
-					background-color: $n500;
-				}
-			}
-
-			.product-icon {
-				color: $n800;
-				font-size: 14px;
-				height: 100%;
-
-				.icon-name {
-					&:nth-child(1) {
-						svg {
-							path {
-								fill: $y200;
-							}
-
-							height: 20px;
-							width: 14px;
-						}
-					}
-
-					&:nth-child(2) {
-						svg {
-							path {
-								fill: #73abff;
-							}
-
-							height: 20px;
-							width: 14px;
-						}
-					}
-
-					&:nth-child(3) {
-						svg {
-							path {
-								fill: #ff8f73;
-							}
-
-							height: 20px;
-							width: 14px;
-						}
-					}
-
-					&:nth-child(4) {
-						svg {
-							path {
-								fill: #79e2f2;
-							}
-
-							height: 20px;
-							width: 14px;
-						}
-					}
-
-					&:nth-child(5) {
-						svg {
-							path {
-								fill: #998dd9;
-							}
-
-							height: 20px;
-							width: 14px;
-						}
-					}
-
-					&:nth-child(6) {
-						svg {
-							path {
-								fill: $g200;
-							}
-
-							height: 20px;
-							width: 14px;
-						}
-					}
-				}
-
-				.icon-name-ucb {
-					&:nth-child(1) {
-						svg {
-							path {
-								fill: #8777d9;
-							}
-
-							height: 20px;
-							width: 14px;
-						}
-					}
-
-					&:nth-child(2) {
-						svg {
-							path {
-								fill: $y200;
-							}
-
-							height: 20px;
-							width: 14px;
-						}
-					}
-
-					&:nth-child(3) {
-						svg {
-							path {
-								fill: $g200;
-							}
-
-							height: 20px;
-							width: 14px;
-						}
-					}
-				}
-			}
-
-			// }
-
-			.sales-header {
-				border-bottom: 1px solid #f4f5f7;
-				height: 52px;
-			}
-		}
-
-		.budget {
-			border-radius: 8px;
-			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
-			height: 198px;
-			width: 368px;
-
-			.circle-part {
-				height: 146px;
-
-				div.circle-container {
-					height: 128px;
-					width: 128px;
-				}
-			}
-
-			.legend {
-				.ucb-width {
-					max-width: 320px;
-				}
-
-				.tm-width {
-					max-width: 220px;
-				}
-
-				.scroll-legend {
-					height: 120px;
-					overflow-x: auto;
-					overflow-y: auto;
-					// overflow-y: scroll;
-					padding-right: 10px;
-					// min-width: 220px;
-				}
-
-				.scroll-legend-res {
-					height: 130px;
-					overflow-x: auto;
-					overflow-y: auto;
-					// overflow-y: scroll;
-					padding-right: 10px;
-					// min-width: 220px;
-				}
-
-				.legend-dot {
-					background: $y200;
-					border-radius: 50%;
-					height: 8px;
-					width: 8px;
-				}
-
-				.legend-dot-default {
-					background: #dfe1e6;
-					border-radius: 50%;
-					height: 8px;
-					width: 8px;
-				}
-
-				.name {
-					color: #344563;
-					font-size: 14px;
-					width: 42px;
-				}
-
-				.percent-normol {
-					color: $n100;
-					flex: 1;
-					font-size: 14px;
-				}
-
-				.percent-over {
-					color: $r300;
-					flex: 1;
-					font-size: 14px;
-				}
-			}
-
-			.budget-header {
-				border-bottom: 1px solid #f4f5f7;
-				height: 52px;
-			}
-
-			button {
-				height: 24px;
-				width: 108px;
-			}
-
-			button:first-child {
-				border-radius: 4px 0 0 4px;
-			}
-
-			button:last-child {
-				border-radius: 0 4px 4px 0;
-			}
-
-			.active {
-				background: #505f79;
-				color: #ffffff;
-			}
-		}
-
-		.meeting {
-			border-radius: 8px;
-			box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
-			height: 198px;
-			width: 270px;
-
-			.meeting-header {
-				border-bottom: 1px solid #f4f5f7;
-				height: 52px;
-			}
-
-			.meeting-circle {
-				height: 176px;
-				width: 270px;
-
-				.desc {
-					color: $n100;
-					font-size: 14px;
-				}
-
-				.number-desc {
-					position: absolute;
-
-					span:first-child {
-						color: $n800;
-						font-size: 29px;
-						margin-top: -20px;
-					}
-
-					span:last-child {
-						color: $n100;
-						font-size: 12px;
-						margin-top: -6px;
-					}
-				}
-			}
-		}
-	}
-
-	.resource-and-hospital {
-		h4 {
-			color: $n800;
-			font-size: 16px;
-			height: 54px;
-		}
-
-		.resource-list-outer {
-			height: fit-content;
-			width: 368px;
-
-			& > .resource-list {
-				height: fit-content;
-				max-height: calc(100vh - 78px);
-				overflow-y: auto;
-			}
-
-			.resource-item {
-				border-bottom: 1px solid rgba(9, 30, 66, 0.04);
-				border-radius: 0;
-				color: $n800;
-				cursor: pointer;
-				font-size: 14px;
-				height: 88px;
-				text-align: left;
-
-				&:last-child {
-					border-bottom: none;
-				}
-
-				&.active {
-					background-color: #ebecf0;
-				}
-
-				img {
-					height: 40px;
-					height: 40px;
-				}
-
-				.item-right {
-					.badge {
-						background-color: #c2daff;
-						border-radius: 4px;
-						color: #3880f8;
-						font-size: 14px;
-						font-weight: 400;
-						height: 20px;
-						margin-left: 4px;
-
-						svg {
-							font-size: 18px;
-							padding-bottom: 2px;
-
-							path {
-								fill: #3880f8;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		.hospital-list {
-			width: 760px;
-
-			.hospital-header {
-				.tag {
-					color: #344563;
-					font-size: 14px;
-				}
-
-				.btn-list {
-					// :global(.bp-dropdown button) {
-					//   width: 106px;
-					//   height: 32px;
-					// }
-
-					:global(.dropdown-button) {
-						border-radius: 5px;
-						height: 32px;
-						width: 106px;
-					}
-
-					// :global(.btn-group button) {
-					//   border-radius: 5px;
-					// }
-				}
-
-				// .btn-margin {
-				//   margin-right: 2px;
-				// }
-
-				// .mid-btn {
-				//   border-radius: 0;
-				//   margin-right: 2px;
-				// }
-
-				// .active {
-				//   background: #505f79;
-				//   color: #ffffff;
-				// }
-
-				// button {
-				//   height: 24px;
-				//   width: 80px;
-				// }
-
-				// button:first-child {
-				//   border-radius: 4px 0 0 4px;
-				// }
-
-				// button:last-child {
-				//   border-radius: 0 4px 4px 0;
-				// }
-
-				.badge {
-					position: relative;
-
-					span {
-						font-weight: 400;
-						height: 16px;
-						line-height: 16px;
-						padding: 0 4px;
-						width: 25px;
-					}
-				}
-
-				.badge:hover {
-					span::after {
-						background: $n800;
-						border-radius: 3px;
-						color: #ffffff;
-						content: "未进行代表分配的医院数量";
-						height: 20px;
-						line-height: 20px;
-						margin-left: -20px;
-						margin-top: -24px;
-						position: absolute;
-						width: 157px;
-						// display: inline;
-					}
-				}
-			}
-
-			.hospital-config {
-				height: calc(100vh - 86px);
-				overflow-y: auto;
-				width: 760px;
-
-				.line {
-					border-bottom: 1px solid rgba(9, 30, 66, 0.04);
-				}
-
-				.first-line {
-					&:first-child {
-						border: 2px solid #6554c0;
-					}
-				}
-			}
-		}
-	}
-
-	.overviews {
-		flex: 0 0 170px;
-
-		.item {
-			background-color: $n000;
-			flex: 1;
-
-			h2.title {
-				@extend %header-medium;
-				height: 54px;
-			}
-
-			.info {
-				@extend %header-large;
-
-				.unit {
-					@extend %p-small;
-				}
-			}
-
-			.m-name {
-				@extend %p-small;
-			}
-
-			:global(.bp-progress) {
-				height: $spacing;
-
-				:global(.bp-progress-bar) {
-					background-color: $b200;
-				}
-			}
-
-			.progress {
-				&:global(.bp-progress .bp-progress-bar) {
-					background-color: $n500;
-				}
-			}
-
-			.legend {
-				overflow-y: scroll;
-				// height: 140px;
-
-				.circle {
-					background-color: $b200;
-					border-radius: 50%;
-					height: 8px;
-					width: 8px;
-				}
-
-				.values {
-					@extend %p-secondary;
-				}
-			}
-
-			.rest-time {
-				font-size: 0;
-				margin-bottom: 16px;
-				width: 50%;
-
-				.keys {
-					@extend %p-primary;
-				}
-
-				.values {
-					@extend %p-secondary;
-				}
-
-				&:last-child {
-					margin: 0;
-				}
-			}
-		}
-	}
-
-	.hospitals {
-		flex: 1;
-
-		.hospitals-configs {
-			flex: 0 0 368px;
-			max-height: 525px;
-			overflow: auto;
-
-			h3.title {
-				@extend %header-medium;
-				flex: 0 0 54px;
-
-				.dd-hosp {
-					width: 98px;
-				}
-			}
-
-			a:hover {
-				text-decoration: none;
-			}
-
-			:global(.current-hospital) {
-				:global(.hospital-box) {
-					background-color: $n020a;
-				}
-			}
-		}
-
-		.hospital {
-			flex: 1;
-
-			.empty-img {
-				color: #344563;
-				font-size: 14px;
-				margin-top: 100px;
-				width: 100%;
-			}
-		}
-	}
+  height: calc(100% - 25px);
+
+  .sales-and-budget {
+    h4 {
+      color: $n200;
+      font-size: 14px;
+      height: 52px;
+      text-align: left;
+    }
+
+    .icon {
+      svg {
+        path {
+          fill: $n200;
+        }
+      }
+    }
+
+    .flex-1 {
+      flex: 1;
+    }
+
+    .sales {
+      border-radius: 8px;
+      box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
+      height: 198px;
+      width: 466px;
+
+      .medic-container {
+        height: 146px;
+      }
+
+      .product-name {
+        color: $n800;
+        font-size: 14px;
+        height: 20px;
+        width: 42px;
+      }
+
+      .sales-money {
+        color: $n800;
+        flex: 1;
+        height: 100%;
+
+        .red {
+          color: $r300;
+        }
+
+        span:last-child {
+          color: $n100;
+          font-size: 14px;
+          text-align: right;
+        }
+      }
+
+      .progress-block {
+        flex: 1;
+        height: 100%;
+      }
+
+      :global(.bp-progress) {
+        height: $spacing;
+        height: 4px;
+        width: 146px;
+        // margin-top: 30px;
+        // margin-bottom: 5px;
+
+        :global(.bp-progress-bar) {
+          background-color: $b200;
+        }
+      }
+
+      .progress {
+        &:global(.bp-progress .bp-progress-bar) {
+          background-color: $n500;
+        }
+      }
+
+      .product-icon {
+        color: $n800;
+        font-size: 14px;
+        height: 100%;
+
+        .icon-name {
+          &:nth-child(1) {
+            svg {
+              path {
+                fill: $y200;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(2) {
+            svg {
+              path {
+                fill: #73abff;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(3) {
+            svg {
+              path {
+                fill: #ff8f73;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(4) {
+            svg {
+              path {
+                fill: #79e2f2;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(5) {
+            svg {
+              path {
+                fill: #998dd9;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(6) {
+            svg {
+              path {
+                fill: $g200;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+        }
+
+        .icon-name-ucb {
+          &:nth-child(1) {
+            svg {
+              path {
+                fill: #8777d9;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(2) {
+            svg {
+              path {
+                fill: $y200;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+
+          &:nth-child(3) {
+            svg {
+              path {
+                fill: $g200;
+              }
+
+              height: 20px;
+              width: 14px;
+            }
+          }
+        }
+      }
+
+      // }
+
+      .sales-header {
+        border-bottom: 1px solid #f4f5f7;
+        height: 52px;
+      }
+    }
+
+    .budget {
+      border-radius: 8px;
+      box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
+      height: 198px;
+      width: 368px;
+
+      .circle-part {
+        height: 146px;
+
+        div.circle-container {
+          height: 128px;
+          width: 128px;
+        }
+      }
+
+      .legend {
+        .ucb-width {
+          max-width: 320px;
+        }
+
+        .tm-width {
+          max-width: 220px;
+          // margin-top: 20px;
+        }
+
+        .scroll-legend {
+          height: 120px;
+          overflow-x: auto;
+          overflow-y: auto;
+          // overflow-y: scroll;
+          padding-right: 10px;
+          // min-width: 220px;
+        }
+
+        .scroll-legend-res {
+          height: 130px;
+          overflow-x: auto;
+          overflow-y: auto;
+          // overflow-y: scroll;
+          padding-right: 10px;
+          // min-width: 220px;
+        }
+
+        .legend-dot {
+          background: $y200;
+          border-radius: 50%;
+          height: 8px;
+          width: 8px;
+        }
+
+        .legend-dot-default {
+          background: #dfe1e6;
+          border-radius: 50%;
+          height: 8px;
+          width: 8px;
+        }
+
+        .name {
+          color: #344563;
+          font-size: 14px;
+          width: 42px;
+        }
+
+        .percent-normol {
+          color: $n100;
+          flex: 1;
+          font-size: 14px;
+        }
+
+        .percent-over {
+          color: $r300;
+          flex: 1;
+          font-size: 14px;
+        }
+      }
+
+      .budget-header {
+        border-bottom: 1px solid #f4f5f7;
+        height: 52px;
+      }
+
+      button {
+        height: 24px;
+        width: 108px;
+      }
+
+      button:first-child {
+        border-radius: 4px 0 0 4px;
+      }
+
+      button:last-child {
+        border-radius: 0 4px 4px 0;
+      }
+
+      .active {
+        background: #505f79;
+        color: #ffffff;
+      }
+    }
+
+    .meeting {
+      border-radius: 8px;
+      box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25);
+      height: 198px;
+      width: 270px;
+
+      .meeting-header {
+        border-bottom: 1px solid #f4f5f7;
+        height: 52px;
+      }
+
+      .meeting-circle {
+        height: 176px;
+        width: 270px;
+
+        .desc {
+          color: $n100;
+          font-size: 14px;
+        }
+
+        .number-desc {
+          position: absolute;
+
+          .red {
+            color: $r300;
+            font-size: 29px;
+            margin-top: -20px;
+          }
+
+          .span-first-child {
+            color: $n800;
+            font-size: 29px;
+            margin-top: -20px;
+          }
+
+          // span:first-child {
+          //   color: $n800;
+          //   font-size: 29px;
+          //   margin-top: -20px;
+          // }
+
+          span:last-child {
+            color: $n100;
+            font-size: 12px;
+            margin-top: -6px;
+          }
+        }
+      }
+    }
+  }
+
+  .resource-and-hospital {
+    h4 {
+      color: $n800;
+      font-size: 16px;
+      height: 54px;
+    }
+
+    .resource-list-outer {
+      height: fit-content;
+      width: 368px;
+
+      &>.resource-list {
+        height: fit-content;
+        max-height: calc(100vh - 78px);
+        overflow-y: auto;
+      }
+
+      .resource-item {
+        border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+        border-radius: 0;
+        color: $n800;
+        cursor: pointer;
+        font-size: 14px;
+        height: 88px;
+        text-align: left;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &.active {
+          background-color: #ebecf0;
+        }
+
+        img {
+          height: 40px;
+          height: 40px;
+        }
+
+        .item-right {
+          .badge {
+            background-color: #c2daff;
+            border-radius: 4px;
+            color: #3880f8;
+            font-size: 14px;
+            font-weight: 400;
+            height: 20px;
+            margin-left: 4px;
+
+            svg {
+              font-size: 18px;
+              padding-bottom: 2px;
+
+              path {
+                fill: #3880f8;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .hospital-list {
+      width: 760px;
+
+      .hospital-header {
+        .tag {
+          color: #344563;
+          font-size: 14px;
+        }
+
+        .btn-list {
+          // :global(.bp-dropdown button) {
+          //   width: 106px;
+          //   height: 32px;
+          // }
+
+          :global(.dropdown-button) {
+            border-radius: 5px;
+            height: 32px;
+            width: 106px;
+          }
+
+          // :global(.btn-group button) {
+          //   border-radius: 5px;
+          // }
+        }
+
+        // .btn-margin {
+        //   margin-right: 2px;
+        // }
+
+        // .mid-btn {
+        //   border-radius: 0;
+        //   margin-right: 2px;
+        // }
+
+        // .active {
+        //   background: #505f79;
+        //   color: #ffffff;
+        // }
+
+        // button {
+        //   height: 24px;
+        //   width: 80px;
+        // }
+
+        // button:first-child {
+        //   border-radius: 4px 0 0 4px;
+        // }
+
+        // button:last-child {
+        //   border-radius: 0 4px 4px 0;
+        // }
+
+        .badge {
+          position: relative;
+
+          span {
+            font-weight: 400;
+            height: 16px;
+            line-height: 16px;
+            padding: 0 4px;
+            width: 25px;
+          }
+        }
+
+        .badge:hover {
+          span::after {
+            background: $n800;
+            border-radius: 3px;
+            color: #ffffff;
+            content: "未进行代表分配的医院数量";
+            height: 20px;
+            line-height: 20px;
+            margin-left: -20px;
+            margin-top: -24px;
+            position: absolute;
+            width: 157px;
+            // display: inline;
+          }
+        }
+      }
+
+      .hospital-config {
+        height: calc(100vh - 86px);
+        overflow-y: auto;
+        width: 760px;
+
+        .line {
+          border-bottom: 1px solid rgba(9, 30, 66, 0.04);
+        }
+
+        .first-line {
+          &:first-child {
+            border: 2px solid #6554c0;
+          }
+        }
+      }
+    }
+  }
+
+  .overviews {
+    flex: 0 0 170px;
+
+    .item {
+      background-color: $n000;
+      flex: 1;
+
+      h2.title {
+        @extend %header-medium;
+        height: 54px;
+      }
+
+      .info {
+        @extend %header-large;
+
+        .unit {
+          @extend %p-small;
+        }
+      }
+
+      .m-name {
+        @extend %p-small;
+      }
+
+      :global(.bp-progress) {
+        height: $spacing;
+
+        :global(.bp-progress-bar) {
+          background-color: $b200;
+        }
+      }
+
+      .progress {
+        &:global(.bp-progress .bp-progress-bar) {
+          background-color: $n500;
+        }
+      }
+
+      .legend {
+        overflow-y: scroll;
+        // height: 140px;
+
+        .circle {
+          background-color: $b200;
+          border-radius: 50%;
+          height: 8px;
+          width: 8px;
+        }
+
+        .values {
+          @extend %p-secondary;
+        }
+      }
+
+      .rest-time {
+        font-size: 0;
+        margin-bottom: 16px;
+        width: 50%;
+
+        .keys {
+          @extend %p-primary;
+        }
+
+        .values {
+          @extend %p-secondary;
+        }
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .hospitals {
+    flex: 1;
+
+    .hospitals-configs {
+      flex: 0 0 368px;
+      max-height: 525px;
+      overflow: auto;
+
+      h3.title {
+        @extend %header-medium;
+        flex: 0 0 54px;
+
+        .dd-hosp {
+          width: 98px;
+        }
+      }
+
+      a:hover {
+        text-decoration: none;
+      }
+
+      :global(.current-hospital) {
+        :global(.hospital-box) {
+          background-color: $n020a;
+        }
+      }
+    }
+
+    .hospital {
+      flex: 1;
+
+      .empty-img {
+        color: #344563;
+        font-size: 14px;
+        margin-top: 100px;
+        width: 100%;
+      }
+    }
+  }
 }
 
 .modal {
-	:global(.modal-dialog) {
-		max-width: 400px;
-	}
+  :global(.modal-dialog) {
+    max-width: 400px;
+  }
 
-	.modal-title {
-		color: $n800;
-		font-size: 20px;
-		// font-weight: 500;
-		line-height: 24px;
-	}
+  .modal-title {
+    color: $n800;
+    font-size: 20px;
+    // font-weight: 500;
+    line-height: 24px;
+  }
 
-	.bottom-part {
-		width: 100%;
-	}
+  .bottom-part {
+    width: 100%;
+  }
 }

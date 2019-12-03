@@ -37,6 +37,10 @@ export default Route.extend( {
 				return this.store.query( "model/resource", { filter: "(id,:in," + "[" + hids + "]" + ")" } )
 			} ),
 
+			quota = prs.load().then( x => {
+				return x.belongsTo( "quota" ).load()
+			} ),
+
 			periodsIds = project.hasMany( "periods" ).ids(),
 			pidsForSearch = periodsIds.map( x => {
 				return "`" + `${x}` + "`"
@@ -89,7 +93,8 @@ export default Route.extend( {
 			presetsByProject: presetsByProject.then( x => x.filter( it => it.category === 8 && it.projectId === project.id ) ),
 			answers: answers,
 			dragInfo: dragInfo.then( x => x.filter( it => it.category === 8 ) ),
-			periods: periods
+			periods: periods,
+			quota: quota
 		} )
 	}
 } )

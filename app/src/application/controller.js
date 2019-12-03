@@ -1,5 +1,6 @@
 import Controller from "@ember/controller"
 import { inject as service } from "@ember/service"
+// import computed from "@ember/object"
 // import ENV from "new-tmist/config/environment"
 // import { A } from "@ember/array"
 // import { isEmpty } from "@ember/utils"
@@ -12,7 +13,7 @@ export default Controller.extend( {
 	oauthService: service( "service/oauth" ),
 	em: service( "emitter" ),
 	showNavbar: true,
-
+	tokenExpiredService: service( "service/token-expired" ),
 	init() {
 		this._super( ...arguments )
 		// 总控设置Config
@@ -27,6 +28,12 @@ export default Controller.extend( {
 	actions: {
 		endMission() {
 			this.transitionToRoute( "page.welcome" )
+		},
+		tologin() {
+			this.transitionToRoute( "page.login" )
+			this.set( "tokenExpiredService.tokenExpired", false )
+			this.set( "tokenExpiredService.remainTime", "" )
+			this.set( "tokenExpiredService.showRemainTime", false )
 		}
 	}
 } )

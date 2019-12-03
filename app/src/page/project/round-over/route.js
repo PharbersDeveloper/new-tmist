@@ -23,7 +23,18 @@ export default Route.extend( {
 			condi01 = "(phase,:eq," + ( project.periods.length - 1 ) + ")",
 			condi = "(:and," + condi00 + "," + condi01 + ")",
 			tmReports = this.store.query( "model/report", { filter: condi } ),
-			evaluations = this.store.query( "model/evaluation", {} )
+			evaluations = proposal.load().then( x => {
+				const ids = x.hasMany( "evaluations" ).ids(),
+					eids = ids.map( x => {
+						return "`" + `${x}` + "`"
+					} ).join( "," )
+
+				return this.store.query( "model/evaluation", { filter: "(id,:in," + "[" + eids + "]" + ")" } )
+			} )
+
+			window.console.log( proposal )
+			window.console.log( "proposal" )
+		// evaluations = this.store.query( "model/evaluation", {} )
 		// provious = this.store.query( "model/project", {
 		// 	filter: "(:and," + "(proposal,:eq,`" + params.proposal_id + "`)," + "(accountId,:eq,`" + accountId + "`)," + "(status,:eq,0))" } )
 
@@ -63,8 +74,8 @@ export default Route.extend( {
 			return RSVP.hash( {
 				proposal: proposal,
 				provious: provious,
-				proviousReport:proviousReports,
-				historyReports: historyReports,
+				proviousReport: proviousReports.reverse(),
+				historyReports: historyReports.reverse(),
 				project: project,
 				reports: reports,
 				tmReports: tmReports.then( r => r.filter( x => x.get( "category" ).value === "Sales" ) ),

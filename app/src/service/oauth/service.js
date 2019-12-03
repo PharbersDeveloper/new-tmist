@@ -10,6 +10,7 @@ export default Service.extend( {
 	cookies: service(),
 	ajax: service(),
 	router: service(),
+	tokenExpiredService: service( "service/token-expired" ),
 
 	groupName: "",
 
@@ -76,6 +77,8 @@ export default Service.extend( {
 					cookies.write( "token_type", response.token_type, options )
 					cookies.write( "scope", response.scope, options )
 					cookies.write( "expiry", response.expiry, options )
+
+					this.tokenExpiredService.setTimeoutToken()
 
 					if ( window.localStorage.getItem( "isUcb" ) === "1" ) {
 						this.get( "router" ).transitionTo( ENV.OAuth.UcbIndexEndpoint )

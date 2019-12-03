@@ -104,7 +104,9 @@
 		{{#bp-layout local-class="info tm-info" direction="row" classNames="bg-white p-4"}}
 			{{#bp-layout direction="col" local-class="name block" }}
 					{{#bp-layout local-class="get-name" direction="row" main="center" classNames="mb-3"}}获得称号{{/bp-layout}}
-					{{#bp-layout local-class="img"}}{{/bp-layout}}
+					{{#bp-layout local-class="img"}}
+						<img src={{curLink}} alt="">
+					{{/bp-layout}}
 					{{#bp-layout local-class="name-level" main="center" direction="row" classNames="mt-2"}}{{curProjectLevel}}{{/bp-layout}}
 			{{/bp-layout}}
 			{{#bp-layout local-class="goal block" direction="col" cross="start"}}
@@ -177,7 +179,7 @@
 						<span class="ml-1">导出报告</span>
 					{{/bp-button}} --}}
 					{{#bp-dropdown local-class="btn-list" widthSize="auto" as |dd|}}
-							{{#dd.button }}
+							{{#dd.button}}
 								导出
 								{{bp-icon icon='down'}}
 							{{/dd.button}}
@@ -192,7 +194,7 @@
 		{{/bp-layout}}
 	{{/if}}
 
-{{#if (bp-not-eq model.proviousReport.length 0)}}
+{{#if (bp-not-eq model.historyReports.length 0)}}
 	{{#bp-layout local-class="history" classNames="bg-white mt-4 px-4" direction="col"}}
 		{{#bp-layout tagName="h4" local-class="history-header" cross="center" classNames="mb-0"}}
 			历史成果
