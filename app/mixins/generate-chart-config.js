@@ -52,7 +52,7 @@ export default Mixin.create( {
 			panels: A( [
 				{
 					id: chartId,
-					color: ["#579AFF ", "#C2DAFF", "#FFAB00"],
+					color: ["#C2DAFF","#579AFF ",  "#FFAB00"],
 					grid: {
 						top: 32
 					},
@@ -146,9 +146,11 @@ export default Mixin.create( {
 						formatter:function( params ) {
 							// TODO 动态添加自定义 formatter 方法
 							let title = `<h6>${params[0].axisValue}</h6>`,
+							
 								content = params.map( ele=> {
-
-									let value = ele.value[ele.seriesIndex + 1]
+									let valueType = ["phase","销售额","指标","指标达成率"]
+									let index = valueType.indexOf(ele.seriesName)
+									let value = ele.value[index]
 
 									if ( ele.seriesIndex === params.length - 1 ) {
 										value = number2percent( value,1 )
@@ -176,23 +178,12 @@ export default Mixin.create( {
 							color: "#7A869A"
 						},
 						data:[
-							{name: "销售额",icon: "circle"},
 							{name: "指标",icon: "circle"},
+							{name: "销售额",icon: "circle"},
 							{name: "指标达成率",icon: "line"}
 						]
 					},
 					series: [{
-						type: "bar",
-						name: "销售额",
-						yAxisIndex: 0,
-						barWidth: "12px",
-						itemStyle: {
-							barBorderRadius: [0, 0, 0, 0]
-						},
-						encode: {
-							y: [1]
-						}
-					}, {
 						type: "bar",
 						name: "指标",
 						yAxisIndex: 0,
@@ -203,7 +194,18 @@ export default Mixin.create( {
 						encode: {
 							y: [2]
 						}
-					}, {
+					},{
+						type: "bar",
+						name: "销售额",
+						yAxisIndex: 0,
+						barWidth: "12px",
+						itemStyle: {
+							barBorderRadius: [0, 0, 0, 0]
+						},
+						encode: {
+							y: [1]
+						}
+					},  {
 						type: "line",
 						name: "指标达成率",
 						yAxisIndex: 1,
@@ -232,7 +234,7 @@ export default Mixin.create( {
 			height: 305,
 			panels: [{
 				id: chartId,
-				color: ["#57D9A3", "#FF8B00","#FFE380", "#8777D9"],
+				color: ["#5CA6EF", "#C3DD41","#7C67E4", "#F3A250"],
 				xAxis: {
 					show: true,
 					type: "category",
