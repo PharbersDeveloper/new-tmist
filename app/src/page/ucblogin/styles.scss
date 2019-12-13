@@ -1,5 +1,5 @@
 .login {
-	background-image: url("/images/img_login_bg.png");
+	background-image: url("/images/img_login-ucb-bg.png");
 	background-size: cover;
 	flex: 1;
 	height: 100%;
@@ -40,6 +40,16 @@
 		.content-left {
 			padding: 80px;
 			width: 480px;
+
+			.logo-img-part {
+				width: 100%;
+
+				.logo-img {
+					height: 33px;
+					margin-bottom: 40px;
+				}
+			}
+
 
 			.title {
 				color: $n800;
@@ -85,7 +95,7 @@
 		}
 
 		.login-img {
-			border-radius: 12px;
+			border-radius: 0 12px 12px 0;
 			height: 425px;
 			width: 480px;
 		}
