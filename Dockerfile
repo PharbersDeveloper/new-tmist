@@ -19,7 +19,7 @@ RUN npm update && \
 
 WORKDIR /app
 
-LABEL ucb.version=0.1.36
+LABEL ucb.version=0.1.37
 
 RUN git clone https://github.com/PharbersDeveloper/new-tmist.git && \
 	git clone https://github.com/PharbersDeveloper/BP-Components.git && \
